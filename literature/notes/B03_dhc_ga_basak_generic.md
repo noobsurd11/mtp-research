@@ -1,0 +1,19 @@
+# Class-imbalanced SSL segmentation (medical)
+- **DHC** (Wang & Li, MICCAI 2023, arXiv 2307.11960): Dual-debiased Heterogeneous Co-training. https://arxiv.org/abs/2307.11960 · code https://github.com/xmed-lab/DHC
+  - Read: sections (ar5iv).
+  - Method: two co-trained sub-models.
+    - DistDW weights classes by the log imbalance ratio estimated from **pseudo-labels**.
+    - DiffDW weights classes by learning difficulty (Dice learning speed via a population-stability index, plus accumulated 1−Dice over τ = 50 iterations).
+  - Data: Synapse at 10/20/40% (20 labelled scans + 4 val + 6 test); AMOS at 2/5/10%.
+  - Key numbers (Synapse 20%, mean±sd over 3 seeds): DHC 48.61±0.9 vs CPS 33.55±3.7, DST/DePL 36.27, CReST 38.33, CLD 41.07. Ablation: DistDW alone 43.41, DiffDW alone 42.75, both 48.61.
+    - Small organs: esophagus 0.0 (CPS) → 13.2; left adrenal 0.0 → 10.6; right adrenal 8.8 → 31.4; gallbladder 35.9 → 66.0; portal vein 14.5 → 10.6 (worse).
+  - Weaknesses (empirical; read: sections):
+    - 6 test scans; 3 seeds. Gains are large but rest on few test cases. [reader-inferred]
+    - Absolute tail-class Dice remains about 10%. [reader-inferred]
+  - Relevance: the clearest evidence that **class-aware loss weighting driven by pseudo-label statistics** rescues classes that SSL baselines drop to 0. With 24 classes we have the same failure mode: weight 0 for absent classes, rare classes never learned.
+- **GA**, Gradient-Aware (Qi et al., ECCV 2024). https://mlanthology.org/eccv/2024/qi2024eccv-gradientaware · code https://github.com/cicailalala/GALoss
+  - Read: abstract. Argues that data bias induces gradient bias. GADice handles absent classes; GACE balances per-class gradients. +17.90% with CPS on Synapse 20%.
+  - Relevance: our 24-class weighted CE gives weight 0 to absent classes, the same issue.
+- **Basak, Ghosal, Sarkar** (MICCAI 2022, arXiv 2209.00123): Addressing class imbalance in SSL segmentation (cardiac MRI). Read: abstract. A confidence array of class-wise performance, class-wise sampling with dynamic stabilisation, and dynamic weighting.
+- **GenericSSL** (Wang & Li, NeurIPS 2023, arXiv 2310.11320). Read: abstract. Aggregating & Decoupling framework; evaluated on a class-imbalanced SSL setting among others.
+- Note: "CLB" was **not found** as a named class-imbalance SSL method. The closest verified items are those above. Treat "CLB" as unverified.

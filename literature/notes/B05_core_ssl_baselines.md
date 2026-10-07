@@ -1,0 +1,17 @@
+# Core SSL segmentation baselines (what any new method must beat, under a fair protocol)
+- **Mean Teacher** (Tarvainen & Valpola, NeurIPS 2017, arXiv 1703.01780). Read: full (local).
+- **FixMatch** (Sohn et al., NeurIPS 2020, arXiv 2001.07685): weak-to-strong pseudo-labelling with a confidence threshold. Read: abstract.
+- **CutMix-Seg** (French et al., BMVC 2020, arXiv 1906.01916): "SSL segmentation needs strong, varied perturbations". Read: abstract.
+- **CCT** (Ouali et al., CVPR 2020, arXiv 2003.09005): cross-consistency of auxiliary decoders on perturbed features. **The best regime on EL in Torpey et al. (0.550).** Read: abstract.
+- **CPS** (Chen et al., CVPR 2021, arXiv 2106.01226): cross pseudo supervision between two networks; the baseline ALHVR builds on. Read: abstract.
+- **ClassMix** (Olsson et al., WACV 2021, arXiv 2007.07936): class-aware mixing of unlabelled images. Read: abstract.
+- **ST++** (Yang et al., CVPR 2022, arXiv 2106.05095) and **A Simple Baseline** (Yuan et al., ICCV 2021, arXiv 2104.07256). Read: search abstracts.
+  - Yuan et al.: "the large distribution change caused by strong augmentation harms the batch normalisation statistics", and they propose distribution-specific BN.
+  - **Relevance: our unexplained "4+4 inactive gain with loss off" is a BN-statistics effect of mixing streams. Yuan et al. is the prior work on exactly that.**
+- **UniMatch** (Yang et al., CVPR 2023, arXiv 2208.09910). Read: full (local).
+  - Defaults: τ = 0.95, λ = 0.5, feature dropout 0.5, 8+8 batch, poly LR, **constant loss weight from step 0**.
+- **UniMatch V2** (Yang, Zhao, Zhao, TPAMI 2025, arXiv 2410.10777). Read: sections. With DINOv2 encoders:
+  - Cityscapes 1/16: 77.2 → 80.6 (S) and 80.8 → 83.6 (B), so SSL gains shrink to about +3 with strong encoders.
+  - Pascal 1/16: +9 to +12.
+  - "No ablations examine ... class frequencies or tail classes" (checked: experiments sections).
+- **CorrMatch** (CVPR 2024, arXiv 2306.04300) and **AllSpark** (CVPR 2024, arXiv 2403.01818). Titles verified; not read.

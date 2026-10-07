@@ -1,0 +1,15 @@
+# Torpey, Pratt, Klein 2024: A Large-scale Evaluation of Pretraining Paradigms for the Detection of Defects in EL Solar Cell Images
+- arXiv 2402.17611 (later arXiv title: "...for Photovoltaic Defect Detection"). https://arxiv.org/abs/2402.17611
+- Read: sections (HTML: method, results, limitations).
+- Problem: which pretraining works for EL segmentation (supervised OOD, self-supervised OOD, in-domain self-supervised, semi-supervised)?
+- Data: 642 labelled EL images (later BenchmarkEL version, 28 classes as extracted); 22,000 unlabelled EL images (released); a 5,000-image unlabelled subset for the SSL regimes.
+- Model: DeepLabV3 ResNet-50 (baseline R0: DeepLabV3+ ResNet-34).
+- Metric: mIoU (+ frequency-weighted wIoU); "results on the test set for the best model ... on a validation dataset"; several runs per regime; Tukey HSD.
+- Key numbers (Table 1 mIoU): random init 0.486; R0 SOTA 0.506; COCO 0.544; ImageNet-sup 0.508; ImageNet-SimCLR 0.534; ImageNet-MoCov2 0.508; **EL-SimCLR (in-domain, 22k) 0.517**; **CCT (semi-sup) 0.550**; **U2PL 0.448 (below random init)**. COCO, IN-SimCLR and CCT are "statistically equivalent".
+- Weaknesses (empirical; read: sections):
+  - Full label set only. No label-fraction curve, so the value of unlabelled data at low label budgets is not measured. [reader-inferred; label fractions not in the sections read]
+  - Train/val/test split sizes are not stated in the sections read.
+- Relevance: **the closest prior evidence on our data family.**
+  - A standard SSL method (U2PL) is *worse than no pretraining*.
+  - In-domain SimCLR gives only +0.03 over random init and is below COCO.
+  - Rare defects are "underrepresented, so training and statistical analysis are challenging".

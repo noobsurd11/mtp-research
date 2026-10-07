@@ -1,0 +1,12 @@
+# Fioresi et al. 2022: Automated Defect Detection and Localization in PV Cells Using Semantic Segmentation of EL Images
+- IEEE J. Photovoltaics 12(1):53 (2022). https://par.nsf.gov/biblio/10539719 · data https://github.com/ucf-photovoltaics/UCF-EL-Defect
+- Read: full text (local PDF).
+- Data: 17,064 EL images in the paper (incl. 256 synthetic). The public release has about 11,851 pairs (9,562 + 2,289). 5 classes: background, crack, contact, interconnect, corrosion.
+- Model: DeepLabv3 ResNet-50 (COCO), 224 crops, tuned background threshold 0.54.
+- Metric: dataset-level P/R/F1 per class (sklearn).
+  - Abstract: weighted F1 0.95, unweighted F1 0.69, pixel accuracy 95.4%, **"mean intersection over union score of 57.3%"** (abstract, line 1). Note: an earlier analysis said 57.3 is not in the paper. **It is, in the abstract.** It is most likely a 5-class mean including background [reader-inferred: an IoU mean over the 4 defects cannot exceed their F1 mean of 57.75].
+  - Per-class F1: crack .81, contact .58, interconnect .33, corrosion .78.
+- Weaknesses (empirical; read: full):
+  - "After each epoch, we validate the model on the validation/testing set", so validation and test are the same set and test selection is likely. [author-acknowledged quote; the selection effect is reader-inferred]
+  - The public data is smaller than the paper's data, so the headline results can't be reproduced on public data. [reader-inferred]
+- Relevance: UCF-EL is where we see a clean label gap. Our supervised baseline matches or beats Fioresi's F1.

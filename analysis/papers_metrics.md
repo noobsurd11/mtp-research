@@ -241,3 +241,10 @@ CSB-S1 (Table 5): SSL 20% crack 50, gridline 74, inactive 50 (mean 58.0). FSL 10
 | PV-S3 "+30% over Pratt" on CSB-S1 | 58.0 vs 28.0 | – | – | **invalid comparison:** dataset-level pvs3-style IoU against per-image median from 24-class models |
 | SA U-Net++ | +0.03 J (MIAD) | −0.004 (BenchmarkEL) | – | different domain and object scale; within their per-image sd; single run |
 | ALHVR ACDC | +9 Dice over baseline | +0.005 ± 0.023 against loss-off | – | **our port's LR schedule (cosine → 0) cancels the late λ ramp.** Also a 24-class rare-defect setting the design does not target. Not a fair test yet |
+
+---
+## Correction (2026-10-08, verified against the paper text)
+The claim above that "Fioresi mIoU 57.30" is not in Fioresi's paper is WRONG. The abstract states "a mean intersection
+over union score of 57.3%" (Fioresi_UCF-EL.txt line 13). What still holds: it cannot be a 4-defect IoU mean next to a
+4-defect F1 mean of 57.75; it is most likely a 5-class mean including background (unverified). PV-S3 citing it is
+therefore not fabricated, but comparing it with a background-free 4-defect mean is still apples to oranges.

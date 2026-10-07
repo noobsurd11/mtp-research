@@ -1,0 +1,11 @@
+# Sanghi et al. 2026: MultiSolSegment, multi-channel segmentation of overlapping features in EL images of PV cells
+- Solar Energy 310 (2026); arXiv 2603.13337. https://arxiv.org/abs/2603.13337
+- Read: sections (HTML).
+- Problem: single-label masks force a choice where features overlap ("when cracks overlapped with busbars ... the model was forced to choose only one").
+- Method: multi-channel U-Net with independent sigmoid maps for non-cell, busbar, crack and dark.
+- Data: CWRU 373 + ASU 92 + LBNL 120 mono-Si EL images; released on the DuraMAT Data Hub.
+- Key numbers: per-pixel accuracy 98.2%; mean per-class IoU 0.384 (P 0.550, R 0.507). The dark class is 1.03% of pixels against 20.26% for busbars.
+- Weaknesses (empirical; read: sections):
+  - The headline is pixel accuracy, which background dominates; the mean IoU is 0.384. [reader-inferred]
+  - Flip augmentation is reported together with the train/val counts (1,872 / 468). If the augmentation happened before the split, flipped copies leak across it. Not verified. [reader-inferred]
+- Relevance: **directly relevant to BenchmarkEL's 24-class single-label masks.** Crack pixels on busbars, gridlines and ribbons must take one label, which likely makes the crack labels inconsistent exactly at the rare class.
