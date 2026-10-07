@@ -1,0 +1,13 @@
+[W1008 01:11:46.974896058 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 1610612736 bytes (free: 1508507648, total: 33679278080).
+[W1008 01:11:46.348766419 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 1610612736 bytes (free: 883556352, total: 33679278080).
+[W1008 01:11:47.851558645 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 1610612736 bytes (free: 826933248, total: 33679278080).
+/home/noob/work/el-fault-detection/scripts/overfit_check.py:211: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:820.)
+  train_log.append({"step": step, "loss": float(loss)})
+[C] step 500 loss 0.7345 | crack IoU 0.402 P 0.507 R 0.660 AP 0.585 relF1@1 0.741 @2 0.819 | inactive IoU 0.701 AP 0.926 | 130s
+[C] step 1000 loss 0.5739 | crack IoU 0.519 P 0.725 R 0.647 AP 0.705 relF1@1 0.832 @2 0.877 | inactive IoU 0.884 AP 0.954 | 251s
+[C] step 1500 loss 0.2518 | crack IoU 0.599 P 0.787 R 0.715 AP 0.781 relF1@1 0.895 @2 0.926 | inactive IoU 0.914 AP 0.966 | 372s
+[C] step 2000 loss 0.1764 | crack IoU 0.732 P 0.868 R 0.823 AP 0.883 relF1@1 0.949 @2 0.960 | inactive IoU 0.950 AP 0.990 | 493s
+[C] step 2500 loss 0.1559 | crack IoU 0.795 P 0.869 R 0.903 AP 0.936 relF1@1 0.966 @2 0.970 | inactive IoU 0.960 AP 0.991 | 614s
+[C] step 3000 loss 0.1442 | crack IoU 0.861 P 0.942 R 0.909 AP 0.953 relF1@1 0.970 @2 0.971 | inactive IoU 0.985 AP 0.997 | 734s
+wrote /home/noob/work/el-fault-detection/reports/overfit_check/arm_C.json

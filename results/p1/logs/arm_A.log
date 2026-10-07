@@ -1,0 +1,10 @@
+/home/noob/work/el-fault-detection/scripts/overfit_check.py:211: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:820.)
+  train_log.append({"step": step, "loss": float(loss)})
+[A] step 500 loss 0.2488 | crack IoU 0.352 P 0.405 R 0.732 AP 0.564 relF1@1 0.700 @2 0.800 | inactive IoU 0.570 AP 0.814 | 259s
+[A] step 1000 loss 0.1823 | crack IoU 0.341 P 0.356 R 0.889 AP 0.669 relF1@1 0.713 @2 0.835 | inactive IoU 0.675 AP 0.985 | 511s
+[A] step 1500 loss 0.0932 | crack IoU 0.452 P 0.461 R 0.961 AP 0.797 relF1@1 0.834 @2 0.931 | inactive IoU 0.906 AP 0.993 | 762s
+[A] step 2000 loss 0.0849 | crack IoU 0.524 P 0.540 R 0.948 AP 0.837 relF1@1 0.883 @2 0.957 | inactive IoU 0.952 AP 0.999 | 1013s
+[A] step 2500 loss 0.0674 | crack IoU 0.491 P 0.493 R 0.993 AP 0.899 relF1@1 0.873 @2 0.954 | inactive IoU 0.972 AP 0.999 | 1264s
+[A] step 3000 loss 0.0603 | crack IoU 0.612 P 0.618 R 0.985 AP 0.929 relF1@1 0.938 @2 0.981 | inactive IoU 0.979 AP 1.000 | 1514s
+wrote /home/noob/work/el-fault-detection/reports/overfit_check/arm_A.json

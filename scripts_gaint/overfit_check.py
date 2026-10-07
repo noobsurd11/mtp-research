@@ -137,7 +137,9 @@ def main() -> None:
     ap.add_argument("--steps", type=int, default=3000)
     ap.add_argument("--eval_every", type=int, default=500)
     ap.add_argument("--out", default="reports/overfit_check")
+    ap.add_argument("--seed", type=int, default=0, help="training seed (0 = the original P1 runs)")
     a = ap.parse_args()
+    tag = a.arm if a.seed == 0 else f"{a.arm}_s{a.seed}"
     arm = ARMS[a.arm]
     out_dir = ROOT / a.out
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -145,8 +147,8 @@ def main() -> None:
     d = cfg["data"]
     mean, std, size = d.get("mean", [0.5]), d.get("std", [0.25]), d["input_size"]
     dev = torch.device("cuda")
-    torch.manual_seed(0)
-    np.random.seed(0)
+    torch.manual_seed(a.seed)
+    np.random.seed(a.seed)
     torch.backends.cudnn.benchmark = True
 
     stems = pick_images(10)
@@ -172,13 +174,13 @@ def main() -> None:
         train_ds = BenchmarkELDataset(IMG, MSK, stems, get_strong_augmentation(size, mean, std))
         loader = DataLoader(train_ds, batch_size=8, num_workers=4, drop_last=True,
                             sampler=RandomSampler(train_ds, replacement=True, num_samples=8 * a.steps,
-                                                  generator=torch.Generator().manual_seed(0)))
+                                                  generator=torch.Generator().manual_seed(a.seed)))
         it = iter(loader)
         next_batch = lambda: next(it)  # noqa: E731
     else:
         X = torch.stack([eval_ds[i]["image"] for i in range(len(stems))]).to(dev)
         Y = torch.stack([eval_ds[i]["mask"] for i in range(len(stems))]).to(dev)
-        g = torch.Generator(device="cpu").manual_seed(0)
+        g = torch.Generator(device="cpu").manual_seed(a.seed)
 
         def next_batch():
             idx = torch.randint(0, len(stems), (8,), generator=g)
@@ -213,16 +215,16 @@ def main() -> None:
             r = evaluate(model, eval_loader, dev, arm["amp"])
             evals.append({"step": step, **r})
             cr, ia = r["crack"], r["inactive"]
-            print(f"[{a.arm}] step {step} loss {float(loss):.4f} | crack IoU {cr['iou']:.3f} P {cr['precision']:.3f} "
+            print(f"[{tag}] step {step} loss {float(loss):.4f} | crack IoU {cr['iou']:.3f} P {cr['precision']:.3f} "
                   f"R {cr['recall']:.3f} AP {cr['ap']:.3f} relF1@1 {cr['relaxed_f1_1']:.3f} @2 {cr['relaxed_f1_2']:.3f} | "
                   f"inactive IoU {ia['iou']:.3f} AP {ia['ap']:.3f} | {time.time() - t0:.0f}s", flush=True)
     keep = sorted(stems, key=lambda s: -crack_px[s])[:3]
-    overlay(model, eval_loader, dev, arm["amp"], out_dir, a.arm, keep)
-    res = {"arm": a.arm, **arm, "steps": a.steps, "images": stems, "crack_px": crack_px, "alignment": align,
+    overlay(model, eval_loader, dev, arm["amp"], out_dir, tag, keep)
+    res = {"arm": a.arm, "seed": a.seed, **arm, "steps": a.steps, "images": stems, "crack_px": crack_px, "alignment": align,
            "class_weights": weights.tolist(), "crack_weight": float(weights[CRACK_CLASS]), "bg_weight": float(weights[0]),
            "evals": evals, "train_log": train_log, "overlay_images": keep, "seconds": round(time.time() - t0)}
-    (out_dir / f"arm_{a.arm}.json").write_text(json.dumps(res, indent=1))
-    print(f"wrote {out_dir / f'arm_{a.arm}.json'}")
+    (out_dir / f"arm_{tag}.json").write_text(json.dumps(res, indent=1))
+    print(f"wrote {out_dir / f'arm_{tag}.json'}")
 
 
 if __name__ == "__main__":

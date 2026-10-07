@@ -1,0 +1,15 @@
+[W1008 01:11:46.400558466 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 1610612736 bytes (free: 1365901312, total: 33679278080).
+[W1008 01:11:46.400677731 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 1610612736 bytes (free: 1365901312, total: 33679278080).
+Traceback (most recent call last):
+  File "/home/noob/work/el-fault-detection/scripts/overfit_check.py", line 229, in <module>
+    main()
+  File "/home/noob/work/el-fault-detection/scripts/overfit_check.py", line 206, in main
+    loss.backward()
+  File "/home/noob/work/el-fault-detection/.venv/lib/python3.12/site-packages/torch/_tensor.py", line 623, in backward
+    torch.autograd.backward(
+  File "/home/noob/work/el-fault-detection/.venv/lib/python3.12/site-packages/torch/autograd/__init__.py", line 395, in backward
+    _engine_run_backward(
+  File "/home/noob/work/el-fault-detection/.venv/lib/python3.12/site-packages/torch/autograd/graph.py", line 1072, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 1.50 GiB. GPU 0 has a total capacity of 31.37 GiB of which 1.27 GiB is free. Process 5982 has 5.74 GiB memory in use. Process 3785978 has 10.46 GiB memory in use. Including non-PyTorch memory, this process has 13.50 GiB memory in use. Of the allocated memory 10.92 GiB is allocated by PyTorch, and 2.26 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)
