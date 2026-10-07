@@ -12,7 +12,7 @@ Raw data: `arm_*.json`, `logs/`, overlays `overlay_<arm>_<image>.png` (panels: i
 - **Scoring:** on the same 10 images, evaluation transform.
 - **Arm D, attempt 1:** ran out of memory while sharing the GPU and was rerun alone; the protocol is unchanged and the failed log is kept.
 
-## Final numbers (step 3,000, one run per arm; replicates of B and D are running)
+## Final numbers (step 3,000; one run per arm, B and D with 3 seeds, see below)
 
 | Arm | Setting | Crack IoU | P | R | AP | relaxed F1 1 px / 2 px | Inactive IoU | Inactive AP |
 |---|---|---:|---:|---:|---:|---|---:|---:|
@@ -30,7 +30,7 @@ All arms were still improving at step 3,000 except E (full trajectories in the J
 | Hypothesis | Rule | Measured | Verdict |
 |---|---|---|---|
 | H4 pipeline bug, misalignment | step-0 overlay or exact comparison | loader mask identical to the raw PNG in 10/10 images; image difference 4e-6 | **Refuted**: no image/mask misalignment |
-| H4 pipeline bug, bf16 | \|D − B\| > 0.05 | 0.072, but fp32 (D) is the *lower* one, and D's curve is B's delayed by about 500 steps | **Rule fires; reading open.** The direction is the opposite of a bf16 defect. Replicates (B, D seeds 1–2) are running |
+| H4 pipeline bug, bf16 | \|D − B\| > 0.05 | seed 0: 0.072 (fp32 lower). Over 3 seeds: B (bf16) 0.668 ± 0.031, D (fp32) 0.656 ± 0.048, ranges overlapping | **Refuted.** The seed-0 gap was run-to-run spread; bf16 does not change fitting |
 | H1 operating point (class weights) | B ≥ 0.8 and A < 0.6 with A's AP ≥ 0.9 | B 0.677, A 0.612, A's AP 0.929 | **Not met as written.** Partial support: at equal settings weighting costs precision (0.62 vs 0.81) with AP still high. Weights dilate predictions, but they are not the main cap |
 | H2 augmentation | A's AP high and E's AP low | A 0.929 vs E 0.587; IoU 0.612 vs 0.381 | **Met.** Augmentation is the largest single factor. E's profile matches the original run's training-set profile |
 | H3 label inconsistency caps fitting | B < 0.6 with high relaxed IoU | B 0.677; C reaches 0.861 | **Refuted as a cap on fitting.** A fixed annotation can be memorised to 0.86 at the pixel level |
@@ -49,10 +49,19 @@ All arms were still improving at step 3,000 except E (full trajectories in the J
 ## What it does not answer (careful)
 
 - **Fitting is not generalisation.** Less augmentation or a Dice term may or may not help on held-out images. That needs held-out evaluation with tolerance-aware metrics.
-- **Small sample.** One run per arm (B and D replicates pending), 10 images, 3,000 steps, not converged.
+- **Small sample.** One run per arm for A, C and E; 10 images; 3,000 steps; not converged.
+- **Noise level.** Seed sd of crack IoU is 0.03–0.05 even here (B and D, 3 seeds each; B seed 1 dipped to 0.30 at step 2,500 before reaching 0.69).
+  So A vs B (0.61 vs 0.68) is within noise; C (0.86) and E (0.38) are far outside it.
 
 ## Implications to discuss (interpretation)
 
 1. Revisit augmentation for thin structures (blur strength, how the mask is interpolated under rotation) before any further comparison.
 2. Overlap or skeleton losses (Dice, Tversky, clDice, Skeleton Recall) are worth a held-out test. They are cheap and directly target the measured failure.
 3. Any SSL comparison sits on this supervised recipe. Fix the recipe first, or SSL is measured on a broken base.
+
+## Replicates for H4 (added 8 Oct, 02:55 IST)
+
+| Arm | seed 0 | seed 1 | seed 2 | mean ± sd crack IoU | crack AP | relaxed F1 1 px | inactive IoU |
+|---|---:|---:|---:|---|---|---|---|
+| B bf16 | 0.677 | 0.694 | 0.634 | 0.668 ± 0.031 | 0.885 ± 0.006 | 0.937 ± 0.016 | 0.940 ± 0.023 |
+| D fp32 | 0.605 | 0.661 | 0.701 | 0.656 ± 0.048 | 0.869 ± 0.033 | 0.927 ± 0.026 | 0.923 ± 0.033 |
