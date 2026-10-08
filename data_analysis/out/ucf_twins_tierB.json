@@ -1,0 +1,230 @@
+{
+ "twin_module_pairs": 352,
+ "module_ids": 383,
+ "physical_modules": 272,
+ "groups_with_more_than_one_id": 28,
+ "group_size_hist": {
+  "1": 244,
+  "2": 14,
+  "7": 1,
+  "4": 2,
+  "8": 1,
+  "5": 2,
+  "3": 5,
+  "10": 2,
+  "43": 1
+ },
+ "example_groups": [
+  [
+   "M0467",
+   "M0468",
+   "M0469",
+   "M0470",
+   "M0471",
+   "M0472",
+   "M0473",
+   "M0474",
+   "M0490",
+   "M0500",
+   "M0535",
+   "M0536",
+   "M0537",
+   "M0538",
+   "M0546",
+   "M0571",
+   "M0572",
+   "M0573",
+   "M0574",
+   "M0575",
+   "M0576",
+   "M0577",
+   "M0578",
+   "M0579",
+   "M0616",
+   "M0617",
+   "M0618",
+   "M0619",
+   "M0620",
+   "M0621",
+   "M0628",
+   "M0630",
+   "M0631",
+   "M0633",
+   "M0634",
+   "M0635",
+   "M0637",
+   "M0638",
+   "M0639",
+   "M0641",
+   "M0642",
+   "M0643",
+   "M0644"
+  ],
+  [
+   "M0435",
+   "M0437",
+   "M0441",
+   "M0442",
+   "M0443",
+   "M0444",
+   "M0447",
+   "M0448",
+   "M0449",
+   "M0450"
+  ],
+  [
+   "M0703",
+   "M0704",
+   "M0707",
+   "M0708",
+   "M0709",
+   "M0710",
+   "M0711",
+   "M0712",
+   "M0713",
+   "M0714"
+  ],
+  [
+   "M0131",
+   "M0132",
+   "M0133",
+   "M0134",
+   "M0164",
+   "M0165",
+   "M0296",
+   "M0391"
+  ],
+  [
+   "M0005",
+   "M0332",
+   "M0333",
+   "M0377",
+   "M0457",
+   "M0480",
+   "M0481"
+  ],
+  [
+   "M0323",
+   "M0334",
+   "M0335",
+   "M0376",
+   "M0455"
+  ],
+  [
+   "M0337",
+   "M0338",
+   "M0375",
+   "M0414",
+   "M0456"
+  ],
+  [
+   "M0129",
+   "M0136",
+   "M0137",
+   "M0166"
+  ]
+ ],
+ "raw_vs_output_sessions": [
+  {
+   "session": "Bent Cure 0Pa|20201222_165250.586",
+   "shared_cells": 60,
+   "median_ncc": -0.014450975693762302,
+   "median_best_ncc_any_cell": 0.47402605414390564,
+   "grouped": false
+  },
+  {
+   "session": "Bent+120C_relax 0Pa|20201223_133015.673",
+   "shared_cells": 60,
+   "median_ncc": 0.0518270805478096,
+   "median_best_ncc_any_cell": 0.5734541416168213,
+   "grouped": false
+  },
+  {
+   "session": "Control 0Pa|20201207_141716.316",
+   "shared_cells": 60,
+   "median_ncc": -0.02259407378733158,
+   "median_best_ncc_any_cell": 0.07528793811798096,
+   "grouped": false
+  },
+  {
+   "session": "Flat cure-oven 0Pa|20201223_135915.494",
+   "shared_cells": 60,
+   "median_ncc": 0.18853159993886948,
+   "median_best_ncc_any_cell": 0.675195574760437,
+   "grouped": false
+  }
+ ],
+ "leak_test_vs_train": {
+  "n": 2289,
+  "with_twin_in_other_set": 1009,
+  "share": 0.4408
+ },
+ "leak_test_vs_extra_pool": {
+  "n": 2289,
+  "with_twin_in_other_set": 468,
+  "share": 0.2045
+ },
+ "leak_sl20_seed0_vs_test": {
+  "n": 1912,
+  "with_twin_in_other_set": 429,
+  "share": 0.2244
+ },
+ "leak_sl5_seed0_vs_test": {
+  "n": 478,
+  "with_twin_in_other_set": 89,
+  "share": 0.1862
+ },
+ "leak_sl1_seed0_vs_test": {
+  "n": 96,
+  "with_twin_in_other_set": 17,
+  "share": 0.1771
+ },
+ "leak_val957_seed0_vs_test": {
+  "n": 957,
+  "with_twin_in_other_set": 206,
+  "share": 0.2153
+ },
+ "leak_val957_vs_rest_of_train": {
+  "n": 957,
+  "with_twin_in_other_set": 401,
+  "share": 0.419
+ },
+ "extra_pool_twin_of_test": {
+  "n": 5213,
+  "with_twin_in_other_set": 646,
+  "share": 0.1239
+ },
+ "extra_pool_twin_of_train": {
+  "n": 5213,
+  "with_twin_in_other_set": 1263,
+  "share": 0.2423
+ },
+ "twin_pair_ncc_quantiles": [
+  0.32874860763549807,
+  0.6957273483276367,
+  0.9003632545471191
+ ],
+ "twin_pairs_released_both": 10847,
+ "mask_agreement_pairs_ncc_ge_0.8": 3211,
+ "mask_agreement_iou": {
+  "crack": 0.4806,
+  "contact": 0.1536,
+  "interconnect": 0.0,
+  "corrosion": 0.0
+ },
+ "mask_agreement_tolF1_2px_median": {
+  "crack": [
+   0.075,
+   1075
+  ],
+  "contact": [
+   0.0,
+   2995
+  ],
+  "interconnect": [
+   0.0,
+   23
+  ]
+ },
+ "tier": "B"
+}

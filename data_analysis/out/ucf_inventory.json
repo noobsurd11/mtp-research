@@ -1,0 +1,531 @@
+{
+ "sets": {
+  "train": {
+   "n": 9562,
+   "families": {
+    "named sessions (Bent/Control/Flat)": 387,
+    "M-series jpg": 8928,
+    "M9000-series png": 247
+   },
+   "n_modules": 358,
+   "shorter_side_buckets": {
+    "1000": 134,
+    "1100": 2,
+    "150": 680,
+    "200": 348,
+    "250": 6909,
+    "300": 902,
+    "350": 23,
+    "400": 317,
+    "600": 247
+   },
+   "pixel_share_native": {
+    "background": 0.87806,
+    "crack": 0.05304,
+    "contact": 0.0196,
+    "interconnect": 0.00088,
+    "corrosion": 0.0005,
+    "ignore128": 0.04792
+   },
+   "pixel_share_295": {
+    "background": 0.89882,
+    "crack": 0.06513,
+    "contact": 0.01832,
+    "interconnect": 0.00084,
+    "corrosion": 0.00057,
+    "ignore128": 0.01632
+   },
+   "pixels_295": {
+    "background": 755440402,
+    "crack": 54740609,
+    "contact": 15399822,
+    "interconnect": 702783,
+    "corrosion": 475598,
+    "ignore128": 13719386
+   },
+   "images_with": {
+    "crack": 3788,
+    "contact": 8052,
+    "interconnect": 203,
+    "corrosion": 55,
+    "ignore128": 518
+   },
+   "images_with_share": {
+    "crack": 0.3962,
+    "contact": 0.8421,
+    "interconnect": 0.0212,
+    "corrosion": 0.0058,
+    "ignore128": 0.0542
+   },
+   "signatures": {
+    "contact": 5306,
+    "crack+contact": 2564,
+    "crack": 1204,
+    "none": 230,
+    "contact+interconnect": 160,
+    "corrosion": 34,
+    "interconnect": 33,
+    "contact+corrosion": 11,
+    "crack+contact+interconnect": 6,
+    "crack+corrosion": 5,
+    "crack+contact+corrosion": 5,
+    "crack+interconnect": 4
+   },
+   "fine_class_images": {
+    "Contact_FrontGridInterruption": 6984,
+    "Contact_NearSolderPad": 4466,
+    "Crack_Resistive": 2470,
+    "Crack_Closed": 2127,
+    "Crack_Isolated": 1423,
+    "Interconnect_Disconnected": 230,
+    "Interconnect_HighlyResistive": 203,
+    "Interconnect_BrightSpot": 203,
+    "Unknown": 72,
+    "Contact_Corrosion": 55,
+    "Contact_BeltMarks": 14
+   },
+   "crack_px_per_crack_image_295_median": 9674.5
+  },
+  "test": {
+   "n": 2289,
+   "families": {
+    "named sessions (Bent/Control/Flat)": 83,
+    "M-series jpg": 2206
+   },
+   "n_modules": 299,
+   "shorter_side_buckets": {
+    "1000": 38,
+    "1100": 1,
+    "150": 153,
+    "200": 87,
+    "250": 1700,
+    "300": 236,
+    "350": 8,
+    "400": 66
+   },
+   "pixel_share_native": {
+    "background": 0.91939,
+    "crack": 0.05613,
+    "contact": 0.02136,
+    "interconnect": 0.0011,
+    "corrosion": 0.00047,
+    "ignore128": 0.00155
+   },
+   "pixel_share_295": {
+    "background": 0.91194,
+    "crack": 0.06609,
+    "contact": 0.01899,
+    "interconnect": 0.00071,
+    "corrosion": 0.00051,
+    "ignore128": 0.00175
+   },
+   "pixels_295": {
+    "background": 183579783,
+    "crack": 13304353,
+    "contact": 3822924,
+    "interconnect": 143536,
+    "corrosion": 103137,
+    "ignore128": 353087
+   },
+   "images_with": {
+    "crack": 918,
+    "contact": 1984,
+    "interconnect": 44,
+    "corrosion": 12,
+    "ignore128": 55
+   },
+   "images_with_share": {
+    "crack": 0.401,
+    "contact": 0.8668,
+    "interconnect": 0.0192,
+    "corrosion": 0.0052,
+    "ignore128": 0.024
+   },
+   "signatures": {
+    "contact": 1321,
+    "crack+contact": 618,
+    "crack": 293,
+    "contact+interconnect": 36,
+    "interconnect": 5,
+    "corrosion": 4,
+    "contact+corrosion": 4,
+    "crack+contact+corrosion": 3,
+    "crack+contact+interconnect": 2,
+    "crack+interconnect": 1,
+    "crack+corrosion": 1,
+    "none": 1
+   },
+   "fine_class_images": {
+    "Contact_FrontGridInterruption": 1708,
+    "Contact_NearSolderPad": 1116,
+    "Crack_Resistive": 617,
+    "Crack_Closed": 513,
+    "Crack_Isolated": 332,
+    "Interconnect_HighlyResistive": 44,
+    "Interconnect_BrightSpot": 44,
+    "Contact_Corrosion": 12,
+    "Unknown": 11
+   },
+   "crack_px_per_crack_image_295_median": 9621.5
+  },
+  "sl20_seed0": {
+   "n": 1912,
+   "families": {
+    "named sessions (Bent/Control/Flat)": 74,
+    "M-series jpg": 1790,
+    "M9000-series png": 48
+   },
+   "n_modules": 296,
+   "shorter_side_buckets": {
+    "1000": 26,
+    "150": 136,
+    "200": 64,
+    "250": 1410,
+    "300": 162,
+    "350": 5,
+    "400": 61,
+    "600": 48
+   },
+   "pixel_share_native": {
+    "background": 0.87415,
+    "crack": 0.05559,
+    "contact": 0.02166,
+    "interconnect": 0.00038,
+    "corrosion": 0.00036,
+    "ignore128": 0.04784
+   },
+   "pixel_share_295": {
+    "background": 0.89515,
+    "crack": 0.06797,
+    "contact": 0.01929,
+    "interconnect": 0.00068,
+    "corrosion": 0.00041,
+    "ignore128": 0.01651
+   },
+   "pixels_295": {
+    "background": 150473331,
+    "crack": 11425248,
+    "contact": 3242288,
+    "interconnect": 114257,
+    "corrosion": 68842,
+    "ignore128": 2774704
+   },
+   "images_with": {
+    "crack": 757,
+    "contact": 1609,
+    "interconnect": 41,
+    "corrosion": 11,
+    "ignore128": 101
+   },
+   "images_with_share": {
+    "crack": 0.3959,
+    "contact": 0.8415,
+    "interconnect": 0.0214,
+    "corrosion": 0.0058,
+    "ignore128": 0.0528
+   },
+   "signatures": {
+    "contact": 1061,
+    "crack+contact": 512,
+    "crack": 241,
+    "none": 46,
+    "contact+interconnect": 32,
+    "corrosion": 7,
+    "interconnect": 7,
+    "contact+corrosion": 2,
+    "crack+contact+interconnect": 1,
+    "crack+interconnect": 1,
+    "crack+corrosion": 1,
+    "crack+contact+corrosion": 1
+   },
+   "fine_class_images": {
+    "Contact_FrontGridInterruption": 1380,
+    "Contact_NearSolderPad": 911,
+    "Crack_Resistive": 509,
+    "Crack_Closed": 406,
+    "Crack_Isolated": 278,
+    "Interconnect_Disconnected": 45,
+    "Interconnect_HighlyResistive": 41,
+    "Interconnect_BrightSpot": 41,
+    "Contact_Corrosion": 11,
+    "Unknown": 11,
+    "Contact_BeltMarks": 4
+   },
+   "crack_px_per_crack_image_295_median": 10584.0
+  },
+  "sl5_seed0": {
+   "n": 478,
+   "families": {
+    "named sessions (Bent/Control/Flat)": 27,
+    "M-series jpg": 439,
+    "M9000-series png": 12
+   },
+   "n_modules": 221,
+   "shorter_side_buckets": {
+    "1000": 4,
+    "150": 39,
+    "200": 7,
+    "250": 352,
+    "300": 40,
+    "350": 2,
+    "400": 22,
+    "600": 12
+   },
+   "pixel_share_native": {
+    "background": 0.8683,
+    "crack": 0.05651,
+    "contact": 0.01815,
+    "interconnect": 0.00035,
+    "corrosion": 0.00046,
+    "ignore128": 0.05623
+   },
+   "pixel_share_295": {
+    "background": 0.8953,
+    "crack": 0.0667,
+    "contact": 0.01877,
+    "interconnect": 0.00071,
+    "corrosion": 0.0005,
+    "ignore128": 0.01801
+   },
+   "pixels_295": {
+    "background": 37653681,
+    "crack": 2805366,
+    "contact": 789468,
+    "interconnect": 30001,
+    "corrosion": 21112,
+    "ignore128": 757342
+   },
+   "images_with": {
+    "crack": 188,
+    "contact": 402,
+    "interconnect": 10,
+    "corrosion": 3,
+    "ignore128": 23
+   },
+   "images_with_share": {
+    "crack": 0.3933,
+    "contact": 0.841,
+    "interconnect": 0.0209,
+    "corrosion": 0.0063,
+    "ignore128": 0.0481
+   },
+   "signatures": {
+    "contact": 265,
+    "crack+contact": 128,
+    "crack": 60,
+    "none": 12,
+    "contact+interconnect": 8,
+    "corrosion": 2,
+    "interconnect": 2,
+    "contact+corrosion": 1
+   },
+   "fine_class_images": {
+    "Contact_FrontGridInterruption": 345,
+    "Contact_NearSolderPad": 238,
+    "Crack_Resistive": 127,
+    "Crack_Closed": 107,
+    "Crack_Isolated": 74,
+    "Interconnect_Disconnected": 12,
+    "Interconnect_HighlyResistive": 10,
+    "Interconnect_BrightSpot": 10,
+    "Contact_Corrosion": 3,
+    "Unknown": 1
+   },
+   "crack_px_per_crack_image_295_median": 12171.0
+  },
+  "sl1_seed0": {
+   "n": 96,
+   "families": {
+    "named sessions (Bent/Control/Flat)": 7,
+    "M-series jpg": 86,
+    "M9000-series png": 3
+   },
+   "n_modules": 82,
+   "shorter_side_buckets": {
+    "1000": 1,
+    "150": 10,
+    "200": 1,
+    "250": 70,
+    "300": 5,
+    "350": 1,
+    "400": 5,
+    "600": 3
+   },
+   "pixel_share_native": {
+    "background": 0.86772,
+    "crack": 0.05474,
+    "contact": 0.01307,
+    "interconnect": 0.00012,
+    "corrosion": 0.0,
+    "ignore128": 0.06436
+   },
+   "pixel_share_295": {
+    "background": 0.89841,
+    "crack": 0.06605,
+    "contact": 0.01365,
+    "interconnect": 0.00031,
+    "corrosion": 0.0,
+    "ignore128": 0.02158
+   },
+   "pixels_295": {
+    "background": 7596336,
+    "crack": 558490,
+    "contact": 115396,
+    "interconnect": 2621,
+    "corrosion": 0,
+    "ignore128": 182447
+   },
+   "images_with": {
+    "crack": 38,
+    "contact": 81,
+    "interconnect": 2,
+    "corrosion": 0,
+    "ignore128": 5
+   },
+   "images_with_share": {
+    "crack": 0.3958,
+    "contact": 0.8438,
+    "interconnect": 0.0208,
+    "corrosion": 0.0,
+    "ignore128": 0.0521
+   },
+   "signatures": {
+    "contact": 53,
+    "crack+contact": 26,
+    "crack": 12,
+    "none": 3,
+    "contact+interconnect": 2
+   },
+   "fine_class_images": {
+    "Contact_FrontGridInterruption": 72,
+    "Contact_NearSolderPad": 46,
+    "Crack_Resistive": 26,
+    "Crack_Closed": 25,
+    "Crack_Isolated": 14,
+    "Interconnect_Disconnected": 3,
+    "Interconnect_BrightSpot": 2,
+    "Interconnect_HighlyResistive": 2
+   },
+   "crack_px_per_crack_image_295_median": 12984.5
+  },
+  "val957_seed0": {
+   "n": 957,
+   "families": {
+    "named sessions (Bent/Control/Flat)": 38,
+    "M-series jpg": 895,
+    "M9000-series png": 24
+   },
+   "n_modules": 265,
+   "shorter_side_buckets": {
+    "1000": 14,
+    "150": 75,
+    "200": 25,
+    "250": 689,
+    "300": 97,
+    "350": 2,
+    "400": 31,
+    "600": 24
+   },
+   "pixel_share_native": {
+    "background": 0.87446,
+    "crack": 0.05325,
+    "contact": 0.01973,
+    "interconnect": 0.00207,
+    "corrosion": 0.00083,
+    "ignore128": 0.04966
+   },
+   "pixel_share_295": {
+    "background": 0.89622,
+    "crack": 0.06557,
+    "contact": 0.02031,
+    "interconnect": 0.00073,
+    "corrosion": 0.00094,
+    "ignore128": 0.01623
+   },
+   "pixels_295": {
+    "background": 75406807,
+    "crack": 5517347,
+    "contact": 1708604,
+    "interconnect": 61144,
+    "corrosion": 79225,
+    "ignore128": 1365298
+   },
+   "images_with": {
+    "crack": 380,
+    "contact": 807,
+    "interconnect": 20,
+    "corrosion": 5,
+    "ignore128": 53
+   },
+   "images_with_share": {
+    "crack": 0.3971,
+    "contact": 0.8433,
+    "interconnect": 0.0209,
+    "corrosion": 0.0052,
+    "ignore128": 0.0554
+   },
+   "signatures": {
+    "contact": 531,
+    "crack+contact": 257,
+    "crack": 121,
+    "none": 23,
+    "contact+interconnect": 16,
+    "interconnect": 3,
+    "corrosion": 3,
+    "crack+contact+interconnect": 1,
+    "contact+corrosion": 1,
+    "crack+contact+corrosion": 1
+   },
+   "fine_class_images": {
+    "Contact_FrontGridInterruption": 721,
+    "Contact_NearSolderPad": 444,
+    "Crack_Resistive": 256,
+    "Crack_Closed": 204,
+    "Crack_Isolated": 144,
+    "Interconnect_Disconnected": 23,
+    "Interconnect_HighlyResistive": 20,
+    "Interconnect_BrightSpot": 20,
+    "Unknown": 9,
+    "Contact_Corrosion": 5,
+    "Contact_BeltMarks": 1
+   },
+   "crack_px_per_crack_image_295_median": 9134.0
+  }
+ },
+ "train_cooccurrence_P_b_given_a": {
+  "crack": {
+   "crack": 1.0,
+   "contact": 0.68,
+   "interconnect": 0.003,
+   "corrosion": 0.003
+  },
+  "contact": {
+   "crack": 0.32,
+   "contact": 1.0,
+   "interconnect": 0.021,
+   "corrosion": 0.002
+  },
+  "interconnect": {
+   "crack": 0.049,
+   "contact": 0.818,
+   "interconnect": 1.0,
+   "corrosion": 0.0
+  },
+  "corrosion": {
+   "crack": 0.182,
+   "contact": 0.291,
+   "interconnect": 0.0,
+   "corrosion": 1.0
+  }
+ },
+ "train_crack_subtype_regions": {
+  "Crack_Closed": 6847,
+  "Crack_Resistive": 6350,
+  "Crack_Isolated": 3614
+ },
+ "test_crack_subtype_regions": {
+  "Crack_Closed": 1615,
+  "Crack_Resistive": 1607,
+  "Crack_Isolated": 838
+ }
+}

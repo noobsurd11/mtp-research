@@ -1,0 +1,171 @@
+{
+ "twin_module_pairs": 71,
+ "module_ids": 383,
+ "physical_modules": 335,
+ "groups_with_more_than_one_id": 26,
+ "group_size_hist": {
+  "1": 309,
+  "2": 16,
+  "4": 3,
+  "5": 3,
+  "6": 1,
+  "3": 3
+ },
+ "example_groups": [
+  [
+   "M0332",
+   "M0333",
+   "M0377",
+   "M0457",
+   "M0480",
+   "M0481"
+  ],
+  [
+   "M0323",
+   "M0334",
+   "M0335",
+   "M0376",
+   "M0455"
+  ],
+  [
+   "M0574",
+   "M0575",
+   "M0576",
+   "M0643",
+   "M0644"
+  ],
+  [
+   "M0577",
+   "M0578",
+   "M0579",
+   "M0641",
+   "M0642"
+  ],
+  [
+   "M0134",
+   "M0165",
+   "M0296",
+   "M0391"
+  ],
+  [
+   "M0338",
+   "M0375",
+   "M0414",
+   "M0456"
+  ],
+  [
+   "M0711",
+   "M0712",
+   "M0713",
+   "M0714"
+  ],
+  [
+   "M0356",
+   "M0363",
+   "M0364"
+  ]
+ ],
+ "raw_vs_output_sessions": [
+  {
+   "session": "Bent Cure 0Pa|20201222_165250.586",
+   "shared_cells": 60,
+   "median_ncc": -0.014450975693762302,
+   "median_best_ncc_any_cell": 0.47402605414390564,
+   "grouped": false
+  },
+  {
+   "session": "Bent+120C_relax 0Pa|20201223_133015.673",
+   "shared_cells": 60,
+   "median_ncc": 0.0518270805478096,
+   "median_best_ncc_any_cell": 0.5734541416168213,
+   "grouped": false
+  },
+  {
+   "session": "Control 0Pa|20201207_141716.316",
+   "shared_cells": 60,
+   "median_ncc": -0.02259407378733158,
+   "median_best_ncc_any_cell": 0.07528793811798096,
+   "grouped": false
+  },
+  {
+   "session": "Flat cure-oven 0Pa|20201223_135915.494",
+   "shared_cells": 60,
+   "median_ncc": 0.18853159993886948,
+   "median_best_ncc_any_cell": 0.675195574760437,
+   "grouped": false
+  }
+ ],
+ "leak_test_vs_train": {
+  "n": 2289,
+  "with_twin_in_other_set": 572,
+  "share": 0.2499
+ },
+ "leak_test_vs_extra_pool": {
+  "n": 2289,
+  "with_twin_in_other_set": 117,
+  "share": 0.0511
+ },
+ "leak_sl20_seed0_vs_test": {
+  "n": 1912,
+  "with_twin_in_other_set": 182,
+  "share": 0.0952
+ },
+ "leak_sl5_seed0_vs_test": {
+  "n": 478,
+  "with_twin_in_other_set": 33,
+  "share": 0.069
+ },
+ "leak_sl1_seed0_vs_test": {
+  "n": 96,
+  "with_twin_in_other_set": 3,
+  "share": 0.0312
+ },
+ "leak_val957_seed0_vs_test": {
+  "n": 957,
+  "with_twin_in_other_set": 77,
+  "share": 0.0805
+ },
+ "leak_val957_vs_rest_of_train": {
+  "n": 957,
+  "with_twin_in_other_set": 207,
+  "share": 0.2163
+ },
+ "extra_pool_twin_of_test": {
+  "n": 5213,
+  "with_twin_in_other_set": 111,
+  "share": 0.0213
+ },
+ "extra_pool_twin_of_train": {
+  "n": 5213,
+  "with_twin_in_other_set": 417,
+  "share": 0.08
+ },
+ "twin_pair_ncc_quantiles": [
+  0.07621350884437561,
+  0.6070422530174255,
+  0.9021237015724183
+ ],
+ "twin_pairs_released_both": 2859,
+ "mask_agreement_pairs_ncc_ge_0.8": 702,
+ "mask_agreement_iou": {
+  "crack": 0.5672,
+  "contact": 0.2542,
+  "interconnect": 0.0,
+  "corrosion": 0.0
+ },
+ "mask_agreement_tolF1_2px_median": {
+  "contact": [
+   0.476,
+   564
+  ],
+  "interconnect": [
+   0.0,
+   9
+  ],
+  "crack": [
+   0.829,
+   490
+  ]
+ },
+ "tier": "A"
+}
