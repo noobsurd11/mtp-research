@@ -148,3 +148,23 @@ cv02 (`ucf_mt_sl5_s0_cv02/config_used.yaml`: `consistency: semi_ce`, data-driven
 - How much of SemiCE's gradient is useless is not measured (P2).
 - Whether the "4 + 4" inactive gain comes from BN statistics during training is untested.
 - Whether UCF-EL's labels have the same jitter is unknown.
+
+---
+
+## 9. Update 8 Oct: P1, P2 and the UCF-EL analysis (details: `results/p1/`, `results/p2/`, `data_analysis/ucf_el_report.md`)
+
+- **P1, overfit check:**
+  - No pipeline bug: the masks are aligned exactly, and bf16 equals fp32 over 3 seeds.
+  - Training augmentation is the main reason crack is not fitted on training images (crack AP 0.93 without it, 0.59 with it).
+  - CE + Dice fits crack to 0.86.
+  - Section 0.2 above is therefore partly revised: labels plus loss explain the dilation, but augmentation is the larger factor for fitting.
+- **P2, SemiCE:**
+  - The gradient is real (25% of the supervised gradient, only 4% in the softmax-invariant direction), but every unlabelled pixel has ≥ 2 "positive" classes, so the target is incoherent.
+  - A correct confidence-thresholded pseudo-label rule would put crack in only 0.024% of confident pixels.
+- **UCF-EL** (verified independently: validation = test in the official `train.py`; a test/train twin pair checked by eye, pixel correlation 0.991):
+  - Masks are the CSV shapes rasterised (99.6% agreement). Defect-free cells are excluded from the release.
+  - **25–44% of test cells have the same physical cell (other stress stage) in train**; the split is by cell, not module.
+  - UCF "crack" is a **region** class (closed, resistive and isolated crack types; ≈ BenchmarkEL crack ∪ inactive). Its 1-px IoU ceiling is 0.95, against 0.50–0.56 for BenchmarkEL.
+  - Agreement between twin copies: crack 0.57, contact 0.25 (boxes).
+  - The 100% → 1% label gap is 64–78% interconnect and corrosion (44 and 12 test images).
+  - Implication: UCF can carry a label-efficiency claim only after a physical-module-disjoint re-split; rare-class results must be reported per class with confidence intervals.
