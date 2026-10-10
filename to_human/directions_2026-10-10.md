@@ -10,6 +10,23 @@ Tags: **measured**, **lit** (a paper says so), **inferred**.
 
 ---
 
+## 0. Update, night of 10 Oct (P6–P8 measured; P9–P11 running)
+- **P6:** label-safe augmentation helps (+0.048 crack IoU, robust over test cells).
+  - The ImageNet encoder and CE+Dice saturate AP (scores pile up below 0.001), so AP is not comparable across losses.
+  - Only the L3 recipe turns more labels into better scores. Most inactive differences are decided by 3 test cells. **measured** (`results/p6/README.md`)
+- **P7/P8 (10% labels, 431 unlabelled):** no unlabelled loss passes its locked rule against the loss-off control. **measured** (`results/p7/`, `results/p8/`)
+  - **Tolerant beats hard pseudo-labels on inactive** (P7, robust). Hard PL pushes missed defects to "certain background", a confirmation bias that the tolerant routing halves.
+  - **The Mean Teacher pipeline itself handicaps L3:** with the loss off, crack IoU −0.013 and inactive −0.10 vs supervised. The cause is not the EMA teacher. Likely the stronger labelled view (noise) and/or BatchNorm over mixed batches.
+- **So §1.2's bet is weakened at 10% labels with a small pool, but not refuted.** The three levers still open are being tested overnight under locked protocols:
+  - P9: pool size, 12k external cells;
+  - P10: label budget, 5%;
+  - P11: pipeline-matched control, which asks whether SSL beats *plain supervised* training.
+- If all three are null, the thesis contribution shifts towards:
+  - (a) a careful negative result with diagnostics (pseudo-label confirmation bias for rare thin classes; pipeline handicaps);
+  - (b) the no-pseudo-label rival (MIM pretraining, §4), moved up.
+
+---
+
 ## 1. Bottom line
 
 1. **The ground moved today.**
