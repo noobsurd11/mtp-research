@@ -96,6 +96,25 @@ P7 therefore runs on L0's model and loss (`unetpp`, weighted CE) with P7's fixed
   - Dice/encoder effects on large dark regions.
 - Do not interpret before a per-image check.
 
+**4. Inactive pixels sit in a few cells.** Revised labels; computed from `data/escdd_masks/{test,val}`.
+
+| Split | Cells with any inactive | Share held by the top 3 | Largest single cell |
+|---|---|---|---|
+| test | 16 of 50 | 59% | BMRK_00073_cell0253, 23% |
+| val | 6 of 54 | 89% | CFVS_00143_r4_c3, 35% |
+
+- For comparison, crack appears in 48 of 50 test cells, and the largest single cell holds 12%.
+- Any dataset-level inactive metric (AP or IoU) is therefore decided by about 3 cells. That plausibly explains:
+  - the large inactive sds (L1 val inactive AP 0.349 ± 0.159);
+  - the "inactive puzzle" in point 3.
+- `fig_overlays.png`, row 3: the top test cell has two large dark side strips labelled inactive, which every model largely misses.
+
+## Figures
+- `fig_ladder.png`: AP vs IoU along the ladder at 10% labels.
+- `fig_label_scaling.png`: L0 vs L3 at 10/20/100% labels.
+- `fig_saturation.png`: CDF of GT-pixel scores.
+- `fig_overlays.png`: 3 test cells chosen by a fixed rule (top-2 crack area, top-1 inactive area), seed 0. Made by `scripts_gaint/overlay_figure.py`, read-only inference on cv02.
+
 ## Caveats
 - One split (seed 0); 3 training seeds; BenchmarkEL 20211104 images with E-SCDD revised masks.
 - 50 test images. The inactive class is dominated by few images.

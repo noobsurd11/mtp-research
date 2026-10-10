@@ -143,7 +143,11 @@ Draft of 10 Oct 2026. There are 17 slides. Every number has a **Source** line. P
 - **L0, 10% → 100% labels:** pooled AP **−0.001**; inactive IoU *falls* **0.439 → 0.391**.
 - **L3, 10% → 100%:** pooled AP **+0.159**, crack IoU **+0.075**, inactive IoU **+0.135**.
 - L3 100% is the best crack model: IoU **0.471**, relaxed F1@2 **0.876**.
-- **Puzzle:** the best inactive IoU at any budget is L1 at 10% (**0.473**), above L3 at 100% (**0.429**). Unexplained; no interpretation before a per-image check.
+- **Puzzle:** the best inactive IoU at any budget is L1 at 10% (**0.473**), above L3 at 100% (**0.429**). Unexplained.
+- **Inactive pixels sit in a few cells** (Source: `results/p6/README.md`, exploratory 4):
+  - test: 16 of 50 cells have any; the top 3 hold **59%**; one cell (BMRK_00073) holds **23%**;
+  - val: 6 of 54 cells have any; the top 3 hold **89%**;
+  - so any inactive difference is effectively decided by about 3 cells (overlay row 3).
 - Implication: SSL can only close a gap that exists, and only L3 has one.
 
 **Figure:** `results/p6/fig_label_scaling.png`.
@@ -248,9 +252,14 @@ Draft of 10 Oct 2026. There are 17 slides. Every number has a **Source** line. P
 
 ---
 
-### Figures still missing for the deck
-1. Prediction overlays on 2–3 test cells for L0 / L1 / L3 10% / L3 100% (needs inference on cv02 weights).
-2. Old-vs-revised (E-SCDD) mask overlay for one test cell (slide 3).
-3. P5 strict-vs-2 px precision bars by region (slide 8; data in the README).
-4. Method diagram (slide 12).
-5. P7/P8 result bars (slide 14, after tonight).
+### Figures
+Made on 10 Oct; the source script is in brackets:
+- `results/p6/fig_overlays.png` (`scripts_gaint/overlay_figure.py`):
+  - 3 test cells chosen by a fixed rule (top-2 by GT crack area, top-1 by GT inactive area);
+  - columns: image, old label, revised label, then L0 10%, L1 10%, L3 10% and L3 100% (seed 0);
+  - serves slides 3 (old vs revised), 10 and 11.
+- `results/p5_region_pl/fig_p5_offset.png` (`scripts/midterm_figures.py`): slide 8.
+- `results/figures/fig_method_routing.png` (`scripts/midterm_figures.py`): slide 12. Panel (c) is a toy illustration with student p = 0.9 on its line and 0.05 elsewhere; it is not measured.
+
+Still missing:
+- P7/P8 result bars: slide 14, after tonight.
