@@ -1,6 +1,6 @@
 # Mid-term deck outline: training methodology (thesis part 1)
 
-Draft of 10 Oct 2026. There are 17 slides. Every number has a **Source** line. Slide 14 is filled with P7/P8 (scored 10 Oct night); P9–P11 results land 11 Oct. Scope: what existed, what we did, what we propose, further work. This is a mid-term, not the finished project.
+Draft of 10 Oct 2026. There are 17 slides. Every number has a **Source** line. Slide 14 is filled with P7/P8 (scored 10 Oct night); P9–P12 results land 11 Oct. Scope: what existed, what we did, what we propose, further work. This is a mid-term, not the finished project.
 
 ---
 
@@ -150,6 +150,7 @@ Draft of 10 Oct 2026. There are 17 slides. Every number has a **Source** line. S
   - test: 16 of 50 cells have any; the top 3 hold **59%**; one cell (BMRK_00073) holds **23%**;
   - val: 6 of 54 cells have any; the top 3 hold **89%**;
   - so any inactive difference is effectively decided by about 3 cells (overlay row 3).
+- **Inactive is also few-shot on the label side:** only **4 of the 47** labelled cells at 10% contain inactive, and **2 of 23** at 5% (crack: 19/47 and 9/23). Source: `results/p10/labelled_set_counts.txt`.
 - Implication: SSL can only close a gap that exists, and only L3 has one.
 
 **Figure:** `results/p6/fig_label_scaling.png`.
@@ -218,14 +219,14 @@ Draft of 10 Oct 2026. There are 17 slides. Every number has a **Source** line. S
   - Candidates: the SSL labelled view (stronger jitter plus Gaussian noise), and BatchNorm over mixed batches.
   - C only wins that back, ending where A is: crack IoU −0.004 vs A.
 - **Figure:** `results/p8/fig_p8_bars.png` (main); `results/p7/fig_p7_bars.png` (backup).
-- **Running now (results 11 Oct):** P9 is the 12k external unlabelled pool; P10 is 5% labels × both pools; P11 is a pipeline-matched control that removes the labelled-view difference. See slide 16.
+- **Running now (results 11 Oct):** P9 is the 12k external unlabelled pool; P10 is 5% labels × both pools; P11 is a pipeline-matched control that removes the labelled-view difference; P12 is that matched pipeline at 5% labels, with a cv02 supervised 5% reference and a gaint replication on fresh seeds. See slide 16.
 
 **Speaker note:**
 - The honest result is "no detectable SSL gain at 10% labels with 431 unlabelled cells".
 - Two things are learnt: (1) how to use pseudo-labels for rare classes (tolerant beats hard, robustly); (2) a concrete pipeline handicap that the literature's SSL gains may hide.
 - The locked rules made both visible.
 
-**Source:** `results/p7/README.md`; `results/p8/README.md` (rules, bootstrap, student-vs-teacher); `results/p7/p7_rules.txt`; `results/p8/p8_rules.txt`; `protocols/P9_external_pool.md`, `P10_ssl_5pct.md`, `P11_matched_pipeline.md`.
+**Source:** `results/p7/README.md`; `results/p8/README.md` (rules, bootstrap, student-vs-teacher); `results/p7/p7_rules.txt`; `results/p8/p8_rules.txt`; `protocols/P9_external_pool.md`, `P10_ssl_5pct.md`, `P11_matched_pipeline.md`, `P12_matched_5pct.md`.
 
 ---
 
@@ -233,7 +234,7 @@ Draft of 10 Oct 2026. There are 17 slides. Every number has a **Source** line. S
 - **Every confirmatory experiment's protocol is committed before running:**
   - P1/P2 `f9708c0`, P5 `fdc7198`, P4 `855b130`;
   - P6 `db76a8c`, P7 `37985d6`, P8 `da3d941`;
-  - P9 `be69ace`, P10 `9a85958` (amendment `bf745e0`, before its runs), P11 `38de062`.
+  - P9 `be69ace`, P10 `9a85958` (amendment `bf745e0`, before its runs), P11 `38de062`, P12 `7320bd4`.
 - Loss-off controls, 3 seeds, step-matched runs, final-step checkpoint, base selected on **val**, reported on **test**. Exploratory results are labelled as such (P3, P6 diagnostics).
 - Hypotheses refuted and reported: P2 (wasted-gradient), P1 H1 not met as written and H3 refuted, P5 rule 3 not met.
 - **Correction:** an interim P6 headroom of **+0.026** averaged per-split APs. The locked rule says pooled pixels, which gives **−0.001**, so P7 is a pilot. Earlier corrections are also on record (the Fioresi 57.3% mIoU claim).
@@ -270,8 +271,9 @@ Draft of 10 Oct 2026. There are 17 slides. Every number has a **Source** line. S
 - **Overnight 10–11 Oct (cv02 8 GPUs + gaint):**
   - P9, external pool (9 runs);
   - P10, 5% labels × pool (15 runs, plus 6 supervised references on gaint);
-  - P11, pipeline-matched control (12 runs, starts as GPUs free).
-- **11 Oct:** apply the locked rules to P9–P11; fill slide 14's "running now" line; update the overlays with the best SSL arm.
+  - P11, pipeline-matched control (12 runs, starts as GPUs free);
+  - P12, matched pipeline at 5% (12 SSL + 3 supervised on cv02, after P11; 6 SSL replication + 3 calibration runs on gaint from ~04:00).
+- **11 Oct:** apply the locked rules to P9–P12 as each lands (P12 last, evening); fill slide 14's "running now" line; update the overlays with the best SSL arm.
 - **12–13 Oct:** deck and rehearsal. **Mid-term:** about 14 Oct (confirm the date).
 - **After mid-term:** in order, MIM rival → old→revised label experiment → UCF re-split → full routing method → parts 2–3.
 
