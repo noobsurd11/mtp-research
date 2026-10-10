@@ -1,0 +1,11 @@
+Labelled-set composition (seed-0 split, revised E-SCDD masks; class ids: crack 14, inactive 11).
+Computed 11 Oct 2026 ~02:10 IST on gaint from data/splits/seed0/labeled_{5,10}pct.txt and data/labeled/masks_escdd.
+
+5%  (23 cells): inactive in 2 cells (13,467 + 7,050 px = 20,517 px); crack in 9 cells (17,975 px)
+               sources ARTS 4, CFVS 6, BMRK 3, CSIR 7, SDLE 3
+10% (47 cells): inactive in 4 cells (13,467, 7,050, 6,064, 3,951 px = 30,532 px); crack in 19 cells (45,367 px)
+               sources ARTS 14, CFVS 14, BMRK 4, CSIR 11, SDLE 4
+
+Reading: inactive is a few-shot class at both budgets (2 and 4 labelled examples). The 5% set keeps the two largest
+inactive cells of the 10% set (67% of its inactive pixels), which is consistent with A5's inactive IoU (0.277) being close
+to A10's (0.294) while crack IoU drops 0.396 -> 0.298. Inactive seed variance and "seed collapse" should be read in this light.
