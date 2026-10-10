@@ -1,0 +1,39 @@
+P8: seeds per arm {'B_10pct': [0, 1, 2], 'C_10pct': [0, 1, 2], 'D_10pct': [0, 1, 2]} | weights {'teacher'} | steps {20000}
+
+| arm | test crack ap | test inactive ap | test crack iou | test inactive iou | test crack rel_f1_2 | test crack rel_p2 | val crack ap | val inactive ap | val crack iou | val inactive iou |
+|---|---|---|---|---|---|---|---|---|---|---|
+| P6:L3_10pct | 0.400±0.004 | 0.302±0.018 | 0.396±0.003 | 0.294±0.019 | 0.814±0.003 | 0.910±0.006 | 0.288±0.011 | 0.303±0.050 | 0.318±0.010 | 0.300±0.044 |
+| B_10pct | 0.430±0.011 | 0.297±0.050 | 0.389±0.007 | 0.219±0.081 | 0.806±0.015 | 0.934±0.011 | 0.316±0.002 | 0.406±0.024 | 0.322±0.001 | 0.363±0.016 |
+| C_10pct | 0.421±0.011 | 0.317±0.105 | 0.392±0.006 | 0.253±0.109 | 0.811±0.012 | 0.919±0.014 | 0.302±0.007 | 0.355±0.009 | 0.316±0.006 | 0.331±0.005 |
+| D_10pct | 0.402±0.008 | 0.201±0.034 | 0.383±0.003 | 0.194±0.034 | 0.796±0.008 | 0.903±0.009 | 0.285±0.002 | 0.304±0.028 | 0.308±0.003 | 0.283±0.018 |
+| P6:L3_100pct | 0.593±0.003 | 0.420±0.018 | 0.471±0.001 | 0.429±0.011 | 0.876±0.003 | 0.939±0.003 | 0.511±0.004 | 0.413±0.020 | 0.423±0.003 | 0.397±0.023 |
+
+Primary metrics (test, revised): [('crack', 'iou'), ('inactive', 'iou'), ('crack', 'rel_f1_2')]
+  C - D  crack    iou      +0.0091  thr 0.0100  n.d.
+  C - D  inactive iou      +0.0591  thr 0.1321  n.d.
+  C - D  crack    rel_f1_2 +0.0147  thr 0.0168  n.d.
+  => C helps vs D: False
+  B - D  crack    iou      +0.0066  thr 0.0100  n.d.
+  B - D  inactive iou      +0.0257  thr 0.1020  n.d.
+  B - D  crack    rel_f1_2 +0.0100  thr 0.0199  n.d.
+  => B helps vs D: False
+  C - B  crack    iou      +0.0025  thr 0.0104  n.d.
+  C - B  inactive iou      +0.0334  thr 0.1572  n.d.
+  C - B  crack    rel_f1_2 +0.0047  thr 0.0225  n.d.
+  => C beats B: False
+
+Width check: crack relP@2 C - D = +0.0165  -> ok
+
+Rule 4: share of the label gap closed, (C - D) / (L3@100% - D), test:
+  B crack    iou      gap +0.0882  closed +0.08
+  C crack    iou      gap +0.0882  closed +0.10
+  B inactive iou      gap +0.2352  closed +0.11
+  C inactive iou      gap +0.2352  closed +0.25
+  B crack    rel_f1_2 gap +0.0796  closed +0.13
+  C crack    rel_f1_2 gap +0.0796  closed +0.18
+wrote /home/yugma/mtp/research/results/p8/fig_p8_bars.png
+
+bin-0 share (GT px scored < 0.001), test, mean over seeds:
+  p8_B_10pct       crack 0.397  inactive 0.632
+  p8_C_10pct       crack 0.400  inactive 0.627
+  p8_D_10pct       crack 0.419  inactive 0.758

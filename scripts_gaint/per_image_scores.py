@@ -36,6 +36,7 @@ def main():
     ap.add_argument("--runs", nargs="+", required=True)
     ap.add_argument("--splits", nargs="+", default=["test", "val"])
     ap.add_argument("--out", required=True)
+    ap.add_argument("--weights", default="auto", choices=["auto", "model"], help="auto: EMA teacher for mean_teacher (as the rescore); model: the student")
     a = ap.parse_args()
     dev = torch.device("cuda")
     res = {}
@@ -46,7 +47,7 @@ def main():
             cfg = load_config(ROOT / "experiments" / run / "config_used.yaml"); d = cfg["data"]
             ds = BenchmarkELDataset(IMG, MSK, stems, get_weak_augmentation(d.get("mean", [0.5]), d.get("std", [0.25]), d["input_size"]))
             st = torch.load(ROOT / "experiments" / run / "checkpoints" / "latest.pth", map_location=dev, weights_only=False)
-            key = "teacher" if cfg.get("method") == "mean_teacher" and "teacher" in st["models"] else "model"
+            key = "teacher" if a.weights == "auto" and cfg.get("method") == "mean_teacher" and "teacher" in st["models"] else "model"
             m = build_model(cfg["model"]).to(dev); m.load_state_dict(st["models"][key]); m.eval()
             out, i = {}, 0
             for b in DataLoader(ds, batch_size=8, shuffle=False, num_workers=2):
@@ -59,7 +60,7 @@ def main():
                         row += [int((p & t).sum()), int((p & ~t).sum()), int((~p & t).sum())]
                     out[stems[i]] = row; i += 1
             assert i == len(stems)
-            res[f"{split}/{run}"] = out
+            res[f"{split}/{run}" + ("" if key != "model" or cfg.get("method") != "mean_teacher" else "@student")] = out
             tot = np.array(list(out.values())).sum(0)
             print(f"{split} {run} {key} crack IoU {tot[0] / max(tot[:3].sum(), 1):.4f} inactive IoU {tot[3] / max(tot[3:].sum(), 1):.4f}", flush=True)
             del m; torch.cuda.empty_cache()
