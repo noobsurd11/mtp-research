@@ -1,6 +1,6 @@
 # Mid-term deck outline: training methodology (thesis part 1)
 
-Draft of 10 Oct 2026. There are 17 slides. Every number has a **Source** line. Placeholders `[PENDING P7]` and `[PENDING P8]` are filled once tonight's runs are scored (`scripts/p78_rules.py`). Scope: what existed, what we did, what we propose, further work. This is a mid-term, not the finished project.
+Draft of 10 Oct 2026. There are 17 slides. Every number has a **Source** line. Slide 14 is filled with P7/P8 (scored 10 Oct night); P9–P11 results land 11 Oct. Scope: what existed, what we did, what we propose, further work. This is a mid-term, not the finished project.
 
 ---
 
@@ -194,26 +194,46 @@ Draft of 10 Oct 2026. There are 17 slides. Every number has a **Source** line. P
 
 ---
 
-## 14. Experiment 2 results: `[PENDING P7]`, `[PENDING P8]`
-- **Table:** arms A / B / C / D (+ L3@100% for P8), test mean ± sd, primary metrics first. Output of `scripts/p78_rules.py p7|p8`.
-- **Figure (to make):** per-arm bars with seed dots for each primary metric, with D as the reference line, plus relaxed P@2.
-- **Fill with the matching outcome:**
-  - **C helps vs D and beats B** → "Offset-tolerant routing helps beyond a correct hard pseudo-label loss: +x on …, closing y% of the label gap (P8)." For P7, add "pilot, no headroom on this base".
-  - **C helps but does not beat B** → "A correct pseudo-label loss helps; tolerance is not separately supported."
-  - **B and C both not detectable vs D** → "No detectable SSL effect at 10% labels on this split." This is consistent with Torpey (U2PL < random) and UniMatch V2 (small gains with strong encoders). Next lever: labels, augmentation, pretraining.
-  - **C better on crack but relaxed P@2 down > 0.05** → "Gain may be fattening; not claimed."
-  - **C worse on a primary metric** (P8 rule 1 requires none worse) → report it as a negative result.
-- Also show the pseudo-label class shares from the trainer logs (`rare_frac`): how much rare-class signal C actually receives.
+## 14. Experiment 2 results: no detectable SSL gain at 10% labels, and why
+- **Table:** test, revised labels, mean ± sd over 3 seeds. Primary metrics in bold.
 
-**Speaker note:** Read the P7 rows as a pilot whatever they show. P8 carries the claim.
-**Source:** `protocols/P7_tolerant_pl_pilot.md` (rules 1–4); `protocols/P8_tolerant_pl_on_l3.md` (rules 1–4); `literature/notes/A02_torpey2024_pretraining.md`; `literature/notes/B05_core_ssl_baselines.md`.
+| P8 (L3 base, primary: IoU / relF1) | **crack IoU** | **inactive IoU** | **crack relF1@2** | crack AP |
+|---|---|---|---|---|
+| A: supervised L3 10% | 0.396±0.003 | 0.294±0.019 | 0.814±0.003 | 0.400 |
+| D: Mean Teacher, loss off | 0.383±0.003 | 0.194±0.034 | 0.796±0.008 | 0.402 |
+| B: hard PL (≥ 0.95) | 0.389±0.007 | 0.219±0.081 | 0.806±0.015 | 0.430 |
+| C: tolerant PL (ours) | 0.392±0.006 | 0.253±0.109 | 0.811±0.012 | 0.421 |
+| L3 100% labels | 0.471±0.001 | 0.429±0.011 | 0.876±0.003 | 0.593 |
+
+- **P8 locked verdict:**
+  - C − D is +0.009 / +0.059 / +0.015, and no primary passes the threshold. B − D: none passes. C does not beat B.
+  - Over test cells, C − D is small but consistent: crack +0.009, CI [+0.002, +0.015]; inactive +0.059, CI [+0.020, +0.109]. Over training seeds it is not separable: seed 0 collapses on inactive with and without the loss.
+- **P7 (L0 base, pilot because L0 has no label headroom):**
+  - C − D: crack AP +0.000, inactive AP −0.032 (worse).
+  - B − D: worse on both (−0.024 / −0.097).
+  - **C beats B** on both. On inactive IoU, +0.056, CI [+0.022, +0.086], robust to the choice of cells.
+- **Finding 1 (why hard PL hurts on L0):** pseudo-labels push real defect pixels to "certain background". Share of GT pixels scored < 0.001: D 6%/21% → C 9%/28% → B 13%/35% (crack/inactive). This is confirmation bias where the teacher misses a defect. Tolerant routing halves the damage.
+- **Finding 2 (an obstacle on L3):** the SSL pipeline with the loss *off* (D) is below plain supervised training (A): crack IoU −0.013, CI [−0.028, −0.001]; inactive −0.10.
+  - The cause is not the EMA teacher: the student scores the same.
+  - Candidates: the SSL labelled view (stronger jitter plus Gaussian noise), and BatchNorm over mixed batches.
+  - C only wins that back, ending where A is: crack IoU −0.004 vs A.
+- **Figure:** `results/p8/fig_p8_bars.png` (main); `results/p7/fig_p7_bars.png` (backup).
+- **Running now (results 11 Oct):** P9 is the 12k external unlabelled pool; P10 is 5% labels × both pools; P11 is a pipeline-matched control that removes the labelled-view difference. See slide 16.
+
+**Speaker note:**
+- The honest result is "no detectable SSL gain at 10% labels with 431 unlabelled cells".
+- Two things are learnt: (1) how to use pseudo-labels for rare classes (tolerant beats hard, robustly); (2) a concrete pipeline handicap that the literature's SSL gains may hide.
+- The locked rules made both visible.
+
+**Source:** `results/p7/README.md`; `results/p8/README.md` (rules, bootstrap, student-vs-teacher); `results/p7/p7_rules.txt`; `results/p8/p8_rules.txt`; `protocols/P9_external_pool.md`, `P10_ssl_5pct.md`, `P11_matched_pipeline.md`.
 
 ---
 
 ## 15. Research discipline (and one correction)
 - **Every confirmatory experiment's protocol is committed before running:**
   - P1/P2 `f9708c0`, P5 `fdc7198`, P4 `855b130`;
-  - P6 `db76a8c`, P7 `37985d6`, P8 `da3d941`.
+  - P6 `db76a8c`, P7 `37985d6`, P8 `da3d941`;
+  - P9 `be69ace`, P10 `9a85958` (amendment `bf745e0`, before its runs), P11 `38de062`.
 - Loss-off controls, 3 seeds, step-matched runs, final-step checkpoint, base selected on **val**, reported on **test**. Exploratory results are labelled as such (P3, P6 diagnostics).
 - Hypotheses refuted and reported: P2 (wasted-gradient), P1 H1 not met as written and H3 refuted, P5 rule 3 not met.
 - **Correction:** an interim P6 headroom of **+0.026** averaged per-split APs. The locked rule says pooled pixels, which gives **−0.001**, so P7 is a pilot. Earlier corrections are also on record (the Fioresi 57.3% mIoU claim).
@@ -243,9 +263,15 @@ Draft of 10 Oct 2026. There are 17 slides. Every number has a **Source** line. P
 ---
 
 ## 17. Timeline
-- **Done (to 10 Oct):** data and label analysis; P1–P5 probes; directions review (literature plus institutional PDFs); P6 corrected baseline (21 runs).
-- **Running (10 Oct, results tonight):** P7 pilot and P8, 9 runs each, on cv02.
-- **11 Oct:** apply locked rules; fill slides 14–15; prediction overlays (L0 / L1 / L3 / best SSL arm).
+- **Done (to 10 Oct):**
+  - data and label analysis; P1–P5 probes; directions review (literature plus institutional PDFs);
+  - P6 corrected baseline (21 runs);
+  - P7/P8 SSL at 10% labels (18 runs, scored).
+- **Overnight 10–11 Oct (cv02 8 GPUs + gaint):**
+  - P9, external pool (9 runs);
+  - P10, 5% labels × pool (15 runs, plus 6 supervised references on gaint);
+  - P11, pipeline-matched control (12 runs, starts as GPUs free).
+- **11 Oct:** apply the locked rules to P9–P11; fill slide 14's "running now" line; update the overlays with the best SSL arm.
 - **12–13 Oct:** deck and rehearsal. **Mid-term:** about 14 Oct (confirm the date).
 - **After mid-term:** in order, MIM rival → old→revised label experiment → UCF re-split → full routing method → parts 2–3.
 
