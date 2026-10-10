@@ -1,0 +1,26 @@
+sanity: max |AP(hist) - AP(rescore json)| over 42 run-splits x 2 classes = 0.00e+00
+
+Rule 3, literal (AP on pooled val+test pixels, mean of crack and inactive):
+  L0_10pct   0.5601 ± 0.0036  seeds [0.5592 0.5571 0.5641]
+  L0_100pct  0.5591 ± 0.0058  seeds [0.5623 0.5626 0.5524]
+  L3_10pct   0.3322 ± 0.0058  seeds [0.3388 0.3293 0.3284]
+  L3_100pct  0.4907 ± 0.0065  seeds [0.4842 0.4972 0.4907]
+  headroom L0 (selected base): -0.0010  (threshold 0.02)
+  headroom L3 (for reference only): +0.1585
+
+Score saturation on test (revised labels), mean over seeds:
+  arm        class     GT px in bin0 (p<0.001)  bg px in bin0  recall@p>=0.5  AP
+  L0_10pct   crack     0.032                    0.926          0.727          0.553
+  L0_10pct   inactive  0.191                    0.985          0.503          0.621
+  L1_10pct   crack     0.047                    0.955          0.711          0.574
+  L1_10pct   inactive  0.187                    0.991          0.549          0.649
+  L2_10pct   crack     0.187                    0.985          0.598          0.519
+  L2_10pct   inactive  0.406                    0.995          0.433          0.477
+  L3_10pct   crack     0.422                    0.997          0.506          0.400
+  L3_10pct   inactive  0.648                    0.999          0.313          0.302
+  L3_20pct   crack     0.412                    0.997          0.487          0.433
+  L3_20pct   inactive  0.591                    0.999          0.384          0.335
+  L0_100pct  crack     0.011                    0.840          0.697          0.545
+  L0_100pct  inactive  0.048                    0.928          0.611          0.612
+  L3_100pct  crack     0.196                    0.994          0.632          0.593
+  L3_100pct  inactive  0.399                    0.997          0.577          0.420
