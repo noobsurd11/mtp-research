@@ -131,7 +131,8 @@ Draft of 10 Oct 2026. There are 17 slides. Every number has a **Source** line. P
 - **L0 → L1 (label-safe augmentation) helps both classes:** crack AP **+0.020**, inactive AP **+0.028**. It passes the locked rule.
 - **L1 → L2 → L3 "hurts" AP** (crack −0.054, then −0.119), but at the argmax operating point crack IoU rises 0.368 → 0.392 → 0.396 and relaxed precision@2 rises 0.80 → 0.84 → 0.91.
 - **Why:** the ImageNet and Dice models score **42%** of GT crack pixels and **65%** of GT inactive pixels below 0.001 (L3 10%). L0 scores 3% and 19%. There they tie with ≥ 98.5% of the background, so AP cannot rank them.
-- **The inactive drop is real at every operating point:** IoU 0.473 → 0.383 → 0.294.
+- **The inactive drop shows at every operating point** (IoU 0.473 → 0.383 → 0.294), but it is carried by 3 test cells. Without them it is −0.005 and −0.019. Source: `results/p6/README.md`, exploratory 5.
+- **Crack effects survive resampling the test cells:** label-safe crack IoU +0.048, 95% image-bootstrap CI [+0.003, +0.097].
 
 **Figure:** `results/p6/fig_saturation.png`.
 **Speaker note:** The metric choice drives the conclusion here. That is why P8 fixes IoU and relaxed F1 as primary before running.
@@ -143,7 +144,8 @@ Draft of 10 Oct 2026. There are 17 slides. Every number has a **Source** line. P
 - **L0, 10% → 100% labels:** pooled AP **−0.001**; inactive IoU *falls* **0.439 → 0.391**.
 - **L3, 10% → 100%:** pooled AP **+0.159**, crack IoU **+0.075**, inactive IoU **+0.135**.
 - L3 100% is the best crack model: IoU **0.471**, relaxed F1@2 **0.876**.
-- **Puzzle:** the best inactive IoU at any budget is L1 at 10% (**0.473**), above L3 at 100% (**0.429**). Unexplained.
+- **Apparent puzzle, resolved:** L1 at 10% has a higher inactive IoU (0.473) than L3 at 100% (0.429). Without the top 3 inactive cells the order flips (L3 100% ahead by **+0.088**), so this is not a finding.
+- **What survives resampling the cells:** L3's gain from more labels, crack IoU **+0.075** [+0.029, +0.128] and inactive IoU **+0.135** [+0.049, +0.205]. Source: `results/p6/README.md`, exploratory 5.
 - **Inactive pixels sit in a few cells** (Source: `results/p6/README.md`, exploratory 4):
   - test: 16 of 50 cells have any; the top 3 hold **59%**; one cell (BMRK_00073) holds **23%**;
   - val: 6 of 54 cells have any; the top 3 hold **89%**;
@@ -231,7 +233,7 @@ Draft of 10 Oct 2026. There are 17 slides. Every number has a **Source** line. P
   - train on old labels, test on revised (noise-aware loss);
   - UCF-EL physical-module-disjoint re-split. 25–44% of UCF test cells have the same cell in train, and UCF's label gap is 0.54 → 0.23 from 100% to 1%;
   - ≥ 2 labelled splits.
-- **Open puzzle:** inactive IoU falls with more labels for L0 and is best for L1 at 10%. Needs a per-image check.
+- **Evaluation for the inactive class:** 16 of 50 test cells and 6 of 54 val cells carry inactive pixels. Inactive needs more cells before any per-recipe claim: a larger test pool, e.g. E-SCDD's other images, or cross-validated splits.
 - **Part 2, architecture:** a ≈5M-parameter CNN student; large models only as teachers. Per P4, a CNN teacher for cracks and DINO-type features for region classes only.
 - **Part 3, deployment and severity:** about 0.2 s per cell; severity from inactive area; reward crack connectivity.
 

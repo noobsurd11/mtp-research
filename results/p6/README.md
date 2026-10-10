@@ -88,7 +88,7 @@ P7 therefore runs on L0's model and loss (`unetpp`, weighted CE) with P7's fixed
 - L0 does not convert extra labels into better test scores at all. L3 does.
 - SSL can only close a gap that exists, so L3 is the base where Experiment 2 has room. That motivates P8.
 
-**3. Inactive class: the best inactive IoU at any label budget is L1 at 10% (0.473).**
+**3. Inactive class: the best inactive IoU at any label budget is L1 at 10% (0.473).** *Resolved by point 5: it is driven by 3 cells.*
 - It beats L3 at 100% (0.429).
 - L0's inactive IoU falls with more labels (0.439 → 0.391).
 - Unexplained. Candidates:
@@ -108,6 +108,31 @@ P7 therefore runs on L0's model and loss (`unetpp`, weighted CE) with P7's fixed
   - the large inactive sds (L1 val inactive AP 0.349 ± 0.159);
   - the "inactive puzzle" in point 3.
 - `fig_overlays.png`, row 3: the top test cell has two large dark side strips labelled inactive, which every model largely misses.
+
+**5. Which differences survive a change of test cells** (image bootstrap; `per_image_test.txt`, `per_image_val.txt`).
+Method:
+- Per-image argmax counts come from `scripts_gaint/per_image_scores.py`; summed, they reproduce the rescore IoU exactly.
+- `scripts/per_image_analysis.py` resamples the 50 test cells with replacement (2,000 times, paired across arms and seeds) and also drops the 3 cells with the most GT area of the class.
+
+| Comparison (test IoU) | Δ, all cells | Δ without top-3 cells | 95% image-bootstrap CI |
+|---|---|---|---|
+| L1 − L0, crack | +0.048 | +0.052 | [+0.003, +0.097] |
+| L1 − L0, inactive | +0.034 | **−0.078** | [−0.082, +0.136] |
+| L2 − L1, inactive | −0.089 | −0.005 | [−0.152, +0.002] |
+| L3 − L2, inactive | −0.089 | −0.019 | [−0.158, +0.006] |
+| L3 100% − L3 10%, crack | +0.075 | +0.124 | [+0.029, +0.128] |
+| L3 100% − L3 10%, inactive | +0.135 | +0.112 | [+0.049, +0.205] |
+| L3 100% − L1 10%, crack | +0.103 | +0.105 | [+0.074, +0.129] |
+| L3 100% − L1 10%, inactive | −0.044 | **+0.088** | [−0.125, +0.106] |
+
+Reading:
+- **Crack differences are robust to the cell sample.** That covers the label-safe gain, L3's label scaling, and L3 100% over L1.
+- **Most inactive differences are decided by about 3 cells.** These include:
+  - the inactive gain from label-safe augmentation;
+  - the inactive drops at L2 and L3;
+  - the "inactive puzzle" from point 3, which flips sign without the top-3 cells and is therefore not a finding.
+- L3's inactive gain from more labels holds on test without the top 3 (+0.112). On val, without its top 3 cells, it is +0.000. Val has only 6 inactive cells, so val inactive cannot settle anything.
+- The seed-based locked rule (rule 1) stands as defined, but its inactive verdicts measure training noise on a fixed set of cells, not generalisation. For P7/P8, report inactive results with this check.
 
 ## Figures
 - `fig_ladder.png`: AP vs IoU along the ladder at 10% labels.
