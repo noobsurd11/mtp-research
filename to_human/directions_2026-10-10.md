@@ -22,9 +22,10 @@ Tags: **measured**, **lit** (a paper says so), **inferred**.
 3. **The gap is still open but narrower.**
    - No paper combines ALHVR-style region routing with class-rarity handling (checked against 2025–26 work incl. DCF MedIA 2026, CaPro PR 2026, DCA CVPR 2026). **lit**
    - DCF is now the routing baseline a reviewer will ask for.
-4. **Don't build on pseudo-labels for 2 px cracks without first checking their precision in the uncertain region (Ω3).** Measured so far:
-   - crack is 0.024% of confident pseudo-labels;
-   - the teacher is right on about 62% of crack pixels in Ω3.
+4. **P5 (measured today, locked protocol): crack pseudo-labels in ALHVR's uncertain region Ω3 point at the right crack but miss the pixels.**
+   - Ω3 holds 72% of GT crack. Strict precision is 0.27, but 0.64 within 2 px.
+   - Per-class thresholds pull 40 points of crack out of Ω3, but only by lowering precision.
+   - So **hard pseudo-labels fail for rare thin classes, while offset-tolerant targets would keep most of the signal.** That is the concrete hook for the method (§5).
 5. **Deployment isn't the binding constraint, but it shapes the design.**
    - About 0.2 s per cell is available. **lit**
    - Severity depends on the **isolated (inactive) area**, not crack pixels. **lit**
@@ -65,7 +66,7 @@ Tags: **measured**, **lit** (a paper says so), **inferred**.
 |---|---|---|---|---|---|---|---|
 | 0 | **Fix the ground:** revised labels; label-preserving augmentation (flips/90°, no blur on labels); module-disjoint UCF split; metric suite | P1: augmentation alone takes crack AP from 0.93 to 0.59; P3 above | prerequisite for every row below | 1–2 days, mostly CPU | none | supervised {current aug, label-preserving} × {wCE, CE+Dice} on revised labels, held-out. **Pick the base recipe** | **do first** |
 | 1 | **Tolerance / noise-aware supervision for thin labels:**<br>• shift-tolerant CE (Mnih & Hinton 2012 registration noise);<br>• band/soft targets (SVLS, centerline distance);<br>• STEAL-style re-alignment | lit: Mnih 2012, STEAL (+18.6 AP). Skeleton Recall shows no significant gain on concrete cracks and more false positives (2025 study) | jitter ±1 px, 48% within 1 px; dotted labels; 3.4 µm physical width | hours per arm | rewards fat predictions; always report relaxed precision and AP | train on **old** labels, test on **revised**: noise-aware loss vs CE+Dice. Pass if it recovers ≥50% of the old→revised training gap | **strong, novel on EL** |
-| 2 | **ALHVR-inspired, rarity-aware routing** (core of the user's goal):<br>• per-class thresholds γ_c for the Ω regions;<br>• rare classes in Ω3 get labelled-anchored targets (BUR direction) or tolerance-aware consistency instead of hard pseudo-labels;<br>• one-vs-rest specialist heads for crack/inactive pseudo-labels (CGS/DCA, dropped at inference) | ALHVR Table 1; DCA: tail organs 0 → 39–48 Dice; DHC; CSL. No method combines routing with rarity (checked to 2026) | Ω3 holds 71% of crack; teacher right about 62% there; UCF interconnect/corrosion carry 64–78% of the label gap | about 18 runs (two networks) on gaint + cv02 | pseudo-labels in Ω3 may be too wrong for any routing to save | **offline, no training:** per-class pseudo-label precision/recall in each Ω region on existing ALHVR/MT checkpoints, global vs per-class γ_c. If rare-class precision in Ω3 < 0.5, don't pseudo-label rare classes there (switch to anchoring/consistency) | **main method candidate** |
+| 2 | **ALHVR-inspired, rarity-aware routing** (core of the user's goal):<br>• per-class thresholds γ_c for the Ω regions;<br>• rare classes in Ω3 get labelled-anchored targets (BUR direction) or tolerance-aware consistency instead of hard pseudo-labels;<br>• one-vs-rest specialist heads for crack/inactive pseudo-labels (CGS/DCA, dropped at inference) | ALHVR Table 1; DCA: tail organs 0 → 39–48 Dice; DHC; CSL. No method combines routing with rarity (checked to 2026) | Ω3 holds 71% of crack; teacher right about 62% there; UCF interconnect/corrosion carry 64–78% of the label gap | about 18 runs (two networks) on gaint + cv02 | pseudo-labels in Ω3 may be too wrong for any routing to save | **Done (P5):**<br>• crack Ω3: strict P 0.27 / 2 px 0.64 (global γ);<br>• under per-class γ_c: 2 px P 0.48, recall 0.29;<br>• inactive Ω3 strict P 0.43.<br>Rules fire: no hard pseudo-labels for rare classes in Ω3; per-class γ alone doesn't help | **main method candidate, but only with tolerance-aware targets** |
 | 3 | **Unlabelled data without pseudo-labels:** MIM pretraining (SparK on our U-Net++ encoder, or ConvNeXt V2-Atto FCMAE, 3.7M params) on CSIR/ARTS + UCF-normal + PVEL-AD cells | AOI-SSL: MAE best in a 7k industrial set; VasoMIM: +18 Dice at 25% labels on vessels; Torpey: contrastive in-domain *lost* on EL | no pseudo-labels, deployable as is; untested on EL at low labels | 1–2 GPU-days | half-contrast pool; reconstruction targets may skip cracks | linear probes on frozen features (random / ImageNet / DINOv2-v3 / ConvNeXt) for crack and inactive AP, under 1 GPU-hour; then SparK vs ImageNet init at UCF 1–5% and BenchmarkEL 10% | **must-run rival / baseline** |
 | 4 | **Weak and mixed supervision:**<br>• ELPV image labels (same cells as BMRK);<br>• PVEL-AD boxes (36.5k);<br>• module-level labels (Kang 2024, Gil 2025) | Božič 2021: 5 masks + weak labels reach AP 92 (image-level); Boxes2Pixels +7 mIoU | inactive/region classes yes; thin diagonal cracks fill boxes badly | 1–2 days | domain shift (PVEL-AD is NIR, mostly poly) | crack/inactive AP at 5% masks ± ELPV image-level auxiliary loss | medium |
 | 5 | **Cross-dataset transfer and generalisation:** BenchmarkEL ↔ UCF-EL encoder transfer; held-out source (PV-Vision, Lin's 438 masks) as an out-of-distribution test | no EL paper does it | WattCycle data will be another source | about 1 day | class definitions differ (UCF crack = region) | encoder-only transfer vs ImageNet at UCF 5% (re-split) | medium, cheap; good for a chapter |
@@ -83,10 +84,14 @@ Tags: **measured**, **lit** (a paper says so), **inferred**.
   - metric ceilings;
   - leaky splits;
   - what earlier SSL claims really tested.
-- **Ch.2, method:**
-  - ALHVR-style routing with per-class thresholds;
-  - rare classes in uncertain regions get tolerance-aware or labelled-anchored targets, not hard pseudo-labels;
-  - a shift-tolerant supervised term (rows 1 + 2).
+- **Ch.2, method:** *one tolerance mechanism for both kinds of noisy target* (rows 1 + 2).
+  - Human crack labels are jittered ±1–2 px, and teacher pseudo-labels are off by 1–2 px (P5). So use one offset-tolerant loss for both:
+    - crack target credited if the prediction lies within r px (max-pool or soft-band on the prediction side);
+    - a relaxed-precision guard against fattening.
+  - ALHVR-style routing decides **per class** where each target applies:
+    - head classes: plain pseudo-labels in confident regions;
+    - rare thin classes: tolerant consistency in Ω2/Ω3, anchored to labelled data (BUR direction) where the teacher is unsure.
+  - Novel on three counts: rare-class routing (no 2026 work), tolerance-aware unlabelled loss (none multi-class or offset-tolerant), and EL.
 - **Baselines:**
   - supervised with the fixed recipe;
   - MT/FixMatch with correct CE;
@@ -96,17 +101,17 @@ Tags: **measured**, **lit** (a paper says so), **inferred**.
 
 **Fallback, if row 2's offline check fails:** rows 1 + 3, i.e. noise-aware supervision plus MIM pretraining, with the diagnosis. That is still a complete, publishable story.
 
-## 6. Next steps, in order (none started; each needs your go)
+## 6. Next steps, in order (each needs your go)
 
-1. **Row 0, ground** (protocol locked first):
+1. ~~Row 2 offline check~~: **done (P5)**, see above.
+2. ~~Row 3 probe~~: **P4 running** (frozen-feature linear probes); result appended below when done.
+3. **Row 0, ground** (protocol locked first):
    - adopt revised labels;
    - UCF module-disjoint re-split;
    - metric suite;
    - supervised recipe sweep.
-2. **Row 2, offline** Ω-region per-class pseudo-label precision on existing checkpoints (no training, about 1 h).
-3. **Row 3 probe:** frozen-feature linear probes (under 1 GPU-hour).
-4. **Row 1 experiment:** train on old labels, evaluate on revised.
-5. Then design the method from what 2–4 show.
+4. **Row 1 experiment:** train on old labels, evaluate on revised; offset-tolerant loss vs CE+Dice.
+5. **Pilot of the §5 method** on BenchmarkEL revised (inactive and crack) and UCF re-split 5%, against loss-off, ALHVR, BUR and DCF.
 
 ## 7. Caveats
 
