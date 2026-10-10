@@ -52,3 +52,7 @@ As P8:
 - Tuning of R, t_pos or λ.
 - Results beyond this split and dataset.
 - Any A5-against-cv02 comparison beyond a descriptive label curve: A5 runs on different hardware.
+
+## Amendment, 10 Oct ~23:10 IST, before any B5 run (no P10 results seen)
+- **New arm B5:** `confidence_ce`, t_pos 0.95, in-domain pool, seeds 0–2, cv02. It fills the third slot on GPUs 0–2.
+- **Rule:** C5 beats B5 is tested with the rule-1 test applied to C5 − B5. If C5 helps but does not beat B5, the claim is "pseudo-labels help at 5%", not "tolerance helps".
