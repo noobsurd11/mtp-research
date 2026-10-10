@@ -16,6 +16,7 @@ ap.add_argument("--check", default=None, help="dir of re-score JSONs to verify s
 ap.add_argument("--pairs", nargs="+", required=True, help="exp:arm=exp:arm (B minus A is reported)")
 ap.add_argument("--split", default="test")
 ap.add_argument("--B", type=int, default=2000)
+ap.add_argument("--keep", default=None, help="regex: only test cells whose stem matches (e.g. ^(CSIR|ARTS)_ for the P9 source split)")
 a = ap.parse_args()
 
 P = {}
@@ -42,6 +43,8 @@ if a.check:
     print(f"sanity: max |summed per-image IoU - re-score IoU| = {worst:.2e}")
 
 stems = sorted(next(iter(next(iter(arms.values())).values())))
+if a.keep:
+    stems = [st for st in stems if re.match(a.keep, st)]
 C = {k: np.array([[arms[k][s][st] for st in stems] for s in sorted(arms[k])], float) for k in arms}  # seeds x imgs x 6
 gt = {0: C[next(iter(C))][0][:, [0, 2]].sum(1), 3: C[next(iter(C))][0][:, [3, 5]].sum(1)}  # tp+fn = GT px per image
 top3 = {i: set(np.argsort(-gt[i])[:3]) for i in gt}
