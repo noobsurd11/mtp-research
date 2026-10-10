@@ -16,7 +16,7 @@ for f in sorted(glob.glob(os.path.join(d, f"{exp}_*.json"))) + sorted(glob.glob(
         split, run = key.split("/", 1)
         if split != "test":
             continue
-        pre, arm, s = re.match(r"^(p\d)_(.+)_s(\d+)$", run).groups()
+        pre, arm, s = re.match(r"^(p\d+)_(.+)_s(\d+)$", run).groups()
         R.setdefault(f"{pre}:{arm}", {})[int(s)] = v["new_escdd"]
 base = "L0" if exp == "p7" else "L3"
 arms = [(f"p6:{base}_10pct", f"A: supervised\n({base}, 10%)"), (f"{exp}:D_10pct", "D: MT, loss off"),
@@ -44,6 +44,6 @@ print("wrote", out)
 if hist:
     H = dict(np.load(hist))
     print("\nbin-0 share (GT px scored < 0.001), test, mean over seeds:")
-    for k in sorted({re.match(r"^test/(p\d_.+)_s\d+$", x).group(1) for x in H if x.startswith("test/")}):
+    for k in sorted({re.match(r"^test/(p\d+_.+)_s\d+$", x).group(1) for x in H if x.startswith("test/")}):
         v = [[H[x][ci, 0, 0] / H[x][ci, 0].sum() for ci in (0, 1)] for x in H if re.match(rf"^test/{k}_s\d+$", x)]
         print(f"  {k:16s} crack {np.mean(v, 0)[0]:.3f}  inactive {np.mean(v, 0)[1]:.3f}")

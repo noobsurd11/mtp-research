@@ -26,7 +26,7 @@ for key, v in P.items():
     split, run = key.split("/", 1)
     if split != a.split:
         continue
-    exp, arm, s = re.match(r"^(p\d)_(.+)_s(\d+)$", run).groups()
+    exp, arm, s = re.match(r"^(p\d+)_(.+)_s(\d+)$", run).groups()
     arms.setdefault(f"{exp}:{arm}", {})[int(s)] = v
 
 if a.check:

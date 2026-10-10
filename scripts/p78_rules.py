@@ -11,7 +11,7 @@ R = {}  # arm -> seed -> split -> label -> class -> metrics
 for f in sorted(glob.glob(os.path.join(d, f"{exp}_*.json"))) + sorted(glob.glob(os.path.join(p6, "p6_*.json"))):
     for key, v in json.load(open(f)).items():
         split, run = key.split("/", 1)
-        pre, arm, seed = re.match(r"^(p\d)_(.+)_s(\d+)$", run).groups()
+        pre, arm, seed = re.match(r"^(p\d+)_(.+)_s(\d+)$", run).groups()
         arm = arm if pre == exp else f"P6:{arm}"
         R.setdefault(arm, {}).setdefault(int(seed), {})[split] = {"rev": v["new_escdd"], "old": v["old_20211104"], "w": v["weights"], "step": v["step"]}
 
