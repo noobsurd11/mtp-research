@@ -219,14 +219,29 @@ Draft of 10 Oct 2026. There are 17 slides. Every number has a **Source** line. S
   - Candidates: the SSL labelled view (stronger jitter plus Gaussian noise), and BatchNorm over mixed batches.
   - C only wins that back, ending where A is: crack IoU −0.004 vs A.
 - **Figure:** `results/p8/fig_p8_bars.png` (main); `results/p7/fig_p7_bars.png` (backup).
-- **Running now (results 11 Oct):** P9 is the 12k external unlabelled pool; P10 is 5% labels × both pools; P11 is a pipeline-matched control that removes the labelled-view difference; P12 is that matched pipeline at 5% labels, with a cv02 supervised 5% reference and a gaint replication on fresh seeds. See slide 16.
+- **P9, 12k external pool (10% labels), scored 11 Oct:**
+  - tolerant PL − its loss-off control passes the locked rule on inactive IoU (+0.056, threshold 0.046); crack shows no difference;
+  - same effect size as P8, now with less seed noise;
+  - not robust to the choice of cells: +0.026 without the top-3 cells, CI [−0.013, +0.117];
+  - tolerant does not beat hard PL; the 28× larger pool does not amplify the effect.
+- **P10, 5% labels (23 cells), scored 11 Oct:** no loss passes.
+  - In-domain: seed 2 collapses under **both** hard and tolerant PL (crack ≈ 0.13, inactive ≈ 0). Its rare-class pseudo-label share stays about 5× lower from step 4,000, so the collapse is visible in training logs.
+  - The two healthy seeds lift the control about +0.06 crack and +0.12 inactive (post hoc).
+  - External pool: tolerant PL loses crack (−0.012, CI [−0.026, −0.001]) with wider predictions, concentrated on the pool's own sources (CSIR+ARTS −0.065).
+  - The pipeline handicap grows to D5 − A5 = −0.055 crack IoU.
+  - Swapping only the unlabelled pool with the loss off moves the control (P9 inactive +0.094; P10 crack +0.032). So batch mixing is part of the handicap.
+- **Running now:**
+  - P11: matched labelled view at 10%;
+  - P12: matched view at 5%, with a cv02 supervised 5% reference and a gaint replication on fresh seeds.
+  - First gaint replication seed (tolerant vs loss-off control, 5%, seed 3): crack 0.337 vs 0.270, inactive 0.400 vs 0.249. **One seed; not a result.**
+- **Figures:** `results/p9/fig_p9_bars.png`, `results/p10/fig_p10_bars.png` (backup slides).
 
 **Speaker note:**
 - The honest result is "no detectable SSL gain at 10% labels with 431 unlabelled cells".
 - Two things are learnt: (1) how to use pseudo-labels for rare classes (tolerant beats hard, robustly); (2) a concrete pipeline handicap that the literature's SSL gains may hide.
 - The locked rules made both visible.
 
-**Source:** `results/p7/README.md`; `results/p8/README.md` (rules, bootstrap, student-vs-teacher); `results/p7/p7_rules.txt`; `results/p8/p8_rules.txt`; `protocols/P9_external_pool.md`, `P10_ssl_5pct.md`, `P11_matched_pipeline.md`, `P12_matched_5pct.md`.
+**Source:** `results/p7/README.md`; `results/p8/README.md` (rules, bootstrap, student-vs-teacher); `results/p9/README.md`; `results/p10/README.md`; `results/p7/p7_rules.txt`; `results/p8/p8_rules.txt`; `protocols/P9_external_pool.md`, `P10_ssl_5pct.md`, `P11_matched_pipeline.md`, `P12_matched_5pct.md`.
 
 ---
 
@@ -254,6 +269,8 @@ Draft of 10 Oct 2026. There are 17 slides. Every number has a **Source** line. S
   - train on old labels, test on revised (noise-aware loss);
   - UCF-EL physical-module-disjoint re-split. 25–44% of UCF test cells have the same cell in train, and UCF's label gap is 0.54 → 0.23 from 100% to 1%;
   - ≥ 2 labelled splits.
+- **Collapse safeguard (from P10):** rare-class pseudo-label share is a training-time collapse signal. Candidates: per-class quotas or adaptive thresholds that keep it from vanishing, and per-class logging, since the aggregate missed P8's inactive-only collapse.
+- **Unlabelled-pool hygiene (from P9/P10):** the external CSIR/ARTS pool hurts crack on same-source benchmark cells. Check capture and preprocessing match before adding a pool.
 - **Evaluation for the inactive class:** 16 of 50 test cells and 6 of 54 val cells carry inactive pixels. Inactive needs more cells before any per-recipe claim: a larger test pool, e.g. E-SCDD's other images, or cross-validated splits.
 - **Part 2, architecture:** a ≈5M-parameter CNN student; large models only as teachers. Per P4, a CNN teacher for cracks and DINO-type features for region classes only.
 - **Part 3, deployment and severity:** about 0.2 s per cell; severity from inactive area; reward crack connectivity.
