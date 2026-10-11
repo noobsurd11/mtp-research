@@ -25,6 +25,23 @@ Tags: **measured**, **lit** (a paper says so), **inferred**.
   - (a) a careful negative result with diagnostics (pseudo-label confirmation bias for rare thin classes; pipeline handicaps);
   - (b) the no-pseudo-label rival (MIM pretraining, §4), moved up.
 
+### 0.1 Update, morning of 11 Oct (P9, P10 measured; P11, P12 running)
+- **P9, pool size:** a 28× larger pool does not amplify the loss effect.
+  - Tolerant PL passes its locked rule on inactive (+0.056) only because seed noise dropped. The effect is the same size as P8.
+  - It is not robust over test cells (CI covers 0). **measured** (`results/p9/README.md`)
+- **P10, label budget (5%):** no loss passes. The expected "more gain with fewer labels" did not appear on the P8-style pipeline. **measured** (`results/p10/README.md`)
+  - **Two concrete failure modes, both new:**
+    - (i) **Collapse.** One seed collapses under hard *and* tolerant PL. It shows in training as a rare-class pseudo-label share about 5× lower.
+    - (ii) **Pool mismatch.** The external pool's crack pseudo-labels hurt crack on the same sources' benchmark cells (−0.065 on CSIR+ARTS).
+  - When PL does not collapse, it lifts the control by about +0.06 crack and +0.12 inactive (post hoc, 2 seeds).
+- **Pipeline handicap:**
+  - It grows as labels shrink: D − A is −0.013 crack IoU at 10% and −0.055 at 5%.
+  - Swapping only the unlabelled pool with the loss off moves the control, so batch mixing is part of it.
+  - P11 (10%) and P12 (5%) test the matched labelled view, with a hardware-matched supervised reference. Results are due about 14:00–17:00 IST on 11 Oct.
+- **Effect on §1.2:**
+  - SSL is still not shown to beat supervised training.
+  - The contribution increasingly looks like (a) a diagnosed account of *why* SSL fails for rare thin classes: collapse, confirmation bias, pipeline and pool effects; plus (b) a fix aimed at collapse (rare-class quotas or thresholds). §4's MIM rival stays first in further work.
+
 ---
 
 ## 1. Bottom line
