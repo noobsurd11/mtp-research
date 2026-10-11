@@ -5,7 +5,7 @@ Protocol: `protocols/P12_matched_5pct.md`, locked before any run.
 **Runs**
 - cv02 (RTX A6000): 15 runs, 11 Oct 06:30–16:09 IST. gaint (RTX PRO 4500): 6 SSL runs, 03:57–15:21 IST. Every run has rc = 0. All are 20,000 steps; the EMA teacher is evaluated.
 - Code: commit `24590fb`, with `ssl.labeled_aug=supervised` (P11's matched view).
-- gA10 (rule 7, gaint calibration) is still training; it is added when it finishes.
+- gaint gA10 (rule 7, calibration): 3 runs, finished 11 Oct 17:59 IST, rc = 0.
 
 **Files**
 - `raw/`: re-score JSONs, `launch.log`, `launch_gaint.log`.
@@ -29,6 +29,7 @@ Test, revised labels, mean ± sd over seeds (cv02 0–2; gaint SSL 3–5; gaint 
 | A5 (P10) | gaint | – | 0.298±0.005 | 0.277±0.055 | 0.708±0.012 | 0.890±0.014 | 0.282±0.003 | 0.270±0.050 |
 | gDm5 | gaint | 455 | 0.280±0.009 | 0.269±0.030 | 0.688±0.017 | 0.906±0.011 | 0.270±0.008 | 0.261±0.028 |
 | **gCm5** | gaint | 455 | **0.327±0.009** | 0.345±0.091 | **0.766±0.011** | 0.888±0.008 | 0.352±0.009 | 0.400±0.048 |
+| gA10: supervised 10% | gaint | – | 0.400±0.007 | 0.351±0.046 | 0.820±0.010 | 0.903±0.010 | 0.407±0.003 | 0.359±0.038 |
 | L3 10% (P6) | cv02 | – | 0.396±0.003 | 0.294±0.019 | 0.814±0.003 | 0.910±0.006 | 0.400±0.004 | 0.302±0.018 |
 | L3 100% (P6) | cv02 | – | 0.471±0.001 | 0.429±0.011 | 0.876±0.003 | 0.939±0.003 | 0.593±0.003 | 0.420±0.018 |
 
@@ -45,7 +46,7 @@ Each cell shows the difference, then the threshold in brackets.
 | Cmx5 − A5c (rule 3) | −0.010 (0.018) | −0.015 (0.051) | −0.008 (0.034) | fails |
 | gCm5 − gDm5 (rule 6) | **+0.047 (0.015)** | +0.077 (0.111) | **+0.078 (0.024)** | **replicates** rule 2 (same sign, ≥ half the size on both passing metrics) |
 | gCm5 − A5 gaint (rule 6) | +0.029 (0.012) | +0.068 (0.123) | +0.058 (0.019) | passes the arithmetic; **cannot rescue** the failed cv02 rule 3 |
-| gA10 − L3 10% (rule 7) | pending | | | gA10 still training on gaint |
+| gA10 − L3 10% (rule 7, calibration) | +0.004 (0.010) | +0.056 (0.057) | +0.006 (0.012) | n.d.: gaint and cv02 supervised agree on crack within 0.006; inactive differs by seed-noise size |
 
 - **Width check (rule 4, against the matching Dm arm):** relP@2 drops by 0.031 (Cm5) and 0.044 (Cmx5). Neither exceeds 0.05. Against A5c, Cmx5 drops by 0.056; the script flags this, but the protocol's check is against Dm.
 - **Gap closed** by Cm5 (vs L3@100% − A5c): crack IoU 3%, inactive IoU 2%, crack relF1@2 10%.

@@ -10,7 +10,7 @@
 | p12:gDm_5pct | [3, 4, 5] | 0.280±0.009 | 0.269±0.030 | 0.688±0.017 | 0.906±0.011 | 0.270±0.008 | 0.261±0.028 | 0.257±0.005 | 0.116±0.061 |
 | p12:gCm_5pct | [3, 4, 5] | 0.327±0.009 | 0.345±0.091 | 0.766±0.011 | 0.888±0.008 | 0.352±0.009 | 0.400±0.048 | 0.286±0.008 | 0.177±0.170 |
 | p6:L3_10pct | [0, 1, 2] | 0.396±0.003 | 0.294±0.019 | 0.814±0.003 | 0.910±0.006 | 0.400±0.004 | 0.302±0.018 | 0.318±0.010 | 0.300±0.044 |
-| p12:gA_10pct | missing |
+| p12:gA_10pct | [0, 1, 2] | 0.400±0.007 | 0.351±0.046 | 0.820±0.010 | 0.903±0.010 | 0.407±0.003 | 0.359±0.038 | 0.316±0.008 | 0.323±0.008 |
 | p6:L3_100pct | [0, 1, 2] | 0.471±0.001 | 0.429±0.011 | 0.876±0.003 | 0.939±0.003 | 0.593±0.003 | 0.420±0.018 | 0.423±0.003 | 0.397±0.023 |
 
 p12:Dm_5pct vs p12:A_5pct (test, revised; primary ['crack:iou', 'inactive:iou', 'crack:rel_f1_2']; seeds [0, 1, 2] / [0, 1, 2])
@@ -93,7 +93,15 @@ p12:gCm_5pct vs p10:A_5pct (test, revised; primary ['crack:iou', 'inactive:iou',
   gap closed inactive iou     : gap +0.1516, closed +0.45
   gap closed crack    rel_f1_2: gap +0.1675, closed +0.34
 
-p12:gA_10pct vs p6:L3_10pct: missing
+p12:gA_10pct vs p6:L3_10pct (test, revised; primary ['crack:iou', 'inactive:iou', 'crack:rel_f1_2']; seeds [0, 1, 2] / [0, 1, 2])
+  crack    iou      +0.0044  thr 0.0100  n.d.
+  inactive iou      +0.0564  thr 0.0571  n.d.
+  crack    rel_f1_2 +0.0059  thr 0.0116  n.d.
+  => p12:gA_10pct better than p6:L3_10pct under rule 1: False
+  width check: crack relP@2 -0.0070 -> ok
+  gap closed crack    iou     : gap +0.0752, closed +0.06
+  gap closed inactive iou     : gap +0.1346, closed +0.42
+  gap closed crack    rel_f1_2: gap +0.0614, closed +0.10
 
 Interaction (p12:Cm_5pct - p12:Dm_5pct) - (p11:Cm_10pct - p11:Dm_10pct), test (secondary, descriptive):
   crack    iou      +0.0226 vs +0.0090 -> +0.0136
@@ -104,11 +112,3 @@ Interaction (p12:Cmx_5pct - p12:Dmx_5pct) - (p11:Cmx_10pct - p11:Dmx_10pct), tes
   crack    iou      -0.0096 vs +0.0020 -> -0.0115
   inactive iou      -0.0130 vs +0.0544 -> -0.0675
   crack    rel_f1_2 -0.0132 vs +0.0042 -> -0.0174
-wrote /home/yugma/mtp/research/results/p12/fig_p12_bars.png
-
-bin-0 share (GT px scored < 0.001), test, mean over seeds (/home/yugma/mtp/research/results/p12/hist_revised.npz):
-  p12_A_5pct         crack 0.567  inactive 0.661
-  p12_Cm_5pct        crack 0.491  inactive 0.534
-  p12_Cmx_5pct       crack 0.546  inactive 0.498
-  p12_Dm_5pct        crack 0.588  inactive 0.686
-  p12_Dmx_5pct       crack 0.561  inactive 0.651
