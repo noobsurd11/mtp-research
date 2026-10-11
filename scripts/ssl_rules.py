@@ -18,6 +18,7 @@ ap.add_argument("--arms", nargs="+", required=True)
 ap.add_argument("--pairs", nargs="*", default=[])
 ap.add_argument("--ref", default=None)
 ap.add_argument("--interact", nargs="*", default=[])
+ap.add_argument("--merge", nargs="*", default=[], help="NEW=ARM1+ARM2: pool the seeds of two arms (seed sets must be disjoint)")
 ap.add_argument("--prim", nargs="+", default=["crack:iou", "inactive:iou", "crack:rel_f1_2"])
 a = ap.parse_args()
 
@@ -29,6 +30,15 @@ for d in a.dirs:
             m = re.match(r"^(p\d+)_(.+)_s(\d+)$", run)
             if m:
                 R.setdefault(f"{m.group(1)}:{m.group(2)}", {}).setdefault(int(m.group(3)), {})[split] = v["new_escdd"]
+
+for mg in a.merge:
+    new, parts = mg.split("=")
+    pooled = {}
+    for part in parts.split("+"):
+        if set(pooled) & set(R.get(part, {})):
+            raise SystemExit(f"--merge {mg}: overlapping seeds")
+        pooled.update(R.get(part, {}))
+    R[new] = pooled
 
 
 def x(arm, c, m, split="test"):

@@ -16,6 +16,7 @@ ap.add_argument("--check", default=None, help="dir of re-score JSONs to verify s
 ap.add_argument("--pairs", nargs="+", required=True, help="exp:arm=exp:arm (B minus A is reported)")
 ap.add_argument("--split", default="test")
 ap.add_argument("--B", type=int, default=2000)
+ap.add_argument("--merge", nargs="*", default=[], help="NEW=ARM1+ARM2: pool the seeds of two arms")
 ap.add_argument("--keep", default=None, help="regex: only test cells whose stem matches (e.g. ^(CSIR|ARTS)_ for the P9 source split)")
 a = ap.parse_args()
 
@@ -42,6 +43,14 @@ if a.check:
                 worst = max(worst, abs(t[i] / max(t[i:i + 3].sum(), 1) - ref[key]["new_escdd"][c]["iou"]))
     print(f"sanity: max |summed per-image IoU - re-score IoU| = {worst:.2e}")
 
+for mg in a.merge:
+    new, parts = mg.split("=")
+    pooled = {}
+    for part in parts.split("+"):
+        if set(pooled) & set(arms.get(part, {})):
+            raise SystemExit(f"--merge {mg}: overlapping seeds")
+        pooled.update(arms.get(part, {}))
+    arms[new] = pooled
 stems = sorted(next(iter(next(iter(arms.values())).values())))
 if a.keep:
     stems = [st for st in stems if re.match(a.keep, st)]

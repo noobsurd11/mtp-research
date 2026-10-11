@@ -47,9 +47,15 @@ DEV = torch.device("cuda")
 DATA = CODE / "data"
 
 
-def cell(pred: np.ndarray, gt: np.ndarray) -> dict:
-    g, p = gt == CRACK, pred == CRACK
+def cell(pred: np.ndarray, gt: np.ndarray, ign: np.ndarray | None = None) -> dict:
+    """``ign``: pixels of defect classes outside our taxonomy (ext set: release classes 25-28); scored neither way."""
+    keep = np.ones_like(gt, bool) if ign is None else ~ign
+    g, p = (gt == CRACK) & keep, (pred == CRACK) & keep
     o = {"crack_gt": int(g.sum()), "crack_pred": int(p.sum()), "crack_tp": int((g & p).sum())}
+    if ign is not None:
+        o["crack_pred_on_ignored"] = int(((pred == CRACK) & ign).sum())
+        o["inact_pred_on_ignored"] = int(((pred == INACT) & ign).sum())
+        o["ignored_px"] = int(ign.sum())
     if g.any():
         dg = ndi.distance_transform_edt(~g)
         dp = ndi.distance_transform_edt(~p) if p.any() else np.full(g.shape, np.inf)
@@ -57,8 +63,8 @@ def cell(pred: np.ndarray, gt: np.ndarray) -> dict:
         o["crack_r2_hit"] = int((dp[g] <= 2).sum())
         o["crack_len_gt"] = int(skeletonize(g).sum())
         o["crack_len_pred"] = int(skeletonize(p).sum()) if p.any() else 0
-    area = max(int((gt != PAD).sum()), 1)
-    ig, ip = gt == INACT, pred == INACT
+    area = max(int(((gt != PAD) & keep).sum()), 1)
+    ig, ip = (gt == INACT) & keep, (pred == INACT) & keep
     o.update(area=area, inact_gt=int(ig.sum()), inact_pred=int(ip.sum()), inact_tp=int((ig & ip).sum()),
              inact_union=int((ig | ip).sum()))
     return o
@@ -85,8 +91,9 @@ def main() -> None:
     ext = [l.strip() for l in open(ext_dir / "stems_eval.txt") if l.strip()]
     sets = {
         "test": (DATA / "labeled" / "images", DATA / "labeled" / "masks_coded", test,
-                 [np.array(Image.open(DATA / "escdd_masks" / "test" / f"{s}.png")) for s in test]),
-        "ext": (ext_dir / "images", ext_dir / "masks", ext, [np.array(Image.open(ext_dir / "masks" / f"{s}.png")) for s in ext]),
+                 [np.array(Image.open(DATA / "escdd_masks" / "test" / f"{s}.png")) for s in test], [None] * len(test)),
+        "ext": (ext_dir / "images", ext_dir / "masks", ext, [np.array(Image.open(ext_dir / "masks" / f"{s}.png")) for s in ext],
+                [np.array(Image.open(ext_dir / "ignore" / f"{s}.png")) > 0 for s in ext]),
     }
     for run in map(Path, a.runs):
         f = out_dir / f"{run.name}.json"
@@ -102,9 +109,9 @@ def main() -> None:
         m.load_state_dict(st["models"][key])
         m.eval()
         res = {"run": run.name, "weights": key, "step": int(st.get("step", -1)), "cells": {}}
-        for name, (img_dir, msk_dir, stems, gts) in sets.items():
+        for name, (img_dir, msk_dir, stems, gts, igns) in sets.items():
             preds = predict(m, img_dir, msk_dir, stems, cfg)
-            res["cells"][name] = {s: cell(p, g) for s, p, g in zip(stems, preds, gts)}
+            res["cells"][name] = {s: cell(p, g, i) for s, p, g, i in zip(stems, preds, gts, igns)}
         f.write_text(json.dumps(res))
         print(f"{run.name:24s} {key:7s} ({time.time() - t0:.0f}s)", flush=True)
         del m
