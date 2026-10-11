@@ -1,6 +1,6 @@
 """E1 aggregation: per-arm task metrics with image-bootstrap CIs, and paired contrasts (definitions: results/e1/README.md).
 
-Usage: python e1_aggregate.py <raw dir> [--pairs A=B ...] > table.txt
+Usage: python e1_aggregate.py <raw dir> [--pairs A=B ...] [--merge NEW=ARM1+ARM2 ...] > table.txt
 An arm is a run name without its ``_s<seed>`` suffix. Per bootstrap resample the metric is computed per run on the
 resampled cells, then averaged over the arm's seeds; contrasts reuse the same resample for both arms (paired).
 """
@@ -56,12 +56,19 @@ def main() -> None:
     ap.add_argument("--sets", nargs="+", default=["test", "ext", "both"])
     ap.add_argument("--pairs", nargs="*", default=[])
     ap.add_argument("--arms", nargs="*", default=None, help="regexes of arms to tabulate (default all)")
+    ap.add_argument("--merge", nargs="*", default=[], help="NEW=ARM1+ARM2: pool the seeds of two arms (seed sets must be disjoint)")
     a = ap.parse_args()
-    runs = defaultdict(dict)
+    runs = defaultdict(dict)  # arm -> seed -> cells
     for f in sorted(Path(a.raw).glob("*.json")):
         d = json.loads(f.read_text())
         m = re.match(r"(.+)_s(\d+)$", d["run"])
         runs[m.group(1)][int(m.group(2))] = d["cells"]
+    for mg in a.merge:
+        new, parts = mg.split("=")
+        for part in parts.split("+"):
+            if set(runs[new]) & set(runs[part]):
+                raise SystemExit(f"--merge {mg}: overlapping seeds")
+            runs[new].update(runs[part])
     arms = sorted(runs)
     if a.arms:
         arms = [x for x in arms if any(re.search(p, x) for p in a.arms)]
@@ -110,6 +117,17 @@ def main() -> None:
                     lo, hi = np.nanpercentile(v, [2.5, 97.5])
                     cells_.append(f"{d0[k]:+.3f} [{lo:+.3f}, {hi:+.3f}] ({np.nanmean(v > 0):.2f})")
                 print(f"| {A} − {Bn} | " + " | ".join(cells_) + " |")
+            # leave-top-3-out: drop the 3 cells with the most GT px of that class (GT is the same for every run)
+            g0 = arrays(cells_of(next(iter(runs[arms[0]].values()))), stems)
+            keep = {c: np.setdiff1d(full, np.argsort(-g0[f"{c}_gt"])[:3]) for c in ("crack", "inact")}
+            ks = ["crack_iou_pooled", "crack_relF1_2_pooled", "inact_iou_pooled"]
+            print(f"\n### {set_name}: Δ without the top-3 cells of that class (by GT px)")
+            print("| contrast | " + " | ".join(ks) + " |\n|---|" + "---|" * len(ks))
+            for pr in a.pairs:
+                A, Bn = pr.split("=")
+                if A in runs and Bn in runs:
+                    d3 = [arm_metric(A, keep[k.split("_")[0]])[k] - arm_metric(Bn, keep[k.split("_")[0]])[k] for k in ks]
+                    print(f"| {A} − {Bn} | " + " | ".join(f"{v:+.3f}" for v in d3) + " |")
 
 
 if __name__ == "__main__":

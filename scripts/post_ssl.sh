@@ -1,11 +1,11 @@
 #!/bin/bash
-# Post-process a finished SSL set (p9 | p10): pull re-score JSONs (cv02, plus gaint for p10's supervised references),
+# Post-process a finished SSL set (p9 | p10 | p11 | p12 | p13 | p14): pull re-score JSONs (cv02, plus gaint for p10's supervised references),
 # per-image + histogram scoring of the cv02 runs on cv02, locked rules (scripts/ssl_rules.py), image bootstrap with the
-# P9 source split, bars. Usage: bash scripts/post_ssl.sh p9|p10|p11|p12 <cv02 gpu> <expected cv02 JSONs>
+# P9 source split, bars. Usage: bash scripts/post_ssl.sh p9|p10|p11|p12|p13|p14 <cv02 gpu> <expected cv02 JSONs>
 # p12 also pulls gaint's p12_g* replication/calibration JSONs (rules only; no per-image scoring for gaint runs).
 set -e
 E=$1; G=$2; N=$3; R=~/mtp/research; O=$R/results/$E; PY=$R/.venv/bin/python
-CV=cv02@10.8.1.106; GA=noob@172.18.22.20; CODE=/tmp/noob_el/$(case $E in p11|p12) echo el_p11;; *) echo el_p7;; esac); RP=$CODE/reports/$E
+CV=cv02@10.8.1.106; GA=noob@172.18.22.20; CODE=/tmp/noob_el/$(case $E in p11|p12) echo el_p11;; p13|p14) echo el_$E;; *) echo el_p7;; esac); RP=$CODE/reports/$E
 mkdir -p $O/raw
 scp -q -o BatchMode=yes "$CV:$RP/${E}_*_s[0-9].json" $CV:$RP/launch.log $O/raw/
 n=$(ls $O/raw/${E}_*_s[0-9].json | grep -vcE "/p12_g|/p10_A_"); echo "$E: $n cv02 re-score JSONs"; [ "$n" -eq "$N" ] || { echo "expected $N"; exit 1; }
@@ -47,6 +47,28 @@ elif [ $E = p12 ]; then
   ARMS=("p12:A_5pct=A5 sup. (cv02)" "p10:D_5pct=D5 (P10 view)" "p12:Dm_5pct=Dm5 (455)" "p12:Cm_5pct=Cm5 (455)" "p12:Dmx_5pct=Dmx5 (12k)" "p12:Cmx_5pct=Cmx5 (12k)" "p10:A_5pct=A5 (gaint)" "p12:gDm_5pct=gDm5 (gaint s3-5)" "p12:gCm_5pct=gCm5 (gaint s3-5)" "p6:L3_100pct=L3 100%")
   T="P12: pipeline-matched Mean Teacher at 5% labels (23 cells), L3 base; gaint replication"
   H="$O/hist_revised.npz"
+elif [ $E = p13 ]; then
+  M="p13:A5c=p12:A_5pct+p13:A_5pct"
+  $PY scripts/ssl_rules.py --dirs $O/raw results/p12/raw results/p6/raw --merge $M \
+    --arms p13:A5c p12:Dm_5pct p12:Cm_5pct p13:Cs_5pct p13:CsM_5pct p13:BsM_5pct p6:L3_10pct p6:L3_100pct \
+    --pairs p13:CsM_5pct=p13:A5c p13:BsM_5pct=p13:A5c p13:Cs_5pct=p13:A5c p13:CsM_5pct=p13:Cs_5pct p13:CsM_5pct=p13:BsM_5pct \
+      p13:Cs_5pct=p12:Cm_5pct p12:A_5pct=p13:A_5pct \
+    --ref p6:L3_100pct | tee $O/${E}_rules.txt
+  J="--json $O/per_image.json results/p12/per_image.json --check $O/raw --merge $M"
+  P="p13:A5c=p13:CsM_5pct p13:A5c=p13:BsM_5pct p13:A5c=p13:Cs_5pct p13:Cs_5pct=p13:CsM_5pct p13:BsM_5pct=p13:CsM_5pct p12:Cm_5pct=p13:Cs_5pct"
+  ARMS=("p12:A_5pct=A5c s0-2 (P12)" "p13:A_5pct=A5c s3-4 (P13)" "p12:Dm_5pct=Dm5 joint (P12)" "p12:Cm_5pct=Cm5 joint (P12)" "p13:Cs_5pct=Cs5 separate" "p13:CsM_5pct=CsM5 sep.+CutMix" "p13:BsM_5pct=BsM5 hard PL+CutMix" "p6:L3_10pct=L3 10%" "p6:L3_100pct=L3 100%")
+  T="P13: separate-BN forward and CutMix, Mean Teacher at 5% labels (23 cells), L3 base"
+  H="$O/hist_revised.npz"
+elif [ $E = p14 ]; then
+  $PY scripts/ssl_rules.py --dirs $O/raw results/p6/raw \
+    --arms p6:L3_10pct p14:L3o_10pct p14:L3To_10pct p14:L3T_10pct p6:L3_100pct \
+    --pairs p6:L3_10pct=p14:L3o_10pct p14:L3To_10pct=p14:L3o_10pct p14:L3T_10pct=p6:L3_10pct \
+    --ref p6:L3_100pct | tee $O/${E}_rules.txt
+  J="--json $O/per_image.json results/p6/per_image.json --check $O/raw"
+  P="p14:L3o_10pct=p6:L3_10pct p14:L3o_10pct=p14:L3To_10pct p6:L3_10pct=p14:L3T_10pct"
+  ARMS=("p14:L3o_10pct=L3o: old masks, CE+Dice" "p14:L3To_10pct=L3To: old masks, tolerant" "p6:L3_10pct=L3: revised, CE+Dice (P6)" "p14:L3T_10pct=L3T: revised, tolerant" "p6:L3_100pct=L3 100%")
+  T="P14: offset-tolerant supervised loss (R = 2 px), 10% labels, old vs revised masks"
+  H="$O/hist_revised.npz"
 else
   $PY scripts/ssl_rules.py --dirs $O/raw results/p9/raw results/p8/raw results/p6/raw \
     --arms p10:A_5pct p10:D_5pct p10:B_5pct p10:C_5pct p10:Dx_5pct p10:Cx_5pct p6:L3_10pct p6:L3_20pct p10:A_50pct p6:L3_100pct \
@@ -63,4 +85,4 @@ for k in '^(CSIR|ARTS)_' '^(CFVS|BMRK|SDLE)_'; do
   echo -e "\nSource split, cells matching $k:" | tee -a $O/per_image_test.txt
   $PY scripts/per_image_analysis.py $J --pairs $P --keep "$k" | tee -a $O/per_image_test.txt
 done
-$PY scripts/ssl_figure.py --dirs $O/raw results/p9/raw results/p8/raw results/p6/raw results/p10/raw results/p11/raw --out $O/fig_${E}_bars.png --title "$T" --arms "${ARMS[@]}" --hist $H | tee -a $O/${E}_rules.txt
+$PY scripts/ssl_figure.py --dirs $O/raw results/p9/raw results/p8/raw results/p6/raw results/p10/raw results/p11/raw results/p12/raw --out $O/fig_${E}_bars.png --title "$T" --arms "${ARMS[@]}" --hist $H | tee -a $O/${E}_rules.txt

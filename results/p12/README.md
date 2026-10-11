@@ -96,3 +96,19 @@ As in P8–P11, pseudo-labels de-saturate both classes (Cm5 vs Dm5). With the ex
 - Inactive: 2 of the 23 labelled cells contain it.
 - gaint arms use seeds 3–5; gaint's A5 uses seeds 0–2. They are never pooled with cv02.
 - The relF1@2 bootstrap is in E1 (`results/e1`), not here.
+
+## E1 addendum (after the locked analysis; descriptive)
+Per-cell task metrics and the relF1@2 bootstrap, from `results/e1/e1_p12.md`. Paired image bootstrap, 2,000 resamples. Test = 50 cells; ext = 106 extension cells from unseen modules. E1's pooled test IoU equals the re-score exactly, and its leave-top-3-out matches `per_image_test.txt`.
+
+| Contrast | Set | crack relF1@2 (pooled) | crack false alarm | inactive IoU (pooled) | inactive cell IoU |
+|---|---|---|---|---|---|
+| Cm5 − Dm5 | test | **+0.040 [+0.015, +0.061]** | 0 vs 0 | +0.018 [−0.051, +0.073] | +0.049 [−0.007, +0.110] |
+| Cm5 − A5c | test | +0.015 [−0.005, +0.030] | 0 vs 0 | +0.003 [−0.067, +0.060] | +0.043 [−0.024, +0.116] |
+| gCm5 − A5 (gaint) | test | **+0.058 [+0.037, +0.079]** | 0 vs 0 | **+0.068 [+0.022, +0.130]** | **+0.101 [+0.040, +0.176]** |
+| Cm5 − A5c | ext | +0.000 [−0.039, +0.038] | **+0.095 [+0.035, +0.162]** (worse) | **+0.065 [+0.014, +0.128]** | **+0.212 [+0.065, +0.351]** |
+| Cmx5 − A5c | ext | **−0.068 [−0.098, −0.041]** | **+0.234 [+0.142, +0.329]** (worse) | +0.008 [−0.041, +0.036] | **+0.130 [+0.079, +0.188]** |
+| gCm5 − A5 (gaint) | ext | +0.022 [−0.014, +0.056] | **+0.104 [+0.046, +0.169]** (worse) | **+0.126 [+0.029, +0.246]** | **+0.445 [+0.218, +0.631]** |
+
+- **cv02 test:** the crack relF1@2 gain of Cm5 over Dm5 is robust over cells; over A5c it is not.
+- **gaint test:** gCm5 beats gaint's A5 on crack relF1@2 and on inactive, robustly over cells. It is the clearest SSL-over-supervised result so far, but it is on gaint with seeds 3–5 vs 0–2, and the locked rules give gaint no say.
+- **Unseen modules, same pattern as P11:** tolerant PL raises crack false alarms (by about 0.10 of crack-free cells) and improves inactive. The external-pool arm over-predicts inactive there (area error +0.69 pp) and loses crack.
