@@ -43,3 +43,32 @@ Planned: 5 seeds each, separate-BN forward (so the supervised arm is the exact l
 - Tuning at any fraction.
 - Other splits.
 - Pooling with gaint.
+
+## Amendment 1: Part B locked (11 Oct 2026, ~17:40 IST, before any P16 SSL run)
+
+**User's choice (11 Oct ~17:00 IST):** "Pick on P13 val". CutMix on or off is decided by P13's validation numbers, never its test numbers.
+
+**Seen at locking:**
+- P16 Part A (supervised) runs had started; no P16 result exists.
+- 3 of 13 P13 runs had finished (`p13_A_5pct_s3`, `s4`, `p13_Cs_5pct_s2`). None of their numbers was opened.
+
+**Code:** branch `p16` at `d51b60f` = `bac5264` (P13) plus one change: SSL at `labeled_fraction` 1.0 is allowed when `data.unlabeled_pool=external` (it was refused). Partial-label paths are unchanged (`tests/test_p16_full_label_ssl.py`; full suite 204 passed). cv02 worktree `/tmp/noob_el/el_p16`.
+
+**Recipe selection (automatic, `p16b_auto.sh` on cv02):**
+- It waits until P13's CsM5 (seeds 0–4) and Cs5 (seeds 0–2) are all rescored with rc = 0, and until the Part A queue has launched everything.
+- It reads only the `val/` entries of their re-score JSONs (revised labels, final weights).
+- Score of an arm = mean over the three primaries (val crack IoU, val inactive IoU, val crack relF1@2) of the seed means.
+- CutMix on (`ssl.cutmix_p=0.5`) if score(CsM5) > score(Cs5); otherwise off.
+- It writes `reports/p16/selection.txt`, then queues the 15 SSL runs.
+
+**SSL arms** (P13's Cs/CsM options verbatim, except fraction, pool and the selected CutMix setting; seeds 0–4):
+
+| Arm | Run names | Labels | Unlabelled pool | Supervised reference |
+|---|---|---|---|---|
+| S20 | `p16_S_20pct` | 20% (95) | in-domain (383) | A20: `p6_L3_20pct` s0–2 + `p16_A_20pct` s3–4 |
+| S50 | `p16_S_50pct` | 50% (239) | in-domain (239) | A50: `p16_A_50pct` s0–4 |
+| Sx100 | `p16_Sx_100pct` | 100% (478) | external (11,938) | A100: `p6_L3_100pct` s0–2 + `p16_A_100pct` s3–4 |
+
+- With the separate forward and λ = 0 the student is bit-identical to supervised (P13 Amendment 1), so A is also each arm's loss-off control. Rule 2 and rule 3 are therefore the same contrast, S − A.
+- **Primary claims:** S20 − A20, S50 − A50 and Sx100 − A100, each under P8 rule 1, 5 vs 5 seeds. Three contrasts, all reported.
+- Scheduling: one queue, 3 runs per GPU, only on a GPU with < 1,000 MiB used.
