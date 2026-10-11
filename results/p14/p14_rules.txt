@@ -1,0 +1,43 @@
+| arm | seeds | crack iou | inactive iou | crack rel_f1_2 | crack rel_p2 | crack ap | inactive ap | val crack iou | val inactive iou |
+|---|---|---|---|---|---|---|---|---|---|
+| p6:L3_10pct | [0, 1, 2] | 0.396±0.003 | 0.294±0.019 | 0.814±0.003 | 0.910±0.006 | 0.400±0.004 | 0.302±0.018 | 0.318±0.010 | 0.300±0.044 |
+| p14:L3o_10pct | [0, 1, 2] | 0.314±0.009 | 0.309±0.054 | 0.733±0.009 | 0.895±0.006 | 0.324±0.007 | 0.317±0.054 | 0.183±0.011 | 0.293±0.038 |
+| p14:L3To_10pct | [0, 1, 2] | 0.310±0.009 | 0.319±0.003 | 0.728±0.005 | 0.921±0.003 | 0.300±0.011 | 0.311±0.009 | 0.180±0.006 | 0.214±0.016 |
+| p14:L3T_10pct | [0, 1, 2] | 0.398±0.005 | 0.331±0.016 | 0.816±0.007 | 0.907±0.008 | 0.380±0.006 | 0.336±0.021 | 0.319±0.008 | 0.336±0.029 |
+| p6:L3_100pct | [0, 1, 2] | 0.471±0.001 | 0.429±0.011 | 0.876±0.003 | 0.939±0.003 | 0.593±0.003 | 0.420±0.018 | 0.423±0.003 | 0.397±0.023 |
+
+p6:L3_10pct vs p14:L3o_10pct (test, revised; primary ['crack:iou', 'inactive:iou', 'crack:rel_f1_2']; seeds [0, 1, 2] / [0, 1, 2])
+  crack    iou      +0.0820  thr 0.0112  BETTER
+  inactive iou      -0.0151  thr 0.0662  n.d.
+  crack    rel_f1_2 +0.0813  thr 0.0112  BETTER
+  => p6:L3_10pct better than p14:L3o_10pct under rule 1: True
+  width check: crack relP@2 +0.0147 -> ok
+  gap closed crack    iou     : gap +0.1572, closed +0.52
+  gap closed inactive iou     : gap +0.1196, closed -0.13
+  gap closed crack    rel_f1_2: gap +0.1428, closed +0.57
+
+p14:L3To_10pct vs p14:L3o_10pct (test, revised; primary ['crack:iou', 'inactive:iou', 'crack:rel_f1_2']; seeds [0, 1, 2] / [0, 1, 2])
+  crack    iou      -0.0035  thr 0.0146  n.d.
+  inactive iou      +0.0095  thr 0.0627  n.d.
+  crack    rel_f1_2 -0.0052  thr 0.0124  n.d.
+  => p14:L3To_10pct better than p14:L3o_10pct under rule 1: False
+  width check: crack relP@2 +0.0265 -> ok
+  gap closed crack    iou     : gap +0.1572, closed -0.02
+  gap closed inactive iou     : gap +0.1196, closed +0.08
+  gap closed crack    rel_f1_2: gap +0.1428, closed -0.04
+
+p14:L3T_10pct vs p6:L3_10pct (test, revised; primary ['crack:iou', 'inactive:iou', 'crack:rel_f1_2']; seeds [0, 1, 2] / [0, 1, 2])
+  crack    iou      +0.0027  thr 0.0100  n.d.
+  inactive iou      +0.0368  thr 0.0283  BETTER
+  crack    rel_f1_2 +0.0017  thr 0.0100  n.d.
+  => p14:L3T_10pct better than p6:L3_10pct under rule 1: True
+  width check: crack relP@2 -0.0025 -> ok
+  gap closed crack    iou     : gap +0.0752, closed +0.04
+  gap closed inactive iou     : gap +0.1346, closed +0.27
+  gap closed crack    rel_f1_2: gap +0.0614, closed +0.03
+wrote /home/yugma/mtp/research/results/p14/fig_p14_bars.png
+
+bin-0 share (GT px scored < 0.001), test, mean over seeds (/home/yugma/mtp/research/results/p14/hist_revised.npz):
+  p14_L3T_10pct      crack 0.441  inactive 0.618
+  p14_L3To_10pct     crack 0.595  inactive 0.625
+  p14_L3o_10pct      crack 0.550  inactive 0.628
