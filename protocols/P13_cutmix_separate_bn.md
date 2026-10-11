@@ -114,3 +114,29 @@ As P8–P12:
 - External pool.
 - Pooling cv02 and gaint seeds.
 - Results beyond this split.
+
+## Amendment 1 (11 Oct 2026, ~13:00 IST, before any P13 run)
+
+**Why:**
+- The user set a one-day deadline for results.
+- Their earlier standing rule asks for ≥ 5 seeds for effects < 0.05.
+- GPU time is shared with two new experiments: P14 (tolerant supervision) and P15 (UCF-EL encoder transfer).
+
+**Nothing new seen:** no P13 run had started; P11/P12 results unchanged since locking.
+
+**Changes:**
+- **5% only.** The 10% arms are dropped: supervised crack gains +0.002 from 10% to 20% (P6), so 10% has little crack headroom.
+- **cv02 runs, 13 in all, in queue order:**
+  - CsM5 seeds 0–4;
+  - A5c seeds 3–4 (`p13_A_5pct`, supervised, same options as P12 A5c; the supervised path in `bac5264` equals `24590fb`);
+  - BsM5 seeds 0–2;
+  - Cs5 seeds 0–2.
+- **Ds5 dropped.** With `student_forward=separate` and λ = 0, the student is bit-identical to the supervised run. This was verified on the GPU for 100 steps (`results/p13_audit/smoke_gpu.log`). Ds5 therefore equals A5c plus EMA evaluation.
+- **Loss-off control:** rule 2 uses A5c (P12 seeds 0–2 plus P13 seeds 3–4) instead of Ds5. The EMA-only effect is not measured and is disclosed.
+- **No gaint replication:** gaint runs P15 instead.
+
+**Primary claim:** CsM5 − A5c on 5 vs 5 seeds, rule 1 arithmetic.
+- Rule 3 (SSL beats supervised) and rule 2 (the loss helps) are now the same contrast.
+- BsM5 − A5c, Cs5 − A5c, CsM5 − Cs5 and CsM5 − BsM5 are secondary.
+
+**Added reporting:** the per-cell task metrics of the E1 evaluation (`to_human/proposal_reframe_2026-10-11.md`), labelled secondary.
