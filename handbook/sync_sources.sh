@@ -8,7 +8,7 @@ mkdir -p $S/protocols $S/results $S/to_human $S/analysis $S/data_analysis $S/lit
 cp $R/protocols/*.md $S/protocols/
 for d in $R/results/*/; do
   n=$(basename $d)
-  for f in $d*.md $d*_rules.txt $d*per_image_test.txt; do [ -e "$f" ] && cp "$f" "$S/results/${n}__$(basename $f)"; done
+  for f in $d*.md $d*_rules.txt $d*per_image_test.txt $d*_curve.txt $d*sensitivity*.txt $d*noise_rank*.txt $d*selection.txt; do [ -e "$f" ] && cp "$f" "$S/results/${n}__$(basename $f)"; done
 done
 cp $R/to_human/*.md $S/to_human/
 cp $R/analysis/*.md $S/analysis/

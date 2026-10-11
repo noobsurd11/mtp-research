@@ -73,6 +73,7 @@ Read it to answer "why did we do X and not Y?". For the experiments themselves s
 | D32 | 11 Oct 21:05–21:11 | locked rule | CutMix = off; P16 SSL runs launched; flagged that test favoured CutMix/hard PL, nothing changed |
 | D33 | 11 Oct 22:03 | user | build this handbook |
 | D34 | 12 Oct ~01:15 | user | download the full E-SCDD, audit and analyse it, report in the handbook; also read the E-SCDD paper (done; doc 17) |
+| D35 | 12 Oct ~04:40 | Claude (post hoc, disclosed) | P16 read under the locked rules (fails at all three fractions); added a without-`CSIR_00070_r8_c4` sensitivity check after seeing 4 failed runs; no rule changed; adopting it as a standing check left to the user |
 | K1–K8 | throughout | Claude / user | housekeeping: tmux, worktrees, REVISION, md5, GPU rules, watchers, commits |
 
 ---
@@ -514,6 +515,25 @@ Verbatim, with the question each answered (from session summary 2026-10-11T09:36
   - The P3/F04 "conflict" is resolved, and the 583rd `masks_escdd` entry is a README.
   - Whether to use the extra cells is left to the user.
 - **Source:** `results/escdd_audit/README.md`; `literature/notes/A09_hanifi2025_escdd.md`; `17_escdd_dataset_audit.md`.
+
+### D35. P16 read; a post-hoc check for one noisy test cell (12 Oct, about 04:25–05:30 IST)
+- **Who:** Claude, under the standing plan (D31, D32). No user input since D34.
+- **What happened:**
+  - The watcher fired at 04:25 IST: all 15 SSL runs rescored, rc = 0.
+  - `scripts/post_p16.sh` ran on cv02 GPU 0, which was idle.
+  - The locked rules gave n.d. for S20, S50 and Sx100 against supervised.
+- **What Claude added, after seeing the results:**
+  - Four runs had test crack precision near 0.5 with normal val. Per-cell counts traced all four to `CSIR_00070_r8_c4`, the noisiest of the 582 cells.
+  - Claude added `scripts/p16_excell.py` (the rule arithmetic without that cell) and `scripts/cell_noise_rank.py`.
+  - A read-only diagnostic on cv02 confirmed the failing models are confident and the result is the same in bf16 and fp32.
+- **What was not done:**
+  - No rule was changed, and the verdict uses the locked numbers.
+  - The without-cell numbers are labelled post hoc everywhere.
+  - Whether to adopt the check going forward is left to the user (doc 15, decision 2b).
+- **Outcome:**
+  - The verdict is the same with and without the cell.
+  - The same cell explains most of P6's secondary L1 − L0 crack IoU gain (doc 08 correction).
+- **Source:** `results/p16/README.md`; `13_problems_pitfalls_open_issues.md` A11.
 
 ---
 

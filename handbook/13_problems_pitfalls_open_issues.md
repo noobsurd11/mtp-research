@@ -21,7 +21,7 @@ Each item also has a **status**:
 
 Use it when the user asks "why can't we just say X?" or "what is wrong with this result?". The decisions taken in response are in `12_decisions_log.md`.
 
-Status date: 11 Oct 2026, ~22:00 IST. P13 and P14 are done. P15 (gaint) is due ~23:00. P16's SSL arms run on cv02 with an ETA of ~03:00–04:30 on 12 Oct.
+Status date: 12 Oct 2026, ~05:30 IST. All P-series experiments (P1 to P16) are done. A11 and E15 were added after P16.
 
 ## Sources
 - `results/*/README.md` (P1–P14, E1), `protocols/*.md`.
@@ -50,10 +50,11 @@ Status date: 11 Oct 2026, ~22:00 IST. P13 and P14 are done. P15 (gaint) is due ~
 | A8 | UCF-EL leakage and a different crack definition | open (re-split never done) | medium |
 | A9 | One labelled split only | open | medium |
 | A10 | Class-taxonomy quirks (absent classes, release classes 25–28) | mitigated | low |
+| A11 | One very noisy test cell (`CSIR_00070_r8_c4`) can wreck a run's crack score | open (found after P16; post-hoc check only) | high for crack contrasts |
 | B1–B14 | Past invalid or misread results | resolved (identified; kept out of P-series tables) | high for history |
 | C1 | Rule 1 is lenient and per-metric | open (by design) | high |
 | C2 | 3 seeds in most contrasts | partly mitigated (5 in P13/P16 primaries) | high |
-| C3 | 5–10% regime | mitigated (P16 adds 20/50/100%) | high |
+| C3 | 5–10% regime | resolved for the Cs recipe (P16: no gain at 20/50/100%) | high |
 | C4 | Joint-BN handicap in SSL arms (P8–P12) | resolved from P13 (separate forward) | high for P8–P12 |
 | C5 | Untuned SSL recipe vs laddered supervised recipe | open | medium |
 | C6 | CutMix for P16 picked on a val set with 6 inactive cells | open | medium |
@@ -65,7 +66,7 @@ Status date: 11 Oct 2026, ~22:00 IST. P13 and P14 are done. P15 (gaint) is due ~
 | C12 | Seeds pooled across commits and protocols | mitigated (diff checks) | low |
 | C13 | Effort concentrated on SSL | open | medium (strategic) |
 | D1–D18 | Infrastructure incidents | mostly resolved | low for results, one high (gaint reset) |
-| E1–E14 | Open questions | open | see section (e) |
+| E1–E15 | Open questions | open (E1, E2 answered) | see section (e) |
 
 ---
 
@@ -235,6 +236,23 @@ Status date: 11 Oct 2026, ~22:00 IST. P13 and P14 are done. P15 (gaint) is due ~
   - Release `20221008` has classes 25–28 that our taxonomy lacks. E1 first mapped them to background and then ignored them (disclosed amendment, `results/e1/README.md`).
 - **Mitigation:** from P6 on, the metrics are per-class (crack 14, inactive 11) and the loss is CE+Dice without class weights (L3).
 
+### A11. One very noisy test cell can wreck a run's crack score (open; found after P16)
+- **What:** test cell `CSIR_00070_r8_c4` is the noisiest of the 582 labelled cells. Its robust pixel-noise sigma is 46.0, against a median of 1.48 and a 95th percentile of 4.45 (`results/p16/cell_noise_rank.txt`). The only similar cell is `CSIR_00070_r7_c2` (43.0, train, same module). In some training seeds the model calls large parts of it crack.
+- **Evidence** (`results/p16/README.md`, "One test cell"):
+  - P16: 4 of 24 runs (S20 s2, S20 s4, A50 s2, A100 s3) put 39k–80k false-positive crack px on it (15–31% of the cell; true crack 787 px). Their pooled test crack IoU drops by 0.11–0.18 and relP@2 to 0.48–0.59. Val is normal. Sx100 s3 does it partly (8,093 px).
+  - P6: `p6_L0_10pct_s1` (71,376 px). Its crack IoU is 0.261, or 0.360 without the cell. `p6_L0_10pct_s0` had a partial case (8,980 px). This outlier makes up most of P6's secondary "L1 − L0 crack IoU +0.048 [+0.003, +0.097]" (about +0.010 without it).
+  - P7 to P15: no run above 4,600 px on this cell.
+  - The failing models are confident (median p(crack) 0.92–0.99), the same in bf16 and fp32 (`results/p16/diag_csir70.txt`).
+  - The failure is seed-dependent and hits supervised and SSL alike.
+- **Impact:**
+  - One cell can move a 5-seed crack mean by 0.039–0.046 and inflate its crack IoU sd 10–31×. That widens rule-1 thresholds until nothing passes, or could make a difference appear.
+  - The usual robustness checks miss it. Leave-top-3-out drops cells by GT area, and this cell's damage is false positives.
+  - E1's crack false-alarm metric skips it, because it has crack GT.
+- **Mitigation:**
+  - P16's README reports every contrast with and without the cell (post hoc, labelled as such). P16's verdict is the same both ways.
+  - Earlier experiments other than P6 are essentially unaffected (≤ 4,600 px).
+  - Whether to add "without this cell" as a standing check is open for the user (doc 15, decision 2b). Doing so after seeing P16 is a methodology change and must be disclosed.
+
 ---
 
 ## (b) Past results that are invalid or were misread
@@ -307,7 +325,7 @@ None of these may be quoted as a method result. Old-era numbers stay in separate
   - Segmentation SSL benchmarks usually report 1/16 to 1/2 of the labels (`protocols/P16_label_fraction_curve.md` "Why this exists").
   - The user challenged it: "why we using 5 or 10% for ssl? they are really low".
 - **Impact:** inactive was unmeasurable by construction in that regime, and "SSL fails" there may not generalise.
-- **Mitigation:** P16 (20/50/100%) is running.
+- **Mitigation:** P16 tested 20/50/100% (5 vs 5 seeds). With the Cs recipe SSL is n.d. against supervised at every fraction; the inactive gain shrinks from +0.105 (5%) to +0.029, +0.006, +0.003 (`results/p16/README.md`). Other recipes were not tested above 10%.
 
 ### C4. The joint-BN handicap in Mean Teacher arms (resolved from P13; affects P8–P12)
 - **What:** the student forwarded labelled and unlabelled images in one batch, so BatchNorm statistics mixed them. In P8–P10 the labelled images also got the stronger SSL view.
@@ -342,7 +360,7 @@ None of these may be quoted as a method result. Old-era numbers stay in separate
   - On test, CsM5 − Cs5 is n.d. on seeds but positive over cells on crack (+0.010 [+0.004, +0.017]).
   - Hard PL + CutMix (BsM5) was best on crack (+0.036 vs A5c). Tolerant was worse than hard under CutMix (−0.022, robust).
   - So P16 runs the recipe that was weakest on crack in P13's test.
-- **Impact:** P16's SSL arms may understate what SSL can do at 20–100%. P16 answers "does *this* recipe help with more labels".
+- **Impact:** P16's SSL arms may understate what SSL can do at 20–100%. P16 answers "does *this* recipe help with more labels". Its answer was no at every fraction (12 Oct).
 - **Mitigation:**
   - Kept as locked; choosing on test would contaminate P16.
   - A BsM-style arm at 20%/50% would be a test-informed, exploratory addition, and needs the user's go-ahead (`12_decisions_log.md` D32).
@@ -454,7 +472,7 @@ None of these may be quoted as a method result. Old-era numbers stay in separate
 
 | ID | Question | Current evidence | What would resolve it |
 |---|---|---|---|
-| E1 | Does SSL beat supervised once labels are not scarce (20/50/100%)? | P13 at 5%: yes on inactive and crack relF1@2 (CsM5). P11 at 10%: rule passes, inactive not robust | **P16**, running (ETA ~03:00–04:30 12 Oct) |
+| E1 | Does SSL beat supervised once labels are not scarce (20/50/100%)? | P13 at 5%: yes on inactive and crack relF1@2 (CsM5). P11 at 10%: rule passes, inactive not robust. **P16 (done): no** for the Cs recipe, n.d. at 20/50/100% with and without the noisy cell (A11) | Answered for this recipe; a BsM-style arm at 20/50% would be exploratory (C6) |
 | E2 | Is a UCF-EL-trained encoder better than ImageNet init at 5%/10%? | P4: pretrained ≫ random. **P15 (done): no.** n.d. at 5%; worse on all three primaries at 10% | Answered for this recipe; MIM / self-supervised pretraining untested (E12) |
 | E3 | Hard vs tolerant pseudo-labels under CutMix: is hard really better for crack? | P13 BsM5 − A5c crack +0.036; CsM5 − BsM5 −0.022 (3 seeds, secondary) | A locked 5-seed contrast, ideally also at 10–20% |
 | E4 | Does CutMix matter? | P13 CsM5 − Cs5: n.d. on seeds; crack +0.010 over cells; unlabelled loss share 0.46 → 0.77 | More seeds; P16 cannot answer (CutMix off) |
@@ -468,6 +486,7 @@ None of these may be quoted as a method result. Old-era numbers stay in separate
 | E12 | Is in-domain self-supervised pretraining (MIM) worth it? | Untested; directions row 3 | Protocol + 1–2 GPU-days |
 | E13 | Severity grading (Köntges A/B/C) and the per-cell quantities | Post-processing lost in the reset (D1); power loss out of scope (user, 11 Oct) | Rebuild components / skeleton / isolation; grade agreement (κ) on GT vs predicted masks (proposal E6) |
 | E14 | Admin inputs never confirmed | Mid-term date (assumed ~14 Oct); report template and page limit; whether MoE is required by the advisor; target model size (~2M vs ~4M; "not a constraint" for now) | Ask the user (phase-1 §17 items 9–10; deck outline §17) |
+| E15 | Why does the model sometimes call a very noisy cell crack, and how often would it happen on real field images? | P16 A11: seed-dependent, confident, both supervised and SSL; the matching train cell (`CSIR_00070_r7_c2`) is unlabelled below 100% | Noise augmentation or a noise-aware input check; count noisy cells in the external pool and in WattCycle-like data; a larger test set with more noisy cells |
 
 ## Related docs
 - `00_START_HERE.md`

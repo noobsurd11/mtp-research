@@ -276,6 +276,11 @@ Split seeds 1 and 2 have very different crack pixel counts at 10% (15,705 and 11
 - Any dataset-level inactive metric is decided by about 3 cells. Every P-series README reports a "leave-top-3-out" Δ and an image bootstrap for this reason.
 - **Val is nearly useless for inactive.** In P13, val inactive IoU went the opposite way from test: A5c 0.106 vs CsM5 0.081 on val (`results/p13/README.md`). P16's CutMix setting was chosen on val (the user's choice), so this matters there too.
 - **Final weights, not best-val checkpoints.** Phase 0 found that best-val selection on 54 cells flips the sign of several comparisons (`MTP_session_handoff_2026-10-07.md` §4.2), so final-step weights are primary.
+- **One test cell is far noisier than all others** (found after P16; `results/p16/cell_noise_rank.txt`).
+  - `CSIR_00070_r8_c4` has a robust pixel-noise sigma of 46.0. The median over the 582 cells is 1.48, the 95th percentile 4.45.
+  - The only similar cell is `CSIR_00070_r7_c2` (43.0, train, same module). It is in none of the 2 to 50% labelled subsets.
+  - Some trained models call 15 to 31% of the test cell crack, which can cut a run's crack IoU by up to 0.18 (4 of 24 P16 runs, P6 `L0_10pct_s1`).
+  - Leave-top-3-out does not catch this, because it drops cells by GT area. See `13_problems_pitfalls_open_issues.md` A11.
 
 ---
 

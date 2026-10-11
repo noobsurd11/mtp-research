@@ -1,6 +1,6 @@
 # 16. FAQ: questions the user is likely to ask, with grounded answers
 
-**What this covers.** Short answers to the questions a newcomer to this project tends to ask, each with its numbers and the doc or file to read next. The answers are as of 11 Oct 2026, about 22:30 IST. P15 and P16 are still pending, so any answer that depends on them says so. Do not give a stronger answer than the one here without new evidence.
+**What this covers.** Short answers to the questions a newcomer to this project tends to ask, each with its numbers and the doc or file to read next. The answers are as of 12 Oct 2026, about 05:30 IST. All experiments, P15 and P16 included, are finished. Do not give a stronger answer than the one here without new evidence.
 
 **Sources:** every answer names its own source. The main ones:
 - `results/p1` to `results/p14` READMEs;
@@ -84,7 +84,7 @@ The user challenged this on 11 Oct ("they are really low ... try 20, 50 and 100"
 - at 5 to 10% inactive is unmeasurable by construction;
 - segmentation SSL benchmarks use 1/16 to 1/2 of the labels.
 
-P16 was added to cover 20/50/100%. Its SSL results are due about 03:00 to 04:30 IST on 12 Oct. On the same day Claude also listed the design choices that worked against SSL: the 5 to 10% regime, the joint-BN handicap, 3 seeds, an untuned SSL recipe against a supervised recipe picked from a 4-step ladder (L3 was chosen on P6 val+test results; `protocols/P8_tolerant_pl_on_l3.md`), and small or mismatched pools.
+P16 was added to cover 20/50/100%. Result (12 Oct): with P13's Cs recipe (CutMix off by the locked val pick), SSL is n.d. against supervised at every fraction. The inactive gain shrinks from +0.105 at 5% to +0.029, +0.006 and +0.003 (`results/p16/README.md`). On 11 Oct Claude also listed the design choices that worked against SSL: the 5 to 10% regime, the joint-BN handicap, 3 seeds, an untuned SSL recipe against a supervised recipe picked from a 4-step ladder (L3 was chosen on P6 val+test results; `protocols/P8_tolerant_pl_on_l3.md`), and small or mismatched pools.
 
 Sources: `protocols/P16_label_fraction_curve.md`; session summaries. → `07`, `13`
 
@@ -94,9 +94,9 @@ At 5% labels, yes on two of the three primary metrics:
 - **P13 primary claim**, CsM5 − A5c (5 vs 5 seeds): inactive IoU +0.117, crack relaxed F1@2 +0.033. Both are robust over test cells. Crack IoU is +0.014, not detectable.
 - **Secondary contrast**, hard pseudo-labels + CutMix (BsM5, 3 seeds): crack IoU +0.036, robust.
 
-At 20/50/100%: unknown until P16. Do not generalise beyond 5%.
+At 20/50/100% (P16, Cs recipe, 5 vs 5 seeds): no. n.d. on all three primaries at every fraction, with or without the noisy test cell (Q26). On unseen modules (secondary) an inactive gain remains at 20% and 50%. Do not claim that SSL "cannot" help above 10%: only one recipe was tested there.
 
-Source: `results/p13/README.md`. → `10`, `11`
+Source: `results/p13/README.md`, `results/p16/README.md`. → `10`, `11`
 
 **Q9. Is P12's "the loss helps crack" result still valid?**
 
@@ -220,9 +220,9 @@ Source: `results/p14/README.md`.
 
 ## E. What is pending, and what to say
 
-**Q20. What will P15 and P16 decide?**
+**Q20. What did P15 and P16 decide?**
 - **P15** (gaint), now **done**: does an encoder trained on UCF-EL labels beat ImageNet initialisation at 5% and 10% labels? No. gU5 − A5 is n.d. on all three primaries (crack +0.0096 vs threshold 0.0100). gU10 − gA10 is worse on all three (crack −0.012, inactive −0.086, relF1@2 −0.014), robust over cells. Source: `results/p15/README.md`.
-- **P16** (cv02): does SSL (separate BN, tolerant PL, CutMix off) beat supervised at 20% and 50% labels (in-domain pool) and at 100% (external pool, the only unlabelled data left)? It compares S20 − A20, S50 − A50 and Sx100 − A100, 5 vs 5 seeds.
+- **P16** (cv02), now **done**: does SSL (separate BN, tolerant PL, CutMix off) beat supervised at 20% and 50% labels (in-domain pool) and at 100% (external pool, the only unlabelled data left)? No. S20 − A20, S50 − A50 and Sx100 − A100 are n.d. on all three primaries (5 vs 5 seeds), and no arm is worse. Source: `results/p16/README.md`.
 
 Each outcome changes different rows of the evidence table. → `10`, `11`
 
@@ -283,6 +283,17 @@ Every results folder has:
 - Any SSL-vs-supervised gain with mismatched optimizer steps (the 8x mismatch gave a fake +7.4).
 
 Sources: memory note `mtp-el-ssl-project.md`; phase 0 handoff. → `06`, `13`
+
+
+**Q26. Why do some P16 runs have crack IoU near 0.29 when the others are near 0.45?**
+
+One test cell. `CSIR_00070_r8_c4` is the noisiest of the 582 labelled cells (noise sigma 46.0; median 1.48). In 4 of the 24 P16 runs (two supervised, two SSL), the model calls 15 to 31% of it crack. That is 39k to 80k false-positive pixels against a true crack area of 787 px, and the run's crack IoU drops by 0.11 to 0.18.
+- Val is normal. The failure is not specific to SSL: it hit 2 supervised and 2 SSL runs.
+- It also hit P6 `L0_10pct_s1`, which makes most of P6's L1 − L0 crack IoU gain (+0.048) an artefact (about +0.010 without the cell).
+- The P16 README reports every contrast with and without the cell (post hoc). The verdict is the same both ways.
+- Whether to make that a standing check is the user's call.
+
+Source: `results/p16/README.md` "One test cell". → `13` A11
 
 ## Related docs
 All of them; start from `00_START_HERE.md`.

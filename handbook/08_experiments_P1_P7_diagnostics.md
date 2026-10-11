@@ -530,6 +530,10 @@ Note that `results/p6/p6_rules.txt` still prints the interim numbers ("headroom 
 | L3 100% − L1 10%, inactive | −0.044 | +0.088 | [−0.125, +0.106] |
 
 - Crack differences are robust to the cell sample.
+  - **Correction (12 Oct, from P16):** not for L1 − L0. Most of its +0.048 comes from one failed L0 seed. `p6_L0_10pct_s1` put 71,376 false-positive crack px on the very noisy test cell `CSIR_00070_r8_c4`, so its crack IoU is 0.261 (0.360 without the cell).
+  - Without that cell L1 − L0 crack IoU is about +0.010.
+  - Leave-top-3-out cannot catch this, because it drops cells by GT area. See `13_problems_pitfalls_open_issues.md` A11 and `results/p16/README.md`.
+  - The locked rule-1 verdict (test AP) was not re-checked.
 - Most inactive differences are decided by about 3 cells.
 - L3's inactive gain from more labels holds on test without the top 3 (+0.112). On val without its top 3 it is +0.000; val has only 6 inactive cells, so val inactive cannot settle anything.
 - The seed-based rule stands as defined, but its inactive verdicts measure training noise on a fixed set of cells. From P7 on, every inactive result is reported with this check.
@@ -656,7 +660,7 @@ The order is D < C < B for both classes.
 - This is the expected outcome on a base with no label headroom.
 - The one robust positive finding is about how to use pseudo-labels: routing rare classes through a tolerant target is less harmful than hard confidence thresholding (C − B inactive IoU +0.056, CI [+0.022, +0.086]).
 - **Mechanism (plausible, not tested):** confirmation bias. Where the teacher misses a defect, a confident-background pseudo-label trains the student to be sure it is background. B applies that pressure everywhere; C exempts a 2-px band around rare targets.
-- D − A (EMA teacher plus label-safe views, no unlabelled loss) is about +0.036 crack IoU, the same order as P6's L1 − L0 label-safe gain (+0.048). The unlabelled loss adds nothing on top.
+- D − A (EMA teacher plus label-safe views, no unlabelled loss) is about +0.036 crack IoU, the same order as P6's L1 − L0 label-safe gain (+0.048; about +0.010 without the noisy test cell, doc 13 A11). The unlabelled loss adds nothing on top.
 
 **Caveats.** Pilot (no headroom). One split; 3 seeds; 50 test cells. Inactive is dominated by 3 test cells (59% of GT pixels). AP saturates.
 

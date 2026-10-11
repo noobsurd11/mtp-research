@@ -11,17 +11,17 @@ This file covers the last block of experiments before the mid-term:
 
 Each experiment follows the same layout: Question, Why, Setup, Locked rules, Results, Verdicts, Robustness, Reading, Next. Earlier experiments (P1 to P12) are in `08_experiments_P1_P7_diagnostics.md` and `09_experiments_P8_P12_ssl_series.md`. Cross-experiment conclusions are in `11_results_synthesis_and_claims.md`.
 
-**Status at writing (11 Oct 2026, ~22:00 IST)**
+**Status at writing (12 Oct 2026, ~05:30 IST)**
 
 | Item | Status | Where the results are |
 |---|---|---|
 | P13 audit | done | `results/p13_audit/`, `protocols/P13_cutmix_separate_bn.md` |
 | P13 | done (13 runs, cv02) | `results/p13/README.md` |
 | P14 | done (9 runs, cv02) | `results/p14/README.md` |
-| P15 | 5 of 6 gaint runs done; last run (gU10 s2) started 21:17 IST, expected ~23:00 | pending; see `results/p15/` when present |
-| P16 Part A (supervised references) | all 9 runs trained and rescored, rc = 0 (last at 22:06 IST); not analysed yet (analysed together with Part B) | pending; see `results/p16/` when present |
-| P16 Part B (SSL arms) | all 15 runs started 21:05 IST on cv02 GPUs 0, 3, 4, 5, 6; expected ~03:00 to 04:30 IST 12 Oct | pending; see `results/p16/` when present |
-| E1 | done for P6 to P14 checkpoints | `results/e1/README.md`, `results/e1/e1_*.md` |
+| P15 | done (6 runs, gaint) | `results/p15/README.md` |
+| P16 Part A (supervised references) | done (9 runs, cv02; last rescored 22:06 IST, all rc = 0) | `results/p16/README.md` |
+| P16 Part B (SSL arms) | done (15 runs, cv02, 21:04 IST to 04:24 IST 12 Oct, all rc = 0); analysed 12 Oct ~05:00 IST | `results/p16/README.md` |
+| E1 | done for P6 to P16 checkpoints | `results/e1/README.md`, `results/e1/e1_*.md` |
 
 ## Sources
 - Protocols:
@@ -627,7 +627,7 @@ Rule 3, descriptive:
 
 ---
 
-## P16: SSL at 20%, 50% and 100% labels (cv02). Running
+## P16: SSL at 20%, 50% and 100% labels (cv02). Done
 
 ### Question
 Does SSL beat supervised once labels are not scarce: at 20% (95 cells), 50% (239) and 100% (478, external unlabelled pool only)?
@@ -713,7 +713,7 @@ On P13 **test**, that was the weakest of the three SSL arms on crack. Test was n
 
 - **Rules 2 and 3 coincide.** With the separate forward and λ = 0 the student is bit-identical to supervised (P13 smoke), so A is each arm's loss-off control.
 - **Launch:** all 15 runs started 21:05 IST in one wave, 3 per GPU on GPUs 0, 3, 4, 5, 6. Each GPU had < 1,000 MiB used; other users had left. The launch log is `el_p16/reports/p16b/launch.log` (times in UTC); there is no `queue.log` for Part B, because the queue ran inside `p16b_auto.sh`, whose output is `el_p16/reports/p16b_auto.log`.
-- **Expected end:** ~03:00 to 04:30 IST, 12 Oct.
+- **End:** the last run was rescored 04:24 IST, 12 Oct. All 30 train/rescore steps have rc = 0.
 
 ### Locked rules (as P13)
 - **Primary:** S20 − A20, S50 − A50 and Sx100 − A100, each under P8 rule 1, 5 vs 5 seeds. All three reported.
@@ -732,8 +732,82 @@ On P13 **test**, that was the weakest of the three SSL arms on crack. Test was n
   - bootstrap and source split; bars; E1 scoring and aggregation to `results/e1/e1_p16.md`.
 - `scripts/p16_curve.py`: plots supervised vs SSL by label fraction, with the 5% SSL point taken from P13 (Cs5, since CutMix is off). 10% has no separate-BN SSL arm, since P11's Cm used joint BN, a different recipe. It also prints a table.
 
-### Results, verdicts, reading
-Results pending; see `results/p16/` when present.
+### Results
+Source: `results/p16/README.md`. Test, revised labels, mean ± sd over seeds 0–4.
+
+| Arm | crack IoU | inactive IoU | crack relF1@2 | crack relP@2 |
+|---|---|---|---|---|
+| A20 (P6 s0–2 + P16 s3–4) | 0.398±0.006 | 0.361±0.037 | 0.822±0.010 | 0.942±0.006 |
+| S20 | 0.358±0.060 | 0.390±0.026 | 0.752±0.096 | 0.789±0.187 |
+| A50 | 0.408±0.076 | 0.412±0.012 | 0.808±0.117 | 0.839±0.203 |
+| S50 | 0.447±0.005 | 0.418±0.027 | 0.861±0.004 | 0.933±0.002 |
+| A100 (P6 s0–2 + P16 s3–4) | 0.435±0.078 | 0.436±0.013 | 0.828±0.105 | 0.853±0.187 |
+| Sx100 (external pool) | 0.463±0.013 | 0.439±0.017 | 0.868±0.013 | 0.925±0.035 |
+
+The large sds (A50, A100, S20) come from one test cell; see "The noisy test cell" below.
+
+### Verdicts (locked rules)
+Each cell gives the difference, then the threshold in brackets.
+
+| Contrast | crack IoU | inactive IoU | crack relF1@2 | Verdict |
+|---|---|---|---|---|
+| **S20 − A20** | −0.040 (0.069) | +0.029 (0.052) | −0.070 (0.111) | **fails** (n.d. on all three); width flag relP@2 −0.153 |
+| **S50 − A50** | +0.039 (0.088) | +0.006 (0.034) | +0.053 (0.135) | **fails** (n.d. on all three) |
+| **Sx100 − A100** | +0.028 (0.091) | +0.003 (0.025) | +0.040 (0.122) | **fails** (n.d. on all three) |
+
+- **Gap closed** is not informative for crack and relF1@2: failed seeds pull down A100's and A50's means. Without the noisy cell: S20 +3% / +38% / +0%, S50 +8% / +11% / −7% (crack / inactive / relF1@2).
+- **Pooling check** (P6 vs P16 seeds of the same supervised arm): n.d. at 20% and 100%. At 100% the crack and relF1@2 verdicts are n.d. only because one P16 seed failed. Without the cell the halves agree on crack within 0.002.
+
+### Robustness
+- Image bootstrap: every CI includes 0. Crack: S20 −0.040 [−0.090, +0.011], S50 +0.039 [−0.003, +0.070], Sx100 +0.028 [−0.004, +0.047].
+- Source split: in the 29 CFVS/BMRK/SDLE cells, crack Δ is +0.001, +0.001 and −0.003. All the crack movement is in CSIR/ARTS, which holds the noisy cell.
+- Leave-top-3-out removes cells by GT area. It cannot catch this cell, whose damage is false positives.
+
+### The noisy test cell (diagnostic, found after the runs)
+- **What happens.** In 4 of the 24 runs (S20 s2 and s4, A50 s2, A100 s3), the model labels 15–31% of test cell `CSIR_00070_r8_c4` as crack.
+  - That is 39k–80k false-positive pixels, against a true crack area of 787 px.
+  - The run's pooled crack IoU drops by 0.11–0.18.
+  - Sx100 s3 does it partly (8,093 px). Most other runs put 0 to about 1,200 px there.
+- **The models are confident** (median p(crack) 0.92–0.99), the same in bf16 and fp32 (`results/p16/diag_csir70.txt`). The false crack follows the image grain.
+- **The cell is the noisiest of all 582** (robust noise sigma 46.0; median 1.48; next unrelated cell 10.4). The only similar cell is a train cell from the same module, `CSIR_00070_r7_c2` (43.0) (`results/p16/cell_noise_rank.txt`).
+- **It is not specific to SSL** (4 events, so only a count): 2 of 15 supervised and 2 of 15 SSL runs fail. Val is unaffected.
+- **It has happened before.** P6 `p6_L0_10pct_s1` (71,376 FP px; crack IoU 0.261, or 0.360 without the cell). That outlier makes up most of P6's secondary bootstrap result "L1 − L0 crack IoU +0.048" (about +0.010 without it; doc 08). In P7 to P15 no run put more than 4,600 FP px there.
+- **Post-hoc check without the cell (not a locked rule).**
+  - S20 − A20: crack +0.002, inactive +0.029, relF1@2 +0.000.
+  - S50 − A50: +0.002, +0.002, −0.001.
+  - Sx100 − A100: −0.002, +0.002, −0.002.
+  - All are n.d. with thresholds of 0.010 on crack. **The verdict does not change.**
+  - Files: `results/p16/sensitivity_excell.txt` and `fig_p16_curve_excell.png`.
+
+### Secondary
+- **Unlabelled-loss share.** At step 20,000, loss_con / loss_sup is 2–7% at 20–100% labels, against 46% for P13 Cs5 at 5%. The consistency loss is about the same size; the supervised loss is 6–20× larger because there are more labelled cells to fit.
+- **Collapse watch.** No collapse: rare_frac holds or rises. On the external pool it rises 6–49× from step 4,000 to 20,000.
+- **E1, test.** Per-cell crack tolF1 and inactive cell IoU: n.d. for all three contrasts. One metric excludes 0: S50 − A50 inactive area error +0.189 pp [+0.056, +0.388], worse for SSL.
+- **E1, unseen modules (106 cells):**
+  - S20 − A20: inactive cell IoU +0.179 [+0.011, +0.385]; crack false alarms +0.046 [+0.018, +0.076] (worse).
+  - S50 − A50: crack IoU +0.019 [+0.007, +0.031]; crack relF1@2 +0.047 [+0.019, +0.077]; inactive cell IoU +0.197 [+0.034, +0.403].
+  - Sx100 − A100: n.d. on every metric.
+- **Curve (descriptive, cv02 only),** SSL − supervised, all cells / without the noisy cell:
+
+  | Labels | crack IoU | inactive IoU |
+  |---|---|---|
+  | 5% (P13 Cs5) | +0.004 / +0.007 | +0.105 / +0.109 |
+  | 20% | −0.040 / +0.002 | +0.029 / +0.029 |
+  | 50% | +0.039 / +0.002 | +0.006 / +0.002 |
+  | 100% (external) | +0.028 / −0.002 | +0.003 / +0.002 |
+
+### Reading
+- **Under the locked rules, this SSL recipe does not beat supervised at 20%, 50% or 100% labels.** This holds with and without the noisy cell.
+- **The inactive gain seen at 5% shrinks as labels grow** and is undetectable from 20% up. On unseen modules an inactive gain remains at 20% and 50% (secondary).
+- **Crack:** nothing detectable on test at any fraction. Without the noisy cell (post hoc), every crack Δ is within ±0.003. S50 helps crack a little on unseen modules (secondary).
+- **External pool at 100%:** n.d. on every primary, test and unseen modules. Earlier external-pool results were mixed: P9 inactive passed (not robust), P10 was worse on crack relF1@2, P11 gained unseen-module inactive, P12 had no effect.
+- **Limits:**
+  - one recipe (CutMix off by the locked val rule; hard PL not run at 20 to 100%);
+  - λ fixed at 1, so the unlabelled term is small next to the supervised one at these fractions;
+  - one split; no gaint replication.
+- **Open (user decisions):**
+  - whether to adopt "without `CSIR_00070_r8_c4`" as a standing robustness check;
+  - whether to run an exploratory hard-PL + CutMix arm at 20% or 50%, which would be test-informed.
 
 ### Known wording mismatch
 Amendment 1 says the selector writes `reports/p16/selection.txt`. The script writes `el_p16/reports/p16b/selection.txt`, and the post-analysis copies it to `results/p16/selection.txt`.

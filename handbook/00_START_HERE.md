@@ -1,6 +1,6 @@
 # 00. START HERE: handbook for the MTP project (EL defect segmentation)
 
-**What this is.** A handbook for an agent that will act as a guide and interpreter for the student who owns this project (called "the user" below). The user wants to understand the whole project from zero to one: scope, domain, data, jargon, work done, problems, decisions, results, and what is left. These docs hold everything known as of **11 Oct 2026, about 22:45 IST** (P15 included; P16 pending), plus the **E-SCDD download and audit of 12 Oct, about 02:30 IST** (doc 17). The `sources/` folder holds the primary documents they rest on. The live project files are reachable by command (section 5).
+**What this is.** A handbook for an agent that will act as a guide and interpreter for the student who owns this project (called "the user" below). The user wants to understand the whole project from zero to one: scope, domain, data, jargon, work done, problems, decisions, results, and what is left. These docs hold everything known as of **12 Oct 2026, about 05:30 IST**: every P-series experiment (P1 to P16) is finished and analysed, plus the **E-SCDD download and audit of 12 Oct, about 02:30 IST** (doc 17). The `sources/` folder holds the primary documents they rest on. The live project files are reachable by command (section 5).
 
 ---
 
@@ -21,7 +21,7 @@
   - a **robustness check** (bootstrap over test cells, leave-top-3-out);
   - a **reading** (interpretation; the docs label it "Reading:").
 - **Keep eras apart.** Old-era numbers (phase 0 and 1: original masks, from-scratch U-Net++, weighted CE, batch 4, SemiCE) are never compared with P-series numbers (P1 to P16). Some old results are invalid; `13_problems_pitfalls_open_issues.md` and `06_history_phase0_phase1.md` say which and why.
-- **No presumptions about framing.** The user's rule (11 Oct): "framing depends on final results, no presumptions, ever". You may explain what each possible result would imply. Do not tell the user what the thesis "is" before P15 and P16 are read.
+- **No presumptions about framing.** The user's rule (11 Oct): "framing depends on final results, no presumptions, ever". All results are now in, but the framing is still the user's decision. Lay out the evidence (doc 11) and what each framing would need; do not tell the user what the thesis "is".
 - **Treat the user's questions as tests, not confirmations.** If the evidence contradicts a premise in a question, say so plainly.
 - **Style the user prefers:** terse, plain English, no em-dashes, no buzzwords. State measurements rather than adjectives.
 - **Pronouns:** the docs use "the user" and they/them.
@@ -74,9 +74,10 @@ For a quick start, read 01, 04 (skim), 11 and 16. Then go back to 02 to 10 as qu
    - inactive IoU +0.117, crack relaxed F1@2 +0.033, both robust over test cells;
    - crack IoU +0.014, not detectable.
 9. **P14.** An offset-tolerant supervised loss recovers none of the old-vs-revised label gap.
-10. **Latest and pending.**
-    - P15 (UCF-EL encoder transfer, gaint) is **done**: no better than ImageNet init at 5%, worse at 10% on all three primaries (`results/p15/README.md`).
-    - P16 (SSL vs supervised at 20 / 50 / 100%, cv02): Part A (supervised, 9 runs) done at 22:06 IST with rc = 0; Part B (15 SSL runs, started 21:05 IST) due about 03:00 to 04:30 IST, 12 Oct.
+10. **Latest results.**
+    - P15 (UCF-EL encoder transfer, gaint): no better than ImageNet init at 5%, worse at 10% on all three primaries (`results/p15/README.md`).
+    - P16 (SSL vs supervised at 20 / 50 / 100%, cv02, 5 vs 5 seeds, P13's Cs recipe with CutMix off): **fails at all three fractions**, n.d. on every primary. The 5% inactive gain shrinks to +0.029, +0.006, +0.003 (`results/p16/README.md`).
+    - Measurement warning from P16: one very noisy test cell, `CSIR_00070_r8_c4`, makes about 1 run in 6 call 15 to 31% of it crack, cutting that run's crack IoU by up to 0.18. Without it P16's verdict is the same (crack Δ within ±0.003). Read every crack contrast with this in mind (doc 13).
 
 ## 4. The `sources/` folder
 Verbatim copies of the primary documents: protocols, results READMEs and rules outputs, reports to the user, literature notes, data reports, and old-era reports from the servers. It also holds three files that exist only in the chat:
@@ -107,7 +108,7 @@ Earlier sessions reached the servers through "Herald" exec connectors (`Gaint_He
 - Do not push to GitHub without asking.
 
 ## 6. Keeping this current
-- When P15 and P16 finish, Claude writes `results/p15/README.md` and `results/p16/README.md` and updates `to_human/results_2026-10-12.md`.
+- After each new result, Claude writes `results/<exp>/README.md` and updates `to_human/results_2026-10-12.md` and this handbook (P15 and P16 done 12 Oct).
 - To refresh the source copies, run `bash ~/mtp/research/handbook/sync_sources.sh`.
 - If a handbook statement conflicts with a newer results README, the README wins.
 

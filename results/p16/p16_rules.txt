@@ -1,0 +1,69 @@
+| arm | seeds | crack iou | inactive iou | crack rel_f1_2 | crack rel_p2 | crack ap | inactive ap | val crack iou | val inactive iou |
+|---|---|---|---|---|---|---|---|---|---|
+| p16:A20 | [0, 1, 2, 3, 4] | 0.398±0.006 | 0.361±0.037 | 0.822±0.010 | 0.942±0.006 | 0.434±0.007 | 0.352±0.040 | 0.317±0.003 | 0.452±0.021 |
+| p16:S_20pct | [0, 1, 2, 3, 4] | 0.358±0.060 | 0.390±0.026 | 0.752±0.096 | 0.789±0.187 | 0.402±0.062 | 0.396±0.028 | 0.323±0.005 | 0.385±0.047 |
+| p16:A_50pct | [0, 1, 2, 3, 4] | 0.408±0.076 | 0.412±0.012 | 0.808±0.117 | 0.839±0.203 | 0.486±0.106 | 0.399±0.014 | 0.377±0.005 | 0.427±0.016 |
+| p16:S_50pct | [0, 1, 2, 3, 4] | 0.447±0.005 | 0.418±0.027 | 0.861±0.004 | 0.933±0.002 | 0.539±0.006 | 0.396±0.034 | 0.381±0.002 | 0.359±0.017 |
+| p16:A100 | [0, 1, 2, 3, 4] | 0.435±0.078 | 0.436±0.013 | 0.828±0.105 | 0.853±0.187 | 0.567±0.054 | 0.433±0.028 | 0.423±0.002 | 0.411±0.026 |
+| p16:Sx_100pct | [0, 1, 2, 3, 4] | 0.463±0.013 | 0.439±0.017 | 0.868±0.013 | 0.925±0.035 | 0.586±0.015 | 0.438±0.029 | 0.424±0.003 | 0.445±0.044 |
+
+p16:S_20pct vs p16:A20 (test, revised; primary ['crack:iou', 'inactive:iou', 'crack:rel_f1_2']; seeds [0, 1, 2, 3, 4] / [0, 1, 2, 3, 4])
+  crack    iou      -0.0400  thr 0.0692  n.d.
+  inactive iou      +0.0289  thr 0.0518  n.d.
+  crack    rel_f1_2 -0.0703  thr 0.1110  n.d.
+  => p16:S_20pct better than p16:A20 under rule 1: False
+  width check: crack relP@2 -0.1526 -> FLAG possible fattening
+  gap closed crack    iou     : gap +0.0375, closed -1.07
+  gap closed inactive iou     : gap +0.0743, closed +0.39
+  gap closed crack    rel_f1_2: gap +0.0063, closed -11.10
+
+p16:S_50pct vs p16:A_50pct (test, revised; primary ['crack:iou', 'inactive:iou', 'crack:rel_f1_2']; seeds [0, 1, 2, 3, 4] / [0, 1, 2, 3, 4])
+  crack    iou      +0.0388  thr 0.0882  n.d.
+  inactive iou      +0.0057  thr 0.0344  n.d.
+  crack    rel_f1_2 +0.0529  thr 0.1351  n.d.
+  => p16:S_50pct better than p16:A_50pct under rule 1: False
+  width check: crack relP@2 +0.0940 -> ok
+  gap closed crack    iou     : gap +0.0276, closed +1.41
+  gap closed inactive iou     : gap +0.0234, closed +0.24
+  gap closed crack    rel_f1_2: gap +0.0206, closed +2.57
+
+p16:Sx_100pct vs p16:A100 (test, revised; primary ['crack:iou', 'inactive:iou', 'crack:rel_f1_2']; seeds [0, 1, 2, 3, 4] / [0, 1, 2, 3, 4])
+  crack    iou      +0.0279  thr 0.0908  n.d.
+  inactive iou      +0.0031  thr 0.0249  n.d.
+  crack    rel_f1_2 +0.0395  thr 0.1221  n.d.
+  => p16:Sx_100pct better than p16:A100 under rule 1: False
+  width check: crack relP@2 +0.0716 -> ok
+  gap closed crack    iou     : gap +0.0000, closed +inf
+  gap closed inactive iou     : gap +0.0000, closed +inf
+  gap closed crack    rel_f1_2: gap +0.0000, closed +inf
+
+p6:L3_20pct vs p16:A_20pct (test, revised; primary ['crack:iou', 'inactive:iou', 'crack:rel_f1_2']; seeds [0, 1, 2] / [3, 4])
+  crack    iou      +0.0013  thr 0.0139  n.d.
+  inactive iou      -0.0362  thr 0.0525  n.d.
+  crack    rel_f1_2 +0.0002  thr 0.0209  n.d.
+  => p6:L3_20pct better than p16:A_20pct under rule 1: False
+  width check: crack relP@2 -0.0074 -> ok
+  gap closed crack    iou     : gap +0.0383, closed +0.03
+  gap closed inactive iou     : gap +0.0526, closed -0.69
+  gap closed crack    rel_f1_2: gap +0.0065, closed +0.03
+
+p6:L3_100pct vs p16:A_100pct (test, revised; primary ['crack:iou', 'inactive:iou', 'crack:rel_f1_2']; seeds [0, 1, 2] / [3, 4])
+  crack    iou      +0.0892  thr 0.1393  n.d.
+  inactive iou      -0.0167  thr 0.0187  n.d.
+  crack    rel_f1_2 +0.1180  thr 0.1910  n.d.
+  => p6:L3_100pct better than p16:A_100pct under rule 1: False
+  width check: crack relP@2 +0.2131 -> ok
+  gap closed crack    iou     : gap +0.0535, closed +1.67
+  gap closed inactive iou     : gap -0.0100, closed +1.67
+  gap closed crack    rel_f1_2: gap +0.0708, closed +1.67
+wrote /home/yugma/mtp/research/results/p16/fig_p16_bars.png
+
+bin-0 share (GT px scored < 0.001), test, mean over seeds (/home/yugma/mtp/research/results/p16/hist_revised_A.npz):
+  p16_A_100pct       crack 0.179  inactive 0.387
+  p16_A_20pct        crack 0.412  inactive 0.549
+  p16_A_50pct        crack 0.266  inactive 0.456
+
+bin-0 share (GT px scored < 0.001), test, mean over seeds (/home/yugma/mtp/research/results/p16/hist_revised_S.npz):
+  p16_S_20pct        crack 0.395  inactive 0.469
+  p16_S_50pct        crack 0.262  inactive 0.416
+  p16_Sx_100pct      crack 0.193  inactive 0.383

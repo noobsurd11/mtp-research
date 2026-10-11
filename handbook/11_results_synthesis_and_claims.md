@@ -16,7 +16,7 @@ The user's rule governs this file: "framing depends on final results, no presump
 **Status at writing (11 Oct 2026, ~22:00 IST)**
 - P1 to P14 and E1 are done.
 - P15 (gaint, UCF-EL encoder) finished 22:26 IST and was analysed at about 22:40 IST (`results/p15/README.md`).
-- P16 (cv02, SSL at 20/50/100%) is pending, about 03:00 to 04:30 IST on 12 Oct.
+- P16 (cv02, SSL at 20/50/100%) finished 04:24 IST on 12 Oct and was analysed at about 05:00 IST (`results/p16/README.md`). Updated here 12 Oct ~05:30 IST.
 
 ## Sources
 - `to_human/results_2026-10-12.md`: the morning summary draft and its evidence table, section 3.
@@ -26,7 +26,8 @@ The user's rule governs this file: "framing depends on final results, no presump
 - `results/p3_label_versions/README.md`.
 - `results/p6/README.md`, `p7`, `p8`, `p9`, `p10`, `p11`, `p12`, `p13`, `p14` (each `README.md`).
 - `results/p10/labelled_set_counts.txt`.
-- `results/e1/README.md`, `e1_ext_v2.md`, `e1_p11.md`, `e1_p13.md`, `e1_p14.md`.
+- `results/p15/README.md`, `results/p16/README.md`.
+- `results/e1/README.md`, `e1_ext_v2.md`, `e1_p11.md`, `e1_p13.md`, `e1_p14.md`, `e1_p15.md`, `e1_p16.md`.
 - Protocols `protocols/P13_cutmix_separate_bn.md` to `P16_label_fraction_curve.md`.
 - The assistant's answer to the user on locked rules and design problems: 11 Oct ~17:30 IST, session transcript `~/.claude/projects/-home-yugma/57bebbba-992f-43ae-8c6c-f7004d0f15c5.jsonl`, line 6727.
 
@@ -53,7 +54,7 @@ The user's rule governs this file: "framing depends on final results, no presump
 ---
 
 ## (a) Evidence table
-Rows 1 to 12 follow `to_human/results_2026-10-12.md` section 3, with wording tightened and evidence completed. Rows 13 and 14 are added here and are not yet in that file.
+Rows 1 to 12 follow `to_human/results_2026-10-12.md` section 3, with wording tightened and evidence completed. Rows 13 and 14 are added here and are not in that file. Row 15 is that file's row 13.
 
 Where this table deliberately differs from that file:
 - **Row 1:** that file says SSL effects are "≤ +0.023 at cv02 (P11, P12)". It predates P13; the largest cv02 SSL crack IoU effect is now BsM5's +0.036.
@@ -61,24 +62,24 @@ Where this table deliberately differs from that file:
 - **Row 5:** adds P9's inactive pass (not robust).
 - **Row 8:** that file says crack IoU "falls to ~1/3 for every model". That holds for L3 100% (0.471 → 0.152); other models fall further (L3 10% 0.396 → 0.080; A5c 0.304 → 0.045), so this table gives the numbers instead.
 - **Row 12:** adds P7 to P10 (that file cites P13 only).
-- That file's section 1 ETAs (P15 ~00:45, P16 ~07:00–09:30) are older than the ones used here.
 
 | # | Claim | Evidence (source) | Status |
 |---|---|---|---|
 | 1 | The label version moves crack IoU more than any SSL effect | P3 (old-era models, exploratory): re-scoring on revised labels +0.05 to +0.07 crack IoU (`results/p3_label_versions/README.md`). P14 (locked): training on revised vs old labels at 10%, L3 − L3o +0.082 [+0.046, +0.129]; holds on old-label scoring (0.351 vs 0.332) and on unseen modules (+0.030 [+0.012, +0.048]) (`results/p14/README.md`). Largest cv02 SSL crack IoU effect: +0.036 (P13 BsM5 − A5c, secondary) | supported |
 | 2 | The pseudo-label loss itself helps (vs a loss-off control) | P11 10% Cm − Dm: inactive +0.071 [+0.020, +0.121], relF1@2 +0.018 (joint BN). P12 5% Cm5 − Dm5: crack +0.023 [+0.005, +0.036] (joint BN), replicated on gaint (+0.047). P13 5%, clean control: Cs5 − A5c inactive +0.105 [+0.025, +0.179], crack +0.004 (n.d.) | supported for inactive; for crack IoU only against a handicapped (joint-BN) control |
-| 3 | SSL beats a step-matched supervised baseline | **P13 5% primary** (5 vs 5 seeds, separate BN + CutMix): CsM5 − A5c inactive +0.117 [+0.042, +0.189], relF1@2 +0.033 [+0.006, +0.055], crack IoU +0.014 n.d.; robust over cells. BsM5 (hard PL + CutMix, 3 seeds, secondary): crack IoU +0.036 [+0.021, +0.048] too. P11 10% Cm − A passes (inactive +0.071 not robust over cells; relF1@2 +0.013 robust). P12 5% (joint BN) Cm5 − A5c fails on cv02 (`results/p11`, `p12`, `p13`) | supported at 5% on inactive and crack relF1@2; crack IoU only with hard PL (secondary). 20/50/100% pending (P16) |
+| 3 | SSL beats a step-matched supervised baseline | **P13 5% primary** (5 vs 5 seeds, separate BN + CutMix): CsM5 − A5c inactive +0.117 [+0.042, +0.189], relF1@2 +0.033 [+0.006, +0.055], crack IoU +0.014 n.d.; robust over cells. BsM5 (hard PL + CutMix, 3 seeds, secondary): crack IoU +0.036 [+0.021, +0.048] too. P11 10% Cm − A passes (inactive +0.071 not robust over cells; relF1@2 +0.013 robust). P12 5% (joint BN) Cm5 − A5c fails on cv02 (`results/p11`, `p12`, `p13`) | supported at 5% on inactive and crack relF1@2; crack IoU only with hard PL (secondary). **Not supported at 20/50/100%** (P16, Cs recipe: n.d. on all three primaries at every fraction, with or without the noisy test cell) |
 | 4 | Joint-BN Mean Teacher handicaps the student | Loss-off control vs supervised, crack IoU: P11 Dm − A −0.007 [−0.016, −0.001]; P12 Dm5 − A5c −0.017 [−0.024, −0.010]; gaint gDm5 − A5 −0.018. BN recalibration after training does not remove it (`results/p13_audit/`). P13 fix (separate BN): Cs5 − Cm5 inactive +0.084 [+0.030, +0.143]; unseen-module false alarms −0.095 [−0.141, −0.050]; crack equal | supported; grows as labels shrink. The fix helps inactive and false alarms, not crack IoU |
-| 5 | An external unlabelled pool (11,938 CSIR/ARTS cells) helps | P9 Cx − Dx: inactive +0.056 passes, not robust (CI [−0.013, +0.117]). P10 Cx5 − Dx5: crack IoU −0.012 [−0.026, −0.001] (robust over cells, n.d. by seeds) and relF1@2 −0.027 (worse by the rule), concentrated on CSIR+ARTS (−0.065). P11 Cmx − Dmx fails. P12 Cmx5 − Dmx5 fails. All with joint BN | not supported (joint BN only; Sx100 in P16 is the first separate-BN test) |
+| 5 | An external unlabelled pool (11,938 CSIR/ARTS cells) helps | P9 Cx − Dx: inactive +0.056 passes, not robust (CI [−0.013, +0.117]). P10 Cx5 − Dx5: crack IoU −0.012 [−0.026, −0.001] (robust over cells, n.d. by seeds) and relF1@2 −0.027 (worse by the rule), concentrated on CSIR+ARTS (−0.065). P11 Cmx − Dmx fails. P12 Cmx5 − Dmx5 fails. All with joint BN | not supported. P16 Sx100 − A100 (separate BN, 100% labels): n.d. on all three, test and unseen modules |
 | 6 | Offset tolerance helps human labels too | P14: recovers 0% of the label-noise gap (L3To − L3o −0.004). On revised labels L3T − L3 inactive +0.037 passes, not robust ([−0.016, +0.093]); crack unchanged; crack AP −0.020 | not supported for label noise; weak for inactive |
 | 7 | Related labelled data (UCF-EL pretraining) beats ImageNet init | P15 (gaint, 3 seeds): gU5 − A5 n.d. on all three (crack +0.0096, thr 0.0100); gU10 − gA10 worse on all three (crack −0.012, inactive −0.086, relF1@2 −0.014), robust over cells (`results/p15/README.md`) | not supported for this recipe; MIM untested |
 | 8 | Models transfer to unseen modules | E1 extension (106 cells, 67 modules): L3 100% crack IoU 0.471 → 0.152, tolF1 0.80 → 0.41; L3 10% crack IoU 0.396 → 0.080 (`results/e1/README.md`, `e1_ext_v2.md`) | not supported (a measured limit) |
 | 9 | Per-cell metrics measure more stably | E1: crack per-cell metrics are not more sensitive than pooled IoU on test; inactive cell IoU separates more contrasts (test 9 vs 7, ext 17 vs 10) | partly (inactive yes, crack no) |
-| 10 | SSL's benefit depends on the label fraction | 5%: P12 (joint BN) no; P13 (separate BN) yes. 10%: P11 (joint BN) yes. 20/50/100%: P16 pending (Cs recipe; CutMix off by val pick) | open |
+| 10 | SSL's benefit depends on the label fraction | 5%: P12 (joint BN) no; P13 (separate BN) yes (Cs5 inactive +0.105). 10%: P11 (joint BN) yes. P16 (Cs recipe, CutMix off by val pick): n.d. at 20%, 50%, 100%. Inactive Δ shrinks +0.105 → +0.029 → +0.006 → +0.003; crack Δ within ±0.003 without the noisy cell. Unseen modules (secondary): inactive cell IoU +0.18 (20%) and +0.20 (50%), CIs above 0 | supported in shape for this recipe: a test gain at 5%, none detectable from 20% up. One recipe, λ fixed at 1, one split |
 | 11 | Mixing-based perturbation (CutMix) matters | P13 CsM5 − Cs5: n.d. by seeds; over cells crack +0.010 [+0.004, +0.017], relF1@2 +0.015 [+0.004, +0.029]; unlabelled/supervised loss ratio 0.46 → 0.77. P13 val ranked Cs5 above CsM5 | weak |
 | 12 | Tolerant pseudo-labels beat hard ones | P7 (L0 base, pilot): C − B inactive IoU +0.056 [+0.022, +0.086], robust. P8 C − B n.d.; P9 Cx − Bx n.d.; P10 C5 − B5 n.d. P13 under CutMix: CsM5 − BsM5 crack IoU −0.022 [−0.031, −0.016] (tolerant worse, robust); inactive equal | not supported on the L3 base; tolerant only beat hard on the old L0 base |
-| 13 | The supervised recipe matters more than the SSL loss | P6 (locked): label-safe augmentation helps (crack AP +0.020, inactive AP +0.028; crack IoU +0.048 [+0.003, +0.097]). Only the L3 recipe turns labels into gains: L3 10% → 100% crack IoU +0.075, inactive +0.135; L0 10% → 100% no detectable effect. AP is not comparable across losses (bin-0 saturation: L3 10% scores 42% of GT crack < 0.001) (`results/p6/README.md`) | supported |
+| 13 | The supervised recipe matters more than the SSL loss | P6 (locked): label-safe augmentation helps (crack AP +0.020, inactive AP +0.028). The secondary crack IoU +0.048 [+0.003, +0.097] is mostly one L0 seed failing on the noisy test cell; about +0.010 without it (row 15). Only the L3 recipe turns labels into gains: L3 10% → 100% crack IoU +0.075, inactive +0.135; L0 10% → 100% no detectable effect. AP is not comparable across losses (bin-0 saturation: L3 10% scores 42% of GT crack < 0.001) (`results/p6/README.md`) | supported |
 | 14 | Rare-class pseudo-label collapse is real and visible in training logs | P10: seed 2 collapses under both B5 and C5 (crack ≈ 0.13, inactive ≈ 0). Its rare-class PL share stays about 5× lower from step 4,000. P13 (separate BN): no collapse in 8 logged runs, rare_frac 0.0064 to 0.0109 (`results/p10`, `p13`) | supported as a failure mode (one collapse event, seed 2, at 5%) |
+| 15 | One test cell can decide crack contrasts | `CSIR_00070_r8_c4`, the noisiest of the 582 cells (noise sigma 46.0 vs median 1.48). In 4 of 24 P16 runs (2 supervised, 2 SSL) and in P6 `L0_10pct_s1`, the model calls 15–31% of it crack (39k–80k FP px), cutting that run's crack IoU by 0.11–0.18. Inflates the crack IoU seed sd 10–31× and moved P16's crack Δs by up to ±0.04 (`results/p16/README.md`) | measured. Not in any locked rule; adopting "without this cell" as a standing check is the user's call |
 
 ---
 
@@ -92,14 +93,17 @@ Where this table deliberately differs from that file:
 | 5% (23) | gaint, 3 seeds (A5) | 0.298±0.005 | 0.277±0.055 | 0.708±0.012 | `results/p10/README.md` |
 | 10% (47) | cv02 (L3 10%) | 0.396±0.003 | 0.294±0.019 | 0.814±0.003 | `results/p6/README.md` |
 | 10% (47) | gaint (gA10) | 0.400±0.007 | 0.351±0.046 | 0.820±0.010 | `results/p12/README.md` |
-| 20% (95) | cv02 (L3 20%) | 0.398±0.002 | 0.347±0.043 | 0.822±0.008 | `results/p6/README.md` |
+| 20% (95) | cv02 (L3 20%, P6 s0–2) | 0.398±0.002 | 0.347±0.043 | 0.822±0.008 | `results/p6/README.md` |
+| 20% (95) | cv02 (A20, P6 s0–2 + P16 s3–4) | 0.398±0.006 | 0.361±0.037 | 0.822±0.010 | `results/p16/README.md` |
 | 50% (239) | gaint (P10 A50) | 0.437 | 0.427 | not in README | `results/p10/README.md` (label-curve table) |
-| 50% (239) | cv02 | pending (P16 A50) | | | `results/p16/` when present |
-| 100% (478) | cv02 (L3 100%) | 0.471±0.001 | 0.429±0.011 | 0.876±0.003 | `results/p6/README.md` |
+| 50% (239) | cv02 (P16 A50, 5 seeds) | 0.408±0.076 (0.448±0.007 without the noisy cell) | 0.412±0.012 | 0.808±0.117 (0.866±0.006) | `results/p16/README.md` |
+| 100% (478) | cv02 (L3 100%, P6 s0–2) | 0.471±0.001 | 0.429±0.011 | 0.876±0.003 | `results/p6/README.md` |
+| 100% (478) | cv02 (A100, P6 s0–2 + P16 s3–4) | 0.435±0.078 (0.474±0.002 without the noisy cell) | 0.436±0.013 | 0.828±0.105 (0.881±0.004) | `results/p16/README.md` |
 
 **Reading:**
-- Crack is flat from 10% to 20% (+0.002).
-- Inactive climbs until 50%.
+- Crack is flat from 10% to 20% (+0.002), then rises to 50% (0.448 without the noisy cell) and 100% (0.474).
+- Inactive climbs until 50% (cv02 A50 0.412), then flattens (A100 0.436).
+- One P16 seed each at 50% and 100% failed on the noisy test cell `CSIR_00070_r8_c4`; the bracketed values drop that cell (post hoc, row 15).
 - The crack gap from 10% to 100% is 0.075.
 - At 5%, crack drops by about 0.1.
 
@@ -138,7 +142,9 @@ The two label versions agree at crack IoU 0.745 on test, but 0.98 within 2 px (`
 | 5% | P13 | separate BN + CutMix, tolerant | CsM5 − A5c (primary, 5 v 5) | +0.014 | +0.117 | +0.033 | passes, robust |
 | 5% | P13 | separate BN, tolerant, no CutMix | Cs5 − A5c | +0.004 | +0.105 | +0.018 | passes (inactive) |
 | 5% | P13 | separate BN + CutMix, hard PL | BsM5 − A5c | +0.036 | +0.113 | +0.052 | passes (secondary, 3 seeds) |
-| 20% / 50% / 100% | P16 | separate BN, tolerant, no CutMix | S − A | pending | | | |
+| 20% | P16 | separate BN, tolerant, no CutMix | S20 − A20 (5 v 5) | −0.040 | +0.029 | −0.070 | n.d. (without noisy cell: +0.002 / +0.029 / +0.000) |
+| 50% | P16 | same | S50 − A50 (5 v 5) | +0.039 | +0.006 | +0.053 | n.d. (+0.002 / +0.002 / −0.001) |
+| 100% | P16 | same, external pool | Sx100 − A100 (5 v 5) | +0.028 | +0.003 | +0.040 | n.d. (−0.002 / +0.002 / −0.002) |
 
 gaint, descriptive only:
 
@@ -147,7 +153,7 @@ gaint, descriptive only:
 | P12 gCm5 − gDm5 | +0.047 | +0.077 | +0.078 |
 | P12 gCm5 − A5 | +0.029 | +0.068 | +0.058 |
 
-Sources: `results/p8` to `results/p13` READMEs.
+Sources: `results/p8` to `results/p13` and `results/p16` READMEs.
 
 ### Unseen modules (E1 extension, 106 cells)
 
@@ -215,7 +221,7 @@ These hold for one split (seed 0), the 50 BenchmarkEL test cells, cv02 and the L
   - P14 fails recovery.
   - P13 favours hard PL on crack.
   - The full ALHVR-style region routing was never run in the P-series; P5 is an offline probe.
-- **Anything about SSL above 10% labels.** P16 is pending.
+- **That SSL helps above 10% labels.** P16 finds no detectable gain at 20%, 50% or 100% with the Cs recipe. Other recipes (CutMix, hard PL, larger λ) were not tested there, so "SSL cannot help above 10%" cannot be claimed either.
 - **That related-data pretraining helps.** P15 says no for UCF-EL encoder transfer with this recipe (equal at 5%, worse at 10%), and the MIM/self-supervised rival was never run.
 - **Inactive results as general facts.**
   - Test inactive rests on 16 cells, 3 holding 59%.
@@ -256,7 +262,7 @@ From the assistant's answer to the user on 11 Oct (transcript line 6728) and the
 - SSL was credited whenever the gain was there (P11 rules 2 and 3; P12 rule 2).
 
 **The design was. Five things:**
-1. **Regime.** We ran at 5 to 10% labels, where inactive is in only 2 or 4 labelled cells and the teacher is weakest. Addressed by P16 (running).
+1. **Regime.** We ran at 5 to 10% labels, where inactive is in only 2 or 4 labelled cells and the teacher is weakest. Addressed by P16: at 20 to 100% the Cs recipe shows no detectable gain.
 2. **A handicap built into every SSL arm until P13.**
    - First a stronger labelled view (removed in P11).
    - Then joint BN: −0.007 crack IoU at 10%, −0.017 at 5%, before the loss did anything.
@@ -304,6 +310,10 @@ Arms S20 − A20, S50 − A50, Sx100 − A100, 5 vs 5 seeds, rule 1 (`protocols/
 | Any S arm worse on a primary | SSL hurts at that fraction; report it as a negative result |
 
 The descriptive label-fraction curve (`scripts/p16_curve.py`) puts these next to P13's 5% point within cv02. 10% has no separate-BN SSL arm; P11 used joint BN.
+
+**Outcome (added 12 Oct ~05:30 IST):** the "S20 and S50 n.d." and "Sx100 n.d." rows, with no arm worse (`results/p16/README.md`). The table is kept as written before the result.
+- Pooled crack numbers were dominated by one noisy test cell (row 15). Without it every crack Δ is within ±0.003, so the outcome is the same.
+- The caveat in the "S20 and S50 n.d." row applies: Cs was the weakest P13 arm on crack test, and the P16 recipe has no CutMix.
 
 ---
 
