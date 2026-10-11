@@ -80,3 +80,19 @@ As in P8–P10, pseudo-labels de-saturate inactive. Dmx ≈ Dm shows that, with 
 - Inactive: 4 of the 47 labelled cells contain it.
 - The P6 reference ran in a different launch batch (training is deterministic per machine).
 - The relF1@2 bootstrap is in E1 (`results/e1`), not here.
+
+## E1 addendum (11 Oct, after the locked analysis)
+Per-cell task metrics and the relF1@2 bootstrap, from `results/e1/e1_p11.md` (definitions: `results/e1/README.md`). Paired image bootstrap, 2,000 resamples. Test = 50 cells; ext = 106 extension cells from unseen modules.
+
+| Contrast | Set | crack relF1@2 (pooled) | crack tolF1 (per cell) | crack false alarm | inactive cell IoU |
+|---|---|---|---|---|---|
+| Cm − Dm | test | **+0.018 [+0.010, +0.032]** | **+0.039 [+0.015, +0.067]** | 0 vs 0 | **+0.076 [+0.014, +0.172]** |
+| Cm − A | test | **+0.013 [+0.005, +0.024]** | **+0.036 [+0.014, +0.061]** | 0 vs 0 | +0.028 [−0.005, +0.072] |
+| Cm − Dm | ext | +0.012 [−0.018, +0.044] | **+0.035 [+0.009, +0.063]** | **+0.122 [+0.063, +0.191]** (worse) | +0.020 [−0.068, +0.120] |
+| Cm − A | ext | −0.013 [−0.047, +0.021] | +0.012 [−0.017, +0.043] | **+0.113 [+0.049, +0.186]** (worse) | **+0.071 [+0.001, +0.166]** |
+| Cmx − A | ext | +0.020 [−0.030, +0.065] | +0.021 [−0.013, +0.058] | **+0.068 [+0.004, +0.135]** (worse) | **+0.218 [+0.072, +0.367]** |
+
+- **The relF1@2 part of rule 3 is robust over test cells** (Cm − A: CI excludes 0), unlike the inactive IoU part.
+- **On unseen modules, Cm raises crack false alarms.** The share of crack-free extension cells with ≥ 50 predicted crack px rises from 0.13 (A) to 0.24 (Cm). On the test set no arm has any.
+- **Cmx improves inactive on unseen modules** (cell IoU +0.22, pooled IoU +0.085 [+0.009, +0.225]), as P9's Cx did. Only 1 of the 106 extension cells comes from a module that has cells in the external pool, so this is not a module leak.
+- These contrasts were not in the locked rules. They are descriptive.
