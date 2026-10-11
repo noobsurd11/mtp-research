@@ -52,7 +52,8 @@ A watcher (`scratchpad/watch.sh`) polls both servers every 2 minutes and fires o
 |---|---|---|---|
 | 1 | Thesis framing (e.g. "SSL works once the pipeline is fixed" vs "a measurement and diagnosis study" vs a mix) | The user's rule: "framing depends on final results, no presumptions, ever". Needs P15 and P16. | user, 11 Oct |
 | 2 | Whether to run hard pseudo-labels + CutMix (the BsM recipe) at 20% or 50% labels | P13's best crack arm was BsM5. P16 runs the Cs recipe because the locked val-based pick chose CutMix off. A BsM arm at 20/50% would be chosen after seeing test results, so it can only be reported as exploratory. | `results/p13/README.md`; chat 11 Oct |
-| 3 | Larger test set | The user said "conside rit" (11 Oct).<br>• Done: a 106-cell extension from BenchmarkEL modules we never trained on (E1).<br>• Not done: downloading the full E-SCDD set (903 images) or the `20221008` release to enlarge the test set. | `results/e1/README.md` |
+| 3 | Larger test set, and whether to use E-SCDD's extra labelled cells | The user said "conside rit" (11 Oct).<br>• Done: a 106-cell extension from BenchmarkEL modules we never trained on (E1).<br>• Done 12 Oct: full E-SCDD and BenchmarkEL `20221008` downloaded and audited (doc 17).<br>• Facts for the decision:<br>&nbsp;&nbsp;– 233 labelled real cells we never trained on, 111 of them in our external pool;<br>&nbsp;&nbsp;– E-SCDD's own test is unusable with our split;<br>&nbsp;&nbsp;– a 172-cell test (ours + E1 + 17 new) has 26 inactive cells with a top-3 share of 53.5%.<br>• Open: use any of it (new base, held-out selection set, larger test) or not. | `results/escdd_audit/README.md` §8; `results/e1/README.md` |
+| 3b | Thesis wording for the revised labels | They are BenchmarkEL `20221008` crack/inactive labels obtained via E-SCDD (doc 17 §5.2) | `results/escdd_audit/README.md` §4 |
 | 4 | Mid-term deck content | The outline predates P9 to P16 | `to_human/midterm_deck_outline.md` |
 | 5 | Identity, institute and report template for the MTP report | Inconsistent across sources (phase 1 handoff §1) | phase 1 handoff |
 
@@ -68,7 +69,7 @@ Ordered roughly by information per cost. None of these is started; each would ne
 | Severity pipeline (components, skeleton, isolation, Köntges A/B/C) | The measurement WattCycle needs. It was lost in the reset and must be rebuilt. | CPU, 2 to 3 days | proposal §5 E6; phase 0 handoff "Subpath A" |
 | Rare-class share floor and cap for pseudo-labels | Fixes the collapse at 5% (P10) and the over-prediction on UCF (phase 1) | a few runs | proposal §3 |
 | More label subsets (split seeds 1, 2) or cross-validation over the 582 cells | Everything so far uses one labelled subset and one 50-cell test set | reruns | handoff §12.4 items 6 and 7 |
-| Larger test set (E-SCDD or the `20221008` release) | Inactive is decided by about 3 test cells | data download plus re-scoring | E1 README; proposal §5 E1 |
+| Larger test set (data now local: doc 17) | Inactive is decided by about 3 test cells. The candidates add many crack cells but little inactive (A: +10 inactive cells, 9,158 px) | re-scoring existing checkpoints on the new cells (no training) | `results/escdd_audit/README.md` §8; E1 README |
 | Tolerant Dice term; tuning the tolerance radius R | P14 tested only R = 2 with a tolerant CE term | a few runs | P14 "Not claimed" |
 
 ## 5. Parts 2 and 3 (after part 1)

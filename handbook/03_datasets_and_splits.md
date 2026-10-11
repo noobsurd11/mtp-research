@@ -32,6 +32,7 @@ For what the images and classes *mean* physically, read `02_domain_primer_EL_and
 - `~/mtp/research/literature/notes/F04_el_datasets_census.md`: releases, E-SCDD, BMRK = ELPV, other datasets.
 - `~/mtp/MTP_session_handoff_2026-10-07.md` §3: data facts from the earlier era.
 - `sources/chat/claude_session_summaries_2026-10-07_to_11.md` (E-SCDD provenance, mask-set construction) and `sources/chat/phase0_phase1_handoffs_pasted_2026-10-11.md`.
+- `~/mtp/research/results/escdd_audit/README.md`: the full E-SCDD download and audit (12 Oct 2026). It is taught in `17_escdd_dataset_audit.md`.
 - Counts marked "(cv02 count, 11 Oct)" were made for this handbook, read-only. They used `/tmp/noob_el/el_p13/data` on cv02, a symlink to `/tmp/noob_el/el_p7/data`, the data every P-series run on cv02 reads.
 
 ---
@@ -41,7 +42,7 @@ For what the images and classes *mean* physically, read `02_domain_primer_EL_and
 | Dataset | Role in the project | Size | Status |
 |---|---|---|---|
 | **BenchmarkEL `dataset_20211104`** (Pratt et al.) | the main labelled dataset; every P-series result | 478 train / 54 val / 50 test = **582** cells, 512 × 512 | used throughout |
-| **E-SCDD revised masks** (HuggingFace `snt-ubix/escdd`, MIT) | replacement masks for the same 582 images; training and evaluation labels from P6 on | covers 577 of our 582 | used from P6 on |
+| **E-SCDD revised masks** (HuggingFace `snt-ubix/escdd`, MIT) | replacement masks for the same 582 images; training and evaluation labels from P6 on. For crack and inactive they are exactly BenchmarkEL `20221008`'s labels (doc 17) | covers 577 of our 582; the full set (903 files) was downloaded and audited on 12 Oct | used from P6 on |
 | BenchmarkEL `dataset_20220723`, `dataset_20221008` | newer releases with more images, reshuffled splits and cleaned crack labels | 642 and 695 originals | only the 106 extra `20221008` cells are used (E1 extension) |
 | **External unlabelled pool** (CSIR/ARTS cells from the BenchmarkEL Dropbox) | unlabelled data for "x" arms (P9–P12) and for Sx100 (P16) | **11,938** cells | used |
 | **ext106 extension** | out-of-distribution test of trained models (E1) | 106 cells from 67 modules | used |
@@ -123,7 +124,11 @@ The totals match the labelled-per-source column of gaint `reports/external_pool.
 ## 3. Mask versions: old (`masks_coded`) vs revised (E-SCDD, `masks_escdd`)
 
 ### 3.1 What the revised masks are
-**E-SCDD.** HuggingFace `snt-ubix/escdd`, MIT licence, 903 images, 29 classes, described as having "refined pixel-level annotations". It is built on BenchmarkEL `20221008` (`results/p3_label_versions/README.md`; `sources/chat/claude_session_summaries_2026-10-07_to_11.md`).
+**E-SCDD.** HuggingFace `snt-ubix/escdd`, MIT licence, described as having "refined pixel-level annotations". It is built on BenchmarkEL `20221008` (`results/p3_label_versions/README.md`).
+
+**Full download and audit, 12 Oct** (`results/escdd_audit/README.md`; taught in `17_escdd_dataset_audit.md`):
+- **Contents.** 903 files: 693 `20221008` cells, 117 newly annotated real cells (`_rf` suffix) and 93 synthetic diffusion images (train only). 30 classes (0–29).
+- **What was "refined".** Against `20221008`, only spacing classes changed, in 66 masks. **No crack or inactive pixel changed.** So the crack cleaning we use is BenchmarkEL's own `20221008` correction, obtained via E-SCDD.
 - It contains **577 of our 582** images. 185 of them sit in a different split there; we keep our own split (`results/p3_label_versions/README.md`).
 - Images are pixel-identical between versions (576 of 577 checked, same source).
 
@@ -135,7 +140,10 @@ The totals match the labelled-per-source column of gaint `reports/external_pool.
 - **Locations:**
   - training labels: `data/labeled/masks_escdd/`;
   - evaluation copies: `data/escdd_masks/{train,val,test}/`, which the re-score scripts read;
-  - On cv02, `data/labeled/masks_escdd` is a symlink to `/tmp/noob_el/masks_escdd`. That directory lists 583 entries against 582 masks expected. The extra entry is unknown; check that directory.
+  - On cv02, `data/labeled/masks_escdd` is a symlink to `/tmp/noob_el/masks_escdd`. That directory lists 583 entries against 582 masks expected. The extra entry is `README.txt`, a note describing the build (checked on gaint's copy, 12 Oct).
+- **Measured effect of the remap** (`results/escdd_audit/README.md` §9). `masks_escdd` equals E-SCDD in 560 of 577 cells; the other 17 differ only at scuff (25) and star (28) pixels.
+  - The remap returned 939 crack pixels from the old masks: train 703, test 236 (0.26% of test crack pixels).
+  - 2 test cells (`ARTS_00047_r3_c1`, `ARTS_00051_r3_c2`) have crack only through the remap. So our test counts 48 crack cells where E-SCDD's own masks give 46. Inactive is identical.
 
 ### 3.2 How they differ
 
@@ -162,7 +170,10 @@ The totals match the labelled-per-source column of gaint `reports/external_pool.
 
 - On changed images (`20220723` → `20221008`): mean label width 1.82 → 2.55 px; crack fragments 3,707 → 549 (a 7× drop: dotted labels joined); median 100% of new crack pixels within 1.5 px of the old label.
 
-**Conflict to know about.** P3 (E-SCDD vs ours) and F04 (`20221008` vs ours) give different agreement numbers: test crack IoU 0.745 vs 0.693, train 0.81 vs 0.567. They compare different mask sets, and why E-SCDD differs from `20221008` is not documented. Check `results/p3_label_versions/` (its `compare.py` output) and `F04_el_datasets_census.md` before quoting either as "the" agreement. Both agree on the main point: the revision is a 1–2 px cleaning of the same labels.
+**Resolved (12 Oct): P3 and F04 do not conflict.** P3 (E-SCDD vs ours) gives test crack IoU 0.745 and F04 (`20221008` vs ours) gives 0.693; train is 0.81 vs 0.567. The difference is the denominator, not the masks: E-SCDD crack is identical to `20221008` crack.
+- P3 pools over all crack images: test 0.745, val 0.732, train 0.81.
+- F04 pools only over images whose mask changed: test 0.693, val 0.638, train 0.567.
+- All six numbers reproduce from the downloaded files (`results/escdd_audit/README.md` §10). Quote P3's for "agreement over the split" and F04's for "agreement where labels changed".
 
 ### 3.3 What the label version does to scores
 
@@ -318,7 +329,7 @@ From `results/e1/README.md`.
   - not in the external pool. The release has 117 extra cells; 11 were in the pool and are dropped.
 - **Composition.** 101 CSIR and 5 BMRK; 32 contain crack and 10 contain inactive.
 - **Modules.** 67 modules, of which only 1 has cells among our 582. So the set measures **transfer to unseen modules**, not in-distribution performance. Visually it looks different from our cells (`results/e1/ext_montage.png`).
-- **Masks.** The release's own (cleaned, like E-SCDD).
+- **Masks.** The release's own `20221008` masks. For crack and inactive they are pixel-identical to E-SCDD's, which took them from this release. 105 of the 106 cells are in E-SCDD; `CSIR_00308_r5_c3` is not (doc 17).
   - Class 24 (sp mono halfcut) is remapped to sp mono.
   - Classes 25–28 (scuff, corrosion cell, brightening, star) do not exist in our taxonomy. They are marked **ignore**, excluded from the cell area and scored neither way. This is an amendment after a first pass that mapped them to background. It is disclosed in the README.
 - **Files.** cv02 `/tmp/noob_el/ext117/{images,masks,ignore,stems_eval.txt}`; `stems_eval.txt` has 106 lines (cv02 count, 11 Oct). The manifest is `results/e1/ext117_manifest.csv`.
@@ -387,7 +398,7 @@ Pixel shares at shorter side 295 (`ucf_el_report.md` §2):
   - one DeepLabV3+ (ResNet-34) pretraining run on **all 9,562 UCF train cells** with the reproduced Fioresi recipe;
   - its encoder then initialises BenchmarkEL fine-tuning at 5% and 10% on gaint;
   - leakage check: UCF train vs BenchmarkEL val+test, maximum normalised correlation 0.79, none ≥ 0.90.
-  - Results pending at the time of writing.
+  - Result: no better than ImageNet init at 5%, worse at 10% (`results/p15/README.md`; doc 10).
 
 ---
 
@@ -397,7 +408,7 @@ From `literature/notes/F04_el_datasets_census.md` §2 and `to_human/directions_2
 | Dataset | Why it came up | Why not used (so far) |
 |---|---|---|
 | BenchmarkEL `20220723` (642), `20221008` (695) | more labels; cleaned cracks | splits were reshuffled (48 of our train moved to test, 38 of our test to train), so numbers are not comparable; only the 106 new `20221008` cells are used (E1) |
-| E-SCDD full set (903 images) | more cleaned labels | only its masks for our 577 cells were used. A full download was not done; the user's answer "conside rit" was ambiguous (`sources/chat/claude_session_summaries_2026-10-07_to_11.md`) |
+| E-SCDD full set (903 files) | more labelled cells | **downloaded and audited 12 Oct** (`results/escdd_audit/`, doc 17). It holds 233 real cells we never trained on with labels; 111 of them are in our external pool, 105 are E1's set and 117 are new `_rf` annotations. 93 synthetic images are in its train. Not used for training or scoring; the user decides (doc 15) |
 | ELPV (2,624 cells, image-level labels) | = BMRK cells; free weak labels | not an independent pool or test set; weak supervision not run |
 | PVEL-AD (36,543 NIR cells, boxes) | weak supervision, unlabelled data | access by request form; NIR, mostly poly cells, a domain shift |
 | PV-Vision, MultiSolSegment (585, multi-label) | extra sources | possible overlap with SDLE (CWRU) and LBNL; not checked |
@@ -431,7 +442,7 @@ Details are in `14_code_and_infrastructure.md`.
 | BenchmarkEL clone | `~/mtp/datasets/BenchmarkELimages/` | `/home/noob/work/datasets/BenchmarkELimages/` | no clone; labelled images and old masks in `/tmp/noob_el/el-fault-detection/data/labeled/{images,masks_coded}` |
 | Repo data dir (symlinks) | – | `/home/noob/work/el-fault-detection/data/` | `/tmp/noob_el/el_p7/data`; the `el_p13` and `el_p16` worktrees' `data` link to it; its `labeled/images` and `labeled/masks_coded` link to `/tmp/noob_el/el-fault-detection/data/labeled/`, and `labeled/masks_escdd` links to `/tmp/noob_el/masks_escdd` |
 | Old masks | `dataset_20211104/masks_coded_*` | `data/labeled/masks_coded/` | same path in `data/` |
-| Revised masks | – | `data/labeled/masks_escdd/`, `data/escdd_masks/{train,val,test}/` | `/tmp/noob_el/masks_escdd` (as `data/labeled/masks_escdd`), plus `data/escdd_masks/{val,test}/` |
+| Revised masks | full E-SCDD: `~/mtp/datasets/escdd_full/`; mirror `~/mtp/datasets/escdd_mirror_shivahanifi/`; BenchmarkEL `20221008`/`20220723` originals: `~/mtp/datasets/BenchmarkEL_releases/` | `data/labeled/masks_escdd/`, `data/escdd_masks/{train,val,test}/` | `/tmp/noob_el/masks_escdd` (as `data/labeled/masks_escdd`), plus `data/escdd_masks/{val,test}/` |
 | Split lists | `~/mtp/datasets/splits_benchmark/` (copy) | `data/splits/` (committed in git) | `data/splits/` |
 | External pool | lists only (`splits_benchmark/external_unlabeled*.{txt,csv}`) | raw: `/home/noob/work/sa-unetpp-ssl-el/data/unlabeled/images`; converted: `data/unlabeled/images_512/` | `data/unlabeled/images_512/` (11,938 files) |
 | ext106 extension | – | – | `/tmp/noob_el/ext117/` |
@@ -450,6 +461,8 @@ Details are in `14_code_and_infrastructure.md`.
 5. **"Test has 50/50 crack cells" vs "48/50".** Old masks give 50; revised masks give 48. Inactive: 17 (old) vs 16 (revised).
 6. **UCF crack ≠ BenchmarkEL crack** (region vs line). Never compare their IoUs directly.
 7. **The external pool is not "more of the same".** Two of five sources, different contrast, never harmonised.
+8. **"E-SCDD cleaned the crack labels."** The cleaning is BenchmarkEL's own `20221008` correction; E-SCDD redistributes it unchanged for crack and inactive (doc 17 §5.2).
+9. **"E-SCDD's test split is a bigger, better test set."** 48 of its 82 test cells are in our train, and it has inactive in only 9 cells (doc 17 §5.6–5.7).
 
 ## Related docs
 - `00_START_HERE.md`

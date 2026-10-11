@@ -323,10 +323,15 @@ P5 (10 Oct, locked protocol) later measured pseudo-label precision by ALHVR regi
 
 ## 7. E-SCDD and PV-DDPM (Hanifi, Köntges et al., arXiv 2511.09604, Nov 2025)
 
-The source of the **revised crack labels** the P-series uses (`data.mask_subdir=labeled/masks_escdd` from P6 on). `literature/notes/F03` §4; `to_human/directions_2026-10-10.md` §2.
+Where we downloaded the **revised crack labels** the P-series uses (`data.mask_subdir=labeled/masks_escdd` from P6 on). `literature/notes/A09_hanifi2025_escdd.md` (full read, 12 Oct); `literature/notes/F03` §4; `to_human/directions_2026-10-10.md` §2.
+- **Audit, 12 Oct** (`results/escdd_audit/README.md`, doc 17):
+  - **The crack/inactive masks are pixel-identical to BenchmarkEL `20221008`'s.** The cleaning is the BenchmarkEL maintainers' correction; E-SCDD only relabelled spacing classes in 66 masks.
+  - **The release has 903 labelled files,** against the paper's 1,000: 693 + 117 new `_rf` + 93 synthetic, all synthetic in train. It has no unlabelled synthetic images.
 - PV-DDPM: a mask-conditioned diffusion model for EL cells, trained on BenchmarkEL "SCDD" (the 20221008 release: 695 labelled, 29 classes).
-- E-SCDD: 1,000 pixel-annotated images = 695 + 110 new real + 195 synthetic [paper]; the Hugging Face listing (`snt-ubix/escdd`, MIT licence) shows train 731 / val 90 / test 82 [ours, checked]; about 93 train files carry `k-CFVS` / `k-CSIR` prefixes, probably synthetic [inferred]. Its README says it adds refined pixel-level annotations.
-- Downstream evidence in the paper is weak: only AA-CLIP anomaly detection; no segmentation experiment; nothing crack-specific.
+- E-SCDD: 1,000 pixel-annotated images = 695 + 110 new real + 195 synthetic [paper]. The Hugging Face listing (`snt-ubix/escdd`, MIT licence) shows train 731 / val 90 / test 82 [ours, checked]. Exactly 93 train files are synthetic (`<k>-<base>_<class>_rf.png`, from 4 base cells) [ours, audited 12 Oct; earlier "probably synthetic" confirmed]. Its README says it adds refined pixel-level annotations; the paper describes only the half-cut spacing relabel.
+- Downstream evidence in the paper is weak. It has only AA-CLIP anomaly detection: no segmentation experiment and nothing crack-specific.
+  - The full-shot pixel AP of 55.47 vs 47.13 is one number per setting with no seeds, on different test sets.
+  - E-SCDD is worse at 16 and 32 shots.
 - What the revision did to crack labels (measured on the 20220723 → 20221008 change; `literature/notes/F04` §1a): mean label width 1.82 → 2.55 px per skeleton pixel; 8-connected fragments 3,707 → 549 (dotted labels joined); 100% (median) of new crack pixels within 1.5 px of the old label. On our 50 test images (20211104 → 20221008), 42 masks changed (35 crack masks), crack px +39%, IoU old/new 0.693.
 - Effect on our models (P3, exploratory): re-scoring the same checkpoints on revised labels raises crack IoU by 0.05–0.07 for every model and flips 10% vs 100% on crack AP (`results/p3_label_versions/README.md`; `to_human/directions_2026-10-10.md` §2). Counts and the 577 + 5 mask construction are in `03_datasets_and_splits.md`.
 

@@ -91,7 +91,7 @@ Status date: 11 Oct 2026, ~22:00 IST. P13 and P14 are done. P15 (gaint) is due ~
   - Seed sd for inactive IoU reaches 0.14 at 5% (P12 Cm5 inactive 0.274±0.139), and 0.20 when one seed collapses (P10 B5 0.238±0.204).
 - **Mitigation:**
   - P16 adds 20/50/100%.
-  - The structural fix is more labelled cells (the full E-SCDD set of 903 images was not downloaded; see E10).
+  - The structural fix is more labelled cells. The full E-SCDD set was downloaded on 12 Oct: it has 20 inactive cells among 233 real cells new to us (doc 17; see E10).
 
 ### A2. Inactive pixels sit in ~3 cells of the test and val sets (mitigated)
 - **What:** dataset-level inactive IoU and AP are decided by a handful of cells.
@@ -162,7 +162,8 @@ Status date: 11 Oct 2026, ~22:00 IST. P13 and P14 are done. P15 (gaint) is due ~
 - **Mitigation:**
   - From P6 on, all training and scoring use the revised masks.
   - Crack relaxed F1@2 is a primary metric.
-  - The revised labels' annotation process is undocumented (E-SCDD). Wider revised labels flatter over-predicting models (P3 caveat).
+  - Where the revised labels come from: for crack and inactive they are BenchmarkEL's own `20221008` corrections, which E-SCDD redistributes unchanged (audit 12 Oct, doc 17 §5.2). How those corrections were made is not documented. Wider revised labels flatter over-predicting models (P3 caveat).
+  - P6's remap of scuff/star pixels put back 236 old crack pixels (0.26%) in 2 test cells. Negligible, but it is why our test counts 48 crack cells against E-SCDD's 46 (doc 17 §5.3).
   - Inconsistency in sources: phase 1 quoted a crack label width of 2.0 px median, against 1.75 px measured here.
 
 ### A6. Models collapse on cells from unseen modules (open; a measured limit)
@@ -454,7 +455,7 @@ None of these may be quoted as a method result. Old-era numbers stay in separate
 | ID | Question | Current evidence | What would resolve it |
 |---|---|---|---|
 | E1 | Does SSL beat supervised once labels are not scarce (20/50/100%)? | P13 at 5%: yes on inactive and crack relF1@2 (CsM5). P11 at 10%: rule passes, inactive not robust | **P16**, running (ETA ~03:00–04:30 12 Oct) |
-| E2 | Is a UCF-EL-trained encoder better than ImageNet init at 5%/10%? | P4: pretrained ≫ random | **P15**, running on gaint (~23:00 11 Oct) |
+| E2 | Is a UCF-EL-trained encoder better than ImageNet init at 5%/10%? | P4: pretrained ≫ random. **P15 (done): no.** n.d. at 5%; worse on all three primaries at 10% | Answered for this recipe; MIM / self-supervised pretraining untested (E12) |
 | E3 | Hard vs tolerant pseudo-labels under CutMix: is hard really better for crack? | P13 BsM5 − A5c crack +0.036; CsM5 − BsM5 −0.022 (3 seeds, secondary) | A locked 5-seed contrast, ideally also at 10–20% |
 | E4 | Does CutMix matter? | P13 CsM5 − Cs5: n.d. on seeds; crack +0.010 over cells; unlabelled loss share 0.46 → 0.77 | More seeds; P16 cannot answer (CutMix off) |
 | E5 | Why do val and test disagree on inactive? | Val has 6 inactive cells (A4) | A larger selection set (held-out train cells or cross-validation) |
@@ -462,7 +463,7 @@ None of these may be quoted as a method result. Old-era numbers stay in separate
 | E7 | Do conclusions hold on other labelled splits? | Only split 0 used (A9) | Rerun key contrasts on splits 1 and 2 |
 | E8 | Can models transfer to unseen modules? | Crack IoU 0.471 → 0.152 (A6) | Pretraining (P15, MIM), more diverse labelled data, a domain-shift-aware evaluation |
 | E9 | Is the external pool useless, or just mismatched? | Source-specific crack harm (A7) | Re-walk the Dropbox listing; harmonise contrast; a matched pool |
-| E10 | Would more labelled cells (full E-SCDD, 903 images) change the picture? | Not downloaded; the user's "conside rit" was read as ambiguous | Download and re-split (needs the user's go-ahead) |
+| E10 | Would more labelled cells (E-SCDD) change the picture? | Downloaded and audited 12 Oct (doc 17).<br>• 233 labelled real cells new to us: 87 crack, 20 inactive.<br>• 111 of them are in our external pool and 105 are E1's set.<br>• Mostly CSIR from unseen modules.<br>• E-SCDD's train also has 93 synthetic images. | The user decides whether to use them; doing so means a new base recipe, not an extension of the P-series |
 | E11 | Does ALHVR (or DTCT alone) help with a fair loss schedule? | Never fairly tested (B3); prototypes dead | A port with λ at full strength early, plus a loss-off control |
 | E12 | Is in-domain self-supervised pretraining (MIM) worth it? | Untested; directions row 3 | Protocol + 1–2 GPU-days |
 | E13 | Severity grading (Köntges A/B/C) and the per-cell quantities | Post-processing lost in the reset (D1); power loss out of scope (user, 11 Oct) | Rebuild components / skeleton / isolation; grade agreement (κ) on GT vs predicted masks (proposal E6) |

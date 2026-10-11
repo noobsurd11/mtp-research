@@ -40,6 +40,7 @@ The user's rule governs this file: "framing depends on final results, no presump
   - SemiCE Mean Teacher.
 
   They sit in separate tables from P-series numbers (revised E-SCDD masks, L3 recipe). The terms are in `04_glossary_and_naming.md`.
+- **Label attribution** (audit 12 Oct, doc 17). The "revised (E-SCDD)" crack and inactive labels are BenchmarkEL's own `20221008` masks, which E-SCDD redistributes unchanged. Claims about the label effect (P3, P14) should name the `20221008` correction as the source.
 - **Verdict wording.**
   - **passes / fails / n.d.** is the locked rule (P8 rule 1: Δ > max(0.01, 2·√((sd_A² + sd_B²)/3)) on any primary, none worse).
   - **robust** means the 95% image-bootstrap CI excludes 0 and the sign survives removing the top-3 cells.

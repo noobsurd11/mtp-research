@@ -17,6 +17,11 @@ cp $R/literature/*.md $S/literature/
 cp $R/literature/notes/*.md $S/literature/notes/
 cp ~/mtp/MTP_session_handoff_2026-10-07.md $S/
 cp ~/mtp/datasets/BenchmarkELimages/README.md $S/data_analysis/BenchmarkELimages_README.md 2>/dev/null || true
+# E-SCDD dataset card and class definitions (MIT), plus the masks_escdd build note (gaint, read-only)
+cp ~/mtp/datasets/escdd_full/README.md $S/data_analysis/escdd_dataset_card_README.md 2>/dev/null || true
+cp ~/mtp/datasets/escdd_full/class_explanation.json $S/data_analysis/escdd_class_explanation.json 2>/dev/null || true
+cp ~/mtp/datasets/escdd_full/ListOfClassesAndColorCodes_20221008.csv $S/data_analysis/escdd_ListOfClassesAndColorCodes.csv 2>/dev/null || true
+scp -q -o BatchMode=yes noob@172.18.22.20:/home/noob/work/el-fault-detection/data/labeled/masks_escdd/README.txt $S/data_analysis/masks_escdd_README.txt 2>/dev/null || true
 # Old-era (phase 1) reports from gaint and cv02, read-only copies
 for f in summary.md results_consolidated.md day1.md arm_differences.md bn_recalibration.md precision_diagnostic.md \
          stats_tests.md external_pool.md fit_vs_generalise.md threshold_free.md split_class_pixel_counts.md setup_check.md; do

@@ -36,11 +36,12 @@ Everything below was checked on 11 Oct 2026, about 22:00 IST, by listing files, 
 | `~/mtp/research/scripts_gaint/` | Copies of gaint-side scripts used for probes and scoring (P1, P2, P4, P5 scripts; `rescore_label_versions.py`, `per_image_scores.py`, `score_histograms.py`, `overlay_figure.py`). |
 | `~/mtp/research/analysis/` | `alhvr_audit.md` (audit of the earlier ALHVR work), `papers_metrics.md` (how papers define their metrics). |
 | `~/mtp/research/data_analysis/` | `benchmark_el_report.md`, `ucf_el_report.md` (first-hand dataset analyses). |
-| `~/mtp/research/literature/` | `survey.md`, `papers_index.md`, `reading_list.md`, `notes/` (25 per-paper and per-topic notes), `pdfs/`, `pdfs_inst/` (local PDFs; never redistribute). |
+| `~/mtp/research/literature/` | `survey.md`, `papers_index.md`, `reading_list.md`, `notes/` (26 per-paper and per-topic notes), `pdfs/`, `pdfs_inst/` (local PDFs; never redistribute). |
 | `~/mtp/research/papers/` | PDFs obtained through institute access. **Local only; never redistribute or upload.** |
 | `~/mtp/research/handbook/` | This handbook. |
+| `~/mtp/research/results/escdd_audit/` | The E-SCDD audit (12 Oct):<br>• `README.md`;<br>• `scripts/`: download, inventory, crossref, analysis, dups_mad, ours_vs_escdd, montage. Run with `.venv/bin/python -I`;<br>• `out/*.json`;<br>• `escdd_samples.png`. |
 | `~/mtp/research/.venv/` | Python env used for the local analysis scripts (`.venv/bin/python scripts/...`). |
-| `~/mtp/datasets/` | Local dataset copies: `BenchmarkELimages/dataset_20211104/` (images/masks per split, class list CSV), `UCF-EL-Defect/`, `splits_benchmark/` (train/val/test, seed folders, external pool manifest), `splits_ucf_cv02/`. |
+| `~/mtp/datasets/` | Local dataset copies:<br>• `BenchmarkELimages/dataset_20211104/` (images/masks per split, class list CSV);<br>• `UCF-EL-Defect/`;<br>• `splits_benchmark/` (train/val/test, seed folders, external pool manifest);<br>• `splits_ucf_cv02/`.<br>Added 12 Oct (doc 17), all hash-verified:<br>• `escdd_full/` (HF `snt-ubix/escdd`, 903 image/mask pairs + CSV, JSON, README);<br>• `escdd_mirror_shivahanifi/` (HF mirror with no-padding variants);<br>• `BenchmarkEL_releases/dataset_{20221008,20220723}/` (originals only, GitHub tree `768b5e7`);<br>• the HF API listings `escdd_full_hf_api.json` and `escdd_mirror_shivahanifi_hf_api.json`. |
 | `~/mtp/MTP_session_handoff_2026-10-07.md` | The handoff document from before this work started (old-era context). |
 
 ### 1.2 gaint (`ssh noob@172.18.22.20`)

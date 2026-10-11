@@ -12,7 +12,7 @@ The handbook docs (`../00` to `../16`) summarise and explain. This folder holds 
 | `results/` | Each experiment's README, rules output (`*_rules.txt`) and bootstrap output (`*per_image_test.txt`), named `<experiment>__<file>` | refreshed |
 | `to_human/` | Reports written for the user: situation report (8 Oct), directions (10 Oct), proposal reframe (11 Oct), mid-term deck outline, results summary (12 Oct) | refreshed |
 | `analysis/` | Paper-metric reproduction notes (`papers_metrics.md`) and the ALHVR audit | refreshed |
-| `data_analysis/` | BenchmarkEL and UCF-EL data reports, and the BenchmarkEL dataset README | refreshed |
+| `data_analysis/` | BenchmarkEL and UCF-EL data reports, and the BenchmarkEL dataset README. From 12 Oct also: the E-SCDD dataset card (`escdd_dataset_card_README.md`), its class definitions (`escdd_class_explanation.json`, `escdd_ListOfClassesAndColorCodes.csv`), and the build note of our `masks_escdd` (`masks_escdd_README.txt`, from gaint) | refreshed |
 | `literature/` | Survey, papers index, reading list, and 25 per-paper and per-topic notes in `notes/` | refreshed |
 | `old_era_reports/` | Phase 1 reports from the training repo on gaint (`gaint__*`) and the cv02 results log (`cv02__el_results_cv02.md`). Old-era setup (original masks, from-scratch U-Net++, weighted CE, batch 4, SemiCE): never mix their numbers with P-series numbers. | refreshed |
 

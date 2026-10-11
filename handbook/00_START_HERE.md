@@ -1,6 +1,6 @@
 # 00. START HERE: handbook for the MTP project (EL defect segmentation)
 
-**What this is.** A handbook for an agent that will act as a guide and interpreter for the student who owns this project (called "the user" below). The user wants to understand the whole project from zero to one: scope, domain, data, jargon, work done, problems, decisions, results, and what is left. These docs hold everything known as of **11 Oct 2026, about 22:45 IST** (P15 included; P16 pending). The `sources/` folder holds the primary documents they rest on. The live project files are reachable by command (section 5).
+**What this is.** A handbook for an agent that will act as a guide and interpreter for the student who owns this project (called "the user" below). The user wants to understand the whole project from zero to one: scope, domain, data, jargon, work done, problems, decisions, results, and what is left. These docs hold everything known as of **11 Oct 2026, about 22:45 IST** (P15 included; P16 pending), plus the **E-SCDD download and audit of 12 Oct, about 02:30 IST** (doc 17). The `sources/` folder holds the primary documents they rest on. The live project files are reachable by command (section 5).
 
 ---
 
@@ -46,6 +46,7 @@
 | 14 | `14_code_and_infrastructure.md` | Code, servers, scripts, where every file lives, how to reproduce |
 | 15 | `15_status_remaining_work.md` | What is running, what is left, decisions waiting on the user |
 | 16 | `16_faq_for_the_guide.md` | Short grounded answers to likely questions |
+| 17 | `17_escdd_dataset_audit.md` | The E-SCDD dataset and paper: what it really contains, the audit, and what it changes |
 
 For a quick start, read 01, 04 (skim), 11 and 16. Then go back to 02 to 10 as questions come up.
 
@@ -61,6 +62,7 @@ For a quick start, read 01, 04 (skim), 11 and 16. Then go back to 02 to 10 as qu
 4. **Labels.** Revised (E-SCDD) crack labels change the picture more than any SSL effect at 10%:
    - re-scoring old models on them gives +0.05 to +0.07 crack IoU (P3);
    - training on them gives +0.082 (P14).
+   - For crack and inactive these labels are BenchmarkEL's own `20221008` correction, which E-SCDD redistributes unchanged (audit, doc 17).
 5. **Baseline.** The supervised base since P6 is **L3**: U-Net++, ImageNet ResNet34, CE+Dice, label-safe augmentation, revised masks.
    - Crack IoU: 0.396 at 10% labels, 0.471 at 100%.
    - Source: `results/p6/README.md`.
@@ -110,4 +112,4 @@ Earlier sessions reached the servers through "Herald" exec connectors (`Gaint_He
 - If a handbook statement conflicts with a newer results README, the README wins.
 
 ## Related docs
-All files `01` to `16` in this folder, and `sources/README.md`.
+All files `01` to `17` in this folder, and `sources/README.md`.

@@ -72,6 +72,7 @@ Read it to answer "why did we do X and not Y?". For the experiments themselves s
 | D31 | 11 Oct 17:28–17:37 | Claude | P16 design: pool P6 seeds, external pool at 100%, train.py patch, automatic launcher |
 | D32 | 11 Oct 21:05–21:11 | locked rule | CutMix = off; P16 SSL runs launched; flagged that test favoured CutMix/hard PL, nothing changed |
 | D33 | 11 Oct 22:03 | user | build this handbook |
+| D34 | 12 Oct ~01:15 | user | download the full E-SCDD, audit and analyse it, report in the handbook; also read the E-SCDD paper (done; doc 17) |
 | K1–K8 | throughout | Claude / user | housekeeping: tmux, worktrees, REVISION, md5, GPU rules, watchers, commits |
 
 ---
@@ -393,7 +394,7 @@ Verbatim, with the question each answered (from session summary 2026-10-11T09:36
 | 1 | Proposal framing | "framing depends on final results, no presumptions, ever" | No framing is chosen before the results; the evidence table decides |
 | 2 | cv02 allocation | "your call, wiser" | Claude allocated (P13, P14, P16 on cv02) |
 | 3 | gaint allocation | "again ur call" | gaint got P15 instead of the P13 replication |
-| 4 | Extended test set / full E-SCDD | "conside rit" | E1's 106-cell extension was built. The full E-SCDD download was **not** done (the answer was read as ambiguous) |
+| 4 | Extended test set / full E-SCDD | "conside rit" | E1's 106-cell extension was built. The full E-SCDD download was **not** done (the answer was read as ambiguous). The user asked for it explicitly on 12 Oct (D34); it is now downloaded and audited, but not used for training or scoring |
 | 5 | WattCycle data | "none" | No customer data; all results are on public data |
 | 6 | Time budget | "youve 1 day for the work then ill startr on ppt" | One-day push. P13 cut to 5% (D26) |
 | 7 | Model size limit | "not a constraint even 5M works" | The 26M `smp_unetpp` stays the base; the small-model goal (O4) is not a constraint now |
@@ -497,6 +498,22 @@ Verbatim, with the question each answered (from session summary 2026-10-11T09:36
 ### D33. Build this handbook (11 Oct, 22:03)
 - **Who:** the user: "create a folder/use exsiting one for docs, I need to discuss this project and understand it from scratch, from zero to one ... make sure you miss nothing".
 - **Source:** `docsrc/user_messages.md` (2026-10-11T16:33Z).
+
+### D34. Download and audit the full E-SCDD; read its paper (12 Oct, about 01:15–02:30 IST)
+- **Who:** the user: "download the full ESCDD data, audit it analyse it, report it in the handbook, with precise details", then "also look at the E SCDD dataset paper it might give useful insights".
+- **What Claude did:**
+  - Downloaded HF `snt-ubix/escdd` (903 image/mask pairs, 1,810 files), its mirror `shivahanifi/extended-scdd` and BenchmarkEL `20221008`/`20220723` (originals). All files were verified by hash.
+  - Read arXiv 2511.09604.
+  - Audited contents, labels, splits, duplicates and the relation to our data. Nothing was trained or scored.
+  - Only read-only copies were taken from gaint.
+- **Outcome:**
+  - E-SCDD crack and inactive labels = BenchmarkEL `20221008`'s, so the revised-label effect is BenchmarkEL's own correction.
+  - The release differs from the paper: 903 vs 1,000 labelled; 93 synthetic in train.
+  - 100 of 117 new cells are in our external pool.
+  - E-SCDD's test is unusable with our split.
+  - The P3/F04 "conflict" is resolved, and the 583rd `masks_escdd` entry is a README.
+  - Whether to use the extra cells is left to the user.
+- **Source:** `results/escdd_audit/README.md`; `literature/notes/A09_hanifi2025_escdd.md`; `17_escdd_dataset_audit.md`.
 
 ---
 

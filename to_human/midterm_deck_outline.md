@@ -29,13 +29,16 @@ Draft of 10 Oct 2026. There are 17 slides. Every number has a **Source** line. S
 
 ## 3. Data, and a label-revision finding (P3)
 - BenchmarkEL `dataset_20211104`: **478 / 54 / 50** train/val/test at 512×512, **24 classes**. The test set was hand-picked by the original authors.
-- Newer releases (`20220723` 642, `20221008` 695) and E-SCDD (**903** images, MIT) **clean the crack labels**: dotted labels joined and widened.
+- The newer BenchmarkEL release `20221008` (695 cells) **cleans the crack labels**: dotted labels joined and widened. E-SCDD (HF, MIT; 903 files) redistributes those masks unchanged for crack and inactive; that is where we downloaded them (audit 12 Oct, `results/escdd_audit/README.md`).
 - E-SCDD covers **577 of our 582** images. 34 of our 50 test images have a changed crack mask. Crack IoU between versions on test is **0.745**; relaxed (2 px) agreement is **0.98**.
 - Re-scoring the same models on the revised labels moves crack IoU by **+0.05 to +0.07**, more than any SSL effect we had measured. SL-100 test AP goes 0.457 → **0.541**.
 - From P6 on, we train and evaluate on the revised masks.
 
 **Figure:** none yet. Suggest an old-vs-revised mask overlay for one test cell (missing).
-**Speaker note:** P3 is exploratory (no locked protocol), and E-SCDD's annotation process is undocumented. The robust signal is the AP ranking change.
+**Speaker note:**
+- P3 is exploratory (no locked protocol).
+- The cleaning is BenchmarkEL's own `20221008` correction, and how it was made is undocumented.
+- The robust signal is the AP ranking change.
 **Source:** `literature/notes/A01_pratt2023_benchmarkel.md`; `literature/notes/F04_el_datasets_census.md` §1a; `results/p3_label_versions/README.md`; `to_human/directions_2026-10-10.md` §1.
 
 ---
@@ -271,7 +274,7 @@ Draft of 10 Oct 2026. There are 17 slides. Every number has a **Source** line. S
   - ≥ 2 labelled splits.
 - **Collapse safeguard (from P10):** rare-class pseudo-label share is a training-time collapse signal. Candidates: per-class quotas or adaptive thresholds that keep it from vanishing, and per-class logging, since the aggregate missed P8's inactive-only collapse.
 - **Unlabelled-pool hygiene (from P9/P10):** the external CSIR/ARTS pool hurts crack on same-source benchmark cells. Check capture and preprocessing match before adding a pool.
-- **Evaluation for the inactive class:** 16 of 50 test cells and 6 of 54 val cells carry inactive pixels. Inactive needs more cells before any per-recipe claim: a larger test pool, e.g. E-SCDD's other images, or cross-validated splits.
+- **Evaluation for the inactive class:** 16 of 50 test cells and 6 of 54 val cells carry inactive pixels. Inactive needs more cells before any per-recipe claim: a larger test pool, or cross-validated splits. The E-SCDD audit (12 Oct) found that its extra cells add only 10 inactive cells with little inactive area (`results/escdd_audit/README.md` §8).
 - **Part 2, architecture:** a ≈5M-parameter CNN student; large models only as teachers. Per P4, a CNN teacher for cracks and DINO-type features for region classes only.
 - **Part 3, deployment and severity:** about 0.2 s per cell; severity from inactive area; reward crack connectivity.
 

@@ -224,7 +224,7 @@ Take a *perfect* crack mask, shift it by one pixel, and score it against the ori
 - So for a model with test crack IoU around 0.3 to 0.47 (the project's range; see `11_results_synthesis_and_claims.md`), much of the remaining "error" can be label jitter rather than model failure.
 - **What the project did about it:**
   - used **tolerance metrics**: relaxed precision, recall and F1 within 2 px, written relP@2 and relF1@2;
-  - adopted the **revised (E-SCDD) masks**, which join dotted labels and widen them (`03_datasets_and_splits.md` §3);
+  - adopted the **revised (E-SCDD) masks**, which join dotted labels and widen them (`03_datasets_and_splits.md` §3). The cleaning itself is BenchmarkEL's `20221008` correction, obtained via E-SCDD (`17_escdd_dataset_audit.md`);
   - tested **offset-tolerant losses**: tolerant pseudo-labels in P7 onward, and a tolerant supervised loss in P14.
 - Old vs revised masks agree at 0.73–0.81 crack IoU but 0.98 within 2 px (`results/p3_label_versions/README.md`; `to_human/proposal_reframe_2026-10-11.md` §1).
 

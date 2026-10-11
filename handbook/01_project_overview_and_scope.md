@@ -69,7 +69,7 @@ Dates are 2026. Details are in `06_history_phase0_phase1.md`, `08`, `09`, `10` a
 
 | In scope (part 1) | Out of scope for now |
 |---|---|
-| Pixel segmentation of crack and inactive on BenchmarkEL `dataset_20211104` (582 cells), scored on revised E-SCDD masks | Power-loss estimation (no valid data; the user's decision) |
+| Pixel segmentation of crack and inactive on BenchmarkEL `dataset_20211104` (582 cells), scored on revised E-SCDD masks (for crack and inactive = BenchmarkEL `20221008` masks; doc 17) | Power-loss estimation (no valid data; the user's decision) |
 | Semi-supervised methods: Mean Teacher, tolerant and hard pseudo-labels, CutMix, in-domain and external unlabelled pools | WattCycle's own images (none available) |
 | Supervised recipe: augmentation, loss, pretrained encoder, label version, offset-tolerant supervision | Architecture search (part 2) |
 | Cross-dataset transfer (UCF-EL encoder, P15) | Deployment, compression, severity grading (part 3) |

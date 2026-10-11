@@ -184,7 +184,7 @@ Sources: `results/p6/README.md` point 4; `results/p13/README.md`.
 
 | | Old (`masks_coded`) | Revised (E-SCDD, `masks_escdd`) |
 |---|---|---|
-| Release | BenchmarkEL `dataset_20211104` | E-SCDD (HuggingFace `snt-ubix/escdd`), built on the BenchmarkEL `20221008` release; covers 577 of our 582 cells |
+| Release | BenchmarkEL `dataset_20211104` | downloaded from E-SCDD (HuggingFace `snt-ubix/escdd`); for crack and inactive these are exactly BenchmarkEL's own `20221008` masks (audit 12 Oct, doc 17); covers 577 of our 582 cells |
 | Crack labels | dotted along continuous cracks | dotted cracks joined and widened |
 
 - Re-scoring the same models on revised labels raises crack IoU by +0.05 to +0.07 (P3).
@@ -241,6 +241,22 @@ It also uses a 106-cell extension from modules never trained on. Findings:
 - Every model loses most crack performance on unseen modules (L3 100%: 0.471 → 0.152).
 
 Source: `results/e1/README.md`. → `10`
+
+**Q22b. What did the E-SCDD audit find, in one breath?** (12 Oct; `results/escdd_audit/README.md`, doc 17)
+- **Crack and inactive labels.** E-SCDD's are pixel-identical to BenchmarkEL `20221008`'s, so the "revised labels" effect (P3, P14) is BenchmarkEL's own correction.
+- **Contents.** The release has 903 labelled files (693 + 117 new + 93 synthetic in train), not the paper's 1,000.
+- **Overlap with our pool.** 100 of the 117 new cells are in our external unlabelled pool.
+- **E-SCDD's test.** It shares 48 cells with our train and has only 9 inactive cells.
+- **What changes.** No result changes; the attribution wording and the data available for a larger test or more labels do.
+- **Decisions** for the user are in doc 15.
+
+**Q22c. Should we switch to E-SCDD's split or add its cells?**
+That is the user's decision. The facts:
+- its test overlaps our train;
+- 233 new labelled cells exist, 111 of which the x-arms saw as unlabelled data;
+- adding labels means a new base recipe, not an extension of P6–P16.
+
+→ `17`, `15`
 
 ## F. Practical
 

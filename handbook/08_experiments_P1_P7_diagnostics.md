@@ -275,7 +275,7 @@ Single runs show the same pattern: SL-20% b8 s0 test IoU 0.230 → 0.280; MT-20%
 - **Caveats:**
   - Revised crack labels are wider, which flatters over-predicting models.
   - The AP ranking change is the more robust signal.
-  - E-SCDD's annotation provenance is not documented.
+  - E-SCDD's annotation provenance is not documented. *Update 12 Oct (doc 17):* for crack and inactive, E-SCDD's masks are pixel-identical to BenchmarkEL's own `20221008` release. So the "new" labels here are the BenchmarkEL maintainers' correction; how they made it is still not documented.
   - Training still used the old labels here.
 
 **What it led to.** From P6 on, every experiment trains and scores on the revised masks (`data.mask_subdir=labeled/masks_escdd`). Old-label scores are kept as secondary. P14 later measured the label effect under training (see `10_experiments_P13_P16_E1.md`).
