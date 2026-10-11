@@ -1,0 +1,66 @@
+| arm | seeds | crack iou | inactive iou | crack rel_f1_2 | crack rel_p2 | crack ap | inactive ap | val crack iou | val inactive iou |
+|---|---|---|---|---|---|---|---|---|---|
+| p6:L3_10pct | [0, 1, 2] | 0.396±0.003 | 0.294±0.019 | 0.814±0.003 | 0.910±0.006 | 0.400±0.004 | 0.302±0.018 | 0.318±0.010 | 0.300±0.044 |
+| p8:D_10pct | [0, 1, 2] | 0.383±0.003 | 0.194±0.034 | 0.796±0.008 | 0.903±0.009 | 0.402±0.008 | 0.201±0.034 | 0.308±0.003 | 0.283±0.018 |
+| p8:B_10pct | [0, 1, 2] | 0.389±0.007 | 0.219±0.081 | 0.806±0.015 | 0.934±0.011 | 0.430±0.011 | 0.297±0.050 | 0.322±0.001 | 0.363±0.016 |
+| p8:C_10pct | [0, 1, 2] | 0.392±0.006 | 0.253±0.109 | 0.811±0.012 | 0.919±0.014 | 0.421±0.011 | 0.317±0.105 | 0.316±0.006 | 0.331±0.005 |
+| p9:Dx_10pct | [0, 1, 2] | 0.380±0.003 | 0.287±0.032 | 0.792±0.008 | 0.895±0.024 | 0.399±0.003 | 0.282±0.028 | 0.306±0.004 | 0.309±0.032 |
+| p9:Bx_10pct | [0, 1, 2] | 0.389±0.010 | 0.347±0.054 | 0.801±0.013 | 0.914±0.015 | 0.423±0.009 | 0.363±0.064 | 0.308±0.007 | 0.274±0.047 |
+| p9:Cx_10pct | [0, 1, 2] | 0.384±0.007 | 0.344±0.023 | 0.799±0.009 | 0.893±0.017 | 0.419±0.004 | 0.364±0.019 | 0.308±0.005 | 0.297±0.030 |
+| p6:L3_100pct | [0, 1, 2] | 0.471±0.001 | 0.429±0.011 | 0.876±0.003 | 0.939±0.003 | 0.593±0.003 | 0.420±0.018 | 0.423±0.003 | 0.397±0.023 |
+
+p9:Cx_10pct vs p9:Dx_10pct (test, revised; primary ['crack:iou', 'inactive:iou', 'crack:rel_f1_2']; seeds [0, 1, 2] / [0, 1, 2])
+  crack    iou      +0.0044  thr 0.0100  n.d.
+  inactive iou      +0.0563  thr 0.0457  BETTER
+  crack    rel_f1_2 +0.0073  thr 0.0135  n.d.
+  => p9:Cx_10pct better than p9:Dx_10pct under rule 1: True
+  width check: crack relP@2 -0.0026 -> ok
+  gap closed crack    iou     : gap +0.0909, closed +0.05
+  gap closed inactive iou     : gap +0.1416, closed +0.40
+  gap closed crack    rel_f1_2: gap +0.0836, closed +0.09
+
+p9:Bx_10pct vs p9:Dx_10pct (test, revised; primary ['crack:iou', 'inactive:iou', 'crack:rel_f1_2']; seeds [0, 1, 2] / [0, 1, 2])
+  crack    iou      +0.0088  thr 0.0115  n.d.
+  inactive iou      +0.0599  thr 0.0729  n.d.
+  crack    rel_f1_2 +0.0095  thr 0.0174  n.d.
+  => p9:Bx_10pct better than p9:Dx_10pct under rule 1: False
+  width check: crack relP@2 +0.0183 -> ok
+  gap closed crack    iou     : gap +0.0909, closed +0.10
+  gap closed inactive iou     : gap +0.1416, closed +0.42
+  gap closed crack    rel_f1_2: gap +0.0836, closed +0.11
+
+p9:Cx_10pct vs p9:Bx_10pct (test, revised; primary ['crack:iou', 'inactive:iou', 'crack:rel_f1_2']; seeds [0, 1, 2] / [0, 1, 2])
+  crack    iou      -0.0044  thr 0.0137  n.d.
+  inactive iou      -0.0037  thr 0.0679  n.d.
+  crack    rel_f1_2 -0.0022  thr 0.0183  n.d.
+  => p9:Cx_10pct better than p9:Bx_10pct under rule 1: False
+  width check: crack relP@2 -0.0209 -> ok
+  gap closed crack    iou     : gap +0.0821, closed -0.05
+  gap closed inactive iou     : gap +0.0817, closed -0.04
+  gap closed crack    rel_f1_2: gap +0.0741, closed -0.03
+
+p9:Dx_10pct vs p8:D_10pct (test, revised; primary ['crack:iou', 'inactive:iou', 'crack:rel_f1_2']; seeds [0, 1, 2] / [0, 1, 2])
+  crack    iou      -0.0027  thr 0.0100  n.d.
+  inactive iou      +0.0936  thr 0.0544  BETTER
+  crack    rel_f1_2 -0.0039  thr 0.0127  n.d.
+  => p9:Dx_10pct better than p8:D_10pct under rule 1: True
+  width check: crack relP@2 -0.0075 -> ok
+  gap closed crack    iou     : gap +0.0882, closed -0.03
+  gap closed inactive iou     : gap +0.2352, closed +0.40
+  gap closed crack    rel_f1_2: gap +0.0796, closed -0.05
+
+Interaction (p9:Cx_10pct - p9:Dx_10pct) - (p8:C_10pct - p8:D_10pct), test (secondary, descriptive):
+  crack    iou      +0.0044 vs +0.0091 -> -0.0047
+  inactive iou      +0.0563 vs +0.0591 -> -0.0028
+  crack    rel_f1_2 +0.0073 vs +0.0147 -> -0.0073
+wrote /home/yugma/mtp/research/results/p9/fig_p9_bars.png
+
+bin-0 share (GT px scored < 0.001), test, mean over seeds (/home/yugma/mtp/research/results/p9/hist_revised.npz):
+  p9_Bx_10pct        crack 0.394  inactive 0.512
+  p9_Cx_10pct        crack 0.392  inactive 0.517
+  p9_Dx_10pct        crack 0.418  inactive 0.648
+
+bin-0 share (GT px scored < 0.001), test, mean over seeds (results/p8/hist_revised.npz):
+  p8_B_10pct         crack 0.397  inactive 0.632
+  p8_C_10pct         crack 0.400  inactive 0.627
+  p8_D_10pct         crack 0.419  inactive 0.758

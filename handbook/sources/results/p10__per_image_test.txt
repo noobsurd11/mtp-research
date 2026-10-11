@@ -1,0 +1,46 @@
+sanity: max |summed per-image IoU - re-score IoU| = 0.00e+00
+split test: 50 cells; top-3 cells hold crack 32%, inactive 59% of GT px; 2000 bootstrap resamples
+| B − A | class | Δ IoU (all cells) | Δ without top-3 cells | 95% image-bootstrap CI | P(Δ>0) |
+|---|---|---|---|---|---|
+| p10:C_5pct − p10:D_5pct | crack | +0.003 | +0.003 | [-0.012, +0.016] | 0.66 |
+| p10:C_5pct − p10:D_5pct | inactive | +0.007 | +0.036 | [-0.048, +0.086] | 0.61 |
+| p10:B_5pct − p10:D_5pct | crack | +0.004 | +0.004 | [-0.010, +0.016] | 0.75 |
+| p10:B_5pct − p10:D_5pct | inactive | -0.005 | -0.001 | [-0.083, +0.076] | 0.50 |
+| p10:C_5pct − p10:B_5pct | crack | -0.002 | -0.001 | [-0.007, +0.004] | 0.28 |
+| p10:C_5pct − p10:B_5pct | inactive | +0.012 | +0.037 | [-0.033, +0.071] | 0.63 |
+| p10:Cx_5pct − p10:Dx_5pct | crack | -0.012 | -0.017 | [-0.026, -0.001] | 0.01 |
+| p10:Cx_5pct − p10:Dx_5pct | inactive | +0.090 | +0.003 | [-0.019, +0.157] | 0.95 |
+| p10:Dx_5pct − p10:D_5pct | crack | +0.032 | +0.028 | [+0.021, +0.042] | 1.00 |
+| p10:Dx_5pct − p10:D_5pct | inactive | -0.044 | -0.019 | [-0.089, +0.000] | 0.03 |
+
+Source split, cells matching ^(CSIR|ARTS)_:
+sanity: max |summed per-image IoU - re-score IoU| = 0.00e+00
+split test: 21 cells; top-3 cells hold crack 60%, inactive 100% of GT px; 2000 bootstrap resamples
+| B − A | class | Δ IoU (all cells) | Δ without top-3 cells | 95% image-bootstrap CI | P(Δ>0) |
+|---|---|---|---|---|---|
+| p10:C_5pct − p10:D_5pct | crack | -0.008 | -0.008 | [-0.026, +0.012] | 0.25 |
+| p10:C_5pct − p10:D_5pct | inactive | +0.107 | +0.000 | [+0.000, +0.226] | 0.66 |
+| p10:B_5pct − p10:D_5pct | crack | +0.001 | -0.004 | [-0.018, +0.022] | 0.56 |
+| p10:B_5pct − p10:D_5pct | inactive | +0.060 | +0.000 | [+0.000, +0.225] | 0.66 |
+| p10:C_5pct − p10:B_5pct | crack | -0.009 | -0.004 | [-0.017, +0.003] | 0.06 |
+| p10:C_5pct − p10:B_5pct | inactive | +0.047 | +0.000 | [-0.014, +0.124] | 0.42 |
+| p10:Cx_5pct − p10:Dx_5pct | crack | -0.065 | -0.040 | [-0.092, -0.026] | 0.00 |
+| p10:Cx_5pct − p10:Dx_5pct | inactive | +0.046 | +0.000 | [+0.000, +0.119] | 0.66 |
+| p10:Dx_5pct − p10:D_5pct | crack | +0.028 | +0.008 | [+0.005, +0.052] | 1.00 |
+| p10:Dx_5pct − p10:D_5pct | inactive | -0.000 | +0.000 | [-0.000, +0.000] | 0.00 |
+
+Source split, cells matching ^(CFVS|BMRK|SDLE)_:
+sanity: max |summed per-image IoU - re-score IoU| = 0.00e+00
+split test: 29 cells; top-3 cells hold crack 38%, inactive 65% of GT px; 2000 bootstrap resamples
+| B − A | class | Δ IoU (all cells) | Δ without top-3 cells | 95% image-bootstrap CI | P(Δ>0) |
+|---|---|---|---|---|---|
+| p10:C_5pct − p10:D_5pct | crack | +0.005 | +0.006 | [-0.013, +0.020] | 0.71 |
+| p10:C_5pct − p10:D_5pct | inactive | -0.006 | +0.004 | [-0.071, +0.071] | 0.46 |
+| p10:B_5pct − p10:D_5pct | crack | +0.005 | +0.004 | [-0.011, +0.018] | 0.72 |
+| p10:B_5pct − p10:D_5pct | inactive | +0.003 | -0.001 | [-0.073, +0.084] | 0.57 |
+| p10:C_5pct − p10:B_5pct | crack | -0.000 | +0.002 | [-0.005, +0.006] | 0.50 |
+| p10:C_5pct − p10:B_5pct | inactive | -0.009 | +0.004 | [-0.040, +0.027] | 0.30 |
+| p10:Cx_5pct − p10:Dx_5pct | crack | -0.001 | -0.004 | [-0.010, +0.007] | 0.42 |
+| p10:Cx_5pct − p10:Dx_5pct | inactive | +0.107 | +0.004 | [-0.016, +0.176] | 0.96 |
+| p10:Dx_5pct − p10:D_5pct | crack | +0.033 | +0.028 | [+0.021, +0.043] | 1.00 |
+| p10:Dx_5pct − p10:D_5pct | inactive | -0.051 | -0.029 | [-0.096, -0.001] | 0.02 |

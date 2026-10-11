@@ -1,0 +1,29 @@
+P7: seeds per arm {'B_10pct': [0, 1, 2], 'C_10pct': [0, 1, 2], 'D_10pct': [0, 1, 2]} | weights {'teacher'} | steps {20000}
+
+| arm | test crack ap | test inactive ap | test crack iou | test inactive iou | test crack rel_f1_2 | test crack rel_p2 | val crack ap | val inactive ap | val crack iou | val inactive iou |
+|---|---|---|---|---|---|---|---|---|---|---|
+| P6:L0_10pct | 0.553±0.015 | 0.621±0.003 | 0.319±0.051 | 0.439±0.015 | 0.746±0.078 | 0.690±0.126 | 0.466±0.006 | 0.494±0.054 | 0.276±0.009 | 0.328±0.035 |
+| B_10pct | 0.527±0.004 | 0.521±0.015 | 0.359±0.003 | 0.381±0.022 | 0.768±0.007 | 0.848±0.005 | 0.450±0.006 | 0.477±0.022 | 0.306±0.003 | 0.324±0.016 |
+| C_10pct | 0.551±0.001 | 0.585±0.005 | 0.363±0.004 | 0.437±0.007 | 0.790±0.003 | 0.819±0.006 | 0.471±0.001 | 0.552±0.022 | 0.302±0.004 | 0.384±0.009 |
+| D_10pct | 0.551±0.004 | 0.618±0.004 | 0.355±0.006 | 0.453±0.001 | 0.782±0.007 | 0.788±0.018 | 0.465±0.004 | 0.448±0.033 | 0.292±0.005 | 0.300±0.017 |
+| P6:L0_100pct | 0.545±0.003 | 0.612±0.006 | 0.337±0.004 | 0.391±0.008 | 0.782±0.008 | 0.744±0.010 | 0.484±0.006 | 0.597±0.026 | 0.276±0.004 | 0.231±0.006 |
+
+Primary metrics (test, revised): [('crack', 'ap'), ('inactive', 'ap')]
+  C - D  crack    ap       +0.0004  thr 0.0100  n.d.
+  C - D  inactive ap       -0.0324  thr 0.0100  WORSE
+  => C helps vs D: False
+  B - D  crack    ap       -0.0239  thr 0.0100  WORSE
+  B - D  inactive ap       -0.0967  thr 0.0177  WORSE
+  => B helps vs D: False
+  C - B  crack    ap       +0.0243  thr 0.0100  BETTER
+  C - B  inactive ap       +0.0643  thr 0.0180  BETTER
+  => C beats B: True
+
+Width check: crack relP@2 C - D = +0.0313  -> ok
+Rule 4: P6 rule 3 (literal pooled AP) headroom = -0.001 < 0.02 -> all P7 outcomes are reported as a PILOT.
+wrote /home/yugma/mtp/research/results/p7/fig_p7_bars.png
+
+bin-0 share (GT px scored < 0.001), test, mean over seeds:
+  p7_B_10pct       crack 0.129  inactive 0.354
+  p7_C_10pct       crack 0.088  inactive 0.284
+  p7_D_10pct       crack 0.061  inactive 0.205

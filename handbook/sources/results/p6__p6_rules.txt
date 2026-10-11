@@ -1,0 +1,50 @@
+Rule 1: ladder steps (test, revised labels; helps if |delta| > 0.01 and > 2*sqrt((sa^2+sb^2)/3))
+   L0_10pct -> L1_10pct  crack    ap       delta +0.020  thr 0.019  HELPS
+   L0_10pct -> L1_10pct  crack    iou      delta +0.048  thr 0.059  no detectable effect  (secondary)
+   L0_10pct -> L1_10pct  crack    rel_f1_2 delta +0.060  thr 0.091  no detectable effect  (secondary)
+   L0_10pct -> L1_10pct  inactive ap       delta +0.028  thr 0.020  HELPS
+   L0_10pct -> L1_10pct  inactive iou      delta +0.034  thr 0.024  HELPS  (secondary)
+   L0_10pct -> L1_10pct  inactive rel_f1_2 delta +0.039  thr 0.022  HELPS  (secondary)
+   L1_10pct -> L2_10pct  crack    ap       delta -0.054  thr 0.010  HURTS
+   L1_10pct -> L2_10pct  crack    iou      delta +0.024  thr 0.010  HELPS  (secondary)
+   L1_10pct -> L2_10pct  crack    rel_f1_2 delta -0.000  thr 0.010  no detectable effect  (secondary)
+   L1_10pct -> L2_10pct  inactive ap       delta -0.172  thr 0.029  HURTS
+   L1_10pct -> L2_10pct  inactive iou      delta -0.089  thr 0.032  HURTS  (secondary)
+   L1_10pct -> L2_10pct  inactive rel_f1_2 delta -0.084  thr 0.028  HURTS  (secondary)
+   L2_10pct -> L3_10pct  crack    ap       delta -0.119  thr 0.010  HURTS
+   L2_10pct -> L3_10pct  crack    iou      delta +0.004  thr 0.010  no detectable effect  (secondary)
+   L2_10pct -> L3_10pct  crack    rel_f1_2 delta +0.008  thr 0.010  no detectable effect  (secondary)
+   L2_10pct -> L3_10pct  inactive ap       delta -0.174  thr 0.029  HURTS
+   L2_10pct -> L3_10pct  inactive iou      delta -0.089  thr 0.035  HURTS  (secondary)
+   L2_10pct -> L3_10pct  inactive rel_f1_2 delta -0.105  thr 0.036  HURTS  (secondary)
+   L0_10pct -> L0_100pct crack    ap       delta -0.009  thr 0.018  no detectable effect
+   L0_10pct -> L0_100pct crack    iou      delta +0.017  thr 0.059  no detectable effect  (secondary)
+   L0_10pct -> L0_100pct crack    rel_f1_2 delta +0.036  thr 0.091  no detectable effect  (secondary)
+   L0_10pct -> L0_100pct inactive ap       delta -0.009  thr 0.010  no detectable effect
+   L0_10pct -> L0_100pct inactive iou      delta -0.048  thr 0.020  HURTS  (secondary)
+   L0_10pct -> L0_100pct inactive rel_f1_2 delta -0.048  thr 0.018  HURTS  (secondary)
+   L3_10pct -> L3_20pct  crack    ap       delta +0.033  thr 0.010  HELPS
+   L3_10pct -> L3_20pct  crack    iou      delta +0.003  thr 0.010  no detectable effect  (secondary)
+   L3_10pct -> L3_20pct  crack    rel_f1_2 delta +0.008  thr 0.010  no detectable effect  (secondary)
+   L3_10pct -> L3_20pct  inactive ap       delta +0.032  thr 0.053  no detectable effect
+   L3_10pct -> L3_20pct  inactive iou      delta +0.053  thr 0.054  no detectable effect  (secondary)
+   L3_10pct -> L3_20pct  inactive rel_f1_2 delta +0.044  thr 0.060  no detectable effect  (secondary)
+   L3_10pct -> L3_100pct crack    ap       delta +0.193  thr 0.010  HELPS
+   L3_10pct -> L3_100pct crack    iou      delta +0.075  thr 0.010  HELPS  (secondary)
+   L3_10pct -> L3_100pct crack    rel_f1_2 delta +0.061  thr 0.010  HELPS  (secondary)
+   L3_10pct -> L3_100pct inactive ap       delta +0.117  thr 0.030  HELPS
+   L3_10pct -> L3_100pct inactive iou      delta +0.135  thr 0.025  HELPS  (secondary)
+   L3_10pct -> L3_100pct inactive rel_f1_2 delta +0.127  thr 0.030  HELPS  (secondary)
+
+Rule 2: base = 10% arm with highest val mean (crack AP + inactive AP)/2
+  L0_10pct: 0.4801 (seeds [0.452 0.494 0.494])
+  L1_10pct: 0.4139 (seeds [0.462 0.457 0.324])
+  L2_10pct: 0.3959 (seeds [0.385 0.408 0.394])
+  L3_10pct: 0.2957 (seeds [0.297 0.322 0.267])
+  -> base: L0_10pct
+
+Rule 3: headroom = base@100% - base@10%, mean (crack AP + inactive AP)/2 over val and test
+  L0_10pct: test 0.5871 val 0.4801  split-mean 0.5336  n-weighted 0.5316
+  L0_100pct: test 0.5781 val 0.5404  split-mean 0.5593  n-weighted 0.5585
+  headroom (split-mean): +0.0256  (threshold 0.02)
+  headroom (n-weighted): +0.0270  (threshold 0.02)

@@ -1,0 +1,20 @@
+# Other EL segmentation papers (title and metadata verified; mostly abstract-level)
+- **SEiPV-Net** (Eesaar et al., Energies 16(23):7726, 2023). https://ideas.repec.org/a/gam/jeners/v16y2023i23p7726-d1286035.html
+  - Encoder-decoder for 24 defects and features (likely BenchmarkEL; the dataset name is not confirmed in the abstract); weighted CE / squared Dice / Tanimoto. Not assessed (abstract_only).
+- **STC-Net** (Gunasekara et al., arXiv 2608.01714, Aug 2026). https://arxiv.org/abs/2608.01714
+  - Crack segmentation with edge and spectral priors plus boundary-topology refinement, for power-loss estimation. Reports train mIoU 95.98 next to test mIoU 72.52 on "PVEL-S". Not assessed (abstract_only); the train/test gap is visible from the abstract alone.
+- **Mayr et al. 2019** (ICIP, arXiv 2001.11248). https://arxiv.org/abs/2001.11248
+  - Weakly supervised crack segmentation from image-level labels (normalized Lp pooling of ResNet-50 activations). Not assessed (abstract_only). Relevance: shows cracks can be localised from cheap labels, a label-efficiency route other than SSL.
+- **Korovin et al. 2022** (arXiv 2208.05994). https://arxiv.org/abs/2208.05994
+  - Anomaly segmentation for HJT cell EL. Title only.
+- **Gómez-López et al. 2026** (Ingenius 35). https://ingenius.ups.edu.ec/ingenius/article/view/10760
+  - U-Net variants on lab + benchmark EL data; "cracks remained more difficult to detect"; P/R/F1 only. Not assessed.
+- **Gangopadhyay et al. 2025** (IEEE TETCI 9(2):1502), SA-UNet++.
+  - Read in full (local). **Not EL data** (MIAD drone images). Per-image mean IoU including background; single run. Its +0.03 Jaccard is within the per-image sd of 0.09–0.12.
+- **Mohanty et al. 2024** review (arXiv 2409.16069). https://arxiv.org/abs/2409.16069
+  - Survey of ML for PV defect detection. Not read.
+- Neighbouring EL datasets, usable for pretraining or transfer:
+  - **ELPV** (Deitsch et al., arXiv 1807.02894; cell-level classification).
+  - **PVEL-AD** (Su et al., IEEE TII 19(1):404–413, 2023; 36,543 EL images with boxes; https://github.com/binyisu/PVEL-AD).
+  - **UCF-EL-GDI** (synthetic defect-removed UCF images, https://huggingface.co/datasets/mueez-underflow/UCF-EL-GDI).
+  - **PV-Vision** (LBNL tool, Chen & Jain): a software package; no peer-reviewed paper verified.

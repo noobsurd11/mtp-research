@@ -1,0 +1,12 @@
+# Thin and curvilinear structure losses
+- **clDice** (Shit et al., CVPR 2021, arXiv 2003.07311). https://arxiv.org/abs/2003.07311
+  - A soft skeleton-based Dice computed on the intersection of masks and their skeletons. Topology-preserving guarantees in 2D/3D. Benchmarked on vessels, roads and neurons. Read: abstract.
+- **Skeleton Recall Loss** (Kirchhoff et al., ECCV 2024, arXiv 2404.03010). https://arxiv.org/abs/2404.03010 · code https://github.com/MIC-DKFZ/Skeleton-Recall
+  - Recall of a precomputed (CPU), tubed GT skeleton. **"the first multi-class capable loss function for thin structure segmentation"**, more than 90% less overhead than clDice. Datasets include concrete cracks. Read: abstract.
+  - Relevance: high. It fits 24-class EL and targets recall of crack centrelines, not pixel-exact width.
+- **Topology-preserving segmentation** (Hu et al., NeurIPS 2019, arXiv 1906.05404). Persistent-homology loss. Expensive. Read: title and abstract.
+- **Boundary loss** (Kervadec et al., MIDL 2019 / MedIA, arXiv 1812.07032). A distance-map-based loss for highly unbalanced segmentation. Read: title.
+- **Focal Tversky** (Abraham & Khan, ISBI 2019, arXiv 1810.07842). Tversky index with a focal exponent; "better trade off between precision and recall when training on small structures". Read: abstract.
+  - Relevance: our crack is fit-limited, with precision 0.3 and recall 0.7, under weighted CE. Tversky α/β set the P/R trade-off explicitly instead of through class weights.
+- **Logit adjustment** (Menon et al., ICLR 2021, arXiv 2007.07314). Long-tail learning via post-hoc or loss-level logit adjustment by log-priors. Read: title.
+  - Relevance: our crack-logit bias shift alone gave +0.03 test defect mIoU, more than any SSL arm. That is an operating-point effect this paper formalises.

@@ -1,0 +1,12 @@
+sanity: max |summed per-image IoU - re-score IoU| = 0.00e+00
+split test: 50 cells; top-3 cells hold crack 32%, inactive 59% of GT px; 2000 bootstrap resamples
+| B − A | class | Δ IoU (all cells) | Δ without top-3 cells | 95% image-bootstrap CI | P(Δ>0) |
+|---|---|---|---|---|---|
+| p8:C_10pct − p8:D_10pct | crack | +0.009 | +0.009 | [+0.002, +0.015] | 0.99 |
+| p8:C_10pct − p8:D_10pct | inactive | +0.059 | +0.052 | [+0.020, +0.109] | 1.00 |
+| p8:B_10pct − p8:D_10pct | crack | +0.007 | +0.006 | [-0.001, +0.013] | 0.96 |
+| p8:B_10pct − p8:D_10pct | inactive | +0.026 | +0.020 | [-0.013, +0.061] | 0.90 |
+| p8:C_10pct − p8:B_10pct | crack | +0.003 | +0.003 | [-0.001, +0.007] | 0.90 |
+| p8:C_10pct − p8:B_10pct | inactive | +0.033 | +0.032 | [-0.005, +0.095] | 0.93 |
+| p8:D_10pct − p6:L3_10pct | crack | -0.013 | -0.021 | [-0.028, -0.001] | 0.01 |
+| p8:D_10pct − p6:L3_10pct | inactive | -0.101 | -0.077 | [-0.171, -0.031] | 0.00 |

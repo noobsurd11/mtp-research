@@ -1,0 +1,21 @@
+# Class-imbalanced SSL segmentation (natural images)
+- **AEL** (Hu et al., NeurIPS 2021, arXiv 2110.05474): Adaptive Equalization Learning. https://arxiv.org/abs/2110.05474
+  - Read: sections (ar5iv).
+  - Method: a confidence bank tracks per-class performance and drives:
+    - adaptive CutMix and Copy-Paste (more chance for weak classes);
+    - adaptive equalization sampling (AES) of pixels for the unsupervised loss;
+    - dynamic re-weighting (DR).
+  - Ablation (Cityscapes 1/32, 1/16; DeepLabv3+ R101): baseline 69.11 / 72.13; +DR 70.27 / 73.85; +AES 72.51 / 74.39; +ACM 73.43 / 75.12; +ACP 74.28 / 75.83.
+  - Tail classes vs CutMix-Seg (1/32): motorcycle 54.8 → 74.3, truck 49.4 → 65.6, train 43.3 → 65.6, bus 56.7 → 66.9, traffic light 32.4 → 37.3.
+  - Relevance: **sampling and mixing biased toward weak classes is the strongest-evidenced rare-class mechanism.**
+- **DARS** (He, Yang, Qi, ICCV 2021, arXiv 2107.11279). https://arxiv.org/abs/2107.11279
+  - Read: sections. Class-wise thresholds chosen so pseudo-label class proportions match the labelled distribution (n_j = α%·N·H·W·r_j), plus random sampling to break confidence ties.
+  - Key observation: over-confidence means many pixels share confidence 1 ("81.3% road pixels is 1"), so thresholds alone cannot set class proportions.
+  - Cityscapes 1/8: ST 65.70 (tail 54.0), CBST 66.29 (55.0), DARS 68.01 (57.9).
+  - Relevance: our pseudo-label pathologies (UCF corrosion at 23x its labelled share; crack over-prediction) are exactly distribution mismatch.
+- **USRN** (Guan et al., CVPR 2022, arXiv 2203.10026). Read: abstract. Clusters each class into balanced subclasses for class-balanced pseudo supervision, with an entropy gate.
+- **U2PL** (Wang et al., CVPR 2022, arXiv 2203.03884). https://arxiv.org/abs/2203.03884
+  - Read: sections. Unreliable (high-entropy) pixels become **negative** samples for unlikely classes via category-wise memory banks. α0 = 20% unreliable, decaying linearly.
+  - VOC 1/16: 45.77 sup → 67.98. Cityscapes 1/16: 65.74 → 70.30. No per-class analysis.
+  - **On EL (Torpey et al. 2024) U2PL scored 0.448 mIoU, below random-init supervised (0.486).**
+- **CReST** (Wei et al., CVPR 2021, arXiv 2102.09559): class-rebalancing self-training (classification). **FreeMatch** (Wang et al., ICLR 2023, arXiv 2205.07246): self-adaptive global and class-wise thresholds (classification). Read: abstracts. Both motivate per-class thresholds.

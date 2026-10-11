@@ -1,0 +1,14 @@
+# Pratt, Mattheus, Klein 2023: A benchmark dataset for defect detection and classification in EL images of PV modules using semantic segmentation
+- Venue: Systems and Soft Computing 5 (2023) 200048. Links: https://doaj.org/article/ddf0c876a3754064870a98960b3147cf · data https://github.com/TheMakiran/BenchmarkELimages
+- Read: full text (local PDF), via analysis/papers_metrics.md §1.
+- Problem: a public multi-class (24 classes: 12 defects, 12 features) EL segmentation benchmark.
+- Method: U-Net_12, U-Net_25, PSPNet, DeepLabv3+, weighted CE with weight sets A (all 1), B (inverse median share), C (custom: crack 20, inactive 10, gridline 10, ribbons 3, background 0.2).
+- Data: dataset_20211104 is 478 train / 54 val / 50 test at 512x512. The test set was **hand-picked** ("Fifty images with a prevalence of cracks, gridline defects, and inactive areas were assigned to testing", §3.2).
+- Metric: per-image IoU, **median over the 50 test images**, background not scored. The rule for absent classes is not stated.
+- Key numbers: best is DeepLabv3+ with custom weights: crack median IoU 0.25, recall 0.86; inactive 0.38. Abstract: "the mIoU for cracks is low (25%) ... the recall is high (86%)".
+- Weaknesses (empirical; read: full):
+  - Hand-picked defect-rich test set: it overstates crack recall and hides the label effect on inactive. [author-acknowledged in §3.2 that the test set was chosen; the consequence is reader-inferred]
+  - The absent-class rule in the median is not stated (§3.4 checked). It changes the mean about 3x. [reader-inferred]
+  - One run per model, no optimiser, LR, epochs or schedule given. [checked: §3 none found]
+  - Custom weights tuned by a "16-run screening DOE" on an unstated split. [author-acknowledged: DOE; the split is not stated]
+- Relevance: our main dataset. Low crack precision from "dilated predictions" is a property of weighted CE on this benchmark, not a bug of ours.
