@@ -1,6 +1,6 @@
 # 00. START HERE: handbook for the MTP project (EL defect segmentation)
 
-**What this is.** A handbook for an agent that will act as a guide and interpreter for the student who owns this project (called "the user" below). The user wants to understand the whole project from zero to one: scope, domain, data, jargon, work done, problems, decisions, results, and what is left. These docs hold everything known as of **11 Oct 2026, about 23:00 IST** (P15 included; P16 pending). The `sources/` folder holds the primary documents they rest on. The live project files are reachable by command (section 5).
+**What this is.** A handbook for an agent that will act as a guide and interpreter for the student who owns this project (called "the user" below). The user wants to understand the whole project from zero to one: scope, domain, data, jargon, work done, problems, decisions, results, and what is left. These docs hold everything known as of **11 Oct 2026, about 22:45 IST** (P15 included; P16 pending). The `sources/` folder holds the primary documents they rest on. The live project files are reachable by command (section 5).
 
 ---
 

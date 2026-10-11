@@ -565,7 +565,7 @@ A better starting encoder might be worth more than pseudo-labels.
 **Progress** (`launch_gaint.log`, read-only):
 - All 6 runs trained and rescored with rc = 0, 11 Oct 17:01 to 22:26 IST.
 - Each run took about 1 h 40 min.
-- Post-analysis ran at 22:30 to 23:00 IST (`results/p15/README.md`, `results/e1/e1_p15.md`).
+- Post-analysis ran at 22:30 to 22:40 IST (`results/p15/README.md`, `results/e1/e1_p15.md`).
 
 ### Locked rules
 1. **U helps:** U − reference under P8 rule 1 (any primary passes, none worse), plus the width check (relP@2 drop ≤ 0.05).

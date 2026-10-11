@@ -15,7 +15,7 @@ The user's rule governs this file: "framing depends on final results, no presump
 
 **Status at writing (11 Oct 2026, ~22:00 IST)**
 - P1 to P14 and E1 are done.
-- P15 (gaint, UCF-EL encoder) finished 22:26 IST and was analysed at about 23:00 IST (`results/p15/README.md`).
+- P15 (gaint, UCF-EL encoder) finished 22:26 IST and was analysed at about 22:40 IST (`results/p15/README.md`).
 - P16 (cv02, SSL at 20/50/100%) is pending, about 03:00 to 04:30 IST on 12 Oct.
 
 ## Sources
@@ -274,7 +274,7 @@ From the assistant's answer to the user on 11 Oct (transcript line 6728) and the
 No outcome is presumed. These are the possible results under the locked rules, and how each would move the evidence table.
 
 ### P15 (gaint): UCF-EL-pretrained encoder vs ImageNet init
-**Outcome (added 11 Oct ~23:00 IST):** gU5 n.d. on all three; gU10 worse on all three (the "a primary is worse" row below). See `results/p15/README.md`. The table is kept as written before the result.
+**Outcome (added 11 Oct ~22:40 IST):** gU5 n.d. on all three; gU10 worse on all three (the "a primary is worse" row below). See `results/p15/README.md`. The table is kept as written before the result.
 
 Arms: gU5 vs A5 at 5% labels; gU10 vs gA10 at 10%. 3 seeds each, rule 1 plus the width check (`protocols/P15_ucf_encoder_transfer.md`).
 

@@ -24,7 +24,7 @@
 | P13 | Done, 21:04 IST 11 Oct. The primary claim passes. | `results/p13/README.md` |
 | P14 | Done, 19:34 IST 11 Oct | `results/p14/README.md` |
 | E1 (task metrics, 106-cell extension) | Done for P6 to P15; P16 is added when it finishes | `results/e1/` |
-| **P15** (gaint, UCF-EL encoder transfer) | **Done**, 6 runs rc = 0 (17:01 to 22:26 IST); analysed about 23:00 IST. **Fails:** 5% n.d. on all three; 10% worse on all three, robust over cells. | `results/p15/README.md`, `results/e1/e1_p15.md` |
+| **P15** (gaint, UCF-EL encoder transfer) | **Done**, 6 runs rc = 0 (17:01 to 22:26 IST); analysed about 22:40 IST. **Fails:** 5% n.d. on all three; 10% worse on all three, robust over cells. | `results/p15/README.md`, `results/e1/e1_p15.md` |
 | **P16 Part A** (supervised 20/50/100%) | Done, 9 runs, rc = 0 (22:06 IST) | cv02 `el_p13/reports/p16/`; analysed with Part B |
 | **P16 Part B** (SSL S20, S50, Sx100) | **Running.**<br>• 15 runs started 21:05 IST on cv02 GPUs 0, 3, 4, 5, 6, 3 per GPU.<br>• About 0.92 to 0.96 steps/s (stdout at 22:25 IST, steps 4,350 to 4,550), so done about 03:00 to 03:30 IST on 12 Oct, inside the ~03:00 to 04:30 window the other docs give.<br>• CutMix off, chosen from P13 val as locked. | will be `results/p16/` |
 
@@ -32,7 +32,7 @@
 
 ## 2. What happens automatically overnight (Claude's queue)
 A watcher (`scratchpad/watch.sh`) polls both servers every 2 minutes and fires on each finished set. Planned handling:
-1. **P15 (done 11 Oct ~23:00 IST):** `bash scripts/post_p15.sh <cv02 gpu>`.
+1. **P15 (done 11 Oct ~22:40 IST):** `bash scripts/post_p15.sh <cv02 gpu>`.
    - Locked rules: gU5 − A5 and gU10 − gA10.
    - E1 per-cell scoring on cv02.
    - Write `results/p15/README.md`, then commit.
