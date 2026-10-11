@@ -8,7 +8,7 @@ E=$1; G=$2; N=$3; R=~/mtp/research; O=$R/results/$E; PY=$R/.venv/bin/python
 CV=cv02@10.8.1.106; GA=noob@172.18.22.20; CODE=/tmp/noob_el/$(case $E in p11|p12) echo el_p11;; *) echo el_p7;; esac); RP=$CODE/reports/$E
 mkdir -p $O/raw
 scp -q -o BatchMode=yes "$CV:$RP/${E}_*_s[0-9].json" $CV:$RP/launch.log $O/raw/
-n=$(ls $O/raw/${E}_*_s[0-9].json | grep -vc "/p12_g"); echo "$E: $n cv02 re-score JSONs"; [ "$n" -eq "$N" ] || { echo "expected $N"; exit 1; }
+n=$(ls $O/raw/${E}_*_s[0-9].json | grep -vcE "/p12_g|/p10_A_"); echo "$E: $n cv02 re-score JSONs"; [ "$n" -eq "$N" ] || { echo "expected $N"; exit 1; }
 [ $E = p12 ] && scp -q -o BatchMode=yes "$GA:/home/noob/work/el-fault-detection/reports/p12/p12_g*.json" $GA:/home/noob/work/el-fault-detection/reports/p12/launch_gaint.log $O/raw/ 2>/dev/null || true
 [ $E = p10 ] && scp -q -o BatchMode=yes "$GA:/home/noob/work/el-fault-detection/reports/p10/p10_A_*.json" $GA:/home/noob/work/el-fault-detection/reports/p10/launch_gaint.log $O/raw/ 2>/dev/null || true
 ssh -o BatchMode=yes $CV "source /tmp/noob_el/env.sh; cd $CODE; RUNS=\$(ls $RP/${E}_*_s[0-9].json | grep -v /p12_g | xargs -n1 basename | sed 's/.json//' | tr '\n' ' '); \
