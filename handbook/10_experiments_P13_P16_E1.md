@@ -909,4 +909,4 @@ E1 scoring is built into `scripts/post_p15.sh` and `scripts/post_p16.sh`. The pr
 - `11_results_synthesis_and_claims.md`: what P13 to P16 and E1 mean together.
 - `13_problems_pitfalls_open_issues.md`: val/test disagreement, machine disagreement, inactive concentration.
 - `14_code_and_infrastructure.md`: worktrees, commits, scripts, server paths.
-- `15_status_remaining_work.md`: what is still running and what is left.
+- `15_status_remaining_work.md`: server state at session close and what is left.

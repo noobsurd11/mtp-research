@@ -472,7 +472,7 @@ From handoff 10-07 §12–13 and phase 1 handoff §17; fate from the session rec
 | Overfit check (asked for twice, never run) | done as P1 (8 Oct) |
 | ALHVR / DTCT with a fair weight schedule | not run; the P-series used Mean Teacher with tolerant pseudo-labels instead |
 | Self-supervised (MIM) pretraining on the unlabelled cells | not run in P1–P16 |
-| Pretrain on UCF-EL, fine-tune on BenchmarkEL | P15 (gaint; pending at 11 Oct ~22:00) |
+| Pretrain on UCF-EL, fine-tune on BenchmarkEL | P15 (gaint; done 11 Oct: does not beat ImageNet init, 5% n.d., 10% worse; doc 10) |
 | Evaluate on more than 50 images | E1's 106-cell unseen-module extension (`10_experiments_P13_P16_E1.md`) |
 | More labelled subsets (split seeds 1, 2) | not done; one labelled split (seed 0) throughout (see `13_problems_pitfalls_open_issues.md`) |
 | BN mixing controls | P11–P13 (matched view; separate-BN forward) |

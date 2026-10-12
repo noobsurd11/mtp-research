@@ -384,7 +384,7 @@ These were made in phase 0 (lost) and phase 1 (up to 6 Oct). See `06_history_pha
   - An effect-size budget: label version and recipe ≫ label count ≫ unlabelled loss.
   - Goals O1–O4.
   - Experiments E1–E6, ordered by information per cost.
-- **Outcome:** the user's answer (D25) made framing conditional on final results. The draft must be reworded neutrally once results are in (pending).
+- **Outcome:** the user's answer (D25) made framing conditional on final results. The draft must be reworded neutrally once results are in. Not done as of 13 Oct: Claude left it for the user, since any rewrite implies a framing (doc 15 §2).
 - **Source:** commit `90ee4bb`; `to_human/proposal_reframe_2026-10-11.md`.
 
 ### D25. The user's eight answers (11 Oct, 12:46)
@@ -424,7 +424,7 @@ Verbatim, with the question each answered (from session summary 2026-10-11T09:36
 - **Why:** the effect-size budget (D24). These rows had been rated strong and cheap but were never run.
 - **Outcome:**
   - **P14:** gap +0.082 crack IoU; tolerance recovers 0%. On revised labels, inactive +0.037 passes the rule but is not robust over cells.
-  - **P15:** pending (~23:00 IST 11 Oct).
+  - **P15:** done 11 Oct 22:26 IST. gU5 n.d. on all three; gU10 worse on all three, robust over cells (`results/p15/README.md`).
 - **Source:** `protocols/P14_tolerant_supervision.md`, `protocols/P15_ucf_encoder_transfer.md`; commit `c9f5562`; `results/p14/README.md`.
 
 ### D28. E1 per-cell metrics and the 106-cell extension (11 Oct, definitions 12:59; first pass and amendment 13:16; v2 rescoring 14:03. The README header says ~14:00 and ~14:15)

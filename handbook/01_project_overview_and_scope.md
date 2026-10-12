@@ -61,9 +61,9 @@ Dates are 2026. Details are in `06_history_phase0_phase1.md`, `08`, `09`, `10` a
 | **Diagnosis, P1 to P5** (7 to 10 Oct) | Can crack be fitted at all? Is SemiCE a valid loss? How much do label versions matter? Are features the bottleneck? How precise are crack pseudo-labels? | SemiCE is not a valid consistency loss (P2), so every old Mean Teacher result is void. Revised labels (E-SCDD) move crack IoU by +0.05 to +0.07, more than any SSL effect (P3). Crack pseudo-labels are right within 2 px but wrong pixel-exactly (P5). |
 | **Corrected baseline, P6** (10 Oct) | Which supervised recipe is sound? | L3: U-Net++ with ImageNet ResNet34, CE+Dice, label-safe augmentation, revised masks. It is the base for everything after. |
 | **SSL series, P7 to P12** (10 to 11 Oct) | Does an offset-tolerant pseudo-label loss help, at 10% and 5% labels, with an in-domain or external pool, on a pipeline matched to supervised? | The loss helps against its own loss-off control. But the Mean Teacher pipeline itself handicapped the student (BatchNorm mixing), so SSL beat plain supervised on cv02 only narrowly at 10% (P11: passes the seed rule; the inactive part is not robust over cells) and not at 5% (P12). The user: "cant believe bro, supervised beating ssl". |
-| **Audit and fixes, P13 to P16** (11 Oct) | Fix the pipeline (separate BatchNorm, CutMix). Does tolerance help human labels (P14)? Does a related labelled dataset beat ImageNet (P15)? What about 20/50/100% labels (P16, the user's request)? | P13: SSL beats supervised at 5% on inactive IoU and crack relaxed F1, robust over test cells. P14: tolerance does not fix label noise. P15 and P16 are pending. |
+| **Audit and fixes, P13 to P16** (11 Oct) | Fix the pipeline (separate BatchNorm, CutMix). Does tolerance help human labels (P14)? Does a related labelled dataset beat ImageNet (P15)? What about 20/50/100% labels (P16, the user's request)? | P13: SSL beats supervised at 5% on inactive IoU and crack relaxed F1, robust over test cells. P14: tolerance does not fix label noise. P15: a UCF-EL-pretrained encoder does not beat ImageNet init (5% n.d., 10% worse). P16: SSL is not detectably better than supervised at 20%, 50% or 100% labels. |
 
-**Current problem statement** (draft, `proposal_reframe_2026-10-11.md` §1): this is "thin-structure and region segmentation, from few labels with imprecise geometry, with a long-tailed class distribution, several image sources, and a small test set, whose real output is a measurement". It is not mainly an SSL problem. The final framing is the user's call after P15 and P16.
+**Current problem statement** (draft, `proposal_reframe_2026-10-11.md` §1): this is "thin-structure and region segmentation, from few labels with imprecise geometry, with a long-tailed class distribution, several image sources, and a small test set, whose real output is a measurement". It is not mainly an SSL problem. The final framing is the user's call; all results are in (doc 15 §3).
 
 ## 6. Scope
 
@@ -95,21 +95,21 @@ Dates are 2026. Details are in `06_history_phase0_phase1.md`, `08`, `09`, `10` a
 | Mean Teacher and ALHVR paper presentations (course) | Done (phase 1 handoff) | not in this repo |
 | Mid-term presentation (part 1) | The outline exists, drafted 10 Oct before P9 to P16 results. The user starts the slides after the one-day push. | `to_human/midterm_deck_outline.md` |
 | Results summary for the user | Being filled as experiments finish | `to_human/results_2026-10-12.md` |
-| Proposal reframe | Draft of 11 Oct; must be updated neutrally once results are in | `to_human/proposal_reframe_2026-10-11.md` |
+| Proposal reframe | Draft of 11 Oct, before the P13 to P16 results. Not updated: any rewrite implies a framing, which is the user's call (doc 15 §2) | `to_human/proposal_reframe_2026-10-11.md` |
 | MTP progress report (LaTeX) | Not started (phase 1 handoff) | n/a |
 
-## 9. Where things stand (11 Oct 2026, ~22:00 IST)
-- **Done:** P1 to P14 and E1, each with a README under `results/`. P16 Part A (supervised 20/50/100%, 9 runs) finished with rc = 0 at 22:06 IST; it is analysed together with Part B (cv02 `el_p13/reports/p16/launch.log`).
-- **Running:**
-  - (P15 finished at 22:26 IST and is analysed: the UCF-EL encoder does not beat ImageNet init; equal at 5%, worse at 10%; `results/p15/README.md`);
-  - P16 SSL arms on cv02 (15 runs started 21:05 IST, ETA about 03:00 to 04:30 on 12 Oct).
+## 9. Where things stand (13 Oct 2026, session close)
+- **Done:** P1 to P16 and E1, each with a README under `results/`, plus the E-SCDD audit (`results/escdd_audit/`, doc 17). Nothing is running (doc 15 §1b).
+  - P15: the UCF-EL encoder does not beat ImageNet init; equal at 5%, worse at 10% (`results/p15/README.md`).
+  - P16: SSL vs supervised is n.d. at 20%, 50% and 100% labels on all three primaries, 5 vs 5 seeds (`results/p16/README.md`). One noisy test cell (`CSIR_00070_r8_c4`) moved every crack contrast; without it every crack Δ is within ±0.003 (post hoc).
 - **The short version of the evidence:**
   - Label version and supervised recipe move the numbers more than any SSL effect at 10%.
   - The old Mean Teacher pipeline handicapped the student through shared BatchNorm.
   - Once that is fixed (P13), SSL at 5% labels beats a 5-seed supervised baseline on inactive IoU (+0.117) and crack relaxed F1@2 (+0.033), robust over test cells. Crack IoU is not detectably better (+0.014).
   - Hard pseudo-labels with CutMix also lift crack IoU (+0.036), but that is a secondary contrast with 3 seeds.
+  - P16: at 20%, 50% and 100% labels SSL (P13's Cs recipe, no CutMix) adds nothing detectable. 10% has no separate-BN SSL arm, so where between 5% and 20% the P13 gain fades is not measured.
   - Full table: `11_results_synthesis_and_claims.md`.
-- **Open:** does SSL still help at 20/50/100% labels (P16)? Then the user decides the framing.
+- **Open:** the user's decisions (framing, deck, test set, standing checks): doc 15 §3.
 
 ## Related docs
 - `00_START_HERE.md`: how to use this handbook

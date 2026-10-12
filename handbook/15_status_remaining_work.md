@@ -1,8 +1,9 @@
 # 15. Status and remaining work
 
-**What this covers.** The state of every experiment on 12 Oct 2026, about 05:30 IST (all P-series experiments finished). What is running, what happens automatically overnight, what is left for part 1 of the thesis, which decisions are waiting on the user, and the housekeeping debts. This doc goes stale fastest: check `results/p15/` and `results/p16/` and the git log of `~/mtp/research` for anything newer.
+**What this covers.** The state of every experiment on 12 Oct 2026, about 05:30 IST (all P-series experiments finished), and the server state when the work session closed (13 Oct, about 01:30 IST). What ran overnight, what is left for part 1 of the thesis, which decisions are waiting on the user, and the housekeeping debts. This doc goes stale fastest: check `results/p15/` and `results/p16/` and the git log of `~/mtp/research` for anything newer.
 
 **Sources**
+- Server check at session close, 13 Oct 01:21 IST (read-only: `tmux ls`, `nvidia-smi`, `ps`, `du`), for §1b.
 - Launch logs on the servers, read at about 22:15 IST:
   - gaint `/home/noob/work/el_p14/reports/p15/launch_gaint.log`;
   - cv02 `/tmp/noob_el/el_p16/reports/p16b/launch.log` (UTC) and `el_p16/reports/p16b_auto.log` (Part B has no `queue.log`); Part A: `el_p13/reports/p16/launch.log`.
@@ -27,10 +28,21 @@
 | **P15** (gaint, UCF-EL encoder transfer) | **Done**, 6 runs rc = 0 (17:01 to 22:26 IST); analysed about 22:40 IST. **Fails:** 5% n.d. on all three; 10% worse on all three, robust over cells. | `results/p15/README.md`, `results/e1/e1_p15.md` |
 | **P16** (cv02, SSL vs supervised at 20/50/100%) | **Done.** Part A 9 runs (17:28 to 22:06 IST, 11 Oct); Part B 15 runs (21:04 IST to 04:24 IST, 12 Oct); all rc = 0; analysed about 05:00 IST.<br>• **Fails at all three fractions:** S20, S50, Sx100 − supervised n.d. on all three primaries (5 vs 5 seeds). CutMix off by the locked val pick.<br>• One noisy test cell (`CSIR_00070_r8_c4`) wrecked crack in 4 of 24 runs; without it every crack Δ is within ±0.003 (post hoc), so the verdict is unchanged. | `results/p16/README.md`, `results/e1/e1_p16.md` |
 
+## 1b. Server state at session close (13 Oct, 01:21 IST)
+- **Nothing of ours is running** on either server. No queue, watcher or training process.
+- **cv02 GPUs** are taken by another user (`cv07`, one Jupyter kernel): 15.5 GB on GPU 0 and 2.4 GB each on GPUs 1 to 6, 0% use. The standing rule (never start on a GPU where another user holds > 4 GB) rules out GPU 0 while that kernel lives.
+- **gaint GPU 0:** 6.5 GB held by a root process (`finllm_chat.py`), not ours.
+- **Idle tmux sessions of ours, left open** (killing them needs the user's say-so):
+  - cv02: `bndiag`, `e1`, `e1b`, `e1p11`, `e1v2`, `p6`, `p6hist`, `p6img`, `p7` to `p14`, `p15pre`, `p16`, `p16auto`, `p16b`;
+  - gaint: `p10g`, `p12g`, `p15g`.
+  - Not ours or older: cv02 `amlc` (26 Sep), `el` and `main` (4 Oct, phase 1 era); gaint `noob-0`.
+- **cv02 `/tmp/noob_el`** holds 100 GB, including the P13 and P16 checkpoints (`el_p13/experiments` 15 GB, `el_p16/experiments` 8.8 GB). cv02 had been up 34 days; a reboot wipes `/tmp`, and checkpoints are not backed up (§7). Everything needed for the write-up (re-score JSONs, E1 per-cell JSONs, logs, the noisy-cell p(crack) maps) is already copied into `~/mtp/research/results/`.
+- **gaint worktrees:** `el-fault-detection` (main, `24590fb`), `el_p13` (`bac5264`), `el_p14` (`be67787`), `el_p16` (`d51b60f`).
+
 **Held, do not touch:** the gaint `extpool_20261007` night queue (old-era Mean Teacher runs with SemiCE). It was held by hand on 8 Oct, 01:18 IST (19:48 UTC on 7 Oct) while SemiCE was under audit, and P2 later showed SemiCE is invalid. The user's standing instruction is to leave it held and untouched. (Source: the user's command in `sources/chat/user_messages_2026-10-07_to_11.md`, 2026-10-07T19:48Z; session summaries.)
 
-## 2. What happens automatically overnight (Claude's queue)
-A watcher (`scratchpad/watch.sh`) polls both servers every 2 minutes and fires on each finished set. Planned handling:
+## 2. What ran overnight, 11 to 12 Oct (all done)
+A watcher (`scratchpad/watch.sh`) polled both servers every 2 minutes and fired on each finished set. It exited after P16 Part B; the script lived in a session scratchpad that no longer exists. What it triggered:
 1. **P15 (done 11 Oct ~22:40 IST):** `bash scripts/post_p15.sh <cv02 gpu>`.
    - Locked rules: gU5 − A5 and gU10 − gA10.
    - E1 per-cell scoring on cv02.
@@ -41,10 +53,10 @@ A watcher (`scratchpad/watch.sh`) polls both servers every 2 minutes and fires o
    - Added after the runs: the noisy-cell diagnostic (`scripts/p16_excell.py`, `scripts/cell_noise_rank.py`).
    - `results/p16/README.md` written and committed.
 3. **Morning, 12 Oct:**
-   - Finalise `to_human/results_2026-10-12.md`.
-   - Update `to_human/proposal_reframe_2026-10-11.md` and `midterm_deck_outline.md` neutrally ("framing depends on final results").
-   - Refresh this handbook (§6 below).
-   - Send the user one summary: results per experiment against the locked rules, plus the evidence table.
+   - Done: `to_human/results_2026-10-12.md` finalised; this handbook refreshed (§6); commit `1bbe631`.
+   - Done: one summary sent to the user at 04:48 IST (results per experiment against the locked rules, the noisy cell, six open decisions). Verbatim in `sources/chat/claude_session_summaries_2026-10-11_to_12.md`.
+   - **Not done, on purpose:** `to_human/proposal_reframe_2026-10-11.md` and `midterm_deck_outline.md` were not touched. Any rewrite needs a framing, and framing is the user's call (§3 decisions 1 and 4). Both still predate the P13 to P16 results.
+   - The user has not yet replied to the summary. Claude also offered to turn it into a shareable web page; no answer.
 
 ## 3. Decisions waiting on the user
 
@@ -55,7 +67,7 @@ A watcher (`scratchpad/watch.sh`) polls both servers every 2 minutes and fires o
 | 2b | Whether to add "without `CSIR_00070_r8_c4`" as a standing robustness check | That test cell, the noisiest of 582, decides crack contrasts in about 1 run in 6 (P16) and caused P6's L0 10% s1 outlier. No locked rule mentions it; adding the check now is a methodology change the user should approve. | `results/p16/README.md` |
 | 3 | Larger test set, and whether to use E-SCDD's extra labelled cells | The user said "conside rit" (11 Oct).<br>• Done: a 106-cell extension from BenchmarkEL modules we never trained on (E1).<br>• Done 12 Oct: full E-SCDD and BenchmarkEL `20221008` downloaded and audited (doc 17).<br>• Facts for the decision:<br>&nbsp;&nbsp;– 233 labelled real cells we never trained on, 111 of them in our external pool;<br>&nbsp;&nbsp;– E-SCDD's own test is unusable with our split;<br>&nbsp;&nbsp;– a 172-cell test (ours + E1 + 17 new) has 26 inactive cells with a top-3 share of 53.5%.<br>• Open: use any of it (new base, held-out selection set, larger test) or not. | `results/escdd_audit/README.md` §8; `results/e1/README.md` |
 | 3b | Thesis wording for the revised labels | They are BenchmarkEL `20221008` crack/inactive labels obtained via E-SCDD (doc 17 §5.2) | `results/escdd_audit/README.md` §4 |
-| 4 | Mid-term deck content | The outline predates P9 to P16 | `to_human/midterm_deck_outline.md` |
+| 4 | Mid-term deck content | The outline predates P9 to P16, and the proposal reframe (11 Oct) predates P13 to P16. Neither was updated after the results (§2). The user said they would start on the deck after the one day of work (11 Oct). | `to_human/midterm_deck_outline.md`, `to_human/proposal_reframe_2026-10-11.md` |
 | 5 | Identity, institute and report template for the MTP report | Inconsistent across sources (phase 1 handoff §1) | phase 1 handoff |
 
 ## 4. Remaining work for part 1 (training methodology)
@@ -105,6 +117,8 @@ After any new result, update these docs (done for P15 and P16 on 12 Oct):
 | cv02 `/tmp/noob_el` is wiped on reboot | Results are pulled into `~/mtp/research/results/` after each experiment; checkpoints are not backed up | handoff §2.2 |
 | GitHub | The research notes repo is local only. Push nothing without asking the user. | standing instruction |
 | gaint shutdowns | Unexplained reboots on 2, 6 and 7 Oct; the queue resumes from `latest.pth` | handoff §2.1 |
+| Idle tmux sessions | About 20 of ours on cv02 and 3 on gaint (§1b), all idle. Close them only on the user's say-so. | server check 13 Oct |
+| Untracked files in `~/mtp/research` | `papers/` (paper PDFs: local only, never commit or redistribute) and `scripts/aggregate_runs.py` (a P6/P7 re-score aggregator, untracked since 10 Oct; its origin was not recorded). Both left as they are. | `git status`, 13 Oct |
 
 ## Related docs
 - `10_experiments_P13_P16_E1.md`: designs of P15 and P16

@@ -595,7 +595,7 @@ Summary:
      - Don't interfere with other users' workloads; on cv02 never start on a GPU where another user holds >4 GB.
      - Don't kill queues or processes without the user's say-so (the gaint extpool queue stays held).
      - Rotate and never expose the Dropbox app secret.
-     - The email (noobsurd@refactron.dev) is for attribution only.
+     - The email ([the user's email]) is for attribution only.
      - Commit trailer: "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>" and "Claude-Session: https://claude.ai/code/session_01HzsHXC91MDtjqG2abZt5qU".
      - Keep PDFs local and don't redistribute them.
      - Launching new experiments on the shared cluster needs the user's go-ahead (the classifier denied an unattended auto-launch).
@@ -852,7 +852,7 @@ Summary:
      - Don't interfere with other users' workloads; on cv02 never start on a GPU where another user holds >4 GB.
      - Don't kill queues or processes without the user's say-so. The gaint extpool queue stays held and untouched.
      - Rotate and never expose the Dropbox app secret.
-     - The email (noobsurd@refactron.dev) is for attribution only.
+     - The email ([the user's email]) is for attribution only.
      - Commit trailer: "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>" and "Claude-Session: https://claude.ai/code/session_01HzsHXC91MDtjqG2abZt5qU".
      - Keep PDFs local and don't redistribute them.
      - Launching new experiments on the shared cluster needs the user's go-ahead. The user has now approved overnight SSL work on all resources.
@@ -1087,7 +1087,7 @@ Summary:
      - Don't interfere with other users' workloads; on cv02 never start on a GPU where another user holds >4 GB.
      - Don't kill queues or processes without the user's say-so. The gaint extpool queue stays held and untouched.
      - Rotate and never expose the Dropbox app secret.
-     - The email (noobsurd@refactron.dev) is for attribution only.
+     - The email ([the user's email]) is for attribution only.
      - Commit trailer: "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>" and "Claude-Session: https://claude.ai/code/session_01HzsHXC91MDtjqG2abZt5qU".
      - Keep PDFs local and don't redistribute them.
      - Launching new experiments needs the user's go-ahead (overnight SSL on all resources was approved).
@@ -1300,7 +1300,7 @@ Summary:
      - don't interfere with other users' workloads; on cv02 never start on a GPU where another user holds > 4 GB;
      - don't kill queues or processes without the user's say-so; the gaint extpool queue stays held and untouched;
      - rotate and never expose the Dropbox app secret;
-     - the email noobsurd@refactron.dev is for attribution only;
+     - the email [the user's email] is for attribution only;
      - commit trailer: "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>" and "Claude-Session: https://claude.ai/code/session_01HzsHXC91MDtjqG2abZt5qU";
      - keep PDFs local and don't redistribute;
      - don't push to GitHub without asking;
@@ -1534,7 +1534,7 @@ Summary:
      - don't interfere with other users' workloads; on cv02 never start on a GPU where another user holds > 4 GB;
      - don't kill queues or processes without the user's say-so; the gaint extpool queue stays held and untouched;
      - rotate and never expose the Dropbox app secret;
-     - the email noobsurd@refactron.dev is for attribution only;
+     - the email [the user's email] is for attribution only;
      - commit trailer "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>" and "Claude-Session: https://claude.ai/code/session_01HzsHXC91MDtjqG2abZt5qU";
      - keep PDFs local and don't redistribute;
      - don't push to GitHub without asking;

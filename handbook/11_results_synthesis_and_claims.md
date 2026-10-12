@@ -6,7 +6,7 @@ This file pulls the experiments together:
 - **(b)** the numbers worth remembering;
 - **(c)** what can be claimed now and what cannot, with reasons;
 - **(d)** how the conclusions changed over the project, and why supervised training beat SSL for so long;
-- **(e)** what the two pending experiments (P15, P16) will decide, and how each possible outcome would move the claims;
+- **(e)** what P15 and P16 could decide (outcome tables written before the results) and what they did decide;
 - **(f)** where the proposal reframe and the mid-term deck outline stand.
 
 It contains no new measurements. Every number points to the README or protocol it comes from.
@@ -60,7 +60,7 @@ Where this table deliberately differs from that file:
 - **Row 1:** that file says SSL effects are "≤ +0.023 at cv02 (P11, P12)". It predates P13; the largest cv02 SSL crack IoU effect is now BsM5's +0.036.
 - **Row 2:** that file says "supported". After P13 (Cs5 − A5c crack +0.004 against a clean control) this table narrows it to inactive, with crack only against a joint-BN control.
 - **Row 5:** adds P9's inactive pass (not robust).
-- **Row 8:** that file says crack IoU "falls to ~1/3 for every model". That holds for L3 100% (0.471 → 0.152); other models fall further (L3 10% 0.396 → 0.080; A5c 0.304 → 0.045), so this table gives the numbers instead.
+- **Row 8:** that file said crack IoU "falls to ~1/3 for every model". That holds for L3 100% (0.471 → 0.152); other models fall further (L3 10% 0.396 → 0.080; A5c 0.304 → 0.045). Corrected in that file on 13 Oct with these numbers.
 - **Row 12:** adds P7 to P10 (that file cites P13 only).
 
 | # | Claim | Evidence (source) | Status |
@@ -277,7 +277,7 @@ From the assistant's answer to the user on 11 Oct (transcript line 6728) and the
 
 ---
 
-## (e) What P15 and P16 will decide
+## (e) What P15 and P16 would decide, and the outcomes
 No outcome is presumed. These are the possible results under the locked rules, and how each would move the evidence table.
 
 ### P15 (gaint): UCF-EL-pretrained encoder vs ImageNet init
@@ -343,12 +343,13 @@ The descriptive label-fraction curve (`scripts/p16_curve.py`) puts these next to
 | E5 (distillation) | not started |
 | E6 (severity pipeline) | not started |
 
-**Statements newer evidence touches** (for the morning neutral update; the parent agent owns that update):
+**Statements newer evidence touches.** A neutral update was planned for 12 Oct morning but not made: any rewrite implies a framing, which is the user's call (doc 15 §2). The file is unchanged since 11 Oct.
 - **§2's budget row "Unlabelled loss (SSL): crack ≈ 0 to +0.01; inactive +0.05 (fragile)"** predates P13. With separate BN at 5%: inactive +0.117 robust, crack relF1@2 +0.033 robust, and hard PL + CutMix crack IoU +0.036.
 - **§2's "BN mixing" row** is now tested: the fix is in P13.
 - **§3 point 2 and O2's "one offset-tolerant objective for both kinds of target"** are weakened:
   - P14 shows tolerance does not recover human label noise;
   - P13 shows tolerant PL is not better than hard PL under CutMix.
+- **O3 and the SSL rows** now need a label-fraction scope: P16 finds no detectable SSL gain at 20%, 50% or 100% labels (row 10).
 
 **The user's rule:** framing depends on final results. The reframe is a draft to be revised from this evidence table, not a fixed position.
 
@@ -367,6 +368,7 @@ The descriptive label-fraction curve (`scripts/p16_curve.py`) puts these next to
 - Slide 14 stops at P8 to P10 and lists P11/P12 as "running now". P11 to P14 and E1 results are not in it.
 - Slide 12 presents "rarity-routed, offset-tolerant pseudo-labels" as the proposed method. Claims 6 and 12 above now weaken the tolerance part.
 - The timeline (slide 17) predates P13 to P16.
+- P15 and P16 results are not in it. The outline was not updated after the results (doc 15 §2); slide content is the user's decision.
 
 **Plan stated by the user:** the user starts the PPT after one day of work (11 Oct message, point 6: "youve 1 day for the work then ill startr on ppt"). The mid-term date was "about 14 Oct (confirm the date)" in the outline.
 

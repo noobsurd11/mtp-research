@@ -22,6 +22,7 @@ Protocol: `protocols/P16_label_fraction_curve.md`. Part A was locked before any 
 - `fig_p16_bars.png` and `fig_p16_curve.png` (with `p16_curve.txt`).
 - `sensitivity_excell.txt` and `fig_p16_curve_excell.png`: the post-hoc check without one test cell (below).
 - `cell_noise_rank.txt` and `diag_csir70.txt` (the noisy-cell diagnostic, `scripts/diag_csir70.py`).
+- `diag_csir70/*_pcrack.png`: p(crack) maps of `CSIR_00070_r8_c4` (512×512, grey = p × 255) for the 10 runs in `diag_csir70.txt`; copied 13 Oct from cv02 `/tmp/noob_el/diag/csir70/`, which a reboot wipes.
 - E1: `../e1/e1_p16.md`.
 - Reproduce with:
   - `bash scripts/post_p16.sh <cv02 gpu>`;

@@ -218,7 +218,7 @@ No:
 
 Source: `results/p14/README.md`.
 
-## E. What is pending, and what to say
+## E. P15, P16 and the mid-term: what to say
 
 **Q20. What did P15 and P16 decide?**
 - **P15** (gaint), now **done**: does an encoder trained on UCF-EL labels beat ImageNet initialisation at 5% and 10% labels? No. gU5 − A5 is n.d. on all three primaries (crack +0.0096 vs threshold 0.0100). gU10 − gA10 is worse on all three (crack −0.012, inactive −0.086, relF1@2 −0.014), robust over cells. Source: `results/p15/README.md`.

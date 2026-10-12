@@ -556,7 +556,7 @@ Asked for by the user on 10 Oct ("explore all the possible directions ... dont l
 | 2 | ALHVR-inspired, rarity-aware routing | P5 done: no hard pseudo-labels for rare classes in Ω3; per-class γ alone doesn't help | main method candidate, only with tolerance-aware targets | Tolerant PL (P7/P8 onward). Full two-network routing method never built |
 | 3 | Unlabelled data without pseudo-labels: MIM pretraining | P4: ImageNet CNN features far above random (crack AP 0.33 vs 0.03; inactive 0.42 vs 0.10) | must-run rival; ImageNet-init CNN becomes the default baseline | ImageNet ResNet-34 adopted in P6 (L3). No MIM pretraining run in P1–P16 |
 | 4 | Weak and mixed supervision (ELPV image labels, PVEL-AD boxes) | AP at 5% masks ± ELPV auxiliary loss | medium | not run |
-| 5 | Cross-dataset transfer (BenchmarkEL ↔ UCF-EL) | encoder-only transfer vs ImageNet | medium, cheap | P15 (gaint; pending at 11 Oct ~22:00) |
+| 5 | Cross-dataset transfer (BenchmarkEL ↔ UCF-EL) | encoder-only transfer vs ImageNet | medium, cheap | P15 (gaint; done 11 Oct: does not beat ImageNet init, 5% n.d., 10% worse; doc 10) |
 | 6 | Foundation-teacher distillation | P4: DINOv2 weak on crack | narrowed to region classes | not run |
 | 7 | Rare-class synthesis (PV-DDPM, copy-paste) | capped ≤ 30% synthetic | low priority | not run |
 | 8 | Anomaly prior from normal cells | EI-AE crack pixel AP 0.14 | downgraded | not run |

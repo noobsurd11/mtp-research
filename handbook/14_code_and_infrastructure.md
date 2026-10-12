@@ -11,7 +11,7 @@ This is the map of the machinery behind every number in this project:
 
 Read 07_methodology_rules_and_statistics.md for *why* runs are set up this way (step matching, final weights, one machine per comparison). This file covers *how*.
 
-Everything below was checked on 11 Oct 2026, about 22:00 IST, by listing files, reading code and running `git log` / `nvidia-smi`. Status then: P13 and P14 done; P15 (gaint) running, 5 of 6 runs re-scored; P16 SSL arms running on cv02 (ETA about 03:00 to 04:30 IST on 12 Oct).
+Everything below was checked on 11 Oct 2026, about 22:00 IST, by listing files, reading code and running `git log` / `nvidia-smi`. Status then: P13 and P14 done; P15 (gaint) running, 5 of 6 runs re-scored; P16 SSL arms running on cv02 (ETA about 03:00 to 04:30 IST on 12 Oct). Later: both finished and were analysed by 12 Oct 05:30 IST; server state at the 13 Oct close is in doc 15 §1b.
 
 ## Sources
 - gaint training repo `/home/noob/work/el-fault-detection` (README.md, `src/`, `configs/`, `scripts/`, `tests/`) and worktrees `/home/noob/work/el_p13`, `el_p14`, `el_p16`.
@@ -227,6 +227,7 @@ Memory per run: about 5.7 GB (supervised) and 6.2 GB (SSL) on cv02 (`nvidia-smi 
 | `scripts/post_p16.sh <cv02 gpu>` | P16: pull Part A (`el_p13/reports/p16`) and Part B (`el_p16/reports/p16b`) JSONs plus `selection.txt`, per-image and histogram scoring for both code dirs, rules with A20 = P6 L3 20% s0-2 + P16 A20 s3-4 and A100 = P6 L3 100% s0-2 + P16 A100 s3-4, bootstrap, bars, `p16_curve.py`, E1, aggregate to `results/e1/e1_p16.md`. Committed `f9f2783`; ran 12 Oct ~04:30 IST on cv02 GPU 0 (rc = 0). |
 | `scripts/p16_curve.py` | Supervised vs SSL against label fraction (cv02 only); 5% point = P13 Cs5 or CsM5 depending on `selection.txt`. |
 | `scripts/p16_excell.py` | Post hoc (12 Oct): P16's rule arithmetic and curve with one test cell (default `CSIR_00070_r8_c4`) removed, from E1 per-cell counts; checks the all-cell values against the re-score JSONs first. Writes `results/p16/sensitivity_excell.txt` and `fig_p16_curve_excell.png`. |
+| `scripts/diag_csir70.py` | Post hoc (12 Oct): loads `experiments/<run>/checkpoints/latest.pth` (teacher for Mean Teacher runs) and predicts one test cell in bf16 and fp32; prints crack predicted/FP pixels and p(crack) quantiles and saves a p(crack) PNG. Run on cv02 from the code worktree root (`el_p13` for A runs, `el_p16` for S runs). Output: `results/p16/diag_csir70.txt` and `diag_csir70/`. |
 | `scripts/cell_noise_rank.py` | Ranks the 582 labelled cells by robust pixel-noise sigma (1.4826 × median absolute residual from a 5×5 median filter). Output `results/p16/cell_noise_rank.txt`. |
 | `scripts/p6_rules.py`, `p6_figures.py`, `p6_hist_analysis.py` | P6 rules, figures, histogram/saturation analysis. |
 | `scripts/p78_rules.py`, `p78_figure.py` | P7/P8 rules and figure. |
@@ -296,7 +297,7 @@ All commands are read-only. Prefix with `ssh -o BatchMode=yes cv02@10.8.1.106 '.
 - No written md5 record of cross-machine data equality was found in the research repo.
 - gaint's `REVISION` (`dfa4fd6`) is stale; use `git log`.
 - `/tmp/noob_el` on cv02 is in `/tmp` and not backed up beyond the local `results/` copies; checkpoints have no copy off the servers.
-- P15 and P16 local results do not exist yet (runs pending at the time of writing; `results/p15/` holds only `dedup.py`).
+- (Resolved 12 Oct) P15 and P16 results are local: `results/p15/`, `results/p16/`. The noisy-cell p(crack) maps were copied from cv02 `/tmp` to `results/p16/diag_csir70/` on 13 Oct.
 
 ## Related docs
 00_START_HERE.md, 01_project_overview_and_scope.md, 02_domain_primer_EL_and_defects.md, 03_datasets_and_splits.md, 04_glossary_and_naming.md, 05_literature_and_baselines.md, 06_history_phase0_phase1.md, 07_methodology_rules_and_statistics.md, 08_experiments_P1_P7_diagnostics.md, 09_experiments_P8_P12_ssl_series.md, 10_experiments_P13_P16_E1.md, 11_results_synthesis_and_claims.md, 12_decisions_log.md, 13_problems_pitfalls_open_issues.md, 15_status_remaining_work.md, 16_faq_for_the_guide.md
