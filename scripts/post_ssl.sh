@@ -1,12 +1,12 @@
 #!/bin/bash
-# Post-process a finished SSL set (p9 | p10 | p11 | p12 | p13 | p14): pull re-score JSONs (cv02, plus gaint for p10's supervised references),
+# Post-process a finished SSL set (p9 | p10 | p11 | p12 | p13 | p14 | p17): pull re-score JSONs (cv02, plus gaint for p10's supervised references),
 # per-image + histogram scoring of the cv02 runs on cv02, locked rules (scripts/ssl_rules.py), image bootstrap with the
-# P9 source split, bars. Usage: bash scripts/post_ssl.sh p9|p10|p11|p12|p13|p14 <cv02 gpu> <expected cv02 JSONs>
+# P9 source split, bars. Usage: bash scripts/post_ssl.sh p9|p10|p11|p12|p13|p14|p17 <cv02 gpu> <expected cv02 JSONs>
 # p12 also pulls gaint's p12_g* replication/calibration JSONs (rules only; no per-image scoring for gaint runs).
 set -e
 E=$1; G=$2; N=$3; R=~/mtp/research; O=$R/results/$E; PY=$R/.venv/bin/python
-CV=cv02@10.8.1.106; GA=noob@172.18.22.20; CODE=/tmp/noob_el/$(case $E in p11|p12) echo el_p11;; p13|p14) echo el_$E;; *) echo el_p7;; esac); RP=$CODE/reports/$E
-mkdir -p $O/raw
+CV=cv02@10.8.1.106; GA=noob@172.18.22.20; CODE=/tmp/noob_el/$(case $E in p11|p12) echo el_p11;; p13|p14|p17) echo el_$E;; *) echo el_p7;; esac); RP=$CODE/reports/$E
+mkdir -p $O/raw; FD=""
 scp -q -o BatchMode=yes "$CV:$RP/${E}_*_s[0-9].json" $CV:$RP/launch.log $O/raw/
 n=$(ls $O/raw/${E}_*_s[0-9].json | grep -vcE "/p12_g|/p10_A_"); echo "$E: $n cv02 re-score JSONs"; [ "$n" -eq "$N" ] || { echo "expected $N"; exit 1; }
 [ $E = p12 ] && scp -q -o BatchMode=yes "$GA:/home/noob/work/el-fault-detection/reports/p12/p12_g*.json" $GA:/home/noob/work/el-fault-detection/reports/p12/launch_gaint.log $O/raw/ 2>/dev/null || true
@@ -69,6 +69,26 @@ elif [ $E = p14 ]; then
   ARMS=("p14:L3o_10pct=L3o: old masks, CE+Dice" "p14:L3To_10pct=L3To: old masks, tolerant" "p6:L3_10pct=L3: revised, CE+Dice (P6)" "p14:L3T_10pct=L3T: revised, tolerant" "p6:L3_100pct=L3 100%")
   T="P14: offset-tolerant supervised loss (R = 2 px), 10% labels, old vs revised masks"
   H="$O/hist_revised.npz"
+elif [ $E = p17 ]; then
+  # BsM5 seeds 3-4 (P13 Amendment 2) ran in el_p13, session p13a2: re-score JSONs into results/p13/raw, per-image there.
+  A2=/tmp/noob_el/el_p13/reports/p13a2
+  scp -q -o BatchMode=yes "$CV:$A2/p13_BsM_5pct_s[34].json" results/p13/raw/
+  scp -q -o BatchMode=yes $CV:$A2/launch.log results/p13/raw/launch_a2.log
+  ssh -o BatchMode=yes $CV "source /tmp/noob_el/env.sh; cd /tmp/noob_el/el_p13; \
+    CUDA_VISIBLE_DEVICES=$G /tmp/noob_el/el-fault-detection/.venv/bin/python scripts/per_image_scores.py --runs p13_BsM_5pct_s3 p13_BsM_5pct_s4 --out $A2/per_image.json > $A2/per_image.log 2>&1; tail -n 1 $A2/per_image.log"
+  scp -q -o BatchMode=yes $CV:$A2/per_image.json results/p13/per_image_a2.json
+  # Secondary decoder (student encoder + decoder_u) vs teacher, trainer evaluator, test, final weights.
+  ssh -o BatchMode=yes $CV "cd $CODE/experiments; for r in p17_BsD_5pct_s?; do python3 -c \"import json; m=json.load(open('\$r/metrics.json')); t, u = m['test_final'], m['test_final_secondary']; print('\$r teacher crack %.4f inactive %.4f | decoder_u crack %.4f inactive %.4f' % (t['crack_iou'], t['inactive_iou'], u['crack_iou'], u['inactive_iou']))\"; done" | tee $O/decoder_u_secondary.txt
+  M="p13:A5c=p12:A_5pct+p13:A_5pct"
+  $PY scripts/ssl_rules.py --dirs $O/raw results/p13/raw results/p12/raw results/p6/raw --merge $M \
+    --arms p13:A5c p13:BsM_5pct p17:BsD_5pct p13:CsM_5pct p6:L3_10pct p6:L3_100pct \
+    --pairs p17:BsD_5pct=p13:BsM_5pct p17:BsD_5pct=p13:A5c p13:BsM_5pct=p13:A5c p13:CsM_5pct=p13:BsM_5pct \
+    --ref p6:L3_100pct | tee $O/${E}_rules.txt
+  J="--json $O/per_image.json results/p13/per_image.json results/p13/per_image_a2.json results/p12/per_image.json --check $O/raw --merge $M"
+  P="p13:BsM_5pct=p17:BsD_5pct p13:A5c=p17:BsD_5pct p13:A5c=p13:BsM_5pct p13:BsM_5pct=p13:CsM_5pct"
+  ARMS=("p12:A_5pct=A5c s0-2 (P12)" "p13:A_5pct=A5c s3-4 (P13)" "p13:BsM_5pct=BsM5 (P13 + Am. 2)" "p17:BsD_5pct=BsD5 decoupled" "p13:CsM_5pct=CsM5 sep.+CutMix" "p6:L3_10pct=L3 10%" "p6:L3_100pct=L3 100%")
+  T="P17: SKCDF-style decoupled decoder on BsM5, 5% labels (23 cells), L3 base"
+  H="$O/hist_revised.npz"; FD="results/p13/raw"
 else
   $PY scripts/ssl_rules.py --dirs $O/raw results/p9/raw results/p8/raw results/p6/raw \
     --arms p10:A_5pct p10:D_5pct p10:B_5pct p10:C_5pct p10:Dx_5pct p10:Cx_5pct p6:L3_10pct p6:L3_20pct p10:A_50pct p6:L3_100pct \
@@ -81,8 +101,8 @@ else
   H="$O/hist_revised.npz"
 fi
 $PY scripts/per_image_analysis.py $J --pairs $P | tee $O/per_image_test.txt
-for k in '^(CSIR|ARTS)_' '^(CFVS|BMRK|SDLE)_'; do
+for k in '^(CSIR|ARTS)_' '^(CFVS|BMRK|SDLE)_' $([ $E = p17 ] && echo '^(?!CSIR_00070_r8_c4$)'); do
   echo -e "\nSource split, cells matching $k:" | tee -a $O/per_image_test.txt
   $PY scripts/per_image_analysis.py $J --pairs $P --keep "$k" | tee -a $O/per_image_test.txt
 done
-$PY scripts/ssl_figure.py --dirs $O/raw results/p9/raw results/p8/raw results/p6/raw results/p10/raw results/p11/raw results/p12/raw --out $O/fig_${E}_bars.png --title "$T" --arms "${ARMS[@]}" --hist $H | tee -a $O/${E}_rules.txt
+$PY scripts/ssl_figure.py --dirs $O/raw results/p9/raw results/p8/raw results/p6/raw results/p10/raw results/p11/raw results/p12/raw $FD --out $O/fig_${E}_bars.png --title "$T" --arms "${ARMS[@]}" --hist $H | tee -a $O/${E}_rules.txt
