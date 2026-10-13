@@ -1,6 +1,6 @@
 # P18 protocol (EXPLORATORY): the BsM recipe at 10% and 20% labels
 
-Locked 13 Oct 2026, ~17:40 IST, before any P18 run. The user's go: "cool, youve got 3hrs to wrap up,, complete whateer left or experiment whatever you think useful then we ill move to the presentation part, analysis left ig, but check once and go" (13 Oct ~17:25 IST). Claude picked this experiment from the open decisions (doc 15 §3, decision 2).
+Locked 13 Oct 2026, 17:31 IST (commit `a698ec8`), before any P18 run; runs launched 17:31 IST (12:01 UTC). The user's go: "cool, youve got 3hrs to wrap up,, complete whateer left or experiment whatever you think useful then we ill move to the presentation part, analysis left ig, but check once and go" (13 Oct ~17:25 IST). Claude picked this experiment from the open decisions (doc 15 §3, decision 2).
 
 ## What I had seen when locking
 Everything up to P17:
