@@ -62,6 +62,7 @@ Dates are 2026. Details are in `06_history_phase0_phase1.md`, `08`, `09`, `10` a
 | **Corrected baseline, P6** (10 Oct) | Which supervised recipe is sound? | L3: U-Net++ with ImageNet ResNet34, CE+Dice, label-safe augmentation, revised masks. It is the base for everything after. |
 | **SSL series, P7 to P12** (10 to 11 Oct) | Does an offset-tolerant pseudo-label loss help, at 10% and 5% labels, with an in-domain or external pool, on a pipeline matched to supervised? | The loss helps against its own loss-off control. But the Mean Teacher pipeline itself handicapped the student (BatchNorm mixing), so SSL beat plain supervised on cv02 only narrowly at 10% (P11: passes the seed rule; the inactive part is not robust over cells) and not at 5% (P12). The user: "cant believe bro, supervised beating ssl". |
 | **Audit and fixes, P13 to P16** (11 Oct) | Fix the pipeline (separate BatchNorm, CutMix). Does tolerance help human labels (P14)? Does a related labelled dataset beat ImageNet (P15)? What about 20/50/100% labels (P16, the user's request)? | P13: SSL beats supervised at 5% on inactive IoU and crack relaxed F1, robust over test cells. P14: tolerance does not fix label noise. P15: a UCF-EL-pretrained encoder does not beat ImageNet init (5% n.d., 10% worse). P16: SSL is not detectably better than supervised at 20%, 50% or 100% labels. |
+| **Follow-up, P17** (13 Oct) | The user asked about two recent papers (DCA, SKCDF). Does BsM5's gain need the labelled decoder to fit pseudo-labels (SKCDF-style decoupling)? BsM5 also gets seeds 3–4 (P13 Amendment 2). | P17: no detectable difference from BsM5; the decoupled arm still beats supervised on all three primaries. BsM5 on 5 seeds still beats supervised (+0.029 crack IoU instead of +0.036 on 3). DCA was not run. |
 
 **Current problem statement** (draft, `proposal_reframe_2026-10-11.md` §1): this is "thin-structure and region segmentation, from few labels with imprecise geometry, with a long-tailed class distribution, several image sources, and a small test set, whose real output is a measurement". It is not mainly an SSL problem. The final framing is the user's call; all results are in (doc 15 §3).
 
@@ -93,20 +94,21 @@ Dates are 2026. Details are in `06_history_phase0_phase1.md`, `08`, `09`, `10` a
 |---|---|---|
 | EE511 course poster | Done; partly outdated (phase 1 handoff) | not in this repo |
 | Mean Teacher and ALHVR paper presentations (course) | Done (phase 1 handoff) | not in this repo |
-| Mid-term presentation (part 1) | The outline exists, drafted 10 Oct before P9 to P16 results. The user starts the slides after the one-day push. | `to_human/midterm_deck_outline.md` |
+| Mid-term presentation (part 1) | The outline exists, drafted 10 Oct before P9 to P17 results. The user starts the slides after the one-day push. | `to_human/midterm_deck_outline.md` |
 | Results summary for the user | Being filled as experiments finish | `to_human/results_2026-10-12.md` |
 | Proposal reframe | Draft of 11 Oct, before the P13 to P16 results. Not updated: any rewrite implies a framing, which is the user's call (doc 15 §2) | `to_human/proposal_reframe_2026-10-11.md` |
 | MTP progress report (LaTeX) | Not started (phase 1 handoff) | n/a |
 
-## 9. Where things stand (13 Oct 2026, session close)
-- **Done:** P1 to P16 and E1, each with a README under `results/`, plus the E-SCDD audit (`results/escdd_audit/`, doc 17). Nothing is running (doc 15 §1b).
+## 9. Where things stand (13 Oct 2026, ~16:30 IST)
+- **Done:** P1 to P17 and E1, each with a README under `results/`, plus the E-SCDD audit (`results/escdd_audit/`, doc 17). Nothing is running (doc 15 §1c). cv02 checkpoints are copied to gaint (`cv02_noob_el`).
   - P15: the UCF-EL encoder does not beat ImageNet init; equal at 5%, worse at 10% (`results/p15/README.md`).
   - P16: SSL vs supervised is n.d. at 20%, 50% and 100% labels on all three primaries, 5 vs 5 seeds (`results/p16/README.md`). One noisy test cell (`CSIR_00070_r8_c4`) moved every crack contrast; without it every crack Δ is within ±0.003 (post hoc).
 - **The short version of the evidence:**
   - Label version and supervised recipe move the numbers more than any SSL effect at 10%.
   - The old Mean Teacher pipeline handicapped the student through shared BatchNorm.
   - Once that is fixed (P13), SSL at 5% labels beats a 5-seed supervised baseline on inactive IoU (+0.117) and crack relaxed F1@2 (+0.033), robust over test cells. Crack IoU is not detectably better (+0.014).
-  - Hard pseudo-labels with CutMix also lift crack IoU (+0.036), but that is a secondary contrast with 3 seeds.
+  - Hard pseudo-labels with CutMix also lift crack IoU: +0.029 on 5 seeds (+0.036 on the first 3; seeds 3–4 added post hoc, P13 Amendment 2). A secondary contrast.
+  - P17: keeping pseudo-labels out of the labelled decoder (SKCDF-style) changes nothing detectable against BsM5; the decoupled arm still beats supervised on all three primaries. A decoder share below about 40% of the gain is not excluded.
   - P16: at 20%, 50% and 100% labels SSL (P13's Cs recipe, no CutMix) adds nothing detectable. 10% has no separate-BN SSL arm, so where between 5% and 20% the P13 gain fades is not measured.
   - Full table: `11_results_synthesis_and_claims.md`.
 - **Open:** the user's decisions (framing, deck, test set, standing checks): doc 15 §3.

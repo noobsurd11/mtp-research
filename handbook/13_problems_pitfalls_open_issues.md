@@ -21,10 +21,10 @@ Each item also has a **status**:
 
 Use it when the user asks "why can't we just say X?" or "what is wrong with this result?". The decisions taken in response are in `12_decisions_log.md`.
 
-Status date: 12 Oct 2026, ~05:30 IST. All P-series experiments (P1 to P16) are done. A11 and E15 were added after P16.
+Status date: 12 Oct 2026, ~05:30 IST, updated 13 Oct ~16:30 IST for P17 and P13 Amendment 2 (C2, C6, C10, C11, D3, D19, E3, E16). All P-series experiments (P1 to P17) are done. A11 and E15 were added after P16.
 
 ## Sources
-- `results/*/README.md` (P1–P14, E1), `protocols/*.md`.
+- `results/*/README.md` (P1–P17, E1), `protocols/*.md`.
 - `to_human/situation_report_2026-10-08.md`, `to_human/directions_2026-10-10.md`, `to_human/proposal_reframe_2026-10-11.md`, `to_human/results_2026-10-12.md`, `to_human/midterm_deck_outline.md`.
 - `data_analysis/benchmark_el_report.md`, `data_analysis/ucf_el_report.md`.
 - `~/mtp/MTP_session_handoff_2026-10-07.md` ("handoff 7 Oct").
@@ -53,7 +53,7 @@ Status date: 12 Oct 2026, ~05:30 IST. All P-series experiments (P1 to P16) are d
 | A11 | One very noisy test cell (`CSIR_00070_r8_c4`) can wreck a run's crack score | open (found after P16; post-hoc check only) | high for crack contrasts |
 | B1–B14 | Past invalid or misread results | resolved (identified; kept out of P-series tables) | high for history |
 | C1 | Rule 1 is lenient and per-metric | open (by design) | high |
-| C2 | 3 seeds in most contrasts | partly mitigated (5 in P13/P16 primaries) | high |
+| C2 | 3 seeds in most contrasts | partly mitigated (5 in P13/P16/P17 primaries and BsM5) | high |
 | C3 | 5–10% regime | resolved for the Cs recipe (P16: no gain at 20/50/100%) | high |
 | C4 | Joint-BN handicap in SSL arms (P8–P12) | resolved from P13 (separate forward) | high for P8–P12 |
 | C5 | Untuned SSL recipe vs laddered supervised recipe | open | medium |
@@ -65,8 +65,8 @@ Status date: 12 Oct 2026, ~05:30 IST. All P-series experiments (P1 to P16) are d
 | C11 | EMA-only effect unmeasured; bit-identity checked for 100 steps | open | low |
 | C12 | Seeds pooled across commits and protocols | mitigated (diff checks) | low |
 | C13 | Effort concentrated on SSL | open | medium (strategic) |
-| D1–D18 | Infrastructure incidents | mostly resolved | low for results, one high (gaint reset) |
-| E1–E15 | Open questions | open (E1, E2 answered) | see section (e) |
+| D1–D19 | Infrastructure incidents | mostly resolved | low for results, one high (gaint reset) |
+| E1–E16 | Open questions | open (E1, E2 answered) | see section (e) |
 
 ---
 
@@ -316,7 +316,9 @@ None of these may be quoted as a method result. Old-era numbers stay in separate
 - **Mitigation:**
   - P13 primary: 5 vs 5 (A5c pools P12 s0–2 and P13 s3–4).
   - P16: 5 vs 5 at every fraction.
-  - Still 3 seeds: BsM5, Cs5 (P13 secondaries), P14, P15.
+  - P17: 5 vs 5; BsM5 raised to 5 seeds by P13 Amendment 2 (post hoc).
+  - Still 3 seeds: Cs5 (P13 secondary), P14, P15.
+- **A measured case of the risk:** BsM5's crack IoU sd was 0.004 on seeds 0–2 and 0.011 on 0–4. The 3-seed verdict "tolerant worse than hard on crack" (CsM5 − BsM5 −0.022, thr 0.014) became n.d. on 5 vs 5 (−0.015, thr 0.018) (`results/p17/README.md`).
 
 ### C3. The 5–10% label regime (mitigated by P16)
 - **What:** P7–P13 tested SSL only at 5% and 10%.
@@ -358,7 +360,7 @@ None of these may be quoted as a method result. Old-era numbers stay in separate
 - **Evidence:**
   - Val scores: CsM5 0.3507, Cs5 0.3652, so CutMix is off (`el_p16/reports/p16b/selection.txt` on cv02; `results/p13/README.md`).
   - On test, CsM5 − Cs5 is n.d. on seeds but positive over cells on crack (+0.010 [+0.004, +0.017]).
-  - Hard PL + CutMix (BsM5) was best on crack (+0.036 vs A5c). Tolerant was worse than hard under CutMix (−0.022, robust).
+  - Hard PL + CutMix (BsM5) was best on crack (+0.036 vs A5c on 3 seeds; +0.029 on 5). Tolerant was worse than hard under CutMix on 3 BsM5 seeds (−0.022); on 5 vs 5 it is n.d. by seeds, still negative over cells.
   - So P16 runs the recipe that was weakest on crack in P13's test.
 - **Impact:** P16's SSL arms may understate what SSL can do at 20–100%. P16 answers "does *this* recipe help with more labels". Its answer was no at every fraction (12 Oct).
 - **Mitigation:**
@@ -408,7 +410,9 @@ None of these may be quoted as a method result. Old-era numbers stay in separate
   - P9 and P10 (chosen after interim P7/P8 nulls);
   - P11 (after P8's D < A);
   - P12 (after seeing gaint A5);
-  - P16 (after P11–P12).
+  - P16 (after P11–P12);
+  - P13 Amendment 2 (BsM5 seeds 3–4, added after seeing the 3-seed result, with a fixed 5-seed stopping rule);
+  - P17 (after P13; prompted by the user's question about two papers).
 - **Impact:** the sequence is adaptive. Each protocol still fixes its rules before its own runs, and the motivation applies equally to all arms of that protocol.
 - **Mitigation:** each protocol has a "What I had seen" or "post hoc; disclosed" section.
 
@@ -420,7 +424,7 @@ None of these may be quoted as a method result. Old-era numbers stay in separate
 - **Evidence that the EMA effect is small:**
   - phase 1: teacher − student +0.000 ± 0.002 with cosine LR to 0;
   - P8: student = teacher (crack 0.383 vs 0.383).
-- **Impact:** CsM5 − A5c contains the loss effect, CutMix and any EMA effect. Probably negligible, but not measured in P13.
+- **Impact:** CsM5 − A5c contains the loss effect, CutMix and any EMA effect. Probably negligible, but not measured in P13. The same holds for P17's BsD5 − A5c: the gain that reaches the teacher without the decoder fitting pseudo-labels comes through the encoder or the EMA.
 - **Mitigation:** run Ds5 at 3–5 seeds if this ever matters.
 
 ### C12. Seeds pooled across commits and protocols (mitigated)
@@ -449,7 +453,7 @@ None of these may be quoted as a method result. Old-era numbers stay in separate
 |---|---|---|---|---|
 | D1 | gaint `noob` account reset (before 2 Oct) | Phase-0 code, reproduction code, the UCF val split, Subpath A post-processing (57 tests), splits and predictions lost. Only notes and the poster survive | Repo rebuilt as `el-fault-detection`; rule "push after every step". **Severity post-processing is still lost** | phase-0 doc; phase-1 §0, §17; handoff 7 Oct §1 |
 | D2 | gaint instability: OS shutdown 2 Oct 21:34 (killed the ALHVR pilot at step 13,600); reboots 6 Oct ~18:22 and 7 Oct ~10:30 | Lost runs; hardware clock in IST read as UTC | Resume from `latest.pth` after reboot (commit `95dda7c`). Who shut it down is unknown (needs sudo) | handoff 7 Oct §2.1 |
-| D3 | cv02 is shared (~186 users); `/tmp/noob_el` is wiped on reboot; home is 100% full | Speed varies about 2×; checkpoints at risk | Small results synced; never write large files under `~`; never start on a GPU where another user holds > 4 GB | phase-1 §3; handoff 7 Oct §2.2 |
+| D3 | cv02 is shared (~186 users); `/tmp/noob_el` is wiped on reboot; home is 100% full | Speed varies about 2×; checkpoints at risk | Small results synced; never write large files under `~`; never start on a GPU where another user holds > 4 GB. Since 13 Oct, run dirs and checkpoints are copied to gaint `cv02_noob_el` (manifest + MD5). The `cv02` login is shared by many lab members, so no ssh agent forwarding and no keys there; copies are relayed through the user's laptop | phase-1 §3; handoff 7 Oct §2.2; memory `cv02-shared-account-backup.md` |
 | D4 | GPU queue race (10 Oct): two queues polling "GPU free" | The main queue would have waited ~6 h | Claude killed both of its queue loops and relaunched one; rule: chain queues, one per machine | session summary 2026-10-10T19:37Z §4; memory |
 | D5 | `tmux has-session -t p13` matched `p13smoke` | Nothing launched | Use `-t "=name"` | memory `server-runs-tmux-parallel.md` |
 | D6 | Watcher bugs: grep exit code 1 read as failure; ssh timeouts (network blip); `grep -c` on missing files shifted fields | False alarms or missed events | Robust local polling loop; `cat file \| grep -c` form; `; true` endings | session summaries 2026-10-10T19:37Z, 2026-10-11T03:19Z, 2026-10-11T13:25Z |
@@ -464,6 +468,7 @@ None of these may be quoted as a method result. Old-era numbers stay in separate
 | D15 | P12 script flagged a width check against A5c; the protocol's check is against Dm | Wrong flag | Disclosed in the P12 README (−0.044 vs Dm, OK) | session summary 2026-10-11T13:25Z §4 |
 | D16 | `post_ssl.sh p10` counted 18 JSONs instead of 15 (gaint references in the same dir) | Script abort | Exclude `/p10_A_` in the count | session summary 2026-10-11T03:19Z §4 |
 | D17 | Several protocol and README headers give times that disagree with git: P14/P15 say ~13:45, commit at 12:55; P16 says prompt ~16:35, lock ~16:50, while the transcript has the prompt at 17:24 and git the lock at 17:28; P10 says ~23:05, commit at 22:56 and first run at 22:57; P1/P2 say 8 Oct 00:15, commit at 7 Oct 23:59; the E1 README says ~14:00 and ~14:15, commits at 12:59 and 13:16 | Cosmetic; the order of events is the same, and every lock commit precedes its runs | Use git and transcript times (`12_decisions_log.md`, `09_`, `10_`) | git log; `protocols/P1*`, `P2*`, `P10*`, `P14*`, `P15*`, `P16*`; `results/e1/README.md` |
+| D19 | A Claude Code session drop (13 Oct, ~08:00 IST) killed a background laptop-relay copy part-way (BsM5 s3 half copied, s4 missing on gaint) and left two background waiters stopped | A partial backup that looked done from its log start | Redone 16:28–16:33 IST and verified by MD5 of every file; check that a relay finished before trusting it | `15_status_remaining_work.md` §1c |
 | D18 | A third-party app credential was pasted in chat on 2 Oct | Security hygiene | Should be rotated; not confirmed done (handoff 7 Oct §2.4). Never copy it anywhere | handoff 7 Oct §2.4; standing constraint |
 
 ---
@@ -474,7 +479,7 @@ None of these may be quoted as a method result. Old-era numbers stay in separate
 |---|---|---|---|
 | E1 | Does SSL beat supervised once labels are not scarce (20/50/100%)? | P13 at 5%: yes on inactive and crack relF1@2 (CsM5). P11 at 10%: rule passes, inactive not robust. **P16 (done): no** for the Cs recipe, n.d. at 20/50/100% with and without the noisy cell (A11) | Answered for this recipe; a BsM-style arm at 20/50% would be exploratory (C6) |
 | E2 | Is a UCF-EL-trained encoder better than ImageNet init at 5%/10%? | P4: pretrained ≫ random. **P15 (done): no.** n.d. at 5%; worse on all three primaries at 10% | Answered for this recipe; MIM / self-supervised pretraining untested (E12) |
-| E3 | Hard vs tolerant pseudo-labels under CutMix: is hard really better for crack? | P13 BsM5 − A5c crack +0.036; CsM5 − BsM5 −0.022 (3 seeds, secondary) | A locked 5-seed contrast, ideally also at 10–20% |
+| E3 | Hard vs tolerant pseudo-labels under CutMix: is hard really better for crack? | P13 BsM5 − A5c crack +0.029 on 5 seeds (+0.036 on 3). CsM5 − BsM5 on 5 vs 5 (Amendment 2): −0.015, n.d. by seeds; over cells −0.015 [−0.023, −0.009] | Over cells yes, by seeds not shown. More seeds, or the same contrast at 10–20% |
 | E4 | Does CutMix matter? | P13 CsM5 − Cs5: n.d. on seeds; crack +0.010 over cells; unlabelled loss share 0.46 → 0.77 | More seeds; P16 cannot answer (CutMix off) |
 | E5 | Why do val and test disagree on inactive? | Val has 6 inactive cells (A4) | A larger selection set (held-out train cells or cross-validation) |
 | E6 | Would the cv02 vs gaint disagreement on P12 survive more seeds? | gaint passes, cv02 fails (C7) | 5+ seeds per machine on the same contrast |
@@ -486,6 +491,7 @@ None of these may be quoted as a method result. Old-era numbers stay in separate
 | E12 | Is in-domain self-supervised pretraining (MIM) worth it? | Untested; directions row 3 | Protocol + 1–2 GPU-days |
 | E13 | Severity grading (Köntges A/B/C) and the per-cell quantities | Post-processing lost in the reset (D1); power loss out of scope (user, 11 Oct) | Rebuild components / skeleton / isolation; grade agreement (κ) on GT vs predicted masks (proposal E6) |
 | E14 | Admin inputs never confirmed | Mid-term date (assumed ~14 Oct); report template and page limit; whether MoE is required by the advisor; target model size (~2M vs ~4M; "not a constraint" for now) | Ask the user (phase-1 §17 items 9–10; deck outline §17) |
+| E16 | How much of BsM5's gain needs the labelled decoder to fit pseudo-labels? | P17: BsD5 − BsM5 n.d. (−0.006 / +0.011 / −0.008); thresholds about 40% of the gain; decoupled teacher AP lower (crack 0.310 vs 0.367) | More seeds (the threshold scales with seed sd), or a larger test set for the over-cell lean on crack (P(Δ > 0) = 0.06) |
 | E15 | Why does the model sometimes call a very noisy cell crack, and how often would it happen on real field images? | P16 A11: seed-dependent, confident, both supervised and SSL; the matching train cell (`CSIR_00070_r7_c2`) is unlabelled below 100% | Noise augmentation or a noise-aware input check; count noisy cells in the external pool and in WattCycle-like data; a larger test set with more noisy cells |
 
 ## Related docs

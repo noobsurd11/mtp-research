@@ -445,7 +445,7 @@ Details are in `14_code_and_infrastructure.md`.
 | What | Local (`yugma` machine) | gaint (`noob@172.18.22.20`) | cv02 (`cv02@10.8.1.106`) |
 |---|---|---|---|
 | BenchmarkEL clone | `~/mtp/datasets/BenchmarkELimages/` | `/home/noob/work/datasets/BenchmarkELimages/` | no clone; labelled images and old masks in `/tmp/noob_el/el-fault-detection/data/labeled/{images,masks_coded}` |
-| Repo data dir (symlinks) | – | `/home/noob/work/el-fault-detection/data/` | `/tmp/noob_el/el_p7/data`; the `el_p13` and `el_p16` worktrees' `data` link to it; its `labeled/images` and `labeled/masks_coded` link to `/tmp/noob_el/el-fault-detection/data/labeled/`, and `labeled/masks_escdd` links to `/tmp/noob_el/masks_escdd` |
+| Repo data dir (symlinks) | – | `/home/noob/work/el-fault-detection/data/` | `/tmp/noob_el/el_p7/data`; the `el_p13`, `el_p16` and `el_p17` deployments' `data` link to it; its `labeled/images` and `labeled/masks_coded` link to `/tmp/noob_el/el-fault-detection/data/labeled/`, and `labeled/masks_escdd` links to `/tmp/noob_el/masks_escdd` |
 | Old masks | `dataset_20211104/masks_coded_*` | `data/labeled/masks_coded/` | same path in `data/` |
 | Revised masks | full E-SCDD: `~/mtp/datasets/escdd_full/`; mirror `~/mtp/datasets/escdd_mirror_shivahanifi/`; BenchmarkEL `20221008`/`20220723` originals: `~/mtp/datasets/BenchmarkEL_releases/` | `data/labeled/masks_escdd/`, `data/escdd_masks/{train,val,test}/` | `/tmp/noob_el/masks_escdd` (as `data/labeled/masks_escdd`), plus `data/escdd_masks/{val,test}/` |
 | Split lists | `~/mtp/datasets/splits_benchmark/` (copy) | `data/splits/` (committed in git) | `data/splits/` |

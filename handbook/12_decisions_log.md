@@ -1,7 +1,7 @@
-# 12. Decisions log (7 to 11 Oct 2026, with the pre-7-Oct decisions that still shape the work)
+# 12. Decisions log (7 to 13 Oct 2026, with the pre-7-Oct decisions that still shape the work)
 
 ## What this covers
-Every significant decision in the project from the restart on 7 Oct 2026 up to 11 Oct ~22:00 IST. For each one it records:
+Every significant decision in the project from the restart on 7 Oct 2026 up to 11 Oct ~22:00 IST, extended to 13 Oct (D34 to D38). For each one it records:
 - who made it (the user, or Claude);
 - what was decided and why;
 - what else was considered;
@@ -535,6 +535,36 @@ Verbatim, with the question each answered (from session summary 2026-10-11T09:36
   - The same cell explains most of P6's secondary L1 − L0 crack IoU gain (doc 08 correction).
 - **Source:** `results/p16/README.md`; `13_problems_pitfalls_open_issues.md` A11.
 
+## 4b. 13 Oct: a follow-up session after the close
+
+### D36. DCA vs SKCDF; P17 and BsM5 seeds 3–4 (13 Oct, ~01:30–01:51 IST)
+- **Who:** the user asked; Claude recommended; the user approved.
+- **The ask:** "how about we try the DCA paper and SKCDF? we still have 16hrs for experimenting, is there anything more important left" (same message as D37).
+- **Claude's recommendation** (5 questions, each with a default):
+  - Skip DCA: a 3D method built on three expert decoders and a head/medium/tail class split, with little to split for two focus classes, and too large to build and test in 16 h.
+  - Take SKCDF's one component with the largest ablation credit (data-flow decoupling, +12.74 of +19.61 Dice) and test it on BsM5, the strongest SSL recipe. Score the teacher as primary and the unlabelled decoder as secondary.
+  - Give BsM5 its seeds 3–4 first: its crack gain (+0.036) was below 0.05 on 3 seeds, against the ≥ 5-seed rule.
+  - Put the deck and framing first, experiments in the background.
+- **The user:** "cool, go with ur calls" (~01:45 IST).
+- **What followed:** P13 Amendment 2 (commit `9d6fcdd`, 01:46) and the P17 protocol (`5919560`, 01:51) were locked before their runs; code `f2f20d3` in a new gaint worktree `el_p17`; 7 runs on cv02 01:55–04:08 IST.
+- **Not considered further:** the full SKCDF (cross-attention, balanced heads, λ_u = 10), any tuning, a gaint replication.
+
+### D37. Copy cv02's checkpoints to gaint (13 Oct, 01:37–16:33 IST)
+- **Who:** the user: "we gotta move the trained models bck in gaint, cv02 restsart will delete them".
+- **What:** everything under cv02 `/tmp/noob_el` except data and `.venv` copied to gaint `/home/noob/work/cv02_noob_el/`, then checked by file manifest and MD5 (pass 1: 373 checkpoints; pass 2 for P17 and BsM5 s3–4: 616 files, 18 checkpoints). cv02 was left untouched.
+- **Route:** relayed through the user's laptop. cv02 and gaint cannot log into each other, and cv02's login is shared by many lab members, so Claude did not forward an ssh agent or place a key there. A direct key needs the user's explicit OK.
+- **Snag:** a session drop cut pass 2 short at 07:57 IST; it was redone and re-verified at 16:28–16:33.
+- **Source:** `15_status_remaining_work.md` §1c; memory `cv02-shared-account-backup.md`.
+
+### D38. P17 and Amendment 2 read; nothing more launched (13 Oct, ~08:00 IST)
+- **Who:** the locked rules; Claude reported.
+- **What:**
+  - P17 rule 1, BsD5 − BsM5: n.d. on all three primaries (thresholds about 40% of BsM5's gain). BsD5 − A5c passes on all three.
+  - BsM5 on 5 seeds: − A5c still passes (+0.029 / +0.107 / +0.045). P13 rule 5 (CsM5 − BsM5) turns from "tolerant worse on crack" to n.d.
+  - The without-noisy-cell check changes no P17 verdict.
+- **Decision:** report as locked, label the post-hoc parts, and launch nothing else; the remaining hours go to the deck, which is the user's call.
+- **Source:** `results/p17/README.md`; `results/p13/README.md` "Amendment 2"; commit `239abd6`.
+
 ---
 
 ## 5. Housekeeping decisions (how the work is run)
@@ -543,12 +573,13 @@ Verbatim, with the question each answered (from session summary 2026-10-11T09:36
 |---|---|---|---|
 | K1 | Long runs in tmux on the servers, one window per run; exact session names `-t "=name"` (prefix match found `p13smoke` once) | the user (D12); Claude after the tmux incident | memory `server-runs-tmux-parallel.md` |
 | K2 | One commit per experiment, deployed with `git archive` to a fresh cv02 dir, recorded in `REVISION`; data md5-checked across machines | Claude; makes runs reproducible across machines | memory; `protocols/P6_corrected_baseline.md` |
-| K3 | Code for a new experiment goes in a separate git worktree on gaint (`el_p13`, `el_p14`, `el_p16`), never the main tree that running lanes launch from | Claude, 11 Oct | memory `server-runs-tmux-parallel.md` |
+| K3 | Code for a new experiment goes in a separate git worktree on gaint (`el_p13`, `el_p14`, `el_p16`, `el_p17`), never the main tree that running lanes launch from | Claude, 11 Oct | memory `server-runs-tmux-parallel.md` |
 | K4 | GPU rules on cv02:<br>• never start where another user holds > 4 GB;<br>• queues launch only on GPUs with < 1,000 MiB used;<br>• at most 3 runs per GPU;<br>• gaint lanes wait for < 20,000 MiB | user constraint plus Claude's queue design | protocols P6–P16; memory |
 | K5 | Never kill other queues or processes without the user's say-so; the gaint extpool queue stays held | auto-mode denials on 8 Oct and the user's instruction | session summaries 2026-10-08T07:54Z, 2026-10-10T19:37Z |
 | K6 | Watchers (local polling loops over short ssh calls) fire on "set finished" or any rc ≠ 0; post-analysis scripts (`post_ssl.sh`, `post_p15.sh`, `post_p16.sh`) make each analysis one command | Claude, to keep the overnight pipeline moving | `scripts/post_*.sh`; scratchpad `watch.sh` |
 | K7 | Commit to `~/mtp/research` after every result, with attribution trailers; never push to GitHub without asking; PDFs stay local | user constraints | session summaries |
 | K8 | Fill idle machines overnight with the next locked experiment ("use all resources") | the user, 10 Oct | memory `server-runs-tmux-parallel.md` |
+| K9 | Back up cv02 run dirs to gaint `cv02_noob_el` (laptop relay, manifest + MD5); no agent forwarding or keys on cv02's shared login | the user (D37); Claude on the shared account | memory `cv02-shared-account-backup.md` |
 
 ---
 
@@ -567,7 +598,7 @@ Each rule exists because a specific mistake produced a fake or misleading result
 | Show the baseline's label scaling first | L0 (and phase-1 SL-100 = SL-20) did not use extra labels, so there was no gap for SSL to close | `results/p6/README.md` rule 3 |
 | The loss-off control must be bit-identical to supervised | joint-BN SSL arms made "loss-off" a handicapped control (P8, P12) | `protocols/P13_cutmix_separate_bn.md` |
 | Report inactive with image bootstrap and leave-top-3-out | 3 test cells hold 59% of inactive pixels; the "inactive puzzle" flipped sign without them | `results/p6/README.md` exploratory 4–5 |
-| ≥ 5 seeds for effects < 0.05 | 3-seed contrasts kept landing within the thresholds | phase-1 §16; P13 Amendment 1 |
+| ≥ 5 seeds for effects < 0.05 | 3-seed contrasts kept landing within the thresholds; BsM5's 3-seed sd (0.004) was a third of its 5-seed sd (0.011), and the rule-5 verdict built on it did not survive | phase-1 §16; P13 Amendments 1 and 2 |
 | One change per arm | multi-change arms could not be attributed | phase-1 §16 |
 | Keep old-era and P-series numbers in separate tables | pilot-era coupled augmentation, the GaussNoise bug and old masks make the numbers incomparable | phase-1 §8, §16; memory `mtp-el-ssl-project.md` |
 | Batch questions, hold launches, no presumptions | Claude queued and amended P13 on its own; earlier, leading hypotheses were stated as findings | memory `ask-before-assuming.md`; handoff 7 Oct §10 item 14 |

@@ -39,7 +39,7 @@
 | 7 | `07_methodology_rules_and_statistics.md` | How an experiment is designed and judged; the rules and their weaknesses |
 | 8 | `08_experiments_P1_P7_diagnostics.md` | Diagnosis and the corrected baseline |
 | 9 | `09_experiments_P8_P12_ssl_series.md` | The SSL series and the BatchNorm handicap |
-| 10 | `10_experiments_P13_P16_E1.md` | The fixes, tolerance for human labels, transfer, label-fraction curve, task metrics |
+| 10 | `10_experiments_P13_P16_E1.md` | The fixes, tolerance for human labels, transfer, label-fraction curve, the decoupled decoder (P17), task metrics |
 | 11 | `11_results_synthesis_and_claims.md` | What can be claimed, with what evidence |
 | 12 | `12_decisions_log.md` | Who decided what, when, and why |
 | 13 | `13_problems_pitfalls_open_issues.md` | Every problem and open issue, and its impact |

@@ -384,6 +384,11 @@ Where we downloaded the **revised crack labels** the P-series uses (`data.mask_s
 
 Newer (2024–2026) class-imbalanced SSL found on 10 Oct (`literature/notes/F01` §2): **DCA** (CVPR 2026; head/medium/tail expert decoders with logit-stitched pseudo-labels; experts alone take tail organs from 0 to 39–48 Dice), **CGS** (TMI 2025; one-vs-rest specialist head per class, dropped at inference), **SKCDF** (CVPR 2025; unlabelled data trains the encoder, decoder protected from noisy pseudo-labels), **DINO-Mix** (arXiv 2026; frozen DINOv3 teacher + imbalance-aware CutMix), **SCDL / VCDP** (labelled-anchored prototypes), **STAC** (enlarges small organs; the opposite of what our crack metric wants).
 
+**Follow-up, 13 Oct (P17).** The user asked about trying DCA and SKCDF. Both papers were read in full (`literature/pdfs/dca_cvpr2026/`, `skcdf_cvpr2025/`; local only).
+- **SKCDF:** its ablation (Synapse, 20% labels) credits data-flow decoupling with +12.74 average Dice of the full method's +19.61. That one component was ported as P17 ("SKCDF-style decoupling"). On our 5% BsM5 recipe it made no detectable difference (BsD5 − BsM5 −0.006 / +0.011 / −0.008), and the decoupled arm still beat supervised (`results/p17/README.md`).
+- **DCA:** not run. It is a 3D V-Net method built around three expert decoders, a head/medium/tail class split and a feature-aggregation module. Its ablation credits the label split with +14.51 and the experts with +7.46 Dice. With two focus classes and 16 h left, the split has little to work on and the build was too large.
+- Neither paper's numbers are comparable with ours (3D organs, Dice, different data).
+
 **The claimed gap (status as of 10 Oct, `literature/notes/F01` §5, `F05` check 2):** no method found combines ALHVR-style region routing with class awareness. Class-aware without routing: DCA, CGS, DHC/GA, DINO-Mix/AEL. Routing without class awareness: ALHVR, BUR, CSL, DCF, CoraNet, deep co-training 2022. Caution recorded in the source: "a gap is not a contribution by itself"; our own measurements say the teacher is right on only about 62% of Ω3 crack pixels, so the routing *target* in Ω3 is the bottleneck, not the routing rule.
 
 ---
@@ -530,6 +535,7 @@ Meta-lesson recorded in the phase 1 handoff (§13): "every 'the method differs' 
 | Label budget sensitivity | P10 5%, P16 20/50/100% | `09_…`, `10_experiments_P13_P16_E1.md` |
 | Identical-forward loss-off controls; Yuan BN statistics | P11/P12 matched view; P13 separate BN | `09_…`, `10_…` |
 | CutMix-Seg / UniMatch strong perturbation; FixMatch hard PL | P13 CsM5, BsM5 | `10_…` |
+| SKCDF data-flow decoupling (labelled decoder protected from pseudo-labels) | P17 BsD5 | `10_…` |
 | Mnih & Hinton translational noise; STEAL | P14 tolerant supervised loss | `10_…` |
 | Supervised transfer from a neighbouring dataset (direction 5) | P15 UCF-EL encoder | `10_…` |
 | Metrics Reloaded; severity-relevant task metrics; held-out source evaluation | E1 per-cell metrics and 106-cell unseen-module extension | `10_…` |

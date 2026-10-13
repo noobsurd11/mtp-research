@@ -682,7 +682,7 @@ The order is D < C < B for both classes.
 
 ## Related docs
 - `09_experiments_P8_P12_ssl_series.md`: the next five experiments, on the L3 base.
-- `10_experiments_P13_P16_E1.md`: P13 to P16 and the E1 evaluation.
+- `10_experiments_P13_P16_E1.md`: P13 to P17 and the E1 evaluation.
 - `07_methodology_rules_and_statistics.md`: rule 1, the bootstrap and leave-top-3-out in detail.
 - `04_glossary_and_naming.md`: metric and arm-name definitions.
 - `03_datasets_and_splits.md`: label versions, splits, inactive concentration.

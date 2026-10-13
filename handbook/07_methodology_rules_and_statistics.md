@@ -43,6 +43,7 @@
 **Amendments.** A change after locking is written as a dated amendment that states what had been seen. Examples:
 - P10 amendment: arm B5 added before any B5 run, no P10 result seen.
 - P13 Amendment 1 (before any P13 run): 5% only, Ds5 dropped (the separate-forward λ = 0 student is bit-identical to supervised), 5 seeds for CsM5 and A5c, gaint arms dropped.
+- P13 Amendment 2 (13 Oct, **after** the P13 results were seen): BsM5 seeds 3–4, because BsM5 − A5c crack IoU (+0.036) was below 0.05 on 3 seeds and the standing rule asks for 5 or more. Disclosed as post hoc; a stopping rule fixed in advance (5 seeds total, reported whatever they show). They lowered the estimate (+0.029) and turned P13 rule 5 (CsM5 − BsM5 crack) from "worse" to n.d. See §10.
 - P16 Amendment 1 (Part B, the SSL arms): locked after the user chose "Pick on P13 val"; 3 of 13 P13 runs had finished but none of their numbers was opened. CutMix on or off is decided automatically from P13 val numbers only (`scripts_cv02/p16b_auto.sh`).
 - E1 amendment: after seeing first-pass extension numbers, four defect types missing from our taxonomy were marked ignore instead of background; disclosed, first pass kept in `raw/`.
 
@@ -109,7 +110,7 @@ Verdict words: BETTER, WORSE, n.d. (not detectable).
 ### How strict it really is
 - **3 vs 3 seeds:** 2 SE is roughly a one-sided t-test at p ≈ 0.06 (t = 2 with about 4 degrees of freedom gives 0.058). A two-sided 95% test would need t ≈ 2.78. So R1 at 3 seeds is lenient. It was described to the user as lenient on 11 Oct.
 - **5 vs 5 seeds:** the divisor stays 3 in the code, while the true standard error uses 5. The threshold is then about 2.58 SE (one-sided p ≈ 0.016 at about 8 degrees of freedom). So the primary contrasts of P13 and P16 face a stricter bar than P8 to P12.
-- **5 vs 3 seeds** (e.g. P13 BsM5 vs A5c): about 2.24 SE with equal sds (one-sided p ≈ 0.03).
+- **5 vs 3 seeds** (e.g. P13 BsM5 vs A5c before Amendment 2): about 2.24 SE with equal sds (one-sided p ≈ 0.03).
 - No correction for multiple contrasts. Protocols name a primary claim and disclose the number of contrasts instead (P13: 1 primary + 5 secondary; P16: 3 primary).
 - R1 measures **seed noise on a fixed test set**. It says nothing about whether the result would hold on other test cells. That is what the bootstrap is for (section 6).
 
@@ -155,6 +156,7 @@ This numbering was used in the assistant's answer of 11 Oct ~17:30 IST. Protocol
 - **P13:** primary claim CsM5 − A5c, 5 vs 5 seeds; secondary BsM5 − A5c, Cs5 − A5c, CsM5 − Cs5 (CutMix), CsM5 − BsM5 (tolerant vs hard), Cs5 − Cm5 (separate vs joint BN, descriptive); collapse watch on rare_frac at steps 4,000 and 20,000.
 - **P14** (`protocols/P14_tolerant_supervision.md`): rule 1, the label-noise gap G = L3 − L3o exists on a metric if it passes R1 arithmetic; rule 2, tolerance "recovers" label noise if L3To − L3o passes R1 arithmetic **and** is ≥ 0.5·G **and** the relP@2 drop vs L3o is ≤ 0.05; rule 3, L3T − L3 under R1 plus the width check.
 - **P15** (`protocols/P15_ucf_encoder_transfer.md`): U − reference (gaint, same seeds and options, ImageNet encoder) under R1 plus the width check; gap closed against cv02's L3@100% is cross-machine and descriptive.
+- **P17** (`protocols/P17_decoupled_decoder.md`): primary BsD5 − BsM5 under R1, 5 vs 5; worse means the gain needs the labelled decoder to fit pseudo-labels, n.d. is reported with its threshold as a share of the BsM5 − A5c gain. Secondary BsD5 − A5c; descriptive `decoder_u` path vs teacher; width check. **Built-in pipeline check:** λ = 0 for the first 2,000 steps, so the new arm must reproduce BsM5's logs exactly until then (it did, all 5 seeds). A cheap way to show a code change alters nothing else.
 - **P16** (`protocols/P16_label_fraction_curve.md`): S20 − A20, S50 − A50, Sx100 − A100, each under R1, 5 vs 5 seeds, all three reported. CutMix on/off chosen from P13 **val** numbers only (score = mean over the three val primaries of the seed means; on if CsM5 > Cs5). Result: CsM5 0.3507 vs Cs5 0.3652, so CutMix is off (cv02 `el_p16/reports/p16b/selection.txt`, `CUTMIX=0`; rounded to 0.351 and 0.365 in `results/p13/README.md` "Secondary").
 
 ---
@@ -225,6 +227,7 @@ Contrasts get the same paired bootstrap (2,000 resamples) and leave-top-3-out (`
 - **Label quality.** Old vs revised labels move crack IoU by +0.05 to +0.07 for every model (P3), larger than any SSL effect measured; P14 measured a +0.082 crack IoU gap between training on old and revised labels at 10%.
 - **Tuning.** No SSL hyperparameter (λ, t_pos, R, CutMix probability) was ever tuned. Results say "this recipe", not "SSL".
 - **Low label counts.** At 5% and 10% labels only 2 and 4 labelled cells contain inactive (`protocols/P16_label_fraction_curve.md`).
+- **3-seed sds can be badly low.** BsM5's crack IoU sd was 0.004 on seeds 0–2 and 0.011 on seeds 0–4 (seeds 3–4: 0.317, 0.327 vs 0.335–0.343). A rule-1 threshold built on the 3-seed sd was too tight: P13 rule 5 said "tolerant worse on crack" on 5 vs 3, and n.d. on 5 vs 5 (`results/p17/README.md`).
 
 ---
 
@@ -237,11 +240,11 @@ The user asked (11 Oct, 17:24 IST): "can you for once tell me all the locked rul
 **Where the design hurt:**
 1. **Regime.** SSL was tested at 5-10% labels, where inactive is in only 2-4 labelled cells and the teacher is weakest. P16 (20/50/100%) was added in response.
 2. **A handicap built into every SSL arm until P13.** Shared BatchNorm between labelled and unlabelled images cost −0.007 crack IoU at 10% and −0.017 at 5% before the loss did anything. P13's separate forward removes it.
-3. **3 seeds for effects of 0.01-0.02**, which breaks the user's own ≥ 5 rule. Fixed from P13 on.
+3. **3 seeds for effects of 0.01-0.02**, which breaks the user's own ≥ 5 rule. Fixed from P13 on for primaries; BsM5 got its seeds 3–4 on 13 Oct (P13 Amendment 2).
 4. **Tuning asymmetry.** The supervised recipe (L3) came from a 4-step ladder; SSL's λ, thresholds and R were fixed up front and never tuned.
 5. **Small in-domain pool and a mismatched external pool.** The in-domain pool is 239-455 cells; the 11,938-cell external pool comes from 2 sources (CSIR, ARTS) and never helped (its one seed-rule pass, P9 Cx − Dx inactive +0.056 against 0.046, was not robust over cells; `results/p9/README.md`).
 
-What followed: P13 (separate BN + CutMix, 5 vs 5 seeds) passed its primary claim (inactive +0.117, relF1@2 +0.033; crack IoU n.d.). P16 tests 20%, 50% and 100%. See `10_experiments_P13_P16_E1.md` and `11_results_synthesis_and_claims.md`.
+What followed: P13 (separate BN + CutMix, 5 vs 5 seeds) passed its primary claim (inactive +0.117, relF1@2 +0.033; crack IoU n.d.). P16 tested 20%, 50% and 100% (n.d. at all three). P17 tested a decoupled decoder on BsM5 (n.d. against BsM5). See `10_experiments_P13_P16_E1.md` and `11_results_synthesis_and_claims.md`.
 
 ---
 

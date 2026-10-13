@@ -884,7 +884,7 @@ BsM5 seeds 3–4 came in lower on crack (0.317, 0.327) than seeds 0–2 (0.335�
 - **E1, unseen modules (ext), BsD5 − BsM5:** crack tolF1 +0.016 [+0.002, +0.033], crack false alarm +0.049 [+0.011, +0.089], inactive area error −0.065 pp [−0.117, −0.019] (`results/e1/e1_p17.md`).
 
 ### Reading
-- **The decoupled recipe does as well as BsM5 on argmax metrics within what 5 seeds can resolve.** BsD5's labelled decoder never receives the unlabelled loss, yet BsD5 keeps most of the gain over supervised. So most of the gain reaches the teacher through the shared encoder, or through EMA weight averaging (the EMA-only effect is not measured, P13). A decoder share below about 40% of the gain cannot be excluded, and crack leans slightly negative over cells.
+- **The decoupled recipe does as well as BsM5 on argmax metrics within what 5 seeds can resolve.** BsD5's labelled decoder never receives the unlabelled loss, yet BsD5 keeps most of the gain over supervised. So most of the gain reaches the teacher through the shared encoder, or through EMA weight averaging (the EMA-only effect is not measured; earlier evidence puts it near 0, doc 13 C11). A decoder share below about 40% of the gain cannot be excluded, and crack leans slightly negative over cells.
 - **The decoder does carry something:** AP and score histograms are worse when pseudo-labels stay out of the labelled decoder, and the `decoder_u` path is a little better on crack than the teacher.
 - **BsM5 at 5 seeds is smaller than at 3** (crack +0.029 vs +0.036 over A5c) and still passes. The P13 rule-5 finding "tolerant worse than hard on crack" no longer holds by the seed rule at 5 vs 5, though the bootstrap still puts it below 0.
 - **Limits:** one split, one fraction, cv02 only, no tuning of ω or λ, and SKCDF's other components are not tested.
@@ -986,7 +986,7 @@ E1 scoring is built into `scripts/post_p15.sh` and `scripts/post_p16.sh`. The pr
 - `04_glossary_and_naming.md`: every term and arm name.
 - `07_methodology_rules_and_statistics.md`: rule 1, the standing rules, bootstrap, why the rules are lenient.
 - `09_experiments_P8_P12_ssl_series.md`: P8 to P12, which P13 builds on.
-- `11_results_synthesis_and_claims.md`: what P13 to P16 and E1 mean together.
+- `11_results_synthesis_and_claims.md`: what P13 to P17 and E1 mean together.
 - `13_problems_pitfalls_open_issues.md`: val/test disagreement, machine disagreement, inactive concentration.
 - `14_code_and_infrastructure.md`: worktrees, commits, scripts, server paths.
 - `15_status_remaining_work.md`: server state at session close and what is left.

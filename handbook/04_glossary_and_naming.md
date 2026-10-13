@@ -11,7 +11,7 @@
 - `~/mtp/MTP_session_handoff_2026-10-07.md` and the phase 0 / phase 1 handoffs the user pasted on 11 Oct (copy: `sources/chat/phase0_phase1_handoffs_pasted_2026-10-11.md`)
 - gaint code: `/home/noob/work/el_p13/src/trainers/ssl_ops.py` (CutMix, `frozen_bn_stats`)
 
-Times are IST (UTC + 5:30) unless marked UTC. Conventions used below: "P-series" means the experiments P1 to P16 run from 8 Oct 2026 on. "Old era" means everything before that (phase 0 and phase 1). Class ids are BenchmarkEL ids: background 0, padding 7, ribbons 4, busbars 9, crack rbn edge 10, inactive 11, crack 14, gridline 15 (`data_analysis/benchmark_el_report.md`; phase 1 handoff section 4).
+Times are IST (UTC + 5:30) unless marked UTC. Conventions used below: "P-series" means the experiments P1 to P17 run from 8 Oct 2026 on. "Old era" means everything before that (phase 0 and phase 1). Class ids are BenchmarkEL ids: background 0, padding 7, ribbons 4, busbars 9, crack rbn edge 10, inactive 11, crack 14, gridline 15 (`data_analysis/benchmark_el_report.md`; phase 1 handoff section 4).
 
 ---
 
@@ -27,7 +27,7 @@ Times are IST (UTC + 5:30) unless marked UTC. Conventions used below: "P-series"
 
 **ALHVR.** "Adaptive Learning of High-Value Regions", Lei et al., ICCV 2025: a semi-supervised method with two independently trained networks. Each unlabelled pixel is put in a region by confidence against a batch threshold γ: Ω1 (both networks confident, no unlabelled loss), Ω2 (one confident; trained with CG-CPCL, a prototype-based loss), Ω3 (neither confident; trained with DTCT, where the more confident network teaches the other). *Here:* the user's starting inspiration ("something inspired by ALVHR to focus the rare classes", 7 Oct). It was ported in the old era; its gain over SL-20 equals its λ = 0 control, so the gain is batch composition, not the method (memory note `mtp-el-ssl-project.md`). P5 measured rare-class pseudo-label precision inside its regions. The proposed tolerant pseudo-label loss was "rarity-routed" in its spirit. *See:* phase 1 handoff section 10; `analysis/alhvr_audit.md`; `protocols/P5_region_pseudolabel_precision.md`.
 
-**Amendment.** A change to a locked protocol made after locking. Every amendment states what results, if any, had been seen when it was written. *Here:* e.g. P13 Amendment 1 (5% only, Ds5 dropped, A5c becomes the loss-off control), P16 Amendment 1 (Part B, the SSL arms, locked after the user chose "pick CutMix on P13 val"), the E1 amendment (ignore mask for four defect types). *See:* the "Amendment" sections in `protocols/`, `results/e1/README.md`; `07_methodology_rules_and_statistics.md`.
+**Amendment.** A change to a locked protocol made after locking. Every amendment states what results, if any, had been seen when it was written. *Here:* e.g. P13 Amendment 1 (5% only, Ds5 dropped, A5c becomes the loss-off control), P13 Amendment 2 (BsM5 seeds 3–4, added after the 3-seed result was seen, to meet the 5-seed rule), P16 Amendment 1 (Part B, the SSL arms, locked after the user chose "pick CutMix on P13 val"), the E1 amendment (ignore mask for four defect types). *See:* the "Amendment" sections in `protocols/`, `results/e1/README.md`; `07_methodology_rules_and_statistics.md`.
 
 **AP (average precision), binned pixel AP.** A threshold-free score: rank every pixel by the model's softmax probability for a class and measure how well the ranking separates true pixels from the rest (area under the precision-recall curve). *Here:* computed over 1,000 uniform probability bins, dataset-level (`scripts_gaint/rescore_label_versions.py`). It was the primary metric of P6 and P7 only. It was demoted to secondary from P8 because many models put a large share of true pixels into the lowest bin, where AP cannot rank them (see **bin-0 share**). *See:* `protocols/P8_tolerant_pl_on_l3.md` "Metrics"; `results/p6/README.md` "Exploratory 1".
 
@@ -69,7 +69,7 @@ Times are IST (UTC + 5:30) unless marked UTC. Conventions used below: "P-series"
 
 **conf_frac, rare_frac.** Training-log quantities of the tolerant pseudo-label loss. `conf_frac`: share of unlabelled pixels whose teacher confidence passes t_pos. `rare_frac`: share of unlabelled pixels pseudo-labelled crack or inactive. *Here:* P13 rare_frac 0.0064-0.0087 at step 4,000 and 0.0070-0.0109 at step 20,000 over the Cs5 and CsM5 seeds (CsM5 alone: 0.0064-0.0084 and 0.0070-0.0109). In P10, the collapsed seed 2 of C5 sat at 0.001-0.002 against 0.007-0.009 (`results/p10/README.md`). `confidence_ce` (BsM5) logs only conf_frac. *See:* `results/p13/README.md` "Collapse watch".
 
-**confidence_ce (hard pseudo-labels, "B" arms).** The standard pseudo-label loss: take the teacher's argmax class where its confidence is ≥ t_pos (0.95), apply CE, normalise by all unlabelled pixels. FixMatch-style. *Here:* arms B (P7, P8), Bx (P9), B5 (P10), BsM5 (P13). In P13, hard pseudo-labels with CutMix gave the largest crack gain (+0.036 over A5c, 3 seeds, secondary). *See:* `protocols/P7_tolerant_pl_pilot.md`; `results/p13/README.md`.
+**confidence_ce (hard pseudo-labels, "B" arms).** The standard pseudo-label loss: take the teacher's argmax class where its confidence is ≥ t_pos (0.95), apply CE, normalise by all unlabelled pixels. FixMatch-style. *Here:* arms B (P7, P8), Bx (P9), B5 (P10), BsM5 (P13). In P13, hard pseudo-labels with CutMix gave the largest crack gain over A5c: +0.036 on 3 seeds, +0.029 on 5 (Amendment 2), secondary. P17's BsD5 is BsM5 with a decoupled decoder. *See:* `protocols/P7_tolerant_pl_pilot.md`; `results/p13/README.md`.
 
 **Confirmatory, exploratory, descriptive, pilot, "Reading".** Confirmatory: a verdict from a locked rule. Exploratory: an analysis no protocol fixed in advance (P3, the "Exploratory" sections of P6 and P7, histograms). Descriptive: numbers reported but not gated by a rule (gap closed, gaint replications, E1 tables). Pilot: an experiment the locked rules declare underpowered (P7, because P6 rule 3 found headroom −0.001 < 0.02). "Reading": the interpretation section of a README, allowed to be wrong. Only confirmatory verdicts count as findings. *See:* `07_methodology_rules_and_statistics.md` §2; `protocols/P7_tolerant_pl_pilot.md` rule 4.
 
@@ -84,6 +84,8 @@ Times are IST (UTC + 5:30) unless marked UTC. Conventions used below: "P-series"
 **CutMix.** A data-mixing perturbation: paste a rectangular box from one image into another. For segmentation SSL, the teacher's prediction gets the same box, so the student must predict the mixed image consistently. *Here:* `ssl.cutmix_p=0.5`: per unlabelled image, with probability 0.5, a box from the next image in the batch is pasted into the strong view; box area U(0.02, 0.4) of the image, aspect U(0.3, 3.33), as UniMatch; draws are a pure function of (seed, step). It copies pixels and never resamples them, so it is label-safe for 1-2 px cracks. P13 CsM5 − Cs5 was n.d. under the seed rule (crack +0.010 [+0.004, +0.017] over cells). P16 runs with CutMix off, chosen on P13 val (score = mean of the three val primaries' seed means: CsM5 0.3507 vs Cs5 0.3652; cv02 `el_p16/reports/p16b/selection.txt`). *See:* `protocols/P13_cutmix_separate_bn.md`; `/home/noob/work/el_p13/src/trainers/ssl_ops.py`.
 
 **cv02.** The shared university GPU server `cv02@10.8.1.106`: 8 × RTX A6000 48 GB, shared by many users. Workspace `/tmp/noob_el` (wiped on reboot). Primary machine for every locked rule from P6 on. *See:* `14_code_and_infrastructure.md`; memory `server-runs-tmux-parallel.md`.
+
+**Decoupled decoder (`ssl.decouple_decoder`, `decoder_u`; P17).** SKCDF's "data flow decoupling", ported alone. The student's unlabelled forward goes through the shared encoder into a second decoder and head (`decoder_u`, copies made at step 0), so pseudo-labels never reach the labelled decoder. `decoder_u` follows the labelled decoder by a parameter EMA, ω = 0.99. Pseudo-labels and test still use the EMA teacher (encoder + labelled decoder). *Here:* arm BsD5; BsD5 − BsM5 n.d. on all three primaries. *See:* `protocols/P17_decoupled_decoder.md`; `results/p17/README.md`.
 
 **D (arm letter), loss-off control, loss-off twin.** The SSL arm with λ_final = 0: identical pipeline, forward pass and data streams, but the unlabelled loss contributes nothing. Comparing C − D isolates the effect of the loss. *Here:* D, Dx, D5, Dx5, Dm, Dmx, Dm5, Dmx5, gDm5. From P13 on, the separate forward makes the λ = 0 student bit-identical to the supervised run, so A becomes the loss-off control.
 
@@ -135,7 +137,7 @@ Times are IST (UTC + 5:30) unless marked UTC. Conventions used below: "P-series"
 
 **g (prefix).** The run was on gaint. E.g. gCm5, gDm5, gA10, gU5. Never pooled with cv02 seeds.
 
-**gaint.** The lab GPU server `noob@172.18.22.20`: one RTX PRO 4500 Blackwell 32 GB. The code repo lives there (`/home/noob/work/el-fault-detection`, worktrees `el_p13`, `el_p14`, `el_p16`). Its results are descriptive only when cv02 holds the rule. Its `noob` account was reset once in the old era, losing earlier code and results. *See:* `14_code_and_infrastructure.md`.
+**gaint.** The lab GPU server `noob@172.18.22.20`: one RTX PRO 4500 Blackwell 32 GB. The code repo lives there (`/home/noob/work/el-fault-detection`, worktrees `el_p13`, `el_p14`, `el_p16`, `el_p17`; copies of cv02's run dirs in `/home/noob/work/cv02_noob_el`). Its results are descriptive only when cv02 holds the rule. Its `noob` account was reset once in the old era, losing earlier code and results. *See:* `14_code_and_infrastructure.md`.
 
 **Gap closed.** The share of the distance to the 100%-labels model that an arm recovers: (X − A) / (L3@100% − A) per primary metric. P8 to P10 used (C − D) / (L3@100% − D). Descriptive, never a gate. *See:* `07_methodology_rules_and_statistics.md`.
 
@@ -203,7 +205,7 @@ Times are IST (UTC + 5:30) unless marked UTC. Conventions used below: "P-series"
 
 **P(Δ>0).** Share of the 2,000 bootstrap resamples in which the difference is positive. 1.00 or 0.00 means every resample agrees on the sign.
 
-**P-numbers (P1-P16).** Protocol / experiment numbers in time order. P1 overfit check, P2 SemiCE gradient probe, P3 label versions (exploratory), P4 frozen-feature probe, P5 region pseudo-label precision, P6 corrected baseline ladder, P7 tolerant PL on L0 (pilot), P8 tolerant PL on L3, P9 external pool, P10 SSL at 5%, P11 matched pipeline at 10%, P12 matched at 5% + gaint replication, P13 separate BN + CutMix, P14 tolerant supervision, P15 UCF encoder transfer, P16 label-fraction curve. *See:* `08_experiments_P1_P7_diagnostics.md`, `09_experiments_P8_P12_ssl_series.md`, `10_experiments_P13_P16_E1.md`.
+**P-numbers (P1-P17).** Protocol / experiment numbers in time order. P1 overfit check, P2 SemiCE gradient probe, P3 label versions (exploratory), P4 frozen-feature probe, P5 region pseudo-label precision, P6 corrected baseline ladder, P7 tolerant PL on L0 (pilot), P8 tolerant PL on L3, P9 external pool, P10 SSL at 5%, P11 matched pipeline at 10%, P12 matched at 5% + gaint replication, P13 separate BN + CutMix, P14 tolerant supervision, P15 UCF encoder transfer, P16 label-fraction curve, P17 SKCDF-style decoupled decoder. *See:* `08_experiments_P1_P7_diagnostics.md`, `09_experiments_P8_P12_ssl_series.md`, `10_experiments_P13_P16_E1.md`.
 
 **Phase 0, phase 1.** The user's names for the work before this session. Phase 0: the earliest work (SA U-Net++, Mean Teacher + SemiCE, first reproductions), mostly lost in the gaint account reset. Phase 1: the rebuild, 2 to 7 Oct 2026 (repo `el-fault-detection`, ALHVR port, cv02 replication, loss-off controls). Both are "old era". Inside the phase 1 documents, "Phase 0" can also mean the 2 Oct foundation rebuild. *See:* `06_history_phase0_phase1.md` §1.
 
@@ -232,6 +234,8 @@ Times are IST (UTC + 5:30) unless marked UTC. Conventions used below: "P-series"
 **sd (standard deviation over seeds).** The spread of an arm's metric across training seeds, sample sd (ddof = 1). Tables show mean ± sd.
 
 **Seeds (training seed vs split seed).** The split seed fixes which cells are train/val/test and which are labelled; it is always 0 (`data.split_seed=0`). The training seed (`seed=`) changes initialisation, data order and augmentation; arms use seeds 0-2, 0-4, or 3-5 (gaint replications). *See:* `07_methodology_rules_and_statistics.md`.
+
+**SKCDF, DCA (CVPR 2025, CVPR 2026).** Two class-imbalanced semi-supervised medical segmentation methods, both 3D. SKCDF (Zhang et al.) decouples data flow: pseudo-labels train the encoder and an unlabelled decoder, not the labelled decoder; it adds cross-attention and class-balanced heads. DCA (Liu et al.) splits classes into head/medium/tail groups with one expert decoder each and stitches their logits into pseudo-labels. *Here:* P17 ports SKCDF's decoupling only (named "SKCDF-style decoupling"); DCA was not run (13 Oct). *See:* `literature/notes/F01_rareclass_ssl_2024_2026.md`; `10_experiments_P13_P16_E1.md` P17.
 
 **Self-supervised learning.** Learning features from unlabelled images with a pretext task (e.g. masked image modelling, MIM). Different from semi-supervised. *Here:* considered (P4, directions row 3; E3's MIM arm), not run.
 
@@ -273,7 +277,7 @@ Times are IST (UTC + 5:30) unless marked UTC. Conventions used below: "P-series"
 
 **Width check.** A guard against "fattening" (predicting thick cracks to boost tolerant metrics): if an arm's crack gain comes with crack relP@2 falling by more than 0.05 against its comparison arm, it is flagged. *See:* `07_methodology_rules_and_statistics.md`.
 
-**Worktree, commit, REVISION.** Each experiment's code change lives in its own git worktree and branch on gaint (`el_p13` = branch p13 at `bac5264`, `el_p14` = p14 at `be67787`, `el_p16` = p16 at `d51b60f`; main at `24590fb`). The exact commit is deployed to cv02 by `git archive` and recorded in the deployment directory's `REVISION` file (`el_p16` has none; its commit `d51b60f` is recorded in P16 Amendment 1). *See:* `14_code_and_infrastructure.md`.
+**Worktree, commit, REVISION.** Each experiment's code change lives in its own git worktree and branch on gaint (`el_p13` = branch p13 at `bac5264`, `el_p14` = p14 at `be67787`, `el_p16` = p16 at `d51b60f`, `el_p17` = p17 at `f2f20d3`; main at `24590fb`). The exact commit is deployed to cv02 by `git archive` and recorded in the deployment directory's `REVISION` file (`el_p16` has none; its commit `d51b60f` is recorded in P16 Amendment 1). *See:* `14_code_and_infrastructure.md`.
 
 **x (suffix letter).** The arm uses the external pool. Dx, Cx, Bx, Dmx, Cmx, Dx5, Cx5, Dmx5, Cmx5, Sx100.
 
@@ -310,9 +314,10 @@ In prose and README tables, arms are written with the fraction as a trailing num
 | L0-L3 | P6 supervised ladder steps |
 | o / T (P14) | o = trained on old masks; T = tolerant supervised loss `tol_dice` |
 | U (P15) | encoder initialised from the UCF-EL-trained network |
+| D (P17, BsD5 only) | decoupled decoder (`ssl.decouple_decoder=true`). Not the loss-off "D" of P7 to P12 |
 | S / Sx (P16) | SSL arm with P13's separate-forward tolerant recipe at P16's fraction; Sx uses the external pool. Note "S" here is not the "s" of P13 |
 
-### Every arm, P6 to P16
+### Every arm, P6 to P17
 | Exp | Arm (run prefix) | Fraction | Machine | Seeds | What it is |
 |---|---|---|---|---|---|
 | P6 | L0 (`p6_L0_10pct`, `p6_L0_100pct`) | 10, 100 | cv02 | 0-2 | `unetpp` 5M from scratch, strong aug, weighted CE (old recipe) |
@@ -340,7 +345,7 @@ In prose and README tables, arms are written with the fraction as a trailing num
 | P13 | A5c (`p13_A_5pct`) | 5 | cv02 | 3-4 | extra supervised seeds; pooled with P12's s0-2 |
 | P13 | Cs5 (`p13_Cs_5pct`) | 5 | cv02 | 0-2 | tolerant PL, separate BN, no CutMix |
 | P13 | CsM5 (`p13_CsM_5pct`) | 5 | cv02 | 0-4 | Cs5 + CutMix. Primary arm |
-| P13 | BsM5 (`p13_BsM_5pct`) | 5 | cv02 | 0-2 | hard PL, separate BN, CutMix |
+| P13 | BsM5 (`p13_BsM_5pct`) | 5 | cv02 | 0-4 | hard PL, separate BN, CutMix (s3-4 post hoc, Amendment 2, 13 Oct) |
 | P13 | Ds5, 10% arms, gDs5, gCsM5 | | | | planned, dropped by Amendment 1 (not run) |
 | P14 | L3o (`p14_L3o_10pct`) | 10 | cv02 | 0-2 | L3 on old masks |
 | P14 | L3To (`p14_L3To_10pct`) | 10 | cv02 | 0-2 | old masks + `tol_dice` |
@@ -354,8 +359,9 @@ In prose and README tables, arms are written with the fraction as a trailing num
 | P16 | S20 (`p16_S_20pct`) | 20 | cv02 | 0-4 | SSL, in-domain pool 383, CutMix off |
 | P16 | S50 (`p16_S_50pct`) | 50 | cv02 | 0-4 | SSL, in-domain pool 239, CutMix off |
 | P16 | Sx100 (`p16_Sx_100pct`) | 100 | cv02 | 0-4 | SSL, external pool 11,938, CutMix off |
+| P17 | BsD5 (`p17_BsD_5pct`) | 5 | cv02 | 0-4 | BsM5 + decoupled decoder (SKCDF-style) |
 
-Status (11 Oct ~22:15 IST): P15 (5 of 6 runs done) and P16's S arms not finished; P16's new A runs (A20 s3-4, A50 s0-4, A100 s3-4) finished at 22:06 IST with rc = 0; every other arm above finished with rc = 0.
+Status (13 Oct): every arm above finished with rc = 0 (P17 and BsM5 s3-4 at 04:08 IST, 13 Oct).
 
 ### P1 to P5 and E1
 P1 to P5 are probes, not arm comparisons. P1 arms A-E are overfit-check variants on 10 crack images (loss, augmentation, precision); P2, P4 and P5 are read-only measurements on existing checkpoints; P3 has no protocol (exploratory). E1 scores existing checkpoints. *See:* `08_experiments_P1_P7_diagnostics.md`, `10_experiments_P13_P16_E1.md`.

@@ -11,11 +11,11 @@ This is the map of the machinery behind every number in this project:
 
 Read 07_methodology_rules_and_statistics.md for *why* runs are set up this way (step matching, final weights, one machine per comparison). This file covers *how*.
 
-Everything below was checked on 11 Oct 2026, about 22:00 IST, by listing files, reading code and running `git log` / `nvidia-smi`. Status then: P13 and P14 done; P15 (gaint) running, 5 of 6 runs re-scored; P16 SSL arms running on cv02 (ETA about 03:00 to 04:30 IST on 12 Oct). Later: both finished and were analysed by 12 Oct 05:30 IST; server state at the 13 Oct close is in doc 15 §1b.
+Everything below was checked on 11 Oct 2026, about 22:00 IST, by listing files, reading code and running `git log` / `nvidia-smi`. Status then: P13 and P14 done; P15 (gaint) running, 5 of 6 runs re-scored; P16 SSL arms running on cv02 (ETA about 03:00 to 04:30 IST on 12 Oct). Later: both finished and were analysed by 12 Oct 05:30 IST; server state at the 13 Oct close is in doc 15 §1b. Updated 13 Oct ~16:30 IST for P17 and P13 Amendment 2 (worktree `el_p17`, deployment, `ssl.decouple_decoder`, scripts) and the cv02 backup on gaint; state after P17 is in doc 15 §1c.
 
 ## Sources
-- gaint training repo `/home/noob/work/el-fault-detection` (README.md, `src/`, `configs/`, `scripts/`, `tests/`) and worktrees `/home/noob/work/el_p13`, `el_p14`, `el_p16`.
-- cv02 deployments under `/tmp/noob_el/` (`el_p6`, `el_p7`, `el_p11`, `el_p13`, `el_p14`, `el_p16`, `diag/`, `ext117/`), their `REVISION` files, `gpu_queue_p16.sh`, `launch_set_p16.sh`.
+- gaint training repo `/home/noob/work/el-fault-detection` (README.md, `src/`, `configs/`, `scripts/`, `tests/`) and worktrees `/home/noob/work/el_p13`, `el_p14`, `el_p16`, `el_p17`; the cv02 backup `/home/noob/work/cv02_noob_el`.
+- cv02 deployments under `/tmp/noob_el/` (`el_p6`, `el_p7`, `el_p11`, `el_p13`, `el_p14`, `el_p16`, `el_p17`, `diag/`, `ext117/`), their `REVISION` files, `gpu_queue_p16.sh`, `launch_set_p16.sh`.
 - Local research repo `~/mtp/research`: `scripts/`, `scripts_cv02/`, `scripts_gaint/`, `protocols/`, `results/*/README.md`.
 - Memory notes `~/.claude/projects/-home-yugma/memory/server-runs-tmux-parallel.md` and `mtp-el-ssl-project.md`.
 - Commands run: `git worktree list`, `git log --oneline`, `cat REVISION`, `nvidia-smi --query-gpu=name,memory.total`, `ls`, `tmux ls` (read-only).
@@ -55,6 +55,9 @@ Everything below was checked on 11 Oct 2026, about 22:00 IST, by listing files, 
 | `/home/noob/work/el_p13` | p13 | `bac5264` | P13 `ssl.student_forward=separate`, `ssl.cutmix_p` |
 | `/home/noob/work/el_p14` | p14 | `be67787` | P14 `loss.supervised=tol_dice`, P15 `model.encoder_init` (on top of `bac5264`) |
 | `/home/noob/work/el_p16` | p16 | `d51b60f` | P16: SSL allowed at `labeled_fraction` 1.0 with `data.unlabeled_pool=external` (on top of `bac5264`; it does **not** contain `be67787`) |
+| `/home/noob/work/el_p17` | p17 | `f2f20d3` | P17 `ssl.decouple_decoder`, `ssl.decouple_ema` (on top of `bac5264` only); +6 tests in `tests/test_ssl_split.py` |
+
+- **Backup of cv02 (13 Oct):** `/home/noob/work/cv02_noob_el/` holds copies of cv02 `/tmp/noob_el` (`el_p6`, `el_p7`, `el_p11`, `el_p13`, `el_p14`, `el_p16`, `el_p17`, `el-fault-detection` without `.venv`, `diag` without `g_import`/`pylib`, `ext117`, `results_to_sync`; no data). Every file was checked by manifest and every checkpoint by MD5 against cv02. Copied through the user's laptop, because cv02 and gaint cannot log into each other and cv02's login is shared (no ssh agent forwarding or keys there). Runs after 13 Oct need another pass.
 
 - **Commit history of the training code** (main, newest first, from `git log`): `24590fb` P11 switch; `0367079` P7 label-safe SSL views + `tolerant_pl` + `rare_frac` logging; `824fab0` P6 switches (`data.mask_subdir`, `data.augmentation=labelsafe`, `smp_unetpp`, `ce_dice`) and P3-P5 probe scripts; `4474d04` and `28686c0` P1/P2 scripts; earlier commits are the old-era low-label queue (`sl_*pct_b8`), BN recalibration, external pool preparation (`0136855`, `46dfe92`).
 - **Inside each repo/worktree:** `experiments/<run>/` (run outputs), `experiments/<run>.stdout` and `<run>.rescore.log`, `reports/` (re-score JSONs per experiment, e.g. `reports/p12/`, `el_p14/reports/p15/`), `data/` (`labeled/images`, `labeled/masks_coded` = old labels, `labeled/masks_escdd` = revised labels, `escdd_masks/{train,val,test}`, `splits/`, `unlabeled/`, `ucf_el` symlink to `/home/noob/work/datasets/UCF-EL-Defect/training`).
@@ -65,7 +68,7 @@ Everything below was checked on 11 Oct 2026, about 22:00 IST, by listing files, 
 
 ### 1.3 cv02 (`ssh cv02@10.8.1.106`)
 - **GPUs:** 8x NVIDIA RTX A6000, 49,140 MiB each (`nvidia-smi`, 11 Oct). Shared with other users.
-- **Everything of ours is under `/tmp/noob_el/`.** Note it is under `/tmp`: a reboot or cleanup could remove it. The local `results/` folders hold copies of everything needed for the reported numbers (re-score JSONs, per-image JSONs, histograms, E1 JSONs). Checkpoints exist only on the servers.
+- **Everything of ours is under `/tmp/noob_el/`.** Note it is under `/tmp`: a reboot or cleanup could remove it. The local `results/` folders hold copies of everything needed for the reported numbers (re-score JSONs, per-image JSONs, histograms, E1 JSONs). Checkpoints are on cv02 and, since 13 Oct, copied to gaint `cv02_noob_el` (§1.2).
 
 | Path | Contents |
 |---|---|
@@ -73,10 +76,11 @@ Everything below was checked on 11 Oct 2026, about 22:00 IST, by listing files, 
 | `el_p6/` | P6 deployment, `REVISION` `824fab0`, own `data/`. |
 | `el_p7/` | P7-P10 deployment, `REVISION` `0367079`. Its `data/` is the real data dir that later deployments symlink to. Reports `reports/p7`, `p8`, `p9`, `p10`. |
 | `el_p11/` | P11 and P12 deployment, `REVISION` `24590fb`, `data -> /tmp/noob_el/el_p7/data`. Reports `reports/p11`, `reports/p12`. |
-| `el_p13/` | P13 deployment, `REVISION` `bac5264`. Also hosts P16 Part A (`reports/p16/`, supervised references) and the P15 pretraining run (`experiments/p15_ucf_pre_dlv3p_r34`, log `reports/p15_pre.log`). |
+| `el_p13/` | P13 deployment, `REVISION` `bac5264`. Also hosts P13 Amendment 2 (BsM5 s3-4, session and reports `p13a2`), P16 Part A (`reports/p16/`, supervised references) and the P15 pretraining run (`experiments/p15_ucf_pre_dlv3p_r34`, log `reports/p15_pre.log`). |
 | `el_p14/` | P14 deployment, `REVISION` `be67787`. Reports `reports/p14`. |
 | `el_p16/` | P16 Part B (SSL arms), code `d51b60f` per `protocols/P16_label_fraction_curve.md` Amendment 1. **This dir has no `REVISION` file** (it was deployed from a tar export); the commit is recorded in the protocol and in `scripts_cv02/p16b_auto.sh`'s header. Reports `reports/p16b/`, auto-launcher log `reports/p16b_auto.log`, CutMix choice `reports/p16b/selection.txt`. |
-| `diag/` | E1 and diagnostics: `e1_task_metrics_v2.py` (byte-identical to local `scripts_cv02/e1_task_metrics.py`), outputs in `diag/e1v2/` (124 JSONs on 11 Oct), logs `e1p11.log` ... `e1p14.log`, `e1p13.log`; `g_import/` (slim copies of gaint runs for E1); `bn_diag.py` (P13 audit); `p15_ucf_pre_dlv3p_r34.pth` (P15's pretrained UCF-EL encoder source). |
+| `el_p17/` | P17 deployment, `REVISION` `f2f20d3`, `data -> /tmp/noob_el/el_p7/data`. Runs `p17_BsD_5pct_s0..4` (session `p17run`; `reports/p17` is a symlink to `reports/p17run`), smoke runs `smoke_BsD`, `smoke_BsD_lowthr` (session `p17smoke`). `scripts/per_image_scores.py` and `score_histograms.py` copied from `el_p13`. |
+| `diag/` | E1 and diagnostics: `e1_task_metrics_v2.py` (byte-identical to local `scripts_cv02/e1_task_metrics.py`), outputs in `diag/e1v2/` (124 JSONs on 11 Oct), logs `e1p11.log` ... `e1p14.log`, `e1p13.log`, `e1p17.log`, `e1p13a2.log`; `g_import/` (slim copies of gaint runs for E1); `bn_diag.py` (P13 audit); `p15_ucf_pre_dlv3p_r34.pth` (P15's pretrained UCF-EL encoder source). |
 | `ext117/` | The unseen-module extension set: `images/`, `masks/`, `ignore/`, `manifest.csv`, `stems_eval.txt` (106 evaluated cells). See 03_datasets_and_splits.md and `results/e1/README.md`. |
 | `env.sh` | Sourced before every run. It only sets cache and path variables (`XDG_CACHE_HOME`, `UV_CACHE_DIR`, `TORCH_HOME`, `MPLCONFIGDIR`, `PATH`). Do not copy its values anywhere. |
 | `pvs3/`, `pvs3_env`, `results_to_sync/`, `state/`, `tools/`, `bin/`, `*.tgz` | Old-era material (UCF-EL PV-S3 runs, old ALHVR cv02 runs, old GPU-claim scripts, code tarballs). Not used by P6-P16. |
@@ -162,6 +166,7 @@ A "D" arm (loss-off control) uses `tolerant_pl` with `ssl.lambda_final=0`, so th
 - **`ssl.labeled_view`** (`strong` in `ssl_mean_teacher.yaml`): which two-view image the labelled loss sees, in the default two-view pipeline.
 - **`ssl.labeled_aug=supervised`** (P11, `24590fb`): the labelled images instead get exactly the supervised arm's label-safe pipeline (`SupervisedViewDataset` in `scripts/train.py`). Then a loss-off SSL run differs from supervised only in batch composition and data streams.
 - **`ssl.student_forward=separate`** (P13, `bac5264`, `_ssl_losses_split`): two student forwards per step. The labelled forward updates BatchNorm as in a supervised run; the unlabelled forward runs inside `frozen_bn_stats` (`ssl_ops.py`), which uses batch statistics for that pass but restores every running mean/var afterwards. At lambda = 0 the unlabelled pass is skipped entirely, so the student is bit-identical to the supervised run (verified on GPU for 100 steps, `results/p13_audit/smoke_gpu.log`). This is why, from P13 on, the supervised arm is also the exact loss-off control.
+- **`ssl.decouple_decoder=true`** (P17, `f2f20d3`; needs `student_forward=separate`): SKCDF-style decoupling. At step 0 the trainer deep-copies the model's decoder and segmentation head into `dec_u` (`decoder_u`, `head_u`). The student's unlabelled forward (strong view, CutMix, inside `frozen_bn_stats`) goes encoder → `decoder_u` → `head_u`, so the unlabelled loss reaches the encoder and `decoder_u` only. `decoder_u` has its own optimizer, scheduler and gradient clip (same settings). After every step `decoder_u ← ω · decoder_u + (1 − ω) · decoder` on parameters (not BN buffers), ω = `ssl.decouple_ema` (0.99). Pseudo-labels still come from the EMA teacher (encoder + labelled decoder), and the teacher is what is evaluated. `decoder_u` is checkpointed (`models.decoder_u`) and scored as `test_final_secondary` in `metrics.json` (student encoder + `decoder_u`). Default off: the P13 step is unchanged. At λ = 0 the decoupled run equals the supervised run bit for bit (tested), and P17's logs matched BsM5 to step 2,000.
 - **`ssl.cutmix_p`** (P13): per unlabelled image, with probability p, one box (area 2-40% of the image, aspect 0.3 to 3.33, as UniMatch) is pasted from the next image in the batch into the student's strong view, and the same box is applied to the teacher's logits, so pseudo-labels stay on the pixels they were predicted for. Boxes are a pure function of (seed, step) (`mix_seed(seed, 2, step)`).
 - **Logged per 50 steps** (`log_every`): `loss`, `loss_sup`, `loss_con`, `lambda`, `conf_frac`, `rare_frac`, `lr`, `steps_per_sec`.
 - **Checkpoints:** `checkpoints/latest.pth` (full training state: student `models.model`, teacher `models.teacher`, optimizer, scheduler, RNG, history; every 2,000 steps and at the end) and `checkpoints/best.pth` (best-val weights). `--resume` continues bitwise. **The P-series uses `latest.pth` at step 20,000 (final weights) for every reported number**; best-val selection is not used because it flips signs on 54 val cells.
@@ -205,6 +210,7 @@ A "D" arm (loss-off control) uses `tolerant_pl` with `ssl.lambda_final=0`, so th
 | What | Where | Time |
 |---|---|---|
 | SSL run, 20,000 steps, 3 per GPU | cv02 A6000 | about 6-7.5 h (P13: 13:30 to 21:04 IST for the last runs; BsM5 logged ~0.93 steps/s) |
+| SSL run, 20,000 steps, 1 per GPU | cv02 A6000 | about 2 h 10 min (P17 and BsM5 s3-4, 13 Oct: ~4.2 steps/s at λ = 0, ~3.6 after; separate BN + CutMix, about 10 GB per run) |
 | Supervised run, 20,000 steps, 3 per GPU | cv02 | about 3-3.5 h (P14 L3o: 14:42 to 18:14 IST) |
 | Supervised run (P15 arms) | gaint, one GPU, two lanes | about 1 h 40 min each (`el_p14/reports/p15/launch_gaint.log`) |
 | Re-score of one run | either | seconds |
@@ -221,12 +227,13 @@ Memory per run: about 5.7 GB (supervised) and 6.2 GB (SSL) on cv02 (`nvidia-smi 
 | `scripts/ssl_rules.py` | The locked rule-1 arithmetic for any contrast. Loads re-score JSONs from `--dirs` (arm key `pN:<arm>`, seeds parsed from `_s<k>`), optional `--merge NEW=ARM1+ARM2` (pool disjoint seeds, e.g. A5c = P12 s0-2 + P13 s3-4). Prints a table (test crack IoU, inactive IoU, crack relF1@2, crack relP@2, AP, val IoU; mean +/- sd), then for each `--pairs A=B`: delta, threshold `max(0.01, 2*sqrt((sd_A^2 + sd_B^2)/3))`, BETTER / WORSE / n.d. per primary, the rule-1 verdict, the width check (crack relP@2 drop > 0.05) and "gap closed" against `--ref`. Uses `new_escdd` (revised labels), test split. |
 | `scripts/per_image_analysis.py` | Robustness over test cells from per-image JSONs: Delta IoU with all cells, Delta without the top-3 cells (by GT area of that class), 95% paired image-bootstrap CI (2,000 resamples), P(Delta > 0). `--keep <regex>` restricts to a source group (e.g. `^(CSIR|ARTS)_`); `--merge` as above; `--check <raw dir>` verifies summed per-image IoU equals the re-score IoU. |
 | `scripts/ssl_figure.py` | Bar figure (mean +/- sd with seed dots) for chosen arms; with `--hist` prints the bin-0 share. |
-| `scripts/post_ssl.sh pN <cv02 gpu> <expected runs>` | One-command post-processing for P9-P14: pull re-score JSONs and `launch.log` from cv02 (`CODE` dir per experiment), run per-image and histogram scoring on cv02, apply `ssl_rules.py` with the experiment's arms/pairs, bootstrap (all cells and both source groups), figure. Writes `results/pN/{raw/, pN_rules.txt, per_image.json, per_image_test.txt, hist_revised.npz, fig_pN_bars.png}`. |
+| `scripts/post_ssl.sh pN <cv02 gpu> <expected runs>` | One-command post-processing for P9-P14 and P17 (the p17 branch also pulls BsM5 s3-4 from `el_p13/reports/p13a2`, scores them per image into `results/p13/per_image_a2.json`, writes `results/p17/decoder_u_secondary.txt`, and adds a without-`CSIR_00070_r8_c4` source split): pull re-score JSONs and `launch.log` from cv02 (`CODE` dir per experiment), run per-image and histogram scoring on cv02, apply `ssl_rules.py` with the experiment's arms/pairs, bootstrap (all cells and both source groups), figure. Writes `results/pN/{raw/, pN_rules.txt, per_image.json, per_image_test.txt, hist_revised.npz, fig_pN_bars.png}`. |
 | `scripts/post_p78.sh p7|p8 <gpu>` | Same for P7/P8 using `p78_rules.py` and `p78_figure.py`. |
 | `scripts/post_p15.sh <cv02 gpu>` | P15: pull gaint JSONs (`el_p14/reports/p15`) and P12's gaint JSONs, apply rules, copy slim checkpoints (config + `latest.pth`) of the gaint runs to cv02 `diag/g_import` via the scratchpad, run E1 on cv02, aggregate to `results/e1/e1_p15.md`. |
 | `scripts/post_p16.sh <cv02 gpu>` | P16: pull Part A (`el_p13/reports/p16`) and Part B (`el_p16/reports/p16b`) JSONs plus `selection.txt`, per-image and histogram scoring for both code dirs, rules with A20 = P6 L3 20% s0-2 + P16 A20 s3-4 and A100 = P6 L3 100% s0-2 + P16 A100 s3-4, bootstrap, bars, `p16_curve.py`, E1, aggregate to `results/e1/e1_p16.md`. Committed `f9f2783`; ran 12 Oct ~04:30 IST on cv02 GPU 0 (rc = 0). |
 | `scripts/p16_curve.py` | Supervised vs SSL against label fraction (cv02 only); 5% point = P13 Cs5 or CsM5 depending on `selection.txt`. |
 | `scripts/p16_excell.py` | Post hoc (12 Oct): P16's rule arithmetic and curve with one test cell (default `CSIR_00070_r8_c4`) removed, from E1 per-cell counts; checks the all-cell values against the re-score JSONs first. Writes `results/p16/sensitivity_excell.txt` and `fig_p16_curve_excell.png`. |
+| `scripts/p17_excell.py` | Post hoc (13 Oct, as `p16_excell.py`): rule-1 arithmetic for the P17 and P13 5% contrasts (A5c, BsM5, BsD5, CsM5; 5 seeds each) with and without one test cell, from E1 per-cell counts; checks the all-cell values against the re-score JSONs first. Writes `results/p17/sensitivity_excell.txt`. |
 | `scripts/diag_csir70.py` | Post hoc (12 Oct): loads `experiments/<run>/checkpoints/latest.pth` (teacher for Mean Teacher runs) and predicts one test cell in bf16 and fp32; prints crack predicted/FP pixels and p(crack) quantiles and saves a p(crack) PNG. Run on cv02 from the code worktree root (`el_p13` for A runs, `el_p16` for S runs). Output: `results/p16/diag_csir70.txt` and `diag_csir70/`. |
 | `scripts/cell_noise_rank.py` | Ranks the 582 labelled cells by robust pixel-noise sigma (1.4826 × median absolute residual from a 5×5 median filter). Output `results/p16/cell_noise_rank.txt`. |
 | `scripts/p6_rules.py`, `p6_figures.py`, `p6_hist_analysis.py` | P6 rules, figures, histogram/saturation analysis. |
@@ -261,6 +268,8 @@ To reproduce a results folder: run its post-processing command (table in section
 | P13 separate BN + CutMix | `bac5264` (p13) | cv02 (gaint arms dropped by Amendment 1) | `el_p13` | `el_p13/reports/p13` | `results/p13` | `bash scripts/post_ssl.sh p13 <gpu> 13` |
 | P14 tolerant supervision | `be67787` (p14) | cv02 | `el_p14` | `el_p14/reports/p14` | `results/p14` | `bash scripts/post_ssl.sh p14 <gpu> 9` |
 | P15 UCF-EL encoder | pretrain `bac5264` on cv02 (`el_p13/experiments/p15_ucf_pre_dlv3p_r34`); arms `be67787` on gaint | cv02 + gaint | gaint worktree `el_p14`, tmux `p15g` | gaint `el_p14/reports/p15` | `results/p15` (only `dedup.py` until the post-processing runs) | `bash scripts/post_p15.sh <cv02 gpu>` |
+| P13 Amendment 2 (BsM5 s3-4) | `bac5264` (p13) | cv02 | `el_p13` (tmux `p13a2`) | `el_p13/reports/p13a2` | `results/p13/raw/` (`launch_a2.log`), `results/p13/per_image_a2.json` | via `bash scripts/post_ssl.sh p17 <gpu> 5` |
+| P17 decoupled decoder | `f2f20d3` (p17) | cv02 | `el_p17` (tmux `p17run`) | `el_p17/reports/p17` (= `p17run`) | `results/p17` | `bash scripts/post_ssl.sh p17 <gpu> 5`, then `.venv/bin/python scripts/p17_excell.py`; E1 via `diag/e1_task_metrics_v2.py --code /tmp/noob_el/el_p17`, aggregate `results/e1/e1_p17.md` |
 | P16 label-fraction curve | Part A `bac5264`; Part B `d51b60f` (p16) | cv02 | Part A `el_p13` (tmux `p16`); Part B `el_p16` (tmux `p16b`, launcher `p16auto`) | `el_p13/reports/p16`; `el_p16/reports/p16b` | `results/p16` | `bash scripts/post_p16.sh <cv02 gpu>` |
 | E1 per-cell metrics | `diag/e1_task_metrics_v2.py` (`--code <deployment>`) | cv02 | `/tmp/noob_el/diag`, set `ext117` | `diag/e1v2/<run>.json` | `results/e1` (`raw/`, `raw_v2/`, `e1_pNN.md`) | `scripts_cv02/e1_aggregate.py results/e1/raw_v2 --sets test ext --arms ... --pairs ...` (exact calls in the post scripts and in `results/e1/README.md`) |
 
@@ -285,7 +294,7 @@ All commands are read-only. Prefix with `ssh -o BatchMode=yes cv02@10.8.1.106 '.
 | E1 per-cell metrics of a run | `results/e1/raw_v2/<run>.json` (`cells` -> `test` / `ext` -> stem -> values); aggregated tables `results/e1/e1_pNN.md` |
 | The locked rule verdicts | `results/pN/pN_rules.txt` and the "Locked rules" table in `results/pN/README.md` |
 | Bootstrap and source split | `results/pN/per_image_test.txt` |
-| A checkpoint | `<deployment>/experiments/<run>/checkpoints/latest.pth` (servers only; keys `models.model` = student, `models.teacher` = EMA teacher) |
+| A checkpoint | `<deployment>/experiments/<run>/checkpoints/latest.pth` on cv02, or the same path under gaint `/home/noob/work/cv02_noob_el/` (keys `models.model` = student, `models.teacher` = EMA teacher; P17 runs also `models.decoder_u`) |
 | Which code produced a run | `cat <deployment>/REVISION` on cv02 (none for `el_p16`; see protocol), or the worktree commit on gaint (`git -C /home/noob/work/el_p14 log -1`) |
 | What runs are going now | `tmux ls`; `tail <deployment>/reports/<session>/launch.log`; `nvidia-smi` (look, never attach or kill) |
 | The P16 CutMix decision | cv02 `/tmp/noob_el/el_p16/reports/p16b/selection.txt` (P13 val seed means, `CUTMIX=0`) |
@@ -296,7 +305,7 @@ All commands are read-only. Prefix with `ssh -o BatchMode=yes cv02@10.8.1.106 '.
 - `el_p16` on cv02 has no `REVISION` file; its commit (`d51b60f`) is taken from the protocol and the deploy notes.
 - No written md5 record of cross-machine data equality was found in the research repo.
 - gaint's `REVISION` (`dfa4fd6`) is stale; use `git log`.
-- `/tmp/noob_el` on cv02 is in `/tmp` and not backed up beyond the local `results/` copies; checkpoints have no copy off the servers.
+- `/tmp/noob_el` on cv02 is in `/tmp`. Since 13 Oct its run dirs and checkpoints are copied to gaint `cv02_noob_el` (MD5-checked), so one server can fail without losing them; there is still no copy off both servers.
 - (Resolved 12 Oct) P15 and P16 results are local: `results/p15/`, `results/p16/`. The noisy-cell p(crack) maps were copied from cv02 `/tmp` to `results/p16/diag_csir70/` on 13 Oct.
 
 ## Related docs
