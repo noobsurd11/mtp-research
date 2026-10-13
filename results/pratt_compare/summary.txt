@@ -1,0 +1,23 @@
+sanity: pooled crack/inactive IoU from these counts vs the re-score JSONs (old and new labels), max |diff| = 0.0e+00
+
+## old labels (dataset_20211104, the paper's): per-image IoU, median over test cells, rule A (cells without the class in GT left out); test cells with the class: {'crack': 50, 'gridline': 37, 'inactive': 17}
+| model | crack | gridline | inactive | mean of 3 |
+|---|---|---|---|---|
+| supervised 100% (L3, 5 seeds) | 0.354±0.004 | 0.303±0.010 | 0.443±0.028 | 0.367±0.012 |
+| supervised 10% (L3, 3 seeds) | 0.240±0.016 | 0.218±0.009 | 0.272±0.039 | 0.243±0.013 |
+| supervised 5% (A5c, 5 seeds) | 0.193±0.020 | 0.147±0.010 | 0.160±0.082 | 0.167±0.026 |
+| SSL 5% CsM5 (5 seeds) | 0.170±0.029 | 0.159±0.033 | 0.360±0.033 | 0.230±0.014 |
+| SSL 5% BsM5 (5 seeds) | 0.194±0.032 | 0.173±0.032 | 0.352±0.031 | 0.239±0.023 |
+| Pratt 2023 4c, DeepLabv3+ custom weights (headline; Fig. 7 read from page) | 0.25 | 0.20 | 0.38 | 0.28 |
+| Pratt 2023 2a, U-Net equal weights | 0.15 | 0.32 | 0.09 | 0.19 |
+rules B / C, mean of 3 (old): supervised 100%: B 0.202, C 0.538; supervised 10%: B 0.139, C 0.473; supervised 5%: B 0.098, C 0.437; SSL 5% CsM5: B 0.098, C 0.435; SSL 5% BsM5: B 0.108, C 0.447
+
+## revised labels (E-SCDD / 20221008): per-image IoU, median over test cells, rule A (cells without the class in GT left out); test cells with the class: {'crack': 48, 'gridline': 45, 'inactive': 16}
+| model | crack | gridline | inactive | mean of 3 |
+|---|---|---|---|---|
+| supervised 100% (L3, 5 seeds) | 0.461±0.009 | 0.281±0.013 | 0.494±0.039 | 0.412±0.015 |
+| supervised 10% (L3, 3 seeds) | 0.307±0.034 | 0.206±0.005 | 0.317±0.059 | 0.277±0.011 |
+| supervised 5% (A5c, 5 seeds) | 0.256±0.021 | 0.132±0.008 | 0.188±0.093 | 0.192±0.036 |
+| SSL 5% CsM5 (5 seeds) | 0.254±0.035 | 0.153±0.036 | 0.420±0.029 | 0.276±0.014 |
+| SSL 5% BsM5 (5 seeds) | 0.284±0.023 | 0.161±0.033 | 0.414±0.038 | 0.286±0.009 |
+rules B / C, mean of 3 (new): supervised 100%: B 0.238, C 0.578; supervised 10%: B 0.166, C 0.506; supervised 5%: B 0.121, C 0.464; SSL 5% CsM5: B 0.124, C 0.473; SSL 5% BsM5: B 0.136, C 0.482
