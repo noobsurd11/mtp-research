@@ -62,7 +62,7 @@ Status date: 12 Oct 2026, ~05:30 IST, updated 13 Oct ~16:30 IST for P17 and P13 
 | C8 | Many contrasts, no multiplicity correction | open | medium |
 | C9 | AP saturation; metric changes across protocols | mitigated | medium |
 | C10 | Post-hoc experiment choices | mitigated (disclosed) | low–medium |
-| C11 | EMA-only effect unmeasured; bit-identity checked for 100 steps | open | low |
+| C11 | EMA-only effect unmeasured; bit-identity checked for 100 steps | mostly resolved (teacher = student at step 20,000, 13 Oct) | low |
 | C12 | Seeds pooled across commits and protocols | mitigated (diff checks) | low |
 | C13 | Effort concentrated on SSL | open | medium (strategic) |
 | D1–D19 | Infrastructure incidents | mostly resolved | low for results, one high (gaint reset) |
@@ -416,7 +416,7 @@ None of these may be quoted as a method result. Old-era numbers stay in separate
 - **Impact:** the sequence is adaptive. Each protocol still fixes its rules before its own runs, and the motivation applies equally to all arms of that protocol.
 - **Mitigation:** each protocol has a "What I had seen" or "post hoc; disclosed" section.
 
-### C11. The EMA-only effect is unmeasured; bit-identity checked for 100 steps (open, low)
+### C11. The EMA-only effect is unmeasured; bit-identity checked for 100 steps (mostly resolved 13 Oct)
 - **What:**
   - In P13/P16, A (supervised) is the loss-off control. But SSL arms are scored on the EMA teacher, while A has no EMA.
   - Ds5 (separate forward, λ = 0, teacher evaluated) was dropped in Amendment 1.
@@ -425,7 +425,8 @@ None of these may be quoted as a method result. Old-era numbers stay in separate
   - phase 1: teacher − student +0.000 ± 0.002 with cosine LR to 0;
   - P8: student = teacher (crack 0.383 vs 0.383).
 - **Impact:** CsM5 − A5c contains the loss effect, CutMix and any EMA effect. Probably negligible, but not measured in P13. The same holds for P17's BsD5 − A5c: the gain that reaches the teacher without the decoder fitting pseudo-labels comes through the encoder or the EMA.
-- **Mitigation:** run Ds5 at 3–5 seeds if this ever matters.
+- **13 Oct check** (`results/ema_check/README.md`, descriptive): at step 20,000 the EMA teacher and the student of BsM5, CsM5 and BsD5 (15 runs) score the same, within ±0.005 on every metric (mean about −0.001). The cosine schedule ends at learning rate 0, so the EMA catches up with the student. A λ = 0 run's teacher would therefore match its student, which is bit-identical to A. The EMA-only effect is very likely about 0 (inferred, not measured on Ds5).
+- **Mitigation:** run Ds5 at 3–5 seeds if a reviewer needs a direct measurement.
 
 ### C12. Seeds pooled across commits and protocols (mitigated)
 - **What:**
