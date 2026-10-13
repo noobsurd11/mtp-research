@@ -894,6 +894,31 @@ Nothing launched. Open to the user: whether P17 enters the deck, and how to word
 
 ---
 
+## Follow-up checks after P17 (13 Oct, descriptive, not in any protocol)
+
+### EMA teacher vs student (`results/ema_check/README.md`)
+- **Question:** does scoring the EMA teacher instead of the trained student change the numbers? This is doc 13 C11; the P17 reading also depends on it.
+- **Done:** the student and teacher weights of BsM5, CsM5 and BsD5 (15 runs, step 20,000) re-scored on test with `scripts_cv02/rescore_weights.py`. The teacher scores reproduce the official JSONs exactly.
+- **Result:** teacher − student is within ±0.005 on every metric for every run (mean about −0.001). The cosine schedule ends at learning rate 0, so the EMA catches up with the student.
+- **Reading:** the SSL gains are carried by the trained network itself. The EMA-only effect is very likely about 0 (inferred, not measured on Ds5).
+
+### Qualitative panel (`results/qualitative/README.md`, `fig_qualitative_5pct.png`)
+- **What:** A5c, CsM5, BsM5 and supervised 100% (seed 3) on the 2 largest-inactive and 2 largest-crack test cells, chosen by GT area before any prediction was looked at.
+- **What it shows** (one seed, four cells):
+  - on `CFVS_00114_r6_c5`, inactive IoU is 0.28 for A5c and 0.62 to 0.69 for the SSL models (supervised 100%: 0.60);
+  - on the largest inactive cell, `BMRK_00073_cell0253`, every model misses most of the labelled inactive area (supervised 100%: 0.05).
+
+### Our models in Pratt 2023's convention (`results/pratt_compare/README.md`)
+- **What:** per-image IoU for crack, gridline and inactive, median over the 50 test cells, rule A (cells without the class left out), on the paper's old labels. 23 runs, read-only.
+- **Result:** supervised 100% (L3, 5 seeds) 0.354 / 0.303 / 0.443, mean 0.367. The paper's headline 4c (DeepLabv3+) is 0.25 / 0.20 / 0.38, mean 0.28. A5c mean 0.167; BsM5 mean 0.239.
+- **Caveats:**
+  - the paper's rule is inferred and its numbers are read off Fig. 7;
+  - the paper reports single runs, and which release it used is open;
+  - our models were trained on the revised masks.
+  - Not a like-for-like benchmark claim.
+
+---
+
 ## E1: task-aligned, per-cell evaluation and the unseen-module extension
 
 ### Question

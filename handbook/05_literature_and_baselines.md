@@ -106,7 +106,9 @@ Abstract: "the mIoU for cracks is low (25%) even for the DeepLabv3+, the recall 
 | Pilot U-Net++ arms (SL-100, SL-20, MT-20, ALHVR interim) | | | | 0.280 / 0.287 / 0.288 / 0.295 | best 4c: 0.28 |
 | Crack median, our U-Net++ arms (crack is in all 50 test images, so every rule gives the same value) | 0.21–0.25 | | | | paper 0.13–0.26 |
 
-**Verdict: no reproduction gap remains on BenchmarkEL once the convention is aligned** (`analysis/papers_metrics.md` §1.4). Dataset-level `standard` crack IoU (ours 0.25–0.30) is higher than per-image median crack IoU (0.15–0.25), because pooling weights big-crack images more [inferred from definitions].
+**Verdict: no reproduction gap remains on BenchmarkEL once the convention is aligned** (`analysis/papers_metrics.md` §1.4).
+
+**P-series update (13 Oct, `results/pratt_compare/README.md`):** the current recipe in the same convention (rule A, median, the paper's old labels). Supervised 100% (L3, 5 seeds) scores crack 0.354, gridline 0.303, inactive 0.443, mean 0.367, against the paper's headline 4c at 0.25 / 0.20 / 0.38 (0.28). SSL at 5% labels (BsM5) reaches 0.239, and supervised 5% 0.167. Our models were trained on the revised masks; the other caveats above still apply. Dataset-level `standard` crack IoU (ours 0.25–0.30) is higher than per-image median crack IoU (0.15–0.25), because pooling weights big-crack images more [inferred from definitions].
 
 **Weaknesses (`literature/notes/A01`; `literature/survey.md` §A table)**
 - Hand-picked defect-rich test set: all 50 test images contain crack (old masks; 48 of 50 on the revised masks, `results/p6/README.md`); this inflates crack recall and hides label effects on inactive [author-acknowledged that the test set was chosen; effect ours].

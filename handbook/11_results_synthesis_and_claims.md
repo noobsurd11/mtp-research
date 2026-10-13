@@ -171,6 +171,18 @@ Sources: `results/p8` to `results/p13`, `results/p16` and `results/p17` READMEs.
 
 Sources: `results/e1/e1_ext_v2.md`, `e1_p13.md`.
 
+### Against the published BenchmarkEL numbers (descriptive; `results/pratt_compare/README.md`)
+Pratt 2023's convention: per-image IoU, median over test cells, rule A (inferred), on the paper's old labels.
+
+| Model | crack | gridline | inactive | mean |
+|---|---|---|---|---|
+| ours, supervised 100% (L3, 5 seeds) | 0.354 | 0.303 | 0.443 | 0.367 |
+| ours, SSL 5% (BsM5, 5 seeds) | 0.194 | 0.173 | 0.352 | 0.239 |
+| ours, supervised 5% (A5c, 5 seeds) | 0.193 | 0.147 | 0.160 | 0.167 |
+| Pratt 2023 4c (headline) | 0.25 | 0.20 | 0.38 | 0.28 |
+
+Caveats: the rule is inferred, the paper's numbers are read off a figure and come from single runs, the release is uncertain, and our models were trained on the revised masks.
+
 ### Noise and concentration (why small effects are hard)
 
 **Seed sd**, L3-recipe arms without collapse (`results/p6`, `p10`, `p12`, `p13`, `p14`):

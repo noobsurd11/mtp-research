@@ -238,6 +238,12 @@ Source: `results/p17/README.md`, `protocols/P17_decoupled_decoder.md`. → `10` 
 
 Only what the evidence table marks supported, with its scope. The user's rule is "framing depends on final results, no presumptions, ever". → `11_results_synthesis_and_claims.md`
 
+**Q21b. How do we compare with the published BenchmarkEL results?** (13 Oct)
+In the paper's own convention (per-image IoU, median over test cells, rule A as inferred) and on its labels, our supervised recipe at 100% labels scores crack 0.354, gridline 0.303, inactive 0.443 (mean 0.367). Pratt 2023's headline DeepLabv3+ scores 0.25 / 0.20 / 0.38 (mean 0.28). Do not call it a like-for-like benchmark win: the rule is inferred, the paper's numbers are read off a figure and come from single runs, and the release is uncertain. Source: `results/pratt_compare/README.md`.
+
+**Q21c. Does evaluating the EMA teacher (not the student) inflate SSL results?** (13 Oct)
+No. At step 20,000 teacher and student score the same within ±0.005 (BsM5, CsM5, BsD5; 15 runs). The learning rate ends at 0, so the EMA has caught up. Source: `results/ema_check/README.md`.
+
 **Q22. What is E1?**
 
 A re-scoring of every checkpoint with per-cell task metrics:
