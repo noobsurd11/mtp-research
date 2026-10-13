@@ -1,6 +1,6 @@
 # 16. FAQ: questions the user is likely to ask, with grounded answers
 
-**What this covers.** Short answers to the questions a newcomer to this project tends to ask, each with its numbers and the doc or file to read next. The answers are as of 12 Oct 2026, about 05:30 IST. All experiments, P15 and P16 included, are finished. Do not give a stronger answer than the one here without new evidence.
+**What this covers.** Short answers to the questions a newcomer to this project tends to ask, each with its numbers and the doc or file to read next. The answers are as of 12 Oct 2026, about 05:30 IST, updated 13 Oct ~08:15 IST for P17 and P13 Amendment 2 (Q8, Q10, Q20b). All experiments, P17 included, are finished. Do not give a stronger answer than the one here without new evidence.
 
 **Sources:** every answer names its own source. The main ones:
 - `results/p1` to `results/p14` READMEs;
@@ -92,11 +92,11 @@ Sources: `protocols/P16_label_fraction_curve.md`; session summaries. → `07`, `
 
 At 5% labels, yes on two of the three primary metrics:
 - **P13 primary claim**, CsM5 − A5c (5 vs 5 seeds): inactive IoU +0.117, crack relaxed F1@2 +0.033. Both are robust over test cells. Crack IoU is +0.014, not detectable.
-- **Secondary contrast**, hard pseudo-labels + CutMix (BsM5, 3 seeds): crack IoU +0.036, robust.
+- **Secondary contrast**, hard pseudo-labels + CutMix (BsM5): with 5 seeds (seeds 3–4 added post hoc, P13 Amendment 2) it passes on all three: crack IoU +0.029, inactive +0.107, relF1@2 +0.045. On 3 seeds crack was +0.036.
 
 At 20/50/100% (P16, Cs recipe, 5 vs 5 seeds): no. n.d. on all three primaries at every fraction, with or without the noisy test cell (Q26). On unseen modules (secondary) an inactive gain remains at 20% and 50%. Do not claim that SSL "cannot" help above 10%: only one recipe was tested there.
 
-Source: `results/p13/README.md`, `results/p16/README.md`. → `10`, `11`
+Source: `results/p13/README.md`, `results/p16/README.md`, `results/p17/README.md`. → `10`, `11`
 
 **Q9. Is P12's "the loss helps crack" result still valid?**
 
@@ -111,9 +111,9 @@ Source: `results/p13/README.md` "Reading". → `11_results_synthesis_and_claims.
 
 It depends on the pipeline:
 - **P7** (10%, old L0 base, joint BN): tolerant beat hard on inactive (+0.056 [+0.022, +0.086], robust). Hard pseudo-labels pushed missed defects to "certain background".
-- **P13** (5%, L3 base, separate BN, with CutMix): hard beat tolerant on crack IoU (−0.022 for tolerant, robust over cells). Inactive was equal.
+- **P13** (5%, L3 base, separate BN, with CutMix): on 3 hard-PL seeds, hard beat tolerant on crack IoU (−0.022 for tolerant, robust over cells). With 5 hard-PL seeds (Amendment 2) it is −0.015, n.d. by the seed rule, still below 0 over cells [−0.023, −0.009]. Inactive was equal.
 
-So the "tolerant is better" premise is not supported under CutMix at 5%.
+So the "tolerant is better" premise is not supported under CutMix at 5%; "hard is better" holds over cells, not by seeds.
 
 Sources: `results/p7/README.md`; `results/p13/README.md`.
 
@@ -225,6 +225,14 @@ Source: `results/p14/README.md`.
 - **P16** (cv02), now **done**: does SSL (separate BN, tolerant PL, CutMix off) beat supervised at 20% and 50% labels (in-domain pool) and at 100% (external pool, the only unlabelled data left)? No. S20 − A20, S50 − A50 and Sx100 − A100 are n.d. on all three primaries (5 vs 5 seeds), and no arm is worse. Source: `results/p16/README.md`.
 
 Each outcome changes different rows of the evidence table. → `10`, `11`
+
+**Q20b. What was P17, and what did it decide?** (13 Oct)
+- The user asked about trying two recent papers, DCA (CVPR 2026) and SKCDF (CVPR 2025). Claude advised skipping DCA (a 3D, three-expert-decoder method, too much to build in the 16 h left) and testing SKCDF's main component only: keep pseudo-labels out of the labelled decoder, and train a second decoder on them that follows the first by EMA. The user: "cool, go with ur calls".
+- Question: does BsM5's gain need the labelled decoder to fit pseudo-labels?
+- Result (5 vs 5, locked): BsD5 − BsM5 is n.d. on all three (−0.006 / +0.011 / −0.008), and BsD5 still beats supervised on all three. So most of the gain reaches the teacher without the decoder fitting pseudo-labels. The thresholds are about 40% of the gain, so a smaller decoder share is not excluded. The decoupled teacher has lower AP (crack 0.310 vs 0.367).
+- It is "SKCDF-style decoupling", never "SKCDF": the other components were not run.
+
+Source: `results/p17/README.md`, `protocols/P17_decoupled_decoder.md`. → `10` (P17), `11` row 16
 
 **Q21. What can be said at the mid-term right now?**
 

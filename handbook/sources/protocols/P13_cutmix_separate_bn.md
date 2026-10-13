@@ -140,3 +140,22 @@ As P8–P12:
 - BsM5 − A5c, Cs5 − A5c, CsM5 − Cs5 and CsM5 − BsM5 are secondary.
 
 **Added reporting:** the per-cell task metrics of the E1 evaluation (`to_human/proposal_reframe_2026-10-11.md`), labelled secondary.
+
+## Amendment 2 (13 Oct 2026, ~02:00 IST, after the P13 results were seen)
+
+**Why:** BsM5 − A5c gives crack IoU +0.036 on 3 vs 5 seeds (`results/p13/README.md`). The standing rule asks for 5 to 8 seeds for effects < 0.05. BsM5 is the only arm with an SSL crack IoU gain, so it gets the seeds the rule asks for.
+
+**Disclosed:** the seeds are added after seeing the 3-seed result. Reported as "BsM5, 5 seeds (s3–4 added post hoc, Amendment 2)".
+
+**Changes:**
+- BsM5 seeds 3–4 (`p13_BsM_5pct_s3`, `p13_BsM_5pct_s4`), cv02, deployment `el_p13` (`bac5264`), options verbatim from `scripts_cv02/p13_queue.spec` with only the seed changed.
+- One run per GPU (GPUs 1 and 2; another user's idle kernel holds 2.4 GB on each, below the 4 GB rule). Training is deterministic per machine; co-location affects speed only.
+
+**Stopping rule:** 5 seeds in total, reported whatever they show. No further BsM5 seeds.
+
+**Analysis (unchanged rules, 5 vs 5):**
+- BsM5 − A5c under rule 1 arithmetic; bootstrap and leave-top-3-out. Stays secondary: the P13 primary claim is CsM5 − A5c.
+- CsM5 − BsM5 (rule 5) on 5 vs 5.
+- Also reported with and without test cell `CSIR_00070_r8_c4`, labelled post hoc as in P16.
+
+Nothing else changes.

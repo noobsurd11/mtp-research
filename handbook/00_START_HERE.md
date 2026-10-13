@@ -73,10 +73,12 @@ For a quick start, read 01, 04 (skim), 11 and 16. Then go back to 02 to 10 as qu
 8. **P13, 5% labels, 5 vs 5 seeds.** SSL with separate BN + CutMix beats supervised:
    - inactive IoU +0.117, crack relaxed F1@2 +0.033, both robust over test cells;
    - crack IoU +0.014, not detectable.
+   - Hard pseudo-labels (BsM5, 5 seeds after P13 Amendment 2) beat supervised on all three primaries: +0.029 / +0.107 / +0.045 (secondary contrast).
 9. **P14.** An offset-tolerant supervised loss recovers none of the old-vs-revised label gap.
 10. **Latest results.**
     - P15 (UCF-EL encoder transfer, gaint): no better than ImageNet init at 5%, worse at 10% on all three primaries (`results/p15/README.md`).
     - P16 (SSL vs supervised at 20 / 50 / 100%, cv02, 5 vs 5 seeds, P13's Cs recipe with CutMix off): **fails at all three fractions**, n.d. on every primary. The 5% inactive gain shrinks to +0.029, +0.006, +0.003 (`results/p16/README.md`).
+    - P17 (13 Oct, cv02, 5 vs 5): SKCDF-style decoupled decoder on BsM5 (pseudo-labels kept out of the labelled decoder). BsD5 − BsM5 is **n.d.** on all three primaries; BsD5 still beats supervised on all three. The detection threshold is about 40% of BsM5's gain, so a smaller decoder share is not ruled out (`results/p17/README.md`).
     - Measurement warning from P16: one very noisy test cell, `CSIR_00070_r8_c4`, makes about 1 run in 6 call 15 to 31% of it crack, cutting that run's crack IoU by up to 0.18. Without it P16's verdict is the same (crack Δ within ±0.003). Read every crack contrast with this in mind (doc 13).
 
 ## 4. The `sources/` folder
@@ -94,8 +96,9 @@ If you can run commands (the user may give you exec access), the primary places 
 |---|---|
 | Local, the user's machine: `~/mtp/research` (git repo, local only) | `protocols/`, `results/`, `to_human/`, `scripts/`, `scripts_cv02/`, `scripts_gaint/`, `literature/`, `analysis/`, `data_analysis/`, `handbook/`. `papers/` holds PDFs: local only, never redistribute. |
 | Local: `~/mtp/datasets` | BenchmarkEL `dataset_20211104` (images, old masks, class CSV) and README, split files, UCF-EL repo files and split manifests |
-| gaint: `noob@172.18.22.20`, `/home/noob/work/el-fault-detection` | Training code (branch `main`) and worktrees `el_p13`, `el_p14`, `el_p16`; old-era `reports/` |
-| cv02: `cv02@10.8.1.106`, `/tmp/noob_el/` | Deployed code per experiment (`el_p6`, `el_p7`, `el_p11`, `el_p13`, `el_p14`, `el_p16`), run dirs, logs, E1 in `diag/`. **Wiped on reboot.** |
+| gaint: `noob@172.18.22.20`, `/home/noob/work/el-fault-detection` | Training code (branch `main`) and worktrees `el_p13`, `el_p14`, `el_p16`, `el_p17`; old-era `reports/` |
+| gaint: `/home/noob/work/cv02_noob_el/` | Copy of cv02 `/tmp/noob_el` (13 Oct): all `el_p*` run dirs and checkpoints, `diag/`, MD5-verified. Made because a cv02 reboot wipes `/tmp`. |
+| cv02: `cv02@10.8.1.106`, `/tmp/noob_el/` | Deployed code per experiment (`el_p6`, `el_p7`, `el_p11`, `el_p13`, `el_p14`, `el_p16`, `el_p17`), run dirs, logs, E1 in `diag/`. **Wiped on reboot**; copied to gaint `cv02_noob_el`. A shared lab login: never forward an ssh agent or put keys there. |
 
 Earlier sessions reached the servers through "Herald" exec connectors (`Gaint_Herald` on gaint, `Yugma_Herald` or `noob_herald` for ssh to cv02). Each has an allowlist; limits are in `sources/MTP_session_handoff_2026-10-07.md` §2.3.
 
@@ -108,7 +111,7 @@ Earlier sessions reached the servers through "Herald" exec connectors (`Gaint_He
 - Do not push to GitHub without asking.
 
 ## 6. Keeping this current
-- After each new result, Claude writes `results/<exp>/README.md` and updates `to_human/results_2026-10-12.md` and this handbook (P15 and P16 done 12 Oct).
+- After each new result, Claude writes `results/<exp>/README.md` and updates `to_human/results_2026-10-12.md` and this handbook (P15 and P16 done 12 Oct, P17 and P13 Amendment 2 on 13 Oct).
 - To refresh the source copies, run `bash ~/mtp/research/handbook/sync_sources.sh`.
 - If a handbook statement conflicts with a newer results README, the README wins.
 

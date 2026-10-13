@@ -1,4 +1,4 @@
-# 10. Experiments P13 to P16, the P13 audit, and E1 (11 to 12 Oct 2026)
+# 10. Experiments P13 to P17, the P13 audit, and E1 (11 to 13 Oct 2026)
 
 ## What this covers
 This file covers the last block of experiments before the mid-term:
@@ -7,6 +7,7 @@ This file covers the last block of experiments before the mid-term:
 - P14: an offset-tolerant loss on human labels;
 - P15: UCF-EL encoder pretraining;
 - P16: SSL at 20, 50 and 100% labels;
+- P17 (13 Oct): SKCDF-style decoupled decoder on BsM5, and BsM5 seeds 3–4 (P13 Amendment 2);
 - E1: the task-aligned per-cell evaluation and the 106-cell unseen-module extension.
 
 Each experiment follows the same layout: Question, Why, Setup, Locked rules, Results, Verdicts, Robustness, Reading, Next. Earlier experiments (P1 to P12) are in `08_experiments_P1_P7_diagnostics.md` and `09_experiments_P8_P12_ssl_series.md`. Cross-experiment conclusions are in `11_results_synthesis_and_claims.md`.
@@ -21,19 +22,22 @@ Each experiment follows the same layout: Question, Why, Setup, Locked rules, Res
 | P15 | done (6 runs, gaint) | `results/p15/README.md` |
 | P16 Part A (supervised references) | done (9 runs, cv02; last rescored 22:06 IST, all rc = 0) | `results/p16/README.md` |
 | P16 Part B (SSL arms) | done (15 runs, cv02, 21:04 IST to 04:24 IST 12 Oct, all rc = 0); analysed 12 Oct ~05:00 IST | `results/p16/README.md` |
-| E1 | done for P6 to P16 checkpoints | `results/e1/README.md`, `results/e1/e1_*.md` |
+| P17 + P13 Amendment 2 | done (7 runs, cv02, 13 Oct 01:55–04:08 IST, all rc = 0); analysed 13 Oct ~08:00 IST | `results/p17/README.md`, `results/p13/README.md` |
+| E1 | done for P6 to P17 checkpoints | `results/e1/README.md`, `results/e1/e1_*.md` |
 
 ## Sources
 - Protocols:
   - `protocols/P13_cutmix_separate_bn.md` (with Amendment 1);
   - `protocols/P14_tolerant_supervision.md`;
   - `protocols/P15_ucf_encoder_transfer.md`;
-  - `protocols/P16_label_fraction_curve.md` (Part A and Amendment 1).
+  - `protocols/P16_label_fraction_curve.md` (Part A and Amendment 1);
+  - `protocols/P17_decoupled_decoder.md`; P13 Amendment 2 in `protocols/P13_cutmix_separate_bn.md`.
 - Results:
   - `results/p13/README.md`, `results/p13/p13_rules.txt`, `results/p13/per_image_test.txt`, `results/p13/fig_p13_bars.png`;
   - `results/p14/README.md`, `results/p14/p14_rules.txt`, `results/p14/per_image_test.txt`, `results/p14/fig_p14_bars.png`;
-  - `results/p13_audit/bn_diag.py`, `bn_diag.log`, `bn_diag.json`, `smoke_gpu.log`.
-- E1: `results/e1/README.md`, `results/e1/e1_ext_v2.md`, `results/e1/e1_p11.md`, `e1_p12.md`, `e1_p13.md`, `e1_p14.md`.
+  - `results/p13_audit/bn_diag.py`, `bn_diag.log`, `bn_diag.json`, `smoke_gpu.log`;
+  - `results/p17/README.md`, `p17_rules.txt`, `per_image_test.txt`, `sensitivity_excell.txt`, `decoder_u_secondary.txt`, `fig_p17_bars.png`.
+- E1: `results/e1/README.md`, `results/e1/e1_ext_v2.md`, `results/e1/e1_p11.md`, `e1_p12.md`, `e1_p13.md`, `e1_p14.md`, `e1_p17.md`.
 - Scripts:
   - `scripts/post_ssl.sh` (P13, P14 post-analysis);
   - `scripts/post_p15.sh`, `scripts/post_p16.sh`, `scripts/p16_curve.py`;
@@ -412,7 +416,8 @@ The last row: separate BN removes most of the false-alarm rise that joint-BN tol
   - P12's crack "loss helps" result (Cm5 − Dm5 +0.023) was measured against a joint-BN control sitting 0.017 below supervised, so it mostly offset that handicap.
   - CutMix adds about +0.010: robust over cells, n.d. on seeds.
   - Hard PL with CutMix (BsM5) gives the largest crack gain, +0.036, robust over cells and source groups. But it has 3 seeds and is a secondary contrast. Under CutMix, tolerant is worse than hard on crack (−0.022).
-- **Limits.** BsM5 has 3 seeds; there is no gaint replication; the EMA-only effect is not measured; one split.
+- **Update, 13 Oct (P13 Amendment 2, see P17 below):** with 5 seeds BsM5 − A5c is +0.029 / +0.107 / +0.045 and still passes; CsM5 − BsM5 is n.d. on all three.
+- **Limits.** BsM5 had 3 seeds (5 since Amendment 2); there is no gaint replication; the EMA-only effect is not measured; one split.
 
 ### Next
 P13's validation numbers fed P16's recipe choice (below). A hard-PL + CutMix arm at 20% or 50% was mentioned to the user as a possible exploratory follow-up. It would be test-informed, so it must be labelled exploratory, and nothing is launched without the user's go.
@@ -811,6 +816,81 @@ Each cell gives the difference, then the threshold in brackets.
 
 ### Known wording mismatch
 Amendment 1 says the selector writes `reports/p16/selection.txt`. The script writes `el_p16/reports/p16b/selection.txt`, and the post-analysis copies it to `results/p16/selection.txt`.
+
+---
+
+## P17: SKCDF-style decoupled decoder on BsM5 (5% labels, cv02). Done 13 Oct
+
+### Question
+P13's BsM5 (hard pseudo-labels, separate BN, CutMix) beats supervised at 5% on all three primaries. Does that gain need the labelled decoder to fit pseudo-labels, or does it enter through the encoder?
+
+### Why
+- On 13 Oct (~01:30 IST) the user asked: "how about we try the DCA paper and SKCDF? we still have 16hrs for experimenting, is there anything more important left".
+- Claude recommended:
+  - skip DCA (CVPR 2026): a 3D V-Net method with three expert decoders and a head/medium/tail class split, far from a 2D two-class setup, and too much to build and test in 16 h;
+  - take SKCDF's (CVPR 2025) first component only, "data flow decoupling", which its own ablation credits with +12.74 of its +19.61 Dice on Synapse at 20%;
+  - run it on BsM5, the strongest SSL recipe, and give BsM5 its missing seeds 3–4 (P13 Amendment 2).
+- The user: "cool, go with ur calls" (13 Oct ~01:45 IST).
+
+### Setup (`protocols/P17_decoupled_decoder.md`, locked 13 Oct 01:51 IST, commit `5919560`)
+- **Code:** commit `f2f20d3` (gaint branch `p17`, worktree `/home/noob/work/el_p17`) = P13's `bac5264` plus one opt-in switch, `ssl.decouple_decoder=true`:
+  - the student's unlabelled forward goes encoder → `decoder_u` → `head_u` (deep copies of the labelled decoder and head at step 0), so the unlabelled loss reaches the encoder and `decoder_u` only;
+  - after each step `decoder_u ← 0.99 · decoder_u + 0.01 · decoder` (parameters; SKCDF Eq. 6);
+  - `decoder_u` has its own optimizer, scheduler and gradient clip, all checkpointed;
+  - pseudo-labels still come from the EMA teacher (encoder + labelled decoder), and test uses the teacher, as in P13.
+  - Tests: +6 in `tests/test_ssl_split.py`; full suite 203 pass, 7 skipped.
+- **Arm:** BsD5 = BsM5 options verbatim + `ssl.decouple_decoder=true`, seeds 0–4, cv02 GPUs 3–7, deployment `el_p17`.
+- **References:** BsM5 seeds 0–4 (seeds 3–4 from P13 Amendment 2, run alongside on GPUs 1–2), A5c seeds 0–4.
+- **Not taken from SKCDF:** the cross-attention module, auxiliary balanced heads, λ_u = 10, their optimizer, pseudo-labels from the student, inference through `decoder_u` as primary. Name: "SKCDF-style decoupling", never "SKCDF".
+- **Built-in pipeline check:** λ = 0 until step 2,000, so BsD5 seed k must equal BsM5 seed k there. **Passed:** all 44 logged lines identical for each of the 5 seeds.
+- Runs: 13 Oct 01:55–04:08 IST, all 14 train/rescore steps rc = 0.
+
+### Locked rules
+1. **Primary: BsD5 − BsM5** under P8 rule 1, 5 vs 5. Worse: the gain needs the labelled decoder to fit pseudo-labels. Better: keeping pseudo-labels out of it helps. n.d.: any decoder share is below the threshold, reported as a fraction of the BsM5 − A5c gain.
+2. Secondary: BsD5 − A5c.
+3. Descriptive: `decoder_u` path vs the teacher path.
+4. Width check: relP@2 drop > 0.05 flagged.
+- Robustness: bootstrap, leave-top-3-out, with and without `CSIR_00070_r8_c4`, collapse watch.
+
+### Results (`results/p17/README.md`)
+| Arm | Seeds | crack IoU | inactive IoU | crack relF1@2 | crack relP@2 | crack AP | inactive AP |
+|---|---|---|---|---|---|---|---|
+| A5c | 0–4 | 0.304±0.008 | 0.253±0.037 | 0.720±0.014 | 0.892±0.016 | 0.287±0.007 | 0.253±0.041 |
+| BsM5 (s3–4 post hoc, P13 Am. 2) | 0–4 | 0.333±0.011 | 0.360±0.010 | 0.764±0.014 | 0.907±0.014 | 0.367±0.016 | 0.429±0.013 |
+| **BsD5** | 0–4 | 0.327±0.003 | 0.371±0.036 | 0.756±0.006 | 0.888±0.012 | 0.310±0.005 | 0.357±0.036 |
+
+BsM5 seeds 3–4 came in lower on crack (0.317, 0.327) than seeds 0–2 (0.335–0.343): the 5-seed mean is 0.333, not 0.340.
+
+### Verdicts (difference, then threshold in brackets)
+| Contrast | Role | crack IoU | inactive IoU | crack relF1@2 | Verdict |
+|---|---|---|---|---|---|
+| **BsD5 − BsM5** | rule 1, primary | −0.006 (0.013) | +0.011 (0.043) | −0.008 (0.017) | **n.d.**; width ok (relP@2 −0.019) |
+| BsD5 − A5c | rule 2 | +0.023 (0.010) | +0.117 (0.060) | +0.037 (0.018) | passes on all three |
+| BsM5 − A5c (P13 Am. 2) | P13 secondary | +0.029 (0.016) | +0.107 (0.044) | +0.045 (0.023) | passes on all three |
+| CsM5 − BsM5 (P13 Am. 2) | P13 rule 5 | −0.015 (0.018) | +0.010 (0.032) | −0.012 (0.024) | **n.d.** (on 3 BsM5 seeds it was "tolerant worse on crack") |
+
+- Rule 1 thresholds as a share of the BsM5 − A5c gain: crack 44%, inactive 41%, relF1@2 39%. A decoder share below about 40% of the gain is not detectable with 5 seeds.
+- Point estimates: BsD5 keeps 80% (crack), 110% (inactive), 82% (relF1@2) of BsM5's gain over A5c.
+
+### Robustness
+- BsD5 − BsM5 over cells: crack −0.006 [−0.011, +0.002], P(Δ > 0) = 0.06; relF1@2 −0.008 [−0.014, +0.000]; inactive +0.011 [−0.013, +0.038]. The crack lean sits in CSIR/ARTS (−0.020 [−0.028, −0.008]), not in CFVS/BMRK/SDLE (−0.003).
+- BsD5 − A5c: all three CIs above 0; top-3 removal keeps +0.019 / +0.107 / +0.032.
+- Noisy cell: BsM5 and BsD5 put at most 390 crack FP px on it; no P17 verdict changes without it. Post hoc, CsM5 − A5c crack IoU crosses its threshold without it (+0.016 vs 0.014).
+- Collapse watch: conf_frac 0.86–0.87 at step 4,000, 0.96 at 20,000, as BsM5; `rare_frac` is not logged by `confidence_ce`.
+
+### Secondary
+- **`decoder_u` path (student encoder + `decoder_u`)**: crack 0.334±0.003, inactive 0.375±0.040. It is above the teacher on crack IoU in all 5 seeds (+0.005 to +0.009). Descriptive.
+- **AP drops:** BsD5's teacher has crack AP 0.310 (BsM5 0.367) and inactive AP 0.357 (0.429); bin-0 share 0.526 / 0.544 vs BsM5 0.440 / 0.442. The labelled decoder that never fits pseudo-labels ranks pixels less well, while its argmax IoU stays close.
+- **E1, unseen modules (ext), BsD5 − BsM5:** crack tolF1 +0.016 [+0.002, +0.033], crack false alarm +0.049 [+0.011, +0.089], inactive area error −0.065 pp [−0.117, −0.019] (`results/e1/e1_p17.md`).
+
+### Reading
+- **The decoupled recipe does as well as BsM5 on argmax metrics within what 5 seeds can resolve.** BsD5's labelled decoder never receives the unlabelled loss, yet BsD5 keeps most of the gain over supervised. So most of the gain reaches the teacher through the shared encoder, or through EMA weight averaging (the EMA-only effect is not measured, P13). A decoder share below about 40% of the gain cannot be excluded, and crack leans slightly negative over cells.
+- **The decoder does carry something:** AP and score histograms are worse when pseudo-labels stay out of the labelled decoder, and the `decoder_u` path is a little better on crack than the teacher.
+- **BsM5 at 5 seeds is smaller than at 3** (crack +0.029 vs +0.036 over A5c) and still passes. The P13 rule-5 finding "tolerant worse than hard on crack" no longer holds by the seed rule at 5 vs 5, though the bootstrap still puts it below 0.
+- **Limits:** one split, one fraction, cv02 only, no tuning of ω or λ, and SKCDF's other components are not tested.
+
+### Next
+Nothing launched. Open to the user: whether P17 enters the deck, and how to word the BsM5 5-seed update.
 
 ---
 

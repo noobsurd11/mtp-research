@@ -65,6 +65,23 @@ Each cell gives the difference, then the threshold in brackets. Rules 2 and 3 ar
 
 Number of contrasts: 1 primary and 5 secondary, all reported.
 
+### Amendment 2: BsM5 with 5 seeds (13 Oct; s3–4 added post hoc)
+BsM5 s3–4 ran 13 Oct 02:00–04:08 IST (`bac5264`, `el_p13`, session `p13a2`); per-seed numbers and the full analysis are in `../p17/README.md`. The tables above keep the 3-seed numbers as first reported.
+
+| | crack IoU | inactive IoU | crack relF1@2 | crack relP@2 |
+|---|---|---|---|---|
+| BsM5 s3 / s4 | 0.317 / 0.327 | 0.345 / 0.357 | 0.742 / 0.764 | 0.917 / 0.911 |
+| **BsM5, 5 seeds** | 0.333±0.011 | 0.360±0.010 | 0.764±0.014 | 0.907±0.014 |
+
+| Contrast (5 vs 5) | crack IoU | inactive IoU | crack relF1@2 | Verdict |
+|---|---|---|---|---|
+| BsM5 − A5c (secondary) | **+0.029** (0.016) | **+0.107** (0.044) | **+0.045** (0.023) | passes on all three; width ok |
+| CsM5 − BsM5 (rule 5) | −0.015 (0.018) | +0.010 (0.032) | −0.012 (0.024) | **n.d.** (was: tolerant worse on crack IoU) |
+
+- Bootstrap: BsM5 − A5c crack +0.029 [+0.014, +0.041], inactive +0.107 [+0.028, +0.188]. CsM5 − BsM5 crack −0.015 [−0.023, −0.009]: still negative over cells, no longer by the seed rule.
+- Without `CSIR_00070_r8_c4` (post hoc): BsM5 − A5c still passes on all three. CsM5 − A5c crack IoU becomes +0.016 (0.014), over the threshold; with the cell it is +0.014 (0.016). `../p17/sensitivity_excell.txt`.
+- Gap closed by BsM5, 5 seeds: crack 17%, inactive 61%, relF1@2 29%.
+
 **Gap closed** (X − A5c) / (L3 100% − A5c):
 
 | Arm | crack IoU | inactive IoU | crack relF1@2 |
