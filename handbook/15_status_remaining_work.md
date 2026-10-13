@@ -45,7 +45,7 @@
 - **New idle tmux sessions of ours on cv02:** `p13a2`, `p17run`, `p17smoke` (left open; closing needs the user's say-so).
 - **cv02 `/tmp/noob_el` is copied to gaint** `/home/noob/work/cv02_noob_el/` (13 Oct, at the user's request before a cv02 restart):
   - pass 1, 01:37 to 03:49 IST: all `el_p*` dirs, `el-fault-detection`, `diag`, `ext117`, `results_to_sync` (no data, no `.venv`); 373 checkpoints, MD5 identical on both sides;
-  - pass 2, from 07:57 IST: `el_p17`, BsM5 s3–4, `el_p13/reports/p13a2`, new E1 JSONs.
+  - pass 2, 07:57 IST (interrupted by a session drop) and 16:28 to 16:33 IST: `el_p17`, BsM5 s3–4, `el_p13/reports/p13a2`, new E1 JSONs; 616 files including 18 checkpoints, MD5 identical on both sides.
   - Route: relayed through the user's laptop (cv02 is a shared lab login, so no agent forwarding or keys there).
 - **gaint worktree added:** `el_p17` (branch `p17`, `f2f20d3`).
 
@@ -124,7 +124,7 @@ After any new result, update these docs (done for P15 and P16 on 12 Oct; P17 on 
 | Item | Note | Source |
 |---|---|---|
 | Rotate the Dropbox app secret | It was pasted in chat on 2 Oct; rotation not confirmed | phase 1 handoff §2.4 |
-| cv02 `/tmp/noob_el` is wiped on reboot | Results are pulled into `~/mtp/research/results/` after each experiment. Checkpoints were copied to gaint `cv02_noob_el` on 13 Oct (§1c); runs after that need another pass | handoff §2.2 |
+| cv02 `/tmp/noob_el` is wiped on reboot | Results are pulled into `~/mtp/research/results/` after each experiment. Checkpoints, P17 included, were copied to gaint `cv02_noob_el` on 13 Oct (§1c); runs after that need another pass | handoff §2.2 |
 | GitHub | The research notes repo is local only. Push nothing without asking the user. | standing instruction |
 | gaint shutdowns | Unexplained reboots on 2, 6 and 7 Oct; the queue resumes from `latest.pth` | handoff §2.1 |
 | Idle tmux sessions | About 23 of ours on cv02 and 3 on gaint (§1b, §1c), all idle. Close them only on the user's say-so. | server check 13 Oct |
