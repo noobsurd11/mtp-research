@@ -52,7 +52,7 @@
 
 ## 1d. Server state after P18 (13 Oct, ~20:00 IST)
 - **Nothing of ours is running.** P18 ran on cv02 GPUs 0–7 (tmux `p18`, idle, left open).
-- **Backup pass 3:** P18 run dirs, `el_p13/reports/p18`, `diag/student`, `diag/e1v2` copied to gaint `cv02_noob_el`; status in `SESSION_HANDOFF_2026-10-13.md`.
+- **Backup pass 3 (19:44–19:52 IST):** P18 run dirs, `el_p13/reports/p18`, the queue spec, `diag/student`, `diag/e1v2`, `diag/e1p18.log` copied to gaint `cv02_noob_el`; 264 files including 16 checkpoints, MD5 identical on both sides.
 
 **Held, do not touch:** the gaint `extpool_20261007` night queue (old-era Mean Teacher runs with SemiCE). It was held by hand on 8 Oct, 01:18 IST (19:48 UTC on 7 Oct) while SemiCE was under audit, and P2 later showed SemiCE is invalid. The user's standing instruction is to leave it held and untouched. (Source: the user's command in `sources/chat/user_messages_2026-10-07_to_11.md`, 2026-10-07T19:48Z; session summaries.)
 

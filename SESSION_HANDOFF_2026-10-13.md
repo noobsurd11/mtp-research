@@ -14,7 +14,7 @@ The handbook (`handbook/`) explains the project to a human guide agent. This fil
   - **EMA check:** at step 20,000 the EMA teacher equals the student within ±0.005 (`results/ema_check/`). Doc 13 C11 is mostly resolved.
   - **Qualitative panel:** `results/qualitative/fig_qualitative_5pct.png`.
   - **P18 (exploratory):** the BsM recipe at 10% and 20%. 8 runs (17:31–19:40 IST), rc = 0, pipeline check passed. Arithmetic: BsM10 − A10 (3 v 3) and BsM20 − A20 (5 v 5) pass on inactive only (+0.132, +0.060); crack n.d. BsM20 s4 fails on the noisy cell; without that cell BsM10 passes on all three and BsM20 crack is just below (+0.013 vs 0.014). No locked verdict changes (`results/p18/README.md`).
-- **cv02 backup:** everything of ours under cv02 `/tmp/noob_el` (run dirs and checkpoints) is copied to gaint `/home/noob/work/cv02_noob_el/`, MD5-verified. BACKUP_P18_LINE
+- **cv02 backup:** everything of ours under cv02 `/tmp/noob_el` (run dirs and checkpoints) is copied to gaint `/home/noob/work/cv02_noob_el/`, MD5-verified. Pass 3 (19:44–19:52 IST): P18 run dirs, `el_p13/reports/p18`, the queue spec, `diag/student`, `diag/e1v2`, `diag/e1p18.log`; 264 files including 16 checkpoints, MD5 identical on both sides.
 - **Results summary:** `to_human/results_2026-10-12.md` is updated through P18. The user has seen the P17 report in chat.
 - **Next, by the user's plan:** the mid-term presentation. The outline (`to_human/midterm_deck_outline.md`) and the proposal reframe were deliberately not rewritten: framing is the user's call.
 - **Server state:** `handbook/15_status_remaining_work.md` §1c.
