@@ -234,6 +234,13 @@ Each outcome changes different rows of the evidence table. → `10`, `11`
 
 Source: `results/p17/README.md`, `protocols/P17_decoupled_decoder.md`. → `10` (P17), `11` row 16
 
+**Q20c. What was P18?** (13 Oct, exploratory)
+- The BsM recipe (best at 5%) run at 10% (3 seeds) and 20% (5 seeds), to see whether P16's "no gain from 20% up" was the label fraction or the Cs recipe. Exploratory, because BsM was picked after seeing P13's test results.
+- Inactive IoU gain over supervised: +0.132 at 10% and +0.060 at 20% (rule arithmetic passes; the 20% CI over cells includes 0). Crack: +0.012 and −0.006, n.d.; one BsM20 seed failed on the noisy cell. Without that cell crack is +0.017 (passes) and +0.013 (just below).
+- So the answer is "partly the recipe", for inactive. No locked verdict changes.
+
+Source: `results/p18/README.md`, `protocols/P18_bsm_label_fraction.md`. → `10` (P18), `11` rows 3 and 10
+
 **Q21. What can be said at the mid-term right now?**
 
 Only what the evidence table marks supported, with its scope. The user's rule is "framing depends on final results, no presumptions, ever". → `11_results_synthesis_and_claims.md`

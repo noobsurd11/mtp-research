@@ -1,0 +1,46 @@
+sanity: max |summed per-image IoU - re-score IoU| = 0.00e+00
+split test: 50 cells; top-3 cells hold crack 32%, inactive 59% of GT px; 2000 bootstrap resamples
+| B − A | class | Δ IoU (all cells) | Δ without top-3 cells | 95% image-bootstrap CI | P(Δ>0) |
+|---|---|---|---|---|---|
+| p18:BsM_20pct − p18:A20 | crack | -0.006 | +0.011 | [-0.032, +0.027] | 0.47 |
+| p18:BsM_20pct − p18:A20 | inactive | +0.060 | +0.042 | [-0.018, +0.119] | 0.93 |
+| p18:BsM_10pct − p6:L3_10pct | crack | +0.012 | +0.013 | [-0.002, +0.023] | 0.96 |
+| p18:BsM_10pct − p6:L3_10pct | inactive | +0.132 | +0.099 | [+0.043, +0.235] | 1.00 |
+| p18:BsM_20pct − p16:S_20pct | crack | +0.034 | +0.043 | [+0.005, +0.061] | 1.00 |
+| p18:BsM_20pct − p16:S_20pct | inactive | +0.031 | +0.024 | [-0.002, +0.066] | 0.96 |
+
+Source split, cells matching ^(CSIR|ARTS)_:
+sanity: max |summed per-image IoU - re-score IoU| = 0.00e+00
+split test: 21 cells; top-3 cells hold crack 60%, inactive 100% of GT px; 2000 bootstrap resamples
+| B − A | class | Δ IoU (all cells) | Δ without top-3 cells | 95% image-bootstrap CI | P(Δ>0) |
+|---|---|---|---|---|---|
+| p18:BsM_20pct − p18:A20 | crack | -0.039 | -0.028 | [-0.049, +0.013] | 0.36 |
+| p18:BsM_20pct − p18:A20 | inactive | +0.077 | +0.000 | [+0.000, +0.168] | 0.66 |
+| p18:BsM_10pct − p6:L3_10pct | crack | -0.008 | -0.017 | [-0.038, +0.025] | 0.43 |
+| p18:BsM_10pct − p6:L3_10pct | inactive | +0.159 | +0.000 | [-0.024, +0.369] | 0.66 |
+| p18:BsM_20pct − p16:S_20pct | crack | +0.066 | +0.054 | [-0.007, +0.088] | 0.81 |
+| p18:BsM_20pct − p16:S_20pct | inactive | +0.026 | +0.000 | [+0.000, +0.058] | 0.66 |
+
+Source split, cells matching ^(CFVS|BMRK|SDLE)_:
+sanity: max |summed per-image IoU - re-score IoU| = 0.00e+00
+split test: 29 cells; top-3 cells hold crack 38%, inactive 65% of GT px; 2000 bootstrap resamples
+| B − A | class | Δ IoU (all cells) | Δ without top-3 cells | 95% image-bootstrap CI | P(Δ>0) |
+|---|---|---|---|---|---|
+| p18:BsM_20pct − p18:A20 | crack | +0.013 | +0.039 | [-0.003, +0.038] | 0.94 |
+| p18:BsM_20pct − p18:A20 | inactive | +0.054 | +0.014 | [-0.037, +0.117] | 0.88 |
+| p18:BsM_10pct − p6:L3_10pct | crack | +0.018 | +0.019 | [+0.009, +0.025] | 1.00 |
+| p18:BsM_10pct − p6:L3_10pct | inactive | +0.129 | +0.084 | [+0.040, +0.240] | 1.00 |
+| p18:BsM_20pct − p16:S_20pct | crack | +0.012 | +0.024 | [+0.003, +0.025] | 1.00 |
+| p18:BsM_20pct − p16:S_20pct | inactive | +0.031 | +0.016 | [-0.011, +0.067] | 0.94 |
+
+Source split, cells matching ^(?!CSIR_00070_r8_c4$):
+sanity: max |summed per-image IoU - re-score IoU| = 0.00e+00
+split test: 49 cells; top-3 cells hold crack 33%, inactive 61% of GT px; 2000 bootstrap resamples
+| B − A | class | Δ IoU (all cells) | Δ without top-3 cells | 95% image-bootstrap CI | P(Δ>0) |
+|---|---|---|---|---|---|
+| p18:BsM_20pct − p18:A20 | crack | +0.013 | +0.032 | [-0.002, +0.034] | 0.95 |
+| p18:BsM_20pct − p18:A20 | inactive | +0.061 | +0.039 | [-0.023, +0.123] | 0.93 |
+| p18:BsM_10pct − p6:L3_10pct | crack | +0.017 | +0.019 | [+0.009, +0.024] | 1.00 |
+| p18:BsM_10pct − p6:L3_10pct | inactive | +0.138 | +0.111 | [+0.046, +0.243] | 1.00 |
+| p18:BsM_20pct − p16:S_20pct | crack | +0.010 | +0.018 | [+0.003, +0.021] | 1.00 |
+| p18:BsM_20pct − p16:S_20pct | inactive | +0.032 | +0.023 | [-0.005, +0.068] | 0.96 |

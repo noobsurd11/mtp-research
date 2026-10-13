@@ -113,6 +113,9 @@ Bin-0 share (GT px scored < 0.001), test, crack / inactive: BsD5 0.526 / 0.544; 
   - inactive detection F1 +0.143 [−0.008, +0.280].
 - All descriptive; the extension measures transfer to unseen modules.
 
+## EMA check (added 13 Oct, descriptive; `../ema_check/README.md`)
+At step 20,000 BsD5's EMA teacher and its student score the same (teacher − student: crack IoU −0.0008, inactive −0.0008, mean over seeds; all within ±0.005). The student is the encoder trained with pseudo-labels plus the labelled decoder trained on labelled data only. So BsD5's gain over A5c sits in the encoder, not in EMA averaging.
+
 ## Not claimed
 - SKCDF itself, or any comparison with its published numbers.
 - That the decoder plays no role: rule 1 is n.d. with thresholds near 40% of the gain.

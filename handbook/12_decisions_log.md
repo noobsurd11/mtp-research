@@ -567,6 +567,16 @@ Verbatim, with the question each answered (from session summary 2026-10-11T09:36
 
 ---
 
+### D39. Follow-up checks and P18 (13 Oct, ~17:25–20:00 IST)
+- **Who:** Claude, under the user's "youve got 3hrs to wrap up ... experiment whatever you think useful".
+- **What:**
+  - descriptive checks: EMA teacher vs student (D-level answer to doc 13 C11), the qualitative panel, our models in Pratt 2023's convention;
+  - P18, exploratory: the BsM recipe at 10% (3 seeds) and 20% (5 seeds), the one open experiment that bore on the deck (doc 15 §3 decision 2). Locked 17:31 IST (`a698ec8`) before any run.
+- **Outcome:** P18 inactive passes the arithmetic at 10% and 20%; crack n.d. (without the noisy cell: passes at 10%, just below at 20%). No locked verdict changes.
+- **Source:** `results/p18/README.md`, `results/ema_check/README.md`, `results/qualitative/README.md`, `results/pratt_compare/README.md`.
+
+---
+
 ## 5. Housekeeping decisions (how the work is run)
 
 | # | Decision | Who / why | Source |

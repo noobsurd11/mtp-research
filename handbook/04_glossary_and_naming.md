@@ -360,8 +360,9 @@ In prose and README tables, arms are written with the fraction as a trailing num
 | P16 | S50 (`p16_S_50pct`) | 50 | cv02 | 0-4 | SSL, in-domain pool 239, CutMix off |
 | P16 | Sx100 (`p16_Sx_100pct`) | 100 | cv02 | 0-4 | SSL, external pool 11,938, CutMix off |
 | P17 | BsD5 (`p17_BsD_5pct`) | 5 | cv02 | 0-4 | BsM5 + decoupled decoder (SKCDF-style) |
+| P18 (exploratory) | BsM20 (`p18_BsM_20pct`), BsM10 (`p18_BsM_10pct`) | 20, 10 | cv02 | 0-4, 0-2 | BsM5's recipe at more labels |
 
-Status (13 Oct): every arm above finished with rc = 0 (P17 and BsM5 s3-4 at 04:08 IST, 13 Oct).
+Status (13 Oct): every arm above finished with rc = 0 (P17 and BsM5 s3-4 at 04:08 IST; P18 at 19:40 IST, 13 Oct).
 
 ### P1 to P5 and E1
 P1 to P5 are probes, not arm comparisons. P1 arms A-E are overfit-check variants on 10 crack images (loss, augmentation, precision); P2, P4 and P5 are read-only measurements on existing checkpoints; P3 has no protocol (exploratory). E1 scores existing checkpoints. *See:* `08_experiments_P1_P7_diagnostics.md`, `10_experiments_P13_P16_E1.md`.

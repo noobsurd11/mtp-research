@@ -894,6 +894,43 @@ Nothing launched. Open to the user: whether P17 enters the deck, and how to word
 
 ---
 
+## P18 (EXPLORATORY): the BsM recipe at 10% and 20% labels (13 Oct; `results/p18/README.md`)
+
+### Question and status
+- Does the recipe that did best at 5% (BsM: hard PL ≥ 0.95, separate BN, CutMix) still beat supervised at 10% and 20%? Is P16's "no gain from 20% up" a property of the label fraction or of the Cs recipe?
+- **Exploratory:** BsM was picked after seeing P13's test cells. Protocol `protocols/P18_bsm_label_fraction.md`, locked 17:31 IST (`a698ec8`) before any run. The user's go: "youve got 3hrs to wrap up ... experiment whatever you think useful".
+- cv02, code `bac5264` (`el_p13`), BsM5's options with the fraction and seed changed. BsM20 5 seeds, BsM10 3 seeds; 17:31–19:40 IST, all rc = 0. Pipeline check passed (losses equal the supervised runs' up to step 2,000).
+
+### Results (test, revised labels)
+| Arm | crack IoU | inactive IoU | crack relF1@2 |
+|---|---|---|---|
+| A10 (P6, 3 seeds) | 0.396±0.003 | 0.294±0.019 | 0.814±0.003 |
+| BsM10 (3) | 0.408±0.011 | 0.426±0.021 | 0.827±0.014 |
+| A20 (P6 + P16, 5) | 0.398±0.006 | 0.361±0.037 | 0.822±0.010 |
+| S20 (P16 Cs recipe, 5) | 0.358±0.060 | 0.390±0.026 | 0.752±0.096 |
+| BsM20 (5) | 0.392±0.042 | 0.422±0.024 | 0.804±0.064 |
+
+| Contrast (exploratory arithmetic) | crack IoU | inactive IoU | crack relF1@2 | |
+|---|---|---|---|---|
+| BsM10 − A10 | +0.012 (0.013) | **+0.132** (0.032) | +0.013 (0.017) | passes, inactive only |
+| BsM20 − A20 | −0.006 (0.049) | **+0.060** (0.051) | −0.018 (0.075) | passes, inactive only; width flag (s4) |
+| without `CSIR_00070_r8_c4`: BsM10 − A10 | **+0.017** (0.010) | **+0.138** (0.033) | **+0.020** (0.010) | passes on all three |
+| without that cell: BsM20 − A20 | +0.013 (0.014) | **+0.061** (0.052) | +0.012 (0.013) | passes, inactive only |
+| without that cell: BsM20 − S20 (two changes) | +0.010 (0.013) | +0.032 (0.041) | **+0.011** (0.010) | relF1@2 only |
+
+- **BsM20 s4 fails on the noisy cell** (34,265 crack FP px; crack IoU 0.320, the other seeds 0.397–0.422). Supervised seeds fail there too from 50% up (A50 s2, A100 s3); below 20% no run does.
+- Bootstrap over cells: inactive at 10% +0.132 [+0.043, +0.235]; at 20% +0.060 [−0.018, +0.119]. Crack at 10% +0.012 [−0.002, +0.023]; at 20% without the cell +0.013 [−0.002, +0.034].
+- Val inactive disagrees at 20% (BsM20 0.374 vs A20 0.452); it agrees at 10% (0.359 vs 0.300).
+- Unseen modules (E1 ext, `results/e1/e1_p18.md`): inactive detection F1 +0.41 (10%) and +0.51 (20%), CIs above 0; crack tolF1 +0.05 / +0.07, with more cells falsely flagged as crack (+0.06).
+- Figure: `results/p18/fig_p18_curve.png` (supervised, Cs recipe and BsM recipe over 5–100%).
+
+### Reading
+- The BsM recipe's inactive gain over supervised does not vanish at 10% or 20%. Its crack gain shrinks to about +0.012 to +0.017, at or just below the threshold.
+- P16's "no gain from 20% up" therefore depends at least partly on the recipe, at least for inactive. Which of BsM's two differences from Cs matters is not identified.
+- Exploratory; no locked verdict changes. 50% and 100% were not run with BsM.
+
+---
+
 ## Follow-up checks after P17 (13 Oct, descriptive, not in any protocol)
 
 ### EMA teacher vs student (`results/ema_check/README.md`)
