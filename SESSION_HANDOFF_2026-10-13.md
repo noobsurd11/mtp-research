@@ -7,13 +7,14 @@ Two sessions ran on 13 Oct:
 The handbook (`handbook/`) explains the project to a human guide agent. This file is the short operational resume point for Claude. Where they disagree, `results/*/README.md` wins, then the handbook.
 
 ## 1. State at close (13 Oct, about 20:30 IST)
-- **All experiments are done:** P1 to P18, E1, the E-SCDD audit, the EMA check and the qualitative panel. Each has a README under `results/`. Nothing of ours is running.
+- **All experiments are done:** P1 to P19, E1, the E-SCDD audit, the EMA check and the qualitative panel. Each has a README under `results/`. Nothing of ours is running.
 - **Added in the follow-up session** (the user: "how about we try the DCA paper and SKCDF? ...", then "cool, go with ur calls"; later "youve got 3hrs to wrap up ... experiment whatever you think useful"):
   - **P13 Amendment 2:** BsM5 seeds 3–4 (post hoc). BsM5 − A5c still passes, now +0.029 / +0.107 / +0.045. CsM5 − BsM5 is now n.d.
   - **P17:** SKCDF-style decoupled decoder on BsM5. BsD5 − BsM5 is n.d. (thresholds ≈ 40% of the gain); BsD5 − A5c passes. DCA was not run (`results/p17/README.md`).
   - **EMA check:** at step 20,000 the EMA teacher equals the student within ±0.005 (`results/ema_check/`). Doc 13 C11 is mostly resolved.
   - **Qualitative panel:** `results/qualitative/fig_qualitative_5pct.png`.
   - **P18 (exploratory):** the BsM recipe at 10% and 20%. 8 runs (17:31–19:40 IST), rc = 0, pipeline check passed. Arithmetic: BsM10 − A10 (3 v 3) and BsM20 − A20 (5 v 5) pass on inactive only (+0.132, +0.060); crack n.d. BsM20 s4 fails on the noisy cell; without that cell BsM10 passes on all three and BsM20 crack is just below (+0.013 vs 0.014). No locked verdict changes (`results/p18/README.md`).
+- **14 Oct, P19:** at the user's request ("reproduce hanifi 2025, asap"; "no presumptions"), Hanifi et al. 2025 (IEA/AIE, 29-class Keras U-Net/SegNet) was reproduced with their code on the release split, no augmentation, 6 models + VGG16-UNet × 3 seeds (the user's choices). VGG16-UNet: features 0.678 vs 0.663, crack 0.352 vs 0.335, inactive 0.469 vs 0.550, defects 0.246 vs 0.326 (our test lacks dead cell and belt mark). `results/p19/README.md`. Backup pass 4 (09:33–09:36 IST): 101 files to gaint `cv02_noob_el/hanifi`, MD5 identical.
 - **cv02 backup:** everything of ours under cv02 `/tmp/noob_el` (run dirs and checkpoints) is copied to gaint `/home/noob/work/cv02_noob_el/`, MD5-verified. Pass 3 (19:44–19:52 IST): P18 run dirs, `el_p13/reports/p18`, the queue spec, `diag/student`, `diag/e1v2`, `diag/e1p18.log`; 264 files including 16 checkpoints, MD5 identical on both sides.
 - **Results summary:** `to_human/results_2026-10-12.md` is updated through P18. The user has seen the P17 report in chat.
 - **Next, by the user's plan:** the mid-term presentation. The outline (`to_human/midterm_deck_outline.md`) and the proposal reframe were deliberately not rewritten: framing is the user's call.

@@ -57,7 +57,7 @@
 
 ## 1e. Server state after P19 (14 Oct, ~09:40 IST)
 - **Nothing of ours is running.** P19 lives in cv02 `/tmp/noob_el/hanifi` (venv 5.2 GB, runs 2.1 GB, data copy 122 MB); tmux `p19` idle.
-- Backup pass 4 (P19 runs, driver, their repo) to gaint `cv02_noob_el/hanifi`; status in `SESSION_HANDOFF_2026-10-13.md`.
+- Backup pass 4 (09:33–09:36 IST): P19 runs, driver, their repo to gaint `cv02_noob_el/hanifi`; 101 files, MD5 identical on both sides.
 
 **Held, do not touch:** the gaint `extpool_20261007` night queue (old-era Mean Teacher runs with SemiCE). It was held by hand on 8 Oct, 01:18 IST (19:48 UTC on 7 Oct) while SemiCE was under audit, and P2 later showed SemiCE is invalid. The user's standing instruction is to leave it held and untouched. (Source: the user's command in `sources/chat/user_messages_2026-10-07_to_11.md`, 2026-10-07T19:48Z; session summaries.)
 
