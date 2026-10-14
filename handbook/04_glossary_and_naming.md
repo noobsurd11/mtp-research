@@ -361,6 +361,7 @@ In prose and README tables, arms are written with the fraction as a trailing num
 | P16 | Sx100 (`p16_Sx_100pct`) | 100 | cv02 | 0-4 | SSL, external pool 11,938, CutMix off |
 | P17 | BsD5 (`p17_BsD_5pct`) | 5 | cv02 | 0-4 | BsM5 + decoupled decoder (SKCDF-style) |
 | P18 (exploratory) | BsM20 (`p18_BsM_20pct`), BsM10 (`p18_BsM_10pct`) | 20, 10 | cv02 | 0-4, 0-2 | BsM5's recipe at more labels |
+| P19 (reproduction) | Hanifi 2025: `vgg_unet` (s0–2), `mobilenet_unet`, `resnet50_unet`, `vgg_segnet`, `mobilenet_segnet`, `resnet50_segnet` (s0) | 100 (release split 553/70/72, 29 classes) | cv02 | see left | their Keras code unchanged; not a P-series arm |
 
 Status (13 Oct): every arm above finished with rc = 0 (P17 and BsM5 s3-4 at 04:08 IST; P18 at 19:40 IST, 13 Oct).
 

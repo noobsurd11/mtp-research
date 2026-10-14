@@ -27,6 +27,7 @@
 | E1 (task metrics, 106-cell extension) | Done for P6 to P17 | `results/e1/` |
 | **P15** (gaint, UCF-EL encoder transfer) | **Done**, 6 runs rc = 0 (17:01 to 22:26 IST); analysed about 22:40 IST. **Fails:** 5% n.d. on all three; 10% worse on all three, robust over cells. | `results/p15/README.md`, `results/e1/e1_p15.md` |
 | **P17** (cv02, SKCDF-style decoupled decoder on BsM5) + **P13 Amendment 2** (BsM5 s3–4) | **Done**, 7 runs (13 Oct 01:55 to 04:08 IST), all rc = 0; analysed about 08:00 IST.<br>• **P17 rule 1 n.d.:** BsD5 − BsM5 −0.006 / +0.011 / −0.008 (thresholds about 40% of BsM5's gain). BsD5 − A5c passes on all three.<br>• **BsM5 on 5 seeds:** − A5c +0.029 / +0.107 / +0.045, passes; CsM5 − BsM5 now n.d. | `results/p17/README.md`, `results/p13/README.md`, `results/e1/e1_p17.md` |
+| **P19** (cv02, reproduction of Hanifi 2025, IEA/AIE) | **Done**, 8 runs (14 Oct 08:58 to 09:31 IST), all rc = 0. Their code, release split, no augmentation. VGG16-UNet features 0.678 vs 0.663, crack 0.352 vs 0.335; defects 0.246 vs 0.326 (our test lacks dead cell, belt mark) | `results/p19/README.md` |
 | **P18** (cv02, EXPLORATORY: BsM recipe at 10% and 20%) | **Done**, 8 runs (13 Oct 17:31 to 19:40 IST), all rc = 0; analysed about 19:50 IST.<br>• Arithmetic: BsM10 − A10 and BsM20 − A20 pass on inactive only (+0.132, +0.060); crack n.d.<br>• Without the noisy cell: BsM10 passes on all three; BsM20 inactive only (crack +0.013, thr 0.014).<br>• BsM20 s4 fails on the noisy cell (34k FP px). | `results/p18/README.md`, `results/e1/e1_p18.md` |
 | **P16** (cv02, SSL vs supervised at 20/50/100%) | **Done.** Part A 9 runs (17:28 to 22:06 IST, 11 Oct); Part B 15 runs (21:04 IST to 04:24 IST, 12 Oct); all rc = 0; analysed about 05:00 IST.<br>• **Fails at all three fractions:** S20, S50, Sx100 − supervised n.d. on all three primaries (5 vs 5 seeds). CutMix off by the locked val pick.<br>• One noisy test cell (`CSIR_00070_r8_c4`) wrecked crack in 4 of 24 runs; without it every crack Δ is within ±0.003 (post hoc), so the verdict is unchanged. | `results/p16/README.md`, `results/e1/e1_p16.md` |
 
@@ -53,6 +54,10 @@
 ## 1d. Server state after P18 (13 Oct, ~20:00 IST)
 - **Nothing of ours is running.** P18 ran on cv02 GPUs 0–7 (tmux `p18`, idle, left open).
 - **Backup pass 3 (19:44–19:52 IST):** P18 run dirs, `el_p13/reports/p18`, the queue spec, `diag/student`, `diag/e1v2`, `diag/e1p18.log` copied to gaint `cv02_noob_el`; 264 files including 16 checkpoints, MD5 identical on both sides.
+
+## 1e. Server state after P19 (14 Oct, ~09:40 IST)
+- **Nothing of ours is running.** P19 lives in cv02 `/tmp/noob_el/hanifi` (venv 5.2 GB, runs 2.1 GB, data copy 122 MB); tmux `p19` idle.
+- Backup pass 4 (P19 runs, driver, their repo) to gaint `cv02_noob_el/hanifi`; status in `SESSION_HANDOFF_2026-10-13.md`.
 
 **Held, do not touch:** the gaint `extpool_20261007` night queue (old-era Mean Teacher runs with SemiCE). It was held by hand on 8 Oct, 01:18 IST (19:48 UTC on 7 Oct) while SemiCE was under audit, and P2 later showed SemiCE is invalid. The user's standing instruction is to leave it held and untouched. (Source: the user's command in `sources/chat/user_messages_2026-10-07_to_11.md`, 2026-10-07T19:48Z; session summaries.)
 

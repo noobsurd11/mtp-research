@@ -577,6 +577,14 @@ Verbatim, with the question each answered (from session summary 2026-10-11T09:36
 
 ---
 
+### D40. Reproduce Hanifi 2025 (14 Oct, ~08:33–09:00 IST)
+- **Who:** the user ("reproduce hanifi 2025, asap"; then "use the researchmcp connector to get the paper then, no presumptions").
+- **What:** Claude read the paper first (ORBilu copy; the Research MCP had no full text), then asked three questions. The user chose the release split, the code as released (no augmentation), and 6 models + VGG16-UNet seeds 1–2.
+- **Why those questions:** the paper's 551/67/77 split and 4× augmentation are not released.
+- **Outcome:** P19, `results/p19/README.md`.
+
+---
+
 ## 5. Housekeeping decisions (how the work is run)
 
 | # | Decision | Who / why | Source |

@@ -251,6 +251,13 @@ In the paper's own convention (per-image IoU, median over test cells, rule A as 
 **Q21c. Does evaluating the EMA teacher (not the student) inflate SSL results?** (13 Oct)
 No. At step 20,000 teacher and student score the same within ±0.005 (BsM5, CsM5, BsD5; 15 runs). The learning rate ends at 0, so the EMA has caught up. Source: `results/ema_check/README.md`.
 
+**Q21d. Did we reproduce Hanifi et al. 2025 (the 29-class Keras baseline)?** (14 Oct, P19)
+- Yes, with their released code on the release split (their own split and augmentation are not public). VGG16-UNet: features 0.678 ± 0.020 (paper 0.663), crack 0.352 (0.335), gridline 0.316 (0.297), inactive 0.469 (0.550).
+- The defect mean is lower (0.246 vs 0.326) mostly because the release test split has no dead cell or belt mark, which their metric scores as 0. The paper's model ranking is within seed noise.
+- It is a public baseline on a different split, metric and label set from ours, so it is not compared with P-series numbers.
+
+Source: `results/p19/README.md`, `protocols/P19_hanifi2025_reproduction.md`. → `11` ("Hanifi 2025 reproduced"), `05` §16
+
 **Q22. What is E1?**
 
 A re-scoring of every checkpoint with per-cell task metrics:

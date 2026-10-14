@@ -518,6 +518,8 @@ Old-era numbers throughout (original masks; our code before the P-series). From 
 | SA U-Net++ | +0.03 Jaccard (MIAD) | −0.004 (BenchmarkEL) | – | different domain and scale; within their per-image sd; single run |
 | ALHVR ACDC | +9 Dice over baseline | +0.005 ± 0.023 against loss-off | – | **our port's cosine-to-zero LR cancels the late λ ramp**; also a 24-class rare-defect setting the design does not target; **not a fair test** |
 
+**P19 (14 Oct), Hanifi et al. 2025 (IEA/AIE), new-era reproduction:** their released code, release split, no augmentation. VGG16-UNet features 0.678 ± 0.020 vs 0.663; crack 0.352 vs 0.335; gridline 0.316 vs 0.297; defects (16) 0.246 vs 0.326, mostly because our test lacks dead cell and belt mark; inactive 0.469 vs 0.550. Their split (551/67/77) and 4× augmentation are unreleased (`results/p19/README.md`, `literature/notes/A10_hanifi2025_ieaaie_seg.md`).
+
 Meta-lesson recorded in the phase 1 handoff (§13): "every 'the method differs' explanation turned out to be a comparison-convention or control mistake. Check conventions, steps, and controls before believing a method difference." The "Do not say" list for presentations (phase 1 handoff §12): do not say "SSL doesn't work", "Jha is wrong", "we beat Fioresi", "attention hurts", "we reproduced Jha".
 
 ---

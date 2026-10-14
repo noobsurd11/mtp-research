@@ -183,6 +183,21 @@ Pratt 2023's convention: per-image IoU, median over test cells, rule A (inferred
 
 Caveats: the rule is inferred, the paper's numbers are read off a figure and come from single runs, the release is uncertain, and our models were trained on the revised masks.
 
+### Hanifi 2025 reproduced (P19, 14 Oct; `results/p19/README.md`)
+Hanifi et al., IEA/AIE 2025 (LNCS): six Keras U-Net/SegNet models, 29 classes on `20221008`, their own 551/67/77 split (unreleased) with 4× augmentation (undescribed). We ran their released code unchanged on the release split (553/70/72), no augmentation, 6 models + VGG16-UNet × 3 seeds, scored with their metric (IoU pooled over test images at 208×304).
+
+| VGG16-UNet | ours (3 seeds) | paper (1 run) |
+|---|---|---|
+| features (12) | 0.678 ± 0.020 | 0.663 |
+| defects (16) | 0.246 ± 0.018 | 0.326 |
+| defects, the 12 present in our test | 0.328 ± 0.024 | 0.369 |
+| crack / inactive / gridline | 0.352 / 0.469 / 0.316 | 0.335 / 0.550 / 0.297 |
+
+- Reproduces: features, crack, gridline, FW IoU, Table 2 parameter counts.
+- Lower: the defect mean, mostly because our test set lacks dead cell and belt mark (scored 0); rings (0.017 vs 0.285); inactive (9 test cells).
+- Not reproduced: the model ranking (the paper's margin is under 2 seed sd), and the paper's "29 classes" mean, which its own Fig. 3 does not give.
+- Not comparable with our P-series numbers (split, labels, resolution, metric differ).
+
 ### Noise and concentration (why small effects are hard)
 
 **Seed sd**, L3-recipe arms without collapse (`results/p6`, `p10`, `p12`, `p13`, `p14`):
