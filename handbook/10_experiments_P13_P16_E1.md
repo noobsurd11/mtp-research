@@ -307,6 +307,12 @@ Each cell gives Δ, then the rule threshold in brackets (`results/p13/p13_rules.
 | CsM5 − BsM5 (tolerant vs hard) | rule 5 | −0.022 (0.014) | +0.004 (0.031) | −0.019 (0.020) | tolerant **worse** on crack IoU |
 | Cs5 − Cm5 (separate vs joint BN) | rule 6, descriptive | −0.003 (0.014) | +0.084 (0.167) | +0.001 (0.018) | n.d. (Cm5 inactive sd is 0.139) |
 
+**Post hoc (21 Oct, `team_2026-10-21/data/decision.md` D6): without the 7 twin test cells.** Seven test cells are the same physical cell as a train cell: CFVS time series plus `ARTS_00020_r5_c1`. Together they hold 39.5% of test crack pixels and 12.1% of inactive pixels. At 5% every train twin is in the **unlabelled** pool, so the SSL arms saw these cells and the supervised arm did not. The table above is unchanged. Recomputed on 5 seeds per arm (BsM5 includes Amendment 2 seeds); difference (threshold), from `team_2026-10-21/data/leak_sensitivity_p13_p17.txt`:
+- CsM5 − A5c: crack IoU +0.002 (0.017), inactive +0.099 (0.049), relF1@2 +0.021 (0.028). Passes on inactive only; the relF1@2 pass is lost.
+- BsM5 − A5c: +0.019 (0.018) / +0.093 (0.044) / +0.039 (0.028). Passes on all three, crack only just.
+- CsM5 − BsM5: −0.0178 (0.0184) / +0.007 (0.033) / −0.018 (0.028). n.d.
+- Absolute crack IoU drops by about 0.06 for every arm (A5c 0.304 → 0.244). Removing the cells from scoring does not remove the training-time exposure.
+
 **Gap closed**, (X − A5c) / (L3 100% − A5c):
 
 | Arm | crack IoU | inactive IoU | crack relF1@2 |
@@ -869,6 +875,12 @@ BsM5 seeds 3–4 came in lower on crack (0.317, 0.327) than seeds 0–2 (0.335�
 | BsM5 − A5c (P13 Am. 2) | P13 secondary | +0.029 (0.016) | +0.107 (0.044) | +0.045 (0.023) | passes on all three |
 | CsM5 − BsM5 (P13 Am. 2) | P13 rule 5 | −0.015 (0.018) | +0.010 (0.032) | −0.012 (0.024) | **n.d.** (on 3 BsM5 seeds it was "tolerant worse on crack") |
 
+**Post hoc (21 Oct, `team_2026-10-21/data/decision.md` D6): without the 7 twin test cells.** At 5% every train twin is in the unlabelled pool. The table above is unchanged. Difference (threshold), from `team_2026-10-21/data/leak_sensitivity_p13_p17.txt`:
+- BsD5 − BsM5: −0.001 (0.015) / +0.018 (0.042) / −0.004 (0.023). n.d., as before.
+- BsD5 − A5c: +0.018 (0.013) / +0.110 (0.056) / +0.036 (0.022). Passes on all three.
+- BsM5 − A5c: +0.019 (0.018) / +0.093 (0.044) / +0.039 (0.028). Passes, crack only just.
+- Adding the noisy cell to the dropped set changes no verdict.
+
 - Rule 1 thresholds as a share of the BsM5 − A5c gain: crack 44%, inactive 41%, relF1@2 39%. A decoder share below about 40% of the gain is not detectable with 5 seeds.
 - Point estimates: BsD5 keeps 80% (crack), 110% (inactive), 82% (relF1@2) of BsM5's gain over A5c.
 
@@ -917,6 +929,18 @@ Nothing launched. Open to the user: whether P17 enters the deck, and how to word
 | without `CSIR_00070_r8_c4`: BsM10 − A10 | **+0.017** (0.010) | **+0.138** (0.033) | **+0.020** (0.010) | passes on all three |
 | without that cell: BsM20 − A20 | +0.013 (0.014) | **+0.061** (0.052) | +0.012 (0.013) | passes, inactive only |
 | without that cell: BsM20 − S20 (two changes) | +0.010 (0.013) | +0.032 (0.041) | **+0.011** (0.010) | relF1@2 only |
+
+**Post hoc (21 Oct, `team_2026-10-21/data/decision.md` D6): without the 7 twin test cells.** At 10% and 20% some train twins are **labelled** (split seed 0):
+- 10%: `CFVS_00022`/`00031_r4_c4` labelled; the other 5 unlabelled.
+- 20%: `CFVS_00020`/`00022`/`00031_r4_c4` labelled; the other 4 unlabelled.
+
+So the supervised arm also sees some twins. Here the check measures test-set sensitivity, not only an SSL-side leak. The table above is unchanged. Difference (threshold), from `team_2026-10-21/data/leak_sensitivity_p18.txt` (agent 2):
+- BsM10 − A10: +0.011 (0.017) / +0.146 (0.039) / +0.015 (0.029). Passes on inactive only.
+  - Without twins and the noisy cell: +0.017 (0.010) / +0.153 (0.041) / +0.027 (0.012). Passes on all three.
+- BsM20 − A20: +0.002 (0.052) / +0.076 (0.060) / −0.017 (0.108). Passes on inactive only.
+  - Without twins and the noisy cell: +0.022 (0.018) / +0.077 (0.062) / +0.024 (0.022). Passes on all three.
+- Absolute crack IoU without the twins: A10 0.291, BsM10 0.302, A20 0.282, BsM20 0.284.
+- Reading: the twins do not carry the P18 inactive gains. For crack at 20% the noisy cell still decides.
 
 - **BsM20 s4 fails on the noisy cell** (34,265 crack FP px; crack IoU 0.320, the other seeds 0.397–0.422). Supervised seeds fail there too from 50% up (A50 s2, A100 s3); below 20% no run does.
 - Bootstrap over cells: inactive at 10% +0.132 [+0.043, +0.235]; at 20% +0.060 [−0.018, +0.119]. Crack at 10% +0.012 [−0.002, +0.023]; at 20% without the cell +0.013 [−0.002, +0.034].
