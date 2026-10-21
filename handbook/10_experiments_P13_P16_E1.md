@@ -22,7 +22,7 @@ Each experiment follows the same layout: Question, Why, Setup, Locked rules, Res
 | P15 | done (6 runs, gaint) | `results/p15/README.md` |
 | P16 Part A (supervised references) | done (9 runs, cv02; last rescored 22:06 IST, all rc = 0) | `results/p16/README.md` |
 | P16 Part B (SSL arms) | done (15 runs, cv02, 21:04 IST to 04:24 IST 12 Oct, all rc = 0); analysed 12 Oct ~05:00 IST | `results/p16/README.md` |
-| P17 + P13 Amendment 2 | done (7 runs, cv02, 13 Oct 01:55–04:08 IST, all rc = 0); analysed 13 Oct ~08:00 IST | `results/p17/README.md`, `results/p13/README.md` |
+| P17 + P13 Amendment 2 | done (7 runs, cv02, 13 Oct 01:55–04:08 IST, all rc = 0) [Note 21 Oct: the launcher logged rc after a `$(date)` substitution, so this rc was always 0 (doc 14 §3.1). Completion is confirmed instead by other evidence: every run's log reaches step 20000/20000 and prints "TEST (final weights, step 20000)", `latest.pth` and `metrics.json` test_final are at step 20,000 (gaint copies and cv02 originals), and every re-score JSON has step 20,000; `results/rc_check/p13_p17_p18_completion.txt`.]; analysed 13 Oct ~08:00 IST | `results/p17/README.md`, `results/p13/README.md` |
 | E1 | done for P6 to P17 checkpoints | `results/e1/README.md`, `results/e1/e1_*.md` |
 
 ## Sources
@@ -849,7 +849,7 @@ P13's BsM5 (hard pseudo-labels, separate BN, CutMix) beats supervised at 5% on a
 - **References:** BsM5 seeds 0–4 (seeds 3–4 from P13 Amendment 2, run alongside on GPUs 1–2), A5c seeds 0–4.
 - **Not taken from SKCDF:** the cross-attention module, auxiliary balanced heads, λ_u = 10, their optimizer, pseudo-labels from the student, inference through `decoder_u` as primary. Name: "SKCDF-style decoupling", never "SKCDF".
 - **Built-in pipeline check:** λ = 0 until step 2,000, so BsD5 seed k must equal BsM5 seed k there. **Passed:** all 44 logged lines identical for each of the 5 seeds.
-- Runs: 13 Oct 01:55–04:08 IST, all 14 train/rescore steps rc = 0.
+- Runs: 13 Oct 01:55–04:08 IST, all 14 train/rescore steps rc = 0. [Note 21 Oct: the launcher logged rc after a `$(date)` substitution, so this rc was always 0 (doc 14 §3.1). Completion is confirmed instead by other evidence: every run's log reaches step 20000/20000 and prints "TEST (final weights, step 20000)", `latest.pth` and `metrics.json` test_final are at step 20,000 (gaint copies and cv02 originals), and every re-score JSON has step 20,000; `results/rc_check/p13_p17_p18_completion.txt`.]
 
 ### Locked rules
 1. **Primary: BsD5 − BsM5** under P8 rule 1, 5 vs 5. Worse: the gain needs the labelled decoder to fit pseudo-labels. Better: keeping pseudo-labels out of it helps. n.d.: any decoder share is below the threshold, reported as a fraction of the BsM5 − A5c gain.
@@ -911,7 +911,7 @@ Nothing launched. Open to the user: whether P17 enters the deck, and how to word
 ### Question and status
 - Does the recipe that did best at 5% (BsM: hard PL ≥ 0.95, separate BN, CutMix) still beat supervised at 10% and 20%? Is P16's "no gain from 20% up" a property of the label fraction or of the Cs recipe?
 - **Exploratory:** BsM was picked after seeing P13's test cells. Protocol `protocols/P18_bsm_label_fraction.md`, locked 17:31 IST (`a698ec8`) before any run. The user's go: "youve got 3hrs to wrap up ... experiment whatever you think useful".
-- cv02, code `bac5264` (`el_p13`), BsM5's options with the fraction and seed changed. BsM20 5 seeds, BsM10 3 seeds; 17:31–19:40 IST, all rc = 0. Pipeline check passed (losses equal the supervised runs' up to step 2,000).
+- cv02, code `bac5264` (`el_p13`), BsM5's options with the fraction and seed changed. BsM20 5 seeds, BsM10 3 seeds; 17:31–19:40 IST, all rc = 0. [Note 21 Oct: the launcher logged rc after a `$(date)` substitution, so this rc was always 0 (doc 14 §3.1). Completion is confirmed instead by other evidence: every run's log reaches step 20000/20000 and prints "TEST (final weights, step 20000)", `latest.pth` and `metrics.json` test_final are at step 20,000 (gaint copies and cv02 originals), and every re-score JSON has step 20,000; `results/rc_check/p13_p17_p18_completion.txt`.] Pipeline check passed (losses equal the supervised runs' up to step 2,000).
 
 ### Results (test, revised labels)
 | Arm | crack IoU | inactive IoU | crack relF1@2 |
