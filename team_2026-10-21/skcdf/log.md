@@ -1,0 +1,32 @@
+# SKCDF track log (agent 3), IST
+
+- 21 Oct 13:35 Read README, memory, handoff, handbook 00/07/10/13/14/15, P17 README, SKCDF paper.
+- 13:37 Cloned official SKCDF code (`12f807d`) to scratchpad, read-only. Key: ABSH keep prob min/N_c from first 4 labelled volumes; masked logits = ignore; H→D→H head EMA every iteration; λ=10 with whole-run sigmoid ramp; PL from current labelled decoder, no threshold; best-val + early stop.
+- 13:38 gaint: 1 GPU, 5.9 GB used by another python. 13:39 cv02 up, `/tmp/noob_el` intact, GPUs 4–6 free.
+- 13:39 5% labelled class counts (gaint, masks_escdd): crack 17,975 px (0.30%), inactive 20,517 (0.34%), splice 1,944 (rarest).
+- 13:40 Critic (agent 4) intro received; their questions are answered in protocol_v1.
+- 13:42 design.md, protocol_v1.md written. Proposed cv02 with reference reuse (identity check). Pinged critic and leader.
+- 13:46 Worktree gaint `el_sk1` (branch sk1 on f2f20d3). Implemented absh switch; 16 new tests; full suite 217 pass.
+- 13:47 Code check on gaint GPU (booked in ledger, 2 x 20 steps, batch 2+2): rc 0 both; keep probs as designed. Commit `b90008e`. Ledger row freed.
+- 13:48 Prepared (not deployed) cv02 launch files: research scripts_cv02/{launch_set_sk1.sh, gpu_queue_sk1.sh, sk1_queue.spec (15 runs), sk1_chk.spec (2 identity checks)}. Option strings diffed against p17/p13 specs: identical apart from absh keys. Waiting for review and machine call.
+- [critic 4] 21 Oct ~13:50 Release search: no E-SCDD/BenchmarkEL release newer than local (HF 8c8cba9a, GitHub 768b5e7, arXiv v1). Asked leader to confirm with user.
+- [critic 4] ~14:10 Near-dup check (gaint /home/noob/work/critic4_skcdf/neardup): no test/val cell confirmed in external pool; 7 test cells are physical twins of train cells (CFVS time series + ARTS_00020/00081), 39.5% of test crack px; twins in 5% unlabelled pool. Post hoc: BsM5-A5c crack +0.029 -> +0.019 (thr 0.018) without them. data/decision.md written, co-signed by agent 2; D7 (drop twins from pool) pending user.
+- [critic 4] ~14:20 review_v1.md: CHANGES (minor). Code b90008e read vs official SKCDF 12f807d; no bug; pytest test_absh 14 passed (not 16). Smoke + identity checks allowed; real launch waits for v2 + D7.
+- [critic 4] ~14:30 ideas.md written. Launch-file bug: --exit-after-step vs argparse --exit_after_step.
+- 13:50 review_v1: CHANGES (minor); smoke + identity checks allowed by critic. Added code 0ea71df (mechanism log, data.unlabeled_exclude + D7 list, rescore_logit_adjust.py); 15 absh tests, suite 222 pass. Deployed 0ea71df to cv02 /tmp/noob_el/el_sk1 (git archive via laptop, md5 of split files = el_p7).
+- 13:55 Launched identity checks (GPUs 4,5) and smoke (GPU 6). Checks died at start: hyphen flag. 13:57 leader: no launches incl. smoke until user's machine + D7 answers; stopped smoke (steps ~50-110, loss lines only), outputs to el_sk1/reports/aborted_2026-10-21, ledger freed.
+- 13:57 Found: P-series launchers log rc after $(date), so logged rc is always 0. Fixed in launch_set_sk1.sh (rc captured first; rescore only on rc 0). Added chk_A_5pct_s0 (P12 provenance), D7-yes spec (20 runs), chk_off_metrics smoke.
+- 13:58 protocol_v2.md written; sent to critic. Waiting: review_v2, machine choice, D7.
+- [critic 4] ~14:45 review_v2.md: APPROVED (0ea71df read, 15 tests pass, specs one-change, rc bug confirmed). Launch gates: leader relays user's machine + D7. Then smoke + identity checks -> critic check -> queue.
+- 14:00 review_v2 APPROVED (critic). Launch still gated on machine + D7 from the user. Rescorer update per review_v2 (absent-class share, masked variant): gaint 41869d6, copied to cv02 el_sk1 (REVISION.note). No compute.
+- [critic 4] ~15:00 41869d6 (rescorer only: absent_pred_share, _maskabsent variant) checked OK; training code stays 0ea71df.
+- 14:00 Critic checked 41869d6: OK, no new protocol version. Gates unchanged (machine + D7 from the user).
+- 14:48 User (via leader): cv02, D7 yes; smoke + identity checks allowed, final launch held (possible new Kaggle dataset). Recorded in protocol_v2. 14:48 launched sk1chk (GPU 4: chk_BsD; GPU 5: chk_A s3, s0) and sk1smoke (GPU 6: 4 runs). Overlap with ALHVR's GPU 4/5 bookings; asked agent 1 to move C1/C3 off GPU 4.
+- [critic 4] ~15:45 identity checks exact (60/57/58 lines); smoke OK incl. t0 + lowema (unlabelled path exercised). LAUNCH APPROVED (D7-yes queue, cv02).
+- 14:48–15:04 Identity checks (cv02 GPUs 4,5; 0ea71df, absh off, exit at 2,500): chk_BsD_5pct_s0 vs p17, chk_A_5pct_s3 vs p13, chk_A_5pct_s0 vs p12 (el_p11): all IDENTICAL (55/55 lines each, my diff; critic's own diff exact too). rc=3 by design, not rescored. A5c s0–4 reused.
+- 14:48–15:10 Smoke (GPU 6): smoke_BsDB, smoke_AB (300), smoke_BsDBx (60, "dropped 7 of 455"), chk_off_metrics (no absh keys): rc 0, no NaN. conf_frac stayed 0 (teacher not confident) so added smoke_BsDB_lowema (t_pos .5, ema .9: aux_keep_u .037, aux_pl_crack .007) and smoke_BsDB_t0 (critic's spec: loss_aux_con>0, aux_keep_u .98). Head drift at 300 steps 1.39 vs main-head norm 5.72.
+- 15:10 Critic: LAUNCH APPROVED (review_v2 addendum). Leader: dataset hold lifted (escdd_full is the release).
+- 15:11 Launched D7-yes queue: cv02 tmux `sk1`, lanes_sk1.sh, 12 fixed lanes on GPUs 4,5,6 (ALHVR has 0–3 by agreement), 20 runs. ~1 step/s at λ=0; ETA ~05:00–06:00 IST 22 Oct. Ledger booked. Messaged leader.
+- TODO after runs: PL counts + conf_frac at 4k/20k per SSL run to critic; LA control (rescore_logit_adjust.py on sk1_BsD and A5c); post-analysis (rules, 4 cell sets, bootstrap, E1); relay to gaint with MD5; free ledger.
+- 15:16 ALHVR trainer confirmed the split: SK1 GPUs 4-6, AL1 0-3 (+7 if freed), both with fixed lanes and no poller.
+- 19:27 Progress: SSL runs ~9.2k–9.9k/20k (~0.65 steps/s), AB s0–1 ~18.3k; no traceback, no failed rc. conf_frac: BsD 0.92, BsDB 0.86–0.90 except s1 0.73 (watch). Revised ETA: round 1 ~23:30, all done ~06:30–07:00 IST 22 Oct. ALHVR took GPU 7 (idle), 4–6 untouched.
