@@ -955,6 +955,71 @@ So the supervised arm also sees some twins. Here the check measures test-set sen
 
 ---
 
+## SK1 (21–22 Oct 2026, agent team): SKCDF's auxiliary balanced head (ABSH) on the decoupled recipe, 5% labels, cv02. Done; SKCDF track closed
+
+Post hoc addition (22 Oct): this section is new. No earlier text is changed.
+
+**Sources**
+- `team_2026-10-21/skcdf/protocol_v2.md`, `review_v2.md`, `results.md`, `null_diagnosis.md`;
+- `results/sk1/`;
+- the critic's independent recompute in `team_2026-10-21/skcdf/verify_a4/`.
+
+**Setup**
+- Code: `0ea71df`.
+- Data D7 = yes: the 7 train twins of test cells are removed from the unlabelled pool, giving 448 cells (`team_2026-10-21/data/decision.md`).
+- Arms, 5 seeds each, 20,000 steps, final weights:
+
+  | Arm | What it is |
+  |---|---|
+  | BsD5 | re-run of P17's recipe on the 448-cell pool |
+  | BsDB5 | BsD5 + ABSH with a 2-px band |
+  | BsDBn5 | BsDB5 without the band, i.e. SKCDF's own mask |
+  | AB5 | A5c + ABSH |
+  | A5c | reused after exact log-identity checks |
+
+**Locked verdicts** (rule 1, 5 v 5; Δ (threshold); crack IoU / inactive IoU / crack relF1@2). The same in all four cell sets: all 50, without `CSIR_00070_r8_c4`, without the 7 twin test cells, without both.
+
+| Contrast | Role | Δ (threshold) | Verdict |
+|---|---|---|---|
+| BsDB5 − BsD5 | primary | −0.0044 (0.0100) / −0.0113 (0.0282) / +0.0044 (0.0100) | **n.d.**; cell bootstrap crack [−0.0099, +0.0016] |
+| AB5 − A5c | secondary | −0.0083 (0.0128) / … | n.d.; cell bootstrap crack [−0.012, −0.005], slightly below 0 |
+| BsDB5 − BsDBn5 | secondary | crack −0.0145 (0.0100) | **WORSE**: the 2-px band trades recall for precision on a recall-limited IoU |
+
+- **Exploratory only:** BsDBn5 − BsD5 crack +0.0101 (0.0100). This equals a free logit bias on IoU: BsDBn5 − (BsD5 + LA τ=1) = −0.0025. On the 106-cell extension, crack false alarm is +0.105 [+0.066, +0.149].
+- **Side result (D7, descriptive):** BsD5 on the twin-free pool − A5c = +0.0243 / +0.1311 / +0.0359, passing in all four cell sets.
+- **Why the null** (`null_diagnosis.md`, reviewed by the ALHVR critic):
+  - ABSH corrects the class prior on the 23 labelled cells, which a 5% model already fits.
+  - The failure is on unseen cells: predicted/GT crack px on test 0.59–0.74, and about half of GT crack predicted with p < 0.001.
+  - Port effects: the evaluated head ends as the balanced head; background pseudo-labels are lost (BsDB5 early, BsDBn5 after about 16k).
+- **Closed 22 Oct** (user: "do as they say"). Not run: S-b (BsD5 without background PLs; its gate failed), S-c, λu = 10, an unthresholded balanced head, a SKCM port.
+
+## S-a (22 Oct 2026, POST HOC yardstick): fixed logit adjustment τ = 1 on existing checkpoints
+- **What it is.** Inference only. z_c − log π_c, with π from each run's own labelled cells and τ = 1 fixed before any S-a number.
+  - Protocol: `team_2026-10-21/skcdf/protocol_sa.md`.
+  - Results: `results/sk1/la_sa.md`, `la_sa_tables.md`.
+  - The 5% arms were recomputed exactly by the critic (`verify_a4/sa_verify_a4.txt`).
+- **Free gain in crack IoU:** +0.015 to +0.023 at 5% (every seed of every arm), about +0.01 at 10–20%, about 0 at 50–100%.
+  - Precision drops past 0.05 for BsM5 (0.635 → 0.554) and BsM10.
+- **Symmetric comparison (both arms get the bias), 5%:** (SSL+LA) − (A5c+LA) crack IoU still passes for BsM5 (+0.037), BsD5 (+0.024) and CsM5 (+0.018). The SSL gain survives.
+- **Yardstick (only supervised gets the bias), 5%, crack IoU.** This shows the SSL crack gain is no larger than what a free bias gives supervised. It is a yardstick, not a verdict against SSL:
+
+  | Arm | Δ (threshold) | Verdict |
+  |---|---|---|
+  | BsM5 | +0.0135 (0.0159) | n.d. |
+  | P17 BsD5 | +0.0079 (0.0108) | n.d. |
+  | CsM5 | −0.0017 | n.d. |
+  | Cs5 | −0.0115 | n.d. |
+
+  The same holds in all four cell sets.
+- **Inactive gains survive:** +0.095 to +0.107. Without the twins, relF1@2 is marginal: BsM5 +0.028 (0.029), n.d.; BsD5 +0.024 (0.023).
+- **Caveats:**
+  - post hoc;
+  - A5c's LA effect had been seen in SK1;
+  - one split;
+  - relF1@2 in the reduced cell sets is from the critic's scorer only.
+
+---
+
 ## Follow-up checks after P17 (13 Oct, descriptive, not in any protocol)
 
 ### EMA teacher vs student (`results/ema_check/README.md`)

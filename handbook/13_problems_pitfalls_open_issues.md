@@ -253,6 +253,23 @@ Status date: 12 Oct 2026, ~05:30 IST, updated 13 Oct ~16:30 IST for P17 and P13 
   - Earlier experiments other than P6 are essentially unaffected (≤ 4,600 px).
   - Whether to add "without this cell" as a standing check is open for the user (doc 15, decision 2b). Doing so after seeing P16 is a methodology change and must be disclosed.
 
+### A12. Half of test crack is a confident miss, concentrated in faint and inactive-edge cracks (open; found 22 Oct, post hoc)
+- **What** (`team_2026-10-21/skcdf/null_diagnosis.md` §2; ALHVR critic's pool probe `skcdf/probe_a2/`):
+  - In every 5% arm, 42–57% of test GT crack px get p(crack) < 0.001.
+  - About 34% of test crack (BsD5) and 37.8% of the unlabelled pool's crack are more than 2 px from any predicted crack ("true misses"), not offset.
+  - Predicted/GT crack px on test is 0.59–0.74.
+- **Where:**
+  - faint cracks: relaxed recall 0.42 in the faintest third vs 0.80 in the darkest;
+  - cracks on inactive-region edges, 12% of test crack px: recall 0.44 vs 0.69;
+  - the ARTS and BMRK sources: 0.30 and 0.40 vs CFVS 0.80. The 5% labelled set holds only 47 ARTS crack px.
+  - 40 components (5.4% of crack px) are missed by every arm.
+- **Not fixed by SSL pseudo-labels.** Removing the confident-background PLs recovers only about 12% of true misses: BsDBn5 0.332 vs BsD5 0.378 on the pool probe, even though 70.5% of BsD5's true misses carry such a PL.
+- **Not fixed by a prior shift** either: LA τ = 1 cuts that PL coverage to 46%, yet true misses stay at 0.359. SKCDF's balanced head does not fix them.
+- **Next** (`skcdf/labelling_plan.md`):
+  - a 1-hour human audit (real crack vs label artefact) of the 40 components;
+  - label-convention questions for inactive-edge and faint cracks;
+  - a retrospective label-budget test (needs approval).
+
 ---
 
 ## (b) Past results that are invalid or were misread
