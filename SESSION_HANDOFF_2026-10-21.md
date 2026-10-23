@@ -4,7 +4,7 @@ The user asked for a 4-agent team. The leader (this session) orchestrated:
 
 | Agent | Role | Agent ID (for SendMessage) | Watch |
 |---|---|---|---|
-| 1 | ALHVR trainer | a5efd62cb5e6c2017 | `watch-agent.sh alhvr` |
+| 1 | ALHVR trainer (1b, from 22 Oct; old a5efd62cb5e6c2017 stopped by user) | ac676f2a224595d3c | `watch-agent.sh alhvr` |
 | 2 | ALHVR critic | a491a5b03f55f0617 | `watch-agent.sh alhvr-critic` |
 | 3 | SKCDF trainer | ad89b81b8a0ae701a | `watch-agent.sh skcdf` |
 | 4 | SKCDF critic | ad834c97eafc6292e | `watch-agent.sh skcdf-critic` |
