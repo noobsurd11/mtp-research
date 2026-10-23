@@ -30,3 +30,22 @@
 - TODO after runs: PL counts + conf_frac at 4k/20k per SSL run to critic; LA control (rescore_logit_adjust.py on sk1_BsD and A5c); post-analysis (rules, 4 cell sets, bootstrap, E1); relay to gaint with MD5; free ledger.
 - 15:16 ALHVR trainer confirmed the split: SK1 GPUs 4-6, AL1 0-3 (+7 if freed), both with fixed lanes and no poller.
 - 19:27 Progress: SSL runs ~9.2k–9.9k/20k (~0.65 steps/s), AB s0–1 ~18.3k; no traceback, no failed rc. conf_frac: BsD 0.92, BsDB 0.86–0.90 except s1 0.73 (watch). Revised ETA: round 1 ~23:30, all done ~06:30–07:00 IST 22 Oct. ALHVR took GPU 7 (idle), 4–6 untouched.
+- [critic 4] 22 Oct ~18:45 independent recompute done (verify_a4/): primary n.d., Q2 n.d., Q3 band WORSE on crack; matches sk1_rules.txt. Awaiting results.md, LA control, PL count check.
+- 22 Oct 18:45 Resumed (leader restart). All 20 runs rc 0, step 20,000, no resumes. Leader relays outputs to gaint (not me).
+- 18:50 PL counts + conf_frac at 4k/20k to critic (results/sk1/pl_counts_4k_20k.md). BsDBn conf_frac 0.27 at 20k in all seeds; background 0.000 of confident PLs (pl_confident_bg_20k.txt).
+- 18:50–19:00 cv02 GPU 5 (tmux sk1post, sk1la): per-image, hist, E1, LA. LA first failed (mask path bug in rescore_logit_adjust.py: repo root vs data/); fixed 96dd86a, rerun rc 0; tau-0 check exact.
+- ssl_rules.py: run-name regex and glob extended to sk* (backwards compatible).
+- Results: primary BsDB5−BsD5 n.d. (−0.0044/−0.0113/+0.0044); AB5−A5c n.d. (crack over cells −0.0083 [−0.0121,−0.0051]); BsDB5−BsDBn5 WORSE on crack (−0.0145, thr 0.0100) in all 4 cell sets. Exploratory BsDBn5−BsD5 +0.0101 (0.0100) on all 50, n.d. without noisy cell; ≈ BsD5+LA τ=1 on IoU but better crack AP (0.366 vs 0.329). Critic's independent numbers match.
+- 19:05 results.md written; sent to critic. Ledger rows freed.
+- [critic 4] 22 Oct ~19:15 FINAL: results.md confirmed (rules, cell sets, LA tau=1 recomputed with own scorer, PL csv, E1). Recommend against bg-excluded arm as next experiment; LA tau=1 on existing checkpoints instead.
+- 18:59 Critic: results.md CONFIRMED (independent recompute). Wording fixes applied (denominators; E1 ext false alarm). Reported to team-lead.
+- 19:31 Null diagnosis support: diag_agent3.md (CPU-only trajectories: background PL collapse phases; head transfer undoes labelled fit, loss_sup at 20k BsD 0.023 vs BsDB 0.111, BsDBn 0.220, AB 0.067, A5c 0.014; keep rates). protocol_sk2_sketch.md drafted (S-a LA on existing ckpts, S-b no-bg PL, S-c no transfer into eval head); nothing launched. Sent to critic.
+- 19:34 User via leader: ABSH line STOPPED (incl. S-c). S-a approved: run now (inference only). S-b conditionally approved: write protocol_sk2_v1.md; launch only if the ALHVR critic's real-miss vs offset probe supports H-cm by its thresholds AND my critic writes APPROVED for launch.
+- [critic 4] 22 Oct ~19:50 null_diagnosis.md complete (agent 2 reviewed; probe b final: H-cm inconclusive, S-b gate not passed). Joint report sent. S-a recompute pending agent 3 output.
+- 19:48 protocol_sk2_v1.md written (commit 88a7e88 adds opt-in loss.pl_exclude_classes, unused); then S-b DROPPED: probe (b) H-cm inconclusive (true misses 0.378, conf-bg share 0.705 < 0.80). S-a rescoring running on cv02 GPU 5 (tmux sksa).
+- 20:04 S-a done (64 ckpts, rc 0, tau-0 exact). results/sk1/la_sa.md + la_sa_tables.md (scripts/sk1_sa_analysis.py). LA τ=1: +0.015–0.023 crack IoU at 5%, ~0.01 at 10–20%, ~0 at 50–100%; SSL crack gain at 5% n.d. vs A5c+LA. Sent to critic. Ledger freed.
+- [critic 4] 22 Oct ~20:15 S-a 5% arms recomputed (own scorer, 23 ckpts): matches la_sa.md exactly; SSL crack gain n.d. vs A5c+LA in all four cell sets.
+- 20:10 S-a CONFIRMED by critic (4-decimal recompute, 23 ckpts at 5%); la_sa.md updated with critic's reduced-set relF1@2 rows. Critic sent the team-lead report.
+- 22 Oct 20:45 leader: user said "do as they say": SKCDF track CLOSED per both critics (null_diagnosis.md); S-a = yardstick for crack claims; crack effort moves to labelling (labelling_plan.md by agent 4); handbook post hoc lines after S-a verification.
+- [critic 4] 22 Oct ~20:40 SKCDF TRACK CLOSED (user adopted critics' recommendations). labelling_plan.md + audit_sheet.csv + audit_crops/ written.
+- [critic 4] 22 Oct ~21:00 handbook f5013b8 committed (agent 2 reviewed; S-a framed symmetric-first).

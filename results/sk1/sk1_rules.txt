@@ -1,0 +1,70 @@
+| arm | seeds | crack iou | inactive iou | crack rel_f1_2 | crack rel_p2 | crack ap | inactive ap | val crack iou | val inactive iou |
+|---|---|---|---|---|---|---|---|---|---|
+| p13:A5c | [0, 1, 2, 3, 4] | 0.304±0.008 | 0.253±0.037 | 0.720±0.014 | 0.892±0.016 | 0.287±0.007 | 0.253±0.041 | 0.278±0.005 | 0.106±0.026 |
+| sk1:AB_5pct | [0, 1, 2, 3, 4] | 0.295±0.007 | 0.245±0.046 | 0.713±0.008 | 0.886±0.030 | 0.284±0.005 | 0.246±0.041 | 0.265±0.006 | 0.116±0.066 |
+| p17:BsD_5pct | [0, 1, 2, 3, 4] | 0.327±0.003 | 0.371±0.036 | 0.756±0.006 | 0.888±0.012 | 0.310±0.005 | 0.357±0.036 | 0.291±0.009 | 0.080±0.021 |
+| sk1:BsD_5pct | [0, 1, 2, 3, 4] | 0.328±0.003 | 0.384±0.018 | 0.755±0.005 | 0.889±0.024 | 0.314±0.004 | 0.375±0.023 | 0.295±0.007 | 0.082±0.017 |
+| sk1:BsDB_5pct | [0, 1, 2, 3, 4] | 0.324±0.005 | 0.373±0.016 | 0.760±0.004 | 0.902±0.014 | 0.324±0.007 | 0.373±0.016 | 0.291±0.005 | 0.131±0.128 |
+| sk1:BsDBn_5pct | [0, 1, 2, 3, 4] | 0.338±0.006 | 0.390±0.036 | 0.765±0.008 | 0.876±0.014 | 0.366±0.013 | 0.367±0.033 | 0.297±0.006 | 0.098±0.052 |
+| p13:BsM_5pct | [0, 1, 2, 3, 4] | 0.333±0.011 | 0.360±0.010 | 0.764±0.014 | 0.907±0.014 | 0.367±0.016 | 0.429±0.013 | 0.296±0.008 | 0.063±0.008 |
+| p6:L3_100pct | [0, 1, 2] | 0.471±0.001 | 0.429±0.011 | 0.876±0.003 | 0.939±0.003 | 0.593±0.003 | 0.420±0.018 | 0.423±0.003 | 0.397±0.023 |
+
+sk1:BsDB_5pct vs sk1:BsD_5pct (test, revised; primary ['crack:iou', 'inactive:iou', 'crack:rel_f1_2']; seeds [0, 1, 2, 3, 4] / [0, 1, 2, 3, 4])
+  crack    iou      -0.0044  thr 0.0100  n.d.
+  inactive iou      -0.0113  thr 0.0282  n.d.
+  crack    rel_f1_2 +0.0044  thr 0.0100  n.d.
+  => sk1:BsDB_5pct better than sk1:BsD_5pct under rule 1: False
+  width check: crack relP@2 +0.0131 -> ok
+  gap closed crack    iou     : gap +0.1430, closed -0.03
+  gap closed inactive iou     : gap +0.0444, closed -0.25
+  gap closed crack    rel_f1_2: gap +0.1201, closed +0.04
+
+sk1:AB_5pct vs p13:A5c (test, revised; primary ['crack:iou', 'inactive:iou', 'crack:rel_f1_2']; seeds [0, 1, 2, 3, 4] / [0, 1, 2, 3, 4])
+  crack    iou      -0.0083  thr 0.0128  n.d.
+  inactive iou      -0.0083  thr 0.0681  n.d.
+  crack    rel_f1_2 -0.0065  thr 0.0189  n.d.
+  => sk1:AB_5pct better than p13:A5c under rule 1: False
+  width check: crack relP@2 -0.0063 -> ok
+  gap closed crack    iou     : gap +0.1673, closed -0.05
+  gap closed inactive iou     : gap +0.1755, closed -0.05
+  gap closed crack    rel_f1_2: gap +0.1561, closed -0.04
+
+sk1:BsDB_5pct vs sk1:BsDBn_5pct (test, revised; primary ['crack:iou', 'inactive:iou', 'crack:rel_f1_2']; seeds [0, 1, 2, 3, 4] / [0, 1, 2, 3, 4])
+  crack    iou      -0.0145  thr 0.0100  WORSE
+  inactive iou      -0.0173  thr 0.0452  n.d.
+  crack    rel_f1_2 -0.0049  thr 0.0103  n.d.
+  => sk1:BsDB_5pct better than sk1:BsDBn_5pct under rule 1: False  (some primary WORSE)
+  width check: crack relP@2 +0.0260 -> ok
+  gap closed crack    iou     : gap +0.1329, closed -0.11
+  gap closed inactive iou     : gap +0.0384, closed -0.45
+  gap closed crack    rel_f1_2: gap +0.1108, closed -0.04
+
+sk1:BsDB_5pct vs p13:A5c (test, revised; primary ['crack:iou', 'inactive:iou', 'crack:rel_f1_2']; seeds [0, 1, 2, 3, 4] / [0, 1, 2, 3, 4])
+  crack    iou      +0.0199  thr 0.0111  BETTER
+  inactive iou      +0.1198  thr 0.0465  BETTER
+  crack    rel_f1_2 +0.0403  thr 0.0173  BETTER
+  => sk1:BsDB_5pct better than p13:A5c under rule 1: True
+  width check: crack relP@2 +0.0094 -> ok
+  gap closed crack    iou     : gap +0.1673, closed +0.12
+  gap closed inactive iou     : gap +0.1755, closed +0.68
+  gap closed crack    rel_f1_2: gap +0.1561, closed +0.26
+
+sk1:BsD_5pct vs p13:A5c (test, revised; primary ['crack:iou', 'inactive:iou', 'crack:rel_f1_2']; seeds [0, 1, 2, 3, 4] / [0, 1, 2, 3, 4])
+  crack    iou      +0.0243  thr 0.0103  BETTER
+  inactive iou      +0.1311  thr 0.0474  BETTER
+  crack    rel_f1_2 +0.0359  thr 0.0174  BETTER
+  => sk1:BsD_5pct better than p13:A5c under rule 1: True
+  width check: crack relP@2 -0.0037 -> ok
+  gap closed crack    iou     : gap +0.1673, closed +0.15
+  gap closed inactive iou     : gap +0.1755, closed +0.75
+  gap closed crack    rel_f1_2: gap +0.1561, closed +0.23
+
+sk1:BsDBn_5pct vs sk1:BsD_5pct (test, revised; primary ['crack:iou', 'inactive:iou', 'crack:rel_f1_2']; seeds [0, 1, 2, 3, 4] / [0, 1, 2, 3, 4])
+  crack    iou      +0.0101  thr 0.0100  BETTER
+  inactive iou      +0.0061  thr 0.0461  n.d.
+  crack    rel_f1_2 +0.0093  thr 0.0106  n.d.
+  => sk1:BsDBn_5pct better than sk1:BsD_5pct under rule 1: True
+  width check: crack relP@2 -0.0129 -> ok
+  gap closed crack    iou     : gap +0.1430, closed +0.07
+  gap closed inactive iou     : gap +0.0444, closed +0.14
+  gap closed crack    rel_f1_2: gap +0.1201, closed +0.08

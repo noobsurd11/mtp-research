@@ -24,10 +24,10 @@ a = ap.parse_args()
 
 R = {}
 for d in a.dirs:
-    for f in sorted(glob.glob(os.path.join(d, "p*_s[0-9]*.json"))):
+    for f in sorted(glob.glob(os.path.join(d, "p*_s[0-9]*.json")) + glob.glob(os.path.join(d, "sk*_s[0-9]*.json"))):
         for key, v in json.load(open(f)).items():
             split, run = key.split("/", 1)
-            m = re.match(r"^(p\d+)_(.+)_s(\d+)$", run)
+            m = re.match(r"^(p\d+|sk\d+)_(.+)_s(\d+)$", run)
             if m:
                 R.setdefault(f"{m.group(1)}:{m.group(2)}", {}).setdefault(int(m.group(3)), {})[split] = v["new_escdd"]
 

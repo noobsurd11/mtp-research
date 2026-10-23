@@ -99,3 +99,26 @@ Window: steps 4,000 to 6,000, every logged step (n = 41 per run). The runs were 
 - **Verdict:** active, no flag fires, no amendment. This agrees with agent 1's numbers (0.345, n = 42 to step 6,050).
 - **ALdh5 s0 watch:** gshare_a at steps 6.5k–8.5k is 0.34, 0.83, 1.68, 0.87, 1.59. The 2.62 at 6k was a single sample, and the arm is not unlabelled-dominated so far. The watch continues to step 20k and goes into the README.
 - **All five SSL arms have now passed the step-6k activity check.**
+
+## Addendum 4: H-cm predictions for AL1, written 22 Oct 19:33 IST, before any AL1 test number has been opened
+Source: `skcdf/second_opinion_a2.md` §4. If the hypothesis "confident crack misses are not reached by confidence-gated SSL losses" (H-cm) holds, AL1 should show:
+1. **Crack IoU:** AL5 − A5 is no larger than BsD5's gain over A5c in SK1 (+0.024). The rule-1 verdict on crack IoU is n.d. or a pass by less than 0.024.
+2. **Bin-0:** AL5's crack bin-0 share on test (secondary metric) is within ±0.03 of A5's.
+3. **S1 (CPSm5 − CPS5, Ω1 masked):** n.d. or worse on crack IoU. Masking Ω1 cannot help crack if the misses are confident.
+4. **Inactive:** if any SSL arm gains, the gain is larger on inactive than on crack (as P13/P17/SK1).
+
+These are predictions, not rules. They change no verdict. The README reports them as "H-cm prediction held / failed".
+
+Status at writing: the AL1 queue is running. Finished A5 runs have been rescored by the trainer. I have opened no AL1 score file.
+
+## Addendum 5: AL1 results independently recomputed, 23 Oct 06:55 IST: CONFIRMED
+See `alhvr/verify_a2.md`.
+- **Primary AL5 − A5: WORSE on all three primaries, in all four cell sets.** The bootstrap CIs exclude 0 on all three.
+- All secondary verdicts match. A5 is bit-identical to the old A5c.
+- **H-cm predictions** (addendum 4): all four held. They were weak predictions. The inactive damage (test recall 0.276 → 0.124; corrected from a test/val mix) was not predicted.
+
+**Wording requests for results.md (non-blocking):**
+- (a) Add the inactive precision/recall line to §6/§8.
+- (b) ALdh5 gshare: call it "intermittently unlabelled-dominated (22/165 samples > 3, median ≤ 1.66)".
+- (c) Add the H-cm prediction outcomes, citing addendum 4.
+- (d) Keep §7 (network B not scored) as "not done".

@@ -1,0 +1,64 @@
+211 GT crack components in 50 test cells; total px 92074
+component width px: median 2.83; length px median 60.8; contrast median -0.18
+
+## pixel-weighted over all comps: px recall | relaxed@2 recall | confident-miss share (p<0.001) | fully missed comps (relaxed@2<0.1), share of crack px in them
+  A5c     recall 0.371  relaxed 0.603  conf-miss 0.569  fully-missed-px 0.091
+  AB5     recall 0.360  relaxed 0.597  conf-miss 0.572  fully-missed-px 0.103
+  BsD5    recall 0.412  relaxed 0.657  conf-miss 0.523  fully-missed-px 0.088
+  BsDB5   recall 0.401  relaxed 0.657  conf-miss 0.515  fully-missed-px 0.082
+  BsDBn5  recall 0.439  relaxed 0.679  conf-miss 0.422  fully-missed-px 0.073
+
+## test: predicted crack px / GT crack px (pooled), mean over seeds
+  A5c     0.593 ± 0.034
+  AB5     0.578 ± 0.036
+  BsD5    0.667 ± 0.036
+  BsDB5   0.640 ± 0.025
+  BsDBn5  0.738 ± 0.027
+
+## relaxed@2 recall by width tertile (pixel-weighted); edges [2.   2.83]; crack px share per tertile [np.float64(0.0), np.float64(0.15), np.float64(0.85)]
+  A5c     T0: nan  T1: 0.469  T2: 0.628   conf-miss T0: nan  T1: 0.662  T2: 0.552
+  AB5     T0: nan  T1: 0.454  T2: 0.623   conf-miss T0: nan  T1: 0.672  T2: 0.554
+  BsD5    T0: nan  T1: 0.518  T2: 0.683   conf-miss T0: nan  T1: 0.625  T2: 0.505
+  BsDB5   T0: nan  T1: 0.501  T2: 0.685   conf-miss T0: nan  T1: 0.626  T2: 0.494
+  BsDBn5  T0: nan  T1: 0.539  T2: 0.704   conf-miss T0: nan  T1: 0.518  T2: 0.404
+
+## relaxed@2 recall by length tertile (pixel-weighted); edges [ 33.   111.02]; crack px share per tertile [np.float64(0.03), np.float64(0.14), np.float64(0.83)]
+  A5c     T0: 0.340  T1: 0.448  T2: 0.639   conf-miss T0: 0.752  T1: 0.683  T2: 0.544
+  AB5     T0: 0.300  T1: 0.429  T2: 0.636   conf-miss T0: 0.781  T1: 0.693  T2: 0.544
+  BsD5    T0: 0.344  T1: 0.479  T2: 0.698   conf-miss T0: 0.745  T1: 0.660  T2: 0.493
+  BsDB5   T0: 0.350  T1: 0.483  T2: 0.696   conf-miss T0: 0.733  T1: 0.648  T2: 0.485
+  BsDBn5  T0: 0.383  T1: 0.520  T2: 0.716   conf-miss T0: 0.645  T1: 0.543  T2: 0.394
+
+## relaxed@2 recall by contrast (crack - ring)/sd; negative = darker tertile (pixel-weighted); edges [-0.39 -0.06]; crack px share per tertile [np.float64(0.48), np.float64(0.28), np.float64(0.24)]
+  A5c     T0: 0.745  T1: 0.561  T2: 0.364   conf-miss T0: 0.451  T1: 0.600  T2: 0.773
+  AB5     T0: 0.743  T1: 0.554  T2: 0.352   conf-miss T0: 0.452  T1: 0.605  T2: 0.778
+  BsD5    T0: 0.802  T1: 0.606  T2: 0.424   conf-miss T0: 0.404  T1: 0.562  T2: 0.721
+  BsDB5   T0: 0.791  T1: 0.619  T2: 0.426   conf-miss T0: 0.401  T1: 0.541  T2: 0.716
+  BsDBn5  T0: 0.809  T1: 0.645  T2: 0.452   conf-miss T0: 0.305  T1: 0.443  T2: 0.636
+
+## relaxed@2 recall by source (pixel-weighted)
+  A5c     ARTS: 0.305  BMRK: 0.355  CFVS: 0.730  CSIR: 0.647  SDLE: 0.365
+  AB5     ARTS: 0.276  BMRK: 0.359  CFVS: 0.725  CSIR: 0.622  SDLE: 0.149
+  BsD5    ARTS: 0.302  BMRK: 0.400  CFVS: 0.799  CSIR: 0.671  SDLE: 0.237
+  BsDB5   ARTS: 0.298  BMRK: 0.420  CFVS: 0.791  CSIR: 0.654  SDLE: 0.365
+  BsDBn5  ARTS: 0.386  BMRK: 0.462  CFVS: 0.797  CSIR: 0.693  SDLE: 0.246
+  crack px share by source: {np.str_('ARTS'): np.float64(0.031), np.str_('BMRK'): np.float64(0.274), np.str_('CFVS'): np.float64(0.572), np.str_('CSIR'): np.float64(0.121), np.str_('SDLE'): np.float64(0.002)}
+
+## components missed (relaxed@2<0.1, seed mean) by every arm: 40 comps, 0.054 of crack px; median width 2.00, contrast -0.05, length 38.3
+   others: median width 2.83, contrast -0.25, length 75.8
+BsDBn5-BsD5 relaxed recall by width tertile: T0 +nan  T1 +0.021  T2 +0.022
+BsDBn5-BsD5 relaxed recall by contrast tertile: T0 +0.008  T1 +0.039  T2 +0.028
+BsDBn5-BsD5 relaxed recall by length tertile: T0 +0.040  T1 +0.041  T2 +0.018
+
+## (gaint escdd_masks lacks the 2 P6-remap test cells' crack; analysis on the other 205 comps)
+## crack comps with >50% of px within 2 px of GT inactive: 25 comps, 0.122 of test crack px
+  A5c     relaxed@2 recall: inactive-boundary 0.352 vs other 0.638; conf-miss 0.779 vs 0.540
+  AB5     relaxed@2 recall: inactive-boundary 0.335 vs other 0.634; conf-miss 0.786 vs 0.542
+  BsD5    relaxed@2 recall: inactive-boundary 0.439 vs other 0.688; conf-miss 0.706 vs 0.498
+  BsDB5   relaxed@2 recall: inactive-boundary 0.429 vs other 0.689; conf-miss 0.704 vs 0.488
+  BsDBn5  relaxed@2 recall: inactive-boundary 0.474 vs other 0.708; conf-miss 0.601 vs 0.397
+
+## boundary stats without the 7 twin test cells: boundary comps 19 (0.150 of non-twin crack px); twin boundary comps 6
+  A5c     relaxed recall boundary 0.307 vs other 0.541; conf-miss 0.810 vs 0.616
+  BsD5    relaxed recall boundary 0.368 vs other 0.589; conf-miss 0.761 vs 0.575
+  BsDBn5  relaxed recall boundary 0.412 vs other 0.620; conf-miss 0.661 vs 0.467
