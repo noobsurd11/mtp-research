@@ -272,6 +272,17 @@ Status date: 12 Oct 2026, ~05:30 IST, updated 13 Oct ~16:30 IST for P17 and P13 
 
 ---
 
+### A13. ALHVR-style losses suppress inactive (post hoc reading; found 23 Oct, AL1, D7 pool)
+- **What:**
+  - In AL1, every arm with ALHVR's DTCT loss (AL5, ALd5, ALdh5) lowers test inactive IoU by 0.11–0.15 against supervised (rule 1 WORSE).
+  - Inactive recall falls from 0.276 to 0.108–0.154 while precision stays about the same (0.77–0.83).
+  - The same two-network pipeline with cross pseudo-labels (CPS5) raises recall to 0.400.
+- **Reading (not tested by a one-change arm):** the sharpened-MSE plus entropy-minimisation targets on uncertain regions push minority-class pixels toward background.
+  - In the ALHVR arms, 56–60% of unlabelled GT inactive sits in Ω1 (no loss) and only 10–17% in Ω3.
+- **Impact:**
+  - A warning for any confidence-routed or entropy-minimising SSL loss on rare EL classes.
+  - No follow-up is proposed (`team_2026-10-21/alhvr/verify_a2.md`).
+
 ## (b) Past results that are invalid or were misread
 
 None of these may be quoted as a method result. Old-era numbers stay in separate tables from the P-series (standing rule; memory `mtp-el-ssl-project.md`). History: `06_history_phase0_phase1.md`.
@@ -280,7 +291,7 @@ None of these may be quoted as a method result. Old-era numbers stay in separate
 |---|---|---|---|
 | B1 | Every Mean Teacher result with **SemiCE**: BenchmarkEL MT-20, UCF MT 1%/5% on cv02, the held gaint external-pool queue | SemiCE thresholds raw logits. 100% of unlabelled pixels have ≥ 2 "positive" classes (background on 98.9%, crack on 20.3% vs a true 0.19%). The target is incoherent | `results/p2/README.md` |
 | B2 | "MT beats SL-20" (+0.023, p 0.095 test; +0.028, p 0.004 val+test) | MT with λ = 0 scores the same (paired −0.000 ± 0.024). The EMA adds nothing because the learning rate ends at 0 (teacher − student +0.000 ± 0.002) | handoff 7 Oct §6.1–6.2 |
-| B3 | "ALHVR beats SL-20" (+0.029, p 0.045) and "ALHVR modules do nothing" | ALHVR equals its loss-off control (+0.005 ± 0.023). But its λ follows a sigmoid over the whole run and reaches 0.1 only at the last step, while our cosine learning rate reaches 0. So the loss was barely applied: neither a gain nor a null is shown. The measured prototype failure (cross-network prototypes 4.6% correct on Ω3 crack) still stands | handoff 7 Oct §6.2, §6.8, §9.1 |
+| B3 | "ALHVR beats SL-20" (+0.029, p 0.045) and "ALHVR modules do nothing" | ALHVR equals its loss-off control (+0.005 ± 0.023). But its λ follows a sigmoid over the whole run and reaches 0.1 only at the last step, while our cosine learning rate reaches 0. So the loss was barely applied: neither a gain nor a null is shown. The measured prototype failure (cross-network prototypes 4.6% correct on Ω3 crack) still stands **Update 23 Oct (AL1, D7 pool):** a fair port, with full λ from step 4k and a loss-off control, is WORSE than supervised on all three primaries (doc 10 AL1); the dead-prototype cause is now known (1/8-resolution prototypes of two networks are orthogonal) | handoff 7 Oct §6.2, §6.8, §9.1 and `team_2026-10-21/alhvr/results.md` |
 | B4 | An early SSL "+7.4" gain | 8× optimiser-step mismatch between SSL and SL | phase-0 doc |
 | B5 | "SA SSL raised IoU" (the user's 11 Oct recollection) and best-val numbers | Best-val selection on 54 val cells flips comparison signs. SA-SL-20 seed 0 was 0.338 at the final step and 0.301 at the best-val step. Pooled over 4 seeds, SA shows no effect (0.3399 vs 0.3435) | phase-1 answers item 1; handoff 7 Oct §6.11; session summary 2026-10-11T09:36Z §5 |
 | B6 | "Reproduction gaps" against papers | Metric-convention mismatches:<br>• Fioresi 57.3 is likely a 5-class mean incl. background;<br>• Pratt uses per-image medians with absent class = 0;<br>• PV-S3 drops background-GT pixels.<br>Under matched conventions Fioresi and Pratt reproduce | phase-1 §5, §7; situation report §4; `analysis/papers_metrics.md` |
@@ -505,7 +516,7 @@ None of these may be quoted as a method result. Old-era numbers stay in separate
 | E8 | Can models transfer to unseen modules? | Crack IoU 0.471 → 0.152 (A6) | Pretraining (P15, MIM), more diverse labelled data, a domain-shift-aware evaluation |
 | E9 | Is the external pool useless, or just mismatched? | Source-specific crack harm (A7) | Re-walk the Dropbox listing; harmonise contrast; a matched pool |
 | E10 | Would more labelled cells (E-SCDD) change the picture? | Downloaded and audited 12 Oct (doc 17).<br>• 233 labelled real cells new to us: 87 crack, 20 inactive.<br>• 111 of them are in our external pool and 105 are E1's set.<br>• Mostly CSIR from unseen modules.<br>• E-SCDD's train also has 93 synthetic images. | The user decides whether to use them; doing so means a new base recipe, not an extension of the P-series |
-| E11 | Does ALHVR (or DTCT alone) help with a fair loss schedule? | Never fairly tested (B3); prototypes dead | A port with λ at full strength early, plus a loss-off control |
+| E11 | Does ALHVR (or DTCT alone) help with a fair loss schedule? | Never fairly tested (B3); prototypes dead (**answered 23 Oct by AL1, D7 pool: no**; ALHVR-EL and DTCT-only are WORSE than supervised on inactive, routing and CG-CPCL n.d.) | A port with λ at full strength early, plus a loss-off control |
 | E12 | Is in-domain self-supervised pretraining (MIM) worth it? | Untested; directions row 3 | Protocol + 1–2 GPU-days |
 | E13 | Severity grading (Köntges A/B/C) and the per-cell quantities | Post-processing lost in the reset (D1); power loss out of scope (user, 11 Oct) | Rebuild components / skeleton / isolation; grade agreement (κ) on GT vs predicted masks (proposal E6) |
 | E14 | Admin inputs never confirmed | Mid-term date (assumed ~14 Oct); report template and page limit; whether MoE is required by the advisor; target model size (~2M vs ~4M; "not a constraint" for now) | Ask the user (phase-1 §17 items 9–10; deck outline §17) |

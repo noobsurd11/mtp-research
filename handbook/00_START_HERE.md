@@ -88,6 +88,11 @@ For a quick start, read 01, 04 (skim), 11 and 16. Then go back to 02 to 10 as qu
       - Inactive gains survive either way.
       - About half of test crack is a confident miss, mainly faint and inactive-edge cracks (doc 13 A12).
       - Train/test twins and the D7 pool rule: doc 10 SK1, `team_2026-10-21/data/decision.md`.
+    - AL1 (23 Oct, agent team, post hoc addition; D7 pool):
+      - ALHVR adapted to EL, with its loss active from step 4k, is **WORSE** than supervised at 5% on all three primaries: −0.017 / −0.132 / −0.031.
+      - Its routing and prototype modules add nothing (n.d.). Plain cross pseudo-supervision is level with supervised.
+      - Post hoc reading: the ALHVR losses halve inactive recall (doc 13 A13).
+      - The old ALHVR question (doc 13 B3/E11) is closed (doc 10 AL1).
     - Measurement warning from P16: one very noisy test cell, `CSIR_00070_r8_c4`, makes about 1 run in 6 call 15 to 31% of it crack, cutting that run's crack IoU by up to 0.18. Without it P16's verdict is the same (crack Δ within ±0.003). Read every crack contrast with this in mind (doc 13).
 
 ## 4. The `sources/` folder

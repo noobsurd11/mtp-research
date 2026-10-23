@@ -130,6 +130,24 @@ Measured:
 
 Sources: `results/p9`, `p10`, `p11`, `p12`; `proposal_reframe` §1. → `09`
 
+**Q11b. Did ALHVR, the method the project started from, work once it was ported properly? (added 23 Oct)**
+
+No. AL1 (cv02, 5 v 5, D7 pool) fixed the old port's problems:
+- full λ from step 4k;
+- the P-series base;
+- noise-only perturbation, because the reference dropout erased the encoder;
+- full-resolution prototypes;
+- a bit-identical loss-off control.
+
+Measured:
+- ALHVR was **worse** than supervised on crack IoU, inactive IoU and crack relF1@2 (−0.017 / −0.132 / −0.031), in every cell set.
+- Its routing (Ω1 mask) and prototype module are n.d. in one-change contrasts.
+- The same two networks with plain cross pseudo-labels are level with supervised.
+- The existing BsM5 recipe still beats supervised.
+- Post hoc reading: ALHVR's losses halve inactive recall.
+
+Sources: `team_2026-10-21/alhvr/results.md`, `verify_a2.md`. → `10` (AL1), `13` (B3, E11, A13)
+
 ## C. Rules, statistics, and trust
 
 **Q12. What are the "locked rules", and are they too strict?**

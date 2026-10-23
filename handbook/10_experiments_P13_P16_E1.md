@@ -1020,6 +1020,79 @@ Post hoc addition (22 Oct): this section is new. No earlier text is changed.
 
 ---
 
+## AL1 (21–23 Oct 2026, agent team): ALHVR adapted to EL on the P-series base, 5% labels, D7 pool, cv02. Done; ALHVR track answered: no
+
+Post hoc addition (23 Oct): this section is new. No earlier text is changed. Every SSL number here uses the **D7 pool**: the 448-cell unlabelled pool, with the 7 train twins of test cells removed (`team_2026-10-21/data/decision.md`).
+
+**Sources**
+- Protocol, reviews and design: `team_2026-10-21/alhvr/protocol_v2.md`, `review_v1.md`, `review_v2.md` (addenda 1–5), `design.md` (D0 diagnostics).
+- Results: `team_2026-10-21/alhvr/results.md` (trainer 1b) and `results/al1/`.
+- The critic's independent recompute: `team_2026-10-21/alhvr/verify_a2.md`.
+
+**What changed from the old port** (handbook 05 §6.3, doc 13 B3; `design.md` §4). Each change is grounded in a diagnostic fixed before it ran (D0):
+- **Base model.** The P-series L3 base (smp U-Net++, ImageNet ResNet34, CE+Dice, label-safe augmentation, revised masks), replacing the old from-scratch SA-U-Net++ with weighted CE.
+- **λ schedule.** λ = 0 to step 2,000, linear to λ_max by step 4,000, then constant (the P-series schedule). The old port reached full λ only at the last step.
+- **λ_max.** Matched to BsM5's unlabelled gradient share (D0c): 0.1 for full ALHVR (the paper's value), 1.0 for CPS.
+- **Separate BN forward.** At λ = 0 network A is bit-identical to the supervised run (check C1).
+- **Perturbation.** FeatureNoise only. The reference FeatureDropout zeroed 96–99.7% of encoder positions on this base (D0-3).
+- **Prototype feature.** The full-resolution decoder output. At the reference 1/8 resolution the two networks' prototypes are orthogonal (cosine ≈ 0, D0-1), which explains the old 4.6% crack accuracy.
+- **DTCT.** Class-normalised sharpening and a detached target.
+
+**Arms** (5 seeds each, 20,000 steps, network A at the final step):
+
+| Arm | What it is |
+|---|---|
+| A5 | supervised |
+| AL5 | ALHVR-EL |
+| ALd5 | AL5 without CG-CPCL |
+| ALdh5 | ALd5 at λ 0.3 (the user's addition) |
+| CPS5 | the same two-network pipeline with cross pseudo-supervision on all pixels |
+| CPSm5 | CPS5 with ALHVR's Ω1 masked out; the one-change routing test |
+| BsM5 | the P13 recipe, re-run on the D7 pool as a reference |
+
+**Checks**
+- C1: λ = 0 network A equals supervised, tensor for tensor at step 300.
+- C2: the Mean Teacher code path equals P13 to step 2,050.
+- **A5 is bit-identical to the old A5c per seed.**
+- Step-6k activity check: every SSL arm's loss share was 0.14–0.38, inside the [0.03, 3] band, with no routing or co-training collapse (`review_v2.md` addenda 1–3).
+- All 35 runs completed: rc 0, step 20,000.
+
+**Locked verdicts** (rule 1, 5 v 5; Δ (threshold); crack IoU / inactive IoU / crack relF1@2; all 50 test cells)
+
+| Contrast | Role | Δ (threshold) | Verdict |
+|---|---|---|---|
+| **AL5 − A5** | primary | −0.0169 (0.0131) / −0.1324 (0.0761) / −0.0312 (0.0216) | **WORSE on all three** |
+| CPSm5 − CPS5 | S1, routing | −0.0025 / −0.0125 / −0.0026 | n.d. |
+| AL5 − ALd5 | S2, CG-CPCL | −0.0079 / +0.0169 / −0.0167 | n.d. |
+| ALd5 − A5 | S3 | inactive −0.1493 (0.0631) | WORSE |
+| ALdh5 − A5 | S3 | inactive −0.1056 (0.0539) | WORSE |
+| CPS5 − A5 | S3 | +0.0034 / +0.0736 (0.0737) / +0.0068 | n.d. |
+| CPSm5 − A5 | S3 | +0.0010 / +0.0611 / +0.0041 | n.d. |
+| AL5 − CPSm5 | S4, method contrast | −0.0178 / −0.1935 / −0.0354 | WORSE |
+| ALdh5 − ALd5 | S6, λ | +0.0045 / +0.0437 / +0.0044 | n.d. |
+| BsM5 − A5 | descriptive | +0.0274 / +0.1320 / +0.0412 | passes |
+
+- **Robustness.** The primary is WORSE in all four cell sets: all 50, without `CSIR_00070_r8_c4`, without the 7 twin test cells, without both. Paired cell-bootstrap CIs exclude 0 on all three primaries: crack [−0.0287, −0.0065], inactive [−0.1906, −0.0750], relF1@2 [−0.0536, −0.0118].
+- **CPS5 − A5, post hoc.** It passes on inactive only in the two **post hoc** twin-free cell sets, by 0.007–0.008, with the cell CI touching 0. A weak secondary pass, not a finding.
+- **ALdh5 gradient watch.** ALdh5 was *intermittently unlabelled-dominated*: 22 of 165 gradient-share samples were above 3, while the per-seed median was ≤ 1.66. The noisy cell fired once (ALdh5 s0, 7,236 crack FP px).
+- **Not scored:** network B and the A+B ensemble. The scorer reads network A only. This is descriptive and was not done.
+- **Inactive precision and recall, test, POST HOC reading.**
+  - A5 0.771 / 0.276; AL5 0.827 / 0.124; ALd5 0.790 / 0.108; ALdh5 0.799 / 0.154.
+  - CPS5 0.649 / 0.400; BsM5 0.746 / 0.444.
+  - The ALHVR-family losses more than halve inactive recall. DTCT alone (ALd5) is enough to do it. Cross pseudo-labels (CPS) raise recall instead.
+  - Reading: the sharpened-MSE plus entropy targets on Ω2/Ω3 suppress the minority class. This was not tested by a one-change arm.
+- **Predictions written before any AL1 score was opened** (`review_v2.md` addendum 4, critic's H-cm hypothesis):
+  1. crack gain no larger than +0.024;
+  2. crack bin-0 within ±0.03 of A5's;
+  3. S1 n.d. or worse on crack;
+  4. inactive gains larger than crack gains.
+  - **All four held:** −0.0169; +0.027; n.d.; CPS5 and BsM5. They were weak predictions, and the inactive damage was not predicted.
+- **Reading.**
+  - The old-era question "does ALHVR help with a fair schedule?" (doc 13 E11) is answered: no.
+  - On this base its losses are active and they hurt.
+  - Neither of its modules adds anything in a one-change contrast.
+  - Plain two-network cross pseudo-supervision is level with supervised and below BsM5.
+
 ## Follow-up checks after P17 (13 Oct, descriptive, not in any protocol)
 
 ### EMA teacher vs student (`results/ema_check/README.md`)
