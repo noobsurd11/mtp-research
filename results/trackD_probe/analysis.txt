@@ -1,0 +1,63 @@
+## Checks
+  A5c tau 0/1 vs la_sa_test.json (crack/inactive IoU and AP, 5 runs): max |diff| 8.30e-06
+  pool cells 448; train 23; twins excluded ['CFVS_00003_r5_c5', 'CFVS_00037_r8_c4', 'CFVS_00032_r8_c4', 'CFVS_00020_r4_c4', 'CFVS_00022_r4_c4', 'CFVS_00031_r4_c4', 'ARTS_00081_r5_c1']
+  BMRK test: 10 cells, 10 with crack, 25235 crack px
+  BMRK pool: 39 cells, 22 with crack, 25811 crack px
+  ARTS test: 13 cells, 12 with crack, 2856 crack px
+  ARTS pool: 157 cells, 41 with crack, 10458 crack px
+  final probe train losses: {'probe/rn50_random/seed0': 0.369, 'probe/rn50_random/seed1': 0.387, 'probe/rn34_imagenet/seed0': 0.242, 'probe/rn34_imagenet/seed1': 0.204, 'probe/rn50_imagenet/seed0': 0.114, 'probe/rn50_imagenet/seed1': 0.078, 'probe/convnext_t/seed0': 0.197, 'probe/convnext_t/seed1': 0.134, 'probe/dinov2_vits14/seed0': 0.264, 'probe/dinov2_vits14/seed1': 0.161, 'probe/ref_A5c_enc/seed0': 0.225, 'probe/ref_A5c_enc/seed1': 0.201}
+
+## Decision rule: BMRK test crack AP
+  A5c tau0 0.1500 ± 0.0172; A5c+LA 0.1652 ± 0.0178; R = 0.1652; bar R + 0.05 = 0.2152
+  rn50_random     seeds [0.0452, 0.0467] mean 0.0459  Δ vs R -0.1193  reference only | pool BMRK AP 0.0185
+  rn34_imagenet   seeds [0.1846, 0.1866] mean 0.1856  Δ vs R +0.0204  fail | pool BMRK AP 0.1833
+  rn50_imagenet   seeds [0.2677, 0.2679] mean 0.2678  Δ vs R +0.1025  PASS | pool BMRK AP 0.3216
+  convnext_t      seeds [0.2783, 0.2708] mean 0.2745  Δ vs R +0.1093  PASS | pool BMRK AP 0.2796
+  dinov2_vits14   seeds [0.1222, 0.1329] mean 0.1275  Δ vs R -0.0377  fail | pool BMRK AP 0.1591
+  ref_A5c_enc     seeds [0.1705, 0.171] mean 0.1708  Δ vs R +0.0055  reference only | pool BMRK AP 0.2131
+  pool BMRK: A5c 0.2232, A5c+LA 0.2349, R_pool 0.2349
+  VERDICT: an encoder passes
+
+## test: crack AP / IoU / relaxed R@2 / recall at matched precision (target = A5c+LA pixel precision on that source)
+| model | BMRK (P*=0.58) | ARTS (P*=0.62) | CFVS (P*=0.59) | CSIR (P*=0.64) | all (P*=0.59) |
+|---|---|---|---|---|---|
+| A5c | 0.150 / 0.165 / 0.355 / 0.208 | 0.149 / 0.164 / 0.305 / 0.201 | 0.352 / 0.360 / 0.730 / 0.499 | 0.335 / 0.350 / 0.647 / 0.458 | 0.287 / 0.304 / 0.603 / 0.405 |
+| A5c+LA | 0.165 / 0.184 / 0.387 / 0.213 | 0.158 / 0.181 / 0.323 / 0.202 | 0.369 / 0.372 / 0.755 / 0.510 | 0.351 / 0.364 / 0.668 / 0.463 | 0.303 / 0.319 / 0.630 / 0.412 |
+| rn50_random | 0.046 / 0.008 / 0.018 / 0.000 | 0.001 / 0.000 / 0.000 / 0.000 | 0.094 / 0.012 / 0.032 / 0.000 | 0.007 / 0.001 / 0.004 / 0.000 | 0.045 / 0.009 / 0.024 / 0.000 |
+| rn34_imagenet | 0.186 / 0.036 / 0.082 / 0.001 | 0.027 / 0.003 / 0.013 / 0.000 | 0.349 / 0.198 / 0.382 / 0.028 | 0.039 / 0.033 / 0.147 / 0.000 | 0.209 / 0.121 / 0.259 / 0.002 |
+| rn50_imagenet | 0.268 / 0.088 / 0.209 / 0.022 | 0.085 / 0.012 / 0.041 / 0.000 | 0.430 / 0.228 / 0.459 / 0.158 | 0.117 / 0.075 / 0.192 / 0.000 | 0.329 / 0.167 / 0.344 / 0.054 |
+| convnext_t | 0.275 / 0.035 / 0.092 / 0.002 | 0.031 / 0.012 / 0.032 / 0.000 | 0.456 / 0.224 / 0.442 / 0.225 | 0.161 / 0.017 / 0.045 / 0.018 | 0.357 / 0.148 / 0.284 / 0.127 |
+| dinov2_vits14 | 0.128 / 0.057 / 0.118 / 0.000 | 0.087 / 0.045 / 0.064 / 0.000 | 0.223 / 0.071 / 0.109 / 0.000 | 0.152 / 0.049 / 0.073 / 0.000 | 0.167 / 0.063 / 0.105 / 0.000 |
+| ref_A5c_enc | 0.171 / 0.057 / 0.132 / 0.013 | 0.081 / 0.035 / 0.072 / 0.039 | 0.313 / 0.170 / 0.376 / 0.066 | 0.196 / 0.138 / 0.321 / 0.020 | 0.240 / 0.134 / 0.292 / 0.034 |
+
+## pool: crack AP / IoU / relaxed R@2 / recall at matched precision (target = A5c+LA pixel precision on that source)
+| model | BMRK (P*=0.58) | ARTS (P*=0.21) | CFVS (P*=0.41) | CSIR (P*=0.51) | SDLE (P*=0.30) | all (P*=0.43) |
+|---|---|---|---|---|---|---|
+| A5c | 0.223 / 0.259 / 0.493 / 0.334 | 0.045 / 0.095 / 0.205 / 0.149 | 0.212 / 0.260 / 0.634 / 0.433 | 0.219 / 0.261 / 0.573 / 0.363 | 0.209 / 0.256 / 0.652 / 0.586 | 0.203 / 0.251 / 0.580 / 0.387 |
+| A5c+LA | 0.235 / 0.272 / 0.514 / 0.341 | 0.048 / 0.098 / 0.226 / 0.159 | 0.224 / 0.267 / 0.662 / 0.439 | 0.232 / 0.273 / 0.596 / 0.375 | 0.207 / 0.248 / 0.668 / 0.586 | 0.214 / 0.260 / 0.606 / 0.397 |
+| rn50_random | 0.018 / 0.002 / 0.009 / 0.000 | 0.000 / 0.000 / 0.000 / 0.000 | 0.027 / 0.010 / 0.026 / 0.000 | 0.003 / 0.002 / 0.010 / 0.000 | 0.001 / 0.000 / 0.013 / 0.000 | 0.008 / 0.006 / 0.018 / 0.000 |
+| rn34_imagenet | 0.183 / 0.101 / 0.206 / 0.004 | 0.013 / 0.019 / 0.042 / 0.000 | 0.161 / 0.114 / 0.250 / 0.015 | 0.040 / 0.027 / 0.075 / 0.000 | 0.054 / 0.073 / 0.373 / 0.000 | 0.113 / 0.085 / 0.189 / 0.002 |
+| rn50_imagenet | 0.322 / 0.150 / 0.309 / 0.081 | 0.051 / 0.028 / 0.061 / 0.026 | 0.257 / 0.165 / 0.366 / 0.151 | 0.093 / 0.049 / 0.143 / 0.000 | 0.123 / 0.130 / 0.604 / 0.000 | 0.204 / 0.128 / 0.286 / 0.058 |
+| convnext_t | 0.280 / 0.084 / 0.195 / 0.043 | 0.015 / 0.010 / 0.025 / 0.005 | 0.243 / 0.131 / 0.290 / 0.160 | 0.071 / 0.012 / 0.032 / 0.000 | 0.111 / 0.110 / 0.383 / 0.048 | 0.185 / 0.092 / 0.198 / 0.081 |
+| dinov2_vits14 | 0.159 / 0.140 / 0.365 / 0.000 | 0.051 / 0.031 / 0.071 / 0.012 | 0.132 / 0.057 / 0.100 / 0.000 | 0.100 / 0.081 / 0.181 / 0.000 | 0.074 / 0.029 / 0.188 / 0.000 | 0.115 / 0.077 / 0.152 / 0.000 |
+| ref_A5c_enc | 0.213 / 0.126 / 0.269 / 0.048 | 0.006 / 0.016 / 0.047 / 0.000 | 0.161 / 0.108 / 0.270 / 0.050 | 0.141 / 0.094 / 0.218 / 0.042 | 0.056 / 0.043 / 0.173 / 0.086 | 0.139 / 0.101 / 0.245 / 0.000 |
+
+## Inactive AP (test all / pool all), descriptive
+  A5c_tau0        test 0.253  pool 0.090
+  A5c_tau1        test 0.262  pool 0.096
+  rn50_random     test 0.215  pool 0.032
+  rn34_imagenet   test 0.321  pool 0.091
+  rn50_imagenet   test 0.392  pool 0.103
+  convnext_t      test 0.395  pool 0.269
+  dinov2_vits14   test 0.335  pool 0.268
+  ref_A5c_enc     test 0.386  pool 0.074
+
+## 40 always-missed components: px-weighted relaxed@2 recall and count with recall >= 0.5 (argmax | matched at P* = 0.592)
+  A5c_tau0        argmax 0.019, 0.0/40 | matched 0.025, 0.0/40
+  A5c_tau1        argmax 0.025, 0.0/40 | matched 0.026, 0.0/40
+  rn50_random     argmax 0.003, 0.0/40 | matched 0.000, 0.0/40
+  rn34_imagenet   argmax 0.069, 1.0/40 | matched 0.000, 0.0/40
+  rn50_imagenet   argmax 0.097, 0.0/40 | matched 0.018, 0.0/40
+  convnext_t      argmax 0.017, 0.0/40 | matched 0.007, 0.0/40
+  dinov2_vits14   argmax 0.011, 0.0/40 | matched 0.000, 0.0/40
+  ref_A5c_enc     argmax 0.021, 0.0/40 | matched 0.002, 0.0/40

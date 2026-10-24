@@ -1,0 +1,14 @@
+2026-10-24 06:04:37 INFO train — Run: d1smoke_Ts_d0_s0  device: cuda  config: configs/supervised.yaml  overrides: ['seed=0', 'data.labeled_fraction=0.05', 'training.total_steps=20000', 'data.split_seed=0', 'training.labeled_batch_size=8', 'data.mask_subdir=labeled/masks_escdd', 'model.name=smp_unetpp', 'data.augmentation=labelsafe', 'loss.supervised=ce_dice', 'data.labeled_list=/tmp/noob_el/el_d1/draws/Ts_d0.txt', 'run_name=d1smoke_Ts_d0_s0']  resume: False
+2026-10-24 06:04:37 INFO train — Labelled: 35 (/tmp/noob_el/el_d1/draws/Ts_d0.txt)  unlabelled: 0 (-)  val: 54  test: 50
+Model smp_unetpp: 26,075,672 parameters
+2026-10-24 06:04:38 INFO train — Model smp_unetpp: 26,075,672 parameters
+2026-10-24 06:04:38 INFO train — CE class weights: none (plain CE)
+2026-10-24 06:04:38 INFO train — Zero-pixel classes in labelled subset (weight 0): ['sp_dogbone', 'text', 'clamp', 'busbars', 'crack_rbn_edge', 'rings', 'dead_cell', 'belt_mark', 'jbox', 'meas_artifact']
+2026-10-24 06:04:38 INFO src.trainers.trainer — Mode: supervised  total_steps=20000  val_every=500  checkpoint_every=2000  amp=True(bfloat16)  params=26,075,672
+2026-10-24 06:05:00 INFO src.trainers.trainer — step 50/20000  loss=3.725  loss_sup=3.725  loss_con=0  lambda=0  lr=0.000255  steps_per_sec=2.254
+2026-10-24 06:05:21 INFO src.trainers.trainer — step 100/20000  loss=2.511  loss_sup=2.511  loss_con=0  lambda=0  lr=0.000505  steps_per_sec=2.311
+2026-10-24 06:05:42 INFO src.trainers.trainer — step 150/20000  loss=1.607  loss_sup=1.607  loss_con=0  lambda=0  lr=0.000755  steps_per_sec=2.328
+2026-10-24 06:06:03 INFO src.trainers.trainer — step 200/20000  loss=1.306  loss_sup=1.306  loss_con=0  lambda=0  lr=0.001  steps_per_sec=2.336
+2026-10-24 06:06:24 INFO src.trainers.trainer — step 250/20000  loss=1.12  loss_sup=1.12  loss_con=0  lambda=0  lr=0.001  steps_per_sec=2.343
+2026-10-24 06:06:43 INFO src.trainers.trainer — step 300/20000  loss=0.9825  loss_sup=0.9825  loss_con=0  lambda=0  lr=0.0009999  steps_per_sec=2.4
+2026-10-24 06:06:43 WARNING src.trainers.trainer — exit_after_step=300 reached: hard exit (simulated crash)

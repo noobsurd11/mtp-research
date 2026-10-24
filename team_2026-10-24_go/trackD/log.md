@@ -1,0 +1,22 @@
+# Track D log (DX), IST
+- 24 Oct 11:15 read README, SYNTHESIS, critique, labelling_plan, memory, critic_defaults.
+- 11:20 cv02: GPUs 0-3 other user 470 MiB each, 4-5 other user (42/18 GB), 6-7 free. MD took 7 (m0audit). Agreed with MD: D = 0-3, M = 6-7; probe on 6.
+- 11:22 protocol_probe.md v1 to C. 11:24 APPROVED (review_probe_v1.md). GPU 6 booked.
+- 11:25 probe launched (tmux =dxprobe, GPU 6). Crashed at ResNet-50 download (connection reset), rc 1, after A5c + 2 encoders; nothing written. Weights relayed from gaint cache (SHA256 match). Rerun queued (=dxprobe2) after edge.
+- 11:27 protocol_edge.md v1 to C; APPROVED (review_edge_v1.md). 11:31-11:34 edge re-score, 68 checkpoints, rc 0 (tmux =dxedge, GPU 6). Output landed in el_sk1/ (rescore_label_versions chdirs on import); moved to el_trackD/edge/.
+- 11:28 gaint worktree el_d1 (branch d1 from 88a7e88); commit 86197f3: data.labeled_list + LA prior reads it; tests +4, suite 229 passed.
+- 11:30 trackD_draws.py dry run (staging): 448 candidates, 191 crack cells, remap px 703 (matches hb17).
+- 11:31 protocol_labelset.md v1 to C; APPROVED with 3 text items (module-position flag, power sentence, 2,000 bootstrap), added.
+- 11:33 el_d1 deployed to cv02 (git archive 86197f3); final draws in el_d1/draws, MD5 match with staging; copied to trackD/draws/.
+- 11:34 identity (GPU 0, 500 steps) + 2 smokes (GPU 1, 300 steps). 11:36 identity IDENTICAL to p12_A_5pct_s0 (11 lines incl. val@500). Smokes: Labelled 35, 5.7 GB each, 2.4 steps/s with 2 per GPU (2.3 h per run).
+- 11:36 edge analysis done (scripts/trackD_edge_analysis.py), edge_results.md written; to C for recompute.
+- 11:38 C: GO (review_labelset_v1 addendum 2). 11:38 launched d1: cv02 tmux =d1, GPUs 0-3 x 2 lanes, 27 runs (lanes 0-2 four runs, 3-7 three). ETA ~21:00 IST. Notes for results: noisy-module cell CSIR_00070_r7_c2 labelled in R_d0, Tc_d1 (report noisy-cell FP per run); absent classes per draw beside mIoU.
+- 11:46 probe rerun rc 0 (outputs landed in el_sk1/out via the chdir; moved to el_trackD/probe). 11:50 analysis: rn50 and convnext PASS the BMRK AP rule (+0.103, +0.109); rn50 also on pool. Gain is low-precision ranking (matched-precision recall ~0). probe_results.md to C. GPU 6 freed. Relayed edge + probe + draws to gaint el_trackD, MD5 identical.
+- 11:52 trackD_d1_score.py verified on p12_A_5pct_s0 (GPU 6, 5 s): per-cell equal to edge.json, confusion crack TP matches. d1_post.sh armed in tmux =d1post (waits for 27 trained lines, then scoring + E1 on GPU 0).
+- 11:55 C: probe CONFIRMED (verify_probe.md). Prior sent to MD; verified result sent to team-lead.
+- 12:27 C: edge CONFIRMED (verify_edge.md); wording added to edge_results.md.
+- 14:00 round 1 (8 runs) trained + rescored. 14:17 relayed to gaint el_trackD/el_d1, 64 files MD5 identical.
+- 16:25 round 2 done (16 trained, all rc 0). 16:49 relayed round 2 (8 runs), 64 files MD5 identical.
+- 18:55 round 3 done (24 trained, 0 failures); GPU 3 free. 19:07 relayed round 3, 64 files MD5 identical. Last 3 runs on GPUs 0-2, ETA ~21:15.
+- 20:06 all 27 done (rc 0, completion check 27/27), post done. GPUs 0-2 freed, told MD. 20:20 analysis (scripts/trackD_labelset_analysis.py): Tc-R BETTER (IoU, relF1), Ts-Tc n.d. all 50 (BETTER no-twins on recall only), Ts-R BETTER; kill not triggered. labelset_results.md to C.
+- 20:15 C: labelset CONFIRMED (verify_labelset.md). Direction 4 NOT opened. Residual note added. 20:12 final relay, 67 files MD5 identical. Track D directions done.

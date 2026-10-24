@@ -1,0 +1,56 @@
+A5c/p12_A_5pct_s0/tau0 done 12s
+A5c/p12_A_5pct_s0/tau1 done 24s
+A5c/p12_A_5pct_s1/tau0 done 35s
+A5c/p12_A_5pct_s1/tau1 done 46s
+A5c/p12_A_5pct_s2/tau0 done 57s
+A5c/p12_A_5pct_s2/tau1 done 67s
+A5c/p13_A_5pct_s3/tau0 done 79s
+A5c/p13_A_5pct_s3/tau1 done 89s
+A5c/p13_A_5pct_s4/tau0 done 100s
+A5c/p13_A_5pct_s4/tau1 done 111s
+/tmp/noob_el/el_trackD/probe/trackD_probe.py:240: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:820.)
+  meta["models"][tag] = {"final_train_loss": float(loss), "dims": dims}
+probe/rn50_random/seed0 loss 0.3688 done 42s
+probe/rn50_random/seed1 loss 0.3870 done 83s
+probe/rn34_imagenet/seed0 loss 0.2416 done 38s
+probe/rn34_imagenet/seed1 loss 0.2041 done 76s
+probe/rn50_imagenet/seed0 loss 0.1138 done 42s
+probe/rn50_imagenet/seed1 loss 0.0782 done 83s
+probe/convnext_t/seed0 loss 0.1966 done 46s
+probe/convnext_t/seed1 loss 0.1339 done 92s
+Using cache found in /tmp/noob_el/cache/torch/hub/facebookresearch_dinov2_main
+/tmp/noob_el/cache/torch/hub/facebookresearch_dinov2_main/dinov2/layers/swiglu_ffn.py:51: UserWarning: xFormers is not available (SwiGLU)
+  warnings.warn("xFormers is not available (SwiGLU)")
+/tmp/noob_el/cache/torch/hub/facebookresearch_dinov2_main/dinov2/layers/attention.py:33: UserWarning: xFormers is not available (Attention)
+  warnings.warn("xFormers is not available (Attention)")
+/tmp/noob_el/cache/torch/hub/facebookresearch_dinov2_main/dinov2/layers/block.py:40: UserWarning: xFormers is not available (Block)
+  warnings.warn("xFormers is not available (Block)")
+probe/dinov2_vits14/seed0 loss 0.2642 done 72s
+probe/dinov2_vits14/seed1 loss 0.1615 done 143s
+probe/ref_A5c_enc/seed0 loss 0.2248 done 39s
+probe/ref_A5c_enc/seed1 loss 0.2005 done 78s
+A5c/p12_A_5pct_s0/tau0 test/BMRK AP 0.165 | test/ARTS AP 0.131 | test/CFVS AP 0.352 | test/CSIR AP 0.335 | test/all AP 0.290 | pool/BMRK AP 0.213 | pool/ARTS AP 0.040 | pool/CFVS AP 0.209 | pool/CSIR AP 0.227 | pool/all AP 0.201
+A5c/p12_A_5pct_s0/tau1 test/BMRK AP 0.179 | test/ARTS AP 0.133 | test/CFVS AP 0.366 | test/CSIR AP 0.349 | test/all AP 0.303 | pool/BMRK AP 0.224 | pool/ARTS AP 0.041 | pool/CFVS AP 0.219 | pool/CSIR AP 0.239 | pool/all AP 0.210
+A5c/p12_A_5pct_s1/tau0 test/BMRK AP 0.150 | test/ARTS AP 0.186 | test/CFVS AP 0.353 | test/CSIR AP 0.339 | test/all AP 0.289 | pool/BMRK AP 0.220 | pool/ARTS AP 0.058 | pool/CFVS AP 0.221 | pool/CSIR AP 0.227 | pool/all AP 0.210
+A5c/p12_A_5pct_s1/tau1 test/BMRK AP 0.169 | test/ARTS AP 0.195 | test/CFVS AP 0.368 | test/CSIR AP 0.357 | test/all AP 0.305 | pool/BMRK AP 0.236 | pool/ARTS AP 0.061 | pool/CFVS AP 0.232 | pool/CSIR AP 0.238 | pool/all AP 0.221
+A5c/p12_A_5pct_s2/tau0 test/BMRK AP 0.141 | test/ARTS AP 0.136 | test/CFVS AP 0.350 | test/CSIR AP 0.330 | test/all AP 0.282 | pool/BMRK AP 0.227 | pool/ARTS AP 0.050 | pool/CFVS AP 0.209 | pool/CSIR AP 0.213 | pool/all AP 0.200
+A5c/p12_A_5pct_s2/tau1 test/BMRK AP 0.155 | test/ARTS AP 0.148 | test/CFVS AP 0.371 | test/CSIR AP 0.343 | test/all AP 0.300 | pool/BMRK AP 0.237 | pool/ARTS AP 0.055 | pool/CFVS AP 0.222 | pool/CSIR AP 0.227 | pool/all AP 0.213
+A5c/p13_A_5pct_s3/tau0 test/BMRK AP 0.168 | test/ARTS AP 0.157 | test/CFVS AP 0.356 | test/CSIR AP 0.341 | test/all AP 0.295 | pool/BMRK AP 0.238 | pool/ARTS AP 0.035 | pool/CFVS AP 0.213 | pool/CSIR AP 0.224 | pool/all AP 0.205
+A5c/p13_A_5pct_s3/tau1 test/BMRK AP 0.183 | test/ARTS AP 0.165 | test/CFVS AP 0.372 | test/CSIR AP 0.355 | test/all AP 0.311 | pool/BMRK AP 0.248 | pool/ARTS AP 0.036 | pool/CFVS AP 0.225 | pool/CSIR AP 0.235 | pool/all AP 0.215
+A5c/p13_A_5pct_s4/tau0 test/BMRK AP 0.126 | test/ARTS AP 0.135 | test/CFVS AP 0.351 | test/CSIR AP 0.331 | test/all AP 0.278 | pool/BMRK AP 0.217 | pool/ARTS AP 0.045 | pool/CFVS AP 0.209 | pool/CSIR AP 0.205 | pool/all AP 0.197
+A5c/p13_A_5pct_s4/tau1 test/BMRK AP 0.141 | test/ARTS AP 0.150 | test/CFVS AP 0.367 | test/CSIR AP 0.351 | test/all AP 0.294 | pool/BMRK AP 0.230 | pool/ARTS AP 0.048 | pool/CFVS AP 0.222 | pool/CSIR AP 0.220 | pool/all AP 0.210
+probe/rn50_random/seed0 test/BMRK AP 0.045 | test/ARTS AP 0.001 | test/CFVS AP 0.095 | test/CSIR AP 0.008 | test/all AP 0.046 | pool/BMRK AP 0.020 | pool/ARTS AP 0.000 | pool/CFVS AP 0.026 | pool/CSIR AP 0.003 | pool/all AP 0.008
+probe/rn50_random/seed1 test/BMRK AP 0.047 | test/ARTS AP 0.001 | test/CFVS AP 0.093 | test/CSIR AP 0.006 | test/all AP 0.044 | pool/BMRK AP 0.017 | pool/ARTS AP 0.000 | pool/CFVS AP 0.027 | pool/CSIR AP 0.003 | pool/all AP 0.007
+probe/rn34_imagenet/seed0 test/BMRK AP 0.185 | test/ARTS AP 0.026 | test/CFVS AP 0.349 | test/CSIR AP 0.047 | test/all AP 0.223 | pool/BMRK AP 0.183 | pool/ARTS AP 0.014 | pool/CFVS AP 0.161 | pool/CSIR AP 0.043 | pool/all AP 0.115
+probe/rn34_imagenet/seed1 test/BMRK AP 0.187 | test/ARTS AP 0.028 | test/CFVS AP 0.350 | test/CSIR AP 0.031 | test/all AP 0.196 | pool/BMRK AP 0.184 | pool/ARTS AP 0.011 | pool/CFVS AP 0.162 | pool/CSIR AP 0.038 | pool/all AP 0.111
+probe/rn50_imagenet/seed0 test/BMRK AP 0.268 | test/ARTS AP 0.085 | test/CFVS AP 0.431 | test/CSIR AP 0.128 | test/all AP 0.335 | pool/BMRK AP 0.322 | pool/ARTS AP 0.053 | pool/CFVS AP 0.257 | pool/CSIR AP 0.090 | pool/all AP 0.203
+probe/rn50_imagenet/seed1 test/BMRK AP 0.268 | test/ARTS AP 0.085 | test/CFVS AP 0.429 | test/CSIR AP 0.107 | test/all AP 0.324 | pool/BMRK AP 0.322 | pool/ARTS AP 0.050 | pool/CFVS AP 0.257 | pool/CSIR AP 0.096 | pool/all AP 0.205
+probe/convnext_t/seed0 test/BMRK AP 0.278 | test/ARTS AP 0.033 | test/CFVS AP 0.458 | test/CSIR AP 0.165 | test/all AP 0.360 | pool/BMRK AP 0.282 | pool/ARTS AP 0.016 | pool/CFVS AP 0.243 | pool/CSIR AP 0.079 | pool/all AP 0.187
+probe/convnext_t/seed1 test/BMRK AP 0.271 | test/ARTS AP 0.029 | test/CFVS AP 0.455 | test/CSIR AP 0.158 | test/all AP 0.354 | pool/BMRK AP 0.278 | pool/ARTS AP 0.014 | pool/CFVS AP 0.243 | pool/CSIR AP 0.064 | pool/all AP 0.183
+probe/dinov2_vits14/seed0 test/BMRK AP 0.122 | test/ARTS AP 0.083 | test/CFVS AP 0.218 | test/CSIR AP 0.147 | test/all AP 0.164 | pool/BMRK AP 0.152 | pool/ARTS AP 0.052 | pool/CFVS AP 0.130 | pool/CSIR AP 0.101 | pool/all AP 0.114
+probe/dinov2_vits14/seed1 test/BMRK AP 0.133 | test/ARTS AP 0.090 | test/CFVS AP 0.228 | test/CSIR AP 0.157 | test/all AP 0.171 | pool/BMRK AP 0.166 | pool/ARTS AP 0.049 | pool/CFVS AP 0.135 | pool/CSIR AP 0.098 | pool/all AP 0.116
+probe/ref_A5c_enc/seed0 test/BMRK AP 0.171 | test/ARTS AP 0.080 | test/CFVS AP 0.313 | test/CSIR AP 0.205 | test/all AP 0.242 | pool/BMRK AP 0.213 | pool/ARTS AP 0.007 | pool/CFVS AP 0.161 | pool/CSIR AP 0.142 | pool/all AP 0.139
+probe/ref_A5c_enc/seed1 test/BMRK AP 0.171 | test/ARTS AP 0.083 | test/CFVS AP 0.313 | test/CSIR AP 0.187 | test/all AP 0.238 | pool/BMRK AP 0.213 | pool/ARTS AP 0.006 | pool/CFVS AP 0.161 | pool/CSIR AP 0.140 | pool/all AP 0.139
+wrote out
+rc=0

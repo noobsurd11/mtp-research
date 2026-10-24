@@ -1,0 +1,96 @@
+## Checks
+  max |diff| vs lane re-score JSONs / la_sa_test.json: 0.00e+00; steps [20000]
+
+## Draws (added 12 cells): crack cells, crack px, inactive cells / px, shares test position, absent classes in the 35
+  R_d0: +9 crack cells, +8761 px, +1 inactive cells / 4339 px, absent ['sp_dogbone', 'text', 'clamp', 'crack_rbn_edge', 'rings', 'dead_cell', 'belt_mark', 'meas_artifact'], test-pos ['CFVS_00142_r3_c1'], BMRK/ARTS crack cells 3/1
+  R_d1: +4 crack cells, +5309 px, +2 inactive cells / 24256 px, absent ['sp_dogbone', 'text', 'clamp', 'crack_rbn_edge', 'rings', 'dead_cell', 'belt_mark', 'meas_artifact'], test-pos ['ARTS_00070_r7_c4'], BMRK/ARTS crack cells 0/1
+  R_d2: +5 crack cells, +1327 px, +0 inactive cells / 0 px, absent ['sp_dogbone', 'text', 'clamp', 'crack_rbn_edge', 'dead_cell', 'belt_mark', 'jbox', 'meas_artifact'], test-pos ['ARTS_00037_r4_c2', 'ARTS_00146_r8_c6', 'ARTS_00155_r7_c3'], BMRK/ARTS crack cells 0/3
+  Tc_d0: +12 crack cells, +18962 px, +3 inactive cells / 29759 px, absent ['text', 'clamp', 'crack_rbn_edge', 'rings', 'belt_mark', 'jbox', 'meas_artifact'], test-pos ['ARTS_00091_r5_c2', 'CFVS_00180_r8_c6'], BMRK/ARTS crack cells 1/1
+  Tc_d1: +12 crack cells, +11070 px, +1 inactive cells / 1695 px, absent ['sp_dogbone', 'text', 'clamp', 'busbars', 'crack_rbn_edge', 'rings', 'dead_cell', 'belt_mark', 'jbox', 'meas_artifact'], test-pos [], BMRK/ARTS crack cells 5/2
+  Tc_d2: +12 crack cells, +13642 px, +4 inactive cells / 14232 px, absent ['sp_dogbone', 'text', 'clamp', 'busbars', 'crack_rbn_edge', 'rings', 'dead_cell', 'belt_mark', 'jbox', 'meas_artifact'], test-pos ['CFVS_00003_r2_c3'], BMRK/ARTS crack cells 3/2
+  Ts_d0: +12 crack cells, +21184 px, +2 inactive cells / 12668 px, absent ['sp_dogbone', 'text', 'clamp', 'busbars', 'crack_rbn_edge', 'rings', 'dead_cell', 'belt_mark', 'jbox', 'meas_artifact'], test-pos [], BMRK/ARTS crack cells 6/4
+  Ts_d1: +12 crack cells, +8315 px, +1 inactive cells / 4339 px, absent ['sp_dogbone', 'text', 'clamp', 'busbars', 'crack_rbn_edge', 'rings', 'dead_cell', 'belt_mark', 'jbox', 'meas_artifact'], test-pos ['ARTS_00024_r11_c6'], BMRK/ARTS crack cells 6/4
+  Ts_d2: +12 crack cells, +20318 px, +4 inactive cells / 26857 px, absent ['sp_dogbone', 'text', 'clamp', 'busbars', 'crack_rbn_edge', 'rings', 'dead_cell', 'belt_mark', 'jbox', 'meas_artifact'], test-pos [], BMRK/ARTS crack cells 6/4
+
+## Per draw, all 50 (mean of 3 seeds): crack IoU / relF1@2 / recall / relP@2 / inactive IoU / mIoU(24)
+  R_d0: 0.3272 / 0.7605 / 0.4047 / 0.9011 / 0.3254 / 0.4425 | seeds IoU [np.float64(0.3323), np.float64(0.3256), np.float64(0.3236)] | noisy-cell crack FP [15, 7, 7]
+  R_d1: 0.3163 / 0.7550 / 0.3860 / 0.8866 / 0.3515 / 0.4460 | seeds IoU [np.float64(0.3204), np.float64(0.3064), np.float64(0.3222)] | noisy-cell crack FP [1010, 5743, 318]
+  R_d2: 0.3295 / 0.7564 / 0.4161 / 0.8765 / 0.3152 / 0.4284 | seeds IoU [np.float64(0.336), np.float64(0.3316), np.float64(0.3208)] | noisy-cell crack FP [0, 104, 22]
+  Tc_d0: 0.3367 / 0.7850 / 0.4225 / 0.8984 / 0.3236 / 0.4437 | seeds IoU [np.float64(0.339), np.float64(0.3313), np.float64(0.3399)] | noisy-cell crack FP [40, 56, 366]
+  Tc_d1: 0.3298 / 0.7800 / 0.4055 / 0.9020 / 0.2995 / 0.4240 | seeds IoU [np.float64(0.3342), np.float64(0.3225), np.float64(0.3328)] | noisy-cell crack FP [54, 16, 2]
+  Tc_d2: 0.3447 / 0.7971 / 0.4286 / 0.9025 / 0.3603 / 0.4274 | seeds IoU [np.float64(0.3397), np.float64(0.3492), np.float64(0.3451)] | noisy-cell crack FP [337, 669, 108]
+  Ts_d0: 0.3589 / 0.8044 / 0.4565 / 0.9032 / 0.3523 / 0.4226 | seeds IoU [np.float64(0.3636), np.float64(0.3591), np.float64(0.354)] | noisy-cell crack FP [75, 4, 50]
+  Ts_d1: 0.3331 / 0.7740 / 0.4206 / 0.8851 / 0.3507 / 0.4311 | seeds IoU [np.float64(0.3421), np.float64(0.3312), np.float64(0.326)] | noisy-cell crack FP [611, 21, 1401]
+  Ts_d2: 0.3645 / 0.8057 / 0.4561 / 0.9140 / 0.3420 / 0.4307 | seeds IoU [np.float64(0.3549), np.float64(0.3719), np.float64(0.3667)] | noisy-cell crack FP [39, 126, 475]
+
+## Arms (9 runs; draw-mean sd) and yardsticks, all 50
+  R: iou 0.3243 (draw sd 0.0070), relf1 0.7573 (draw sd 0.0029), recall 0.4023 (draw sd 0.0152), relp 0.8881 (draw sd 0.0124), inact_iou 0.3307 (draw sd 0.0187), mIoU 0.4389
+  R+LA: iou 0.3372, relf1 0.7585, recall 0.4466, relp 0.8461
+  Tc: iou 0.3371 (draw sd 0.0074), relf1 0.7874 (draw sd 0.0088), recall 0.4189 (draw sd 0.0119), relp 0.9010 (draw sd 0.0022), inact_iou 0.3278 (draw sd 0.0306), mIoU 0.4317
+  Tc+LA: iou 0.3523, relf1 0.7934, recall 0.4657, relp 0.8658
+  Ts: iou 0.3522 (draw sd 0.0168), relf1 0.7947 (draw sd 0.0180), recall 0.4444 (draw sd 0.0206), relp 0.9008 (draw sd 0.0146), inact_iou 0.3483 (draw sd 0.0055), mIoU 0.4281
+  Ts+LA: iou 0.3651, relf1 0.7989, recall 0.4874, relp 0.8713
+  A5c (5): iou 0.3037, relf1 0.7195, recall 0.3713, relp 0.8925, inact_iou 0.2534, mIoU 0.4096
+  A5c+LA (5): iou 0.3191, relf1 0.7284, recall 0.4094, relp 0.8647, inact_iou 0.2640
+  BsM5 (D7) (5): iou 0.3311, relf1 0.7607, recall 0.4092, relp 0.9072, inact_iou 0.3854, mIoU 0.4233
+  BsM5 (D7)+LA (5): iou 0.3560, relf1 0.7762, recall 0.4990, relp 0.8377, inact_iou 0.4095
+  L3 10% (3): iou 0.3957, relf1 0.8141, recall 0.5069, relp 0.9095, inact_iou 0.2942, mIoU 0.4859
+  L3 10%+LA (3): iou 0.4065, relf1 0.8185, recall 0.5523, relp 0.8858, inact_iou 0.3032
+
+## Contrasts, all 50 (50 cells): draw-level rule (seed-level 9 v 9 descriptive)
+  PRIMARY 1 Ts − Tc: n.d. | iou +0.0151 (0.0212) n.d. [seed 0.0205 n.d.]; relf1 +0.0073 (0.0231) n.d. [seed 0.0230 n.d.]; recall +0.0255 (0.0275) n.d. [seed 0.0284 n.d.] | relP@2 Δ -0.0002
+  PRIMARY 2 Tc − R: BETTER | iou +0.0127 (0.0118) BETTER [seed 0.0136 n.d.]; relf1 +0.0301 (0.0106) BETTER [seed 0.0147 BETTER]; recall +0.0166 (0.0223) n.d. [seed 0.0227 n.d.] | relP@2 Δ +0.0129
+  secondary Ts − R: BETTER | iou +0.0278 (0.0210) BETTER [seed 0.0209 BETTER]; relf1 +0.0374 (0.0210) BETTER [seed 0.0216 BETTER]; recall +0.0421 (0.0295) BETTER [seed 0.0298 BETTER] | relP@2 Δ +0.0127
+
+## Contrasts, no noisy (49 cells): draw-level rule (seed-level 9 v 9 descriptive)
+  PRIMARY 1 Ts − Tc: n.d. | iou +0.0155 (0.0207) n.d. [seed 0.0202 n.d.]; relf1 +0.0080 (0.0221) n.d. [seed 0.0225 n.d.]; recall +0.0257 (0.0278) n.d. [seed 0.0287 n.d.] | relP@2 Δ +0.0015
+  PRIMARY 2 Tc − R: BETTER | iou +0.0111 (0.0100) BETTER [seed 0.0116 n.d.]; relf1 +0.0264 (0.0133) BETTER [seed 0.0155 BETTER]; recall +0.0168 (0.0225) n.d. [seed 0.0229 n.d.] | relP@2 Δ +0.0026
+  secondary Ts − R: BETTER | iou +0.0266 (0.0190) BETTER [seed 0.0188 BETTER]; relf1 +0.0344 (0.0203) BETTER [seed 0.0203 BETTER]; recall +0.0425 (0.0299) BETTER [seed 0.0301 BETTER] | relP@2 Δ +0.0041
+
+## Contrasts, no twins (43 cells): draw-level rule (seed-level 9 v 9 descriptive)
+  PRIMARY 1 Ts − Tc: BETTER | iou +0.0227 (0.0271) n.d. [seed 0.0257 n.d.]; relf1 +0.0251 (0.0316) n.d. [seed 0.0312 n.d.]; recall +0.0358 (0.0333) BETTER [seed 0.0345 BETTER] | relP@2 Δ -0.0019
+  PRIMARY 2 Tc − R: BETTER | iou +0.0116 (0.0192) n.d. [seed 0.0194 n.d.]; relf1 +0.0281 (0.0251) BETTER [seed 0.0259 BETTER]; recall +0.0144 (0.0300) n.d. [seed 0.0305 n.d.] | relP@2 Δ +0.0219
+  secondary Ts − R: BETTER | iou +0.0343 (0.0300) BETTER [seed 0.0284 BETTER]; relf1 +0.0532 (0.0345) BETTER [seed 0.0335 BETTER]; recall +0.0503 (0.0406) BETTER [seed 0.0396 BETTER] | relP@2 Δ +0.0200
+
+## Contrasts, neither (42 cells): draw-level rule (seed-level 9 v 9 descriptive)
+  PRIMARY 1 Ts − Tc: BETTER | iou +0.0234 (0.0267) n.d. [seed 0.0255 n.d.]; relf1 +0.0263 (0.0305) n.d. [seed 0.0306 n.d.]; recall +0.0363 (0.0339) BETTER [seed 0.0350 BETTER] | relP@2 Δ +0.0009
+  PRIMARY 2 Tc − R: BETTER | iou +0.0094 (0.0156) n.d. [seed 0.0166 n.d.]; relf1 +0.0226 (0.0179) BETTER [seed 0.0214 BETTER]; recall +0.0147 (0.0305) n.d. [seed 0.0310 n.d.] | relP@2 Δ +0.0041
+  secondary Ts − R: BETTER | iou +0.0328 (0.0266) BETTER [seed 0.0256 BETTER]; relf1 +0.0489 (0.0264) BETTER [seed 0.0275 BETTER]; recall +0.0510 (0.0413) BETTER [seed 0.0402 BETTER] | relP@2 Δ +0.0050
+
+## Paired cell bootstrap, all 50, 2000 resamples: Δ [95% CI] (P(Δ>0)) over arm means of 9 runs
+  Ts − Tc: iou +0.0151 [+0.0054, +0.0269] (1.00); relf1 +0.0073 [-0.0058, +0.0239] (0.85); recall +0.0255 [+0.0075, +0.0459] (1.00)
+  Tc − R: iou +0.0127 [+0.0049, +0.0211] (1.00); relf1 +0.0301 [+0.0196, +0.0423] (1.00); recall +0.0166 [+0.0041, +0.0292] (0.99)
+  Ts − R: iou +0.0278 [+0.0182, +0.0403] (1.00); relf1 +0.0374 [+0.0249, +0.0546] (1.00); recall +0.0421 [+0.0274, +0.0600] (1.00)
+
+## Per source (all 50): crack recall / IoU, arm means of draw-means; contrasts with draw-level arithmetic (descriptive)
+  ARTS (13 cells): R 0.279 / 0.250; Tc 0.235 / 0.208; Ts 0.272 / 0.243; A5c 0.179 / 0.164; BsM5 (D7) 0.153 / 0.142; L3 10% 0.252 / 0.220
+    Ts − Tc: recall +0.0370 (0.0636) n.d.; IoU +0.0353 (0.0535) n.d.
+    Tc − R: recall -0.0435 (0.0962) n.d.; IoU -0.0418 (0.0815) n.d.
+    Ts − R: recall -0.0066 (0.0834) n.d.; IoU -0.0065 (0.0700) n.d.
+  BMRK (10 cells): R 0.242 / 0.207; Tc 0.265 / 0.223; Ts 0.312 / 0.259; A5c 0.186 / 0.165; BsM5 (D7) 0.190 / 0.167; L3 10% 0.262 / 0.219
+    Ts − Tc: recall +0.0471 (0.0721) n.d.; IoU +0.0358 (0.0559) n.d.
+    Tc − R: recall +0.0230 (0.0631) n.d.; IoU +0.0163 (0.0468) n.d.
+    Ts − R: recall +0.0700 (0.0444) BETTER; IoU +0.0521 (0.0336) BETTER
+  CFVS (18 cells): R 0.481 / 0.378; Tc 0.493 / 0.389; Ts 0.519 / 0.399; A5c 0.461 / 0.360; BsM5 (D7) 0.520 / 0.402; L3 10% 0.637 / 0.483
+    Ts − Tc: recall +0.0259 (0.0154) BETTER; IoU +0.0102 (0.0116) n.d.
+    Tc − R: recall +0.0118 (0.0213) n.d.; IoU +0.0107 (0.0100) BETTER
+    Ts − R: recall +0.0376 (0.0217) BETTER; IoU +0.0208 (0.0108) BETTER
+  CSIR (8 cells): R 0.428 / 0.338; Tc 0.464 / 0.361; Ts 0.440 / 0.352; A5c 0.421 / 0.350; BsM5 (D7) 0.454 / 0.365; L3 10% 0.521 / 0.389
+    Ts − Tc: recall -0.0247 (0.0836) n.d.; IoU -0.0094 (0.0512) n.d.
+    Tc − R: recall +0.0367 (0.0649) n.d.; IoU +0.0239 (0.0422) n.d.
+    Ts − R: recall +0.0119 (0.0532) n.d.; IoU +0.0145 (0.0487) n.d.
+
+## Kill inputs: BMRK / ARTS recall moves: {'Ts-Tc BMRK': np.float64(0.0471), 'Ts-Tc ARTS': np.float64(0.037), 'Tc-R BMRK': np.float64(0.023), 'Tc-R ARTS': np.float64(-0.0435)}
+
+## Descriptive regression, 9 draw-means: crack IoU = 0.3157 + 0.0183 per 10k added crack px (r = 0.82)
+   inactive IoU vs added inactive px: r = 0.38; per draw: R_d0 0.325, R_d1 0.352, R_d2 0.315, Tc_d0 0.324, Tc_d1 0.300, Tc_d2 0.360, Ts_d0 0.352, Ts_d1 0.351, Ts_d2 0.342
+
+## E1 extension (106 cells): crack false alarm / tolF1, arm means over 9 runs
+  R: false alarm 0.200, tolF1 0.236
+  Tc: false alarm 0.302, tolF1 0.289
+  Ts: false alarm 0.257, tolF1 0.277
+
+## All-class mIoU (classes present in test GT: 15), draw-means: {'R': [0.4425, 0.446, 0.4284], 'Tc': [0.4437, 0.424, 0.4274], 'Ts': [0.4226, 0.4311, 0.4307]}
+  Ts − Tc: -0.0035 (0.0134) n.d.
+  Tc − R: -0.0073 (0.0163) n.d.
+  Ts − R: -0.0108 (0.0121) n.d.

@@ -1,0 +1,132 @@
+commit 86197f318686a349c2baff086117bef760461681
+Author: noobsurd11 <153968487+noobsurd11@users.noreply.github.com>
+Date:   Sat Oct 24 11:30:27 2026 +0530
+
+    Track D switch: data.labeled_list (explicit labelled train stems, file order; SSL pool = rest of train.txt)
+    
+    Opt-in, not in base.yaml; unset leaves every path unchanged. Rejects non-train stems, duplicates and
+    labeled_fraction >= 1. rescore_logit_adjust.log_prior reads the same list. Tests: tests/test_labeled_list.py (+4);
+    full suite 229 passed, 3 skipped.
+    
+    Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+    Claude-Session: https://claude.ai/code/session_01NCZi88EJdmNAC6T2ao7UPw
+
+diff --git a/scripts/rescore_logit_adjust.py b/scripts/rescore_logit_adjust.py
+index 98dbc23..917048f 100644
+--- a/scripts/rescore_logit_adjust.py
++++ b/scripts/rescore_logit_adjust.py
+@@ -41,6 +41,8 @@ def log_prior(cfg: dict) -> tuple[torch.Tensor, torch.Tensor]:
+     frac, ss = float(d.get("labeled_fraction", 1.0)), int(d.get("split_seed", cfg.get("seed", 0)))
+     tag = f"{round(frac * 100)}pct"
+     f = DATA / "splits" / ("train.txt" if frac >= 1 else f"seed{ss}/labeled_{tag}.txt")
++    if d.get("labeled_list"):  # Track D: explicit labelled list (data.labeled_list)
++        f = Path(d["labeled_list"])
+     counts = count_class_pixels(DATA / d.get("mask_subdir", "labeled/masks_coded"), load_split(f)).astype(np.float64)
+     pi = counts / counts.sum()
+     absent = torch.tensor(pi == 0)
+diff --git a/scripts/train.py b/scripts/train.py
+index 0f0f833..738c248 100644
+--- a/scripts/train.py
++++ b/scripts/train.py
+@@ -300,17 +300,32 @@ def build_benchmark_data(cfg: dict, method: str, seed: int, frac: float, is_ssl:
+     # ``data.split_seed`` picks the labelled subset (data/splits/seed<k>/); it defaults to the
+     # training seed, so "seed=1 data.split_seed=0" changes the training seed only.
+     split_seed = int(d_cfg.get("split_seed", seed))
+-    if frac >= 1.0:
++    # ``data.labeled_list`` (opt-in, Track D labelled-set experiment; not in base.yaml so older run configs stay
++    # resumable): an explicit file of labelled train stems replaces data/splits/seed<k>/labeled_<P>pct.txt, in the
++    # file's order. The in-domain pool is then the rest of train.txt, in train.txt order. Unset: unchanged.
++    labeled_list = d_cfg.get("labeled_list")
++    if labeled_list:
++        if frac >= 1.0:
++            raise ValueError("data.labeled_list needs data.labeled_fraction < 1")
++        labeled_file, unlabeled_file = Path(labeled_list), None
++    elif frac >= 1.0:
+         labeled_file, unlabeled_file = splits / "train.txt", None
+     else:
+         labeled_file = splits / f"seed{split_seed}" / f"labeled_{frac_tag(frac)}.txt"
+         unlabeled_file = splits / f"seed{split_seed}" / f"unlabeled_{frac_tag(frac)}.txt"
+     labeled_stems = load_split(labeled_file)
+-    train_stems = set(load_split(splits / "train.txt"))
++    train_list = load_split(splits / "train.txt")
++    train_stems = set(train_list)
+     val_stems, test_stems = load_split(splits / "val.txt"), load_split(splits / "test.txt")
+     if not set(labeled_stems) <= train_stems:
+         raise ValueError(f"{labeled_file} contains non-train images")
+-    unlabeled_stems = load_split(unlabeled_file) if is_ssl else []
++    if len(set(labeled_stems)) != len(labeled_stems):
++        raise ValueError(f"{labeled_file} contains duplicate stems")
++    if labeled_list:
++        lab_set = set(labeled_stems)
++        unlabeled_stems = [s_ for s_ in train_list if s_ not in lab_set] if is_ssl else []
++    else:
++        unlabeled_stems = load_split(unlabeled_file) if is_ssl else []
+     # ``data.unlabeled_pool: external`` (opt-in, not in base.yaml so older run configs stay resumable): the SSL
+     # unlabelled set is the external pool (scripts/prepare_external_pool.py) instead of the rest of train.
+     pool = d_cfg.get("unlabeled_pool", "split")
+diff --git a/tests/test_labeled_list.py b/tests/test_labeled_list.py
+new file mode 100644
+index 0000000..8552e2f
+--- /dev/null
++++ b/tests/test_labeled_list.py
+@@ -0,0 +1,60 @@
++"""Track D: data.labeled_list (explicit labelled stems) in scripts/train.py build_benchmark_data."""
++import sys
++from pathlib import Path
++
++import pytest
++import torch
++
++ROOT = Path(__file__).resolve().parent.parent
++sys.path.insert(0, str(ROOT)); sys.path.insert(0, str(ROOT / "scripts"))
++
++from src.data.splits import load_split
++from src.utils.config import load_config
++from train import build_benchmark_data
++
++SPLITS = ROOT / "data" / "splits"
++pytestmark = pytest.mark.skipif(not (ROOT / "data/labeled/images").is_dir(), reason="data not linked")
++
++
++def _cfg(**data):
++    cfg = load_config(ROOT / "configs" / "supervised.yaml")
++    cfg["data"].update(dict(labeled_fraction=0.05, split_seed=0, mask_subdir="labeled/masks_escdd",
++                            augmentation="labelsafe", root=str(ROOT / "data")), **data)
++    cfg["training"]["labeled_batch_size"] = 8
++    return cfg
++
++
++
++def test_list_equal_to_fraction_file_gives_same_meta(tmp_path):
++    a = build_benchmark_data(_cfg(), "supervised", 0, 0.05, False, torch.device("cpu"), 0)
++    b = build_benchmark_data(_cfg(labeled_list=str(SPLITS / "seed0" / "labeled_5pct.txt")), "supervised", 0, 0.05,
++                             False, torch.device("cpu"), 0)
++    assert (a["class_counts"] == b["class_counts"]).all()
++    ma, mb = a["info"], b["info"]
++    assert ma["n_labeled"] == mb["n_labeled"] == 23
++    assert {k: v for k, v in ma.items() if k != "labeled_split"} == {k: v for k, v in mb.items() if k != "labeled_split"}
++
++
++def test_ssl_pool_is_rest_of_train(tmp_path):
++    lab = load_split(SPLITS / "seed0" / "labeled_5pct.txt")
++    b = build_benchmark_data(_cfg(labeled_list=str(SPLITS / "seed0" / "labeled_5pct.txt")), "mean_teacher", 0, 0.05,
++                             True, torch.device("cpu"), 0)
++    assert b["info"]["n_unlabeled"] == 478 - len(lab)
++
++
++def test_rejects_non_train_and_duplicates(tmp_path):
++    bad = tmp_path / "bad.txt"
++    bad.write_text("\n".join(load_split(SPLITS / "test.txt")[:2]) + "\n")
++    with pytest.raises(ValueError, match="non-train"):
++        build_benchmark_data(_cfg(labeled_list=str(bad)), "supervised", 0, 0.05, False, torch.device("cpu"), 0)
++    dup = tmp_path / "dup.txt"
++    s = load_split(SPLITS / "seed0" / "labeled_5pct.txt")
++    dup.write_text("\n".join(s + s[:1]) + "\n")
++    with pytest.raises(ValueError, match="duplicate"):
++        build_benchmark_data(_cfg(labeled_list=str(dup)), "supervised", 0, 0.05, False, torch.device("cpu"), 0)
++
++
++def test_rejects_full_fraction():
++    with pytest.raises(ValueError, match="labeled_fraction < 1"):
++        build_benchmark_data(_cfg(labeled_list=str(SPLITS / "seed0" / "labeled_5pct.txt"), labeled_fraction=1.0),
++                             "supervised", 0, 1.0, False, torch.device("cpu"), 0)
