@@ -1,0 +1,578 @@
+2026-10-24 14:43:47 INFO train — Run: m_r5_up2_s4  device: cuda  config: configs/supervised.yaml  overrides: ['data.labeled_fraction=1.0', 'training.total_steps=20000', 'data.split_seed=0', 'training.labeled_batch_size=8', 'data.mask_subdir=labeled/masks_escdd', 'data.augmentation=labelsafe', 'loss.supervised=ce_dice', 'model.name=smp_unetpp', 'seed=4', 'model.upsample_input=2', 'training.log_grad_norm=true', 'run_name=m_r5_up2_s4']  resume: False
+2026-10-24 14:43:47 INFO train — Labelled: 478 (data/splits/train.txt)  unlabelled: 0 (-)  val: 54  test: 50
+Model smp_unetpp: 26,075,672 parameters
+2026-10-24 14:43:48 INFO train — Model smp_unetpp: 26,075,672 parameters
+2026-10-24 14:43:48 INFO train — CE class weights: none (plain CE)
+2026-10-24 14:43:48 INFO train — Zero-pixel classes in labelled subset (weight 0): none
+2026-10-24 14:43:48 INFO src.trainers.trainer — Mode: supervised  total_steps=20000  val_every=500  checkpoint_every=2000  amp=True(bfloat16)  params=26,075,672
+2026-10-24 14:44:27 INFO src.trainers.trainer — step 50/20000  loss=4.118  loss_sup=4.118  loss_con=0  lambda=0  grad_norm=3.442  clipped=1  lr=0.000255  steps_per_sec=1.285
+2026-10-24 14:45:05 INFO src.trainers.trainer — step 100/20000  loss=2.757  loss_sup=2.757  loss_con=0  lambda=0  grad_norm=3.259  clipped=1  lr=0.000505  steps_per_sec=1.293
+2026-10-24 14:45:44 INFO src.trainers.trainer — step 150/20000  loss=1.634  loss_sup=1.634  loss_con=0  lambda=0  grad_norm=2.239  clipped=0.9  lr=0.000755  steps_per_sec=1.294
+2026-10-24 14:46:23 INFO src.trainers.trainer — step 200/20000  loss=1.39  loss_sup=1.39  loss_con=0  lambda=0  grad_norm=2.411  clipped=0.46  lr=0.001  steps_per_sec=1.295
+2026-10-24 14:47:01 INFO src.trainers.trainer — step 250/20000  loss=1.313  loss_sup=1.313  loss_con=0  lambda=0  grad_norm=1.944  clipped=0.8  lr=0.001  steps_per_sec=1.297
+2026-10-24 14:47:39 INFO src.trainers.trainer — step 300/20000  loss=1.206  loss_sup=1.206  loss_con=0  lambda=0  grad_norm=1.217  clipped=0.5  lr=0.0009999  steps_per_sec=1.297
+2026-10-24 14:48:18 INFO src.trainers.trainer — step 350/20000  loss=1.162  loss_sup=1.162  loss_con=0  lambda=0  grad_norm=1.121  clipped=0.4  lr=0.0009999  steps_per_sec=1.297
+2026-10-24 14:48:57 INFO src.trainers.trainer — step 400/20000  loss=1.134  loss_sup=1.134  loss_con=0  lambda=0  grad_norm=1.667  clipped=0.5  lr=0.0009997  steps_per_sec=1.296
+2026-10-24 14:49:35 INFO src.trainers.trainer — step 450/20000  loss=1.058  loss_sup=1.058  loss_con=0  lambda=0  grad_norm=1.257  clipped=0.52  lr=0.0009996  steps_per_sec=1.296
+2026-10-24 14:50:14 INFO src.trainers.trainer — step 500/20000  loss=1.066  loss_sup=1.066  loss_con=0  lambda=0  grad_norm=1.086  clipped=0.4  lr=0.0009994  steps_per_sec=1.297
+2026-10-24 14:50:16 INFO src.trainers.trainer — val @ step 500  defect_miou=0.2446  miou_defects_all=0.0615  miou_all=0.2646  crack_recall=0.4097  crack_recall_relaxed=0.5302  crack_fpr_image=0.129
+2026-10-24 14:50:16 INFO src.trainers.trainer — new best val defect_miou=0.2446 at step 500
+2026-10-24 14:50:55 INFO src.trainers.trainer — step 550/20000  loss=1.036  loss_sup=1.036  loss_con=0  lambda=0  grad_norm=1.666  clipped=0.64  lr=0.0009992  steps_per_sec=1.296
+2026-10-24 14:51:33 INFO src.trainers.trainer — step 600/20000  loss=1.039  loss_sup=1.039  loss_con=0  lambda=0  grad_norm=1.209  clipped=0.44  lr=0.000999  steps_per_sec=1.296
+2026-10-24 14:52:12 INFO src.trainers.trainer — step 650/20000  loss=1.03  loss_sup=1.03  loss_con=0  lambda=0  grad_norm=1.416  clipped=0.5  lr=0.0009987  steps_per_sec=1.296
+2026-10-24 14:52:51 INFO src.trainers.trainer — step 700/20000  loss=0.9997  loss_sup=0.9997  loss_con=0  lambda=0  grad_norm=1.219  clipped=0.48  lr=0.0009984  steps_per_sec=1.296
+2026-10-24 14:53:29 INFO src.trainers.trainer — step 750/20000  loss=0.9766  loss_sup=0.9766  loss_con=0  lambda=0  grad_norm=1.045  clipped=0.48  lr=0.0009981  steps_per_sec=1.296
+2026-10-24 14:54:08 INFO src.trainers.trainer — step 800/20000  loss=0.9896  loss_sup=0.9896  loss_con=0  lambda=0  grad_norm=1.116  clipped=0.42  lr=0.0009977  steps_per_sec=1.296
+2026-10-24 14:54:46 INFO src.trainers.trainer — step 850/20000  loss=0.9459  loss_sup=0.9459  loss_con=0  lambda=0  grad_norm=0.874  clipped=0.32  lr=0.0009973  steps_per_sec=1.296
+2026-10-24 14:55:25 INFO src.trainers.trainer — step 900/20000  loss=0.9848  loss_sup=0.9848  loss_con=0  lambda=0  grad_norm=1.183  clipped=0.46  lr=0.0009969  steps_per_sec=1.296
+2026-10-24 14:56:04 INFO src.trainers.trainer — step 950/20000  loss=0.9388  loss_sup=0.9388  loss_con=0  lambda=0  grad_norm=1.268  clipped=0.42  lr=0.0009965  steps_per_sec=1.296
+2026-10-24 14:56:42 INFO src.trainers.trainer — step 1000/20000  loss=0.9846  loss_sup=0.9846  loss_con=0  lambda=0  grad_norm=1.405  clipped=0.48  lr=0.000996  steps_per_sec=1.296
+2026-10-24 14:56:44 INFO src.trainers.trainer — val @ step 1000  defect_miou=0.3289  miou_defects_all=0.0856  miou_all=0.2914  crack_recall=0.5809  crack_recall_relaxed=0.7497  crack_fpr_image=0.419
+2026-10-24 14:56:45 INFO src.trainers.trainer — new best val defect_miou=0.3289 at step 1000
+2026-10-24 14:57:23 INFO src.trainers.trainer — step 1050/20000  loss=0.9515  loss_sup=0.9515  loss_con=0  lambda=0  grad_norm=1.638  clipped=0.46  lr=0.0009955  steps_per_sec=1.296
+2026-10-24 14:58:02 INFO src.trainers.trainer — step 1100/20000  loss=0.7841  loss_sup=0.7841  loss_con=0  lambda=0  grad_norm=0.6696  clipped=0.1  lr=0.0009949  steps_per_sec=1.296
+2026-10-24 14:58:41 INFO src.trainers.trainer — step 1150/20000  loss=0.8132  loss_sup=0.8132  loss_con=0  lambda=0  grad_norm=0.8206  clipped=0.22  lr=0.0009943  steps_per_sec=1.295
+2026-10-24 14:59:20 INFO src.trainers.trainer — step 1200/20000  loss=0.8923  loss_sup=0.8923  loss_con=0  lambda=0  grad_norm=1.862  clipped=0.46  lr=0.0009937  steps_per_sec=1.295
+2026-10-24 14:59:55 INFO src.trainers.trainer — step 1250/20000  loss=0.8497  loss_sup=0.8497  loss_con=0  lambda=0  grad_norm=1.587  clipped=0.52  lr=0.0009931  steps_per_sec=1.299
+2026-10-24 15:00:34 INFO src.trainers.trainer — step 1300/20000  loss=0.9368  loss_sup=0.9368  loss_con=0  lambda=0  grad_norm=1.24  clipped=0.38  lr=0.0009924  steps_per_sec=1.299
+2026-10-24 15:01:12 INFO src.trainers.trainer — step 1350/20000  loss=0.8038  loss_sup=0.8038  loss_con=0  lambda=0  grad_norm=1.396  clipped=0.48  lr=0.0009917  steps_per_sec=1.299
+2026-10-24 15:01:51 INFO src.trainers.trainer — step 1400/20000  loss=0.9208  loss_sup=0.9208  loss_con=0  lambda=0  grad_norm=1.194  clipped=0.4  lr=0.000991  steps_per_sec=1.299
+2026-10-24 15:02:30 INFO src.trainers.trainer — step 1450/20000  loss=0.7808  loss_sup=0.7808  loss_con=0  lambda=0  grad_norm=1.656  clipped=0.34  lr=0.0009902  steps_per_sec=1.298
+2026-10-24 15:03:09 INFO src.trainers.trainer — step 1500/20000  loss=0.8452  loss_sup=0.8452  loss_con=0  lambda=0  grad_norm=1.563  clipped=0.42  lr=0.0009894  steps_per_sec=1.298
+2026-10-24 15:03:11 INFO src.trainers.trainer — val @ step 1500  defect_miou=0.2352  miou_defects_all=0.0912  miou_all=0.3053  crack_recall=0.6705  crack_recall_relaxed=0.8459  crack_fpr_image=0.323
+2026-10-24 15:03:50 INFO src.trainers.trainer — step 1550/20000  loss=0.8068  loss_sup=0.8068  loss_con=0  lambda=0  grad_norm=1.558  clipped=0.44  lr=0.0009886  steps_per_sec=1.298
+2026-10-24 15:04:28 INFO src.trainers.trainer — step 1600/20000  loss=0.8571  loss_sup=0.8571  loss_con=0  lambda=0  grad_norm=2.115  clipped=0.5  lr=0.0009877  steps_per_sec=1.297
+2026-10-24 15:05:07 INFO src.trainers.trainer — step 1650/20000  loss=0.8666  loss_sup=0.8666  loss_con=0  lambda=0  grad_norm=1.589  clipped=0.58  lr=0.0009868  steps_per_sec=1.297
+2026-10-24 15:05:46 INFO src.trainers.trainer — step 1700/20000  loss=0.8831  loss_sup=0.8831  loss_con=0  lambda=0  grad_norm=1.717  clipped=0.38  lr=0.0009859  steps_per_sec=1.297
+2026-10-24 15:06:25 INFO src.trainers.trainer — step 1750/20000  loss=0.8344  loss_sup=0.8344  loss_con=0  lambda=0  grad_norm=1.722  clipped=0.46  lr=0.000985  steps_per_sec=1.297
+2026-10-24 15:07:04 INFO src.trainers.trainer — step 1800/20000  loss=0.8394  loss_sup=0.8394  loss_con=0  lambda=0  grad_norm=2.18  clipped=0.48  lr=0.000984  steps_per_sec=1.296
+2026-10-24 15:07:43 INFO src.trainers.trainer — step 1850/20000  loss=0.7511  loss_sup=0.7511  loss_con=0  lambda=0  grad_norm=1.217  clipped=0.34  lr=0.000983  steps_per_sec=1.296
+2026-10-24 15:08:21 INFO src.trainers.trainer — step 1900/20000  loss=0.7666  loss_sup=0.7666  loss_con=0  lambda=0  grad_norm=1.89  clipped=0.32  lr=0.0009819  steps_per_sec=1.296
+2026-10-24 15:09:00 INFO src.trainers.trainer — step 1950/20000  loss=0.7452  loss_sup=0.7452  loss_con=0  lambda=0  grad_norm=1.183  clipped=0.4  lr=0.0009808  steps_per_sec=1.296
+2026-10-24 15:09:39 INFO src.trainers.trainer — step 2000/20000  loss=0.7792  loss_sup=0.7792  loss_con=0  lambda=0  grad_norm=3.162  clipped=0.44  lr=0.0009797  steps_per_sec=1.296
+2026-10-24 15:09:41 INFO src.trainers.trainer — val @ step 2000  defect_miou=0.2465  miou_defects_all=0.0885  miou_all=0.3155  crack_recall=0.3938  crack_recall_relaxed=0.5541  crack_fpr_image=0.258
+2026-10-24 15:09:42 INFO src.trainers.trainer — saved latest.pth at step 2000
+2026-10-24 15:10:20 INFO src.trainers.trainer — step 2050/20000  loss=0.8101  loss_sup=0.8101  loss_con=0  lambda=0  grad_norm=1.913  clipped=0.44  lr=0.0009786  steps_per_sec=1.295
+2026-10-24 15:10:59 INFO src.trainers.trainer — step 2100/20000  loss=0.8126  loss_sup=0.8126  loss_con=0  lambda=0  grad_norm=2.103  clipped=0.48  lr=0.0009775  steps_per_sec=1.295
+2026-10-24 15:11:38 INFO src.trainers.trainer — step 2150/20000  loss=0.7585  loss_sup=0.7585  loss_con=0  lambda=0  grad_norm=1.146  clipped=0.32  lr=0.0009763  steps_per_sec=1.295
+2026-10-24 15:12:17 INFO src.trainers.trainer — step 2200/20000  loss=0.6955  loss_sup=0.6955  loss_con=0  lambda=0  grad_norm=1.585  clipped=0.36  lr=0.000975  steps_per_sec=1.295
+2026-10-24 15:12:55 INFO src.trainers.trainer — step 2250/20000  loss=0.7499  loss_sup=0.7499  loss_con=0  lambda=0  grad_norm=1.219  clipped=0.36  lr=0.0009738  steps_per_sec=1.295
+2026-10-24 15:13:34 INFO src.trainers.trainer — step 2300/20000  loss=0.8214  loss_sup=0.8214  loss_con=0  lambda=0  grad_norm=3.403  clipped=0.42  lr=0.0009725  steps_per_sec=1.295
+2026-10-24 15:14:13 INFO src.trainers.trainer — step 2350/20000  loss=0.7615  loss_sup=0.7615  loss_con=0  lambda=0  grad_norm=4.031  clipped=0.42  lr=0.0009712  steps_per_sec=1.295
+2026-10-24 15:14:52 INFO src.trainers.trainer — step 2400/20000  loss=0.7652  loss_sup=0.7652  loss_con=0  lambda=0  grad_norm=1.518  clipped=0.3  lr=0.0009698  steps_per_sec=1.295
+2026-10-24 15:15:30 INFO src.trainers.trainer — step 2450/20000  loss=0.6338  loss_sup=0.6338  loss_con=0  lambda=0  grad_norm=1.856  clipped=0.42  lr=0.0009685  steps_per_sec=1.295
+2026-10-24 15:16:06 INFO src.trainers.trainer — step 2500/20000  loss=0.6628  loss_sup=0.6628  loss_con=0  lambda=0  grad_norm=2.728  clipped=0.4  lr=0.0009671  steps_per_sec=1.297
+2026-10-24 15:16:08 INFO src.trainers.trainer — val @ step 2500  defect_miou=0.2547  miou_defects_all=0.0950  miou_all=0.3616  crack_recall=0.6237  crack_recall_relaxed=0.7703  crack_fpr_image=0.065
+2026-10-24 15:16:47 INFO src.trainers.trainer — step 2550/20000  loss=0.7591  loss_sup=0.7591  loss_con=0  lambda=0  grad_norm=3.181  clipped=0.28  lr=0.0009656  steps_per_sec=1.297
+2026-10-24 15:17:25 INFO src.trainers.trainer — step 2600/20000  loss=0.7177  loss_sup=0.7177  loss_con=0  lambda=0  grad_norm=4.356  clipped=0.36  lr=0.0009642  steps_per_sec=1.297
+2026-10-24 15:18:04 INFO src.trainers.trainer — step 2650/20000  loss=0.7589  loss_sup=0.7589  loss_con=0  lambda=0  grad_norm=2.753  clipped=0.32  lr=0.0009627  steps_per_sec=1.297
+2026-10-24 15:18:42 INFO src.trainers.trainer — step 2700/20000  loss=0.6741  loss_sup=0.6741  loss_con=0  lambda=0  grad_norm=1.546  clipped=0.26  lr=0.0009612  steps_per_sec=1.297
+2026-10-24 15:19:21 INFO src.trainers.trainer — step 2750/20000  loss=0.6946  loss_sup=0.6946  loss_con=0  lambda=0  grad_norm=1.664  clipped=0.38  lr=0.0009596  steps_per_sec=1.297
+2026-10-24 15:19:59 INFO src.trainers.trainer — step 2800/20000  loss=0.7308  loss_sup=0.7308  loss_con=0  lambda=0  grad_norm=1.2  clipped=0.3  lr=0.0009581  steps_per_sec=1.297
+2026-10-24 15:20:38 INFO src.trainers.trainer — step 2850/20000  loss=0.6946  loss_sup=0.6946  loss_con=0  lambda=0  grad_norm=1.334  clipped=0.32  lr=0.0009564  steps_per_sec=1.297
+2026-10-24 15:21:17 INFO src.trainers.trainer — step 2900/20000  loss=0.6696  loss_sup=0.6696  loss_con=0  lambda=0  grad_norm=2.678  clipped=0.4  lr=0.0009548  steps_per_sec=1.297
+2026-10-24 15:21:55 INFO src.trainers.trainer — step 2950/20000  loss=0.6746  loss_sup=0.6746  loss_con=0  lambda=0  grad_norm=1.418  clipped=0.3  lr=0.0009532  steps_per_sec=1.297
+2026-10-24 15:22:34 INFO src.trainers.trainer — step 3000/20000  loss=0.6746  loss_sup=0.6746  loss_con=0  lambda=0  grad_norm=1.134  clipped=0.3  lr=0.0009515  steps_per_sec=1.297
+2026-10-24 15:22:36 INFO src.trainers.trainer — val @ step 3000  defect_miou=0.3338  miou_defects_all=0.1146  miou_all=0.3801  crack_recall=0.5263  crack_recall_relaxed=0.7783  crack_fpr_image=0.065
+2026-10-24 15:22:37 INFO src.trainers.trainer — new best val defect_miou=0.3338 at step 3000
+2026-10-24 15:23:15 INFO src.trainers.trainer — step 3050/20000  loss=0.6867  loss_sup=0.6867  loss_con=0  lambda=0  grad_norm=2.624  clipped=0.34  lr=0.0009497  steps_per_sec=1.297
+2026-10-24 15:23:54 INFO src.trainers.trainer — step 3100/20000  loss=0.7192  loss_sup=0.7192  loss_con=0  lambda=0  grad_norm=3.241  clipped=0.4  lr=0.000948  steps_per_sec=1.297
+2026-10-24 15:24:32 INFO src.trainers.trainer — step 3150/20000  loss=0.7472  loss_sup=0.7472  loss_con=0  lambda=0  grad_norm=2.641  clipped=0.56  lr=0.0009462  steps_per_sec=1.297
+2026-10-24 15:25:11 INFO src.trainers.trainer — step 3200/20000  loss=0.6868  loss_sup=0.6868  loss_con=0  lambda=0  grad_norm=3.364  clipped=0.38  lr=0.0009444  steps_per_sec=1.297
+2026-10-24 15:25:50 INFO src.trainers.trainer — step 3250/20000  loss=0.7174  loss_sup=0.7174  loss_con=0  lambda=0  grad_norm=1.542  clipped=0.4  lr=0.0009426  steps_per_sec=1.296
+2026-10-24 15:26:28 INFO src.trainers.trainer — step 3300/20000  loss=0.6964  loss_sup=0.6964  loss_con=0  lambda=0  grad_norm=1.342  clipped=0.32  lr=0.0009407  steps_per_sec=1.296
+2026-10-24 15:27:07 INFO src.trainers.trainer — step 3350/20000  loss=0.711  loss_sup=0.711  loss_con=0  lambda=0  grad_norm=4.212  clipped=0.42  lr=0.0009388  steps_per_sec=1.297
+2026-10-24 15:27:45 INFO src.trainers.trainer — step 3400/20000  loss=0.6206  loss_sup=0.6206  loss_con=0  lambda=0  grad_norm=4.396  clipped=0.34  lr=0.0009369  steps_per_sec=1.297
+2026-10-24 15:28:24 INFO src.trainers.trainer — step 3450/20000  loss=0.7115  loss_sup=0.7115  loss_con=0  lambda=0  grad_norm=4.48  clipped=0.48  lr=0.000935  steps_per_sec=1.297
+2026-10-24 15:29:02 INFO src.trainers.trainer — step 3500/20000  loss=0.6859  loss_sup=0.6859  loss_con=0  lambda=0  grad_norm=8.507  clipped=0.34  lr=0.000933  steps_per_sec=1.297
+2026-10-24 15:29:04 INFO src.trainers.trainer — val @ step 3500  defect_miou=0.3048  miou_defects_all=0.1291  miou_all=0.3822  crack_recall=0.5572  crack_recall_relaxed=0.7466  crack_fpr_image=0.355
+2026-10-24 15:29:43 INFO src.trainers.trainer — step 3550/20000  loss=0.6896  loss_sup=0.6896  loss_con=0  lambda=0  grad_norm=1.096  clipped=0.3  lr=0.000931  steps_per_sec=1.297
+2026-10-24 15:30:21 INFO src.trainers.trainer — step 3600/20000  loss=0.6344  loss_sup=0.6344  loss_con=0  lambda=0  grad_norm=1.267  clipped=0.26  lr=0.000929  steps_per_sec=1.297
+2026-10-24 15:31:00 INFO src.trainers.trainer — step 3650/20000  loss=0.69  loss_sup=0.69  loss_con=0  lambda=0  grad_norm=1.919  clipped=0.32  lr=0.0009269  steps_per_sec=1.297
+2026-10-24 15:31:38 INFO src.trainers.trainer — step 3700/20000  loss=0.6147  loss_sup=0.6147  loss_con=0  lambda=0  grad_norm=1.091  clipped=0.42  lr=0.0009249  steps_per_sec=1.297
+2026-10-24 15:32:13 INFO src.trainers.trainer — step 3750/20000  loss=0.6416  loss_sup=0.6416  loss_con=0  lambda=0  grad_norm=3.332  clipped=0.24  lr=0.0009228  steps_per_sec=1.298
+2026-10-24 15:32:52 INFO src.trainers.trainer — step 3800/20000  loss=0.6455  loss_sup=0.6455  loss_con=0  lambda=0  grad_norm=2.024  clipped=0.32  lr=0.0009206  steps_per_sec=1.298
+2026-10-24 15:33:30 INFO src.trainers.trainer — step 3850/20000  loss=0.7006  loss_sup=0.7006  loss_con=0  lambda=0  grad_norm=1.068  clipped=0.4  lr=0.0009185  steps_per_sec=1.298
+2026-10-24 15:34:09 INFO src.trainers.trainer — step 3900/20000  loss=0.5841  loss_sup=0.5841  loss_con=0  lambda=0  grad_norm=1.339  clipped=0.3  lr=0.0009163  steps_per_sec=1.298
+2026-10-24 15:34:47 INFO src.trainers.trainer — step 3950/20000  loss=0.6689  loss_sup=0.6689  loss_con=0  lambda=0  grad_norm=1.081  clipped=0.22  lr=0.0009141  steps_per_sec=1.298
+2026-10-24 15:35:26 INFO src.trainers.trainer — step 4000/20000  loss=0.6178  loss_sup=0.6178  loss_con=0  lambda=0  grad_norm=1.095  clipped=0.24  lr=0.0009118  steps_per_sec=1.298
+2026-10-24 15:35:28 INFO src.trainers.trainer — val @ step 4000  defect_miou=0.3503  miou_defects_all=0.1491  miou_all=0.4051  crack_recall=0.5792  crack_recall_relaxed=0.7761  crack_fpr_image=0.161
+2026-10-24 15:35:28 INFO src.trainers.trainer — new best val defect_miou=0.3503 at step 4000
+2026-10-24 15:35:29 INFO src.trainers.trainer — saved latest.pth at step 4000
+2026-10-24 15:36:08 INFO src.trainers.trainer — step 4050/20000  loss=0.5927  loss_sup=0.5927  loss_con=0  lambda=0  grad_norm=1.595  clipped=0.26  lr=0.0009096  steps_per_sec=1.298
+2026-10-24 15:36:47 INFO src.trainers.trainer — step 4100/20000  loss=0.6675  loss_sup=0.6675  loss_con=0  lambda=0  grad_norm=2.371  clipped=0.44  lr=0.0009073  steps_per_sec=1.298
+2026-10-24 15:37:25 INFO src.trainers.trainer — step 4150/20000  loss=0.6703  loss_sup=0.6703  loss_con=0  lambda=0  grad_norm=1.358  clipped=0.34  lr=0.000905  steps_per_sec=1.298
+2026-10-24 15:38:04 INFO src.trainers.trainer — step 4200/20000  loss=0.6166  loss_sup=0.6166  loss_con=0  lambda=0  grad_norm=1.309  clipped=0.22  lr=0.0009026  steps_per_sec=1.298
+2026-10-24 15:38:42 INFO src.trainers.trainer — step 4250/20000  loss=0.6369  loss_sup=0.6369  loss_con=0  lambda=0  grad_norm=1.61  clipped=0.3  lr=0.0009003  steps_per_sec=1.298
+2026-10-24 15:39:20 INFO src.trainers.trainer — step 4300/20000  loss=0.6093  loss_sup=0.6093  loss_con=0  lambda=0  grad_norm=1.454  clipped=0.22  lr=0.0008979  steps_per_sec=1.298
+2026-10-24 15:39:59 INFO src.trainers.trainer — step 4350/20000  loss=0.6812  loss_sup=0.6812  loss_con=0  lambda=0  grad_norm=3.029  clipped=0.38  lr=0.0008955  steps_per_sec=1.298
+2026-10-24 15:40:38 INFO src.trainers.trainer — step 4400/20000  loss=0.6313  loss_sup=0.6313  loss_con=0  lambda=0  grad_norm=1.479  clipped=0.28  lr=0.000893  steps_per_sec=1.298
+2026-10-24 15:41:16 INFO src.trainers.trainer — step 4450/20000  loss=0.6405  loss_sup=0.6405  loss_con=0  lambda=0  grad_norm=2.917  clipped=0.36  lr=0.0008906  steps_per_sec=1.298
+2026-10-24 15:41:55 INFO src.trainers.trainer — step 4500/20000  loss=0.6874  loss_sup=0.6874  loss_con=0  lambda=0  grad_norm=2.51  clipped=0.34  lr=0.0008881  steps_per_sec=1.298
+2026-10-24 15:41:57 INFO src.trainers.trainer — val @ step 4500  defect_miou=0.3562  miou_defects_all=0.1774  miou_all=0.4314  crack_recall=0.6454  crack_recall_relaxed=0.8122  crack_fpr_image=0.129
+2026-10-24 15:41:57 INFO src.trainers.trainer — new best val defect_miou=0.3562 at step 4500
+2026-10-24 15:42:36 INFO src.trainers.trainer — step 4550/20000  loss=0.6383  loss_sup=0.6383  loss_con=0  lambda=0  grad_norm=1.624  clipped=0.24  lr=0.0008856  steps_per_sec=1.298
+2026-10-24 15:43:14 INFO src.trainers.trainer — step 4600/20000  loss=0.5905  loss_sup=0.5905  loss_con=0  lambda=0  grad_norm=1.255  clipped=0.24  lr=0.000883  steps_per_sec=1.298
+2026-10-24 15:43:53 INFO src.trainers.trainer — step 4650/20000  loss=0.5399  loss_sup=0.5399  loss_con=0  lambda=0  grad_norm=0.9014  clipped=0.3  lr=0.0008805  steps_per_sec=1.298
+2026-10-24 15:44:31 INFO src.trainers.trainer — step 4700/20000  loss=0.6495  loss_sup=0.6495  loss_con=0  lambda=0  grad_norm=1.748  clipped=0.4  lr=0.0008779  steps_per_sec=1.298
+2026-10-24 15:45:10 INFO src.trainers.trainer — step 4750/20000  loss=0.6218  loss_sup=0.6218  loss_con=0  lambda=0  grad_norm=1.57  clipped=0.44  lr=0.0008753  steps_per_sec=1.298
+2026-10-24 15:45:48 INFO src.trainers.trainer — step 4800/20000  loss=0.67  loss_sup=0.67  loss_con=0  lambda=0  grad_norm=1.033  clipped=0.26  lr=0.0008726  steps_per_sec=1.298
+2026-10-24 15:46:27 INFO src.trainers.trainer — step 4850/20000  loss=0.6001  loss_sup=0.6001  loss_con=0  lambda=0  grad_norm=0.8988  clipped=0.26  lr=0.00087  steps_per_sec=1.298
+2026-10-24 15:47:05 INFO src.trainers.trainer — step 4900/20000  loss=0.5915  loss_sup=0.5915  loss_con=0  lambda=0  grad_norm=1.127  clipped=0.22  lr=0.0008673  steps_per_sec=1.298
+2026-10-24 15:47:43 INFO src.trainers.trainer — step 4950/20000  loss=0.6098  loss_sup=0.6098  loss_con=0  lambda=0  grad_norm=1.61  clipped=0.34  lr=0.0008646  steps_per_sec=1.298
+2026-10-24 15:48:14 INFO src.trainers.trainer — step 5000/20000  loss=0.5548  loss_sup=0.5548  loss_con=0  lambda=0  grad_norm=0.904  clipped=0.18  lr=0.0008619  steps_per_sec=1.301
+2026-10-24 15:48:16 INFO src.trainers.trainer — val @ step 5000  defect_miou=0.4157  miou_defects_all=0.2125  miou_all=0.4557  crack_recall=0.6536  crack_recall_relaxed=0.8475  crack_fpr_image=0.161
+2026-10-24 15:48:16 INFO src.trainers.trainer — new best val defect_miou=0.4157 at step 5000
+2026-10-24 15:48:47 INFO src.trainers.trainer — step 5050/20000  loss=0.5965  loss_sup=0.5965  loss_con=0  lambda=0  grad_norm=1.824  clipped=0.38  lr=0.0008591  steps_per_sec=1.304
+2026-10-24 15:49:18 INFO src.trainers.trainer — step 5100/20000  loss=0.5771  loss_sup=0.5771  loss_con=0  lambda=0  grad_norm=0.8771  clipped=0.24  lr=0.0008563  steps_per_sec=1.306
+2026-10-24 15:49:49 INFO src.trainers.trainer — step 5150/20000  loss=0.6169  loss_sup=0.6169  loss_con=0  lambda=0  grad_norm=6.097  clipped=0.26  lr=0.0008536  steps_per_sec=1.308
+2026-10-24 15:50:20 INFO src.trainers.trainer — step 5200/20000  loss=0.6365  loss_sup=0.6365  loss_con=0  lambda=0  grad_norm=1.433  clipped=0.3  lr=0.0008507  steps_per_sec=1.311
+2026-10-24 15:50:51 INFO src.trainers.trainer — step 5250/20000  loss=0.6247  loss_sup=0.6247  loss_con=0  lambda=0  grad_norm=2.948  clipped=0.34  lr=0.0008479  steps_per_sec=1.313
+2026-10-24 15:51:22 INFO src.trainers.trainer — step 5300/20000  loss=0.5929  loss_sup=0.5929  loss_con=0  lambda=0  grad_norm=1.345  clipped=0.36  lr=0.000845  steps_per_sec=1.315
+2026-10-24 15:51:53 INFO src.trainers.trainer — step 5350/20000  loss=0.6108  loss_sup=0.6108  loss_con=0  lambda=0  grad_norm=2.392  clipped=0.4  lr=0.0008422  steps_per_sec=1.318
+2026-10-24 15:52:24 INFO src.trainers.trainer — step 5400/20000  loss=0.63  loss_sup=0.63  loss_con=0  lambda=0  grad_norm=1.144  clipped=0.32  lr=0.0008393  steps_per_sec=1.32
+2026-10-24 15:52:55 INFO src.trainers.trainer — step 5450/20000  loss=0.5699  loss_sup=0.5699  loss_con=0  lambda=0  grad_norm=1.094  clipped=0.32  lr=0.0008363  steps_per_sec=1.322
+2026-10-24 15:53:26 INFO src.trainers.trainer — step 5500/20000  loss=0.6021  loss_sup=0.6021  loss_con=0  lambda=0  grad_norm=0.7926  clipped=0.16  lr=0.0008334  steps_per_sec=1.324
+2026-10-24 15:53:28 INFO src.trainers.trainer — val @ step 5500  defect_miou=0.3475  miou_defects_all=0.1721  miou_all=0.4430  crack_recall=0.5785  crack_recall_relaxed=0.7678  crack_fpr_image=0.129
+2026-10-24 15:53:59 INFO src.trainers.trainer — step 5550/20000  loss=0.5638  loss_sup=0.5638  loss_con=0  lambda=0  grad_norm=2.439  clipped=0.24  lr=0.0008304  steps_per_sec=1.326
+2026-10-24 15:54:30 INFO src.trainers.trainer — step 5600/20000  loss=0.5937  loss_sup=0.5937  loss_con=0  lambda=0  grad_norm=1.13  clipped=0.34  lr=0.0008274  steps_per_sec=1.329
+2026-10-24 15:55:01 INFO src.trainers.trainer — step 5650/20000  loss=0.5976  loss_sup=0.5976  loss_con=0  lambda=0  grad_norm=0.8777  clipped=0.3  lr=0.0008244  steps_per_sec=1.331
+2026-10-24 15:55:32 INFO src.trainers.trainer — step 5700/20000  loss=0.5261  loss_sup=0.5261  loss_con=0  lambda=0  grad_norm=1.216  clipped=0.2  lr=0.0008214  steps_per_sec=1.333
+2026-10-24 15:56:03 INFO src.trainers.trainer — step 5750/20000  loss=0.6097  loss_sup=0.6097  loss_con=0  lambda=0  grad_norm=1.261  clipped=0.34  lr=0.0008183  steps_per_sec=1.335
+2026-10-24 15:56:34 INFO src.trainers.trainer — step 5800/20000  loss=0.553  loss_sup=0.553  loss_con=0  lambda=0  grad_norm=1.89  clipped=0.3  lr=0.0008153  steps_per_sec=1.337
+2026-10-24 15:57:05 INFO src.trainers.trainer — step 5850/20000  loss=0.5838  loss_sup=0.5838  loss_con=0  lambda=0  grad_norm=0.9632  clipped=0.24  lr=0.0008122  steps_per_sec=1.339
+2026-10-24 15:57:36 INFO src.trainers.trainer — step 5900/20000  loss=0.592  loss_sup=0.592  loss_con=0  lambda=0  grad_norm=1.641  clipped=0.34  lr=0.0008091  steps_per_sec=1.341
+2026-10-24 15:58:07 INFO src.trainers.trainer — step 5950/20000  loss=0.5559  loss_sup=0.5559  loss_con=0  lambda=0  grad_norm=1.371  clipped=0.28  lr=0.000806  steps_per_sec=1.342
+2026-10-24 15:58:38 INFO src.trainers.trainer — step 6000/20000  loss=0.621  loss_sup=0.621  loss_con=0  lambda=0  grad_norm=1.695  clipped=0.4  lr=0.0008028  steps_per_sec=1.344
+2026-10-24 15:58:40 INFO src.trainers.trainer — val @ step 6000  defect_miou=0.3585  miou_defects_all=0.1432  miou_all=0.4227  crack_recall=0.5505  crack_recall_relaxed=0.7311  crack_fpr_image=0.065
+2026-10-24 15:58:41 INFO src.trainers.trainer — saved latest.pth at step 6000
+2026-10-24 15:59:12 INFO src.trainers.trainer — step 6050/20000  loss=0.5386  loss_sup=0.5386  loss_con=0  lambda=0  grad_norm=2.086  clipped=0.24  lr=0.0007996  steps_per_sec=1.346
+2026-10-24 15:59:43 INFO src.trainers.trainer — step 6100/20000  loss=0.608  loss_sup=0.608  loss_con=0  lambda=0  grad_norm=1.672  clipped=0.4  lr=0.0007965  steps_per_sec=1.348
+2026-10-24 16:00:14 INFO src.trainers.trainer — step 6150/20000  loss=0.5904  loss_sup=0.5904  loss_con=0  lambda=0  grad_norm=1.746  clipped=0.38  lr=0.0007933  steps_per_sec=1.35
+2026-10-24 16:00:45 INFO src.trainers.trainer — step 6200/20000  loss=0.5661  loss_sup=0.5661  loss_con=0  lambda=0  grad_norm=2.105  clipped=0.36  lr=0.00079  steps_per_sec=1.351
+2026-10-24 16:01:16 INFO src.trainers.trainer — step 6250/20000  loss=0.5461  loss_sup=0.5461  loss_con=0  lambda=0  grad_norm=0.9342  clipped=0.18  lr=0.0007868  steps_per_sec=1.353
+2026-10-24 16:01:47 INFO src.trainers.trainer — step 6300/20000  loss=0.6014  loss_sup=0.6014  loss_con=0  lambda=0  grad_norm=1.36  clipped=0.3  lr=0.0007835  steps_per_sec=1.355
+2026-10-24 16:02:18 INFO src.trainers.trainer — step 6350/20000  loss=0.5205  loss_sup=0.5205  loss_con=0  lambda=0  grad_norm=2.18  clipped=0.3  lr=0.0007803  steps_per_sec=1.357
+2026-10-24 16:02:49 INFO src.trainers.trainer — step 6400/20000  loss=0.5481  loss_sup=0.5481  loss_con=0  lambda=0  grad_norm=3.25  clipped=0.3  lr=0.000777  steps_per_sec=1.358
+2026-10-24 16:03:21 INFO src.trainers.trainer — step 6450/20000  loss=0.5942  loss_sup=0.5942  loss_con=0  lambda=0  grad_norm=3.808  clipped=0.32  lr=0.0007736  steps_per_sec=1.36
+2026-10-24 16:03:52 INFO src.trainers.trainer — step 6500/20000  loss=0.5953  loss_sup=0.5953  loss_con=0  lambda=0  grad_norm=3.13  clipped=0.34  lr=0.0007703  steps_per_sec=1.361
+2026-10-24 16:03:54 INFO src.trainers.trainer — val @ step 6500  defect_miou=0.2368  miou_defects_all=0.1276  miou_all=0.3997  crack_recall=0.6554  crack_recall_relaxed=0.8245  crack_fpr_image=0.065
+2026-10-24 16:04:25 INFO src.trainers.trainer — step 6550/20000  loss=0.5857  loss_sup=0.5857  loss_con=0  lambda=0  grad_norm=1.378  clipped=0.36  lr=0.000767  steps_per_sec=1.363
+2026-10-24 16:04:56 INFO src.trainers.trainer — step 6600/20000  loss=0.5668  loss_sup=0.5668  loss_con=0  lambda=0  grad_norm=0.9525  clipped=0.18  lr=0.0007636  steps_per_sec=1.365
+2026-10-24 16:05:27 INFO src.trainers.trainer — step 6650/20000  loss=0.536  loss_sup=0.536  loss_con=0  lambda=0  grad_norm=4.037  clipped=0.3  lr=0.0007602  steps_per_sec=1.366
+2026-10-24 16:05:58 INFO src.trainers.trainer — step 6700/20000  loss=0.5696  loss_sup=0.5696  loss_con=0  lambda=0  grad_norm=1.061  clipped=0.26  lr=0.0007568  steps_per_sec=1.368
+2026-10-24 16:06:29 INFO src.trainers.trainer — step 6750/20000  loss=0.5593  loss_sup=0.5593  loss_con=0  lambda=0  grad_norm=3.519  clipped=0.3  lr=0.0007534  steps_per_sec=1.369
+2026-10-24 16:07:00 INFO src.trainers.trainer — step 6800/20000  loss=0.4959  loss_sup=0.4959  loss_con=0  lambda=0  grad_norm=1.058  clipped=0.34  lr=0.00075  steps_per_sec=1.371
+2026-10-24 16:07:31 INFO src.trainers.trainer — step 6850/20000  loss=0.5549  loss_sup=0.5549  loss_con=0  lambda=0  grad_norm=2.891  clipped=0.32  lr=0.0007466  steps_per_sec=1.372
+2026-10-24 16:08:02 INFO src.trainers.trainer — step 6900/20000  loss=0.5561  loss_sup=0.5561  loss_con=0  lambda=0  grad_norm=4.957  clipped=0.34  lr=0.0007431  steps_per_sec=1.374
+2026-10-24 16:08:33 INFO src.trainers.trainer — step 6950/20000  loss=0.5233  loss_sup=0.5233  loss_con=0  lambda=0  grad_norm=5.087  clipped=0.2  lr=0.0007396  steps_per_sec=1.375
+2026-10-24 16:09:05 INFO src.trainers.trainer — step 7000/20000  loss=0.5218  loss_sup=0.5218  loss_con=0  lambda=0  grad_norm=1.537  clipped=0.32  lr=0.0007361  steps_per_sec=1.377
+2026-10-24 16:09:06 INFO src.trainers.trainer — val @ step 7000  defect_miou=0.3127  miou_defects_all=0.1552  miou_all=0.4362  crack_recall=0.5481  crack_recall_relaxed=0.7364  crack_fpr_image=0.032
+2026-10-24 16:09:37 INFO src.trainers.trainer — step 7050/20000  loss=0.5853  loss_sup=0.5853  loss_con=0  lambda=0  grad_norm=6.218  clipped=0.28  lr=0.0007326  steps_per_sec=1.378
+2026-10-24 16:10:09 INFO src.trainers.trainer — step 7100/20000  loss=0.5721  loss_sup=0.5721  loss_con=0  lambda=0  grad_norm=1.38  clipped=0.3  lr=0.0007291  steps_per_sec=1.379
+2026-10-24 16:10:40 INFO src.trainers.trainer — step 7150/20000  loss=0.5559  loss_sup=0.5559  loss_con=0  lambda=0  grad_norm=2.603  clipped=0.26  lr=0.0007256  steps_per_sec=1.381
+2026-10-24 16:11:11 INFO src.trainers.trainer — step 7200/20000  loss=0.5398  loss_sup=0.5398  loss_con=0  lambda=0  grad_norm=1.98  clipped=0.26  lr=0.000722  steps_per_sec=1.382
+2026-10-24 16:11:42 INFO src.trainers.trainer — step 7250/20000  loss=0.5325  loss_sup=0.5325  loss_con=0  lambda=0  grad_norm=0.754  clipped=0.16  lr=0.0007185  steps_per_sec=1.383
+2026-10-24 16:12:13 INFO src.trainers.trainer — step 7300/20000  loss=0.4675  loss_sup=0.4675  loss_con=0  lambda=0  grad_norm=0.7648  clipped=0.2  lr=0.0007149  steps_per_sec=1.385
+2026-10-24 16:12:44 INFO src.trainers.trainer — step 7350/20000  loss=0.5593  loss_sup=0.5593  loss_con=0  lambda=0  grad_norm=1.062  clipped=0.2  lr=0.0007113  steps_per_sec=1.386
+2026-10-24 16:13:15 INFO src.trainers.trainer — step 7400/20000  loss=0.5311  loss_sup=0.5311  loss_con=0  lambda=0  grad_norm=1.074  clipped=0.34  lr=0.0007077  steps_per_sec=1.387
+2026-10-24 16:13:46 INFO src.trainers.trainer — step 7450/20000  loss=0.5383  loss_sup=0.5383  loss_con=0  lambda=0  grad_norm=2.985  clipped=0.38  lr=0.0007041  steps_per_sec=1.389
+2026-10-24 16:14:17 INFO src.trainers.trainer — step 7500/20000  loss=0.5321  loss_sup=0.5321  loss_con=0  lambda=0  grad_norm=0.8611  clipped=0.16  lr=0.0007005  steps_per_sec=1.39
+2026-10-24 16:14:19 INFO src.trainers.trainer — val @ step 7500  defect_miou=0.3340  miou_defects_all=0.1908  miou_all=0.4682  crack_recall=0.5529  crack_recall_relaxed=0.7170  crack_fpr_image=0.032
+2026-10-24 16:14:50 INFO src.trainers.trainer — step 7550/20000  loss=0.5603  loss_sup=0.5603  loss_con=0  lambda=0  grad_norm=1.619  clipped=0.3  lr=0.0006968  steps_per_sec=1.391
+2026-10-24 16:15:21 INFO src.trainers.trainer — step 7600/20000  loss=0.5814  loss_sup=0.5814  loss_con=0  lambda=0  grad_norm=1.15  clipped=0.24  lr=0.0006932  steps_per_sec=1.392
+2026-10-24 16:15:53 INFO src.trainers.trainer — step 7650/20000  loss=0.5368  loss_sup=0.5368  loss_con=0  lambda=0  grad_norm=1.583  clipped=0.28  lr=0.0006895  steps_per_sec=1.394
+2026-10-24 16:16:24 INFO src.trainers.trainer — step 7700/20000  loss=0.5034  loss_sup=0.5034  loss_con=0  lambda=0  grad_norm=0.8899  clipped=0.24  lr=0.0006858  steps_per_sec=1.395
+2026-10-24 16:16:55 INFO src.trainers.trainer — step 7750/20000  loss=0.5536  loss_sup=0.5536  loss_con=0  lambda=0  grad_norm=1.447  clipped=0.32  lr=0.0006821  steps_per_sec=1.396
+2026-10-24 16:17:26 INFO src.trainers.trainer — step 7800/20000  loss=0.5297  loss_sup=0.5297  loss_con=0  lambda=0  grad_norm=0.8879  clipped=0.3  lr=0.0006784  steps_per_sec=1.397
+2026-10-24 16:17:57 INFO src.trainers.trainer — step 7850/20000  loss=0.5163  loss_sup=0.5163  loss_con=0  lambda=0  grad_norm=1.327  clipped=0.24  lr=0.0006747  steps_per_sec=1.398
+2026-10-24 16:18:28 INFO src.trainers.trainer — step 7900/20000  loss=0.5187  loss_sup=0.5187  loss_con=0  lambda=0  grad_norm=1.388  clipped=0.3  lr=0.000671  steps_per_sec=1.399
+2026-10-24 16:18:59 INFO src.trainers.trainer — step 7950/20000  loss=0.501  loss_sup=0.501  loss_con=0  lambda=0  grad_norm=2.215  clipped=0.26  lr=0.0006673  steps_per_sec=1.401
+2026-10-24 16:19:30 INFO src.trainers.trainer — step 8000/20000  loss=0.5421  loss_sup=0.5421  loss_con=0  lambda=0  grad_norm=1.855  clipped=0.22  lr=0.0006635  steps_per_sec=1.402
+2026-10-24 16:19:32 INFO src.trainers.trainer — val @ step 8000  defect_miou=0.3684  miou_defects_all=0.1942  miou_all=0.4689  crack_recall=0.6305  crack_recall_relaxed=0.8240  crack_fpr_image=0.161
+2026-10-24 16:19:33 INFO src.trainers.trainer — saved latest.pth at step 8000
+2026-10-24 16:20:04 INFO src.trainers.trainer — step 8050/20000  loss=0.5436  loss_sup=0.5436  loss_con=0  lambda=0  grad_norm=1.134  clipped=0.32  lr=0.0006598  steps_per_sec=1.403
+2026-10-24 16:20:35 INFO src.trainers.trainer — step 8100/20000  loss=0.5119  loss_sup=0.5119  loss_con=0  lambda=0  grad_norm=1.938  clipped=0.32  lr=0.000656  steps_per_sec=1.404
+2026-10-24 16:21:06 INFO src.trainers.trainer — step 8150/20000  loss=0.4772  loss_sup=0.4772  loss_con=0  lambda=0  grad_norm=1.832  clipped=0.26  lr=0.0006522  steps_per_sec=1.405
+2026-10-24 16:21:37 INFO src.trainers.trainer — step 8200/20000  loss=0.5822  loss_sup=0.5822  loss_con=0  lambda=0  grad_norm=1.884  clipped=0.32  lr=0.0006485  steps_per_sec=1.406
+2026-10-24 16:22:08 INFO src.trainers.trainer — step 8250/20000  loss=0.5625  loss_sup=0.5625  loss_con=0  lambda=0  grad_norm=8.392  clipped=0.3  lr=0.0006447  steps_per_sec=1.407
+2026-10-24 16:22:40 INFO src.trainers.trainer — step 8300/20000  loss=0.5738  loss_sup=0.5738  loss_con=0  lambda=0  grad_norm=2.855  clipped=0.26  lr=0.0006409  steps_per_sec=1.408
+2026-10-24 16:23:11 INFO src.trainers.trainer — step 8350/20000  loss=0.5571  loss_sup=0.5571  loss_con=0  lambda=0  grad_norm=2.199  clipped=0.28  lr=0.0006371  steps_per_sec=1.409
+2026-10-24 16:23:42 INFO src.trainers.trainer — step 8400/20000  loss=0.4863  loss_sup=0.4863  loss_con=0  lambda=0  grad_norm=3.027  clipped=0.26  lr=0.0006332  steps_per_sec=1.41
+2026-10-24 16:24:13 INFO src.trainers.trainer — step 8450/20000  loss=0.4986  loss_sup=0.4986  loss_con=0  lambda=0  grad_norm=0.7608  clipped=0.2  lr=0.0006294  steps_per_sec=1.411
+2026-10-24 16:24:44 INFO src.trainers.trainer — step 8500/20000  loss=0.4904  loss_sup=0.4904  loss_con=0  lambda=0  grad_norm=1.142  clipped=0.22  lr=0.0006256  steps_per_sec=1.412
+2026-10-24 16:24:46 INFO src.trainers.trainer — val @ step 8500  defect_miou=0.3541  miou_defects_all=0.1831  miou_all=0.4772  crack_recall=0.6777  crack_recall_relaxed=0.8116  crack_fpr_image=0.032
+2026-10-24 16:25:17 INFO src.trainers.trainer — step 8550/20000  loss=0.5129  loss_sup=0.5129  loss_con=0  lambda=0  grad_norm=1.774  clipped=0.24  lr=0.0006217  steps_per_sec=1.413
+2026-10-24 16:25:48 INFO src.trainers.trainer — step 8600/20000  loss=0.4801  loss_sup=0.4801  loss_con=0  lambda=0  grad_norm=0.7029  clipped=0.12  lr=0.0006179  steps_per_sec=1.414
+2026-10-24 16:26:19 INFO src.trainers.trainer — step 8650/20000  loss=0.5918  loss_sup=0.5918  loss_con=0  lambda=0  grad_norm=5.665  clipped=0.4  lr=0.000614  steps_per_sec=1.415
+2026-10-24 16:26:50 INFO src.trainers.trainer — step 8700/20000  loss=0.519  loss_sup=0.519  loss_con=0  lambda=0  grad_norm=1.736  clipped=0.26  lr=0.0006102  steps_per_sec=1.416
+2026-10-24 16:27:22 INFO src.trainers.trainer — step 8750/20000  loss=0.5794  loss_sup=0.5794  loss_con=0  lambda=0  grad_norm=3.449  clipped=0.24  lr=0.0006063  steps_per_sec=1.417
+2026-10-24 16:27:53 INFO src.trainers.trainer — step 8800/20000  loss=0.4648  loss_sup=0.4648  loss_con=0  lambda=0  grad_norm=1.069  clipped=0.2  lr=0.0006024  steps_per_sec=1.418
+2026-10-24 16:28:24 INFO src.trainers.trainer — step 8850/20000  loss=0.5073  loss_sup=0.5073  loss_con=0  lambda=0  grad_norm=0.7661  clipped=0.12  lr=0.0005985  steps_per_sec=1.419
+2026-10-24 16:28:55 INFO src.trainers.trainer — step 8900/20000  loss=0.5344  loss_sup=0.5344  loss_con=0  lambda=0  grad_norm=3.461  clipped=0.24  lr=0.0005946  steps_per_sec=1.42
+2026-10-24 16:29:26 INFO src.trainers.trainer — step 8950/20000  loss=0.4829  loss_sup=0.4829  loss_con=0  lambda=0  grad_norm=1.553  clipped=0.32  lr=0.0005907  steps_per_sec=1.421
+2026-10-24 16:29:57 INFO src.trainers.trainer — step 9000/20000  loss=0.4752  loss_sup=0.4752  loss_con=0  lambda=0  grad_norm=1.243  clipped=0.16  lr=0.0005868  steps_per_sec=1.422
+2026-10-24 16:29:59 INFO src.trainers.trainer — val @ step 9000  defect_miou=0.4060  miou_defects_all=0.2180  miou_all=0.5015  crack_recall=0.6092  crack_recall_relaxed=0.7819  crack_fpr_image=0.032
+2026-10-24 16:30:30 INFO src.trainers.trainer — step 9050/20000  loss=0.4601  loss_sup=0.4601  loss_con=0  lambda=0  grad_norm=0.999  clipped=0.22  lr=0.0005829  steps_per_sec=1.423
+2026-10-24 16:31:01 INFO src.trainers.trainer — step 9100/20000  loss=0.5481  loss_sup=0.5481  loss_con=0  lambda=0  grad_norm=1.207  clipped=0.26  lr=0.000579  steps_per_sec=1.424
+2026-10-24 16:31:33 INFO src.trainers.trainer — step 9150/20000  loss=0.5042  loss_sup=0.5042  loss_con=0  lambda=0  grad_norm=2.89  clipped=0.3  lr=0.0005751  steps_per_sec=1.424
+2026-10-24 16:32:04 INFO src.trainers.trainer — step 9200/20000  loss=0.4908  loss_sup=0.4908  loss_con=0  lambda=0  grad_norm=1.71  clipped=0.24  lr=0.0005712  steps_per_sec=1.425
+2026-10-24 16:32:35 INFO src.trainers.trainer — step 9250/20000  loss=0.5023  loss_sup=0.5023  loss_con=0  lambda=0  grad_norm=0.8062  clipped=0.22  lr=0.0005672  steps_per_sec=1.426
+2026-10-24 16:33:06 INFO src.trainers.trainer — step 9300/20000  loss=0.4947  loss_sup=0.4947  loss_con=0  lambda=0  grad_norm=1.728  clipped=0.24  lr=0.0005633  steps_per_sec=1.427
+2026-10-24 16:33:37 INFO src.trainers.trainer — step 9350/20000  loss=0.4896  loss_sup=0.4896  loss_con=0  lambda=0  grad_norm=8.926  clipped=0.3  lr=0.0005594  steps_per_sec=1.428
+2026-10-24 16:34:08 INFO src.trainers.trainer — step 9400/20000  loss=0.5041  loss_sup=0.5041  loss_con=0  lambda=0  grad_norm=0.8582  clipped=0.22  lr=0.0005554  steps_per_sec=1.429
+2026-10-24 16:34:40 INFO src.trainers.trainer — step 9450/20000  loss=0.4863  loss_sup=0.4863  loss_con=0  lambda=0  grad_norm=2.02  clipped=0.32  lr=0.0005515  steps_per_sec=1.43
+2026-10-24 16:35:11 INFO src.trainers.trainer — step 9500/20000  loss=0.5217  loss_sup=0.5217  loss_con=0  lambda=0  grad_norm=3.079  clipped=0.36  lr=0.0005475  steps_per_sec=1.43
+2026-10-24 16:35:13 INFO src.trainers.trainer — val @ step 9500  defect_miou=0.4047  miou_defects_all=0.1885  miou_all=0.4764  crack_recall=0.6620  crack_recall_relaxed=0.8505  crack_fpr_image=0.129
+2026-10-24 16:35:44 INFO src.trainers.trainer — step 9550/20000  loss=0.5014  loss_sup=0.5014  loss_con=0  lambda=0  grad_norm=1.496  clipped=0.3  lr=0.0005436  steps_per_sec=1.431
+2026-10-24 16:36:15 INFO src.trainers.trainer — step 9600/20000  loss=0.5284  loss_sup=0.5284  loss_con=0  lambda=0  grad_norm=1.532  clipped=0.34  lr=0.0005396  steps_per_sec=1.432
+2026-10-24 16:36:46 INFO src.trainers.trainer — step 9650/20000  loss=0.4566  loss_sup=0.4566  loss_con=0  lambda=0  grad_norm=1.109  clipped=0.18  lr=0.0005357  steps_per_sec=1.433
+2026-10-24 16:37:17 INFO src.trainers.trainer — step 9700/20000  loss=0.5595  loss_sup=0.5595  loss_con=0  lambda=0  grad_norm=1.28  clipped=0.28  lr=0.0005317  steps_per_sec=1.434
+2026-10-24 16:37:48 INFO src.trainers.trainer — step 9750/20000  loss=0.4667  loss_sup=0.4667  loss_con=0  lambda=0  grad_norm=4.069  clipped=0.26  lr=0.0005278  steps_per_sec=1.434
+2026-10-24 16:38:19 INFO src.trainers.trainer — step 9800/20000  loss=0.4987  loss_sup=0.4987  loss_con=0  lambda=0  grad_norm=1.07  clipped=0.26  lr=0.0005238  steps_per_sec=1.435
+2026-10-24 16:38:51 INFO src.trainers.trainer — step 9850/20000  loss=0.463  loss_sup=0.463  loss_con=0  lambda=0  grad_norm=0.7719  clipped=0.18  lr=0.0005198  steps_per_sec=1.436
+2026-10-24 16:39:22 INFO src.trainers.trainer — step 9900/20000  loss=0.4768  loss_sup=0.4768  loss_con=0  lambda=0  grad_norm=0.9465  clipped=0.18  lr=0.0005159  steps_per_sec=1.437
+2026-10-24 16:39:53 INFO src.trainers.trainer — step 9950/20000  loss=0.441  loss_sup=0.441  loss_con=0  lambda=0  grad_norm=8.476  clipped=0.22  lr=0.0005119  steps_per_sec=1.437
+2026-10-24 16:40:24 INFO src.trainers.trainer — step 10000/20000  loss=0.5045  loss_sup=0.5045  loss_con=0  lambda=0  grad_norm=1.279  clipped=0.2  lr=0.0005079  steps_per_sec=1.438
+2026-10-24 16:40:26 INFO src.trainers.trainer — val @ step 10000  defect_miou=0.3320  miou_defects_all=0.1578  miou_all=0.4478  crack_recall=0.6079  crack_recall_relaxed=0.8074  crack_fpr_image=0.032
+2026-10-24 16:40:27 INFO src.trainers.trainer — saved latest.pth at step 10000
+2026-10-24 16:40:58 INFO src.trainers.trainer — step 10050/20000  loss=0.4984  loss_sup=0.4984  loss_con=0  lambda=0  grad_norm=1.617  clipped=0.22  lr=0.000504  steps_per_sec=1.439
+2026-10-24 16:41:29 INFO src.trainers.trainer — step 10100/20000  loss=0.4906  loss_sup=0.4906  loss_con=0  lambda=0  grad_norm=0.969  clipped=0.24  lr=0.0005  steps_per_sec=1.44
+2026-10-24 16:42:00 INFO src.trainers.trainer — step 10150/20000  loss=0.4552  loss_sup=0.4552  loss_con=0  lambda=0  grad_norm=3.035  clipped=0.18  lr=0.000496  steps_per_sec=1.44
+2026-10-24 16:42:32 INFO src.trainers.trainer — step 10200/20000  loss=0.4576  loss_sup=0.4576  loss_con=0  lambda=0  grad_norm=2.225  clipped=0.2  lr=0.0004921  steps_per_sec=1.441
+2026-10-24 16:43:03 INFO src.trainers.trainer — step 10250/20000  loss=0.5154  loss_sup=0.5154  loss_con=0  lambda=0  grad_norm=1.873  clipped=0.22  lr=0.0004881  steps_per_sec=1.442
+2026-10-24 16:43:34 INFO src.trainers.trainer — step 10300/20000  loss=0.4629  loss_sup=0.4629  loss_con=0  lambda=0  grad_norm=1.196  clipped=0.26  lr=0.0004841  steps_per_sec=1.442
+2026-10-24 16:44:06 INFO src.trainers.trainer — step 10350/20000  loss=0.4679  loss_sup=0.4679  loss_con=0  lambda=0  grad_norm=6.947  clipped=0.28  lr=0.0004802  steps_per_sec=1.443
+2026-10-24 16:44:37 INFO src.trainers.trainer — step 10400/20000  loss=0.5169  loss_sup=0.5169  loss_con=0  lambda=0  grad_norm=0.9313  clipped=0.22  lr=0.0004762  steps_per_sec=1.444
+2026-10-24 16:45:08 INFO src.trainers.trainer — step 10450/20000  loss=0.4527  loss_sup=0.4527  loss_con=0  lambda=0  grad_norm=1.442  clipped=0.22  lr=0.0004722  steps_per_sec=1.444
+2026-10-24 16:45:40 INFO src.trainers.trainer — step 10500/20000  loss=0.434  loss_sup=0.434  loss_con=0  lambda=0  grad_norm=4.8  clipped=0.22  lr=0.0004683  steps_per_sec=1.445
+2026-10-24 16:45:42 INFO src.trainers.trainer — val @ step 10500  defect_miou=0.4098  miou_defects_all=0.1766  miou_all=0.4949  crack_recall=0.6139  crack_recall_relaxed=0.8137  crack_fpr_image=0.097
+2026-10-24 16:46:13 INFO src.trainers.trainer — step 10550/20000  loss=0.4531  loss_sup=0.4531  loss_con=0  lambda=0  grad_norm=0.8326  clipped=0.2  lr=0.0004643  steps_per_sec=1.446
+2026-10-24 16:46:44 INFO src.trainers.trainer — step 10600/20000  loss=0.4575  loss_sup=0.4575  loss_con=0  lambda=0  grad_norm=1.426  clipped=0.26  lr=0.0004604  steps_per_sec=1.446
+2026-10-24 16:47:16 INFO src.trainers.trainer — step 10650/20000  loss=0.5061  loss_sup=0.5061  loss_con=0  lambda=0  grad_norm=0.9603  clipped=0.18  lr=0.0004564  steps_per_sec=1.447
+2026-10-24 16:47:47 INFO src.trainers.trainer — step 10700/20000  loss=0.4836  loss_sup=0.4836  loss_con=0  lambda=0  grad_norm=3.324  clipped=0.26  lr=0.0004525  steps_per_sec=1.448
+2026-10-24 16:48:19 INFO src.trainers.trainer — step 10750/20000  loss=0.4704  loss_sup=0.4704  loss_con=0  lambda=0  grad_norm=1.39  clipped=0.28  lr=0.0004485  steps_per_sec=1.448
+2026-10-24 16:48:50 INFO src.trainers.trainer — step 10800/20000  loss=0.4364  loss_sup=0.4364  loss_con=0  lambda=0  grad_norm=0.9393  clipped=0.24  lr=0.0004446  steps_per_sec=1.449
+2026-10-24 16:49:22 INFO src.trainers.trainer — step 10850/20000  loss=0.4436  loss_sup=0.4436  loss_con=0  lambda=0  grad_norm=0.9758  clipped=0.16  lr=0.0004406  steps_per_sec=1.449
+2026-10-24 16:49:53 INFO src.trainers.trainer — step 10900/20000  loss=0.4634  loss_sup=0.4634  loss_con=0  lambda=0  grad_norm=0.6789  clipped=0.16  lr=0.0004367  steps_per_sec=1.45
+2026-10-24 16:50:25 INFO src.trainers.trainer — step 10950/20000  loss=0.4876  loss_sup=0.4876  loss_con=0  lambda=0  grad_norm=1.504  clipped=0.24  lr=0.0004328  steps_per_sec=1.451
+2026-10-24 16:50:56 INFO src.trainers.trainer — step 11000/20000  loss=0.4775  loss_sup=0.4775  loss_con=0  lambda=0  grad_norm=1.65  clipped=0.28  lr=0.0004288  steps_per_sec=1.451
+2026-10-24 16:50:58 INFO src.trainers.trainer — val @ step 11000  defect_miou=0.3935  miou_defects_all=0.1726  miou_all=0.4816  crack_recall=0.6211  crack_recall_relaxed=0.8266  crack_fpr_image=0.065
+2026-10-24 16:51:29 INFO src.trainers.trainer — step 11050/20000  loss=0.4392  loss_sup=0.4392  loss_con=0  lambda=0  grad_norm=1.376  clipped=0.18  lr=0.0004249  steps_per_sec=1.452
+2026-10-24 16:52:01 INFO src.trainers.trainer — step 11100/20000  loss=0.4908  loss_sup=0.4908  loss_con=0  lambda=0  grad_norm=0.8327  clipped=0.22  lr=0.000421  steps_per_sec=1.452
+2026-10-24 16:52:32 INFO src.trainers.trainer — step 11150/20000  loss=0.462  loss_sup=0.462  loss_con=0  lambda=0  grad_norm=1.151  clipped=0.18  lr=0.0004171  steps_per_sec=1.453
+2026-10-24 16:53:04 INFO src.trainers.trainer — step 11200/20000  loss=0.4777  loss_sup=0.4777  loss_con=0  lambda=0  grad_norm=1.047  clipped=0.12  lr=0.0004132  steps_per_sec=1.453
+2026-10-24 16:53:35 INFO src.trainers.trainer — step 11250/20000  loss=0.4653  loss_sup=0.4653  loss_con=0  lambda=0  grad_norm=0.8081  clipped=0.14  lr=0.0004093  steps_per_sec=1.454
+2026-10-24 16:54:07 INFO src.trainers.trainer — step 11300/20000  loss=0.489  loss_sup=0.489  loss_con=0  lambda=0  grad_norm=4.078  clipped=0.28  lr=0.0004054  steps_per_sec=1.454
+2026-10-24 16:54:38 INFO src.trainers.trainer — step 11350/20000  loss=0.4639  loss_sup=0.4639  loss_con=0  lambda=0  grad_norm=1.226  clipped=0.22  lr=0.0004015  steps_per_sec=1.455
+2026-10-24 16:55:10 INFO src.trainers.trainer — step 11400/20000  loss=0.4866  loss_sup=0.4866  loss_con=0  lambda=0  grad_norm=6.094  clipped=0.18  lr=0.0003976  steps_per_sec=1.456
+2026-10-24 16:55:41 INFO src.trainers.trainer — step 11450/20000  loss=0.4228  loss_sup=0.4228  loss_con=0  lambda=0  grad_norm=0.762  clipped=0.18  lr=0.0003937  steps_per_sec=1.456
+2026-10-24 16:56:13 INFO src.trainers.trainer — step 11500/20000  loss=0.4524  loss_sup=0.4524  loss_con=0  lambda=0  grad_norm=12.62  clipped=0.36  lr=0.0003898  steps_per_sec=1.457
+2026-10-24 16:56:15 INFO src.trainers.trainer — val @ step 11500  defect_miou=0.3581  miou_defects_all=0.1821  miou_all=0.4997  crack_recall=0.6330  crack_recall_relaxed=0.8241  crack_fpr_image=0.032
+2026-10-24 16:56:46 INFO src.trainers.trainer — step 11550/20000  loss=0.4473  loss_sup=0.4473  loss_con=0  lambda=0  grad_norm=0.6917  clipped=0.18  lr=0.000386  steps_per_sec=1.457
+2026-10-24 16:57:18 INFO src.trainers.trainer — step 11600/20000  loss=0.4512  loss_sup=0.4512  loss_con=0  lambda=0  grad_norm=0.737  clipped=0.16  lr=0.0003821  steps_per_sec=1.458
+2026-10-24 16:57:49 INFO src.trainers.trainer — step 11650/20000  loss=0.4373  loss_sup=0.4373  loss_con=0  lambda=0  grad_norm=1.853  clipped=0.26  lr=0.0003783  steps_per_sec=1.458
+2026-10-24 16:58:21 INFO src.trainers.trainer — step 11700/20000  loss=0.4413  loss_sup=0.4413  loss_con=0  lambda=0  grad_norm=1.328  clipped=0.22  lr=0.0003744  steps_per_sec=1.459
+2026-10-24 16:58:52 INFO src.trainers.trainer — step 11750/20000  loss=0.4389  loss_sup=0.4389  loss_con=0  lambda=0  grad_norm=1.3  clipped=0.2  lr=0.0003706  steps_per_sec=1.459
+2026-10-24 16:59:24 INFO src.trainers.trainer — step 11800/20000  loss=0.4523  loss_sup=0.4523  loss_con=0  lambda=0  grad_norm=2.631  clipped=0.18  lr=0.0003668  steps_per_sec=1.46
+2026-10-24 16:59:55 INFO src.trainers.trainer — step 11850/20000  loss=0.4544  loss_sup=0.4544  loss_con=0  lambda=0  grad_norm=0.8624  clipped=0.12  lr=0.0003629  steps_per_sec=1.46
+2026-10-24 17:00:27 INFO src.trainers.trainer — step 11900/20000  loss=0.3879  loss_sup=0.3879  loss_con=0  lambda=0  grad_norm=2.601  clipped=0.22  lr=0.0003591  steps_per_sec=1.461
+2026-10-24 17:00:59 INFO src.trainers.trainer — step 11950/20000  loss=0.5058  loss_sup=0.5058  loss_con=0  lambda=0  grad_norm=1.588  clipped=0.24  lr=0.0003553  steps_per_sec=1.461
+2026-10-24 17:01:30 INFO src.trainers.trainer — step 12000/20000  loss=0.4545  loss_sup=0.4545  loss_con=0  lambda=0  grad_norm=2.378  clipped=0.2  lr=0.0003515  steps_per_sec=1.461
+2026-10-24 17:01:32 INFO src.trainers.trainer — val @ step 12000  defect_miou=0.3860  miou_defects_all=0.2030  miou_all=0.5117  crack_recall=0.6356  crack_recall_relaxed=0.8420  crack_fpr_image=0.032
+2026-10-24 17:01:33 INFO src.trainers.trainer — saved latest.pth at step 12000
+2026-10-24 17:02:04 INFO src.trainers.trainer — step 12050/20000  loss=0.4242  loss_sup=0.4242  loss_con=0  lambda=0  grad_norm=0.7905  clipped=0.26  lr=0.0003478  steps_per_sec=1.462
+2026-10-24 17:02:36 INFO src.trainers.trainer — step 12100/20000  loss=0.4286  loss_sup=0.4286  loss_con=0  lambda=0  grad_norm=0.661  clipped=0.14  lr=0.000344  steps_per_sec=1.462
+2026-10-24 17:03:07 INFO src.trainers.trainer — step 12150/20000  loss=0.447  loss_sup=0.447  loss_con=0  lambda=0  grad_norm=1.077  clipped=0.12  lr=0.0003402  steps_per_sec=1.463
+2026-10-24 17:03:39 INFO src.trainers.trainer — step 12200/20000  loss=0.4645  loss_sup=0.4645  loss_con=0  lambda=0  grad_norm=1.59  clipped=0.16  lr=0.0003365  steps_per_sec=1.463
+2026-10-24 17:04:11 INFO src.trainers.trainer — step 12250/20000  loss=0.4598  loss_sup=0.4598  loss_con=0  lambda=0  grad_norm=1.056  clipped=0.16  lr=0.0003327  steps_per_sec=1.464
+2026-10-24 17:04:42 INFO src.trainers.trainer — step 12300/20000  loss=0.4843  loss_sup=0.4843  loss_con=0  lambda=0  grad_norm=0.9773  clipped=0.14  lr=0.000329  steps_per_sec=1.464
+2026-10-24 17:05:14 INFO src.trainers.trainer — step 12350/20000  loss=0.438  loss_sup=0.438  loss_con=0  lambda=0  grad_norm=0.9826  clipped=0.14  lr=0.0003253  steps_per_sec=1.465
+2026-10-24 17:05:45 INFO src.trainers.trainer — step 12400/20000  loss=0.3896  loss_sup=0.3896  loss_con=0  lambda=0  grad_norm=1.062  clipped=0.26  lr=0.0003216  steps_per_sec=1.465
+2026-10-24 17:06:17 INFO src.trainers.trainer — step 12450/20000  loss=0.4499  loss_sup=0.4499  loss_con=0  lambda=0  grad_norm=0.8691  clipped=0.18  lr=0.0003179  steps_per_sec=1.466
+2026-10-24 17:06:48 INFO src.trainers.trainer — step 12500/20000  loss=0.417  loss_sup=0.417  loss_con=0  lambda=0  grad_norm=0.8741  clipped=0.1  lr=0.0003142  steps_per_sec=1.466
+2026-10-24 17:06:50 INFO src.trainers.trainer — val @ step 12500  defect_miou=0.4016  miou_defects_all=0.2100  miou_all=0.5125  crack_recall=0.6740  crack_recall_relaxed=0.8455  crack_fpr_image=0.097
+2026-10-24 17:07:22 INFO src.trainers.trainer — step 12550/20000  loss=0.4548  loss_sup=0.4548  loss_con=0  lambda=0  grad_norm=1.736  clipped=0.14  lr=0.0003105  steps_per_sec=1.466
+2026-10-24 17:07:53 INFO src.trainers.trainer — step 12600/20000  loss=0.4279  loss_sup=0.4279  loss_con=0  lambda=0  grad_norm=2.032  clipped=0.22  lr=0.0003068  steps_per_sec=1.467
+2026-10-24 17:08:25 INFO src.trainers.trainer — step 12650/20000  loss=0.4733  loss_sup=0.4733  loss_con=0  lambda=0  grad_norm=1.272  clipped=0.28  lr=0.0003032  steps_per_sec=1.467
+2026-10-24 17:08:56 INFO src.trainers.trainer — step 12700/20000  loss=0.4446  loss_sup=0.4446  loss_con=0  lambda=0  grad_norm=0.7889  clipped=0.14  lr=0.0002995  steps_per_sec=1.468
+2026-10-24 17:09:28 INFO src.trainers.trainer — step 12750/20000  loss=0.427  loss_sup=0.427  loss_con=0  lambda=0  grad_norm=1.905  clipped=0.14  lr=0.0002959  steps_per_sec=1.468
+2026-10-24 17:09:59 INFO src.trainers.trainer — step 12800/20000  loss=0.461  loss_sup=0.461  loss_con=0  lambda=0  grad_norm=0.8939  clipped=0.14  lr=0.0002923  steps_per_sec=1.469
+2026-10-24 17:10:31 INFO src.trainers.trainer — step 12850/20000  loss=0.4225  loss_sup=0.4225  loss_con=0  lambda=0  grad_norm=0.6621  clipped=0.16  lr=0.0002887  steps_per_sec=1.469
+2026-10-24 17:11:02 INFO src.trainers.trainer — step 12900/20000  loss=0.4137  loss_sup=0.4137  loss_con=0  lambda=0  grad_norm=0.8114  clipped=0.18  lr=0.0002851  steps_per_sec=1.469
+2026-10-24 17:11:34 INFO src.trainers.trainer — step 12950/20000  loss=0.4175  loss_sup=0.4175  loss_con=0  lambda=0  grad_norm=0.8464  clipped=0.16  lr=0.0002815  steps_per_sec=1.47
+2026-10-24 17:12:06 INFO src.trainers.trainer — step 13000/20000  loss=0.3998  loss_sup=0.3998  loss_con=0  lambda=0  grad_norm=0.7549  clipped=0.08  lr=0.000278  steps_per_sec=1.47
+2026-10-24 17:12:07 INFO src.trainers.trainer — val @ step 13000  defect_miou=0.4644  miou_defects_all=0.2309  miou_all=0.5241  crack_recall=0.6718  crack_recall_relaxed=0.8700  crack_fpr_image=0.032
+2026-10-24 17:12:08 INFO src.trainers.trainer — new best val defect_miou=0.4644 at step 13000
+2026-10-24 17:12:39 INFO src.trainers.trainer — step 13050/20000  loss=0.4618  loss_sup=0.4618  loss_con=0  lambda=0  grad_norm=3.962  clipped=0.28  lr=0.0002744  steps_per_sec=1.471
+2026-10-24 17:13:11 INFO src.trainers.trainer — step 13100/20000  loss=0.4041  loss_sup=0.4041  loss_con=0  lambda=0  grad_norm=0.6628  clipped=0.08  lr=0.0002709  steps_per_sec=1.471
+2026-10-24 17:13:42 INFO src.trainers.trainer — step 13150/20000  loss=0.4341  loss_sup=0.4341  loss_con=0  lambda=0  grad_norm=0.5766  clipped=0.02  lr=0.0002674  steps_per_sec=1.472
+2026-10-24 17:14:14 INFO src.trainers.trainer — step 13200/20000  loss=0.4391  loss_sup=0.4391  loss_con=0  lambda=0  grad_norm=1.579  clipped=0.3  lr=0.0002639  steps_per_sec=1.472
+2026-10-24 17:14:48 INFO src.trainers.trainer — step 13250/20000  loss=0.427  loss_sup=0.427  loss_con=0  lambda=0  grad_norm=0.7114  clipped=0.16  lr=0.0002604  steps_per_sec=1.472
+2026-10-24 17:15:30 INFO src.trainers.trainer — step 13300/20000  loss=0.4013  loss_sup=0.4013  loss_con=0  lambda=0  grad_norm=2.558  clipped=0.22  lr=0.0002569  steps_per_sec=1.471
+2026-10-24 17:16:13 INFO src.trainers.trainer — step 13350/20000  loss=0.4755  loss_sup=0.4755  loss_con=0  lambda=0  grad_norm=2.718  clipped=0.16  lr=0.0002534  steps_per_sec=1.469
+2026-10-24 17:16:55 INFO src.trainers.trainer — step 13400/20000  loss=0.4456  loss_sup=0.4456  loss_con=0  lambda=0  grad_norm=0.9172  clipped=0.24  lr=0.00025  steps_per_sec=1.468
+2026-10-24 17:17:37 INFO src.trainers.trainer — step 13450/20000  loss=0.4111  loss_sup=0.4111  loss_con=0  lambda=0  grad_norm=1.151  clipped=0.22  lr=0.0002466  steps_per_sec=1.467
+2026-10-24 17:18:19 INFO src.trainers.trainer — step 13500/20000  loss=0.4303  loss_sup=0.4303  loss_con=0  lambda=0  grad_norm=1.397  clipped=0.3  lr=0.0002432  steps_per_sec=1.465
+2026-10-24 17:18:21 INFO src.trainers.trainer — val @ step 13500  defect_miou=0.4081  miou_defects_all=0.2002  miou_all=0.5017  crack_recall=0.6359  crack_recall_relaxed=0.8326  crack_fpr_image=0.032
+2026-10-24 17:19:04 INFO src.trainers.trainer — step 13550/20000  loss=0.4417  loss_sup=0.4417  loss_con=0  lambda=0  grad_norm=1.238  clipped=0.12  lr=0.0002398  steps_per_sec=1.464
+2026-10-24 17:19:41 INFO src.trainers.trainer — step 13600/20000  loss=0.4066  loss_sup=0.4066  loss_con=0  lambda=0  grad_norm=0.6674  clipped=0.18  lr=0.0002364  steps_per_sec=1.464
+2026-10-24 17:20:23 INFO src.trainers.trainer — step 13650/20000  loss=0.3947  loss_sup=0.3947  loss_con=0  lambda=0  grad_norm=0.7878  clipped=0.14  lr=0.000233  steps_per_sec=1.462
+2026-10-24 17:21:05 INFO src.trainers.trainer — step 13700/20000  loss=0.4457  loss_sup=0.4457  loss_con=0  lambda=0  grad_norm=0.7572  clipped=0.16  lr=0.0002297  steps_per_sec=1.461
+2026-10-24 17:21:48 INFO src.trainers.trainer — step 13750/20000  loss=0.3808  loss_sup=0.3808  loss_con=0  lambda=0  grad_norm=1.149  clipped=0.14  lr=0.0002264  steps_per_sec=1.46
+2026-10-24 17:22:29 INFO src.trainers.trainer — step 13800/20000  loss=0.4076  loss_sup=0.4076  loss_con=0  lambda=0  grad_norm=2.161  clipped=0.18  lr=0.000223  steps_per_sec=1.459
+2026-10-24 17:23:11 INFO src.trainers.trainer — step 13850/20000  loss=0.4163  loss_sup=0.4163  loss_con=0  lambda=0  grad_norm=3.447  clipped=0.1  lr=0.0002197  steps_per_sec=1.457
+2026-10-24 17:23:53 INFO src.trainers.trainer — step 13900/20000  loss=0.4188  loss_sup=0.4188  loss_con=0  lambda=0  grad_norm=0.7288  clipped=0.12  lr=0.0002165  steps_per_sec=1.456
+2026-10-24 17:24:35 INFO src.trainers.trainer — step 13950/20000  loss=0.4335  loss_sup=0.4335  loss_con=0  lambda=0  grad_norm=0.8037  clipped=0.12  lr=0.0002132  steps_per_sec=1.455
+2026-10-24 17:25:17 INFO src.trainers.trainer — step 14000/20000  loss=0.3924  loss_sup=0.3924  loss_con=0  lambda=0  grad_norm=0.8833  clipped=0.12  lr=0.00021  steps_per_sec=1.454
+2026-10-24 17:25:19 INFO src.trainers.trainer — val @ step 14000  defect_miou=0.4008  miou_defects_all=0.2370  miou_all=0.5297  crack_recall=0.6221  crack_recall_relaxed=0.8347  crack_fpr_image=0.065
+2026-10-24 17:25:20 INFO src.trainers.trainer — saved latest.pth at step 14000
+2026-10-24 17:26:02 INFO src.trainers.trainer — step 14050/20000  loss=0.4237  loss_sup=0.4237  loss_con=0  lambda=0  grad_norm=1.517  clipped=0.24  lr=0.0002067  steps_per_sec=1.453
+2026-10-24 17:26:43 INFO src.trainers.trainer — step 14100/20000  loss=0.4246  loss_sup=0.4246  loss_con=0  lambda=0  grad_norm=2.111  clipped=0.12  lr=0.0002035  steps_per_sec=1.452
+2026-10-24 17:27:25 INFO src.trainers.trainer — step 14150/20000  loss=0.3848  loss_sup=0.3848  loss_con=0  lambda=0  grad_norm=0.6151  clipped=0.08  lr=0.0002004  steps_per_sec=1.451
+2026-10-24 17:28:06 INFO src.trainers.trainer — step 14200/20000  loss=0.3955  loss_sup=0.3955  loss_con=0  lambda=0  grad_norm=1.182  clipped=0.2  lr=0.0001972  steps_per_sec=1.45
+2026-10-24 17:28:48 INFO src.trainers.trainer — step 14250/20000  loss=0.3984  loss_sup=0.3984  loss_con=0  lambda=0  grad_norm=1.027  clipped=0.12  lr=0.000194  steps_per_sec=1.449
+2026-10-24 17:29:29 INFO src.trainers.trainer — step 14300/20000  loss=0.3736  loss_sup=0.3736  loss_con=0  lambda=0  grad_norm=0.7512  clipped=0.12  lr=0.0001909  steps_per_sec=1.448
+2026-10-24 17:30:11 INFO src.trainers.trainer — step 14350/20000  loss=0.4032  loss_sup=0.4032  loss_con=0  lambda=0  grad_norm=0.781  clipped=0.18  lr=0.0001878  steps_per_sec=1.447
+2026-10-24 17:30:52 INFO src.trainers.trainer — step 14400/20000  loss=0.4146  loss_sup=0.4146  loss_con=0  lambda=0  grad_norm=0.7039  clipped=0.14  lr=0.0001847  steps_per_sec=1.446
+2026-10-24 17:31:34 INFO src.trainers.trainer — step 14450/20000  loss=0.4132  loss_sup=0.4132  loss_con=0  lambda=0  grad_norm=5.497  clipped=0.18  lr=0.0001817  steps_per_sec=1.445
+2026-10-24 17:32:12 INFO src.trainers.trainer — step 14500/20000  loss=0.3652  loss_sup=0.3652  loss_con=0  lambda=0  grad_norm=0.7548  clipped=0.16  lr=0.0001786  steps_per_sec=1.444
+2026-10-24 17:32:13 INFO src.trainers.trainer — val @ step 14500  defect_miou=0.4477  miou_defects_all=0.2470  miou_all=0.5263  crack_recall=0.6825  crack_recall_relaxed=0.8624  crack_fpr_image=0.000
+2026-10-24 17:32:55 INFO src.trainers.trainer — step 14550/20000  loss=0.4346  loss_sup=0.4346  loss_con=0  lambda=0  grad_norm=0.9543  clipped=0.2  lr=0.0001756  steps_per_sec=1.443
+2026-10-24 17:33:36 INFO src.trainers.trainer — step 14600/20000  loss=0.4013  loss_sup=0.4013  loss_con=0  lambda=0  grad_norm=0.9067  clipped=0.12  lr=0.0001726  steps_per_sec=1.442
+2026-10-24 17:34:17 INFO src.trainers.trainer — step 14650/20000  loss=0.4434  loss_sup=0.4434  loss_con=0  lambda=0  grad_norm=3.873  clipped=0.18  lr=0.0001696  steps_per_sec=1.441
+2026-10-24 17:34:58 INFO src.trainers.trainer — step 14700/20000  loss=0.3977  loss_sup=0.3977  loss_con=0  lambda=0  grad_norm=1.968  clipped=0.16  lr=0.0001666  steps_per_sec=1.441
+2026-10-24 17:35:39 INFO src.trainers.trainer — step 14750/20000  loss=0.4135  loss_sup=0.4135  loss_con=0  lambda=0  grad_norm=0.9069  clipped=0.08  lr=0.0001637  steps_per_sec=1.44
+2026-10-24 17:36:20 INFO src.trainers.trainer — step 14800/20000  loss=0.4001  loss_sup=0.4001  loss_con=0  lambda=0  grad_norm=0.8317  clipped=0.16  lr=0.0001607  steps_per_sec=1.439
+2026-10-24 17:37:01 INFO src.trainers.trainer — step 14850/20000  loss=0.3735  loss_sup=0.3735  loss_con=0  lambda=0  grad_norm=0.6514  clipped=0.1  lr=0.0001578  steps_per_sec=1.438
+2026-10-24 17:37:42 INFO src.trainers.trainer — step 14900/20000  loss=0.3929  loss_sup=0.3929  loss_con=0  lambda=0  grad_norm=2.823  clipped=0.14  lr=0.000155  steps_per_sec=1.437
+2026-10-24 17:38:23 INFO src.trainers.trainer — step 14950/20000  loss=0.3928  loss_sup=0.3928  loss_con=0  lambda=0  grad_norm=0.6355  clipped=0.08  lr=0.0001521  steps_per_sec=1.436
+2026-10-24 17:39:05 INFO src.trainers.trainer — step 15000/20000  loss=0.403  loss_sup=0.403  loss_con=0  lambda=0  grad_norm=4.118  clipped=0.1  lr=0.0001493  steps_per_sec=1.435
+2026-10-24 17:39:07 INFO src.trainers.trainer — val @ step 15000  defect_miou=0.4298  miou_defects_all=0.2631  miou_all=0.5295  crack_recall=0.6168  crack_recall_relaxed=0.8235  crack_fpr_image=0.065
+2026-10-24 17:39:48 INFO src.trainers.trainer — step 15050/20000  loss=0.3859  loss_sup=0.3859  loss_con=0  lambda=0  grad_norm=1.711  clipped=0.14  lr=0.0001464  steps_per_sec=1.434
+2026-10-24 17:40:29 INFO src.trainers.trainer — step 15100/20000  loss=0.4004  loss_sup=0.4004  loss_con=0  lambda=0  grad_norm=0.6415  clipped=0.14  lr=0.0001437  steps_per_sec=1.434
+2026-10-24 17:41:10 INFO src.trainers.trainer — step 15150/20000  loss=0.4041  loss_sup=0.4041  loss_con=0  lambda=0  grad_norm=0.7828  clipped=0.1  lr=0.0001409  steps_per_sec=1.433
+2026-10-24 17:41:51 INFO src.trainers.trainer — step 15200/20000  loss=0.3939  loss_sup=0.3939  loss_con=0  lambda=0  grad_norm=0.8104  clipped=0.08  lr=0.0001381  steps_per_sec=1.432
+2026-10-24 17:42:32 INFO src.trainers.trainer — step 15250/20000  loss=0.3641  loss_sup=0.3641  loss_con=0  lambda=0  grad_norm=0.5829  clipped=0.08  lr=0.0001354  steps_per_sec=1.431
+2026-10-24 17:43:13 INFO src.trainers.trainer — step 15300/20000  loss=0.3744  loss_sup=0.3744  loss_con=0  lambda=0  grad_norm=0.7992  clipped=0.18  lr=0.0001327  steps_per_sec=1.43
+2026-10-24 17:43:54 INFO src.trainers.trainer — step 15350/20000  loss=0.4083  loss_sup=0.4083  loss_con=0  lambda=0  grad_norm=0.7163  clipped=0.18  lr=0.00013  steps_per_sec=1.429
+2026-10-24 17:44:35 INFO src.trainers.trainer — step 15400/20000  loss=0.3685  loss_sup=0.3685  loss_con=0  lambda=0  grad_norm=1.446  clipped=0.14  lr=0.0001274  steps_per_sec=1.429
+2026-10-24 17:45:16 INFO src.trainers.trainer — step 15450/20000  loss=0.4101  loss_sup=0.4101  loss_con=0  lambda=0  grad_norm=1.071  clipped=0.14  lr=0.0001247  steps_per_sec=1.428
+2026-10-24 17:45:53 INFO src.trainers.trainer — step 15500/20000  loss=0.4132  loss_sup=0.4132  loss_con=0  lambda=0  grad_norm=0.8847  clipped=0.12  lr=0.0001221  steps_per_sec=1.428
+2026-10-24 17:45:55 INFO src.trainers.trainer — val @ step 15500  defect_miou=0.4426  miou_defects_all=0.2243  miou_all=0.5248  crack_recall=0.6447  crack_recall_relaxed=0.8447  crack_fpr_image=0.032
+2026-10-24 17:46:36 INFO src.trainers.trainer — step 15550/20000  loss=0.3897  loss_sup=0.3897  loss_con=0  lambda=0  grad_norm=1.047  clipped=0.1  lr=0.0001195  steps_per_sec=1.427
+2026-10-24 17:47:17 INFO src.trainers.trainer — step 15600/20000  loss=0.3849  loss_sup=0.3849  loss_con=0  lambda=0  grad_norm=0.7102  clipped=0.1  lr=0.000117  steps_per_sec=1.426
+2026-10-24 17:47:58 INFO src.trainers.trainer — step 15650/20000  loss=0.3718  loss_sup=0.3718  loss_con=0  lambda=0  grad_norm=0.6728  clipped=0.1  lr=0.0001144  steps_per_sec=1.425
+2026-10-24 17:48:39 INFO src.trainers.trainer — step 15700/20000  loss=0.3893  loss_sup=0.3893  loss_con=0  lambda=0  grad_norm=2.12  clipped=0.18  lr=0.0001119  steps_per_sec=1.425
+2026-10-24 17:49:20 INFO src.trainers.trainer — step 15750/20000  loss=0.3947  loss_sup=0.3947  loss_con=0  lambda=0  grad_norm=5.844  clipped=0.22  lr=0.0001094  steps_per_sec=1.424
+2026-10-24 17:50:00 INFO src.trainers.trainer — step 15800/20000  loss=0.4094  loss_sup=0.4094  loss_con=0  lambda=0  grad_norm=1.051  clipped=0.16  lr=0.000107  steps_per_sec=1.423
+2026-10-24 17:50:41 INFO src.trainers.trainer — step 15850/20000  loss=0.3787  loss_sup=0.3787  loss_con=0  lambda=0  grad_norm=0.866  clipped=0.16  lr=0.0001045  steps_per_sec=1.422
+2026-10-24 17:51:21 INFO src.trainers.trainer — step 15900/20000  loss=0.3794  loss_sup=0.3794  loss_con=0  lambda=0  grad_norm=1.04  clipped=0.12  lr=0.0001021  steps_per_sec=1.422
+2026-10-24 17:52:02 INFO src.trainers.trainer — step 15950/20000  loss=0.3664  loss_sup=0.3664  loss_con=0  lambda=0  grad_norm=1.258  clipped=0.1  lr=9.973e-05  steps_per_sec=1.421
+2026-10-24 17:52:43 INFO src.trainers.trainer — step 16000/20000  loss=0.3963  loss_sup=0.3963  loss_con=0  lambda=0  grad_norm=0.8346  clipped=0.22  lr=9.736e-05  steps_per_sec=1.42
+2026-10-24 17:52:45 INFO src.trainers.trainer — val @ step 16000  defect_miou=0.4425  miou_defects_all=0.2301  miou_all=0.5279  crack_recall=0.6264  crack_recall_relaxed=0.8370  crack_fpr_image=0.032
+2026-10-24 17:52:46 INFO src.trainers.trainer — saved latest.pth at step 16000
+2026-10-24 17:53:27 INFO src.trainers.trainer — step 16050/20000  loss=0.3768  loss_sup=0.3768  loss_con=0  lambda=0  grad_norm=2.086  clipped=0.12  lr=9.503e-05  steps_per_sec=1.42
+2026-10-24 17:54:07 INFO src.trainers.trainer — step 16100/20000  loss=0.3845  loss_sup=0.3845  loss_con=0  lambda=0  grad_norm=1.802  clipped=0.12  lr=9.271e-05  steps_per_sec=1.419
+2026-10-24 17:54:48 INFO src.trainers.trainer — step 16150/20000  loss=0.3914  loss_sup=0.3914  loss_con=0  lambda=0  grad_norm=1.118  clipped=0.12  lr=9.042e-05  steps_per_sec=1.418
+2026-10-24 17:55:28 INFO src.trainers.trainer — step 16200/20000  loss=0.3887  loss_sup=0.3887  loss_con=0  lambda=0  grad_norm=0.9898  clipped=0.1  lr=8.816e-05  steps_per_sec=1.418
+2026-10-24 17:56:09 INFO src.trainers.trainer — step 16250/20000  loss=0.3588  loss_sup=0.3588  loss_con=0  lambda=0  grad_norm=1.547  clipped=0.2  lr=8.593e-05  steps_per_sec=1.417
+2026-10-24 17:56:50 INFO src.trainers.trainer — step 16300/20000  loss=0.3651  loss_sup=0.3651  loss_con=0  lambda=0  grad_norm=0.6323  clipped=0.1  lr=8.372e-05  steps_per_sec=1.416
+2026-10-24 17:57:30 INFO src.trainers.trainer — step 16350/20000  loss=0.4067  loss_sup=0.4067  loss_con=0  lambda=0  grad_norm=3.936  clipped=0.18  lr=8.153e-05  steps_per_sec=1.416
+2026-10-24 17:58:11 INFO src.trainers.trainer — step 16400/20000  loss=0.3817  loss_sup=0.3817  loss_con=0  lambda=0  grad_norm=0.701  clipped=0.1  lr=7.937e-05  steps_per_sec=1.415
+2026-10-24 17:58:51 INFO src.trainers.trainer — step 16450/20000  loss=0.3659  loss_sup=0.3659  loss_con=0  lambda=0  grad_norm=1.679  clipped=0.06  lr=7.724e-05  steps_per_sec=1.414
+2026-10-24 17:59:28 INFO src.trainers.trainer — step 16500/20000  loss=0.3643  loss_sup=0.3643  loss_con=0  lambda=0  grad_norm=0.5828  clipped=0.02  lr=7.514e-05  steps_per_sec=1.414
+2026-10-24 17:59:30 INFO src.trainers.trainer — val @ step 16500  defect_miou=0.4900  miou_defects_all=0.2358  miou_all=0.5335  crack_recall=0.6568  crack_recall_relaxed=0.8463  crack_fpr_image=0.032
+2026-10-24 17:59:30 INFO src.trainers.trainer — new best val defect_miou=0.4900 at step 16500
+2026-10-24 18:00:10 INFO src.trainers.trainer — step 16550/20000  loss=0.3519  loss_sup=0.3519  loss_con=0  lambda=0  grad_norm=1.543  clipped=0.08  lr=7.306e-05  steps_per_sec=1.414
+2026-10-24 18:00:51 INFO src.trainers.trainer — step 16600/20000  loss=0.3984  loss_sup=0.3984  loss_con=0  lambda=0  grad_norm=0.7892  clipped=0.12  lr=7.101e-05  steps_per_sec=1.413
+2026-10-24 18:01:31 INFO src.trainers.trainer — step 16650/20000  loss=0.3857  loss_sup=0.3857  loss_con=0  lambda=0  grad_norm=0.7973  clipped=0.16  lr=6.898e-05  steps_per_sec=1.413
+2026-10-24 18:02:12 INFO src.trainers.trainer — step 16700/20000  loss=0.3587  loss_sup=0.3587  loss_con=0  lambda=0  grad_norm=5.462  clipped=0.14  lr=6.699e-05  steps_per_sec=1.412
+2026-10-24 18:02:52 INFO src.trainers.trainer — step 16750/20000  loss=0.3831  loss_sup=0.3831  loss_con=0  lambda=0  grad_norm=0.8162  clipped=0.12  lr=6.502e-05  steps_per_sec=1.411
+2026-10-24 18:03:33 INFO src.trainers.trainer — step 16800/20000  loss=0.3856  loss_sup=0.3856  loss_con=0  lambda=0  grad_norm=10.01  clipped=0.1  lr=6.308e-05  steps_per_sec=1.411
+2026-10-24 18:04:13 INFO src.trainers.trainer — step 16850/20000  loss=0.3706  loss_sup=0.3706  loss_con=0  lambda=0  grad_norm=0.604  clipped=0.06  lr=6.116e-05  steps_per_sec=1.41
+2026-10-24 18:04:54 INFO src.trainers.trainer — step 16900/20000  loss=0.3706  loss_sup=0.3706  loss_con=0  lambda=0  grad_norm=5.135  clipped=0.18  lr=5.927e-05  steps_per_sec=1.41
+2026-10-24 18:05:34 INFO src.trainers.trainer — step 16950/20000  loss=0.3831  loss_sup=0.3831  loss_con=0  lambda=0  grad_norm=0.7703  clipped=0.16  lr=5.741e-05  steps_per_sec=1.409
+2026-10-24 18:06:14 INFO src.trainers.trainer — step 17000/20000  loss=0.374  loss_sup=0.374  loss_con=0  lambda=0  grad_norm=4.613  clipped=0.1  lr=5.558e-05  steps_per_sec=1.408
+2026-10-24 18:06:17 INFO src.trainers.trainer — val @ step 17000  defect_miou=0.4525  miou_defects_all=0.2404  miou_all=0.5364  crack_recall=0.6476  crack_recall_relaxed=0.8502  crack_fpr_image=0.032
+2026-10-24 18:06:57 INFO src.trainers.trainer — step 17050/20000  loss=0.3852  loss_sup=0.3852  loss_con=0  lambda=0  grad_norm=0.685  clipped=0.08  lr=5.378e-05  steps_per_sec=1.408
+2026-10-24 18:07:37 INFO src.trainers.trainer — step 17100/20000  loss=0.3672  loss_sup=0.3672  loss_con=0  lambda=0  grad_norm=0.8435  clipped=0.12  lr=5.2e-05  steps_per_sec=1.407
+2026-10-24 18:08:17 INFO src.trainers.trainer — step 17150/20000  loss=0.3657  loss_sup=0.3657  loss_con=0  lambda=0  grad_norm=0.7446  clipped=0.12  lr=5.026e-05  steps_per_sec=1.407
+2026-10-24 18:08:57 INFO src.trainers.trainer — step 17200/20000  loss=0.395  loss_sup=0.395  loss_con=0  lambda=0  grad_norm=0.8413  clipped=0.22  lr=4.854e-05  steps_per_sec=1.406
+2026-10-24 18:09:37 INFO src.trainers.trainer — step 17250/20000  loss=0.3355  loss_sup=0.3355  loss_con=0  lambda=0  grad_norm=0.5315  clipped=0.02  lr=4.685e-05  steps_per_sec=1.406
+2026-10-24 18:10:18 INFO src.trainers.trainer — step 17300/20000  loss=0.409  loss_sup=0.409  loss_con=0  lambda=0  grad_norm=1.259  clipped=0.18  lr=4.518e-05  steps_per_sec=1.405
+2026-10-24 18:10:58 INFO src.trainers.trainer — step 17350/20000  loss=0.3723  loss_sup=0.3723  loss_con=0  lambda=0  grad_norm=1.093  clipped=0.1  lr=4.355e-05  steps_per_sec=1.405
+2026-10-24 18:11:38 INFO src.trainers.trainer — step 17400/20000  loss=0.3639  loss_sup=0.3639  loss_con=0  lambda=0  grad_norm=1.251  clipped=0.14  lr=4.195e-05  steps_per_sec=1.404
+2026-10-24 18:12:18 INFO src.trainers.trainer — step 17450/20000  loss=0.3836  loss_sup=0.3836  loss_con=0  lambda=0  grad_norm=1.448  clipped=0.12  lr=4.037e-05  steps_per_sec=1.404
+2026-10-24 18:12:58 INFO src.trainers.trainer — step 17500/20000  loss=0.3702  loss_sup=0.3702  loss_con=0  lambda=0  grad_norm=0.6476  clipped=0.14  lr=3.882e-05  steps_per_sec=1.403
+2026-10-24 18:13:00 INFO src.trainers.trainer — val @ step 17500  defect_miou=0.4339  miou_defects_all=0.2252  miou_all=0.5229  crack_recall=0.6481  crack_recall_relaxed=0.8540  crack_fpr_image=0.065
+2026-10-24 18:13:40 INFO src.trainers.trainer — step 17550/20000  loss=0.3804  loss_sup=0.3804  loss_con=0  lambda=0  grad_norm=0.6287  clipped=0.08  lr=3.73e-05  steps_per_sec=1.403
+2026-10-24 18:14:17 INFO src.trainers.trainer — step 17600/20000  loss=0.3566  loss_sup=0.3566  loss_con=0  lambda=0  grad_norm=0.6354  clipped=0.1  lr=3.582e-05  steps_per_sec=1.403
+2026-10-24 18:14:57 INFO src.trainers.trainer — step 17650/20000  loss=0.3811  loss_sup=0.3811  loss_con=0  lambda=0  grad_norm=0.786  clipped=0.14  lr=3.436e-05  steps_per_sec=1.402
+2026-10-24 18:15:37 INFO src.trainers.trainer — step 17700/20000  loss=0.3719  loss_sup=0.3719  loss_con=0  lambda=0  grad_norm=0.7569  clipped=0.16  lr=3.293e-05  steps_per_sec=1.402
+2026-10-24 18:16:17 INFO src.trainers.trainer — step 17750/20000  loss=0.3881  loss_sup=0.3881  loss_con=0  lambda=0  grad_norm=0.6403  clipped=0.08  lr=3.153e-05  steps_per_sec=1.401
+2026-10-24 18:16:57 INFO src.trainers.trainer — step 17800/20000  loss=0.3746  loss_sup=0.3746  loss_con=0  lambda=0  grad_norm=0.6087  clipped=0.1  lr=3.015e-05  steps_per_sec=1.401
+2026-10-24 18:17:37 INFO src.trainers.trainer — step 17850/20000  loss=0.3991  loss_sup=0.3991  loss_con=0  lambda=0  grad_norm=0.5766  clipped=0.04  lr=2.881e-05  steps_per_sec=1.4
+2026-10-24 18:18:17 INFO src.trainers.trainer — step 17900/20000  loss=0.3768  loss_sup=0.3768  loss_con=0  lambda=0  grad_norm=0.8149  clipped=0.14  lr=2.75e-05  steps_per_sec=1.4
+2026-10-24 18:18:57 INFO src.trainers.trainer — step 17950/20000  loss=0.3577  loss_sup=0.3577  loss_con=0  lambda=0  grad_norm=0.7422  clipped=0.12  lr=2.622e-05  steps_per_sec=1.399
+2026-10-24 18:19:37 INFO src.trainers.trainer — step 18000/20000  loss=0.3497  loss_sup=0.3497  loss_con=0  lambda=0  grad_norm=0.6913  clipped=0.16  lr=2.496e-05  steps_per_sec=1.399
+2026-10-24 18:19:39 INFO src.trainers.trainer — val @ step 18000  defect_miou=0.4269  miou_defects_all=0.2342  miou_all=0.5308  crack_recall=0.6468  crack_recall_relaxed=0.8461  crack_fpr_image=0.065
+2026-10-24 18:19:40 INFO src.trainers.trainer — saved latest.pth at step 18000
+2026-10-24 18:20:20 INFO src.trainers.trainer — step 18050/20000  loss=0.3757  loss_sup=0.3757  loss_con=0  lambda=0  grad_norm=0.6793  clipped=0.1  lr=2.374e-05  steps_per_sec=1.398
+2026-10-24 18:21:00 INFO src.trainers.trainer — step 18100/20000  loss=0.3644  loss_sup=0.3644  loss_con=0  lambda=0  grad_norm=0.9011  clipped=0.16  lr=2.255e-05  steps_per_sec=1.398
+2026-10-24 18:21:40 INFO src.trainers.trainer — step 18150/20000  loss=0.3501  loss_sup=0.3501  loss_con=0  lambda=0  grad_norm=0.7339  clipped=0.14  lr=2.139e-05  steps_per_sec=1.397
+2026-10-24 18:22:20 INFO src.trainers.trainer — step 18200/20000  loss=0.3705  loss_sup=0.3705  loss_con=0  lambda=0  grad_norm=3.115  clipped=0.2  lr=2.025e-05  steps_per_sec=1.397
+2026-10-24 18:23:00 INFO src.trainers.trainer — step 18250/20000  loss=0.3761  loss_sup=0.3761  loss_con=0  lambda=0  grad_norm=0.7426  clipped=0.16  lr=1.915e-05  steps_per_sec=1.396
+2026-10-24 18:23:40 INFO src.trainers.trainer — step 18300/20000  loss=0.3632  loss_sup=0.3632  loss_con=0  lambda=0  grad_norm=0.6025  clipped=0.08  lr=1.808e-05  steps_per_sec=1.396
+2026-10-24 18:24:20 INFO src.trainers.trainer — step 18350/20000  loss=0.3639  loss_sup=0.3639  loss_con=0  lambda=0  grad_norm=0.6566  clipped=0.06  lr=1.704e-05  steps_per_sec=1.396
+2026-10-24 18:25:00 INFO src.trainers.trainer — step 18400/20000  loss=0.3602  loss_sup=0.3602  loss_con=0  lambda=0  grad_norm=0.7201  clipped=0.1  lr=1.603e-05  steps_per_sec=1.395
+2026-10-24 18:25:40 INFO src.trainers.trainer — step 18450/20000  loss=0.3842  loss_sup=0.3842  loss_con=0  lambda=0  grad_norm=0.8111  clipped=0.1  lr=1.504e-05  steps_per_sec=1.395
+2026-10-24 18:26:20 INFO src.trainers.trainer — step 18500/20000  loss=0.3454  loss_sup=0.3454  loss_con=0  lambda=0  grad_norm=0.6405  clipped=0.12  lr=1.409e-05  steps_per_sec=1.394
+2026-10-24 18:26:22 INFO src.trainers.trainer — val @ step 18500  defect_miou=0.4271  miou_defects_all=0.2422  miou_all=0.5392  crack_recall=0.6273  crack_recall_relaxed=0.8354  crack_fpr_image=0.032
+2026-10-24 18:27:02 INFO src.trainers.trainer — step 18550/20000  loss=0.3533  loss_sup=0.3533  loss_con=0  lambda=0  grad_norm=0.7683  clipped=0.2  lr=1.317e-05  steps_per_sec=1.394
+2026-10-24 18:27:41 INFO src.trainers.trainer — step 18600/20000  loss=0.392  loss_sup=0.392  loss_con=0  lambda=0  grad_norm=0.6785  clipped=0.1  lr=1.229e-05  steps_per_sec=1.393
+2026-10-24 18:28:21 INFO src.trainers.trainer — step 18650/20000  loss=0.3568  loss_sup=0.3568  loss_con=0  lambda=0  grad_norm=0.7396  clipped=0.14  lr=1.143e-05  steps_per_sec=1.393
+2026-10-24 18:28:58 INFO src.trainers.trainer — step 18700/20000  loss=0.3521  loss_sup=0.3521  loss_con=0  lambda=0  grad_norm=0.8155  clipped=0.12  lr=1.06e-05  steps_per_sec=1.393
+2026-10-24 18:29:38 INFO src.trainers.trainer — step 18750/20000  loss=0.362  loss_sup=0.362  loss_con=0  lambda=0  grad_norm=1.667  clipped=0.14  lr=9.802e-06  steps_per_sec=1.393
+2026-10-24 18:30:18 INFO src.trainers.trainer — step 18800/20000  loss=0.3394  loss_sup=0.3394  loss_con=0  lambda=0  grad_norm=0.5713  clipped=0.08  lr=9.036e-06  steps_per_sec=1.392
+2026-10-24 18:30:58 INFO src.trainers.trainer — step 18850/20000  loss=0.3551  loss_sup=0.3551  loss_con=0  lambda=0  grad_norm=0.741  clipped=0.08  lr=8.3e-06  steps_per_sec=1.392
+2026-10-24 18:31:37 INFO src.trainers.trainer — step 18900/20000  loss=0.3632  loss_sup=0.3632  loss_con=0  lambda=0  grad_norm=0.6648  clipped=0.08  lr=7.596e-06  steps_per_sec=1.391
+2026-10-24 18:32:17 INFO src.trainers.trainer — step 18950/20000  loss=0.3921  loss_sup=0.3921  loss_con=0  lambda=0  grad_norm=0.8551  clipped=0.1  lr=6.923e-06  steps_per_sec=1.391
+2026-10-24 18:32:56 INFO src.trainers.trainer — step 19000/20000  loss=0.3777  loss_sup=0.3777  loss_con=0  lambda=0  grad_norm=0.8307  clipped=0.24  lr=6.281e-06  steps_per_sec=1.391
+2026-10-24 18:32:59 INFO src.trainers.trainer — val @ step 19000  defect_miou=0.4434  miou_defects_all=0.2303  miou_all=0.5322  crack_recall=0.6411  crack_recall_relaxed=0.8487  crack_fpr_image=0.032
+2026-10-24 18:33:38 INFO src.trainers.trainer — step 19050/20000  loss=0.3543  loss_sup=0.3543  loss_con=0  lambda=0  grad_norm=1.146  clipped=0.14  lr=5.669e-06  steps_per_sec=1.39
+2026-10-24 18:34:18 INFO src.trainers.trainer — step 19100/20000  loss=0.3903  loss_sup=0.3903  loss_con=0  lambda=0  grad_norm=1.675  clipped=0.06  lr=5.089e-06  steps_per_sec=1.39
+2026-10-24 18:34:58 INFO src.trainers.trainer — step 19150/20000  loss=0.3718  loss_sup=0.3718  loss_con=0  lambda=0  grad_norm=0.5914  clipped=0.08  lr=4.54e-06  steps_per_sec=1.39
+2026-10-24 18:35:38 INFO src.trainers.trainer — step 19200/20000  loss=0.3548  loss_sup=0.3548  loss_con=0  lambda=0  grad_norm=3.339  clipped=0.1  lr=4.023e-06  steps_per_sec=1.389
+2026-10-24 18:36:18 INFO src.trainers.trainer — step 19250/20000  loss=0.38  loss_sup=0.38  loss_con=0  lambda=0  grad_norm=15.44  clipped=0.06  lr=3.536e-06  steps_per_sec=1.389
+2026-10-24 18:36:57 INFO src.trainers.trainer — step 19300/20000  loss=0.3647  loss_sup=0.3647  loss_con=0  lambda=0  grad_norm=1.032  clipped=0.08  lr=3.081e-06  steps_per_sec=1.388
+2026-10-24 18:37:37 INFO src.trainers.trainer — step 19350/20000  loss=0.373  loss_sup=0.373  loss_con=0  lambda=0  grad_norm=3.257  clipped=0.14  lr=2.657e-06  steps_per_sec=1.388
+2026-10-24 18:38:17 INFO src.trainers.trainer — step 19400/20000  loss=0.3487  loss_sup=0.3487  loss_con=0  lambda=0  grad_norm=0.6205  clipped=0.1  lr=2.264e-06  steps_per_sec=1.388
+2026-10-24 18:38:56 INFO src.trainers.trainer — step 19450/20000  loss=0.3793  loss_sup=0.3793  loss_con=0  lambda=0  grad_norm=3.303  clipped=0.14  lr=1.903e-06  steps_per_sec=1.387
+2026-10-24 18:39:36 INFO src.trainers.trainer — step 19500/20000  loss=0.3542  loss_sup=0.3542  loss_con=0  lambda=0  grad_norm=0.6789  clipped=0.12  lr=1.573e-06  steps_per_sec=1.387
+2026-10-24 18:39:38 INFO src.trainers.trainer — val @ step 19500  defect_miou=0.4317  miou_defects_all=0.2407  miou_all=0.5361  crack_recall=0.6409  crack_recall_relaxed=0.8456  crack_fpr_image=0.032
+2026-10-24 18:40:18 INFO src.trainers.trainer — step 19550/20000  loss=0.3546  loss_sup=0.3546  loss_con=0  lambda=0  grad_norm=0.8045  clipped=0.08  lr=1.274e-06  steps_per_sec=1.387
+2026-10-24 18:40:57 INFO src.trainers.trainer — step 19600/20000  loss=0.352  loss_sup=0.352  loss_con=0  lambda=0  grad_norm=0.6323  clipped=0.08  lr=1.007e-06  steps_per_sec=1.386
+2026-10-24 18:41:37 INFO src.trainers.trainer — step 19650/20000  loss=0.3601  loss_sup=0.3601  loss_con=0  lambda=0  grad_norm=0.6321  clipped=0.06  lr=7.708e-07  steps_per_sec=1.386
+2026-10-24 18:42:17 INFO src.trainers.trainer — step 19700/20000  loss=0.366  loss_sup=0.366  loss_con=0  lambda=0  grad_norm=0.6962  clipped=0.14  lr=5.663e-07  steps_per_sec=1.386
+2026-10-24 18:42:57 INFO src.trainers.trainer — step 19750/20000  loss=0.3668  loss_sup=0.3668  loss_con=0  lambda=0  grad_norm=0.6229  clipped=0.06  lr=3.933e-07  steps_per_sec=1.385
+2026-10-24 18:43:36 INFO src.trainers.trainer — step 19800/20000  loss=0.3393  loss_sup=0.3393  loss_con=0  lambda=0  grad_norm=4.372  clipped=0.12  lr=2.517e-07  steps_per_sec=1.385
+2026-10-24 18:44:13 INFO src.trainers.trainer — step 19850/20000  loss=0.3704  loss_sup=0.3704  loss_con=0  lambda=0  grad_norm=0.7134  clipped=0.16  lr=1.416e-07  steps_per_sec=1.385
+2026-10-24 18:44:53 INFO src.trainers.trainer — step 19900/20000  loss=0.3749  loss_sup=0.3749  loss_con=0  lambda=0  grad_norm=1.574  clipped=0.06  lr=6.294e-08  steps_per_sec=1.384
+2026-10-24 18:45:32 INFO src.trainers.trainer — step 19950/20000  loss=0.3571  loss_sup=0.3571  loss_con=0  lambda=0  grad_norm=0.8914  clipped=0.12  lr=1.573e-08  steps_per_sec=1.384
+2026-10-24 18:46:12 INFO src.trainers.trainer — step 20000/20000  loss=0.3602  loss_sup=0.3602  loss_con=0  lambda=0  grad_norm=1.049  clipped=0.06  lr=0  steps_per_sec=1.384
+2026-10-24 18:46:14 INFO src.trainers.trainer — val @ step 20000  defect_miou=0.4257  miou_defects_all=0.2367  miou_all=0.5285  crack_recall=0.6428  crack_recall_relaxed=0.8462  crack_fpr_image=0.032
+2026-10-24 18:46:15 INFO src.trainers.trainer — saved latest.pth at step 20000
+2026-10-24 18:46:17 INFO src.trainers.trainer — TEST (final weights, step 20000)
+[standard]
+idx  class                IoU    Prec  Recall      F1        GT px
+------------------------------------------------------------------
+  0  background        0.9125  0.9530  0.9555  0.9542    8,506,124
+  1  sp_multi          0.7275  0.9057  0.7871  0.8422      169,861
+  2  sp_mono           0.7296  0.8316  0.8562  0.8437      297,693
+  3  sp_dogbone             -       -       -       -            0
+  4  ribbons           0.6104  0.7595  0.7567  0.7581      582,670
+  5  border            0.5253  0.6027  0.8036  0.6888      185,327
+  6  text                   -       -       -       -            0
+  7  padding           0.9940  0.9945  0.9994  0.9970    2,827,416
+  8  clamp                  -       -       -       -            0
+  9  busbars           0.4885  0.6146  0.7041  0.6563        2,315
+ 10  crack_rbn_edge         -       -       -       -            0
+ 11  inactive          0.4364  0.6365  0.5813  0.6077       92,125
+ 12  rings                  -       -       -       -            0
+ 13  material          0.3728  0.5150  0.5745  0.5431       83,724
+ 14  crack             0.4664  0.6415  0.6308  0.6361       92,074
+ 15  gridline          0.2792  0.7034  0.3165  0.4365      127,869
+ 16  splice            0.0000       -  0.0000  0.0000        4,031
+ 17  dead_cell              -       -       -       -            0
+ 18  corrosion         0.7462  0.8645  0.8451  0.8547       10,527
+ 19  belt_mark              -       -       -       -            0
+ 20  edge_dark         0.2057  0.5025  0.2583  0.3412       20,504
+ 21  frame_edge        0.7517  0.9134  0.8093  0.8582      104,940
+ 22  jbox                   -       -       -       -            0
+ 23  meas_artifact          -       -       -       -            0
+------------------------------------------------------------------
+defect_mean            0.3581  0.6439  0.4581  0.4885
+all_mean               0.5498  0.7456  0.6586  0.6679
+defect_miou               0.4514
+miou_defects_all          0.3581
+miou_all                  0.5498
+crack_iou                 0.4664
+inactive_iou              0.4364
+crack_recall              0.6308
+crack_recall_relaxed      0.8267
+crack_fpr_image           0.0000
+pixel_accuracy            0.9333
+present classes               15
+[pvs3]
+idx  class                IoU    Prec  Recall      F1        GT px
+------------------------------------------------------------------
+  0  background             -       -       -       -            0
+  1  sp_multi          0.7831  0.9936  0.7871  0.8784      169,861
+  2  sp_mono           0.8451  0.9850  0.8562  0.9161      297,693
+  3  sp_dogbone             -       -       -       -            0
+  4  ribbons           0.7485  0.9857  0.7567  0.8562      582,670
+  5  border            0.6897  0.8296  0.8036  0.8164      185,327
+  6  text                   -       -       -       -            0
+  7  padding           0.9940  0.9945  0.9994  0.9970    2,827,416
+  8  clamp                  -       -       -       -            0
+  9  busbars           0.5313  0.6840  0.7041  0.6939        2,315
+ 10  crack_rbn_edge         -       -       -       -            0
+ 11  inactive          0.5056  0.7951  0.5813  0.6716       92,125
+ 12  rings                  -       -       -       -            0
+ 13  material          0.5619  0.9622  0.5745  0.7195       83,724
+ 14  crack             0.5984  0.9210  0.6308  0.7488       92,074
+ 15  gridline          0.3157  0.9920  0.3165  0.4799      127,869
+ 16  splice            0.0000       -  0.0000  0.0000        4,031
+ 17  dead_cell              -       -       -       -            0
+ 18  corrosion         0.7867  0.9193  0.8451  0.8806       10,527
+ 19  belt_mark              -       -       -       -            0
+ 20  edge_dark         0.2519  0.9094  0.2583  0.4024       20,504
+ 21  frame_edge        0.7715  0.9429  0.8093  0.8710      104,940
+ 22  jbox                   -       -       -       -            0
+ 23  meas_artifact          -       -       -       -            0
+------------------------------------------------------------------
+defect_mean            0.4314  0.9165  0.4581  0.5575
+all_mean               0.5988  0.9165  0.6374  0.7094
+2026-10-24 18:46:17 INFO src.utils.checkpoint — Loaded checkpoint from experiments/m_r5_up2_s4/checkpoints/best.pth (step 16500, defect_miou=0.4900)
+2026-10-24 18:46:19 INFO src.trainers.trainer — TEST (best.pth (step 16500))
+[standard]
+idx  class                IoU    Prec  Recall      F1        GT px
+------------------------------------------------------------------
+  0  background        0.9132  0.9530  0.9563  0.9546    8,506,124
+  1  sp_multi          0.7323  0.9013  0.7962  0.8455      169,861
+  2  sp_mono           0.6851  0.7752  0.8550  0.8131      297,693
+  3  sp_dogbone             -       -       -       -            0
+  4  ribbons           0.6276  0.7992  0.7450  0.7712      582,670
+  5  border            0.4804  0.5351  0.8244  0.6490      185,327
+  6  text                   -       -       -       -            0
+  7  padding           0.9947  0.9952  0.9995  0.9973    2,827,416
+  8  clamp                  -       -       -       -            0
+  9  busbars           0.6566  0.8199  0.7672  0.7927        2,315
+ 10  crack_rbn_edge         -       -       -       -            0
+ 11  inactive          0.4211  0.6392  0.5523  0.5926       92,125
+ 12  rings                  -       -       -       -            0
+ 13  material          0.3783  0.5775  0.5230  0.5489       83,724
+ 14  crack             0.4670  0.6362  0.6371  0.6367       92,074
+ 15  gridline          0.2958  0.6835  0.3427  0.4565      127,869
+ 16  splice            0.0000       -  0.0000  0.0000        4,031
+ 17  dead_cell              -       -       -       -            0
+ 18  corrosion         0.7613  0.8655  0.8635  0.8645       10,527
+ 19  belt_mark              -       -       -       -            0
+ 20  edge_dark         0.2368  0.6215  0.2767  0.3829       20,504
+ 21  frame_edge        0.7882  0.9773  0.8029  0.8815      104,940
+ 22  jbox                   -       -       -       -            0
+ 23  meas_artifact          -       -       -       -            0
+------------------------------------------------------------------
+defect_mean            0.3657  0.6706  0.4565  0.4974
+all_mean               0.5625  0.7700  0.6628  0.6791
+defect_miou               0.4440
+miou_defects_all          0.3657
+miou_all                  0.5625
+crack_iou                 0.4670
+inactive_iou              0.4211
+crack_recall              0.6371
+crack_recall_relaxed      0.8258
+crack_fpr_image           0.0000
+pixel_accuracy            0.9334
+present classes               15

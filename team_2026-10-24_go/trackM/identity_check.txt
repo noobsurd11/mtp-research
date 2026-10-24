@@ -1,0 +1,20 @@
+IDENTICAL_1000
+INFO train — Labelled: 478 (data/splits/train.txt)  unlabelled: 0 (-)  val: 54  test: 50
+INFO src.trainers.trainer — step 1000/20000  loss=0.8637  loss_sup=0.8637  loss_con=0  lambda=0  lr=0.000996  
+IDENTICAL_1000_with_grad_logging
+ step 50/20000  loss=3.489  loss_sup=3.489  loss_con=0  lambda=0  grad_norm=3.338  clipped=1  lr=0.000255  steps_per_sec=5.165
+ step 500/20000  loss=1.019  loss_sup=1.019  loss_con=0  lambda=0  grad_norm=1.529  clipped=0.66  lr=0.0009994  steps_per_sec=5.646
+ step 1000/20000  loss=0.8637  loss_sup=0.8637  loss_con=0  lambda=0  grad_norm=2.276  clipped=0.52  lr=0.000996  steps_per_sec=5.658
+el_mt4 0642889 IDENTICAL_1000 (switch off)
+INFO train — Labelled: 585 (/tmp/noob_el/data_r4/splits/train.txt)  unlabelled: 0 (-)  val: 54  test: 50
+INFO train — Zero-pixel classes in labelled subset (weight 0): none
+INFO src.trainers.trainer — step 50/20000  loss=3.997  loss_sup=3.997  loss_con=0  lambda=0  lr=0.000255  steps_per_sec=1.027
+INFO src.trainers.trainer — step 300/20000  loss=1.29  loss_sup=1.29  loss_con=0  lambda=0  lr=0.0009999  steps_per_sec=1.062
+el_mt5 1be64e1 IDENTICAL_1000 (switch off)
+Model smp_unetpp: 26,075,672 parameters
+INFO train — Model smp_unetpp: 26,075,672 parameters
+INFO src.trainers.trainer — step 50/20000  loss=3.898  loss_sup=3.898  loss_con=0  lambda=0  grad_norm=3.404  clipped=1  lr=0.000255  steps_per_sec=0.7602
+INFO src.trainers.trainer — step 300/20000  loss=1.283  loss_sup=1.283  loss_con=0  lambda=0  grad_norm=1.803  clipped=0.46  lr=0.0009999  steps_per_sec=0.7576
+  upsample_input: 2
+6, 5750 MiB
+7, 23933 MiB

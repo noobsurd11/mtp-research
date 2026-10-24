@@ -1,0 +1,97 @@
+A = ['p6_L3_100pct_s0', 'p6_L3_100pct_s1', 'p6_L3_100pct_s2', 'p16_A_100pct_s3', 'p16_A_100pct_s4']
+B (R5) = ['m_r5_up2_s0', 'm_r5_up2_s1', 'm_r5_up2_s2', 'm_r5_up2_s3', 'm_r5_up2_s4']
+
+## VAL inclusion rule (val list; rule 1 on crack IoU, relF1@2, mIoU_rob; inactive reported only)
+  crack_iou A 0.4226 B 0.4237 d +0.0011 thr 0.0100 -> n.d.
+  inact_iou A 0.4112 B 0.4501 d +0.0389 thr 0.0500 -> n.d.
+  relF1     A 0.8811 B 0.8829 d +0.0018 thr 0.0100 -> n.d.
+  miou_rob  A 0.6156 B 0.6228 d +0.0073 thr 0.0100 -> n.d.
+  VAL INCLUSION: EXCLUDE
+
+## TEST all (n=50)  metric | A mean±sd | B mean±sd | d | thr | verdict
+  crack_iou | 0.4353±0.0776 | 0.4657±0.0034 | +0.0303 | 0.0897 | n.d.
+  inact_iou | 0.4355±0.0133 | 0.4330±0.0137 | -0.0025 | 0.0221 | n.d.
+  relF1     | 0.8284±0.1050 | 0.8748±0.0022 | +0.0464 | 0.1212 | n.d.
+  miou_rob  | 0.5466±0.0157 | 0.5455±0.0162 | -0.0011 | 0.0260 | n.d.
+  crack prec A 0.586 B 0.647 | inactive prec A 0.631 B 0.630
+  crack rec A 0.637 B 0.624 | inactive rec A 0.584 B 0.581
+  relP2 A 0.853 B 0.933 | relR2 A 0.824 B 0.823 | crack comp rec A 0.790 B 0.796 | comp prec A 0.837 B 0.907 | inact comp rec A 0.757 B 0.757
+  bootstrap B-A: crack_iou +0.0303 [-0.0098, +0.0592] P>0 0.68 | inact_iou -0.0025 [-0.0305, +0.0412] P>0 0.42 | relF1 +0.0464 [-0.0063, +0.0969] P>0 0.76 | miou_rob -0.0011 [-0.0191, +0.0097] P>0 0.34
+  leave-top-3-out crack IoU d +0.0404
+  leave-top-3-out inactive IoU d +0.0250
+
+## TEST -noisy (n=49)  metric | A mean±sd | B mean±sd | d | thr | verdict
+  crack_iou | 0.4738±0.0025 | 0.4692±0.0030 | -0.0046 | 0.0100 | n.d.
+  inact_iou | 0.4495±0.0141 | 0.4458±0.0123 | -0.0036 | 0.0216 | n.d.
+  relF1     | 0.8806±0.0036 | 0.8794±0.0015 | -0.0012 | 0.0100 | n.d.
+  miou_rob  | 0.5802±0.0108 | 0.5689±0.0055 | -0.0113 | 0.0140 | n.d.
+  crack prec A 0.644 B 0.648 | inactive prec A 0.631 B 0.630
+  crack rec A 0.642 B 0.630 | inactive rec A 0.610 B 0.604
+  relP2 A 0.938 B 0.934 | relR2 A 0.830 B 0.831 | crack comp rec A 0.798 B 0.804 | comp prec A 0.924 B 0.915 | inact comp rec A 0.773 B 0.773
+  bootstrap B-A: crack_iou -0.0046 [-0.0110, +0.0031] P>0 0.11 | inact_iou -0.0036 [-0.0311, +0.0386] P>0 0.40 | relF1 -0.0012 [-0.0078, +0.0053] P>0 0.37 | miou_rob -0.0113 [-0.0216, +0.0000] P>0 0.03
+  leave-top-3-out crack IoU d -0.0003
+  leave-top-3-out inactive IoU d +0.0268
+
+## TEST -twins (n=43)  metric | A mean±sd | B mean±sd | d | thr | verdict
+  crack_iou | 0.3611±0.0874 | 0.4004±0.0035 | +0.0393 | 0.1010 | n.d.
+  inact_iou | 0.4123±0.0126 | 0.4060±0.0170 | -0.0063 | 0.0244 | n.d.
+  relF1     | 0.7517±0.1401 | 0.8160±0.0038 | +0.0642 | 0.1618 | n.d.
+  miou_rob  | 0.5387±0.0158 | 0.5377±0.0170 | -0.0010 | 0.0268 | n.d.
+  crack prec A 0.535 B 0.603 | inactive prec A 0.641 B 0.634
+  crack rec A 0.543 B 0.544 | inactive rec A 0.536 B 0.530
+  relP2 A 0.809 B 0.907 | relR2 A 0.736 B 0.742 | crack comp rec A 0.730 B 0.738 | comp prec A 0.835 B 0.901 | inact comp rec A 0.667 B 0.661
+
+## TEST -both (n=42)  metric | A mean±sd | B mean±sd | d | thr | verdict
+  crack_iou | 0.4054±0.0035 | 0.4054±0.0026 | -0.0000 | 0.0100 | n.d.
+  inact_iou | 0.4279±0.0132 | 0.4200±0.0157 | -0.0079 | 0.0237 | n.d.
+  relF1     | 0.8225±0.0059 | 0.8234±0.0024 | +0.0009 | 0.0100 | n.d.
+  miou_rob  | 0.5748±0.0111 | 0.5631±0.0049 | -0.0117 | 0.0140 | n.d.
+  crack prec A 0.607 B 0.604 | inactive prec A 0.641 B 0.634
+  crack rec A 0.550 B 0.552 | inactive rec A 0.563 B 0.554
+  relP2 A 0.918 B 0.909 | relR2 A 0.745 B 0.753 | crack comp rec A 0.738 B 0.748 | comp prec A 0.936 B 0.912 | inact comp rec A 0.688 B 0.681
+
+## RUNG VERDICT (design §1/C6)
+  worse anywhere: False; passing primaries: []; VERDICT: n.d.
+
+## per source (test): source/set | n | crack IoU A B | crack R A B | relR2 A B | crack AP A B | inact IoU A B | mIoU_rob A B | FP absent px A B | dead_cell(17) px A B
+| ARTS all | 13 | 0.456 0.472 | 0.560 0.593 | 0.809 0.813 | 0.571 0.576 | 0.000 0.026 | 0.530 0.522 | 93 7 | 0 0 |
+| BMRK all | 10 | 0.379 0.379 | 0.516 0.507 | 0.745 0.753 | 0.462 0.462 | 0.324 0.321 | 0.576 0.577 | 3089 1607 | 1 0 |
+| CFVS all | 18 | 0.522 0.513 | 0.700 0.680 | 0.872 0.866 | 0.668 0.645 | 0.578 0.565 | 0.659 0.634 | 125 583 | 0 0 |
+| CSIR all | 8 | 0.379 0.446 | 0.640 0.644 | 0.796 0.799 | 0.504 0.557 | 0.380 0.397 | 0.455 0.470 | 23432 13146 | 0 0 |
+| CSIR -noisy | 7 | 0.475 0.473 | 0.684 0.693 | 0.846 0.860 | 0.607 0.602 | 0.707 0.704 | 0.589 0.586 | 65 184 | 0 0 |
+| SDLE all | 1 | 0.031 0.000 | 0.032 0.000 | 0.065 0.000 | 0.040 0.001 | nan nan | 0.577 0.566 | 1 3 | 0 0 |
+
+## named secondaries, rule-1 arithmetic (descriptive)
+  all     BMRK crack AP      A 0.4618 B 0.4620 d +0.0002 thr 0.0159 n.d.
+  all     BMRK crack recall  A 0.5161 B 0.5072 d -0.0089 thr 0.0185 n.d.
+  all     BMRK relR2         A 0.7453 B 0.7526 d +0.0073 thr 0.0148 n.d.
+  all     CSIR crack IoU     A 0.3789 B 0.4460 d +0.0671 thr 0.1923 n.d.
+  all     CSIR inact IoU     A 0.3804 B 0.3969 d +0.0165 thr 0.1350 n.d.
+  all     ARTS crack IoU     A 0.4560 B 0.4724 d +0.0165 thr 0.0263 n.d.
+  -noisy  BMRK crack AP      A 0.4618 B 0.4620 d +0.0002 thr 0.0159 n.d.
+  -noisy  BMRK crack recall  A 0.5161 B 0.5072 d -0.0089 thr 0.0185 n.d.
+  -noisy  BMRK relR2         A 0.7453 B 0.7526 d +0.0073 thr 0.0148 n.d.
+  -noisy  CSIR crack IoU     A 0.4752 B 0.4732 d -0.0020 thr 0.0125 n.d.
+  -noisy  CSIR inact IoU     A 0.7067 B 0.7044 d -0.0023 thr 0.2340 n.d.
+  -noisy  ARTS crack IoU     A 0.4560 B 0.4724 d +0.0165 thr 0.0263 n.d.
+
+## per class (test -noisy, val): class | GT cells | A IoU | B IoU | A P | B P | A R | B R || val A IoU | val B IoU
+| 0 background | 49 | 0.926 | 0.924 | 0.955 | 0.953 | 0.968 | 0.968 || 0.933 | 0.934 |
+| 1 sp_multi | 13 | 0.803 | 0.798 | 0.906 | 0.905 | 0.876 | 0.871 || 0.788 | 0.786 |
+| 2 sp_mono | 24 | 0.740 | 0.735 | 0.842 | 0.837 | 0.859 | 0.857 || 0.830 | 0.826 |
+| 4 ribbons | 49 | 0.647 | 0.647 | 0.817 | 0.815 | 0.757 | 0.758 || 0.651 | 0.651 |
+| 5 border | 24 | 0.692 | 0.666 | 0.796 | 0.787 | 0.840 | 0.812 || 0.800 | 0.813 |
+| 7 padding | 24 | 0.994 | 0.994 | 0.994 | 0.995 | 1.000 | 0.999 || 0.991 | 0.991 |
+| 11 inactive | 15 | 0.449 | 0.446 | 0.631 | 0.630 | 0.610 | 0.604 || 0.411 | 0.450 |
+| 13 material | 11 | 0.411 | 0.380 | 0.604 | 0.586 | 0.564 | 0.524 || 0.408 | 0.419 |
+| 14 crack | 47 | 0.474 | 0.469 | 0.644 | 0.648 | 0.642 | 0.630 || 0.423 | 0.424 |
+| 15 gridline | 45 | 0.283 | 0.280 | 0.680 | 0.694 | 0.326 | 0.319 || 0.308 | 0.305 |
+| 16 splice | 4 | 0.000 | 0.000 | nan | nan | 0.000 | 0.000 || 0.000 | 0.000 |
+| 20 edge_dark | 3 | 0.306 | 0.268 | 0.568 | 0.497 | 0.394 | 0.372 || 0.188 | 0.262 |
+| 21 frame_edge | 8 | 0.817 | 0.789 | 0.975 | 0.971 | 0.835 | 0.808 || 0.889 | 0.887 |
+| 9 busbars | 1 | 0.420 | 0.210 | 0.519 | 0.388 | 0.687 | 0.244 || 0.571 | 0.611 |
+| 18 corrosion | 1 | 0.755 | 0.753 | 0.852 | 0.854 | 0.870 | 0.866 || 0.000 | 0.000 |
+
+## E1 ext (secondary): set | crack IoU A B | crack R A B | inact IoU A B | mIoU (ext GT list) A B
+  all 106 | 0.148 0.167 | 0.178 0.204 | 0.064 0.082 | 0.411 0.433
+  -CSIR_00300_r25_c1 | 0.148 0.168 | 0.178 0.204 | 0.064 0.082 | 0.411 0.433

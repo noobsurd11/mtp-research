@@ -12,6 +12,11 @@
 | cv02 | 6, 7 (4 lanes each) | M (MD) | mq | 24 Oct 12:06 | ~25 Oct 00:00 | wave 1: R2 x5, R3 pilots x3, m_sup_gn_s0 (protocol_r2/r3 APPROVED) |
 | cv02 | 7 | M (MD) | m0audit | 24 Oct 12:07 | +10 min | SUP100 re-score with per-cell 1,000-bin crack histograms (R3 per-source AP), inference |
 | cv02 | 7 | M (MD) | midchk4 | 24 Oct 12:16 | done | el_mt4 identity IDENTICAL, R4 smoke OK |
-| cv02 | 6, 7 (2 lanes each) | M (MD) | mq4 | 24 Oct 12:37 | ~25 Oct 02:00 | R4 x5 (protocol_r4 APPROVED), beside =mq |
+| cv02 | 6, 7 (2 lanes each) | M (MD) | mq4 | 24 Oct 12:37 | ~25 Oct 02:00 | R4 x5 done 21:26 |
 | cv02 | 6 | M (MD) | midchk5 | 24 Oct 19:04 | done | el_mt5 identity IDENTICAL; R5 smoke OK (upsample_input: 2) |
-| cv02 | 3, 6 (2 lanes each) | M (MD) | mq5 | 24 Oct 19:18 | ~25 Oct 08:00 | R5 x5 upsample x2 (protocol_r5 APPROVED); GPU 3 offered by DX |
+| cv02 | 3, 6 (2 lanes each) | M (MD) | mq5 | 24 Oct 19:18 | ~25 Oct 08:00 | R5 done 03:47; GPU 3 back to DX |
+| cv02 | 0, 1 (3 lanes each) | M (MD) | mq2c | 24 Oct 20:13 | ~25 Oct 02:00 | R2c x5 done 01:06 |
+| cv02 | 2 (1 lane) | M (MD) | mq5 | 24 Oct 20:13 | ~25 Oct 04:00 | R5 s4 done |
+| cv02 | 7 (3 lanes), 0, 1 (1 lane each) | M (MD) | mq3b | 24 Oct 20:33 | ~25 Oct 08:00 | R3 Part B done 02:36 |
+| cv02 | 7 | M (MD) | final | 25 Oct 03:47 | +30 min | FINAL done 03:52 |
+| cv02 | 0, 1, 2, 3, 6, 7 | M (MD) | (all Track M sessions idle) | – | 25 Oct 04:25 | Track M finished; no Track M job running; all M GPUs free. Idle tmux shells left: m0audit, midchk*, mq*, r1, final |

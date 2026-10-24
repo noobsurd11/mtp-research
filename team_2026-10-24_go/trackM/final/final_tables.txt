@@ -1,0 +1,80 @@
+rec_is_sup: True | finals: ['final_b0', 'final_b0.75']
+
+######## TEST all (n=50)
+  SUP100 mean single: crack_iou 0.4353 | inact_iou 0.4355 | relF1 0.8284 | miou_rob 0.5466 | crack P 0.586 R 0.637 relP2 0.853 relR2 0.824
+  final_b0: crack IoU 0.485 P 0.662 R 0.645 relP2 0.953 relR2 0.829 relF1 0.887 comp rec 0.799 comp prec 0.944 | inact IoU 0.440 P 0.629 R 0.594 comp rec 0.783 | mIoU_rob 0.547 (no 0/7 0.473) mIoU24 0.525 FP-absent px 9464
+    contrast 1/3 final_b0 - SUP100 mean single: crack_iou +0.0497 [+0.0125, +0.0785] | inact_iou +0.0041 [-0.0050, +0.0182] | relF1 +0.0584 [+0.0072, +0.1109] | miou_rob -0.0001 [-0.0040, +0.0082]
+    p(crack) bands on GT crack: 0.116 / 0.111 / 0.138 / 0.184 / 0.451
+  final_b0.75: crack IoU 0.453 P 0.563 R 0.699 relP2 0.844 relR2 0.863 relF1 0.853 comp rec 0.831 comp prec 0.634 | inact IoU 0.442 P 0.639 R 0.588 comp rec 0.783 | mIoU_rob 0.545 (no 0/7 0.471) mIoU24 0.524 FP-absent px 8515
+    contrast 1/3 final_b0.75 - SUP100 mean single: crack_iou +0.0178 [-0.0241, +0.0240] | inact_iou +0.0063 [-0.0029, +0.0198] | relF1 +0.0247 [-0.0098, +0.0298] | miou_rob -0.0018 [-0.0079, +0.0080]
+    p(crack) bands on GT crack: 0.097 / 0.110 / 0.105 / 0.205 / 0.483
+
+######## TEST -noisy (n=49)
+  SUP100 mean single: crack_iou 0.4738 | inact_iou 0.4495 | relF1 0.8806 | miou_rob 0.5802 | crack P 0.644 R 0.642 relP2 0.938 relR2 0.830
+  final_b0: crack IoU 0.488 P 0.662 R 0.650 relP2 0.953 relR2 0.837 relF1 0.891 comp rec 0.807 comp prec 0.944 | inact IoU 0.454 P 0.629 R 0.619 comp rec 0.800 | mIoU_rob 0.583 (no 0/7 0.514) mIoU24 0.592 FP-absent px 0
+    contrast 1/3 final_b0 - SUP100 mean single: crack_iou +0.0144 [+0.0118, +0.0167] | inact_iou +0.0041 [-0.0054, +0.0182] | relF1 +0.0102 [+0.0062, +0.0157] | miou_rob +0.0027 [-0.0019, +0.0088]
+    p(crack) bands on GT crack: 0.114 / 0.109 / 0.137 / 0.186 / 0.455
+  final_b0.75: crack IoU 0.492 P 0.621 R 0.703 relP2 0.930 relR2 0.866 relF1 0.897 comp rec 0.834 comp prec 0.933 | inact IoU 0.456 P 0.639 R 0.614 comp rec 0.800 | mIoU_rob 0.583 (no 0/7 0.515) mIoU24 0.592 FP-absent px 0
+    contrast 1/3 final_b0.75 - SUP100 mean single: crack_iou +0.0183 [+0.0127, +0.0252] | inact_iou +0.0065 [-0.0023, +0.0212] | relF1 +0.0160 [+0.0096, +0.0251] | miou_rob +0.0031 [-0.0014, +0.0093]
+    p(crack) bands on GT crack: 0.095 / 0.108 / 0.103 / 0.207 / 0.488
+
+######## TEST -twins (n=43)
+  SUP100 mean single: crack_iou 0.3611 | inact_iou 0.4123 | relF1 0.7517 | miou_rob 0.5387 | crack P 0.535 R 0.543 relP2 0.809 relR2 0.736
+  final_b0: crack IoU 0.415 P 0.631 R 0.548 relP2 0.940 relR2 0.742 relF1 0.830 comp rec 0.738 comp prec 0.964 | inact IoU 0.415 P 0.635 R 0.545 comp rec 0.697 | mIoU_rob 0.539 (no 0/7 0.464) mIoU24 0.519 FP-absent px 9464
+    p(crack) bands on GT crack: 0.160 / 0.136 / 0.168 / 0.187 / 0.349
+  final_b0.75: crack IoU 0.378 P 0.497 R 0.612 relP2 0.770 relR2 0.792 relF1 0.781 comp rec 0.779 comp prec 0.592 | inact IoU 0.418 P 0.646 R 0.542 comp rec 0.697 | mIoU_rob 0.537 (no 0/7 0.462) mIoU24 0.518 FP-absent px 8515
+    p(crack) bands on GT crack: 0.134 / 0.137 / 0.129 / 0.222 / 0.377
+
+######## TEST -both (n=42)
+  SUP100 mean single: crack_iou 0.4054 | inact_iou 0.4279 | relF1 0.8225 | miou_rob 0.5748 | crack P 0.607 R 0.550 relP2 0.918 relR2 0.745
+  final_b0: crack IoU 0.420 P 0.631 R 0.556 relP2 0.940 relR2 0.753 relF1 0.836 comp rec 0.748 comp prec 0.964 | inact IoU 0.431 P 0.635 R 0.572 comp rec 0.719 | mIoU_rob 0.577 (no 0/7 0.507) mIoU24 0.587 FP-absent px 0
+    p(crack) bands on GT crack: 0.157 / 0.134 / 0.166 / 0.190 / 0.354
+  final_b0.75: crack IoU 0.432 P 0.588 R 0.618 relP2 0.910 relR2 0.796 relF1 0.849 comp rec 0.783 comp prec 0.959 | inact IoU 0.433 P 0.646 R 0.569 comp rec 0.719 | mIoU_rob 0.578 (no 0/7 0.508) mIoU24 0.588 FP-absent px 0
+    p(crack) bands on GT crack: 0.131 / 0.135 / 0.126 / 0.225 / 0.383
+
+######## per source (test, all): source | n | final_b0 crack IoU, R, relR2, inact IoU, mIoU_rob, FP-absent | final_b0.75 crack IoU, R, relR2, inact IoU, mIoU_rob, FP-absent | SUP100 single crack IoU
+| ARTS all | 13 | 0.472, 0.576, 0.838, 0.000, 0.527, 32 | 0.503, 0.638, 0.863, 0.000, 0.530, 32 | 0.456 |
+| BMRK all | 10 | 0.396, 0.522, 0.758, 0.324, 0.581, 1082 | 0.411, 0.596, 0.812, 0.324, 0.583, 1076 | 0.379 |
+| CFVS all | 18 | 0.534, 0.709, 0.875, 0.579, 0.662, 0 | 0.535, 0.754, 0.893, 0.585, 0.663, 0 | 0.522 |
+| CSIR all | 8 | 0.464, 0.644, 0.790, 0.425, 0.466, 9464 | 0.285, 0.698, 0.847, 0.421, 0.446, 8515 | 0.379 |
+| CSIR -noisy | 7 | 0.489, 0.693, 0.850, 0.782, 0.600, 0 | 0.485, 0.737, 0.875, 0.778, 0.599, 0 | 0.475 |
+| SDLE all | 1 | 0.000, 0.000, 0.000, nan, 0.582, 0 | 0.000, 0.000, 0.000, nan, 0.582, 0 | 0.031 |
+
+######## 24-class table (test, all / without noisy): class | GT px | GT cells | final_b0 IoU P R (all) ; IoU (-noisy) | final_b0.75 IoU P R (all) ; IoU (-noisy)
+| 0 background | 8506124 | 50 | 0.907 0.955 0.947 ; 0.927 | 0.906 0.956 0.946 ; 0.927 |
+| 1 sp_multi | 169861 | 14 | 0.733 0.908 0.791 ; 0.809 | 0.733 0.908 0.791 ; 0.809 |
+| 2 sp_mono | 297693 | 24 | 0.743 0.844 0.861 ; 0.743 | 0.743 0.844 0.861 ; 0.743 |
+| 3 sp_dogbone | 0 | 0 | absent, never predicted |
+| 4 ribbons | 582670 | 50 | 0.634 0.819 0.737 ; 0.652 | 0.634 0.819 0.737 ; 0.652 |
+| 5 border | 185327 | 24 | 0.351 0.375 0.848 ; 0.693 | 0.359 0.384 0.848 ; 0.693 |
+| 6 text | 0 | 0 | absent; FP px 9464 | absent; FP px 8515 |
+| 7 padding | 2827416 | 24 | 0.994 0.994 1.000 ; 0.994 | 0.994 0.994 1.000 ; 0.994 |
+| 8 clamp | 0 | 0 | absent, never predicted |
+| 9 busbars | 2315 | 1 | 0.533 0.663 0.730 ; 0.533 | 0.533 0.663 0.730 ; 0.533 |
+| 10 crack_rbn_edge | 0 | 0 | absent, never predicted |
+| 11 inactive | 92125 | 16 | 0.440 0.629 0.594 ; 0.454 | 0.442 0.639 0.588 ; 0.456 |
+| 12 rings | 0 | 0 | absent, never predicted |
+| 13 material | 83724 | 11 | 0.430 0.642 0.566 ; 0.430 | 0.430 0.642 0.566 ; 0.430 |
+| 14 crack | 92074 | 48 | 0.485 0.662 0.645 ; 0.488 | 0.453 0.563 0.699 ; 0.492 |
+| 15 gridline | 127869 | 45 | 0.288 0.697 0.329 ; 0.288 | 0.288 0.697 0.329 ; 0.288 |
+| 16 splice | 4031 | 4 | 0.000 nan 0.000 ; 0.000 | 0.000 nan 0.000 ; 0.000 |
+| 17 dead_cell | 0 | 0 | absent, never predicted |
+| 18 corrosion | 10527 | 1 | 0.769 0.861 0.878 ; 0.769 | 0.769 0.861 0.878 ; 0.769 |
+| 19 belt_mark | 0 | 0 | absent, never predicted |
+| 20 edge_dark | 20504 | 3 | 0.291 0.605 0.359 ; 0.291 | 0.291 0.605 0.359 ; 0.291 |
+| 21 frame_edge | 104940 | 8 | 0.809 0.978 0.824 ; 0.809 | 0.809 0.978 0.824 ; 0.809 |
+| 22 jbox | 0 | 0 | absent, never predicted |
+| 23 meas_artifact | 0 | 0 | absent, never predicted |
+
+######## noisy cell px (crack 14 / border 5 / text 6):
+  final_b0: 2 / 220556 / 9464
+  final_b0.75: 10867 / 211115 / 8515
+  r1_model: 2 / 220556 / 9464
+
+######## E1 ext 106 (never used for selection): variant | crack IoU P R relR2 | inactive IoU R | mIoU (ext list)
+  SUP100 mean single all: 0.148 0.466 0.178 0.300 | 0.064 0.185 | 0.411
+  SUP100 mean single -CSIR_00300_r25_c1: 0.148 0.467 0.178 0.300 | 0.064 0.185 | 0.411
+  final_b0 all: 0.148 0.537 0.170 0.289 | 0.085 0.243 | 0.429
+  final_b0 -CSIR_00300_r25_c1: 0.148 0.537 0.170 0.289 | 0.085 0.243 | 0.429
+  final_b0.75 all: 0.172 0.459 0.215 0.355 | 0.086 0.243 | 0.431
+  final_b0.75 -CSIR_00300_r25_c1: 0.172 0.459 0.215 0.355 | 0.086 0.243 | 0.431

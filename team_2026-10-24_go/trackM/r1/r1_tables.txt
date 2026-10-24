@@ -1,0 +1,137 @@
+/home/yugma/mtp/research/team_2026-10-24_go/trackM/scripts/m1_analyze.py:115: RuntimeWarning: Mean of empty slice
+  m = lambda k, c=None: np.nanmean([x[k][c] if c is not None else x[k] for x in fP])
+IDENTITY single_plain vs M0 (test+val, per-cell confusion): max |diff| = 0
+VAL decisions: {'use_tta_on_ensemble': False, 'score_ens_plain': 0.6507189629113663, 'score_ens_tta': 0.6499461617173622, 'crack_bias': 0.75, 'why': 'max val relF1@2 (target not reachable at relP@2 >= 0.90)'}
+
+######## TEST, cell set all (n=50)
+R1a TTA - plain (5 v 5): metric | plain mean±sd | tta mean±sd | delta | thr | verdict | paired per-seed d (mean, min, max, n>0)
+  crack_iou | 0.4353±0.0776 | 0.4373±0.0971 | +0.0020 | 0.1436 | n.d. | +0.0020 -0.0330 +0.0130 4/5
+  inact_iou | 0.4355±0.0133 | 0.4480±0.0138 | +0.0125 | 0.0222 | n.d. | +0.0125 +0.0017 +0.0243 5/5
+  relF1     | 0.8284±0.1050 | 0.8229±0.1345 | -0.0055 | 0.1970 | n.d. | -0.0055 -0.0583 +0.0096 4/5
+  miou_rob  | 0.5466±0.0157 | 0.5513±0.0107 | +0.0047 | 0.0219 | n.d. | +0.0047 -0.0057 +0.0086 4/5
+  bootstrap TTA-plain: crack_iou +0.0020 [-0.0007, +0.0129] P>0 0.94 | inact_iou +0.0125 [-0.0124, +0.0375] P>0 0.80 | relF1 -0.0055 [-0.0098, +0.0100] P>0 0.37 | miou_rob +0.0047 [+0.0001, +0.0112] P>0 0.98
+R1b ensemble(plain) vs mean single seed(plain):
+  crack_iou single mean 0.4353 | ensemble 0.4850 | LOO4 0.4578..0.4840 | ens+TTA 0.4849
+  inact_iou single mean 0.4355 | ensemble 0.4396 | LOO4 0.4339..0.4442 | ens+TTA 0.4409
+  relF1     single mean 0.8284 | ensemble 0.8868 | LOO4 0.8555..0.8862 | ens+TTA 0.8850
+  miou_rob  single mean 0.5466 | ensemble 0.5465 | LOO4 0.5404..0.5499 | ens+TTA 0.5490
+  bootstrap ENS-single: crack_iou +0.0497 [+0.0125, +0.0785] P>0 1.00 | inact_iou +0.0041 [-0.0050, +0.0182] P>0 0.79 | relF1 +0.0584 [+0.0072, +0.1109] P>0 1.00 | miou_rob -0.0001 [-0.0040, +0.0082] P>0 0.65
+  bootstrap ENS_TTA-ENS (descriptive): crack_iou -0.0001 [-0.0034, +0.0036] | inact_iou +0.0013 [-0.0152, +0.0134] | relF1 -0.0018 [-0.0059, +0.0022] | miou_rob +0.0025 [-0.0043, +0.0094]
+R1c (descriptive):
+  ens bias 0 : crack P 0.662 R 0.645 IoU 0.485 relP2 0.953 relR2 0.829 relF1 0.887 cc_rec 0.799 cc_prec 0.944 | inact P 0.629 R 0.594 IoU 0.440 in_cc_rec 0.783 | mIoU_rob 0.547 no07 0.473 
+  r1_final_bias0.75: crack P 0.563 R 0.699 IoU 0.453 relP2 0.844 relR2 0.863 relF1 0.853 cc_rec 0.831 cc_prec 0.634 | inact P 0.639 R 0.588 IoU 0.442 in_cc_rec 0.783 | mIoU_rob 0.545 no07 0.471
+  single plain mean: relP2 0.853 relR2 0.824 cc_rec50_20 0.790 cc_prec_20 0.837 miou_rob 0.547
+
+######## TEST, cell set -noisy (n=49)
+R1a TTA - plain (5 v 5): metric | plain mean±sd | tta mean±sd | delta | thr | verdict | paired per-seed d (mean, min, max, n>0)
+  crack_iou | 0.4738±0.0025 | 0.4842±0.0011 | +0.0104 | 0.0100 | BETTER | +0.0104 +0.0087 +0.0132 5/5
+  inact_iou | 0.4495±0.0141 | 0.4617±0.0142 | +0.0122 | 0.0231 | n.d. | +0.0122 +0.0014 +0.0250 5/5
+  relF1     | 0.8806±0.0036 | 0.8873±0.0011 | +0.0067 | 0.0100 | n.d. | +0.0067 +0.0023 +0.0096 5/5
+  miou_rob  | 0.5802±0.0108 | 0.5861±0.0073 | +0.0059 | 0.0151 | n.d. | +0.0059 -0.0039 +0.0097 4/5
+  bootstrap TTA-plain: crack_iou +0.0104 [+0.0074, +0.0138] P>0 1.00 | inact_iou +0.0122 [-0.0149, +0.0378] P>0 0.78 | relF1 +0.0067 [+0.0032, +0.0111] P>0 1.00 | miou_rob +0.0059 [+0.0004, +0.0115] P>0 0.98
+R1b ensemble(plain) vs mean single seed(plain):
+  crack_iou single mean 0.4738 | ensemble 0.4882 | LOO4 0.4857..0.4882 | ens+TTA 0.4880
+  inact_iou single mean 0.4495 | ensemble 0.4535 | LOO4 0.4480..0.4583 | ens+TTA 0.4547
+  relF1     single mean 0.8806 | ensemble 0.8908 | LOO4 0.8886..0.8923 | ens+TTA 0.8891
+  miou_rob  single mean 0.5802 | ensemble 0.5829 | LOO4 0.5792..0.5859 | ens+TTA 0.5866
+  bootstrap ENS-single: crack_iou +0.0144 [+0.0118, +0.0167] P>0 1.00 | inact_iou +0.0041 [-0.0054, +0.0182] P>0 0.77 | relF1 +0.0102 [+0.0062, +0.0157] P>0 1.00 | miou_rob +0.0027 [-0.0019, +0.0088] P>0 0.86
+  bootstrap ENS_TTA-ENS (descriptive): crack_iou -0.0001 [-0.0036, +0.0038] | inact_iou +0.0012 [-0.0162, +0.0142] | relF1 -0.0018 [-0.0060, +0.0020] | miou_rob +0.0037 [-0.0039, +0.0109]
+R1c (descriptive):
+  ens bias 0 : crack P 0.662 R 0.650 IoU 0.488 relP2 0.953 relR2 0.837 relF1 0.891 cc_rec 0.807 cc_prec 0.944 | inact P 0.629 R 0.619 IoU 0.454 in_cc_rec 0.800 | mIoU_rob 0.583 no07 0.514 
+  r1_final_bias0.75: crack P 0.621 R 0.703 IoU 0.492 relP2 0.930 relR2 0.866 relF1 0.897 cc_rec 0.834 cc_prec 0.933 | inact P 0.639 R 0.614 IoU 0.456 in_cc_rec 0.800 | mIoU_rob 0.583 no07 0.515
+  single plain mean: relP2 0.938 relR2 0.830 cc_rec50_20 0.798 cc_prec_20 0.924 miou_rob 0.580
+
+######## TEST, cell set -twins (n=43)
+R1a TTA - plain (5 v 5): metric | plain mean±sd | tta mean±sd | delta | thr | verdict | paired per-seed d (mean, min, max, n>0)
+  crack_iou | 0.3611±0.0874 | 0.3649±0.1064 | +0.0038 | 0.1590 | n.d. | +0.0038 -0.0303 +0.0139 4/5
+  inact_iou | 0.4123±0.0126 | 0.4292±0.0156 | +0.0169 | 0.0232 | n.d. | +0.0169 +0.0029 +0.0277 5/5
+  relF1     | 0.7517±0.1401 | 0.7467±0.1740 | -0.0050 | 0.2579 | n.d. | -0.0050 -0.0658 +0.0147 4/5
+  miou_rob  | 0.5387±0.0158 | 0.5440±0.0110 | +0.0053 | 0.0222 | n.d. | +0.0053 -0.0048 +0.0089 4/5
+R1b ensemble(plain) vs mean single seed(plain):
+  crack_iou single mean 0.3611 | ensemble 0.4150 | LOO4 0.3779..0.4137 | ens+TTA 0.4166
+  inact_iou single mean 0.4123 | ensemble 0.4152 | LOO4 0.4122..0.4214 | ens+TTA 0.4187
+  relF1     single mean 0.7517 | ensemble 0.8295 | LOO4 0.7797..0.8287 | ens+TTA 0.8267
+  miou_rob  single mean 0.5387 | ensemble 0.5389 | LOO4 0.5321..0.5425 | ens+TTA 0.5415
+R1c (descriptive):
+  ens bias 0 : crack P 0.631 R 0.548 IoU 0.415 relP2 0.940 relR2 0.742 relF1 0.830 cc_rec 0.738 cc_prec 0.964 | inact P 0.635 R 0.545 IoU 0.415 in_cc_rec 0.697 | mIoU_rob 0.539 no07 0.464 
+  r1_final_bias0.75: crack P 0.497 R 0.612 IoU 0.378 relP2 0.770 relR2 0.792 relF1 0.781 cc_rec 0.779 cc_prec 0.592 | inact P 0.646 R 0.542 IoU 0.418 in_cc_rec 0.697 | mIoU_rob 0.537 no07 0.462
+  single plain mean: relP2 0.809 relR2 0.736 cc_rec50_20 0.730 cc_prec_20 0.835 miou_rob 0.539
+
+######## TEST, cell set -both (n=42)
+R1a TTA - plain (5 v 5): metric | plain mean±sd | tta mean±sd | delta | thr | verdict | paired per-seed d (mean, min, max, n>0)
+  crack_iou | 0.4054±0.0035 | 0.4173±0.0017 | +0.0119 | 0.0100 | BETTER | +0.0119 +0.0095 +0.0141 5/5
+  inact_iou | 0.4279±0.0132 | 0.4448±0.0162 | +0.0169 | 0.0241 | n.d. | +0.0169 +0.0026 +0.0286 5/5
+  relF1     | 0.8225±0.0059 | 0.8312±0.0019 | +0.0087 | 0.0100 | n.d. | +0.0087 +0.0013 +0.0148 5/5
+  miou_rob  | 0.5748±0.0111 | 0.5810±0.0077 | +0.0062 | 0.0156 | n.d. | +0.0062 -0.0035 +0.0100 4/5
+R1b ensemble(plain) vs mean single seed(plain):
+  crack_iou single mean 0.4054 | ensemble 0.4195 | LOO4 0.4165..0.4197 | ens+TTA 0.4211
+  inact_iou single mean 0.4279 | ensemble 0.4306 | LOO4 0.4281..0.4371 | ens+TTA 0.4342
+  relF1     single mean 0.8225 | ensemble 0.8361 | LOO4 0.8328..0.8390 | ens+TTA 0.8333
+  miou_rob  single mean 0.5748 | ensemble 0.5772 | LOO4 0.5736..0.5803 | ens+TTA 0.5810
+R1c (descriptive):
+  ens bias 0 : crack P 0.631 R 0.556 IoU 0.420 relP2 0.940 relR2 0.753 relF1 0.836 cc_rec 0.748 cc_prec 0.964 | inact P 0.635 R 0.572 IoU 0.431 in_cc_rec 0.719 | mIoU_rob 0.577 no07 0.507 
+  r1_final_bias0.75: crack P 0.588 R 0.618 IoU 0.432 relP2 0.910 relR2 0.796 relF1 0.849 cc_rec 0.783 cc_prec 0.959 | inact P 0.646 R 0.569 IoU 0.433 in_cc_rec 0.719 | mIoU_rob 0.578 no07 0.508
+  single plain mean: relP2 0.918 relR2 0.745 cc_rec50_20 0.738 cc_prec_20 0.936 miou_rob 0.575
+
+######## per source (test, all cells): source | n | single crack IoU | ens | final | single inact | ens | final | single mIoU_rob | ens | final | FP px absent (ens)
+| ARTS | 13 | 0.456 | 0.472 | 0.503 | 0.000 | 0.000 | 0.000 | 0.530 | 0.527 | 0.530 | 32 |
+| BMRK | 10 | 0.379 | 0.396 | 0.411 | 0.324 | 0.324 | 0.324 | 0.576 | 0.581 | 0.583 | 1082 |
+| CFVS | 18 | 0.522 | 0.534 | 0.535 | 0.578 | 0.579 | 0.585 | 0.659 | 0.662 | 0.663 | 0 |
+| CSIR | 8 | 0.379 | 0.464 | 0.285 | 0.380 | 0.425 | 0.421 | 0.455 | 0.466 | 0.446 | 9464 |
+| SDLE | 1 | 0.031 | 0.000 | 0.000 | nan | nan | nan | 0.577 | 0.582 | 0.582 | 0 |
+
+######## per class (test, all / -noisy): class | single IoU | ens IoU | final IoU | ens P | ens R | final P | final R
+## all
+| 0 background | 0.907 | 0.907 | 0.906 | 0.955 | 0.947 | 0.956 | 0.946 |
+| 1 sp_multi | 0.720 | 0.733 | 0.733 | 0.908 | 0.791 | 0.908 | 0.791 |
+| 2 sp_mono | 0.732 | 0.743 | 0.743 | 0.844 | 0.861 | 0.844 | 0.861 |
+| 4 ribbons | 0.632 | 0.634 | 0.634 | 0.819 | 0.737 | 0.819 | 0.737 |
+| 5 border | 0.438 | 0.351 | 0.359 | 0.375 | 0.848 | 0.384 | 0.848 |
+| 7 padding | 0.994 | 0.994 | 0.994 | 0.994 | 1.000 | 0.994 | 1.000 |
+| 11 inactive | 0.436 | 0.440 | 0.442 | 0.629 | 0.594 | 0.639 | 0.588 |
+| 13 material | 0.411 | 0.430 | 0.430 | 0.642 | 0.566 | 0.642 | 0.566 |
+| 14 crack | 0.435 | 0.485 | 0.453 | 0.662 | 0.645 | 0.563 | 0.699 |
+| 15 gridline | 0.278 | 0.288 | 0.288 | 0.697 | 0.329 | 0.697 | 0.329 |
+| 16 splice | 0.000 | 0.000 | 0.000 | nan | 0.000 | nan | 0.000 |
+| 20 edge_dark | 0.305 | 0.291 | 0.291 | 0.605 | 0.359 | 0.605 | 0.359 |
+| 21 frame_edge | 0.817 | 0.809 | 0.809 | 0.978 | 0.824 | 0.978 | 0.824 |
+| 9 busbars | 0.416 | 0.533 | 0.533 | 0.663 | 0.730 | 0.663 | 0.730 |
+| 18 corrosion | 0.656 | 0.769 | 0.769 | 0.861 | 0.878 | 0.861 | 0.878 |
+## -noisy
+| 0 background | 0.926 | 0.927 | 0.927 | 0.955 | 0.969 | 0.956 | 0.968 |
+| 1 sp_multi | 0.803 | 0.809 | 0.809 | 0.908 | 0.881 | 0.908 | 0.881 |
+| 2 sp_mono | 0.740 | 0.743 | 0.743 | 0.844 | 0.861 | 0.844 | 0.861 |
+| 4 ribbons | 0.647 | 0.652 | 0.652 | 0.819 | 0.761 | 0.819 | 0.761 |
+| 5 border | 0.692 | 0.693 | 0.693 | 0.791 | 0.848 | 0.791 | 0.848 |
+| 7 padding | 0.994 | 0.994 | 0.994 | 0.994 | 1.000 | 0.994 | 1.000 |
+| 11 inactive | 0.449 | 0.454 | 0.456 | 0.629 | 0.619 | 0.639 | 0.614 |
+| 13 material | 0.411 | 0.430 | 0.430 | 0.642 | 0.566 | 0.642 | 0.566 |
+| 14 crack | 0.474 | 0.488 | 0.492 | 0.662 | 0.650 | 0.621 | 0.703 |
+| 15 gridline | 0.283 | 0.288 | 0.288 | 0.697 | 0.329 | 0.697 | 0.329 |
+| 16 splice | 0.000 | 0.000 | 0.000 | nan | 0.000 | nan | 0.000 |
+| 20 edge_dark | 0.306 | 0.291 | 0.291 | 0.605 | 0.359 | 0.605 | 0.359 |
+| 21 frame_edge | 0.817 | 0.809 | 0.809 | 0.978 | 0.824 | 0.978 | 0.824 |
+| 9 busbars | 0.420 | 0.533 | 0.533 | 0.663 | 0.730 | 0.663 | 0.730 |
+| 18 corrosion | 0.755 | 0.769 | 0.769 | 0.861 | 0.878 | 0.861 | 0.878 |
+
+######## noisy cell px (crack 14 / border 5 / text 6 predicted on CSIR_00070_r8_c4)
+  plain p6_L3_100pct_s0        crack      0 border 218718 text   3664
+  plain p6_L3_100pct_s1        crack     27 border 181452 text  30871
+  plain p6_L3_100pct_s2        crack      0 border 224404 text  32968
+  plain p16_A_100pct_s3        crack  75468 border   3052 text      0
+  plain p16_A_100pct_s4        crack      0 border 156860 text  25579
+  tta p6_L3_100pct_s0          crack      0 border 224370 text    348
+  tta p6_L3_100pct_s1          crack      0 border 206075 text  34975
+  tta p6_L3_100pct_s2          crack      0 border 245895 text  13017
+  tta p16_A_100pct_s3          crack 103104 border    631 text      0
+  tta p16_A_100pct_s4          crack      0 border 172738 text  21426
+  ens_plain                    crack      2 border 220556 text   9464
+  ens_tta                      crack      0 border 232562 text   7830
+  r1_final_bias0.75            crack  10867 border 211115 text   8515
+
+######## VAL (val list): variant | crack | relF1 | mIoU_rob | inact
+  ens_plain                0.4350 0.8929 0.6243 0.4240
+  ens_tta                  0.4356 0.8889 0.6253 0.4556
+  r1_final_bias0.75        0.4349 0.8968 0.6246 0.4287
+  single_plain             0.4226 0.8811 0.6156 0.4112
+  single_tta               0.4328 0.8884 0.6227 0.4532

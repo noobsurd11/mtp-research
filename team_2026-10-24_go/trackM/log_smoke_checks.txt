@@ -1,0 +1,8 @@
+Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:820.)
+  res[name] = (cfg["loss"].get("dice_classes"), cfg["loss"].get("dice_weight"), float(ce), float(loss(lg, y)), x.sum().item())
+SUP100 dice_classes None dice_weight None CE 3.6686625480651855 loss 4.668545246124268 batch checksum 1518746.625
+R2 dice_classes [1, 2, 4, 5, 9, 11, 13, 14, 15, 16, 20, 21] dice_weight 6.0 CE 3.6686625480651855 loss 9.598617553710938 batch checksum 1518746.625
+OK: step-0 CE identical; R2 resolves 12 classes, weight 6.0
+model.stem_0.weight (96, 1, 4, 4)
+model.stem_0.bias (96,)
+timm RGB stem (96, 3, 4, 4) sum over RGB equals ours: True
