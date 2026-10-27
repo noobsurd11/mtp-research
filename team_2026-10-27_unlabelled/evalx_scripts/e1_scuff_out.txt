@@ -1,0 +1,7 @@
+cells with ignored class: cells 95, crack cells 31, crack px 32239 (1.00 of ext crack), ignored classes by cell count {25: 38, 26: 10, 28: 30, 27: 20} | A100 rec 0.178 IoU 0.150 pred-on-ignored 8477 | Sx100 rec 0.169 IoU 0.144 pred-on-ignored 8352 | A50 rec 0.107 IoU 0.098 pred-on-ignored 4823 | S50 rec 0.132 IoU 0.117 pred-on-ignored 5709 | FINAL rec 0.215 IoU 0.175
+cells without: cells 11, crack cells 1, crack px 55 (0.00 of ext crack), ignored classes by cell count {} | A100 rec 0.029 IoU 0.005 pred-on-ignored 0 | Sx100 rec 0.051 IoU 0.010 pred-on-ignored 0 | A50 rec 0.000 IoU 0.000 pred-on-ignored 0 | S50 rec 0.000 IoU 0.000 pred-on-ignored 0 | FINAL rec 0.000 IoU 0.000
+total ignored px in ext 695355 cells 95
+
+# split by scuff (class 25) present, among crack cells
+scuff >= 500 px: crack cells 22 in 12 modules, crack px 28314 (0.88) | A100 rec 0.149 IoU 0.136 | Sx100 rec 0.134 IoU 0.123 | A50 rec 0.080 IoU 0.078 | S50 rec 0.110 IoU 0.104 | A20 rec 0.058 IoU 0.056 | BsM20 rec 0.094 IoU 0.089 | FINAL rec 0.181 IoU 0.161 relR@2 0.308 cc_rec 0.180 (n 278)
+scuff < 500 px: crack cells 10 in 9 modules, crack px 3980 (0.12) | A100 rec 0.386 IoU 0.342 | Sx100 rec 0.418 IoU 0.371 | A50 rec 0.299 IoU 0.272 | S50 rec 0.287 IoU 0.262 | A20 rec 0.211 IoU 0.196 | BsM20 rec 0.263 IoU 0.238 | FINAL rec 0.455 IoU 0.398 relR@2 0.692 cc_rec 0.667 (n 18)

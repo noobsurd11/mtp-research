@@ -1,0 +1,298 @@
+# 1. Per arm: mean, seed sd, cell-bootstrap sd (of the 5-seed mean, and of one run)
+arm subset metric n_seeds mean seed_sd cellboot_sd_mean cellboot_sd_single seed_share_single
+A5c all crack_iou 5 0.3037 0.0083 0.0323 0.0314 0.07
+A5c all relF1 5 0.7195 0.0143 0.0396 0.0375 0.13
+A5c all crack_rec 5 0.3713 0.0147 0.0397 0.0392 0.12
+A5c all inact_iou 5 0.2534 0.0368 0.0637 0.0725 0.20
+A5c clean crack_iou 5 0.3061 0.0084 0.0325 0.0317 0.07
+A5c clean relF1 5 0.7236 0.0142 0.0393 0.0371 0.13
+A5c clean crack_rec 5 0.3745 0.0149 0.0398 0.0392 0.13
+A5c clean inact_iou 5 0.2634 0.0381 0.0659 0.0754 0.20
+BsM5 all crack_iou 5 0.3326 0.0106 0.0322 0.0315 0.10
+BsM5 all relF1 5 0.7641 0.0136 0.0380 0.0376 0.12
+BsM5 all crack_rec 5 0.4115 0.0189 0.0417 0.0420 0.17
+BsM5 all inact_iou 5 0.3602 0.0104 0.0872 0.0949 0.01
+BsM5 clean crack_iou 5 0.3349 0.0107 0.0324 0.0316 0.10
+BsM5 clean relF1 5 0.7679 0.0137 0.0375 0.0370 0.12
+BsM5 clean crack_rec 5 0.4150 0.0191 0.0418 0.0419 0.17
+BsM5 clean inact_iou 5 0.3726 0.0116 0.0899 0.0995 0.01
+CsM5 all crack_iou 5 0.3174 0.0111 0.0327 0.0325 0.10
+CsM5 all relF1 5 0.7524 0.0157 0.0400 0.0462 0.10
+CsM5 all crack_rec 5 0.3978 0.0165 0.0417 0.0400 0.15
+CsM5 all inact_iou 5 0.3703 0.0257 0.0847 0.0936 0.07
+CsM5 clean crack_iou 5 0.3219 0.0092 0.0327 0.0300 0.09
+CsM5 clean relF1 5 0.7606 0.0112 0.0387 0.0361 0.09
+CsM5 clean crack_rec 5 0.4011 0.0167 0.0419 0.0401 0.15
+CsM5 clean inact_iou 5 0.3836 0.0266 0.0873 0.0972 0.07
+BsD5 all crack_iou 5 0.3269 0.0031 0.0304 0.0305 0.01
+BsD5 all relF1 5 0.7562 0.0060 0.0366 0.0375 0.02
+BsD5 all crack_rec 5 0.4108 0.0055 0.0385 0.0389 0.02
+BsD5 all inact_iou 5 0.3708 0.0361 0.0853 0.0945 0.13
+BsD5 clean crack_iou 5 0.3294 0.0031 0.0305 0.0307 0.01
+BsD5 clean relF1 5 0.7603 0.0061 0.0362 0.0371 0.03
+BsD5 clean crack_rec 5 0.4143 0.0055 0.0386 0.0389 0.02
+BsD5 clean inact_iou 5 0.3841 0.0377 0.0883 0.0979 0.13
+al1_A5 all crack_iou 5 0.3037 0.0083 0.0323 0.0314 0.07
+al1_A5 all relF1 5 0.7195 0.0143 0.0396 0.0375 0.13
+al1_A5 all crack_rec 5 0.3713 0.0147 0.0397 0.0392 0.12
+al1_A5 all inact_iou 5 0.2534 0.0368 0.0637 0.0725 0.20
+al1_A5 clean crack_iou 5 0.3061 0.0084 0.0325 0.0317 0.07
+al1_A5 clean relF1 5 0.7236 0.0142 0.0393 0.0371 0.13
+al1_A5 clean crack_rec 5 0.3745 0.0149 0.0398 0.0392 0.13
+al1_A5 clean inact_iou 5 0.2634 0.0381 0.0659 0.0754 0.20
+al1_BsM5 all crack_iou 5 0.3311 0.0098 0.0319 0.0304 0.09
+al1_BsM5 all relF1 5 0.7607 0.0124 0.0378 0.0365 0.10
+al1_BsM5 all crack_rec 5 0.4092 0.0201 0.0410 0.0395 0.21
+al1_BsM5 all inact_iou 5 0.3854 0.0325 0.0900 0.0975 0.10
+al1_BsM5 clean crack_iou 5 0.3336 0.0097 0.0320 0.0305 0.09
+al1_BsM5 clean relF1 5 0.7648 0.0120 0.0373 0.0361 0.10
+al1_BsM5 clean crack_rec 5 0.4127 0.0203 0.0411 0.0395 0.21
+al1_BsM5 clean inact_iou 5 0.3997 0.0337 0.0924 0.1010 0.10
+al1_AL5 all crack_iou 5 0.2868 0.0077 0.0337 0.0342 0.05
+al1_AL5 all relF1 5 0.6883 0.0120 0.0442 0.0441 0.07
+al1_AL5 all crack_rec 5 0.3422 0.0141 0.0400 0.0400 0.11
+al1_AL5 all inact_iou 5 0.1210 0.0547 0.0377 0.0546 0.50
+al1_AL5 clean crack_iou 5 0.2891 0.0077 0.0340 0.0346 0.05
+al1_AL5 clean relF1 5 0.6922 0.0120 0.0442 0.0440 0.07
+al1_AL5 clean crack_rec 5 0.3451 0.0142 0.0402 0.0402 0.11
+al1_AL5 clean inact_iou 5 0.1261 0.0570 0.0393 0.0589 0.48
+al1_CPS5 all crack_iou 5 0.3071 0.0091 0.0323 0.0301 0.08
+al1_CPS5 all relF1 5 0.7263 0.0191 0.0386 0.0338 0.24
+al1_CPS5 all crack_rec 5 0.3724 0.0199 0.0388 0.0364 0.23
+al1_CPS5 all inact_iou 5 0.3270 0.0522 0.0441 0.0526 0.50
+al1_CPS5 clean crack_iou 5 0.3094 0.0092 0.0326 0.0304 0.08
+al1_CPS5 clean relF1 5 0.7301 0.0191 0.0384 0.0335 0.25
+al1_CPS5 clean crack_rec 5 0.3756 0.0200 0.0390 0.0364 0.23
+al1_CPS5 clean inact_iou 5 0.3351 0.0498 0.0464 0.0558 0.44
+A20 all crack_iou 5 0.3978 0.0062 0.0526 0.0548 0.01
+A20 all relF1 5 0.8220 0.0099 0.0408 0.0425 0.05
+A20 all crack_rec 5 0.4857 0.0105 0.0631 0.0658 0.02
+A20 all inact_iou 5 0.3612 0.0369 0.1128 0.1029 0.11
+A20 clean crack_iou 5 0.4021 0.0062 0.0530 0.0552 0.01
+A20 clean relF1 5 0.8282 0.0100 0.0399 0.0406 0.06
+A20 clean crack_rec 5 0.4898 0.0107 0.0636 0.0663 0.03
+A20 clean inact_iou 5 0.3752 0.0384 0.1168 0.1071 0.11
+S20 all crack_iou 5 0.3578 0.0596 0.0592 0.0522 0.57
+S20 all relF1 5 0.7517 0.0956 0.0729 0.0393 0.86
+S20 all crack_rec 5 0.4904 0.0144 0.0616 0.0625 0.05
+S20 all inact_iou 5 0.3901 0.0255 0.1000 0.1048 0.06
+S20 clean crack_iou 5 0.4045 0.0057 0.0521 0.0526 0.01
+S20 clean relF1 5 0.8284 0.0067 0.0405 0.0392 0.03
+S20 clean crack_rec 5 0.4942 0.0150 0.0622 0.0631 0.05
+S20 clean inact_iou 5 0.4038 0.0264 0.1026 0.1073 0.06
+A50 all crack_iou 5 0.4078 0.0762 0.0444 0.0383 0.80
+A50 all relF1 5 0.8078 0.1169 0.0503 0.0312 0.93
+A50 all crack_rec 5 0.5740 0.0121 0.0471 0.0502 0.05
+A50 all inact_iou 5 0.4121 0.0124 0.0842 0.1031 0.01
+A50 clean crack_iou 5 0.4476 0.0072 0.0375 0.0385 0.03
+A50 clean relF1 5 0.8659 0.0060 0.0286 0.0310 0.04
+A50 clean crack_rec 5 0.5783 0.0113 0.0473 0.0504 0.05
+A50 clean inact_iou 5 0.4291 0.0101 0.0877 0.1070 0.01
+S50 all crack_iou 5 0.4465 0.0047 0.0379 0.0378 0.02
+S50 all relF1 5 0.8607 0.0044 0.0310 0.0288 0.02
+S50 all crack_rec 5 0.5746 0.0093 0.0474 0.0476 0.04
+S50 all inact_iou 5 0.4177 0.0271 0.0889 0.1003 0.07
+S50 clean crack_iou 5 0.4496 0.0047 0.0382 0.0380 0.02
+S50 clean relF1 5 0.8649 0.0045 0.0308 0.0285 0.02
+S50 clean crack_rec 5 0.5796 0.0093 0.0477 0.0478 0.04
+S50 clean inact_iou 5 0.4314 0.0282 0.0922 0.1043 0.07
+A100 all crack_iou 5 0.4353 0.0776 0.0396 0.0313 0.86
+A100 all relF1 5 0.8284 0.1050 0.0460 0.0266 0.94
+A100 all crack_rec 5 0.6368 0.0053 0.0417 0.0409 0.02
+A100 all inact_iou 5 0.4355 0.0133 0.0843 0.0848 0.02
+A100 clean crack_iou 5 0.4738 0.0025 0.0317 0.0314 0.01
+A100 clean relF1 5 0.8806 0.0036 0.0264 0.0264 0.02
+A100 clean crack_rec 5 0.6418 0.0047 0.0419 0.0410 0.01
+A100 clean inact_iou 5 0.4495 0.0141 0.0884 0.0880 0.02
+Sx100 all crack_iou 5 0.4632 0.0128 0.0327 0.0318 0.14
+Sx100 all relF1 5 0.8678 0.0128 0.0296 0.0272 0.18
+Sx100 all crack_rec 5 0.6258 0.0109 0.0409 0.0413 0.07
+Sx100 all inact_iou 5 0.4387 0.0170 0.0830 0.0871 0.04
+Sx100 clean crack_iou 5 0.4718 0.0037 0.0322 0.0319 0.01
+Sx100 clean relF1 5 0.8783 0.0058 0.0279 0.0270 0.04
+Sx100 clean crack_rec 5 0.6308 0.0109 0.0411 0.0414 0.07
+Sx100 clean inact_iou 5 0.4515 0.0159 0.0876 0.0918 0.03
+L3_10 all crack_iou 3 0.3957 0.0027 0.0496 0.0495 0.00
+L3_10 all relF1 3 0.8141 0.0027 0.0394 0.0386 0.00
+L3_10 all crack_rec 3 0.5069 0.0036 0.0577 0.0566 0.00
+L3_10 all inact_iou 3 0.2942 0.0185 0.0814 0.0802 0.05
+L3_10 clean crack_iou 3 0.3988 0.0032 0.0501 0.0499 0.00
+L3_10 clean relF1 3 0.8184 0.0032 0.0390 0.0383 0.01
+L3_10 clean crack_rec 3 0.5112 0.0038 0.0579 0.0569 0.00
+L3_10 clean inact_iou 3 0.3051 0.0190 0.0853 0.0839 0.05
+BsM10 all crack_iou 3 0.4081 0.0106 0.0487 0.0482 0.05
+BsM10 all relF1 3 0.8273 0.0142 0.0391 0.0366 0.13
+BsM10 all crack_rec 3 0.5217 0.0111 0.0564 0.0569 0.04
+BsM10 all inact_iou 3 0.4264 0.0205 0.1121 0.0986 0.04
+BsM10 clean crack_iou 3 0.4161 0.0042 0.0487 0.0486 0.01
+BsM10 clean relF1 3 0.8387 0.0044 0.0365 0.0361 0.01
+BsM10 clean crack_rec 3 0.5261 0.0114 0.0567 0.0571 0.04
+BsM10 clean inact_iou 3 0.4431 0.0215 0.1168 0.1027 0.04
+BsM20 all crack_iou 5 0.3921 0.0419 0.0501 0.0489 0.42
+BsM20 all relF1 5 0.8045 0.0642 0.0470 0.0370 0.75
+BsM20 all crack_rec 5 0.5100 0.0164 0.0561 0.0574 0.08
+BsM20 all inact_iou 5 0.4216 0.0235 0.0885 0.0915 0.06
+BsM20 clean crack_iou 5 0.4147 0.0101 0.0487 0.0493 0.04
+BsM20 clean relF1 5 0.8396 0.0048 0.0368 0.0369 0.02
+BsM20 clean crack_rec 5 0.5142 0.0164 0.0565 0.0578 0.07
+BsM20 clean inact_iou 5 0.4358 0.0243 0.0900 0.0934 0.06
+
+# 2. Contrasts B - A: delta, rule-1 thr (code, /3), seed SE (true, n), paired cell-bootstrap sd and 95% CI, z_seed=delta/seedSE, z_cell=delta/cellsd, z_tot
+A B subset metric delta thr verdict seedSE cellSD ci_lo ci_hi P(d>0) seed_share_of_var
+A100 Sx100 all crack_iou +0.0279 0.0908 n.d. 0.0352 0.0179 -0.0045 +0.0466 0.685 0.79
+A100 Sx100 all relF1 +0.0395 0.1221 n.d. 0.0473 0.0278 -0.0061 +0.0779 0.699 0.74
+A100 Sx100 all crack_rec -0.0110 0.0140 n.d. 0.0054 0.0033 -0.0168 -0.0038 0.001 0.74
+A100 Sx100 all inact_iou +0.0031 0.0249 n.d. 0.0096 0.0087 -0.0129 +0.0223 0.634 0.55
+A100 Sx100 clean crack_iou -0.0021 0.0100 n.d. 0.0020 0.0018 -0.0054 +0.0016 0.138 0.56
+A100 Sx100 clean relF1 -0.0023 0.0100 n.d. 0.0030 0.0026 -0.0077 +0.0024 0.165 0.58
+A100 Sx100 clean crack_rec -0.0109 0.0137 n.d. 0.0053 0.0033 -0.0166 -0.0037 0.002 0.72
+A100 Sx100 clean inact_iou +0.0020 0.0245 n.d. 0.0095 0.0094 -0.0145 +0.0202 0.575 0.50
+A50 S50 all crack_iou +0.0388 0.0882 n.d. 0.0341 0.0235 -0.0032 +0.0700 0.908 0.68
+A50 S50 all relF1 +0.0529 0.1351 n.d. 0.0523 0.0375 -0.0098 +0.1102 0.797 0.66
+A50 S50 all crack_rec +0.0006 0.0176 n.d. 0.0068 0.0054 -0.0096 +0.0115 0.592 0.61
+A50 S50 all inact_iou +0.0057 0.0344 n.d. 0.0133 0.0111 -0.0208 +0.0221 0.647 0.59
+A50 S50 clean crack_iou +0.0021 0.0100 n.d. 0.0038 0.0036 -0.0055 +0.0085 0.738 0.53
+A50 S50 clean relF1 -0.0011 0.0100 n.d. 0.0033 0.0056 -0.0136 +0.0078 0.455 0.26
+A50 S50 clean crack_rec +0.0012 0.0169 n.d. 0.0066 0.0055 -0.0093 +0.0119 0.612 0.59
+A50 S50 clean inact_iou +0.0023 0.0346 n.d. 0.0134 0.0111 -0.0249 +0.0174 0.528 0.59
+A20 S20 all crack_iou -0.0400 0.0692 n.d. 0.0268 0.0302 -0.0900 +0.0111 0.252 0.44
+A20 S20 all relF1 -0.0703 0.1110 n.d. 0.0430 0.0532 -0.1598 +0.0135 0.202 0.39
+A20 S20 all crack_rec +0.0047 0.0206 n.d. 0.0080 0.0098 -0.0142 +0.0236 0.720 0.40
+A20 S20 all inact_iou +0.0289 0.0518 n.d. 0.0201 0.0210 -0.0198 +0.0641 0.884 0.48
+A20 S20 clean crack_iou +0.0024 0.0100 n.d. 0.0038 0.0058 -0.0081 +0.0143 0.695 0.30
+A20 S20 clean relF1 +0.0003 0.0139 n.d. 0.0054 0.0097 -0.0198 +0.0178 0.565 0.24
+A20 S20 clean crack_rec +0.0044 0.0212 n.d. 0.0082 0.0099 -0.0138 +0.0235 0.708 0.41
+A20 S20 clean inact_iou +0.0286 0.0538 n.d. 0.0208 0.0229 -0.0242 +0.0677 0.872 0.45
+A5c BsM5 all crack_iou +0.0289 0.0156 BETTER 0.0060 0.0070 +0.0136 +0.0412 1.000 0.43
+A5c BsM5 all relF1 +0.0446 0.0228 BETTER 0.0088 0.0103 +0.0239 +0.0647 1.000 0.42
+A5c BsM5 all crack_rec +0.0402 0.0277 BETTER 0.0107 0.0089 +0.0213 +0.0560 1.000 0.59
+A5c BsM5 all inact_iou +0.1068 0.0442 BETTER 0.0171 0.0411 +0.0282 +0.1876 0.998 0.15
+A5c BsM5 clean crack_iou +0.0289 0.0157 BETTER 0.0061 0.0072 +0.0127 +0.0410 1.000 0.42
+A5c BsM5 clean relF1 +0.0443 0.0228 BETTER 0.0088 0.0106 +0.0221 +0.0636 1.000 0.41
+A5c BsM5 clean crack_rec +0.0405 0.0279 BETTER 0.0108 0.0091 +0.0204 +0.0558 1.000 0.58
+A5c BsM5 clean inact_iou +0.1091 0.0459 BETTER 0.0178 0.0430 +0.0287 +0.1927 0.999 0.15
+A5c CsM5 all crack_iou +0.0137 0.0160 n.d. 0.0062 0.0080 -0.0039 +0.0274 0.938 0.37
+A5c CsM5 all relF1 +0.0329 0.0245 BETTER 0.0095 0.0124 +0.0057 +0.0550 0.993 0.37
+A5c CsM5 all crack_rec +0.0265 0.0256 BETTER 0.0099 0.0107 +0.0037 +0.0456 0.989 0.46
+A5c CsM5 all inact_iou +0.1169 0.0518 BETTER 0.0201 0.0386 +0.0421 +0.1886 1.000 0.21
+A5c CsM5 clean crack_iou +0.0159 0.0144 BETTER 0.0056 0.0078 -0.0019 +0.0283 0.958 0.34
+A5c CsM5 clean relF1 +0.0370 0.0209 BETTER 0.0081 0.0116 +0.0107 +0.0569 0.998 0.33
+A5c CsM5 clean crack_rec +0.0266 0.0258 BETTER 0.0100 0.0110 +0.0014 +0.0451 0.982 0.45
+A5c CsM5 clean inact_iou +0.1202 0.0536 BETTER 0.0208 0.0405 +0.0428 +0.1962 1.000 0.21
+A5c BsD5 all crack_iou +0.0232 0.0103 BETTER 0.0040 0.0066 +0.0092 +0.0352 1.000 0.27
+A5c BsD5 all relF1 +0.0367 0.0179 BETTER 0.0069 0.0093 +0.0184 +0.0550 1.000 0.36
+A5c BsD5 all crack_rec +0.0395 0.0181 BETTER 0.0070 0.0085 +0.0220 +0.0547 1.000 0.40
+A5c BsD5 all inact_iou +0.1174 0.0595 BETTER 0.0231 0.0365 +0.0511 +0.1873 1.000 0.29
+A5c BsD5 clean crack_iou +0.0233 0.0103 BETTER 0.0040 0.0068 +0.0084 +0.0349 1.000 0.26
+A5c BsD5 clean relF1 +0.0368 0.0179 BETTER 0.0069 0.0096 +0.0160 +0.0541 1.000 0.34
+A5c BsD5 clean crack_rec +0.0398 0.0183 BETTER 0.0071 0.0088 +0.0201 +0.0546 1.000 0.39
+A5c BsD5 clean inact_iou +0.1207 0.0619 BETTER 0.0240 0.0381 +0.0535 +0.1931 1.000 0.28
+al1_A5 al1_BsM5 all crack_iou +0.0274 0.0148 BETTER 0.0057 0.0067 +0.0136 +0.0396 1.000 0.43
+al1_A5 al1_BsM5 all relF1 +0.0412 0.0219 BETTER 0.0085 0.0103 +0.0220 +0.0617 1.000 0.41
+al1_A5 al1_BsM5 all crack_rec +0.0379 0.0288 BETTER 0.0111 0.0080 +0.0209 +0.0521 1.000 0.66
+al1_A5 al1_BsM5 all inact_iou +0.1320 0.0567 BETTER 0.0220 0.0417 +0.0560 +0.2136 1.000 0.22
+al1_A5 al1_BsM5 clean crack_iou +0.0275 0.0147 BETTER 0.0057 0.0069 +0.0128 +0.0393 1.000 0.41
+al1_A5 al1_BsM5 clean relF1 +0.0412 0.0215 BETTER 0.0083 0.0105 +0.0201 +0.0611 1.000 0.39
+al1_A5 al1_BsM5 clean crack_rec +0.0383 0.0290 BETTER 0.0112 0.0082 +0.0205 +0.0521 1.000 0.65
+al1_A5 al1_BsM5 clean inact_iou +0.1363 0.0587 BETTER 0.0227 0.0433 +0.0591 +0.2222 1.000 0.22
+al1_A5 al1_AL5 all crack_iou -0.0169 0.0131 WORSE 0.0051 0.0056 -0.0287 -0.0065 0.000 0.45
+al1_A5 al1_AL5 all relF1 -0.0312 0.0216 WORSE 0.0084 0.0107 -0.0536 -0.0118 0.000 0.38
+al1_A5 al1_AL5 all crack_rec -0.0291 0.0235 WORSE 0.0091 0.0078 -0.0447 -0.0144 0.000 0.58
+al1_A5 al1_AL5 all inact_iou -0.1324 0.0761 WORSE 0.0295 0.0290 -0.1906 -0.0750 0.000 0.51
+al1_A5 al1_AL5 clean crack_iou -0.0170 0.0131 WORSE 0.0051 0.0057 -0.0290 -0.0066 0.000 0.44
+al1_A5 al1_AL5 clean relF1 -0.0314 0.0215 WORSE 0.0083 0.0108 -0.0543 -0.0120 0.000 0.37
+al1_A5 al1_AL5 clean crack_rec -0.0294 0.0237 WORSE 0.0092 0.0079 -0.0463 -0.0155 0.000 0.58
+al1_A5 al1_AL5 clean inact_iou -0.1373 0.0792 WORSE 0.0307 0.0298 -0.1988 -0.0802 0.000 0.51
+A20 BsM20 all crack_iou -0.0057 0.0489 n.d. 0.0189 0.0157 -0.0324 +0.0275 0.473 0.59
+A20 BsM20 all relF1 -0.0175 0.0750 n.d. 0.0291 0.0248 -0.0595 +0.0325 0.335 0.58
+A20 BsM20 all crack_rec +0.0244 0.0225 BETTER 0.0087 0.0147 -0.0007 +0.0557 0.970 0.26
+A20 BsM20 all inact_iou +0.0604 0.0506 BETTER 0.0196 0.0353 -0.0182 +0.1188 0.932 0.24
+A20 BsM20 clean crack_iou +0.0126 0.0137 n.d. 0.0053 0.0091 -0.0019 +0.0330 0.953 0.25
+A20 BsM20 clean relF1 +0.0115 0.0127 n.d. 0.0049 0.0130 -0.0113 +0.0402 0.848 0.13
+A20 BsM20 clean crack_rec +0.0244 0.0226 BETTER 0.0088 0.0150 -0.0013 +0.0569 0.971 0.26
+A20 BsM20 clean inact_iou +0.0606 0.0524 BETTER 0.0203 0.0382 -0.0231 +0.1238 0.922 0.22
+L3_10 BsM10 all crack_iou +0.0124 0.0126 n.d. 0.0063 0.0063 -0.0020 +0.0228 0.961 0.50
+L3_10 BsM10 all relF1 +0.0132 0.0167 n.d. 0.0084 0.0088 -0.0053 +0.0289 0.929 0.48
+L3_10 BsM10 all crack_rec +0.0148 0.0135 BETTER 0.0068 0.0062 +0.0040 +0.0277 0.998 0.54
+L3_10 BsM10 all inact_iou +0.1322 0.0319 BETTER 0.0160 0.0530 +0.0434 +0.2353 1.000 0.08
+L3_10 BsM10 clean crack_iou +0.0173 0.0100 BETTER 0.0030 0.0039 +0.0088 +0.0239 1.000 0.38
+L3_10 BsM10 clean relF1 +0.0204 0.0100 BETTER 0.0031 0.0052 +0.0106 +0.0312 1.000 0.26
+L3_10 BsM10 clean crack_rec +0.0149 0.0138 BETTER 0.0069 0.0063 +0.0036 +0.0282 0.995 0.55
+L3_10 BsM10 clean inact_iou +0.1380 0.0332 BETTER 0.0166 0.0548 +0.0456 +0.2391 1.000 0.08
+A50 A100 all crack_iou +0.0276 0.1256 n.d. 0.0486 0.0088 +0.0115 +0.0457 1.000 0.97
+A50 A100 all relF1 +0.0206 0.1814 n.d. 0.0703 0.0100 +0.0017 +0.0402 0.984 0.98
+A50 A100 all crack_rec +0.0629 0.0152 BETTER 0.0059 0.0127 +0.0401 +0.0901 1.000 0.18
+A50 A100 all inact_iou +0.0234 0.0210 BETTER 0.0081 0.0176 -0.0059 +0.0639 0.934 0.18
+A50 A100 clean crack_iou +0.0262 0.0100 BETTER 0.0034 0.0095 +0.0095 +0.0469 0.999 0.11
+A50 A100 clean relF1 +0.0147 0.0100 BETTER 0.0031 0.0096 -0.0013 +0.0360 0.965 0.09
+A50 A100 clean crack_rec +0.0634 0.0141 BETTER 0.0055 0.0129 +0.0406 +0.0912 1.000 0.15
+A50 A100 clean inact_iou +0.0204 0.0200 BETTER 0.0077 0.0182 -0.0109 +0.0599 0.894 0.15
+A20 A50 all crack_iou +0.0099 0.0883 n.d. 0.0342 0.0287 -0.0339 +0.0750 0.734 0.59
+A20 A50 all relF1 -0.0143 0.1355 n.d. 0.0525 0.0372 -0.0684 +0.0650 0.431 0.67
+A20 A50 all crack_rec +0.0883 0.0185 BETTER 0.0072 0.0231 +0.0501 +0.1406 1.000 0.09
+A20 A50 all inact_iou +0.0509 0.0450 BETTER 0.0174 0.0478 -0.0401 +0.1406 0.863 0.12
+A20 A50 clean crack_iou +0.0455 0.0109 BETTER 0.0042 0.0188 +0.0136 +0.0874 0.998 0.05
+A20 A50 clean relF1 +0.0378 0.0134 BETTER 0.0052 0.0155 +0.0153 +0.0772 1.000 0.10
+A20 A50 clean crack_rec +0.0886 0.0180 BETTER 0.0070 0.0236 +0.0504 +0.1415 1.000 0.08
+A20 A50 clean inact_iou +0.0539 0.0458 BETTER 0.0177 0.0506 -0.0425 +0.1551 0.876 0.11
+A5c L3_10 all crack_iou +0.0920 0.0101 BETTER 0.0041 0.0270 +0.0473 +0.1480 1.000 0.02
+A5c L3_10 all relF1 +0.0946 0.0168 BETTER 0.0066 0.0143 +0.0677 +0.1226 1.000 0.17
+A5c L3_10 all crack_rec +0.1356 0.0175 BETTER 0.0069 0.0304 +0.0818 +0.1944 1.000 0.05
+A5c L3_10 all inact_iou +0.0408 0.0476 n.d. 0.0196 0.0448 -0.0217 +0.1558 0.871 0.16
+A5c L3_10 clean crack_iou +0.0927 0.0103 BETTER 0.0042 0.0274 +0.0472 +0.1490 1.000 0.02
+A5c L3_10 clean relF1 +0.0948 0.0169 BETTER 0.0066 0.0146 +0.0665 +0.1220 1.000 0.17
+A5c L3_10 clean crack_rec +0.1367 0.0177 BETTER 0.0070 0.0310 +0.0808 +0.1963 1.000 0.05
+A5c L3_10 clean inact_iou +0.0417 0.0491 n.d. 0.0202 0.0483 -0.0247 +0.1674 0.863 0.15
+
+# 3. MDE, 5 v 5 seeds, 50 test cells
+regime subset metric seed_sd(pooled) thr rule1_80 cell_sd gen_80
+100% all crack_iou 0.0556 0.0908 0.1204 0.0179 0.1105
+100% all relF1 0.0748 0.1221 0.1619 0.0278 0.1536
+100% all crack_rec 0.0086 0.0140 0.0186 0.0033 0.0177
+100% all inact_iou 0.0152 0.0249 0.0330 0.0087 0.0364
+100% clean crack_iou 0.0031 0.0100 0.0117 0.0018 0.0074
+100% clean relF1 0.0048 0.0100 0.0126 0.0026 0.0111
+100% clean crack_rec 0.0084 0.0137 0.0182 0.0033 0.0175
+100% clean inact_iou 0.0150 0.0245 0.0324 0.0094 0.0374
+50% all crack_iou 0.0540 0.0882 0.1169 0.0235 0.1161
+50% all relF1 0.0827 0.1351 0.1792 0.0375 0.1802
+50% all crack_rec 0.0108 0.0176 0.0233 0.0054 0.0243
+50% all inact_iou 0.0211 0.0344 0.0456 0.0111 0.0485
+50% clean crack_iou 0.0061 0.0100 0.0132 0.0036 0.0148
+50% clean relF1 0.0053 0.0100 0.0128 0.0056 0.0182
+50% clean crack_rec 0.0104 0.0169 0.0225 0.0055 0.0239
+50% clean inact_iou 0.0212 0.0346 0.0459 0.0111 0.0487
+20% all crack_iou 0.0422 0.0689 0.0914 0.0230 0.0986
+20% all relF1 0.0668 0.1090 0.1446 0.0390 0.1609
+20% all crack_rec 0.0140 0.0228 0.0303 0.0122 0.0423
+20% all inact_iou 0.0293 0.0478 0.0634 0.0282 0.0944
+20% clean crack_iou 0.0076 0.0124 0.0164 0.0074 0.0248
+20% clean relF1 0.0075 0.0122 0.0162 0.0113 0.0344
+20% clean crack_rec 0.0142 0.0232 0.0308 0.0124 0.0429
+20% clean inact_iou 0.0303 0.0495 0.0656 0.0306 0.1010
+5% all crack_iou 0.0088 0.0144 0.0191 0.0067 0.0244
+5% all relF1 0.0139 0.0227 0.0301 0.0103 0.0380
+5% all crack_rec 0.0162 0.0264 0.0350 0.0085 0.0373
+5% all inact_iou 0.0380 0.0620 0.0823 0.0386 0.1273
+5% clean crack_iou 0.0086 0.0140 0.0185 0.0069 0.0245
+5% clean relF1 0.0133 0.0217 0.0287 0.0106 0.0378
+5% clean crack_rec 0.0163 0.0266 0.0353 0.0088 0.0379
+5% clean inact_iou 0.0388 0.0633 0.0840 0.0405 0.1326
+
+# 4. Scaling with number of test cells (clean subset). seed var = a + b/n fit; cell sd ~ c/sqrt(n)
+100% A100-Sx100 crack_iou | N=50: seed_sd 0.0031 thr 0.0100 cell_sd 0.0018 gen80 0.0074 | N=100: seed_sd 0.0022 thr 0.0100 cell_sd 0.0012 gen80 0.0052 | N=150: seed_sd 0.0017 thr 0.0100 cell_sd 0.0010 gen80 0.0041 | N=250: seed_sd 0.0013 thr 0.0100 cell_sd 0.0007 gen80 0.0031
+    raw seed var by n {15: np.float64(0.0057), 25: np.float64(0.0044), 35: np.float64(0.0037), 49: np.float64(0.0031)}  cell sd by n {15: np.float64(0.0033), 25: np.float64(0.0026), 35: np.float64(0.0021), 49: np.float64(0.0018)}
+100% A100-Sx100 relF1 | N=50: seed_sd 0.0047 thr 0.0100 cell_sd 0.0025 gen80 0.0110 | N=100: seed_sd 0.0037 thr 0.0100 cell_sd 0.0016 gen80 0.0079 | N=150: seed_sd 0.0032 thr 0.0100 cell_sd 0.0012 gen80 0.0066 | N=250: seed_sd 0.0029 thr 0.0100 cell_sd 0.0006 gen80 0.0053
+    raw seed var by n {15: np.float64(0.0079), 25: np.float64(0.0062), 35: np.float64(0.0054), 49: np.float64(0.0048)}  cell sd by n {15: np.float64(0.005), 25: np.float64(0.0037), 35: np.float64(0.0032), 49: np.float64(0.0026)}
+100% A100-Sx100 crack_rec | N=50: seed_sd 0.0084 thr 0.0136 cell_sd 0.0031 gen80 0.0172 | N=100: seed_sd 0.0072 thr 0.0118 cell_sd 0.0017 gen80 0.0136 | N=150: seed_sd 0.0068 thr 0.0111 cell_sd 0.0007 gen80 0.0121 | N=250: seed_sd 0.0064 thr 0.0105 cell_sd 0.0000 gen80 0.0114
+    raw seed var by n {15: np.float64(0.0124), 25: np.float64(0.0103), 35: np.float64(0.0092), 49: np.float64(0.0084)}  cell sd by n {15: np.float64(0.0066), 25: np.float64(0.0048), 35: np.float64(0.0039), 49: np.float64(0.0033)}
+100% A100-Sx100 inact_iou | N=50: seed_sd 0.0134 thr 0.0218 cell_sd 0.0048 gen80 0.0273 | N=100: seed_sd 0.0000 thr 0.0100 cell_sd 0.0000 gen80 0.0000 | N=150: seed_sd 0.0000 thr 0.0100 cell_sd 0.0000 gen80 0.0000 | N=250: seed_sd 0.0000 thr 0.0100 cell_sd 0.0000 gen80 0.0000
+    raw seed var by n {15: np.float64(0.0331), 25: np.float64(0.0223), 35: np.float64(0.0184), 49: np.float64(0.015)}  cell sd by n {15: np.float64(0.0325), 25: np.float64(0.02), 35: np.float64(0.0139), 49: np.float64(0.0087)}
+5% A5c-BsM5 crack_iou | N=50: seed_sd 0.0095 thr 0.0156 cell_sd 0.0068 gen80 0.0255 | N=100: seed_sd 0.0089 thr 0.0146 cell_sd 0.0051 gen80 0.0213 | N=150: seed_sd 0.0087 thr 0.0143 cell_sd 0.0043 gen80 0.0197 | N=250: seed_sd 0.0086 thr 0.0140 cell_sd 0.0037 gen80 0.0183
+    raw seed var by n {15: np.float64(0.012), 25: np.float64(0.0106), 35: np.float64(0.01), 49: np.float64(0.0096)}  cell sd by n {15: np.float64(0.0119), 25: np.float64(0.0094), 35: np.float64(0.008), 49: np.float64(0.0068)}
+5% A5c-BsM5 relF1 | N=50: seed_sd 0.0137 thr 0.0224 cell_sd 0.0104 gen80 0.0379 | N=100: seed_sd 0.0124 thr 0.0202 cell_sd 0.0084 gen80 0.0322 | N=150: seed_sd 0.0119 thr 0.0195 cell_sd 0.0076 gen80 0.0300 | N=250: seed_sd 0.0115 thr 0.0189 cell_sd 0.0069 gen80 0.0282
+    raw seed var by n {15: np.float64(0.0187), 25: np.float64(0.0157), 35: np.float64(0.0146), 49: np.float64(0.014)}  cell sd by n {15: np.float64(0.0168), 25: np.float64(0.0136), 35: np.float64(0.0119), 49: np.float64(0.0103)}
+5% A5c-BsM5 crack_rec | N=50: seed_sd 0.0172 thr 0.0281 cell_sd 0.0086 gen80 0.0389 | N=100: seed_sd 0.0164 thr 0.0269 cell_sd 0.0063 gen80 0.0340 | N=150: seed_sd 0.0162 thr 0.0264 cell_sd 0.0053 gen80 0.0323 | N=250: seed_sd 0.0160 thr 0.0261 cell_sd 0.0043 gen80 0.0308
+    raw seed var by n {15: np.float64(0.0203), 25: np.float64(0.0187), 35: np.float64(0.0179), 49: np.float64(0.0171)}  cell sd by n {15: np.float64(0.0154), 25: np.float64(0.012), 35: np.float64(0.0102), 49: np.float64(0.0087)}
+5% A5c-BsM5 inact_iou | N=50: seed_sd 0.0264 thr 0.0432 cell_sd 0.0414 gen80 0.1250 | N=100: seed_sd 0.0064 thr 0.0104 cell_sd 0.0298 gen80 0.0843 | N=150: seed_sd 0.0000 thr 0.0100 cell_sd 0.0248 gen80 0.0696 | N=250: seed_sd 0.0000 thr 0.0100 cell_sd 0.0199 gen80 0.0559
+    raw seed var by n {15: np.float64(0.0617), 25: np.float64(0.044), 35: np.float64(0.0352), 49: np.float64(0.0281)}  cell sd by n {15: np.float64(0.0746), 25: np.float64(0.0576), 35: np.float64(0.0489), 49: np.float64(0.0422)}

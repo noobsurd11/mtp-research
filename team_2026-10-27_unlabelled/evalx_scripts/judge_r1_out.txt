@@ -1,0 +1,18 @@
+# (2) E1 crack cells (GT crack >= 20 px), E-SCDD masks; scuff = class 25 >= 500 px; halfcut = class 29 present
+E1 no-scuff+halfcut: cells 6, crack px 2491, share within 3 px of scuff 0.000, width 3.49 px, ring - crack grey 8.4, FINAL recall 0.552
+E1 no-scuff+not-halfcut: cells 4, crack px 1489, share within 3 px of scuff 0.000, width 3.59 px, ring - crack grey 7.4, FINAL recall 0.291
+E1 scuff+halfcut: cells 20, crack px 24246, share within 3 px of scuff 0.144, width 3.65 px, ring - crack grey 11.2, FINAL recall 0.126
+E1 scuff+not-halfcut: cells 2, crack px 4068, share within 3 px of scuff 0.000, width 3.86 px, ring - crack grey 4.7, FINAL recall 0.514
+E1 all: cells 32, crack px 32294, share within 3 px of scuff 0.108, width 3.66 px, ring - crack grey 9.8, FINAL recall 0.215
+test (ours, 50): cells 46, crack px 91838, share within 3 px of scuff 0.000, width 2.94 px, ring - crack grey 15.0, FINAL recall nan
+   test (ours, 50): cells with any scuff px 0, halfcut cells 0
+train CSIR (ours): cells 47, crack px 54355, share within 3 px of scuff 0.000, width 2.67 px, ring - crack grey 10.2, FINAL recall nan
+   train CSIR (ours): cells with any scuff px 3, halfcut cells 0
+
+# (5) twin pair crack IoU
+old 20211104 masks: px 37 vs 107, IoU 0.210
+E-SCDD masks: px 113 vs 183, IoU 0.534
+
+# (2b) distance of GT crack px to nearest scuff px, scuff+halfcut and scuff-only E1 cells
+scuff+halfcut share of crack px within {1: 0.046, 3: 0.144, 5: 0.239, 10: 0.446, 20: 0.672, 40: 0.855} median dist 12.0
+scuff+not-halfcut share of crack px within {1: 0.0, 3: 0.0, 5: 0.0, 10: 0.0, 20: 0.0, 40: 0.0} median dist 284.1

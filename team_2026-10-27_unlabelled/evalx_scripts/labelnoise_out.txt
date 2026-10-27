@@ -1,0 +1,25 @@
+# A. Crack error decomposition, test without the noisy cell (49 cells)
+A100 single (5 seeds): IoU 0.474 | share of union: FN near 0.139, FN far 0.126, FP near 0.216, FP far 0.046 | IoU with near errors forgiven 0.782 | relR@2 0.830 relP@2 0.938 relF1@2 0.881 | R 0.642 P 0.644
+Sx100 (5 seeds): IoU 0.472 | share of union: FN near 0.145, FN far 0.131, FP near 0.209, FP far 0.043 | IoU with near errors forgiven 0.779 | relR@2 0.824 relP@2 0.940 relF1@2 0.878 | R 0.631 P 0.652
+FINAL ensemble b0.75: IoU 0.492 | share of union: FN near 0.114, FN far 0.094, FP near 0.244, FP far 0.056 | IoU with near errors forgiven 0.802 | relR@2 0.866 relP@2 0.930 relF1@2 0.897 | R 0.703 P 0.621
+FINAL ensemble b0: IoU 0.488 | share of union: FN near 0.140, FN far 0.123, FP near 0.214, FP far 0.035 | IoU with near errors forgiven 0.799 | relR@2 0.837 relP@2 0.953 relF1@2 0.891 | R 0.650 P 0.662
+A5c: IoU 0.306 | share of union: FN near 0.191, FN far 0.320, FP near 0.130, FP far 0.052 | IoU with near errors forgiven 0.572 | relR@2 0.608 relP@2 0.894 relF1@2 0.724 | R 0.374 P 0.627
+BsM5: IoU 0.335 | share of union: FN near 0.203, FN far 0.270, FP near 0.143, FP far 0.049 | IoU with near errors forgiven 0.628 | relR@2 0.666 relP@2 0.907 relF1@2 0.768 | R 0.415 P 0.635
+L3 10%: IoU 0.399 | share of union: FN near 0.181, FN far 0.201, FP near 0.165, FP far 0.055 | IoU with near errors forgiven 0.694 | relR@2 0.743 relP@2 0.911 relF1@2 0.818 | R 0.511 P 0.645
+A50: IoU 0.448 | share of union: FN near 0.177, FN far 0.149, FP near 0.182, FP far 0.044 | IoU with near errors forgiven 0.763 | relR@2 0.807 relP@2 0.934 relF1@2 0.866 | R 0.578 P 0.664
+
+# B. Perfect localiser, different convention (GT-only; 50 test cells, all; pooled)
+GT crack px 91838, skeleton px 31232, mean width 2.94 px
+local width at skeleton (2*EDT-1) distribution: {1: 0.39, 2: 0.27, 3: 0.325, 5: 0.015}
+skeleton only (1 px line): IoU 0.340 relF1@2 0.993 R 0.340 P 1.000
+skeleton dilated r=1 (3 px line): IoU 0.745 relF1@2 0.999 R 0.855 P 0.853
+skeleton dilated r=2 (5 px line): IoU 0.595 relF1@2 1.000 R 0.985 P 0.600
+GT eroded 1 px (cross): IoU 0.481 relF1@2 1.000 R 0.481 P 1.000
+GT dilated 1 px (cross): IoU 0.603 relF1@2 1.000 R 1.000 P 0.603
+GT dilated 1 px (3x3): IoU 0.525 relF1@2 1.000 R 1.000 P 0.525
+GT shifted 1 px (x): IoU 0.547 relF1@2 1.000 R 0.707 P 0.707
+GT shifted 1 px (x and y): IoU 0.498 relF1@2 0.999 R 0.665 P 0.665
+GT shifted 2 px (x): IoU 0.283 relF1@2 1.000 R 0.441 P 0.441
+
+# C. Same-image label disagreement already in the data (doc 03: train ARTS_00081_r5_c1 = test ARTS_00020_r5_c1)
+escdd masks, same cell twice: crack IoU 0.534 relF1@2 0.997 (px 113 vs 183)
