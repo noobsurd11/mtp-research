@@ -1,0 +1,600 @@
+<title>EL Crack Segmentation Record</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,650&family=Public+Sans:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: long-form lab record. Sticky contents rail on wide screens, one column on phones.
+   Palette: cool instrument greys with an EL-blue accent; verdict colours are semantic and always carry a text label. */
+:root{
+  --paper:#f5f7f9; --surface:#ffffff; --ink:#15202b; --ink-2:#4a5866; --ink-3:#6c7884; --rule:#d8dee4;
+  --accent:#1f5fb0; --accent-soft:#e6eef9;
+  --better:#11743a; --better-bg:#e3f3e8; --worse:#b02a22; --worse-bg:#fbe7e5; --nd:#5d6875; --nd-bg:#eceff2;
+  --s-ssl:#2a78d6; --s-lab:#1baf7a; --s-ref:#9aa4ae; --grid:#e3e8ec;
+  --f-display:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --f-body:"Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --paper:#101418; --surface:#161c21; --ink:#e6eaee; --ink-2:#aab4be; --ink-3:#8a95a0; --rule:#2a323a;
+  --accent:#86aef0; --accent-soft:#1b2a3d;
+  --better:#5fcf8a; --better-bg:#16301f; --worse:#f2847b; --worse-bg:#3a1c1a; --nd:#9aa5b0; --nd-bg:#232a31;
+  --s-ssl:#3987e5; --s-lab:#199e70; --s-ref:#5d6872; --grid:#232b33; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --paper:#101418; --surface:#161c21; --ink:#e6eaee; --ink-2:#aab4be; --ink-3:#8a95a0; --rule:#2a323a;
+  --accent:#86aef0; --accent-soft:#1b2a3d;
+  --better:#5fcf8a; --better-bg:#16301f; --worse:#f2847b; --worse-bg:#3a1c1a; --nd:#9aa5b0; --nd-bg:#232a31;
+  --s-ssl:#3987e5; --s-lab:#199e70; --s-ref:#5d6872; --grid:#232b33; color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font:16px/1.6 var(--f-body);margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-block:40px 80px;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.layout{display:grid;grid-template-columns:1fr;gap:40px}
+@media (min-width:1080px){.layout{grid-template-columns:210px minmax(0,1fr)}}
+nav.toc{display:none}
+@media (min-width:1080px){
+  nav.toc{display:block;position:sticky;top:calc(env(safe-area-inset-top, 0px) + 24px);align-self:start;font-size:13.5px}
+}
+nav.toc ol{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+nav.toc a{display:block;color:var(--ink-2);text-decoration:none;padding:5px 10px;border-left:2px solid var(--rule)}
+nav.toc a:hover,nav.toc a:focus-visible{color:var(--accent);border-left-color:var(--accent);outline:none}
+nav.toc .toc-h{font:600 11px/1 var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin:0 0 10px 12px}
+main{min-width:0}
+
+header.top{display:grid;gap:14px;padding-bottom:28px;border-bottom:1px solid var(--rule);margin-bottom:28px}
+.eyebrow{font:600 12px/1.4 var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+h1{font:650 clamp(30px,4.4vw,44px)/1.12 var(--f-display);margin:0;text-wrap:balance;letter-spacing:-.01em}
+h2{font:650 27px/1.2 var(--f-display);margin:0 0 6px;text-wrap:balance}
+h3{font:600 17px/1.35 var(--f-body);margin:26px 0 8px}
+p{margin:0 0 12px;max-width:72ch}
+.lead{font-size:18px;color:var(--ink-2);max-width:68ch}
+section{padding-block:34px;border-bottom:1px solid var(--rule);scroll-margin-top:16px}
+section:last-of-type{border-bottom:0}
+.sec-sub{color:var(--ink-3);font-size:14.5px;margin-bottom:18px}
+ul,ol.plain{margin:0 0 14px;padding-left:22px;max-width:76ch}
+li{margin:4px 0}
+li>ul{margin:4px 0 6px}
+code,.mono{font-family:var(--f-mono);font-size:.86em}
+code{background:var(--nd-bg);padding:1px 5px;border-radius:4px;word-break:break-word}
+a{color:var(--accent)}
+strong{font-weight:600}
+
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:6px}
+.tile{background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:16px 18px;display:grid;gap:4px;align-content:start}
+.tile .k{font:600 11.5px/1.3 var(--f-body);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3)}
+.tile .v{font:600 30px/1.1 var(--f-mono);font-variant-numeric:tabular-nums;color:var(--ink)}
+.tile .n{font-size:13.5px;color:var(--ink-2)}
+
+.concl{counter-reset:c;list-style:none;padding:0;display:grid;gap:12px;max-width:none}
+.concl li{counter-increment:c;display:grid;grid-template-columns:34px minmax(0,1fr);gap:10px;margin:0;background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:14px 16px}
+.concl li::before{content:counter(c);font:600 15px/1.6 var(--f-mono);color:var(--accent)}
+.concl li p{margin:0;max-width:none}
+
+.timeline{list-style:none;padding:0;margin:0;display:grid;gap:0;max-width:none}
+.timeline li{display:grid;grid-template-columns:96px minmax(0,1fr);gap:16px;margin:0;padding:12px 0;border-top:1px solid var(--rule)}
+.timeline li:first-child{border-top:0}
+.timeline .d{font:600 13.5px/1.6 var(--f-mono);color:var(--accent)}
+@media (max-width:520px){.timeline li{grid-template-columns:1fr;gap:2px}}
+
+.tbl{overflow-x:auto;margin:10px 0 18px;border:1px solid var(--rule);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}
+th,td{padding:8px 12px;text-align:left;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font:600 12px/1.35 var(--f-body);letter-spacing:.03em;color:var(--ink-3);background:var(--paper);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-family:var(--f-mono);font-size:13px;white-space:nowrap}
+tr.hl td{background:var(--accent-soft)}
+.pill{display:inline-block;font:600 11.5px/1 var(--f-body);letter-spacing:.04em;padding:5px 8px;border-radius:999px;white-space:nowrap}
+.better{color:var(--better);background:var(--better-bg)}
+.worse{color:var(--worse);background:var(--worse-bg)}
+.nd{color:var(--nd);background:var(--nd-bg)}
+.note{font-size:13.5px;color:var(--ink-3);max-width:80ch}
+
+.callout{border-left:3px solid var(--accent);background:var(--surface);padding:14px 18px;border-radius:0 10px 10px 0;margin:14px 0 18px;max-width:80ch}
+.callout p:last-child{margin-bottom:0}
+.two{display:grid;grid-template-columns:1fr;gap:16px}
+@media (min-width:820px){.two{grid-template-columns:1fr 1fr}}
+.card{background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:16px 18px;min-width:0}
+.card h3{margin-top:0}
+
+figure{margin:12px 0 8px}
+.chart-box{overflow-x:auto;background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:14px 10px 8px;position:relative}
+.chart-box svg{display:block;min-width:560px;width:100%;height:auto}
+figcaption{font-size:13.5px;color:var(--ink-3);margin-top:8px;max-width:80ch}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:var(--ink-2);margin:0 0 6px 6px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:12px;height:12px;border-radius:3px;display:inline-block}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--paper);font:12.5px/1.45 var(--f-body);padding:7px 10px;border-radius:6px;max-width:260px;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+.bar:focus{outline:2px solid var(--accent);outline-offset:1px}
+
+.decisions{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.decisions .card .tag{font:600 11px/1 var(--f-body);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);margin-bottom:8px;display:block}
+.files{columns:2 300px;column-gap:28px;font-size:14px}
+.files li{break-inside:avoid}
+footer{margin-top:30px;font-size:13px;color:var(--ink-3)}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+html{scroll-behavior:smooth}
+</style>
+
+<div class="wrap">
+<div class="layout">
+<nav class="toc" aria-label="Contents">
+  <p class="toc-h">Contents</p>
+  <ol>
+    <li><a href="#conclusions">Conclusions</a></li>
+    <li><a href="#timeline">Timeline</a></li>
+    <li><a href="#data">Data decisions</a></li>
+    <li><a href="#ssl">SSL experiments</a></li>
+    <li><a href="#why">Why SOTA SSL fails here</a></li>
+    <li><a href="#trackd">Track D: diagnosis</a></li>
+    <li><a href="#trackm">Track M: best model</a></li>
+    <li><a href="#unlabelled">Unlabelled data</a></li>
+    <li><a href="#thesis">Thesis contributions</a></li>
+    <li><a href="#decisions">Waiting on you</a></li>
+    <li><a href="#process">Process and infra</a></li>
+    <li><a href="#files">Where things are</a></li>
+  </ol>
+</nav>
+
+<main>
+<header class="top">
+  <div class="eyebrow">MTP with WattCycle · BenchmarkEL 20211104 (478 / 54 / 50 cells, 24 classes) · 21 to 27 Oct 2026</div>
+  <h1>EL crack segmentation: what the agent teams did and found</h1>
+  <p class="lead">Seven days of critic-gated agent teams on semi-supervised segmentation of rare defects (crack, inactive) in electroluminescence images of solar cells. Two published SSL methods were adapted and tested, the failure was diagnosed, a best model was built, and the question of how to use the unlabelled data was researched from scratch. Every number below was recomputed by an independent critic agent before it was accepted.</p>
+  <div class="tiles" role="list">
+    <div class="tile" role="listitem"><span class="k">Best crack IoU, clean test</span><span class="v">0.492</span><span class="n">5-seed ensemble, crack bias +0.75; single model 0.474</span></div>
+    <div class="tile" role="listitem"><span class="k">Crack segments found</span><span class="v">83.4%</span><span class="n">at 93.3% segment precision; 2 px recall 0.866</span></div>
+    <div class="tile" role="listitem"><span class="k">Inactive IoU, clean test</span><span class="v">0.456</span><span class="n">segments found 80%; n.d. vs single model</span></div>
+    <div class="tile" role="listitem"><span class="k">Unseen modules, crack recall</span><span class="v">0.215</span><span class="n">106 cells, 67 modules; single model 0.178</span></div>
+  </div>
+  <p class="note">"Clean test" is the 50 test cells without the corrupted cell <code>CSIR_00070_r8_c4</code>. All test numbers: revised <code>masks_escdd</code>, final-step weights (step 20,000), cv02.</p>
+</header>
+
+<section id="conclusions">
+  <h2>Conclusions</h2>
+  <p class="sec-sub">The seven things this week established, strongest first.</p>
+  <ol class="concl">
+    <li><p><strong>Pseudo-label SSL helps only when labels are scarce.</strong> At 5% labels the best recipe (BsM5: Mean Teacher with hard pseudo-labels, CutMix, separate BatchNorm) beats supervised on crack IoU (+0.029) and inactive IoU (+0.107). At 20, 50 and 100% labels a crack gain of +0.02 or more is ruled out, and +0.01 at 100%.</p></li>
+    <li><p><strong>The two recent SOTA methods did not transfer.</strong> ALHVR (ICCV 2025), adapted to EL, is <em>worse</em> than supervised on all three primary metrics and halves inactive recall. SKCDF's balanced head (CVPR 2025) is n.d.; it corrects a class collapse our models do not have.</p></li>
+    <li><p><strong>Labels beat SSL at equal budget.</strong> Adding 12 crack-rich labelled cells (chosen with ground truth) gives crack IoU 0.352, against 0.331 for the best SSL run and 0.324 for 12 random cells.</p></li>
+    <li><p><strong>The best model is an ensemble, not a new training trick.</strong> Five seeds of the 100%-label U-Net++/ResNet-34, averaged, with a small crack bias. Six training changes (Dice variants, ResNet-50, extra E-SCDD cells, 2x resolution) all failed the val inclusion rule.</p></li>
+    <li><p><strong>Strict crack IoU is near its labelling ceiling.</strong> A perfect detector 1 px off in position or width scores 0.48 to 0.60, and we are at 0.49. 70% of the remaining IoU loss lies within 2 px of the right place.</p></li>
+    <li><p><strong>The real gap is a defect context we never labelled.</strong> On unseen modules, 75% of crack pixels sit in half-cut cells with scuff streaks, where the model finds 13%. Training has no half-cut cells and has always ignored scuff. The 12k unlabelled pool barely contains such cells, so it cannot fix this.</p></li>
+    <li><p><strong>The user's own intuition was never tested.</strong> Everything run was label propagation. Learning features from the unlabelled cells first (masked-image or contrastive pretraining) was ranked low and dropped. One bounded test is proposed (1 to 5 GPU-h pretraining).</p></li>
+  </ol>
+</section>
+
+<section id="timeline">
+  <h2>Timeline</h2>
+  <p class="sec-sub">Each step was gated by a critic agent: protocol approved before launch, results recomputed before reporting.</p>
+  <ul class="timeline">
+    <li><span class="d">21 Oct</span><div>Agent team set up: ALHVR trainer and critic, SKCDF trainer and critic. Data decision D1 to D7 written. <strong>7 test cells found to be physical twins of train cells</strong> (CFVS time series). User answers: use local <code>escdd_full</code>; drop the twins from unlabelled pools (D7); add "without twins" lines to old claims, never replace.</div></li>
+    <li><span class="d">22 Oct</span><div><strong>SK1</strong> (SKCDF balanced head), 20 runs: primary n.d.; the thin-crack band adaptation made crack worse. <strong>S-a</strong>: logit adjustment set as the free-bias yardstick. SKCDF track closed on the critics' advice.</div></li>
+    <li><span class="d">23 Oct</span><div><strong>AL1 v2</strong> (ALHVR adapted to EL), 35 runs: worse than supervised on all three primaries, in all four cell sets. Handbook updated (additive only).</div></li>
+    <li><span class="d">24 Oct</span><div>Why-SOTA team (data side, method side, critic) explains the failures and ranks 8 directions. User: "take the critics' decisions and go"; goal stated as the highest scores on crack, inactive and other defects with balanced mIoU.</div></li>
+    <li><span class="d">24 to 25 Oct</span><div><strong>Track D</strong> (diagnosis): frozen-encoder probe, inactive-edge re-score, labelled-set experiment (27 runs). <strong>Track M</strong> (best model): baseline audit, ladder R1 to R5, final ensemble. Both critic-verified, relayed to gaint with MD5, committed.</div></li>
+    <li><span class="d">27 Oct</span><div>Unlabelled-data research team (literature, measurement skeptic, out-of-the-box methods, judge), using Research MCP. No GPU. Converged synthesis on how to read the SSL result, the test set, and what to do with the pool.</div></li>
+  </ul>
+</section>
+
+<section id="data">
+  <h2>Data decisions</h2>
+  <p class="sec-sub">Written by both critics on 21 Oct (<code>team_2026-10-21/data/decision.md</code>) and confirmed by the user.</p>
+  <ul>
+    <li><strong>D1 release:</strong> no newer E-SCDD release exists. The one meant is local <code>escdd_full</code> (HF snt-ubix/escdd @ <code>8c8cba9a</code>, MIT, 1,810 files, 30 classes). The shivahanifi variants are not used: they rescale cells and change crack width. A 159,332-cell unlabelled mirror (<code>sasan/scdd-unlabeled</code>, 76 GB) exists and was not downloaded.</li>
+    <li><strong>D2 split:</strong> keep 20211104 478 / 54 / 50 with <code>masks_escdd</code>. E-SCDD's own split is not usable: 39 of our 50 test cells are in its train. Synthetic images excluded everywhere.</li>
+    <li><strong>D3 machines:</strong> runs carry over only on the same machine, after a log-identity check.</li>
+    <li><strong>D4 pools:</strong> in-domain pool is primary (455 cells at 5%); the 11,938-cell external pool only as a declared arm; no unseen-module (E1) cell may enter any pool.</li>
+    <li><strong>D6 fixed lists:</strong> every test number is reported in four cell sets: all 50, without the noisy cell, without the 7 twins, without both.</li>
+    <li><strong>D7 (user: yes):</strong> new protocols drop the 7 train twins from the unlabelled pool (455 to 448 cells); SSL references re-run.</li>
+  </ul>
+  <h3>The 7 twin test cells</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Test cell</th><th>Train twin(s)</th><th class="num">Test crack px</th><th class="num">Test inactive px</th></tr></thead>
+    <tbody>
+      <tr><td><code>CFVS_00006_r5_c5</code></td><td><code>CFVS_00003_r5_c5</code></td><td class="num">505</td><td class="num">0</td></tr>
+      <tr><td><code>CFVS_00033_r8_c4</code></td><td><code>CFVS_00037_r8_c4</code> (+ early stage <code>00032</code>)</td><td class="num">4,876</td><td class="num">0</td></tr>
+      <tr><td><code>CFVS_00035_r8_c4</code></td><td><code>CFVS_00037_r8_c4</code></td><td class="num">5,513</td><td class="num">2,728</td></tr>
+      <tr><td><code>CFVS_00042_r8_c4</code></td><td><code>CFVS_00037_r8_c4</code></td><td class="num">4,202</td><td class="num">3,178</td></tr>
+      <tr><td><code>CFVS_00018_r4_c4</code></td><td><code>CFVS_00020_r4_c4</code>, <code>00022</code></td><td class="num">10,915</td><td class="num">0</td></tr>
+      <tr><td><code>CFVS_00027_r4_c4</code></td><td><code>CFVS_00031_r4_c4</code>, <code>00022</code></td><td class="num">10,211</td><td class="num">5,214</td></tr>
+      <tr><td><code>ARTS_00020_r5_c1</code></td><td><code>ARTS_00081_r5_c1</code></td><td class="num">183</td><td class="num">0</td></tr>
+      <tr class="hl"><td><strong>Total</strong></td><td></td><td class="num">36,405 (39.5%)</td><td class="num">11,120 (12.1%)</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Effect on the old P13 claim, BsM5 − A5c: crack IoU +0.029 on all 50 cells, +0.019 without the twins (still passes, barely). Inactive and relF1@2 gains are not driven by the twins. Every twin-dependent claim now carries a "without twins" line in the handbook.</p>
+</section>
+
+<section id="ssl">
+  <h2>SSL experiments at 5% labels</h2>
+  <p class="sec-sub">23 labelled cells, 448-cell unlabelled pool, 20,000 steps, 5 seeds per arm, rule 1 (better on one primary, worse on none; threshold max(0.01, 2·sd-based)).</p>
+
+  <figure>
+    <div class="legend" aria-hidden="true">
+      <span><i class="sw" style="background:var(--s-ref)"></i>Supervised or free bias</span>
+      <span><i class="sw" style="background:var(--s-ssl)"></i>SSL method</span>
+      <span><i class="sw" style="background:var(--s-lab)"></i>5% + 12 labelled cells</span>
+    </div>
+    <div class="chart-box" id="chart1"><div class="tip" id="tip1" hidden></div></div>
+    <figcaption>Test crack IoU, 50 cells, mean over seeds (label-set arms: 3 draws × 3 seeds). Dashed line: supervised A5c at 0.304. Hover or focus a bar for detail. The same numbers are in the tables below.</figcaption>
+  </figure>
+
+  <div class="two">
+    <div class="card">
+      <h3>SK1: SKCDF balanced head (ABSH)</h3>
+      <div class="tbl"><table>
+        <thead><tr><th>Contrast</th><th class="num">crack</th><th class="num">inactive</th><th class="num">relF1@2</th><th>Verdict</th></tr></thead>
+        <tbody>
+          <tr><td>BsDB5 − BsD5 (primary)</td><td class="num">−0.004</td><td class="num">−0.011</td><td class="num">+0.004</td><td><span class="pill nd">n.d.</span></td></tr>
+          <tr><td>AB5 − A5c (supervised)</td><td class="num">−0.008</td><td class="num">−0.008</td><td class="num">−0.007</td><td><span class="pill nd">n.d.</span></td></tr>
+          <tr><td>BsDB5 − BsDBn5 (2 px band)</td><td class="num">−0.015</td><td class="num">−0.017</td><td class="num">−0.005</td><td><span class="pill worse">WORSE</span></td></tr>
+        </tbody>
+      </table></div>
+      <p class="note">Same verdicts in all four cell sets. The head converges onto the main head (drift 0.001 at 20k), so it overwrites the labelled fit instead of balancing it.</p>
+    </div>
+    <div class="card">
+      <h3>AL1: ALHVR adapted to EL</h3>
+      <div class="tbl"><table>
+        <thead><tr><th>Contrast</th><th class="num">crack</th><th class="num">inactive</th><th class="num">relF1@2</th><th>Verdict</th></tr></thead>
+        <tbody>
+          <tr><td>AL5 − A5 (primary)</td><td class="num">−0.017</td><td class="num">−0.132</td><td class="num">−0.031</td><td><span class="pill worse">WORSE</span></td></tr>
+          <tr><td>CPSm5 − CPS5 (routing)</td><td class="num">−0.003</td><td class="num">−0.013</td><td class="num">−0.003</td><td><span class="pill nd">n.d.</span></td></tr>
+          <tr><td>AL5 − ALd5 (CPCL)</td><td class="num">−0.008</td><td class="num">+0.017</td><td class="num">−0.017</td><td><span class="pill nd">n.d.</span></td></tr>
+          <tr><td>CPS5 − A5</td><td class="num">+0.003</td><td class="num">+0.074</td><td class="num">+0.007</td><td><span class="pill nd">n.d.</span></td></tr>
+          <tr><td>BsM5 − A5 (reference)</td><td class="num">+0.027</td><td class="num">+0.132</td><td class="num">+0.041</td><td><span class="pill better">BETTER</span></td></tr>
+        </tbody>
+      </table></div>
+      <p class="note">Primary WORSE in all four cell sets; bootstrap CIs exclude 0 on all three. Inactive recall falls 0.276 → 0.124.</p>
+    </div>
+  </div>
+
+  <h3>What the adaptation involved</h3>
+  <ul>
+    <li><strong>ALHVR-EL:</strong> dual networks with regions Ω1 to Ω3, DTCT loss, CG-CPCL prototypes at the full-resolution decoder output, noise-only perturbation (no geometric aug that would move thin cracks), λ 0.1 with warmup 2k to 4k. CPS and CPS-masked baselines isolate each module. Arms AL5, ALd5 (no CPCL), ALdh5 (λ 0.3), CPS5, CPSm5.</li>
+    <li><strong>Why it fails:</strong> 65 to 70% of GT crack and 56 to 60% of GT inactive fall in Ω1, where ALHVR applies no unlabelled loss. Its sharpened-MSE plus entropy loss on Ω2/Ω3 teaches background on inactive regions. Plain cross pseudo-labels (CPS) do not harm.</li>
+    <li><strong>SKCDF ABSH:</strong> auxiliary balanced head on the decoupled recipe, with and without a 2 px negative band around cracks. ABSH targets classes stuck at 0 Dice, which we do not have. Without the band (BsDBn5) it matches a free logit bias on IoU.</li>
+  </ul>
+
+  <h3>S-a: the free-bias yardstick</h3>
+  <p>Logit adjustment (subtract τ·log class prior, τ = 1, prior from the 23 labelled cells) costs no training. It lifts A5c crack IoU 0.304 → 0.319 and BsD5 0.328 → 0.341. Any SSL claim on crack must beat this. With the bias given to <em>both</em> sides, BsM5's crack gain still passes (+0.037; +0.035 without twins and the noisy cell).</p>
+</section>
+
+<section id="why">
+  <h2>Why standard SSL fails here</h2>
+  <p class="sec-sub">24 Oct team: data side (R1), method side (R2), critic C. <code>team_2026-10-24_why/SYNTHESIS.md</code>.</p>
+  <div class="two">
+    <div class="card">
+      <h3>Measured</h3>
+      <ul>
+        <li><strong>Crack belief is bimodal:</strong> 57% of GT crack px score below 0.001 and 35% at or above 0.95. Pseudo-labels can only act on the 8 to 19% in between.</li>
+        <li><strong>The crack gain is source-bound</strong> (without twins): CFVS +0.047, BMRK +0.002, ARTS −0.030.</li>
+        <li><strong>Labelled coverage:</strong> at 5%, ARTS has 0 labelled crack cells and BMRK 2. SSL cannot spread a pattern it never saw.</li>
+        <li>About 38% of pool crack is a true miss more than 2 px from any prediction. No training rule moved that by more than 0.046.</li>
+        <li><strong>Inactive is the counter-case:</strong> supervised under-extends regions (precision 0.77, recall 0.28); self-training extends them (recall 0.43).</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Reasoned and ruled out</h3>
+      <ul>
+        <li>Self-training spreads labels through neighbourhoods the teacher already gets right (expansion assumption, arXiv 2010.03622). Faint BMRK cracks overlap background.</li>
+        <li>Published gains come mostly from weak or from-scratch baselines, or from blob-like classes. Our pretrained, thresholded, separate-BN base had already taken the cheap part.</li>
+        <li>Oliver et al. (arXiv 1804.09170): we fail two realistic-SSL conditions, a pool i.i.d. with the labels and a val set large enough to tune (6 inactive val cells).</li>
+        <li><strong>Not causes:</strong> pool size (28x pool adds nothing), the twins and the noisy cell (they distort measurement, not mechanism).</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="trackd">
+  <h2>Track D: diagnosis experiments</h2>
+  <p class="sec-sub">Executor DX, critic C. Three experiments, all CONFIRMED by recompute. <code>team_2026-10-24_go/trackD/</code>.</p>
+
+  <h3>1. Frozen-encoder probe (inference only)</h3>
+  <p>Linear probe on frozen features, trained on the same 23 labelled cells. Bar: A5c+LA BMRK crack AP 0.165 + 0.05 = 0.215.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Encoder</th><th class="num">BMRK crack AP, test</th><th>Result</th></tr></thead>
+    <tbody>
+      <tr><td>ImageNet ConvNeXt-T</td><td class="num">0.275</td><td><span class="pill better">passes</span> test only</td></tr>
+      <tr><td>ImageNet ResNet-50</td><td class="num">0.268</td><td><span class="pill better">passes</span> test and pool</td></tr>
+      <tr><td>ImageNet ResNet-34 (our init)</td><td class="num">0.186</td><td><span class="pill nd">fails</span></td></tr>
+      <tr><td>DINOv2 ViT-S/14</td><td class="num">0.128</td><td><span class="pill nd">fails</span> stride 14 too coarse</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">The pass is ranking at low precision only: at A5c's precision the probes recall 0.02 of BMRK crack against 0.21 for A5c. None of the 40 always-missed components is recovered. Masked-image pretraining was dropped on this result; the 27 Oct team judged that too early as a test of the user's question.</p>
+
+  <h3>2. Inactive-edge re-score (inference only, post hoc)</h3>
+  <ul>
+    <li>11.6% of test crack lies within 2 px of GT inactive (BMRK 22.6%). Models find only 18 to 24% of it.</li>
+    <li>Ignoring a 2 px band there lifts crack IoU +0.018 to +0.027 at 5 to 10% labels, +0.012 at 50%, +0.007 at 100%.</li>
+    <li>No SSL-vs-supervised gap changes sign; about a fifth of SSL's crack gain sits in the band. BMRK barely moves, so edges are not what makes BMRK hard.</li>
+  </ul>
+
+  <h3>3. Labelled-set experiment (27 supervised runs)</h3>
+  <p>5% base set plus 12 cells, 3 draws × 3 seeds per arm, draws fixed by script before training, twins never drawn. Identity with the old 5% run checked bit-exact to step 500.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Arm (5% + 12 cells)</th><th class="num">crack IoU</th><th class="num">crack relF1@2</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>R: random train cells</td><td class="num">0.324</td><td class="num">0.757</td><td>+0.020 over A5c, half the expected +0.04</td></tr>
+      <tr><td>Tc: crack cells, any source</td><td class="num">0.337</td><td class="num">0.787</td><td></td></tr>
+      <tr class="hl"><td>Ts: crack cells, 6 BMRK / 4 ARTS / 2 CSIR</td><td class="num">0.352</td><td class="num">0.795</td><td>0.365 with logit adjustment; BMRK IoU 0.259 beats L3 10% (0.219)</td></tr>
+      <tr><td>A5c (reference)</td><td class="num">0.304</td><td class="num">0.720</td><td></td></tr>
+      <tr><td>BsM5, best SSL (reference)</td><td class="num">0.331</td><td class="num">0.761</td><td>still leads on inactive (0.385 vs 0.33 to 0.35)</td></tr>
+    </tbody>
+  </table></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Contrast (rule over draw means)</th><th>Verdict</th><th>Detail</th></tr></thead>
+    <tbody>
+      <tr><td>Tc − R: does choosing crack cells beat random?</td><td><span class="pill better">BETTER</span></td><td>relF1@2 +0.030 [+0.020, +0.042] in every cell set; crack IoU +0.013. Crack-pixel volume explains the gap.</td></tr>
+      <tr><td>Ts − Tc: does source targeting add more?</td><td><span class="pill nd">n.d.</span></td><td>Ts keeps about +0.011 beyond volume (descriptive)</td></tr>
+      <tr><td>Ts − R</td><td><span class="pill better">BETTER</span></td><td>in every cell set; BMRK recall 0.24 → 0.31</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Costs: crack-targeted arms raise unseen-module crack false alarms (0.26 to 0.30 vs 0.20). All-class mIoU n.d. The gate for "SSL on the better-covered set" was not met, so it did not run.</p>
+</section>
+
+<section id="trackm">
+  <h2>Track M: the best model</h2>
+  <p class="sec-sub">Designer MD, critic MC. Inclusion decided on val only; test opened once per rung (7 openings, disclosed). <code>team_2026-10-24_go/trackM/</code>.</p>
+
+  <h3>The ladder</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Rung</th><th>Change</th><th>Verdict</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td>R1</td><td>5-seed ensemble (mean softmax), TTA, crack bias</td><td><span class="pill better">PASS</span></td><td>+0.014 crack IoU; TTA adds nothing to the ensemble</td></tr>
+      <tr><td>R2</td><td>Dice on 12 classes</td><td><span class="pill worse">WORSE</span></td><td>crack worse; gradient clipping bound 97% of steps (confound)</td></tr>
+      <tr><td>R2c</td><td>Dice on crack, inactive, gridline</td><td><span class="pill nd">n.d.</span></td><td>gridline recall up, mIoU flat</td></tr>
+      <tr><td>R3</td><td>ResNet-50 encoder (pilots: EffNet-B4, ConvNeXt)</td><td><span class="pill worse">WORSE</span></td><td>inactive −0.025; BMRK AP +0.018; unseen-module crack recall +0.036</td></tr>
+      <tr><td>R4</td><td>+107 leak-free E-SCDD labelled cells</td><td><span class="pill nd">n.d.</span></td><td>includes 43 half-cuts; no gain on them either</td></tr>
+      <tr><td>R5</td><td>2x internal resolution (4x FLOPs)</td><td><span class="pill nd">n.d.</span></td><td>unseen-module crack recall +0.026</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Final model vs single model</h3>
+  <p><strong>FINAL</strong>: U-Net++ / ImageNet ResNet-34, CE + Dice on crack and inactive, label-safe aug, 512 px, 20k steps, 100% labels; 5 seeds averaged; crack logit +0.75 chosen on val.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Clean test (49 cells)</th><th class="num">Single (mean of 5)</th><th class="num">FINAL, bias +0.75</th><th class="num">FINAL, bias 0</th></tr></thead>
+    <tbody>
+      <tr class="hl"><td>crack IoU</td><td class="num">0.474</td><td class="num">0.492</td><td class="num">0.488</td></tr>
+      <tr><td>crack precision / recall</td><td class="num">0.644 / 0.642</td><td class="num">0.621 / 0.703</td><td class="num">0.662 / 0.650</td></tr>
+      <tr><td>crack 2 px precision / recall</td><td class="num">0.938 / 0.830</td><td class="num">0.930 / 0.866</td><td class="num">0.953 / 0.837</td></tr>
+      <tr><td>crack relF1@2</td><td class="num">0.881</td><td class="num">0.897</td><td class="num">0.891</td></tr>
+      <tr><td>crack segments found (≥ 20 px)</td><td class="num">0.798</td><td class="num">0.834</td><td class="num">0.807</td></tr>
+      <tr><td>inactive IoU</td><td class="num">0.449</td><td class="num">0.456</td><td class="num">0.454</td></tr>
+      <tr><td>inactive segments found (≥ 100 px)</td><td class="num">0.773</td><td class="num">0.800</td><td class="num">0.800</td></tr>
+      <tr><td>mIoU over 13 robust classes</td><td class="num">0.580</td><td class="num">0.583</td><td class="num">0.583</td></tr>
+      <tr><td>unseen modules: crack IoU / recall</td><td class="num">0.148 / 0.178</td><td class="num">0.172 / 0.215</td><td class="num">0.148 / 0.170</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout">
+    <p><strong>Verdict: PASS</strong> on crack IoU (+0.018 [+0.013, +0.025]) and relF1@2 (+0.016 [+0.010, +0.025]), paired bootstrap on clean cells. Inactive and mIoU n.d., nothing worse.</p>
+    <p><strong>Fragility:</strong> on the corrupted cell, bias +0.75 calls 10,867 px crack (2 px at bias 0), and all-50 crack precision drops to 0.563. Bias 0 is the robust operating point; both are written up.</p>
+    <p><strong>"Almost all cracks"</strong> (2 px recall ≥ 0.90 at 2 px precision ≥ 0.90) is not reached: 0.866 at 0.930.</p>
+  </div>
+
+  <div class="two">
+    <div class="card">
+      <h3>Per source (FINAL +0.75)</h3>
+      <div class="tbl"><table>
+        <thead><tr><th>Source</th><th class="num">crack IoU</th><th class="num">2 px recall</th><th class="num">inactive IoU</th></tr></thead>
+        <tbody>
+          <tr><td>ARTS (13)</td><td class="num">0.456 → 0.503</td><td class="num">0.863</td><td class="num">no GT</td></tr>
+          <tr><td>BMRK (10)</td><td class="num">0.379 → 0.411</td><td class="num">0.812</td><td class="num">0.324</td></tr>
+          <tr><td>CFVS (18)</td><td class="num">0.522 → 0.535</td><td class="num">0.893</td><td class="num">0.585</td></tr>
+          <tr><td>CSIR clean (7)</td><td class="num">0.475 → 0.485</td><td class="num">0.875</td><td class="num">0.778</td></tr>
+          <tr><td>SDLE (1)</td><td class="num">0.031 → 0.000</td><td class="num">0.000</td><td class="num">n/a</td></tr>
+        </tbody>
+      </table></div>
+      <p class="note">Single model → FINAL. BMRK and non-twin CFVS hold most of what is still missed.</p>
+    </div>
+    <div class="card">
+      <h3>Per class (FINAL, test)</h3>
+      <ul>
+        <li>padding 0.994, background 0.906, frame_edge 0.809</li>
+        <li>sp_mono 0.743, sp_multi 0.733, ribbons 0.634</li>
+        <li>crack 0.453 (0.492 clean), inactive 0.442 (0.456 clean), material 0.430</li>
+        <li>border 0.359 (0.693 clean), edge_dark 0.291</li>
+        <li><strong>gridline 0.288</strong> (recall 0.33) and <strong>splice 0.000</strong> (never predicted): the weakest robust classes</li>
+        <li>1-cell classes: busbars 0.533, corrosion 0.769</li>
+      </ul>
+      <p class="note">The noisy cell alone moves all-class mIoU by 0.033.</p>
+    </div>
+  </div>
+</section>
+
+<section id="unlabelled">
+  <h2>Unlabelled data: how to read the result</h2>
+  <p class="sec-sub">27 Oct research team: lit (literature, Research MCP), evalx (measurement), ideas (methods), judge (critic). 2 to 3 challenge rounds each. <code>team_2026-10-27_unlabelled/SYNTHESIS.md</code>.</p>
+
+  <div class="callout">
+    <p>The user's question: ~480 labelled cells give a result, ~12k unlabelled cells exist; learning features from them should improve scores, so why did nothing work? The answer: what we ran spreads labels the model already has. It cannot invent a crack the model scores at 0.001, and the pool does not contain the cells the model fails on. Feature learning itself was never tested.</p>
+  </div>
+
+  <h3>What the measurements say</h3>
+  <ul>
+    <li><strong>The test can see small crack gains.</strong> On the 49 clean cells the detectable crack effect at 100% labels is about 0.010 to 0.012. External-pool SSL at 100% (Sx100) measured −0.002 [−0.007, +0.003]. The old "+0.028" came entirely from one supervised seed failing on the noisy cell.</li>
+    <li><strong>Inactive is where the test is too small:</strong> 16 inactive test cells; a real +0.01 to +0.03 inactive gain would be invisible (detectable 0.032 at 100%, 0.084 at 5%).</li>
+    <li><strong>Labelling ceiling:</strong> of FINAL's crack IoU loss, 70% is within 2 px of GT, 18% missed cracks, 11% false alarms. One cell labelled twice agrees with itself at crack IoU 0.53 (E-SCDD masks).</li>
+    <li><strong>Scope:</strong> the 20 to 100% null covers the plain recipe (Cs). BsM was never run at 50 to 100%; at 20% its crack gain +0.013 [−0.002, +0.033] is not ruled out.</li>
+  </ul>
+
+  <h3>What the literature says</h3>
+  <ul>
+    <li>Same-encoder SSL gains: +6 to +11 mIoU at 92 to 316 labels, +0.3 to +1.6 mIoU at full labels with a non-matching pool (UniMatch V2, doi:10.1109/tpami.2025.3528453). Our 5% gain fits the first, our 100% null fits the second.</li>
+    <li>Thin-structure masked-image-modelling gains are measured against training from scratch or across architectures, never against ImageNet init with the same architecture. Closest industrial case (7k unlabelled, 625 labelled, thin wires): in-domain MAE lost the wire class to an ImageNet ResNet-18, 43.0 vs 59.1 IoU (arXiv 2605.12430).</li>
+    <li>Torpey (arXiv 2402.17611), the only EL test: in-domain SimCLR 0.517 mIoU vs ImageNet-supervised 0.508, but behind ImageNet-SimCLR (0.534) and COCO (0.544); its pool was also mismatched.</li>
+    <li>No EL or crack paper shows an SSL gain on pixel-level crack over a tuned ImageNet baseline. SAM-family models fail on thin, low-contrast structures.</li>
+  </ul>
+
+  <h3>Where the unseen-module failure is</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Unseen-module crack cells</th><th class="num">Cells</th><th class="num">Share of crack px</th><th class="num">FINAL recall</th></tr></thead>
+    <tbody>
+      <tr class="hl"><td>Half-cut multi + scuff streak</td><td class="num">20</td><td class="num">75%</td><td class="num">0.126</td></tr>
+      <tr><td>Half-cut, no scuff</td><td class="num">–</td><td class="num">–</td><td class="num">0.552</td></tr>
+      <tr><td>Scuff, not half-cut</td><td class="num">2</td><td class="num">–</td><td class="num">0.51</td></tr>
+    </tbody>
+  </table></div>
+  <ul>
+    <li>The model paints the scuff streak as crack (about 8.7k px per run) and misses the real cracks branching off it (median 12 px from the streak, so not an outline convention).</li>
+    <li>Training has 0 half-cut cells and only 1 cell with ≥ 500 scuff px; scuff has always been scored as ignore.</li>
+    <li>None of the 32 unseen-module crack cells comes from a module in the 12k pool. The pool's 1,152 half-cells carry only small thin cracks. No pool SSL arm ever moved half-cut recall by more than +0.023.</li>
+    <li>Inside our own test, cells from unseen modules lose almost no crack (0.486 vs 0.499) but lose inactive (recall 0.43 vs 0.92).</li>
+  </ul>
+
+  <h3>Test set and metric: keep, then add</h3>
+  <ul>
+    <li>Keep the 50 cells for continuity; add the clean set as co-primary, fixed by an image-only noise rule before any new run.</li>
+    <li>E-SCDD's official test is unusable: 48 of its 82 cells are in our train.</li>
+    <li>Keep the 106 unseen-module cells sealed, reported as two readouts: scuff + half-cut, and the rest.</li>
+    <li>For future protocols, judge crack by segments found and 2 px recall at a fixed 90% precision set on val, with IoU beside it. Past verdicts stay under their locked metrics.</li>
+    <li>Module-grouped 5-fold CV over 693 cells (74 with inactive) only if inactive at 50%+ labels becomes the question: about 100 GPU-h per SSL contrast.</li>
+  </ul>
+
+  <h3>Ranked plan</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>#</th><th>Item</th><th>Cheapest decisive test</th><th>Cost</th><th>Kill</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td><strong>Use the pool to find cells to label.</strong> Scuff + crack half-cells via a model-based finder (AUROC 0.80, to be re-checked on 43 labelled E-SCDD half-cuts); BMRK via ELPV after dedupe. Scuff as a class is a user decision.</td><td>Run finder on 1,008 pool half-cells, human checks top 100</td><td>0.2 GPU-h + 5.5 per rung; 11 to 15 human-h</td><td>&lt; 15 real cells in top 100</td></tr>
+      <tr><td>2</td><td><strong>Stop pseudo-label SSL at 20%+ labels.</strong></td><td>None (decision)</td><td>0</td><td>Reopen only with a matching pool or a new mechanism</td></tr>
+      <tr><td>3</td><td><strong>One test of the user's intuition:</strong> continued masked-image pretraining (SparK-style) of the ResNet-34 from ImageNet on ~12.4k cells, fine-tune at 5%.</td><td>MIM5 vs A5c, 5 v 5</td><td>1 to 5 GPU-h + 5.5</td><td>n.d. on all three primaries closes the question</td></tr>
+      <tr><td>4</td><td>Inference-only checks: ResNet-34 + ResNet-50 ensemble; add an SSL member for inactive; BatchNorm re-estimation; frame and scale.</td><td>Each scored once on val, test, unseen modules</td><td>1 to 2 GPU-h</td><td>No gain ≥ +0.05 on its target</td></tr>
+      <tr><td>5</td><td>Synthetic branch cracks along real scuff streaks, only if item 1 finds too few cells.</td><td>One 5-seed rung vs SUP100</td><td>5.5 to 11 GPU-h</td><td>Scuff-cell recall Δ &lt; +0.05</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Judge on the lead's position: "label propagation is not your intuition" holds; "features are not the bottleneck" holds for strict IoU only, not for the remaining misses, BMRK or unseen modules; "labels beat SSL" holds only with "oracle-selected" attached.</p>
+</section>
+
+<section id="thesis">
+  <h2>What is already a thesis contribution</h2>
+  <ol class="plain">
+    <li>A tight, measured null for pseudo-label SSL at 20 to 100% labels on EL crack, with the old +0.028 traced to one seed on one corrupted cell.</li>
+    <li>SSL's benefit depends on label scarcity and on the class: at 5%, crack +0.029 and inactive +0.107; inactive keeps gaining to 20%, crack fades by 10 to 20%. Fits the expansion account.</li>
+    <li>Two 2025 SOTA methods adapted to EL with mechanisms for their failure: ALHVR-EL worse (no loss where the defects are, inactive suppressed); SKCDF head n.d. (no collapse to fix).</li>
+    <li>The free logit-bias yardstick: SSL crack claims must beat logit adjustment, and BsM5 still does (+0.037).</li>
+    <li>Test-set leakage found and handled: 7 twin cells hold 39.5% of test crack; claims reported with and without them.</li>
+    <li>Crack IoU has a labelling ceiling (0.48 to 0.60 for a 1 px offset); capture metrics should judge "catch almost all cracks".</li>
+    <li>"Unseen modules" decomposed: the crack loss is a missing defect context (scuff + half-cut), not a generic domain shift.</li>
+    <li>Labels beat SSL at equal budget for crack (oracle-selected), and targeted crack cells beat random cells.</li>
+  </ol>
+  <p class="note">Limits on all of it: one split, 50 test cells (49 clean), 10 unseen-module inactive cells, cv02 only, untuned SSL recipes, oracle selection in Track D.</p>
+</section>
+
+<section id="decisions">
+  <h2>Waiting on you</h2>
+  <p class="sec-sub">Nothing is running. None of these blocks the others.</p>
+  <div class="decisions">
+    <div class="card"><span class="tag">Decision</span><h3>Train scuff as a class?</h3><p>Today scuff (class 25) is scored as ignore. A scuff class may stop the model painting streaks as crack, or may suppress crack near streaks (S: −0.02 to +0.08).</p></div>
+    <div class="card"><span class="tag">Permission</span><h3>Download ELPV (~0.1 GB)?</h3><p>Unlabelled or weakly labelled pool for BMRK, our weakest source. Hard gate: dedupe first, since 10 BMRK test cells are ELPV images.</p></div>
+    <div class="card"><span class="tag">Decision</span><h3>Which plan items to run</h3><p>Suggested order: 4 (inference checks), then 1 (find and label cells), with 3 (your pretraining test) in parallel on idle GPUs.</p></div>
+    <div class="card"><span class="tag">Your time, ~1 h</span><h3>40-segment audit</h3><p>40 crack segments every model misses (5.4% of test crack, 18 cells). Mark each real / label artefact / unsure in <code>skcdf/audit_sheet.csv</code> using <code>audit_crops/</code>.</p></div>
+    <div class="card"><span class="tag">4 questions</span><h3>Label conventions</h3><p>Cracks on inactive edges (crack, edge, both, tolerance band?); faint-crack width; tiny fragments; 236 restored old-mask px in <code>ARTS_00051_r3_c2</code>. Defaults: keep as labelled.</p></div>
+    <div class="card"><span class="tag">Housekeeping</span><h3>cv02 shells and handbook</h3><p>Idle tmux shells on cv02 (al1, sk1, m0audit, r1, final, mq*) can be closed. The handbook still needs the Track D, Track M and 27 Oct results.</p></div>
+  </div>
+</section>
+
+<section id="process">
+  <h2>Process and infrastructure</h2>
+  <div class="two">
+    <div class="card">
+      <h3>How the teams worked</h3>
+      <ul>
+        <li>Every track had an executor and a critic. No launch without APPROVED on the current protocol; no result reported until the critic recomputed it with its own script.</li>
+        <li>Standing rules: matched steps, final-step weights, ≥ 5 seeds, one change per arm, rule 1 thresholds, cell bootstrap, four cell sets, val-only selection, unseen modules never used for selection.</li>
+        <li>Pre-registered expectations were written before results (H-cm for AL1, "S" for the labelled set) so results could not be re-read after the fact.</li>
+        <li>Agents: 21 to 25 Oct in-process (watched via <code>tools/agents/watch-agent.sh</code>); 27 Oct as tmux teammates.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Problems caught along the way</h3>
+      <ul>
+        <li>P-series launcher logged rc after <code>$(date)</code>, so rc was always 0. Documented; completion re-proved from logs and checkpoints.</li>
+        <li>SKCDF launch files used <code>--exit-after-step</code> instead of <code>--exit_after_step</code>; caught by the critic before launch.</li>
+        <li>AL1 duplicate lane after an ssh timeout; fixed and verified.</li>
+        <li>An imported scorer changed directory, so probe and edge outputs landed in <code>el_sk1/</code>; moved, <code>el_sk1</code> left clean.</li>
+        <li>The crack bias +0.75 is fragile on corrupted images (noisy cell).</li>
+      </ul>
+    </div>
+  </div>
+  <h3>Compute and storage</h3>
+  <ul>
+    <li>cv02 (8 A6000, shared lab account, no agent forwarding or keys; <code>/tmp/noob_el</code> is wiped on reboot) ran all training. gaint holds the copies: <code>/home/noob/work/cv02_noob_el/</code> (<code>el_trackD</code> 14 GB, <code>el_mt*</code>, <code>trackM</code>), relayed through the laptop with MD5 manifests on both hops.</li>
+    <li>Research repo commits this week: <code>a4ac59f</code> twins lines, <code>16128f7</code> rc bug, <code>31daf1f</code> team files, <code>f5013b8</code> handbook SK1/S-a, <code>e2c9026</code> AL1/SK1 results, <code>d4ab115</code> handbook AL1, <code>fffb6d4</code> why-discussion, <code>6c50baf</code> Track D, <code>b04cad3</code> Track M, <code>1a0f41b</code> unlabelled team.</li>
+    <li>Track M code: gaint worktree <code>el_m</code>, branch m; new switches opt-in and identity-checked (<code>m_sup_gn_s0</code> reproduces <code>p6_L3_100pct_s0</code> exactly at 20k steps).</li>
+  </ul>
+</section>
+
+<section id="files">
+  <h2>Where things are</h2>
+  <p class="sec-sub">All under <code>~/mtp/research/</code>.</p>
+  <ul class="files">
+    <li><code>team_2026-10-21/README.md</code>: team rules and critic gate</li>
+    <li><code>team_2026-10-21/data/decision.md</code>: D1 to D7, twins</li>
+    <li><code>team_2026-10-21/alhvr/results.md</code>: AL1</li>
+    <li><code>team_2026-10-21/skcdf/results.md</code>: SK1, S-a</li>
+    <li><code>team_2026-10-21/skcdf/labelling_plan.md</code>: audit and label questions</li>
+    <li><code>team_2026-10-24_why/SYNTHESIS.md</code>: why SOTA fails</li>
+    <li><code>team_2026-10-24_go/trackD/verify_*.md</code>: probe, edge, labelled set</li>
+    <li><code>team_2026-10-24_go/trackM/results_final.md</code>: best model</li>
+    <li><code>team_2026-10-24_go/trackM/results_r*.md</code>: ladder rungs</li>
+    <li><code>team_2026-10-27_unlabelled/SYNTHESIS.md</code>: unlabelled-data synthesis</li>
+    <li><code>team_2026-10-27_unlabelled/{lit,eval,ideas,critique}.md</code>: the debate</li>
+    <li><code>results/trackD_*</code>, <code>results/al1</code>, <code>results/sk1</code>: raw outputs</li>
+    <li><code>handbook/</code>: the guide for the thesis agent (refresh pending)</li>
+    <li><code>SESSION_HANDOFF_2026-10-21.md</code>: agent IDs and run state</li>
+  </ul>
+  <footer>Compiled 28 Oct 2026 from the critic-verified files above. Literature is cited by the ids the Research MCP returned; local PDFs are not redistributed.</footer>
+</section>
+</main>
+</div>
+</div>
+
+<script>
+(function(){
+  var data=[
+    {g:"ref",n:"A5c supervised",v:0.304,d:"5% labels, 5 seeds"},
+    {g:"ssl",n:"AL5 ALHVR-EL",v:0.287,d:"WORSE than A5c on all three primaries"},
+    {g:"ssl",n:"AB5 ABSH (supervised)",v:0.295,d:"n.d. vs A5c"},
+    {g:"ssl",n:"CPS5",v:0.307,d:"n.d. vs A5c"},
+    {g:"ref",n:"A5c + logit adj.",v:0.319,d:"free bias, no training"},
+    {g:"ssl",n:"BsD5 decoupled",v:0.328,d:"448-cell pool"},
+    {g:"ssl",n:"BsM5 best SSL",v:0.331,d:"448-cell pool; beats A5c"},
+    {g:"lab",n:"R: +12 random",v:0.324,d:"3 draws x 3 seeds"},
+    {g:"lab",n:"Tc: +12 crack cells",v:0.337,d:"BETTER than R"},
+    {g:"lab",n:"Ts: +12 weak-source crack",v:0.352,d:"BETTER than R; n.d. vs Tc"},
+    {g:"lab",n:"Ts + logit adj.",v:0.365,d:"descriptive"}
+  ];
+  var colors={ref:"var(--s-ref)",ssl:"var(--s-ssl)",lab:"var(--s-lab)"};
+  var box=document.getElementById("chart1"), tip=document.getElementById("tip1");
+  var W=760,L=200,R=60,T=10,rowH=26,barH=14,H=T+data.length*rowH+30;
+  var x0=0.26,x1=0.38; function sx(v){return L+(v-x0)/(x1-x0)*(W-L-R);}
+  var ns="http://www.w3.org/2000/svg";
+  var svg=document.createElementNS(ns,"svg"); svg.setAttribute("viewBox","0 0 "+W+" "+H);
+  svg.setAttribute("role","img"); svg.setAttribute("aria-label","Bar chart of test crack IoU at 5% labels for 11 arms, from 0.287 (ALHVR-EL) to 0.365 (targeted labels with logit adjustment).");
+  function el(t,a){var e=document.createElementNS(ns,t);for(var k in a)e.setAttribute(k,a[k]);return e;}
+  [0.26,0.28,0.30,0.32,0.34,0.36,0.38].forEach(function(t){
+    var x=sx(t); svg.appendChild(el("line",{x1:x,x2:x,y1:T-4,y2:H-26,stroke:"var(--grid)","stroke-width":1}));
+    var tx=el("text",{x:x,y:H-10,"text-anchor":"middle",fill:"var(--ink-3)","font-size":11,"font-family":"JetBrains Mono, monospace"}); tx.textContent=t.toFixed(2); svg.appendChild(tx);
+  });
+  data.forEach(function(d,i){
+    var y=T+i*rowH+(rowH-barH)/2, xa=sx(x0), xb=sx(d.v), w=Math.max(xb-xa,6), r=4;
+    var lab=el("text",{x:L-10,y:y+barH-2,"text-anchor":"end",fill:"var(--ink-2)","font-size":12.5,"font-family":"Public Sans, system-ui, sans-serif"}); lab.textContent=d.n; svg.appendChild(lab);
+    var p="M"+xa+","+y+" h"+(w-r)+" q"+r+",0 "+r+","+r+" v"+(barH-2*r)+" q0,"+r+" -"+r+","+r+" h-"+(w-r)+" z";
+    var bar=el("path",{d:p,fill:colors[d.g],class:"bar",tabindex:0}); svg.appendChild(bar);
+    var hit=el("rect",{x:0,y:T+i*rowH,width:W,height:rowH,fill:"transparent"}); svg.appendChild(hit);
+    if(d.n==="A5c supervised"||d.n==="BsM5 best SSL"||d.n==="Ts + logit adj."){
+      var vl=el("text",{x:xb+6,y:y+barH-2,fill:"var(--ink)","font-size":12,"font-family":"JetBrains Mono, monospace"}); vl.textContent=d.v.toFixed(3); svg.appendChild(vl);
+    }
+    function show(ev){
+      tip.hidden=false; tip.textContent=d.n+": crack IoU "+d.v.toFixed(3)+". "+d.d;
+      var b=box.getBoundingClientRect(), rr=bar.getBoundingClientRect();
+      var left=rr.right-b.left+box.scrollLeft+8, top=rr.top-b.top-6;
+      if(left+240>box.clientWidth+box.scrollLeft) left=Math.max(8,rr.right-b.left+box.scrollLeft-250);
+      tip.style.left=left+"px"; tip.style.top=top+"px";
+    }
+    function hide(){tip.hidden=true;}
+    [hit,bar].forEach(function(t){t.addEventListener("mouseenter",show);t.addEventListener("mouseleave",hide);});
+    bar.addEventListener("focus",show); bar.addEventListener("blur",hide);
+  });
+  var ra=sx(0.304); svg.appendChild(el("line",{x1:ra,x2:ra,y1:T-4,y2:H-26,stroke:"var(--ink-3)","stroke-width":1.5,"stroke-dasharray":"4 4"}));
+  box.insertBefore(svg,tip);
+})();
+</script>
