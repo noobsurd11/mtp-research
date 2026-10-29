@@ -123,7 +123,7 @@ Inactive and relF1@2 gains are not driven by the twins.
 **Measured:**
 - Crack belief is bimodal: 57% of GT crack px score < 0.001 and 35% score ≥ 0.95, so pseudo-labels can act on only 8 to 19%.
 - The crack gain is source-bound (without twins): CFVS +0.047, BMRK +0.002, ARTS −0.030.
-- At 5%, ARTS has 0 labelled crack cells and BMRK has 2.
+- At 5%, ARTS has 0 labelled crack cells and BMRK has 2. [Correction 29 Oct (coach, E, server `masks_escdd`): the seed-0 5% set has one small ARTS crack cell, `ARTS_00051_r6_c2` (47 px), so ARTS has 1 labelled crack cell, not 0; 9 crack cells in total. `team_2026-10-29_features/review_ddep5_cp5_v0.md` P2.]
 - About 38% of pool crack is a true miss, more than 2 px from any prediction. No training rule moved it by more than 0.046.
 - Inactive is the counter-case: supervised under-extends regions (precision 0.77, recall 0.28), and self-training extends them (recall 0.43).
 
