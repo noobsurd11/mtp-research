@@ -2,6 +2,8 @@
 
 **What this covers.** The state of every experiment on 12 Oct 2026, about 05:30 IST (all P-series experiments finished), and the server state when the work session closed (13 Oct, about 01:30 IST). What ran overnight, what is left for part 1 of the thesis, which decisions are waiting on the user, and the housekeeping debts. Updated 13 Oct ~08:15 IST for P17 and P13 Amendment 2 (§1, §1c). This doc goes stale fastest: check `results/` and the git log of `~/mtp/research` for anything newer.
 
+**Update 30 Oct 2026, ~12:00 IST (additive).** New §1 rows (Track D, Track M + FINAL, the two analysis teams, MIM5, AM, DDeP5, CP5, protocol_100), §1f (state on 30 Oct), §3b (decisions waiting on the user), §4b (ranked next items from `team_2026-10-29_features/coach_strategy.md`) and §7 rows. Sources: `SESSION_RECORD_2026-10-21_to_27.md`, `SESSION_RECORD_2026-10-28_to_30.md` (status as of 30 Oct 11:54 IST), the team folders, docs 18 and 19. **protocol_100 launched at 12:05 IST, just before this was finished: no result exists, and none is predicted here.**
+
 **Sources**
 - Server check at session close, 13 Oct 01:21 IST (read-only: `tmux ls`, `nvidia-smi`, `ps`, `du`), for §1b.
 - Launch logs on the servers, read at about 22:15 IST:
@@ -31,6 +33,15 @@
 | **P18** (cv02, EXPLORATORY: BsM recipe at 10% and 20%) | **Done**, 8 runs (13 Oct 17:31 to 19:40 IST), all rc = 0; [Note 21 Oct: the launcher logged rc after a `$(date)` substitution, so this rc was always 0 (doc 14 §3.1). Completion is confirmed instead by other evidence: every run's log reaches step 20000/20000 and prints "TEST (final weights, step 20000)", `latest.pth` and `metrics.json` test_final are at step 20,000 (gaint copies and cv02 originals), and every re-score JSON has step 20,000; `results/rc_check/p13_p17_p18_completion.txt`.] analysed about 19:50 IST.<br>• Arithmetic: BsM10 − A10 and BsM20 − A20 pass on inactive only (+0.132, +0.060); crack n.d.<br>• Without the noisy cell: BsM10 passes on all three; BsM20 inactive only (crack +0.013, thr 0.014).<br>• BsM20 s4 fails on the noisy cell (34k FP px).<br>• Post hoc (21 Oct, D6), without the 7 twin test cells: inactive still passes at both fractions (+0.146, +0.076); without twins and the noisy cell, both pass on all three. | `results/p18/README.md`, `results/e1/e1_p18.md` |
 | **SK1 + S-a** (cv02, agent team 21–22 Oct; post hoc addition) | **Done; SKCDF track closed 22 Oct.** 20 runs (D7 twin-free pool), all at step 20,000, re-score rc logged correctly.<br>• SK1 primary BsDB5 − BsD5 n.d.; AB5 − A5c n.d.; band WORSE on crack.<br>• S-a (inference only): at 5% the SSL crack-IoU gains are n.d. against supervised + τ=1 logit bias; inactive gains survive.<br>• Next (not approved yet): labelling plan and the user's 1-h audit of 40 always-missed crack components (`team_2026-10-21/skcdf/labelling_plan.md`). | `team_2026-10-21/skcdf/results.md`, `null_diagnosis.md`, `results/sk1/la_sa.md` |
 | **AL1 v2** (cv02, agent team 21–23 Oct; post hoc addition; D7 pool) | **Done; ALHVR track answered: no.** 35 runs (7 arms × 5 seeds), all at step 20,000, rc 0; critic recompute exact.<br>• Primary AL5 − A5 **WORSE** on all three primaries in all four cell sets.<br>• Routing (S1) and CG-CPCL (S2) n.d.; DTCT-only WORSE on inactive; CPS5 level with supervised; BsM5 re-run still beats supervised (descriptive).<br>• Pre-registered H-cm predictions held. The inactive damage (post hoc) was not predicted.<br>• Not scored: network B and ensemble. No follow-up proposed. | `team_2026-10-21/alhvr/results.md`, `verify_a2.md`, `results/al1/` |
+| **Why-SOTA team** (24 Oct, no GPU; added 30 Oct) | **Done.** Diagnosis of why 2025 SOTA SSL fails on EL crack; 8 ranked directions. The user: "take the critics decisions, and go". | `team_2026-10-24_why/SYNTHESIS.md`; doc 18 §W |
+| **Track D** (cv02, 24 Oct; added 30 Oct) | **Done, critic CONFIRMED.**<br>• Frozen probe: ImageNet ResNet-50 passes the BMRK crack-AP bar (test and pool), ConvNeXt-T on test only; MIM gated out.<br>• Inactive-edge re-score: +0.018 to +0.027 crack IoU at 5 to 10%, +0.007 at 100%; no SSL gap flips sign.<br>• Labelled set (27 runs): Tc − R BETTER (relF1@2 +0.030); Ts − Tc n.d.; Ts 0.352 vs BsM5 0.331 (oracle-selected). SSL on the Ts set not run (gate not met). | `team_2026-10-24_go/trackD/verify_*.md`; `results/trackD_*`; doc 18 §D1 to §D3 |
+| **Track M** (cv02, 24 to 25 Oct; added 30 Oct) | **Done, MC VERIFIED.** R1 ensemble PASS; R2 WORSE; R2c, R4, R5 n.d.; R3 (ResNet-50) WORSE on inactive; all rungs val EXCLUDE. **FINAL** = SUP100 5-seed ensemble, crack bias +0.75: clean crack IoU 0.492 (single 0.474), PASS on crack IoU and relF1@2; bias 0 robust (0.488). [Qualified 30 Oct: R3's null holds under the house optimizer only (doc 19 §4).] | `team_2026-10-24_go/trackM/results_final.md`, `verify_final.md`; doc 18 §M0 to §M7 |
+| **Unlabelled-data team** (27 Oct, no GPU; added 30 Oct) | **Done.** Pseudo-label SSL is a tight null at 20 to 100%; feature learning untested at the time; E1 crack gap = half-cut + scuff context; keep the 50 test cells, add the clean set; ranked plan (pool mining for labels first). | `team_2026-10-27_unlabelled/SYNTHESIS.md`; doc 18 §U |
+| **MIM5 + AM** (gaint, 29 to 30 Oct; added 30 Oct) | **Done, coach VERIFIED.** MIM5 − A5c-f1 n.d. on all three, every estimate negative (crack −0.0116, thr 0.0186). AM (val only) KILL. [Qualified 30 Oct: the house fine-tune erased the layers MIM changed; 5% was the wrong fraction for the user's question.] | `team_2026-10-29_features/verify_mim5.md`; doc 19 §2, §3.1 |
+| **DDeP5** (pretraining cv02, fine-tunes gaint, 29 to 30 Oct; added 30 Oct) | **Done, coach VERIFIED.** n.d. on all three, small positive (crack +0.0070, thr 0.0100), mostly a threshold shift; below the free bias. Closed; DDeP at 100% dropped. | `verify_ddep5.md`; doc 19 §3.2 |
+| **CP5** (gaint, 30 Oct; added 30 Oct) | **Stopped 10:50 IST 30 Oct, not scored, no test opened.** Decoy gate PASS at 2k. s1, s3 finished; s0, s4 stopped mid-run; s2 cancelled. | `protocol_cp5.md`; doc 19 §3.3 |
+| **protocol_100** (gaint, from 30 Oct; added 30 Oct) | **Launched 12:05:34 IST 30 Oct on v1.1 (md5 8dcb231b). No results yet.** 4 arms × 5 seeds at 100% labels: SUP100-g, SUP100-PF, MIM100-PF, CP100.<br>• Gates: identity IDENTICAL; G5 PASS (layer3/4 0.975 to 0.990 at 4k); no 4th lane; gate 6 (CP decoy) FLAG, so CP100 waits for gate 6b (CP_GO / CP_STOP), pending at 12:22 IST.<br>• Opening 1 (15 fine-tunes) about 00:00 to 01:00 IST 31 Oct; opening 2 (CP100, if GO) about 07:00 IST 31 Oct. | `team_2026-10-29_features/protocol_100.md` v1.1, `review_100_v1.md`; doc 19 §7 |
+| **B1 label audit** (gaint CPU, 30 Oct; added 30 Oct) | **Done.** Crack flags in 24 of 239 audited train cells (10.0 per 100), inactive 9 (3.8 per 100); three panel sheets sent to the user 11:37 IST, awaiting marks. | `team_2026-10-29_features/b1_audit/`; doc 19 §8.1 |
 | **P16** (cv02, SSL vs supervised at 20/50/100%) | **Done.** Part A 9 runs (17:28 to 22:06 IST, 11 Oct); Part B 15 runs (21:04 IST to 04:24 IST, 12 Oct); all rc = 0; analysed about 05:00 IST.<br>• **Fails at all three fractions:** S20, S50, Sx100 − supervised n.d. on all three primaries (5 vs 5 seeds). CutMix off by the locked val pick.<br>• One noisy test cell (`CSIR_00070_r8_c4`) wrecked crack in 4 of 24 runs; without it every crack Δ is within ±0.003 (post hoc), so the verdict is unchanged. | `results/p16/README.md`, `results/e1/e1_p16.md` |
 
 ## 1b. Server state at session close (13 Oct, 01:21 IST)
@@ -60,6 +71,14 @@
 ## 1e. Server state after P19 (14 Oct, ~09:40 IST)
 - **Nothing of ours is running.** P19 lives in cv02 `/tmp/noob_el/hanifi` (venv 5.2 GB, runs 2.1 GB, data copy 122 MB); tmux `p19` idle.
 - Backup pass 4 (09:33–09:36 IST): P19 runs, driver, their repo to gaint `cv02_noob_el/hanifi`; 101 files, MD5 identical on both sides.
+
+## 1f. State on 30 Oct 2026, about 11:54 IST (added 30 Oct; from `SESSION_RECORD_2026-10-28_to_30.md` §0, §7 and `team_2026-10-29_features/log.md`, not a fresh server check)
+- **gaint:** protocol_100 smokes at `el_f3` e544133 (tmux `f100`) and the G5 extension (PF smokes to 4k) running since 11:04 IST; gate table expected about 12:05 to 12:10, then v1.1, coach's re-check and launch. Root's `finllm_chat.py` (5.9 GB) shares the GPU; ≥ 2 GB must stay free (doc 14 §1.2b).
+- **Update 12:22 IST (`team_2026-10-29_features/log.md`, `protocol_100.md` v1.1):** protocol_100 launched 12:05:34 IST (queue tmux `f100`; first run `f3_SUP_100pct_s0` started 12:08:34). Gate 6b (4k decoy for CP100) running beside it, decision pending. B2 pool mining running on gaint CPU since 12:09 (tmux `b2`).
+- **cv02:** at 10:51 IST 0 of 8 GPUs qualified (other users' processes of 9 to 42 GB each). A watcher checks every 10 min; team-lead is told before anything moves.
+- **Idle tmux shells on cv02:** still open from earlier sessions; closing them is an open housekeeping item for the user (session record 21 to 27 Oct §10).
+- **Expected timing (protocol_100 v1.1, S):** fine-tune waves about 11.5 to 12 h, so opening 1 about 00:00 to 01:00 IST 31 Oct; CP100, if GO, about 6.5 h more, so opening 2 about 07:00 IST 31 Oct; then coach's recompute. (The session record's estimates, about 01:00 and 07:30, predate v1.1.) Check `el_f3/reports/f100/launch.log` for the line `f3 opening<N> scoring done`.
+- **After launch:** B2 pool mining (candidates only), running since 12:09.
 
 **Held, do not touch:** the gaint `extpool_20261007` night queue (old-era Mean Teacher runs with SemiCE). It was held by hand on 8 Oct, 01:18 IST (19:48 UTC on 7 Oct) while SemiCE was under audit, and P2 later showed SemiCE is invalid. The user's standing instruction is to leave it held and untouched. (Source: the user's command in `sources/chat/user_messages_2026-10-07_to_11.md`, 2026-10-07T19:48Z; session summaries.)
 
@@ -92,19 +111,50 @@ A watcher (`scratchpad/watch.sh`) polled both servers every 2 minutes and fired 
 | 4 | Mid-term deck content | The outline predates P9 to P16, and the proposal reframe (11 Oct) predates P13 to P16. Neither was updated after the results (§2). The user said they would start on the deck after the one day of work (11 Oct). | `to_human/midterm_deck_outline.md`, `to_human/proposal_reframe_2026-10-11.md` |
 | 5 | Identity, institute and report template for the MTP report | Inconsistent across sources (phase 1 handoff §1) | phase 1 handoff |
 
+## 3b. Decisions waiting on the user, 30 Oct (added 30 Oct)
+
+| # | Decision | Facts for it | Source |
+|---|---|---|---|
+| 6 | **B1:** mark each panel of the three sheets: label error / true hard case / unsure | 24 crack panels, 9 inactive, 15 scuff/star cells. Train crack flags (10.0 per 100) are below the val base rate (16.7 per 100 for crack FL), so many flags will be hard real cracks. No mask changes until the marks; fixes go to `masks_escdd_v2` with a change list, never to val or test without a separate decision | `team_2026-10-29_features/b1_audit/`; doc 19 §8.1 |
+| 7 | **B2:** after the candidate sheets, whether to pixel-label 20 to 40 pool cells (crack + scuff) | 100 candidates being mined (70 half-cut, all CSIR from 7 modules; 30 full). Expected (S, 27 Oct): E1 crack recall +0.04 to +0.15, BMRK crack +0.02 to +0.05, pooled test ≤ +0.01. Human time: about 6 to 10 h for 20 to 40 pixel masks (27 Oct estimate) | doc 18 §U; doc 19 §8.3 |
+| 8 | **Scuff test GT for B3:** (a) keep test GT (236 scuff px as crack) for the verdict, coach's recommendation for comparability; or (b) also report a test version with them ignored, descriptively | The 236 px are 0.26% of test crack px. Changing test GT mid-series breaks comparability with FINAL and every P-series number | `spec_b3_scuff.md` §4; doc 17 §5.11 |
+| 9 | **ELPV download** (~0.1 GB) for BMRK-like cells | Must be deduped first: 10 BMRK test cells are ELPV images | session record 21 to 27 Oct §10 |
+| 10 | **The 40-segment crack audit** (about 1 h) and **4 label-convention questions** (cracks on inactive edges, faint-crack width, tiny fragments, 236 restored old-mask px in `ARTS_00051_r3_c2`) | Default for all four: keep as labelled | `team_2026-10-21/skcdf/audit_sheet.csv`, `labelling_plan.md`; session record 21 to 27 Oct §10 |
+| 11 | **Close the idle cv02 tmux shells** | Housekeeping; needs the user's say-so | session record 28 to 30 Oct §10 |
+
+Decision 4 of the 21 to 27 Oct record ("the handbook refresh") is this update.
+
 ## 4. Remaining work for part 1 (training methodology)
 Ordered roughly by information per cost. None of these is started; each would need its own locked protocol and the user's go-ahead.
 
 | Item | What it answers | Rough cost | Source |
 |---|---|---|---|
 | A gaint replication of P13 (BsM5 seeds are done: 5 since Amendment 2) | BsM5's crack gain is +0.029 on 5 seeds (secondary). P13 had no gaint replication (Amendment 1). | 3 to 5 runs on gaint | `results/p13/README.md`, `results/p17/README.md` |
-| In-domain self-supervised pretraining (masked image modelling) of the encoder | Uses unlabelled cells without pseudo-labels. Our directions report rates it the main "no-pseudo-label rival". | 1 to 2 GPU-days | `directions_2026-10-10.md` §4; proposal §5 E3 |
+| In-domain self-supervised pretraining (masked image modelling) of the encoder | Uses unlabelled cells without pseudo-labels. Our directions report rates it the main "no-pseudo-label rival". [Qualified 30 Oct: run as MIM5 on 29 to 30 Oct, n.d. at 5% under the house fine-tune, which erased the MIM layers; MIM100-PF in protocol_100 tests it at 100% with an encoder-preserving fine-tune (doc 19).] | 1 to 2 GPU-days | `directions_2026-10-10.md` §4; proposal §5 E3 |
 | Distillation into a 2 to 5M-parameter student | The deliverable model size | about 6 runs | proposal §5 E5 |
 | Severity pipeline (components, skeleton, isolation, Köntges A/B/C) | The measurement WattCycle needs. It was lost in the reset and must be rebuilt. | CPU, 2 to 3 days | proposal §5 E6; phase 0 handoff "Subpath A" |
 | Rare-class share floor and cap for pseudo-labels | Fixes the collapse at 5% (P10) and the over-prediction on UCF (phase 1) | a few runs | proposal §3 |
 | More label subsets (split seeds 1, 2) or cross-validation over the 582 cells | Everything so far uses one labelled subset and one 50-cell test set | reruns | handoff §12.4 items 6 and 7 |
 | Larger test set (data now local: doc 17) | Inactive is decided by about 3 test cells. The candidates add many crack cells but little inactive (A: +10 inactive cells, 9,158 px) | re-scoring existing checkpoints on the new cells (no training) | `results/escdd_audit/README.md` §8; E1 README |
 | Tolerant Dice term; tuning the tolerance radius R | P14 tested only R = 2 with a tolerant CE term | a few runs | P14 "Not claimed" |
+
+## 4b. Ranked next items, 30 Oct (added 30 Oct; `team_2026-10-29_features/coach_strategy.md` §2, S unless tagged)
+Coach's order by expected test gain per cost. None beyond protocol_100 and B1/B2 is started; each needs its own protocol.
+
+| Rank | Item | Condition | Named target | Source |
+|---|---|---|---|---|
+| A | Fix the fine-tune: SUP100-PF (in flight in protocol_100) | none | test primaries at 100% | `coach_strategy.md` §2 A; R arxiv:2202.10054 |
+| A2 | ResNet-50 and ConvNeXt-T under PF, one arm each vs SUP100-PF | only if SUP100-PF passes or shows a same-sign gain on clean cells | BMRK crack (Track D's frozen-feature signal) | §2 A |
+| A3 | Weight average of the 5 PF seeds (model soup), inference only, val first | as A2 | a single-model alternative to the ensemble | §2 A; R arxiv:2203.05482 |
+| B1 | Label audit of train | done; waiting on the user's marks (§3b row 6) | label errors in train | §2 B; doc 19 §8.1 |
+| B2 | Mine pool half-cells for scuff + crack cells; the user labels 20 to 40 | candidate mining running (gaint CPU, 12:09 IST); labelling is a user decision (§3b row 7) | E1 crack recall, BMRK crack | §2 B; doc 18 §U item 1 |
+| B3 | Scuff as its own class: BEST vs BEST+S, 5 v 5 | after protocol_100, on its winning recipe; test-GT choice (§3b row 8) | E1 crack false alarms on scuff, E1 crack precision | `spec_b3_scuff.md` |
+| C | Thin-structure crack loss (Skeleton Recall; clDice the alternative), one arm at 100% on the best recipe | after A | relR@2 and component recall at matched relP@2 (goal 0.90 / 0.90) | §2 C; R doi:10.1007/978-3-031-72980-5_13, doi:10.1109/cvpr46437.2021.01629 |
+| D | Inference-only E1 checks: BN re-estimation on pool half-cells; ResNet-34 + ResNet-50 ensemble members | any time the GPU queue is busy | E1, descriptive | §2 D; doc 18 §U item 4 |
+
+**Stop (coach):** further pool representation learning (contrastive, clustering, diffusion, DDeP); pseudo-label SSL at ≥ 20% labels; 5% screens of label-consuming methods.
+
+**If SUP100-PF is n.d. or worse (coach):** erasure is benign for this task; close the init / backbone / pretraining line "with a better reason than before".
 
 ## 5. Parts 2 and 3 (after part 1)
 - **Part 2, architecture.** Phase 0 ideas:
@@ -130,6 +180,7 @@ After any new result, update these docs (done for P15 and P16 on 12 Oct; P17 on 
 - `13_problems_pitfalls_open_issues.md`: open questions.
 - This file.
 - `handbook/sources/`: re-run `bash handbook/sync_sources.sh`.
+- (Added 30 Oct) For agent-team work: `18_experiments_trackD_trackM.md` (24 to 27 Oct) and `19_feature_learning_and_100pct_plan.md` (28 to 30 Oct); new rows in 11 (18 to 24), 12 (§4c), 13; and `sources/teams/`, `sources/session_records/` via `sync_sources.sh`. When protocol_100 is verified, add its results to doc 19 §7 and doc 11, and update 00 and this file.
 
 ## 7. Housekeeping debts
 
@@ -141,6 +192,9 @@ After any new result, update these docs (done for P15 and P16 on 12 Oct; P17 on 
 | gaint shutdowns | Unexplained reboots on 2, 6 and 7 Oct; the queue resumes from `latest.pth` | handoff §2.1 |
 | Idle tmux sessions | About 23 of ours on cv02 and 3 on gaint (§1b, §1c), all idle. Close them only on the user's say-so. | server check 13 Oct |
 | Untracked files in `~/mtp/research` | `papers/` (paper PDFs: local only, never commit or redistribute) and `scripts/aggregate_runs.py` (a P6/P7 re-score aggregator, untracked since 10 Oct; its origin was not recorded). Both left as they are. | `git status`, 13 Oct |
+| (Added 30 Oct) Untracked or modified files in `~/mtp/research` on 30 Oct | Untracked: `log.md`, `papers/`, `results/seipv_compare/`, `team_2026-10-21/alhvr/handbook_al1.diff`; modified: `team_2026-10-21/alhvr/log.md` (one appended line). Left as they are; the handbook commit touches only `handbook/` | `git status`, 30 Oct |
+| (Added 30 Oct) Per-cell raw JSONs of MIM5, DDeP5, CP5 | About 240 MB, kept locally and on gaint with `MANIFEST.md5`, not in git | `SESSION_RECORD_2026-10-28_to_30.md` §11 |
+| (Added 30 Oct) CP5 s1/s3 automatic rescore files | Exist, unopened; CP5 is not scored | doc 19 §3.3 |
 
 ## Related docs
 - `10_experiments_P13_P16_E1.md`: designs of P15 and P16

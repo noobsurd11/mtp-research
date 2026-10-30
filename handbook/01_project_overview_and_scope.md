@@ -102,6 +102,7 @@ Dates are 2026. Details are in `06_history_phase0_phase1.md`, `08`, `09`, `10` a
 ## 9. Where things stand (13 Oct 2026, ~16:30 IST)
 - **Done:** P1 to P17 and E1, each with a README under `results/`, plus the E-SCDD audit (`results/escdd_audit/`, doc 17). Nothing is running (doc 15 §1c). cv02 checkpoints are copied to gaint (`cv02_noob_el`).
   - P15: the UCF-EL encoder does not beat ImageNet init; equal at 5%, worse at 10% (`results/p15/README.md`).
+    [Qualified 30 Oct: under the house fine-tune, which erased encoder layer3/4 in every ResNet-34 run measured (doc 19 §4; for P15's encoder likely, not measured); open under an encoder-preserving fine-tune. Work of 21 to 30 Oct: docs 10, 18, 19.]
   - P16: SSL vs supervised is n.d. at 20%, 50% and 100% labels on all three primaries, 5 vs 5 seeds (`results/p16/README.md`). One noisy test cell (`CSIR_00070_r8_c4`) moved every crack contrast; without it every crack Δ is within ±0.003 (post hoc).
 - **The short version of the evidence:**
   - Label version and supervised recipe move the numbers more than any SSL effect at 10%.

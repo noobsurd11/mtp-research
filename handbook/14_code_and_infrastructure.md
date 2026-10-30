@@ -11,6 +11,8 @@ This is the map of the machinery behind every number in this project:
 
 Read 07_methodology_rules_and_statistics.md for *why* runs are set up this way (step matching, final weights, one machine per comparison). This file covers *how*.
 
+**Update 30 Oct 2026 (additive):** §1.2b (gaint worktrees `el_f1`, `el_f2`, `el_f3`, the memory rule, `run_one.sh` locks and spacing, two-opening scoring), §1.3b (Track D/M deployments), a dated note in §3.1 (the rc bug recurred), throughput rows in §3.3 and §5b (experiment map for 24 to 30 Oct). Taken from the team files, not from a fresh server listing; sources are named in each part.
+
 Everything below was checked on 11 Oct 2026, about 22:00 IST, by listing files, reading code and running `git log` / `nvidia-smi`. Status then: P13 and P14 done; P15 (gaint) running, 5 of 6 runs re-scored; P16 SSL arms running on cv02 (ETA about 03:00 to 04:30 IST on 12 Oct). Later: both finished and were analysed by 12 Oct 05:30 IST; server state at the 13 Oct close is in doc 15 §1b. Updated 13 Oct ~16:30 IST for P17 and P13 Amendment 2 (worktree `el_p17`, deployment, `ssl.decouple_decoder`, scripts) and the cv02 backup on gaint; state after P17 is in doc 15 §1c.
 
 ## Sources
@@ -57,6 +59,7 @@ Everything below was checked on 11 Oct 2026, about 22:00 IST, by listing files, 
 | `/home/noob/work/el_p16` | p16 | `d51b60f` | P16: SSL allowed at `labeled_fraction` 1.0 with `data.unlabeled_pool=external` (on top of `bac5264`; it does **not** contain `be67787`) |
 | `/home/noob/work/el_p17` | p17 | `f2f20d3` | P17 `ssl.decouple_decoder`, `ssl.decouple_ema` (on top of `bac5264` only); +6 tests in `tests/test_ssl_split.py` |
 
+- **(Added 30 Oct)** Worktrees added 29 to 30 Oct (`el_f1`, `el_f2`, `el_f3`) and the Track M base `el_m`: §1.2b.
 - **Backup of cv02 (13 Oct):** `/home/noob/work/cv02_noob_el/` holds copies of cv02 `/tmp/noob_el` (`el_p6`, `el_p7`, `el_p11`, `el_p13`, `el_p14`, `el_p16`, `el_p17`, `el-fault-detection` without `.venv`, `diag` without `g_import`/`pylib`, `ext117`, `results_to_sync`; no data). Every file was checked by manifest and every checkpoint by MD5 against cv02. Copied through the user's laptop, because cv02 and gaint cannot log into each other and cv02's login is shared (no ssh agent forwarding or keys there). Runs after 13 Oct need another pass.
 
 - **Commit history of the training code** (main, newest first, from `git log`): `24590fb` P11 switch; `0367079` P7 label-safe SSL views + `tolerant_pl` + `rare_frac` logging; `824fab0` P6 switches (`data.mask_subdir`, `data.augmentation=labelsafe`, `smp_unetpp`, `ce_dice`) and P3-P5 probe scripts; `4474d04` and `28686c0` P1/P2 scripts; earlier commits are the old-era low-label queue (`sl_*pct_b8`), BN recalibration, external pool preparation (`0136855`, `46dfe92`).
@@ -65,6 +68,46 @@ Everything below was checked on 11 Oct 2026, about 22:00 IST, by listing files, 
 - **tmux sessions** (`tmux ls`, 11 Oct): `p10g`, `p12g` (finished lanes), `p15g` (P15 lanes, running), `noob-0`.
 - **The held extpool queue: leave untouched.** On 8 Oct the old `extpool_20261007` queue (SemiCE Mean Teacher on the external pool) was held by hand while SemiCE was under audit. The log `experiments/repro/night_queue_extpool_20261007.log` ends with "HELD by hand: semi_ce under audit. Relaunch: bash scripts/resume_queues.sh extpool_20261007". The crontab only has an `@reboot` line for the `lowlabel_20261006` queue. Standing instruction: do not relaunch, edit or kill it.
 - `REVISION` in the main repo reads `dfa4fd6...` (an old deploy marker); `REVISION_P6` reads `824fab0...`. Trust `git log` / the worktree commit rather than this file on gaint.
+
+### 1.2b gaint, 29 to 30 Oct: worktrees, memory rule, run locks, scoring (added 30 Oct)
+Sources: `team_2026-10-29_features/log.md` (29 Oct 12:40 to 30 Oct 11:18), `protocol_100.md` "Code" and "Lanes", `coach_100.md`, `SESSION_RECORD_2026-10-28_to_30.md` §2, §9, §11.
+
+**Worktrees**
+
+| Worktree | Branch, base | Deploy commit | Adds |
+|---|---|---|---|
+| `el_m` | Track M base | `1be64e1` | the Track M SUP100 code (= cv02 `el_mt5`); identity reference for all f-worktrees |
+| `/home/noob/work/el_f1` | f1, from `1be64e1` | **`603e0d5`** | `model.encoder_init` (load an encoder from a file); MIM pretraining: `pretrain_mim.py`, `spark.py` (SparK sparse MIM), `build_mim_pool.py` (pool rules R1 to R4 + 256 monitor cells), encoder lr 0.2× with a 1,000-step ramp after unfreeze, clip 5, `mim_step0.pth`, monitor loss (commits `fe31831`, then `603e0d5`; suite 264 passed, 3 skipped). `REVISION` = 603e0d5. Used by MIM pretraining, A5c-f1 and MIM5 |
+| `/home/noob/work/el_f2` | f2, from `603e0d5` | **`2751aa8`** | `model.decoder_init` + DDeP pretraining (`pretrain_ddep.py`, `c33ed65`); the CP stream (`copy_paste.py` stream id 3, trainer cp hook, `cp_preview.py`, `42bf7d1`); `cp_decoy.py` (`c60d6e8`); `am_map.py` (val-only AM check, `9d37026`); the P3 residual fix (`2751aa8`; suite 278 passed). `REVISION` written after the runs (= HEAD, 0 tracked files modified). Used by DDeP pretraining (cv02 deploy), DDeP5 and CP5 |
+| `/home/noob/work/el_f3` | f3, from `2751aa8` | **`e544133`** | CP at 100% (`20aad52`: no unlabelled-train list at `labeled_fraction` ≥ 1, pool backgrounds only, optional `cp.library_exclude`); the PF switch `training.encoder_pf` {freeze, ramp, lr_mult, wd}: two param groups (group 1 = `encoder.*` with lr × lr_mult and its own wd, multiplier 0 before `freeze` then a linear ramp), BN in train mode, RNG unchanged, encoder lr on its own "PF encoder lr=" log line. Suite 285 passed, 3 skipped. Used by protocol_100 |
+
+- Identity checks (E, `log.md`; `team_2026-10-29_features/identity_f1.txt`): `el_f1` with the switch off equals `el_m` to step 1,000 incl. val; `el_f2` with no switch equals `f1_A_5pct_s0` for 2,000 steps; CP λ 0 equals no switch for 1,000 steps; at 100% opts, `el_m` vs `el_f2`, `el_m` vs `el_f1` and `el_f2` + `encoder_init=mim_step0` are all identical for 1,000 steps. protocol_100 adds its own gates at e544133 (doc 19 §7).
+- Masks: `el_f1/data/escdd_masks` are per-stem symlinks to `labeled/masks_escdd` (pixel md5 8bcd3691 = cv02), because gaint's own `data/escdd_masks/test` holds scuff at 2 cells (doc 13 A15). `el_f2` and `el_f3` link to the same.
+- Run names: `f1_A_5pct_sK`, `f1_MIM_5pct_sK`, `f1_mim_pre_s0`; `f2_DDeP_5pct_sK`, `f2_CP_5pct_sK`, `f2_ddep_pre_s0` (cv02); `f3_SUP_100pct_sK`, `f3_SUPPF_100pct_sK`, `f3_MIMPF_100pct_sK`, `f3_CP_100pct_sK`.
+- tmux sessions (from the log): `f1g` (MIM pretraining and MIM5 lanes), `f2chk` / `f2chk2` (f2 identity and smokes), `f2g` (f2 lanes), `f100` (100% identity, smokes, then the protocol_100 queue), `b1` (B1 audit, CPU), `b2` (B2 pool mining, CPU, from 12:09 IST 30 Oct). On cv02: `f2ddep`.
+
+**Memory rule (team-lead, 29 Oct 13:31; session record §2)**
+- gaint has one RTX PRO 4500 (32.6 GB). Root's `finllm_chat.py` holds 5.9 GB and must never run out of memory, so **≥ 2 GB stays free at all times.**
+- **Start gate per run = own measured peak + 2 GB:** fine-tune 6.8 GB → gate 9,000 MiB; CP 9.5 GB (measured 9,526 MiB) → gate 11,600 MiB (lowered from a 12,000 MiB estimate, `run_one.sh` v5). End-of-run rescoring (batch 8, bf16, no grad, about 3 GB) waits for 6,000 MiB.
+- Packing at 100% (`protocol_100.md`): 3 fine-tunes leave 4.9 GB; 2 CP + 0 fine-tunes about 6.4 GB; 1 CP + 2 fine-tunes 2.2 GB.
+
+**`run_one.sh` locks and spacing (doc 13 D22, D25, D27)**
+- f1g `run_one.sh` v3 (md5 969f7676): an atomic claim dir per run, so two lanes can never start the same run.
+- A HOLD file pauses a lane before its next run. The first, shared HOLD also blocked the MIM5 lanes; replaced by an A-lane-only `HOLD_A` (md5 6f6fe611).
+- f2g `run_one.sh` v3 (md5 8453c0e5): an atomic start gate (flock check-and-stamp) and ≥ 120 s since the last start, after three runs started on one free-memory reading. v4 (md5 176ea9c9) uses the same gate before end-of-run rescoring; v5 (md5 02287430) sets the CP gate from the measured peak. Older versions are kept beside each new one.
+- The protocol_100 smokes used a 90 s spacing (`scripts/f100_smokes_gaint.sh`).
+- `run_one.sh` captures the training rc before any `$(date)` (all versions). The status lines of several other scripts did not (§3.1 note of 30 Oct).
+
+**Two-opening scoring for protocol_100 (log 30 Oct 11:18)**
+- Script `scripts/f100_post_gaint.sh` (md5 a39362b2), triggered by `scripts/f100_postwatch_gaint.sh` (md5 71c24ea2).
+- **Opening 1:** the 15 fine-tunes (SUP100-g, SUP100-PF, MIM100-PF) → `el_f3/reports/f100/post_opening1/`.
+- **Opening 2:** CP100, plus the E3b decoy and crack px on crack-free cells → `post_opening2/`. SUP100-g's opening-1 files are reused unchanged (manifest re-checked).
+- Each pass: rescore, m0 default / τ 0 / τ 1, the τ 0 check, LA, the encoder cosine table at 20k, a manifest. Final line `[date] f3 opening<N> scoring done: post rc=<rc>` in `el_f3/reports/f100/launch.log`, with rc captured before `date`.
+- Conditions (doc 12 D49): CP100 runs to the end whatever opening 1 shows; no protocol change after opening 1.
+
+**Speed rules for protocol_100 (coach_100.md).** bf16 autocast is already on (`configs/base.yaml`: `amp: true, amp_dtype: bfloat16`). Val only at steps 0 and 20,000 if a 2,000-step bit-identity check passes. An optional 4th lane via `PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True` only after a 1,000-step identity and ≤ 5.5 GB reserved per fine-tune. No TF32, channels_last, `cudnn.benchmark` or torch.compile.
+
+**As launched (v1.1, 30 Oct 12:05:34 IST; `protocol_100.md` v1.1, `log.md` 12:05):** queue `el_f3/reports/f100_queue.sh` (md5 e4cb4ad3), `training.val_every=20000` (gate 4 passed), at most 3 concurrent runs, no expandable_segments (gate 7: 6,442 MiB reserved per fine-tune, 4 × 6.44 + 5.9 = 31.7 GB > 30.1 GB allowed), postwatch `f100_postwatch.sh` (md5 f046bb5f). CP100 jobs wait at the queue's first CP job for `el_f3/reports/f100/CP_GO` or `CP_STOP`, written by the gate-6b script `f100_gate6b2.sh` (md5 80211978) with coach's three conditions (doc 12 D50).
 
 ### 1.3 cv02 (`ssh cv02@10.8.1.106`)
 - **GPUs:** 8x NVIDIA RTX A6000, 49,140 MiB each (`nvidia-smi`, 11 Oct). Shared with other users.
@@ -86,6 +129,14 @@ Everything below was checked on 11 Oct 2026, about 22:00 IST, by listing files, 
 | `pvs3/`, `pvs3_env`, `results_to_sync/`, `state/`, `tools/`, `bin/`, `*.tgz` | Old-era material (UCF-EL PV-S3 runs, old ALHVR cv02 runs, old GPU-claim scripts, code tarballs). Not used by P6-P16. |
 
 - **Data on cv02:** `el_p7/data/labeled/images` (582 PNG), `labeled/masks_coded` (old labels), `labeled/masks_escdd` (revised labels, used for training when `data.mask_subdir=labeled/masks_escdd`), `escdd_masks/{val,test}` (revised labels used by the re-scorer), `splits/`, `unlabeled/images_512` (11,938 external-pool images). The two revised-mask copies agree: on 11 Oct all 104 val+test masks in `escdd_masks/` were byte-identical (`cmp`) to `labeled/masks_escdd/`.
+
+### 1.3b cv02, 24 to 29 Oct: Track D, Track M and DDeP deployments (added 30 Oct)
+Sources: `team_2026-10-24_go/trackM/results_r*.md`, `results_final.md`, `SESSION_RECORD_2026-10-21_to_27.md` §11, `team_2026-10-29_features/log.md`.
+- **Track M:** `el_mt` (`3c1b72b`; R2, R2c, R3 Part B), `el_mt4` (`0642889`; R4, data root `/tmp/noob_el/data_r4`), `el_mt5` (`1be64e1`; R5 and the FINAL scoring, `scripts/m9_final.py`). The M0 audit and R1 re-scored the existing SUP100 checkpoints (`el_p6` 824fab0, `el_p13` bac5264).
+- **Track D:** probe, edge and labelled-set outputs are local in `results/trackD_probe/`, `results/trackD_edge/`, `results/trackD_labelset/`.
+- **Copies on gaint:** `/home/noob/work/cv02_noob_el/` holds `el_trackD`, `el_mt*` and `trackM`, relayed through the laptop with MD5 on both hops (session record 21 to 27 Oct §11).
+- **DDeP pretraining (29 Oct):** cv02 `/tmp/noob_el/el_f2` (`REVISION` 2751aa8, checked by the queue's data gate with the pool image-bytes manifest 855daabd = gaint), tmux `f2ddep`, A6000 GPU 0. Backup on gaint `cv02_noob_el/el_f2/experiments/f2_ddep_pre_s0/`.
+- **cv02 at 10:51 IST 30 Oct:** 0 of 8 GPUs usable (each had other users' processes of 9 to 42 GB), so protocol_100 runs on gaint.
 
 ---
 
@@ -195,6 +246,8 @@ A "D" arm (loss-off control) uses `tolerant_pl` with `ssl.lambda_final=0`, so th
    A run whose `experiments/<name>` exists is skipped, never overwritten. "rc=0" on both lines means the run is complete.
 
    **Launcher rc bug (found 21 Oct 2026 by the SK1 trainer, confirmed by the SKCDF critic; additive note).** In `launch_set.sh`, `launch_set_p11.sh`, `launch_set_p17.sh`, `launch_gaint_p10.sh` and `launch_gaint_p13.sh` the line `echo "[$(date)] trained <name> rc=$?"` expands `$?` after the `$(date)` command substitution, so it records date's exit code: **the logged rc is always 0**, whatever training or re-scoring returned (`bash -c 'false; echo "[$(date)] rc=$?"'` prints rc=0). So "rc = 0" statements for runs launched with these scripts are not evidence of completion. Use instead: the log reaches `step N/N` and prints `TEST (final weights, step N)`; `checkpoints/latest.pth` step = N; `metrics.json` `test_final.step` = N; the re-score JSON's `step` = N. Checked on 21 Oct for all P13 (15), P17 (5) and P18 (8) runs, on both the gaint `cv02_noob_el` copies and the cv02 originals: all complete (`results/rc_check/p13_p17_p18_completion.txt`, script `results/rc_check/runcheck.py`). Other experiments launched with these scripts have not been re-checked this way. `launch_set_sk1.sh` (SK1) captures rc first and re-scores only on rc = 0.
+
+   **[Note 30 Oct: the bug recurred on 29 to 30 Oct, despite this note (commit 16128f7).** New gaint and cv02 scripts wrote five status lines with `rc=$?` after `$(date)`: MIM pretrain ("pretrain rc"), MIM5 post, DDeP5 post, cv02 DDeP ("ddep rc") and the f100 smoke status lines. The training-run lines of `run_one.sh` (all versions) and `f2_postC` captured rc first and were correct. Each affected run was confirmed complete otherwise: DONE lines (36500/36500, 40000/40000), POST DONE with md5 manifests, `md5sum -c` on the encoder and decoder files, step-20000 lines and 0 Tracebacks in all 15 MIM5/A5c-f1/DDeP5 runs. No verdict is affected. The smoke lines and the staged f100 queue were fixed (rc captured before `date`, md5 60499c90). Sources: `team_2026-10-29_features/log.md` 30 Oct 11:16 and 11:21; `SESSION_RECORD_2026-10-28_to_30.md` §9; doc 13 D20.]
 6. Queues that must follow each other are chained (wait for the previous "queue empty", then about 5 minutes), never run concurrently: two queues polling "GPU free" raced on 10 Oct (memory note).
 7. **P16 Part B auto-launcher** (`scripts_cv02/p16b_auto.sh`, running in cv02 tmux `p16auto`): waited until P13's CsM5 s0-4 and Cs5 s0-2 were re-scored with rc = 0 and P16 Part A's queue was empty, wrote `reports/p16b/selection.txt` from P13 **val** numbers only (CutMix on if the mean of the three val primaries was higher for CsM5 than Cs5; it chose `CUTMIX=0`), generated `reports/p16b/p16B_queue.spec`, then ran `gpu_queue_p16.sh p16b ... 3 0 5 1 2 3 4 6 7`. All 15 runs launched at 21:05 IST on 11 Oct (launch.log, in UTC: 15:34:54 to 15:35:38); only GPUs 0, 3, 4, 5 and 6 received runs.
 
@@ -217,6 +270,17 @@ A "D" arm (loss-off control) uses `tolerant_pl` with `ssl.lambda_final=0`, so th
 | Supervised run (P15 arms) | gaint, one GPU, two lanes | about 1 h 40 min each (`el_p14/reports/p15/launch_gaint.log`) |
 | Re-score of one run | either | seconds |
 | E1 scoring | cv02 | about 4-6 s per run (`diag/e1p13.log`) |
+
+Added 30 Oct (sources: `team_2026-10-24_go/trackM/results_r3.md`, `results_r5.md`; `team_2026-10-29_features/protocol_100.md`, `log.md`):
+
+| What | Where | Time |
+|---|---|---|
+| Supervised R34 run, 100% (Track M) | cv02 | about 1.1 GPU-h per run; ResNet-50 (R3) about 2 GPU-h; 2× resolution (R5) about 4.2 GPU-h |
+| Fine-tune, 3 at once (5%; same step cost at 100%) | gaint | 2.25 steps/s each, about 2.5 h per 20k-step run |
+| CP run, 2 at once | gaint | about 2.2 steps/s each, about 2.5 h |
+| MIM pretraining alone, batch 32 | gaint | 71 samples/s; 36,500 steps 13:08 to 18:34 IST |
+| DDeP pretraining alone | cv02 A6000 | 245 samples/s; 40,000 steps, done 22:42 IST |
+| protocol_100, 20 runs | gaint | about 19 h (fine-tune waves about 12.3 h, then CP about 6.8 h) |
 
 Memory per run: about 5.7 GB (supervised) and 6.2 GB (SSL) on cv02 (`nvidia-smi --query-compute-apps`, 11 Oct, earlier runs). The P16 Part B SSL runs (separate-BN forward) use about 9.7 GB each, about 29 GB per GPU at 3 per GPU (`nvidia-smi --query-compute-apps`, ~22:30 IST 11 Oct).
 
@@ -284,6 +348,23 @@ To reproduce a results folder: run its post-processing command (table in section
 | E1 per-cell metrics | `diag/e1_task_metrics_v2.py` (`--code <deployment>`) | cv02 | `/tmp/noob_el/diag`, set `ext117` | `diag/e1v2/<run>.json` | `results/e1` (`raw/`, `raw_v2/`, `e1_pNN.md`) | `scripts_cv02/e1_aggregate.py results/e1/raw_v2 --sets test ext --arms ... --pairs ...` (exact calls in the post scripts and in `results/e1/README.md`) |
 
 Run names follow `p<NN>_<arm>_<frac>pct_s<seed>` (e.g. `p13_CsM_5pct_s3`); gaint runs in P12/P15 carry a `g` prefix in the arm (`p12_gCm_5pct_s3`, `p15_gU_5pct_s0`). Arm letters are explained in 04_glossary_and_naming.md.
+
+### 5b. Experiments of 24 to 30 Oct (added 30 Oct)
+
+| Exp | Code | Machine | Team folder (protocols, results, verification) | Local raw outputs |
+|---|---|---|---|---|
+| Track D probe, edge, labelled set | see `trackD/d1chk/` | cv02 | `team_2026-10-24_go/trackD/` | `results/trackD_probe/`, `trackD_edge/`, `trackD_labelset/` |
+| Track M M0, R1 | existing SUP100 checkpoints; scripts `trackM/scripts/m0_audit.py`, `m1_r1.py` (FINAL: `m9_final.py`) | cv02 | `team_2026-10-24_go/trackM/` | `trackM/m0/`, `m0b/`, `r1/` |
+| Track M R2, R2c, R3 | `el_mt` `3c1b72b` | cv02 | `trackM/` | `trackM/r2/`, `r2c/`, `r3b/`, `pilots/` |
+| Track M R4 | `el_mt4` `0642889` | cv02 | `trackM/` | `trackM/r4/` |
+| Track M R5, FINAL | `el_mt5` `1be64e1` | cv02 | `trackM/` | `trackM/r5/`, `final/` |
+| MIM pretraining, A5c-f1, MIM5, AM | `el_f1` `603e0d5` | gaint | `team_2026-10-29_features/` (`protocol_mim5.md`, `protocol_am.md`, `verify_mim5.md`) | `team_2026-10-29_features/results/mim5/` |
+| DDeP pretraining | `el_f2` `2751aa8` | cv02 | `protocol_ddep5.md` | backup gaint `cv02_noob_el/el_f2/` |
+| DDeP5, CP5 | `el_f2` `2751aa8` | gaint | `protocol_ddep5.md`, `protocol_cp5.md`, `verify_ddep5.md` | `results/ddep5/`, `results/cp5/` |
+| B1 label audit | `team_2026-10-29_features/scripts/b1/b1_audit.py`, `b1_report.py` (CPU) | gaint | `coach_strategy.md` appendix | `team_2026-10-29_features/b1_audit/` |
+| protocol_100 | `el_f3` `e544133` | gaint | `protocol_100.md` (v1.1, md5 8dcb231b), `review_100_v1.md`, `coach_100.md` | (running since 12:05 IST 30 Oct; reports to `el_f3/reports/f100/`) |
+
+Per-cell raw JSONs of MIM5, DDeP5 and CP5 (about 240 MB) are kept locally and on gaint with `MANIFEST.md5`, not in git (`SESSION_RECORD_2026-10-28_to_30.md` §11). Script paths in the 29 to 30 Oct team files (`scripts/...`) are relative to `team_2026-10-29_features/` (e.g. `scripts/f3/enc_cosine.py`, `scripts/f100_post_gaint.sh`, `scripts/coach_verify.py`); Track M's are in `team_2026-10-24_go/trackM/scripts/`; Track D's analysis scripts are in the repo's `scripts/trackD_*_analysis.py`.
 
 ---
 

@@ -388,6 +388,32 @@ P1 to P5 are probes, not arm comparisons. P1 arms A-E are overfit-check variants
 - "Rule 1" without context means P8 rule 1, the detectability threshold. "R1" to "R8" is the rule list the user was given on 11 Oct (`07_methodology_rules_and_statistics.md`).
 - **Doc-local IDs** (not arm names or experiments): D1 to D33 are decisions in `12_decisions_log.md`; in `13_problems_pitfalls_open_issues.md`, A1 to A10, B1 to B14, C1 to C13, D1 to D18 and E1 to E14 are problem, invalid-result, design-weakness, infrastructure and open-question IDs (its E1 is not the E1 experiment); A01 to F05 are the literature note files in `literature/notes/`.
 - `rc = 0`: return code of a training or rescoring job; 0 means it finished without error. Launch logs (`launch.log`) record "trained <run> rc=..." and "rescored <run> rc=...".
+  [Note 30 Oct: several launchers logged rc after a `$(date)`, so the logged rc was always 0 (doc 14 §3.1, doc 13 D20); check completion by other evidence.]
+
+### Terms and names added 30 Oct (24 to 30 Oct work; docs 18, 19)
+- **SUP100.** The 100%-label supervised L3 baseline, 5 seeds: P6 `p6_L3_100pct_s0..2` + P16 `p16_A_100pct_s3..4` (cv02). **SUP100-g:** a fresh SUP100 on gaint for protocol_100 (`f3_SUP_100pct_sK`).
+- **FINAL.** The best model (Track M, 25 Oct): SUP100's 5-seed mean-softmax ensemble with +0.75 on the crack logit. "FINAL at bias 0" is the same ensemble without the bias.
+- **Clean set / "without noisy".** The 50 test cells minus `CSIR_00070_r8_c4` (49 cells). Co-primary with all 50 from 27 Oct.
+- **mIoU_rob.** Mean IoU over the 13 classes with GT in ≥ 3 test cells (0, 1, 2, 4, 5, 7, 11, 13, 14, 15, 16, 20, 21).
+- **Component recall / precision.** Share of GT crack components (≥ 20 px) with ≥ 50% of their px within 2 px of a prediction; share of predicted components within 2 px of GT. "Crack segments found" in the session record means component recall.
+- **LA (logit adjustment), τ.** Subtract τ·log(class prior) from the logits; τ = 1 is the S-a "free bias" yardstick. **Crack bias +0.75:** add 0.75 to the crack logit (FINAL's operating point).
+- **Track D / Track M.** The 24 Oct agent tracks: D = diagnosis (probe, edge re-score, labelled set), M = the best-scoring model (M0 audit, rungs R1 to R5, FINAL). **R1 to R5 here are Track M rungs**, not the R1 to R8 rule list.
+- **R / Tc / Ts.** Track D labelled-set arms: +12 random cells, +12 crack cells, +12 crack cells from weak sources (BMRK/ARTS/CSIR).
+- **Val inclusion rule.** Track M: a rung enters the final recipe only if it passes rule 1 on val.
+- **Test opening.** One scoring of test for a locked contrast; counted and disclosed.
+- **A5c-f1.** The 5% supervised baseline re-run on gaint at `el_f1` (603e0d5); shared by MIM5, DDeP5, CP5.
+- **MIM, SparK, MIM5.** Masked image modelling (reconstruct hidden patches); SparK is MIM for CNNs; MIM5 = A5c-f1 fine-tuned from the MIM encoder at 5%. **MIM100-PF:** the same at 100% with PF.
+- **DDeP, DDeP5.** Denoising pretraining of the decoder with a frozen encoder; DDeP5 = A5c-f1 with that decoder at 5%.
+- **CP, CP5, CP100.** Crack copy-paste: labelled crack components pasted onto pool cells as an extra stream; at 5% (stopped) and 100% (protocol_100).
+- **AM.** MIM reconstruction error used as a crack map (val-only check; killed).
+- **House optimizer / house fine-tune.** Adam lr 1e-3, coupled L2 weight decay 1e-4, 200-step warmup and cosine, 20k steps, batch 8 (`configs/base.yaml`). **Encoder erasure:** under it, encoder layer3/4 end at cosine about 0 to their init (doc 19 §4).
+- **PF (encoder-preserving fine-tune).** Encoder frozen 1k steps, then ramped to 0.1× lr over 1k steps, encoder weight decay 0 (`training.encoder_pf`). **SUP100-PF:** SUP100 with PF.
+- **MDE.** Minimum detectable effect at 80% power; clean at 100%: crack IoU 0.012, inactive 0.032.
+- **Scuff (E-SCDD class 25), star (28).** Not in our 24 classes. P6 put the old label back at those px, so some scuff is crack in our masks (doc 17 §5.11). **B3 / BEST+S:** scuff trained as its own class 24 (25 outputs).
+- **B1 / B2 / B3.** Coach's label items (30 Oct): B1 out-of-fold label audit of train; B2 mining pool half-cells for scuff + crack candidates; B3 scuff as its own class. **FL / ML:** B1 false-label / missed-label flags.
+- **Half-cut, scuff + half-cut.** Half-cut multi cells; the E1 group holding 75% of E1 crack (20 crack cells; 29 cells in `scripts/e1_context.tsv`).
+- **Team roles.** 24 Oct: DX (Track D executor), C (critic), MD (Track M designer), MC (Track M critic). 27 Oct: lit, evalx, ideas, judge. 29 to 30 Oct: scout, runner, coach, diag. "team-lead" is the user's main Claude session.
+- **Doc-local IDs added 30 Oct:** decisions D41 to D50 (`12`); problems A14, A15, C14, C15, D20 to D27, E18 to E22 (`13`); evidence rows 18 to 24 (`11`).
 
 ---
 

@@ -17,6 +17,10 @@ The handbook docs (`../00` to `../17`) summarise and explain. This folder holds 
 | `data_analysis/` | BenchmarkEL and UCF-EL data reports, and the BenchmarkEL dataset README. From 12 Oct also: the E-SCDD dataset card (`escdd_dataset_card_README.md`), its class definitions (`escdd_class_explanation.json`, `escdd_ListOfClassesAndColorCodes.csv`), and the build note of our `masks_escdd` (`masks_escdd_README.txt`, from gaint) | refreshed |
 | `literature/` | Survey, papers index, reading list, and 26 per-paper and per-topic notes in `notes/` | refreshed |
 | `old_era_reports/` | Phase 1 reports from the training repo on gaint (`gaint__*`) and the cv02 results log (`cv02__el_results_cv02.md`). Old-era setup (original masks, from-scratch U-Net++, weighted CE, batch 4, SemiCE): never mix their numbers with P-series numbers. | refreshed |
+| `session_records/` (added 30 Oct) | `SESSION_RECORD_2026-10-21_to_27.md` and `SESSION_RECORD_2026-10-28_to_30.md`: the master records of the agent-team sessions, behind docs 18 and 19 | refreshed |
+| `teams/` (added 30 Oct) | Every markdown file of the agent-team folders, with their layout: `team_2026-10-21/` (data decisions, SK1, AL1), `team_2026-10-24_go/` (Track D, Track M), `team_2026-10-24_why/`, `team_2026-10-27_unlabelled/`, `team_2026-10-29_features/` (MIM5, DDeP5, CP5, protocol_100, coach and diag notes), plus `b1_audit/b1_coverage.txt` and `identity_f1.txt`. Protocols, reviews, results and the critics' `verify_*.md` files are here. Where a session record and a verify or results file disagree, the verify or results file wins | refreshed |
+
+Added 30 Oct: the handbook docs now run from `../00` to `../19`. Not copied from the team folders: scripts, raw JSONs, `.npz`, images and run logs other than the teams' own `log.md`; read those in place under `~/mtp/research/team_*`.
 
 The two `claude_session_summaries_*` files have the user's email address replaced with `[the user's email]`; otherwise the chat files are verbatim.
 

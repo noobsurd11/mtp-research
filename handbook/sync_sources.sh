@@ -16,6 +16,18 @@ cp $R/data_analysis/*.md $S/data_analysis/
 cp $R/literature/*.md $S/literature/
 cp $R/literature/notes/*.md $S/literature/notes/
 cp ~/mtp/MTP_session_handoff_2026-10-07.md $S/
+# Agent-team folders (21 to 30 Oct) and the session records (added 30 Oct): every markdown file, keeping the folder
+# layout, plus the small text outputs the handbook cites. Not copied: scripts, raw JSONs, images, logs of runs.
+mkdir -p $S/teams $S/session_records
+cp $R/SESSION_RECORD_*.md $S/session_records/
+for t in $R/team_2026-10-*/; do
+  n=$(basename $t)
+  (cd $t && find . -name '*.md' -not -path '*/scripts/*' -not -path '*_scripts/*' | while read -r f; do
+     mkdir -p "$S/teams/$n/$(dirname "$f")"; cp "$f" "$S/teams/$n/$f"; done)
+done
+mkdir -p $S/teams/team_2026-10-29_features/b1_audit
+cp $R/team_2026-10-29_features/b1_audit/b1_coverage.txt $S/teams/team_2026-10-29_features/b1_audit/
+cp $R/team_2026-10-29_features/identity_f1.txt $S/teams/team_2026-10-29_features/
 cp ~/mtp/datasets/BenchmarkELimages/README.md $S/data_analysis/BenchmarkELimages_README.md 2>/dev/null || true
 # E-SCDD dataset card and class definitions (MIT), plus the masks_escdd build note (gaint, read-only)
 cp ~/mtp/datasets/escdd_full/README.md $S/data_analysis/escdd_dataset_card_README.md 2>/dev/null || true

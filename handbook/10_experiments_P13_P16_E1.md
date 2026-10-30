@@ -629,12 +629,14 @@ Rule 3, descriptive:
 
 ### Reading
 - With this recipe, related labelled data used as encoder pretraining does not beat ImageNet init: equal at 5%, worse at 10%.
+  [Qualified 30 Oct: "this recipe" includes the house optimizer (Adam lr 1e-3, coupled weight decay 1e-4, 20k steps), which ended encoder layer3/4 at cosine about 0 to their init in every ResNet-34 U-Net++ run measured, with ImageNet and MIM inits (`team_2026-10-29_features/coach_100.md` §0; doc 19 §4). So P15 likely tested little more than conv1/layer1 transfer (S; not measured on the P15 encoder).]
 - Possible reasons are untested hypotheses:
   - scale: UCF cells are resized to 295 px and cropped to 256, and UCF crack labels are about 9 to 15 px wide, against about 2 px at 512 px here;
   - only the encoder transfers (DeepLabV3+ head, U-Net++ target);
   - the class definitions differ.
 - Input normalisation is identical (mean 0.5, sd 0.25).
 - MIM / self-supervised pretraining is still untested.
+  [Qualified 30 Oct: MIM was tested on 29 to 30 Oct as MIM5 (5% labels, house fine-tune): n.d. The same erasure applies; MIM100-PF in protocol_100 tests it with an encoder-preserving fine-tune (doc 19).]
 
 ---
 

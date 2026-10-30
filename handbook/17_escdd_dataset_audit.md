@@ -122,6 +122,7 @@ Each finding gives the number and where it comes from (sections of `results/escd
   - 2 test cells have crack only because of this: `ARTS_00047_r3_c1` (34 px) and `ARTS_00051_r3_c2` (202 px).
   - That is why our test counts 48 crack cells where E-SCDD's own masks give 46.
   - Inactive is untouched.
+  - [Qualified 30 Oct: the 703 train px are not negligible for crack training. They are 649 px of E-SCDD scuff in 6 train cells plus 54 px of E-SCDD star in 1 cell (649 + 54 = 703), so training labels teach "scuff streak = crack" in 6 cells. One of them, `ARTS_00051_r6_c2` (47 px), is the only ARTS crack cell in the 5% set. Details in §5.11.]
 - **The mysterious 583rd entry** in `masks_escdd` (doc 03 §3.1) is a `README.txt` describing this build. Solved.
 
 ### 5.4 Synthetic images sit inside E-SCDD's train split (§3, §7)
@@ -201,6 +202,38 @@ This is the "joined and widened" cleaning, measured directly.
 - **Colour.** 194 CSIR images carry some colour (spread up to 110 grey levels), 113 of them among our 582. Our loader converts to grey anyway.
 - **Mirror extras.** The mirror's no-padding variants crop the padding and rescale the cell to 512 px. This changes crack width, so it is not comparable with our data.
 
+### 5.11 Scuff and star in our masks (added 30 Oct 2026)
+Found by coach on 30 Oct (CPU read of the raw E-SCDD masks on gaint `el-fault-detection/data/escdd_masks` against our `labeled/masks_escdd`), confirmed by runner on gaint. Sources: `team_2026-10-29_features/spec_b3_scuff.md` §1, `log.md` 30 Oct 11:11 and 11:17, `SESSION_RECORD_2026-10-28_to_30.md` §8. E unless tagged.
+- **Train: 12 cells carry E-SCDD scuff (class 25), 3,246 px.**
+
+  | Source | Cells (scuff px) |
+  |---|---|
+  | ARTS | `ARTS_00039_r10_c1` (151), `ARTS_00039_r6_c4` (90), `ARTS_00041_r9_c4` (200), `ARTS_00048_r2_c5` (404), `ARTS_00051_r6_c2` (47, in the 5% list) |
+  | BMRK | `BMRK_00055_cell0115` (1,013) |
+  | CSIR | `CSIR_00092_r11_c5` (310), `CSIR_00117_r8_c4` (437), `CSIR_00155_r5_c5` (139, in the 5% list), `CSIR_00161_r4_c6` (183), `CSIR_00175_r8_c3` (225), `CSIR_00176_r5_c2` (47) |
+
+- **What `masks_escdd` calls those 3,246 px** (the P6 remap, §5.3): background 1,207, material (13) 1,390, **crack (14) 649 in 6 cells**:
+
+  | Cell | Scuff px labelled crack |
+  |---|---|
+  | `ARTS_00051_r6_c2` | 47 |
+  | `CSIR_00092_r11_c5` | 116 |
+  | `CSIR_00117_r8_c4` | 260 |
+  | `CSIR_00155_r5_c5` | 139 |
+  | `CSIR_00161_r4_c6` | 40 |
+  | `CSIR_00176_r5_c2` | 47 |
+
+- **The 5% "ARTS crack cell" is scuff.** `ARTS_00051_r6_c2` (47 px) is the one ARTS crack cell in the seed-0 5% list (correction of 29 Oct, commit 882f929). All 47 px are E-SCDD scuff. So the 5% set holds no real ARTS crack.
+- **Test:** 2 cells, 236 scuff px, all crack in our test GT: `ARTS_00047_r3_c1` (34) and `ARTS_00051_r3_c2` (202). These are the 236 px of §5.3.
+- **Val:** 0 scuff px. **E1:** scuff sits in the ext117 ignore masks. The 4 largest E1 half-cut crack cells carry a 2.5k to 4.6k px scuff streak each, with the crack GT branching off it (`team_2026-10-27_unlabelled/ideas.md` F11, via `spec_b3_scuff.md`).
+- **Star (class 28):** 238 px in 3 train cells, remapped to background 176 / crack 54 / sp_multi 8. The 54 crack px are in `CFVS_00024_r3_c3` (the "star cell"; it also has 1,222 px of real crack). The meaning of E-SCDD "star" is undefined. The cell is kept in the CP100 paste library (0.04% of library px) and stays on the B1 review list S.
+- **gaint vs cv02 test masks.** gaint `data/escdd_masks/test` still holds class 25 at those 2 test cells, where cv02 and `labeled/masks_escdd` hold crack (doc 13 A15). All scoring uses `labeled/masks_escdd`.
+- **What it touched (E/S):**
+  - The 27 Oct statements that training "always ignored scuff" hold only for E1 scoring (doc 18 §U note).
+  - The CP100 library excludes the 6 scuff-as-crack cells (13-stem exclude list with the 7 D7 twins, md5 903293c9).
+  - B3 (scuff as its own class) turns the 649 px into a scuff class in train; test GT stays as is unless the user decides otherwise (doc 19 §8.4; doc 15 §3b).
+  - (S) Crack labels on scuff streaks in 6 train cells may teach "streak = crack", the E1 failure mode (doc 18 §U). Not tested.
+
 ## 6. Corrections this makes to the rest of the handbook
 - **"E-SCDD revised masks"** throughout the docs means BenchmarkEL `20221008` crack/inactive labels obtained via E-SCDD, plus our P6 build (§5.3). The name `masks_escdd` stays; it is a path in the code.
 - **Doc 03 §3.1:**
@@ -210,6 +243,7 @@ This is the "joined and widened" cleaning, measured directly.
 - **Doc 03 §3.2:** the P3 vs F04 "conflict" is resolved (§5.8).
 - **Doc 08 (P3 caveat) and doc 13 (A-label issue): "E-SCDD's annotation provenance is not documented"** becomes: the crack/inactive labels are BenchmarkEL's own `20221008` corrections. *How* those corrections were made is still not documented.
 - **Doc 13 E10:** the download is done. Whether to use the extra labelled cells or enlarge the test set is now a user decision (doc 15).
+- **(Added 30 Oct) Doc 13 line on the scuff/star remap ("Negligible"):** negligible for test (236 px), not for train crack labels (649 scuff px in 6 cells, §5.11). Dated qualifiers were added in docs 13 and 18.
 
 ## 7. What it could mean (Reading; interpretation, not results)
 - **Thesis wording.** Credit the revised crack labels to BenchmarkEL `20221008` (Pratt et al.), obtained via E-SCDD (Hanifi et al. 2025). The P3/P14 conclusion ("the label version is a bigger lever than any SSL effect") is unchanged.

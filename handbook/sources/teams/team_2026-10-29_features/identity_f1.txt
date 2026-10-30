@@ -1,0 +1,21 @@
+F1 identity checks (runner)
+1. gaint, 29 Oct 12:45-12:52 IST, A5c opts seed 0, --exit_after_step 500, cwd /home/noob/work/el_f1 (same data):
+   el_m 1be64e1 (scripts/train.py of el_m) vs el_f1 fe31831 (model.encoder_init absent):
+   loss/lr lines every 50 steps + val@500 line (timestamps and steps_per_sec stripped): IDENTICAL_500 (11 lines)
+   val@500 defect_miou=0.1354 miou_all=0.2819 crack_recall_relaxed=0.4793 (both)
+   files: gaint el_f1/reports/f1/idchk/{idchk_elm2_A5_s0,idchk_f1_A5_s0}.stdout, a.txt, b.txt
+2. gaint encoder_init smoke (smoke encoder, 240 MIM steps): "Encoder initialised from ... (216 tensors, md5 5fd41e16...)";
+   step 50 loss 3.728 (= ImageNet arm), step 100 2.513 vs 2.520, step 200 1.202 vs 1.240: loads and changes training.
+3. cv02 (pending, launch machine): f1_A_5pct_s0 log vs original p12_A_5pct_s0.stdout (24590fb), >= 500 steps.
+4. gaint, 29 Oct 13:01-13:05 IST, code el_f1 603e0d5 (v1), A5c opts seed 0, --exit_after_step 1000, cwd el_f1:
+   I1: el_m 1be64e1 vs el_f1 603e0d5 (encoder_init unset): 22 lines (loss/lr every 50 steps + val@500, val@1000): IDENTICAL_1000
+   I2: el_f1 603e0d5 + model.encoder_init=mim_step0.pth (md5 178b872d, from smoke_v1, 216 tensors) vs I1 f1: IDENTICAL_1000
+   val@1000 defect_miou=0.2100 miou_all=0.2727 crack_recall_relaxed=0.6590 (all three)
+   files: gaint el_f1/reports/f1/idchk2/{i1_elm,i1_f1,i2_f1_step0}.stdout, *.lines, status.txt
+   If the fine-tunes run on cv02, I1 (vs p12_A_5pct_s0.stdout) and I2 are repeated there first.
+5. gaint, 29 Oct 18:34-18:52 IST, el_f2 commit 2751aa8 (train path 42bf7d1), A5c opts seed 0, vs f1_A_5pct_s0's stdout
+   (step/val lines, timestamps and speed stripped):
+   I1-f2 (no switch, --exit_after_step 2000): IDENTICAL, 44 lines (loss/lr every 50 steps, val@500/1000/1500/2000)
+   CP section at cp.lambda=0 (--exit_after_step 1000): IDENTICAL, 22 lines; library built (20 kept, 11,978 px), no CP forward
+   files: gaint el_f2/reports/f2/checks/{i1f2_A_s0,cp0_s0}.stdout, *.lines, *.ref, status.txt
+   => DDeP5 and CP5 may share A5c-f1 on gaint (protocol_cp5 E5, protocol_ddep5 I1-f2).

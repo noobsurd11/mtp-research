@@ -23,6 +23,8 @@ Use it when the user asks "why can't we just say X?" or "what is wrong with this
 
 Status date: 12 Oct 2026, ~05:30 IST, updated 13 Oct ~16:30 IST for P17 and P13 Amendment 2 (C2, C6, C10, C11, D3, D19, E3, E16). All P-series experiments (P1 to P17) are done. A11 and E15 were added after P16.
 
+Update 30 Oct 2026, ~12:00 IST (handbook refresh for 24 to 30 Oct; additive). New items A14, A15, C14, C15, D20 to D27, E18 to E22. Dated "[Qualified 30 Oct: ...]" notes on A12, A5, C13, E2, E8 and E12. Sources: `SESSION_RECORD_2026-10-21_to_27.md`, `SESSION_RECORD_2026-10-28_to_30.md`, `team_2026-10-29_features/` (`log.md`, `coach_100.md`, `spec_b3_scuff.md`, `verify_*.md`), docs 18 and 19.
+
 ## Sources
 - `results/*/README.md` (P1–P17, E1), `protocols/*.md`.
 - `to_human/situation_report_2026-10-08.md`, `to_human/directions_2026-10-10.md`, `to_human/proposal_reframe_2026-10-11.md`, `to_human/results_2026-10-12.md`, `to_human/midterm_deck_outline.md`.
@@ -51,6 +53,8 @@ Status date: 12 Oct 2026, ~05:30 IST, updated 13 Oct ~16:30 IST for P17 and P13 
 | A9 | One labelled split only | open | medium |
 | A10 | Class-taxonomy quirks (absent classes, release classes 25–28) | mitigated | low |
 | A11 | One very noisy test cell (`CSIR_00070_r8_c4`) can wreck a run's crack score | open (found after P16; post-hoc check only) | high for crack contrasts |
+| A14 | E-SCDD scuff labelled crack in 6 train cells (649 px) and 2 test cells (236 px) by the P6 remap (added 30 Oct) | open (B3 decided; test-GT version a user decision) | medium for crack near scuff streaks and E1 |
+| A15 | gaint `data/escdd_masks/test` differs from cv02 at 2 cells (added 30 Oct) | resolved for scoring (symlinks to `labeled/masks_escdd`) | low |
 | B1–B14 | Past invalid or misread results | resolved (identified; kept out of P-series tables) | high for history |
 | C1 | Rule 1 is lenient and per-metric | open (by design) | high |
 | C2 | 3 seeds in most contrasts | partly mitigated (5 in P13/P16/P17 primaries and BsM5) | high |
@@ -65,8 +69,12 @@ Status date: 12 Oct 2026, ~05:30 IST, updated 13 Oct ~16:30 IST for P17 and P13 
 | C11 | EMA-only effect unmeasured; bit-identity checked for 100 steps | mostly resolved (teacher = student at step 20,000, 13 Oct) | low |
 | C12 | Seeds pooled across commits and protocols | mitigated (diff checks) | low |
 | C13 | Effort concentrated on SSL | open | medium (strategic) |
+| C14 | The 5% screen for pool-feature methods was chosen without checking the user's question (added 30 Oct) | resolved 30 Oct (moved to 100%) | high for MIM5/DDeP5/CP5 scope |
+| C15 | The house optimizer was never varied, and it erases ResNet-34 encoder layer3/4 for both inits measured (added 30 Oct) | open (protocol_100 tests PF) | high for every init/pretraining/backbone null |
 | D1–D19 | Infrastructure incidents | mostly resolved | low for results, one high (gaint reset) |
+| D20–D27 | Infrastructure incidents, 29 to 30 Oct (added 30 Oct) | resolved; verdicts unaffected | low |
 | E1–E16 | Open questions | open (E1, E2 answered) | see section (e) |
+| E18–E22 | Open questions from 24 to 30 Oct (added 30 Oct) | open | see section (e) |
 
 ---
 
@@ -165,6 +173,7 @@ Status date: 12 Oct 2026, ~05:30 IST, updated 13 Oct ~16:30 IST for P17 and P13 
   - Crack relaxed F1@2 is a primary metric.
   - Where the revised labels come from: for crack and inactive they are BenchmarkEL's own `20221008` corrections, which E-SCDD redistributes unchanged (audit 12 Oct, doc 17 §5.2). How those corrections were made is not documented. Wider revised labels flatter over-predicting models (P3 caveat).
   - P6's remap of scuff/star pixels put back 236 old crack pixels (0.26%) in 2 test cells. Negligible, but it is why our test counts 48 crack cells against E-SCDD's 46 (doc 17 §5.3).
+  - [Qualified 30 Oct: in train the same remap labels 649 px of E-SCDD scuff as crack in 6 cells (plus 54 star px in 1 cell), including `ARTS_00051_r6_c2`, the only ARTS crack cell at 5%. Negligible for test, not for what the model learns about scuff streaks (A14; doc 17 §5.11).]
   - Inconsistency in sources: phase 1 quoted a crack label width of 2.0 px median, against 1.75 px measured here.
 
 ### A6. Models collapse on cells from unseen modules (open; a measured limit)
@@ -262,6 +271,7 @@ Status date: 12 Oct 2026, ~05:30 IST, updated 13 Oct ~16:30 IST for P17 and P13 
   - faint cracks: relaxed recall 0.42 in the faintest third vs 0.80 in the darkest;
   - cracks on inactive-region edges, 12% of test crack px: recall 0.44 vs 0.69;
   - the ARTS and BMRK sources: 0.30 and 0.40 vs CFVS 0.80. The 5% labelled set holds only 47 ARTS crack px.
+    [Qualified 30 Oct: those 47 px, in `ARTS_00051_r6_c2`, are E-SCDD scuff that P6's remap labelled crack. So the 5% set holds no real ARTS crack (A14; doc 17 §5.11).]
   - 40 components (5.4% of crack px) are missed by every arm.
 - **Not fixed by SSL pseudo-labels.** Removing the confident-background PLs recovers only about 12% of true misses: BsDBn5 0.332 vs BsD5 0.378 on the pool probe, even though 70.5% of BsD5's true misses carry such a PL.
 - **Not fixed by a prior shift** either: LA τ = 1 cuts that PL coverage to 46%, yet true misses stay at 0.359. SKCDF's balanced head does not fix them.
@@ -282,6 +292,30 @@ Status date: 12 Oct 2026, ~05:30 IST, updated 13 Oct ~16:30 IST for P17 and P13 
 - **Impact:**
   - A warning for any confidence-routed or entropy-minimising SSL loss on rare EL classes.
   - No follow-up is proposed (`team_2026-10-21/alhvr/verify_a2.md`).
+
+### A14. E-SCDD scuff is labelled crack in some train and test cells (open; found 30 Oct)
+- **What:** P6 built `masks_escdd` by putting the old label back wherever E-SCDD says scuff (25) or star (28) (doc 17 §5.3). Where the old label was crack, scuff became crack.
+- **Evidence (E, `team_2026-10-29_features/spec_b3_scuff.md` §1; doc 17 §5.11):**
+  - Train: 12 cells carry scuff (3,246 px); our masks call 1,207 background, 1,390 material and **649 crack in 6 cells**.
+  - The 5% "ARTS crack cell" `ARTS_00051_r6_c2` (47 px) is scuff labelled crack.
+  - Test: 2 cells, 236 scuff px, all crack (`ARTS_00047_r3_c1`, `ARTS_00051_r3_c2`). Val: none. E1: scuff is in the ignore masks.
+  - Star: `CFVS_00024_r3_c3` has 54 px of E-SCDD star labelled crack.
+- **Impact:**
+  - The 27 Oct statements that training "always ignored scuff" were wrong for train; only E1 scoring ignores it (doc 18 §U note).
+  - (S) Crack labels on streaks may teach "streak = crack", the E1 failure mode (75% of E1 crack sits in half-cut + scuff cells, recall 0.126). Not tested.
+  - It would have put scuff into the CP100 paste library as crack; caught before the CP smokes.
+  - On test it is 0.26% of crack px.
+- **Mitigation:**
+  - CP100 excludes the 6 cells (13-stem list md5 903293c9).
+  - The user decided (30 Oct 11:12) to train scuff as its own class (B3, `spec_b3_scuff.md`), after protocol_100.
+  - Open user decision: keep test GT as is for the B3 verdict (coach's recommendation) or also report a version with the 236 px ignored (doc 15 §3b).
+  - Never edit test masks without a separate decision.
+
+### A15. gaint test masks differ from cv02 at 2 cells (resolved for scoring; found 29 Oct)
+- **What:** gaint `data/escdd_masks/test` holds class 25 (scuff) at `ARTS_00047_r3_c1` (34 px) and `ARTS_00051_r3_c2` (202 px), where cv02's `escdd_masks` and `labeled/masks_escdd` hold crack (14). cv02's `escdd_masks` equals `labeled/masks_escdd` pixel for pixel.
+- **Evidence:** `team_2026-10-29_features/log.md` 29 Oct 12:48 and 13:01; `SESSION_RECORD_2026-10-28_to_30.md` §2.
+- **Impact:** a gaint score read from `data/escdd_masks` would differ from every cv02 P-series and Track M number on those 236 px.
+- **Mitigation:** gaint `el_f1/data/escdd_masks` was replaced by per-stem symlinks to `labeled/masks_escdd` (val 54, test 50; pixel md5 8bcd3691 = cv02); `el_f2` and `el_f3` link to the same. All 29 to 30 Oct scoring uses `labeled/masks_escdd`. `coach_strategy.md` (B1 appendix) notes `el_m/data/escdd_masks` still holds class 25 for test.
 
 ## (b) Past results that are invalid or were misread
 
@@ -473,6 +507,27 @@ None of these may be quoted as a method result. Old-era numbers stay in separate
 - **Mitigation:**
   - P14 (tolerant supervision) and P15 (UCF encoder transfer) were added on 11 Oct.
   - MIM pretraining and distillation are still untested.
+  - [Qualified 30 Oct: MIM was run on 29 to 30 Oct as MIM5 (5% labels, house fine-tune): n.d., every estimate negative (`team_2026-10-29_features/verify_mim5.md`). Under the house optimizer the MIM features in layer2 to layer4 were erased (C15), so MIM under an encoder-preserving fine-tune is still untested; protocol_100's MIM100-PF arm tests it at 100% (doc 19). Distillation is still untested.]
+
+### C14. The 5% screen for pool-feature methods was chosen without checking the user's question (resolved 30 Oct; added 30 Oct)
+- **What:** on 28 Oct the user asked whether feature learning from the ~11.7k unlabelled cells improves the model trained on **all** labels. MIM5, DDeP5 and CP5 were all run at 5% labels. The 5% choice was copied from the 27 Oct synthesis (doc 18 §U, item 3) without checking it against the question.
+- **Evidence:** `SESSION_RECORD_2026-10-28_to_30.md` §0 and §5; the user, 30 Oct ~10:45: "why 5%? I asked about adding the pool to 100% labels."
+- **Impact:**
+  - The overnight gaint runs of 29 to 30 Oct (MIM5, DDeP5, CP5) answered a 5% question the user had not asked.
+  - The 5% nulls carry to 100% only for methods that do not consume labels and only when the 5% estimate is tight (doc 19 §5). They do not carry for copy-paste, and not for MIM once the optimizer is changed (C15). CP5 was stopped unscored.
+  - 100% is better powered than 5%: clean MDE crack 0.012 vs 0.019, inactive 0.032 vs 0.084 (`diag_5pct_to_100pct.md` §2).
+- **Mitigation:** CP5 stopped (10:50 IST 30 Oct); protocol_100 at 100% labels. Feedback memory saved: pool ideas are tested on top of 100% labels unless the user asks otherwise. Coach's rule: test a method at the label fraction where its mechanism lives (`coach_strategy.md` §3).
+
+### C15. The house optimizer was never varied, and it erases the deep encoder (open; added 30 Oct)
+- **What:** the house fine-tune (Adam lr 1e-3, coupled L2 weight decay 1e-4, 200-step warmup and cosine, 20k steps, batch 8) ends ResNet-34 U-Net++ encoder layer3/4 at cosine about 0 to their init, for both inits tried (ImageNet, MIM), at 5% and at 100% labels.
+- **Evidence (E, `team_2026-10-29_features/coach_100.md` §0; re-derived by runner in `protocol_100.md`):** cosine final vs init, layer3 0.005 to 0.018, layer4 −0.001 to 0.001 (A5c-f1, MIM5, SUP100); layer3/4 norms end at 2 to 9% of init; two SUP100 seeds agree at layer4 only at cosine 0.007. Full table: doc 19 §4.
+- **It is early (E, `protocol_100.md` v1.1 gate table):** in the house-recipe smoke at 100%, layer3/4 are at cosine 0.070 / 0.003 at step 2,000, with norms still 0.33 / 0.21. The direction is lost during warmup and the peak lr, before the norm collapse; not a slow drift.
+- **Impact:**
+  - Every "init / pretraining / backbone does not help" result was obtained under this recipe: P15 (claim 7), MIM5, DDeP5, Track M R3 (ResNet-50; EfficientNet-B4 and ConvNeXt-T pilots).
+  - Measured vs inferred: erasure was measured only on ResNet-34 U-Net++ runs (A5c-f1, MIM5, SUP100). That P15's UCF-EL encoder and the R3 encoders were erased too is likely but not measured (S). For ConvNeXt (LayerNorm, not BatchNorm) the mechanism is not established.
+  - The frozen-probe signal for ResNet-50 / ConvNeXt on BMRK crack (doc 18 §D1) was never tested under a fine-tune that keeps those features.
+  - Mechanism (S): BN-followed convs are scale-invariant, so the direction turns freely early on; coupled L2 then shrinks the norms.
+- **Mitigation:** protocol_100's SUP100-PF and MIM100-PF arms (encoder-preserving fine-tune), with gate G5 (layer3/4 cosine ≥ 0.8 at 4k steps). G5 passed: 0.975 / 0.985 (SUP100-PF) and 0.986 / 0.990 (MIM100-PF) at 4k (smokes, training only). protocol_100 launched 30 Oct 12:05 IST; no result yet. Coach's proposed house rule: report the per-stage encoder cosine to init with every init or pretraining result (`coach_strategy.md` §3).
 
 ---
 
@@ -499,6 +554,14 @@ None of these may be quoted as a method result. Old-era numbers stay in separate
 | D17 | Several protocol and README headers give times that disagree with git: P14/P15 say ~13:45, commit at 12:55; P16 says prompt ~16:35, lock ~16:50, while the transcript has the prompt at 17:24 and git the lock at 17:28; P10 says ~23:05, commit at 22:56 and first run at 22:57; P1/P2 say 8 Oct 00:15, commit at 7 Oct 23:59; the E1 README says ~14:00 and ~14:15, commits at 12:59 and 13:16 | Cosmetic; the order of events is the same, and every lock commit precedes its runs | Use git and transcript times (`12_decisions_log.md`, `09_`, `10_`) | git log; `protocols/P1*`, `P2*`, `P10*`, `P14*`, `P15*`, `P16*`; `results/e1/README.md` |
 | D19 | A Claude Code session drop (13 Oct, ~08:00 IST) killed a background laptop-relay copy part-way (BsM5 s3 half copied, s4 missing on gaint) and left two background waiters stopped | A partial backup that looked done from its log start | Redone 16:28–16:33 IST and verified by MD5 of every file; check that a relay finished before trusting it | `15_status_remaining_work.md` §1c |
 | D18 | A third-party app credential was pasted in chat on 2 Oct | Security hygiene | Should be rotated; not confirmed done (handoff 7 Oct §2.4). Never copy it anywhere | handoff 7 Oct §2.4; standing constraint |
+| D20 | **The `rc=$?` after `$(date)` bug recurred on 29 to 30 Oct** (added 30 Oct), despite the 21 Oct note (doc 14 §3.1, commit 16128f7). Five status lines recorded date's exit code: MIM pretrain, MIM5 post, DDeP5 post, cv02 DDeP, and the f100 smoke status lines. The first G5 extender required rc=3 and would have skipped | No verdict affected. Training-run rc lines (`run_one.sh`, all versions) and `f2_postC` were correct. Each affected run was confirmed complete by its DONE line, md5 manifests and 0 Tracebacks; coach's watchers required POST DONE + manifest, not the rc line | Smoke lines and the staged f100 queue fixed (rc captured before `date`; md5 60499c90); G5 extender restarted with a stdout check; f100 opening triggers use rc captured before `date`. Lesson: a note in the handbook did not stop a new script from repeating the bug | `SESSION_RECORD_2026-10-28_to_30.md` §9; `team_2026-10-29_features/log.md` 30 Oct 11:16, 11:20, 11:21 |
+| D21 | Relative log path (added 30 Oct): `f1_after_runs_gaint.sh` wrote its 'AM rc' and 'AFTER-RUNS DONE' lines to a relative path after a `cd`, so the f2 gate would never have opened | The DDeP5/CP5 release line never appeared | runner wrote the end line by hand at 02:36 IST 30 Oct (AM output verified complete: `am.log` 11 lines, 0 Tracebacks; `am_val.json` in the manifest); v2 uses an absolute path (md5 bf7692fd); other lane scripts checked | `log.md` 30 Oct 02:36, 02:50; `verify_mim5.md` §6 |
+| D22 | Simultaneous-start memory race on gaint (added 30 Oct): at 02:36 IST three f2 runs (CP5 s1, DDeP5 s1, DDeP5 s0) started on one free-memory reading, because new allocations were not yet visible | Free memory 2,234 MiB, close to the 2 GB floor kept for root's `finllm_chat.py` | A 5 s memory watch over vals and checkpoints (182 samples, 02:45 to 03:00) showed a constant minimum of 2,232 MiB, so the runs were kept. Starts now take a flock check-and-stamp gate and are spaced ≥ 120 s apart (f2g `run_one.sh` v3, md5 8453c0e5; v4, md5 176ea9c9, also gates end-of-run rescoring); the CP start gate was set from the measured peak (9,526 + 2,048 = 11,600 MiB, v5). Earlier, free memory fell to 308 MiB at 13:30 on 29 Oct (log; the session record says 0.8 GB headroom "at one point"), which led to the ≥ 2 GB rule | `log.md` 29 Oct 13:31, 30 Oct 02:37, 03:01, 05:46; session record §9 |
+| D23 | Log timestamps ahead of the clock (added 30 Oct): runner stamped some lines up to 11 min (29 Oct) and up to 38 min (30 Oct) ahead; coach up to about 75 min (a 12:20 stamp written at 11:06; coach's own figure; the session record says "up to ~1 h") | A reader could misorder events | Corrected from git, file and log stamps. Coach re-stamped its 09:45 to 12:20 lines, marked estimates with "~" and kept a pre-edit copy. Rule: stamps come from `date`, never estimates | `log.md` 29 Oct 13:28; 30 Oct 11:05, 11:08 |
+| D24 | cv02 gate-parse bug (added 30 Oct): a good DDeP smoke was marked FAIL because the grep also matched the STOPPED line | GPU 1 was lost to another user; the full DDeP run waited until GPU 0 freed at 19:43 IST | Fixed (v2, md5 1f2016e6); smoke reused; queue re-armed | `log.md` 29 Oct 16:26, 19:47 |
+| D25 | Shared HOLD file (added 30 Oct): a HOLD meant to pause the A lane also blocked the MIM5 lanes, since all lanes call `run_one.sh` | Delayed MIM5 starts | Replaced by an A-lane-only `HOLD_A` (`run_one.sh` md5 6f6fe611), 29 Oct 18:39 | `log.md` 29 Oct 18:39 |
+| D26 | Laptop reboot (added 30 Oct), 29 Oct ~20:16 IST, killed the local teammates and their watchers | Server tmux unaffected | runner and coach respawned (scout no longer needed); watchers re-armed | session record §1, §9; `log.md` 29 Oct 20:22 |
+| D27 | Critical-path slip (added 30 Oct): the A lane ran its seeds serially | The last 5% run would have ended about 05:00 | Rebalanced with an extra window and atomic per-run claim dirs (f1g `run_one.sh` v3, md5 969f7676); last run 02:21 | session record §9; `log.md` 29 Oct 20:25 |
 
 ---
 
@@ -507,22 +570,27 @@ None of these may be quoted as a method result. Old-era numbers stay in separate
 | ID | Question | Current evidence | What would resolve it |
 |---|---|---|---|
 | E1 | Does SSL beat supervised once labels are not scarce (20/50/100%)? | P13 at 5%: yes on inactive and crack relF1@2 (CsM5). P11 at 10%: rule passes, inactive not robust. **P16 (done): no** for the Cs recipe, n.d. at 20/50/100% with and without the noisy cell (A11) | Answered for this recipe; a BsM-style arm at 20/50% would be exploratory (C6) |
-| E2 | Is a UCF-EL-trained encoder better than ImageNet init at 5%/10%? | P4: pretrained ≫ random. **P15 (done): no.** n.d. at 5%; worse on all three primaries at 10% | Answered for this recipe; MIM / self-supervised pretraining untested (E12) |
+| E2 | Is a UCF-EL-trained encoder better than ImageNet init at 5%/10%? | P4: pretrained ≫ random. **P15 (done): no.** n.d. at 5%; worse on all three primaries at 10% | Answered for this recipe; MIM / self-supervised pretraining untested (E12). [Qualified 30 Oct: "this recipe" includes the house optimizer, which erased encoder layer3/4 in every ResNet-34 run measured (C15), so P15 likely tested little more than conv1/layer1 transfer (S; not measured on the P15 encoder). Open under an encoder-preserving fine-tune (E18).] |
 | E3 | Hard vs tolerant pseudo-labels under CutMix: is hard really better for crack? | P13 BsM5 − A5c crack +0.029 on 5 seeds (+0.036 on 3). CsM5 − BsM5 on 5 vs 5 (Amendment 2): −0.015, n.d. by seeds; over cells −0.015 [−0.023, −0.009] | Over cells yes, by seeds not shown. More seeds, or the same contrast at 10–20% |
 | E4 | Does CutMix matter? | P13 CsM5 − Cs5: n.d. on seeds; crack +0.010 over cells; unlabelled loss share 0.46 → 0.77 | More seeds; P16 cannot answer (CutMix off) |
 | E5 | Why do val and test disagree on inactive? | Val has 6 inactive cells (A4) | A larger selection set (held-out train cells or cross-validation) |
 | E6 | Would the cv02 vs gaint disagreement on P12 survive more seeds? | gaint passes, cv02 fails (C7) | 5+ seeds per machine on the same contrast |
 | E7 | Do conclusions hold on other labelled splits? | Only split 0 used (A9) | Rerun key contrasts on splits 1 and 2 |
-| E8 | Can models transfer to unseen modules? | Crack IoU 0.471 → 0.152 (A6) | Pretraining (P15, MIM), more diverse labelled data, a domain-shift-aware evaluation |
+| E8 | Can models transfer to unseen modules? | Crack IoU 0.471 → 0.152 (A6) | Pretraining (P15, MIM), more diverse labelled data, a domain-shift-aware evaluation. [Qualified 30 Oct: the 27 Oct team traced 75% of E1 crack to 20 half-cut + scuff cells (FINAL recall 0.126), a context missing from training (doc 18 §U). FINAL reaches E1 crack recall 0.215. MIM5 did not move the scuff + half-cut gap (0.0295 → 0.0268). Labels for that context (B2) and a scuff class (B3) are the current routes (doc 19 §8).] |
 | E9 | Is the external pool useless, or just mismatched? | Source-specific crack harm (A7) | Re-walk the Dropbox listing; harmonise contrast; a matched pool |
 | E10 | Would more labelled cells (E-SCDD) change the picture? | Downloaded and audited 12 Oct (doc 17).<br>• 233 labelled real cells new to us: 87 crack, 20 inactive.<br>• 111 of them are in our external pool and 105 are E1's set.<br>• Mostly CSIR from unseen modules.<br>• E-SCDD's train also has 93 synthetic images. | The user decides whether to use them; doing so means a new base recipe, not an extension of the P-series |
 | E11 | Does ALHVR (or DTCT alone) help with a fair loss schedule? | Never fairly tested (B3); prototypes dead (**answered 23 Oct by AL1, D7 pool: no**; ALHVR-EL and DTCT-only are WORSE than supervised on inactive, routing and CG-CPCL n.d.) | A port with λ at full strength early, plus a loss-off control |
-| E12 | Is in-domain self-supervised pretraining (MIM) worth it? | Untested; directions row 3 | Protocol + 1–2 GPU-days |
+| E12 | Is in-domain self-supervised pretraining (MIM) worth it? | Untested; directions row 3 | Protocol + 1–2 GPU-days. [Qualified 30 Oct: MIM5 (5%, house fine-tune) n.d., every estimate negative; the house fine-tune erased the layers MIM changed (C15). Open at 100% under PF: protocol_100 MIM100-PF − SUP100-PF (E19).] |
 | E13 | Severity grading (Köntges A/B/C) and the per-cell quantities | Post-processing lost in the reset (D1); power loss out of scope (user, 11 Oct) | Rebuild components / skeleton / isolation; grade agreement (κ) on GT vs predicted masks (proposal E6) |
 | E14 | Admin inputs never confirmed | Mid-term date (assumed ~14 Oct); report template and page limit; whether MoE is required by the advisor; target model size (~2M vs ~4M; "not a constraint" for now) | Ask the user (phase-1 §17 items 9–10; deck outline §17) |
 | E16 | How much of BsM5's gain needs the labelled decoder to fit pseudo-labels? | P17: BsD5 − BsM5 n.d. (−0.006 / +0.011 / −0.008); thresholds about 40% of the gain; decoupled teacher AP lower (crack 0.310 vs 0.367) | More seeds (the threshold scales with seed sd), or a larger test set for the over-cell lean on crack (P(Δ > 0) = 0.06) |
 | E17 | Does the BsM recipe beat supervised at 20%+ in a confirmatory test? | P18 (exploratory): inactive +0.060 at 20% (CI includes 0), crack n.d.; 50% not run | A locked BsM arm on a fresh split, or E-SCDD's extra test cells |
 | E15 | Why does the model sometimes call a very noisy cell crack, and how often would it happen on real field images? | P16 A11: seed-dependent, confident, both supervised and SSL; the matching train cell (`CSIR_00070_r7_c2`) is unlabelled below 100% | Noise augmentation or a noise-aware input check; count noisy cells in the external pool and in WattCycle-like data; a larger test set with more noisy cells |
+| E18 | (added 30 Oct) Does an encoder-preserving fine-tune (PF) beat the house fine-tune at 100% labels? | Encoder erasure under the house recipe (C15); frozen ResNet-50 / ConvNeXt rank BMRK crack better than our fine-tuned encoder (doc 18 §D1). Pre-stated expectation crack −0.01 to +0.02, sign uncertain (S) | protocol_100 SUP100-PF − SUP100-g, 5 v 5 on gaint (running; no result yet) |
+| E19 | (added 30 Oct) Does MIM pretraining on the pool help when the fine-tune keeps it? | MIM5 n.d. at 5% under the house fine-tune; unknown under PF (S) | protocol_100 MIM100-PF − SUP100-PF (running) |
+| E20 | (added 30 Oct) Does crack copy-paste onto pool cells help at 100%? | CP5 stopped unscored; diag: 5% is the wrong test for a label-dosed method. Pre-stated crack 0 to +0.015 vs MDE 0.012 (S) | protocol_100 CP100 − SUP100-g with the LA co-condition (running) |
+| E21 | (added 30 Oct) How many train masks are wrong? | B1: crack flags in 24 of 239 audited cells (10.0 per 100), below the val base rate (16.7 per 100 for crack FL) | The user's marks on the three B1 sheets; then a `masks_escdd_v2` with a change list |
+| E22 | (added 30 Oct) Does a scuff class reduce E1 crack false alarms on streaks without losing crack? | 8.7k crack px per run on streaks (L3 100%); scuff labelled crack in 6 train cells (A14). Expected test n.d. (S) | B3 (`spec_b3_scuff.md`), stronger with B2 mined labels |
 
 ## Related docs
 - `00_START_HERE.md`

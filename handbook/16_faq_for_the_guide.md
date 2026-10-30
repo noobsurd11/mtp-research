@@ -1,5 +1,7 @@
 # 16. FAQ: questions the user is likely to ask, with grounded answers
 
+**Update 30 Oct 2026 (additive):** section G (Q27 to Q33) covers 24 to 30 Oct: the best model, the unlabelled pool, encoder erasure, the 5% lesson, scuff labels and what is running. A dated qualifier is added to Q20 (P15).
+
 **What this covers.** Short answers to the questions a newcomer to this project tends to ask, each with its numbers and the doc or file to read next. The answers are as of 12 Oct 2026, about 05:30 IST, updated 13 Oct ~08:15 IST for P17 and P13 Amendment 2 (Q8, Q10, Q20b). All experiments, P17 included, are finished. Do not give a stronger answer than the one here without new evidence.
 
 **Sources:** every answer names its own source. The main ones:
@@ -240,6 +242,7 @@ Source: `results/p14/README.md`.
 
 **Q20. What did P15 and P16 decide?**
 - **P15** (gaint), now **done**: does an encoder trained on UCF-EL labels beat ImageNet initialisation at 5% and 10% labels? No. gU5 − A5 is n.d. on all three primaries (crack +0.0096 vs threshold 0.0100). gU10 − gA10 is worse on all three (crack −0.012, inactive −0.086, relF1@2 −0.014), robust over cells. Source: `results/p15/README.md`.
+  [Qualified 30 Oct: the fine-tune used for P15 erased encoder layer3/4 in every ResNet-34 run measured (Q29), so P15 likely tested little more than conv1/layer1 transfer (S; not measured on the P15 encoder). "No" holds for that recipe only.]
 - **P16** (cv02), now **done**: does SSL (separate BN, tolerant PL, CutMix off) beat supervised at 20% and 50% labels (in-domain pool) and at 100% (external pool, the only unlabelled data left)? No. S20 − A20, S50 − A50 and Sx100 − A100 are n.d. on all three primaries (5 vs 5 seeds), and no arm is worse. Source: `results/p16/README.md`.
 
 Each outcome changes different rows of the evidence table. → `10`, `11`
@@ -340,6 +343,63 @@ One test cell. `CSIR_00070_r8_c4` is the noisiest of the 582 labelled cells (noi
 - Whether to make that a standing check is the user's call.
 
 Source: `results/p16/README.md` "One test cell". → `13` A11
+
+## G. 24 to 30 Oct: the best model, the unlabelled pool, and the move to 100% (added 30 Oct)
+
+**Q27. What is the best model now?**
+FINAL (25 Oct, Track M): the 5-seed mean-softmax ensemble of the 100%-label L3 recipe (U-Net++, ImageNet ResNet-34, CE + Dice on crack and inactive, label-safe augmentation, 512 px), with +0.75 added to the crack logit (chosen on val).
+- Clean test (49 cells): crack IoU **0.492** (one model: 0.474), crack recall 0.703 at precision 0.621, relF1@2 0.897, crack components found 0.834, inactive IoU 0.456, mIoU_rob 0.583.
+- Without the bias (bias 0): crack IoU 0.488. This is the robust choice: with +0.75 the ensemble calls 10,867 crack px on the corrupted test cell, at bias 0 it calls 2.
+- "Almost all cracks" (relaxed recall ≥ 0.90 at relaxed precision ≥ 0.90) is not reached: 0.866 at 0.930. On unseen modules crack recall is 0.215.
+- No single-model training change tried at 100% beat it (Dice on more classes, ResNet-50, +107 E-SCDD cells, 2× resolution), all under the house optimizer (Q29).
+- protocol_100 (running from 30 Oct 12:05 IST) may change this; it has no result yet.
+
+Sources: `team_2026-10-24_go/trackM/results_final.md`, `verify_final.md`. → `18` §M7, `11` row 18
+
+**Q28. Does the unlabelled pool help?**
+It depends on how it is used and at what label fraction. What is measured:
+- **Pseudo-labels / consistency (label propagation):** yes at 5% (BsM5 crack IoU +0.029, inactive +0.107), not detectably at 20 to 100%. At 100% a crack gain of +0.01 or more is excluded (clean cells, Cs recipe). Sources: docs 10, 11; `team_2026-10-27_unlabelled/SYNTHESIS.md`.
+- **Feature learning from the pool, at 5% labels:** no detectable gain. MIM5 n.d., every estimate negative; DDeP5 n.d., a small shift equal to a free bias; AM killed. Sources: `team_2026-10-29_features/verify_mim5.md`, `verify_ddep5.md`.
+- **Not yet answered:** feature learning (MIM) with a fine-tune that keeps it, and crack copy-paste onto pool cells, both at 100% labels. That is protocol_100 (no result yet).
+- **The pool's proven use so far:** choosing what to label. Track D: 12 crack-containing cells beat 12 random cells and the best SSL arm, for crack (oracle-selected).
+- **Why the pool cannot fix the main unseen-module failure:** 75% of E1 crack sits in half-cut cells with scuff streaks, a context the pool barely contains.
+
+→ `18` §U, `19` §2, §3, §7
+
+**Q29. What is encoder erasure?**
+Our standard fine-tune (Adam lr 1e-3, coupled weight decay 1e-4, 20k steps) ends the deep encoder layers (ResNet-34 layer3 and layer4) almost orthogonal to where they started: cosine 0.005 to 0.018 and −0.001 to 0.001 to their initial weights, with norms at 2 to 9% of init. It happens for both starts tried (ImageNet, MIM), at 5% and at 100% labels. Two seeds even end unrelated at layer4 (cosine 0.007).
+- **It is early:** at step 2,000 layer3/4 are already at cosine 0.070 / 0.003 while their norms are still 0.33 / 0.21 of init. The direction goes during warmup and the peak learning rate, before the weights shrink.
+- **So:** only conv1 and part of layer1 keep anything of the pretrained init. The deep features are re-learned from labels.
+- **Consequence:** every "pretraining / init / backbone does not help" result so far (P15, MIM5, Track M's ResNet-50) was obtained under this one optimizer, which was never varied. Erasure was measured on ResNet-34 runs; for P15's and Track M's other encoders it is likely, not measured (S), and for ConvNeXt (LayerNorm) the mechanism is not established.
+- **Likely cause (S):** BatchNorm makes the conv weights scale-invariant, so their direction can turn freely; coupled weight decay then shrinks them.
+- **The test:** protocol_100's encoder-preserving fine-tune (PF: encoder frozen 1k steps, then 0.1× lr, encoder weight decay 0). In its smokes PF keeps layer3/4 at cosine 0.975 to 0.990 at 4k steps (training only, no test result).
+
+Sources: `team_2026-10-29_features/coach_100.md` §0; re-derived in `protocol_100.md`. → `19` §4, `13` C15
+
+**Q30. Why was 5% the wrong test for the pool question?**
+- The user asked about adding the pool to a model trained on **all** labels (28 Oct). The 5% screen was copied from the 27 Oct plan without checking it against that question. The user caught it on 30 Oct: "why 5%? I asked about adding the pool to 100% labels."
+- 5% does not buy power. 100% is better powered: clean MDE crack 0.012 vs 0.019; inactive 0.032 vs 0.084 (only 2 training cells have inactive at 5%).
+- 5% only buys a larger effect, and only for methods whose effect shrinks as labels grow.
+- For copy-paste the 5% test is wrong in kind: its "dose" is the labelled cracks (20 components at 5%, 554 in the frozen 100% library).
+
+Sources: `diag_5pct_to_100pct.md`; `SESSION_RECORD_2026-10-28_to_30.md` §0, §5. → `19` §5, `13` C14
+
+**Q31. When does a null at low labels carry over to full labels?**
+A working rule (S, `diag_5pct_to_100pct.md` §4), not a theorem. Two things must hold:
+1. the method does not consume labels (pretraining, a decoder init), and
+2. the low-label estimate is tight on the target class.
+
+Copy-paste and loss changes fail (1); inactive at 5% fails (2). Our own data has a case where a 5% null did not carry: joint-BN Mean Teacher was n.d. at 5% and passed at 10%. And the rule assumes the optimizer keeps what the method learned; under encoder erasure (Q29) a pretraining null says little either way. The team now tests pool ideas on top of 100% labels unless the user asks otherwise. → `19` §5, `11` row 24
+
+**Q32. Is scuff ever labelled crack?** (30 Oct)
+Yes, in our masks. P6 put the old label back on E-SCDD's scuff pixels. In train, 649 of 3,246 scuff px (6 cells) became crack, including `ARTS_00051_r6_c2`, the only ARTS crack cell at 5% labels. In test, 2 cells hold 236 scuff px labelled crack. E1 scoring ignores scuff. The user decided to train scuff as its own class (B3, after protocol_100). Whether test GT keeps those 236 px as crack is an open user decision. → `17` §5.11, `13` A14
+
+**Q33. What is running, and what is waiting on the user?** (30 Oct, ~12:00 IST)
+- Running: protocol_100 on gaint (4 arms × 5 seeds at 100% labels), launched 12:05 IST 30 Oct. First answer (the 15 fine-tunes) about 00:00 to 01:00 IST 31 Oct. CP100 is held behind a decoy gate (pending at 12:22 IST); if it goes, its answer comes about 07:00 IST 31 Oct. No result exists yet.
+- Also running: B2 pool mining (candidates only), gaint CPU.
+- Waiting on the user: marks on the B1 label-audit sheets; whether to pixel-label mined pool cells (B2); the scuff test-GT option; ELPV download; the 40-segment audit; closing idle cv02 shells.
+
+→ `15` §1f, §3b
 
 ## Related docs
 All of them; start from `00_START_HERE.md`.

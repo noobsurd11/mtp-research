@@ -1,0 +1,106 @@
+# directions: learning from the ~12k unlabelled cells without their labels, then tying it to the labelled set
+
+`scout`, 29 Oct 2026. **v3** (v1 12:38 IST, v2 12:43, v3 after coach's review). Tags: **E** measured (file path), **R** literature (Research MCP id), **S** speculation.
+Scope: everything except pseudo-label SSL (MT, CPS, BsM, ALHVR, SKCDF), which is the baseline here.
+Read scope: [F] sections read today with read_paper; [A] abstract only; [lit] from `team_2026-10-27_unlabelled/lit.md` with its read scope.
+
+## 0. Bottom line
+1. **No direction here is expected to move FINAL detectably.** Every row's expected 100% crack gain is at or below the clean MDE (0.012, `team_2026-10-27_unlabelled/eval.md`). This ranking is not a route to a better best model; it is the test of whether pool-learned features beat ImageNet, and 5% labels is where a signal can show. Rank is by expected 5% gain, then by what survives to 100% (ARTS/BMRK capture).
+2. **The strongest analogues are not "pretrain the encoder on the pool".** They are (a) pasting real labelled defects onto many unlabelled backgrounds and (b) pretraining the part ImageNet does not give us, the decoder. Copy-paste: U-Net R18-ImageNet, MVTec textures, few defects, defect IoU +0.05 to +0.10 over global augmentation (R [F] doi:10.1109/tase.2025.3583713 Tab. III). Decoder denoising: Pascal Context 5% labels 30.9 → 42.2 mIoU, Cityscapes 100 labels 54.7 → 64.5 (R [F] arxiv:2205.11423 Tab. 5-6).
+3. **The prior on plain in-domain encoder pretraining fell further today.** On 120k industrial images, continuing ImageNet models with classification, MoCo-v3 or SimMIM was worse than plain ImageNet in most of 4 datasets (e.g. Swin-B SimMIM IN → industrial: −1.8, 0.0, −1.0, −2.5 mAP@.5); the large gains came only from pretraining the detector head on pseudo-defects (+4 to +10 mAP) (R [F] doi:10.1016/j.patcog.2026.113788 Tab. 2). Vanilla continual MIM from ImageNet gave ~+1.2% avg relative performance in remote sensing (R [F] doi:10.1109/iccv51070.2023.01541 §3.2). MIM5 still runs (user's question, cheap), with low expectations.
+4. Inactive: the 100% gap is on unseen modules (recall 0.43 vs 0.92 in-split, `team_2026-10-27_unlabelled/SYNTHESIS.md` §5.4), and a 5% SSL model beat SUP100 on E1 inactive (0.148 vs 0.064, 10 cells). Label-free features could touch this, but no row here has evidence for it; read unseen-module inactive recall as a named secondary on every arm (S).
+5. E1 scuff + half-cut stays a labels problem (`team_2026-10-27_unlabelled/SYNTHESIS.md` §1.7-8). No row here supplies that context; E1 is read descriptively on every arm, with no claim.
+
+## 1. Facts this ranking uses (E)
+- Crack contrast (ring median − crack median) median 13.0 GL over 466 non-twin train cells, 5.5 GL on the 5% cells; ring texture robust sd 19.3 GL; 1 GL = 0.0157 in normalised input units (E, `scripts/scout/cp_library_stats_out.txt`).
+- 5% = 23 cells, 9 with crack, 2 with inactive; in-domain unlabelled train cells at 5%: 455 (`handbook/03` §4.2). Yardsticks: A5c crack 0.304, A5c+LA 0.319, BsM5 0.331; BsM5 inactive +0.107 (`README.md`; `handbook/00` §3).
+- 100%: SUP100 0.474, FINAL 0.492; clean crack MDE 0.012; inactive MDE 0.03-0.08 (`team_2026-10-27_unlabelled/eval.md`).
+- Pool: 11,938 cells, CSIR 9,204 / ARTS 2,734; no CFVS/BMRK/SDLE; 57% at about half the labelled contrast (sd 26-29 vs 43-50 grey levels); 1,152 multi half-cells (`handbook/03` §6). Pretraining corpus: pool + train − 7 twins, minus pool cells sharing a module with val/test/E1 and near-duplicates (coach_mim5.md §B; runner's list `reports/f1/mim_pool.txt`, log 12:41). Every direction below uses that same list.
+- At 5%, crack gain from SSL is source-bound: CFVS +0.047, BMRK +0.002, ARTS −0.030; ARTS has 0 labelled crack cells at 5% (`team_2026-10-24_why/SYNTHESIS.md` §1, §4.3). **[Correction 29 Oct: ARTS has 1 labelled crack cell at 5%, not 0: `ARTS_00051_r6_c2`, 47 crack px on the server masks (coach, `review_ddep5_cp5_v0.md` P2; team-lead commit 882f929). The local E-SCDD mask has 0 crack px for that cell, which is the 8 vs 9 crack-cell difference.]**
+- About half of test crack is a confident miss (p < 0.001), 38% of pool crack a true miss (`team_2026-10-24_why/SYNTHESIS.md` §1).
+- Fine-tune recipe (A5c / SUP100): smp U-Net++, ImageNet R34, conv1 = sum of RGB filters, CE + Dice, label-safe aug (flips, 90° rot, brightness/contrast ±0.2), Adam lr 1e-3, wd 1e-4, 200-step warmup + cosine, 20k steps, batch 8, 512 px, norm mean 0.5 / std 0.25, bf16 (`handbook/14` §2). `model.encoder_init=<ckpt>` loads `encoder.*` strictly (P15).
+- Cost: supervised R34 run ~1.1 GPU-h, 5 seeds ~5.5 (`ideas.md` cost basis). All arms of one experiment on one hardware type and one commit, so A5c is re-run once on the new commit and shared by every 5% arm below (+5.5 GPU-h once).
+
+## 2. Ranked table
+Gains are S, vs a re-run A5c (5%) or SUP100 (100%), crack IoU / inactive IoU unless stated.
+
+| # | Direction | Mechanism | Evidence (best, with id) | GPU-h (A6000) | Exp. 5% | Exp. 100% | Cheapest decisive test | Kill |
+|---|---|---|---|---|---|---|---|---|
+| 1 | **CP: crack copy-paste onto unlabelled backgrounds** (pool + the fraction's unlabelled train cells); spec: `spec_cp5.md` | The labelled crack components, pasted into thousands of unseen cells; loss only on paste + ring, ignore elsewhere | R [F] doi:10.1109/tase.2025.3583713: U-Net R18-IN, Cut&Paste vs global aug +0.05 to +0.10 defect IoU (5 MVTec textures, 3 seeds); paste location matters (up to +18% vs random); Poisson blend no better than direct paste. R [A] doi:10.1111/mice.12844: crack masks copy-edit-pasted onto new concrete backgrounds, thousands of images used to pretrain, then fine-tune: F1 76.1 → 92.3 (370-image set), 88.6 → 90.6 (DeepCrack); init of the baseline not in the abstract. R [A] doi:10.1109/cvpr46437.2021.00294 (LVIS rare +3.6 AP). E: CutMix was our only perturbation with a crack signal (+0.010) | 0 pretrain + ~8 (stream adds ~1.5x compute) | vs A5c: crack +0.01 to +0.03; net of LA (matched bias): −0.005 to +0.025; inactive 0 | pooled 0 to +0.01 (below MDE); ARTS relR@2 +0.01 to +0.03 | CP5 vs A5c and vs A5c+LA (0.319), `spec_cp5.md` §8 | C1 n.d. on crack IoU and relF1@2, or matched-bias C2 not BETTER, or relP@2 −0.05 |
+| 2 | **DDeP: decoder denoising pretraining, ImageNet encoder frozen** | U-Net++ decoder (random today) pretrained to predict the noise in noised pool cells; then A5c fine-tune | R [F] arxiv:2205.11423: Pascal Ctx 5% 30.9 → 42.2, 10% 36.3 → 48.6, 100% 59.7 → 61.0; Cityscapes 1/30 54.7 → 64.5, full 80.4 → 80.7; decoder pretraining on target-like data (Pascal VOC) gives almost all of it (Pascal Ctx 5%: 44.3 vs 45.1 with IN-21k, Tab. 3; decoder width not stated there). Analogue: AGSSP head pretraining +4 to +10 mAP | 1-1.5 + 5.5 | crack 0 to +0.03; inactive 0 to +0.05 | 0 to +0.005 | DDeP5 vs A5c, 5 v 5. **Answers "decoder init helps", not the user's question:** the paper's own Tab. 3 has IN-21k decoder pretraining beating target data | n.d. on all three |
+| 3 | **MIM5: SparK continued from ImageNet (plan item 3, runner)**; variant MIM5-D adds frozen-ImageNet feature distillation | Masked reconstruction on 12.4k EL cells adapts the encoder | For: R [F] arxiv:2301.03580; R [F] doi:10.1109/cvpr52734.2025.00489 (CNN MAE +2 DSC over scratch; MIM > contrastive). Against: R [F] doi:10.1016/j.patcog.2026.113788 Tab. 2 (continued SimMIM/MoCo/Cls ≤ ImageNet in most cases); lit.md row 8 (no same-arch ImageNet win on a thin class); Torpey arxiv:2402.17611; E P15 | 2-5 + 5.5 | crack 0 to +0.02; inactive 0 to +0.04 | 0 to +0.01 | MIM5 vs A5c (designed) | n.d. on all three: close the encoder-pretraining question |
+| 4 | **AM: reconstruction-error / anomaly map as a recall aid** | MIM5's decoder reconstructs normal EL; cracks reconstruct badly. Raise crack logit where the map is high and p(crack) is mid | R [F] doi:10.1016/j.patcog.2026.113788: anomaly-map-distilled backbone alone +0 to +3 mAP, only boxes from maps gave large gains; EL anomaly work is cell-level ([lit] doi:10.1016/j.solener.2023.04.059) | 0.2 inference (after #3) | crack recall +0 to +0.02 at matched precision | same | val only: AP of map on crack px; recall of A5c/SUP100-missed val components at map precision ≥ 0.5 | missed-component recall < 0.05 |
+| 5 | **SYN: synthetic thin-crack pretext** (procedural cracks drawn on pool cells, pretrain whole U-Net++, then fine-tune) | Label-free segmentation pretext with the target's geometry; pretrains decoder and head | R [F] arxiv:2309.09637: synthetic-only crack training beats a real multi-source U-Net zero-shot on one real set, no fine-tune numbers. Analogue AGSSP pseudo-defect head pretraining | 1-2 + 5.5 (+1 day dev) | crack 0 to +0.02 | 0 | SYN5 vs A5c | n.d., or relP@2 −0.05 |
+| 6 | Dense contrastive / self-distillation (DenseCL, PixPro, VICRegL, DINO) continued from ImageNet | Pixel-level view invariance | [lit] doi:10.1109/cvpr46437.2021.00304 (vs other SSL at ImageNet scale); against: MIM > contrastive in small non-object-centric sets (Wald Tab. 4; VasoMIM); AGSSP: MoCo-v3 ≤ supervised IN | 3-5 + 5.5 | 0 to +0.01 | 0 | only if MIM5 passes | n.d. |
+| 7 | BN re-estimation / TTA on unlabelled target cells | Fix BN statistics shift | [lit] arxiv:2006.10726 | 0.2 | n/a | E1 descriptive 0 to +0.03 | 27 Oct item 4c | E1-sh Δ < +0.05 |
+| 8 | kNN / prototype label transfer from frozen features | Nearest labelled pixel features | E `trackD/verify_probe.md`: frozen features rank BMRK crack only at low precision; DINOv2 failed | 0.5 | ≤ +0.01 | 0 | rescore the probe with the MIM5 encoder (free) | AP ≤ IN R34 probe (0.185) |
+| 9 | Clustering / unsupervised seg (DeepCluster, SwAV, PiCIE, STEGO) | Name pool clusters with the labels | R [A] arxiv:2203.08414 (needs DINO-ViT features) | 2-5 | crack 0; inactive 0 to +0.02 | 0 | crack-px purity per cluster on val | purity < 0.2 |
+| 10 | Diffusion features / generative augmentation | DDPM trained on pool as feature extractor or mask-to-image generator | R [A] arxiv:2112.03126 (natural images, very few labels) | 20-60 | unknown | 0 | not before #1-#5 | – |
+
+Not ranked: PL-SSL (baseline); SAM teachers (doi:10.1109/wacv61042.2026.00505); DINOv2 distillation (probe failed); ridge-filter pseudo-label pretraining (`ideas.md` F12, AUROC 0.47-0.49); pool mining for labelling (uses labels; still 27 Oct item 1).
+
+**Suggested run order** (cheapest decisive first, shares one fresh A5c): MIM5 (running) → AM check (free, val only) → DDeP5 (1-1.5 GPU-h pretrain) → CP5 (dev, no pretrain) → SYN5 only if DDeP5 or CP5 passes. Four 5% contrasts × 3 primaries = 12 tests against one A5c: state the multiplicity in each protocol.
+
+## 3. Recipes (top 5, implementable)
+
+### 3.1 CP: crack copy-paste onto unlabelled backgrounds
+Full implementable spec: **`spec_cp5.md` v1.1, APPROVED by coach** (`review_spec_cp5_v1.md`, edits E1-E6 folded in) (library, residual blending, backgrounds, sampling, targets, loss, BN, smoke checks, LA contrasts). Summary:
+- Library: the fraction's labelled crack components ≥ 20 px, minus inactive-edge, cell-edge and non-dark (< 3 GL) ones: 17 components, 11.8k px at 5%, mostly CFVS (E, `scripts/scout/cp_library_stats_out.txt`).
+- Blending: add the crack residual (source minus its local background) onto the target's own pixels, scaled by target/source ring sd, so the target's texture stays under the crack (no flat-line cue); dihedral + integer shift only, so 2 px labels stay exact.
+- Backgrounds: pool part of coach's MIM list + the 455 unlabelled 5% train cells, 50/50; targets crack / 1 px ignore / 2-6 px not-crack ring / ignore elsewhere.
+- Bar: A5c+LA (0.319). Pasting adds crack positives, i.e. a prior shift that LA gives for free, so the crack claim needs the matched-bias contrast too (`spec_cp5.md` §8).
+- E1: descriptive only. Half-cut without scuff already scores 0.552; the scuff + half-cut gap is a context no paste of these components supplies.
+
+### 3.2 DDeP: decoder denoising pretraining (coach's settings, 29 Oct)
+- **What it answers.** "Does a pretrained decoder beat a random one at 5%?" The paper's Tab. 3 has decoder pretraining on ImageNet-21k beating target data, so a DDeP5 win is evidence for decoder init, not for the pool (R [F] arxiv:2205.11423 §4.2).
+- **Model.** The exact A5c network. Encoder weights frozen, **encoder BN in train mode** (batch statistics), so the decoder learns on the feature statistics it will see at fine-tune. Decoder trainable, plus a temporary 1-channel 1×1 head.
+- **Noise (pre-registered, one value, no sweep).** x' = sqrt(γ)·x + sqrt(1 − γ)·ε on the normalised input, **γ = 0.95** (σ = 0.224 normalised ≈ 14 GL; 1 GL = 1/255/0.25 = 0.0157), the paper's tuned value (R [F] arxiv:2205.11423 §4.1, Fig. 5; fixed γ beat γ ~ U(0.9, 0.95), Tab. 4). Coach's ruling (29 Oct): with ε-prediction this is fine; noise sits below the cell's own texture (ring robust sd 19.3 GL ≈ 0.30 normalised; labelled image sd ≈ 0.7-0.8 normalised, so noise/data ≈ 0.3, the paper's regime), with crack contrast 13 GL ≈ 0.20 (E, `scripts/scout/cp_library_stats_out.txt`). An earlier 0.10 proposal assumed x-prediction and is withdrawn.
+- **Target.** Predict ε, not x (no input-to-output skip: ε beat x by +4.6 to +7.0 mIoU, R [F] Tab. 1). MSE over all px.
+- **Data, optim.** Coach's MIM image list; label-safe geometry; Adam lr 1e-4, cosine, batch 32, ~40k steps (paper: 100 epochs, lr 6e-5 to 1e-4; longer keeps improving, Fig. 3) (R/S). Crop size: runner's choice for speed, state it.
+- **Transfer.** Load decoder weights only, **excluding `segmentation_head`**, after the model is built and with no RNG draw (same contract as `encoder_init`), so the 24-class head keeps A5c's seeded init. The encoder is not transferred (A5c's ImageNet encoder is), so its drifting BN running stats during DDeP change nothing.
+- **Fine-tune.** A5c recipe unchanged (Adam 1e-3, 200-step warmup; team-lead and coach: one change per arm). The paper swept lr for every arm including its baseline; sweeping it for DDeP alone would be a tuning asymmetry. If DDeP5 is n.d. with a same-sign hint, the follow-up is a pair (A5c and DDeP at 3e-4, 10 runs), not DDeP alone.
+- **Free diagnostic.** Per-module relative decoder change ||θ_final − θ_init|| / ||θ_init||, A5c vs DDeP5: shows whether lr 1e-3 erased the pretrained decoder.
+- **Kill.** DDeP5 − A5c n.d. on all three primaries.
+
+### 3.3 MIM5
+- **Binding settings: `coach_mim5.md`** (the protocol is reviewed against it). Not restated here.
+- Evidence notes only: SparK sparse masking is the method (zero-out ≈ no pretraining, R [F] arxiv:2301.03580 Tab. 5); 60% and 75% mask tie, 30-45% worse (R [F] doi:10.1109/cvpr52734.2025.00489 Tab. 2b); continued pretraining on industrial images mostly ≤ ImageNet (R [F] doi:10.1016/j.patcog.2026.113788 Tab. 2).
+- Possible later arm: MIM5-D, frozen ImageNet teacher with cosine feature distillation at layer3 (R [F] doi:10.1109/iccv51070.2023.01541 §3.3, §5.1). **Gate (coach):** only if MIM5 passes, or is n.d. with Δ > 0 on all three primaries. An ImageNet-anchored version of an n.d. MIM5 sits closer to A5c and cannot help; do not queue it while GPUs are scarce.
+- AM (§3.4) needs the full MIM state (decoder, mask tokens) saved at the final step; asked of runner (log.md, scout v2.1 line).
+
+### 3.4 AM: reconstruction-error map (free once MIM5 exists)
+- **Map.** For each val cell, 8 random masks at ratio 0.6; for each pixel, mean |x − x̂| over passes where it was masked, in per-patch-normalised units. Optional: PatchCore-style kNN distance on IN R34 layer2 features from pool cells (stride 8; coarse for 2 px, S).
+- **Score (val only).** Pixel AP of the map on val crack; for val crack components that A5c (5%) and SUP100 (100%) miss (relaxed recall@2 < 0.5), the fraction the map recovers at map precision ≥ 0.5.
+- **Use if it passes.** Inference rule frozen on val: z = standardised map; crack logit += β·z only where 0.001 ≤ p(crack) ≤ 0.5; β chosen on val relF1@2. Then one test opening.
+- **Kill.** Missed-component recall < 0.05 at precision ≥ 0.5, or map AP ≤ 2× crack base rate.
+
+### 3.5 SYN: synthetic thin-crack pretext
+- **Generator (S).** Per pool cell 1-4 cracks: random-walk polyline, step 4 px, heading change ~N(0, 15°), length 30-300 px, branch prob 0.1 per 20 px (branches 8-60 px); width 1-3 px Gaussian profile; darkness Δ sampled from the labelled crack-minus-ring distribution (measure on the 5% labelled cells only); 20% of cracks start at a busbar or cell edge.
+- **Pretrain.** Whole U-Net++ (encoder from ImageNet, decoder random), 2-class head, CE + Dice, A5c optimiser, 10k steps, batch 8, 512 px; real cracks in pool cells become ~0.2% label noise (accept).
+- **Transfer.** Encoder + decoder; fresh 24-class head; A5c fine-tune.
+- **Kill.** n.d. at 5%, or relP@2 −0.05 (a generic dark-line detector would fire on fingers and scuff).
+
+## 4. Why each could and could not work on EL (all rows)
+| # | Could (EL-specific) | Could not (EL-specific) |
+|---|---|---|
+| 1 CP | Exact residual transfer keeps 2 px labels aligned; backgrounds bring ARTS (0 labelled crack cells at 5%) **[Correction 29 Oct: ARTS has 1 labelled crack cell at 5%, not 0: `ARTS_00051_r6_c2`, 47 crack px on the server masks (coach, `review_ddep5_cp5_v0.md` P2; team-lead commit 882f929). The local E-SCDD mask has 0 crack px for that cell, which is the 8 vs 9 crack-cell difference.]**, BMRK/CFVS/SDLE (unlabelled train cells), half-cells; same crack exemplars seen in many contexts | Only 17 components at 5%, mostly CFVS: no new crack shapes; doubles crack positives per step, a prior shift LA gives for free; at 100% the labelled set already covers sources, so pooled gain ≤ MDE; adds no scuff context for E1 |
+| 2 DDeP | Our decoder is random at step 0 and sees 23 cells at 5%; denoising forces fine detail through the skips | Gains measured with a ViT-hybrid encoder and natural images; CNN U-Net++ decoder may train fine from random; lr 1e-3 fine-tune may erase it; at 100% the paper's gain is +0.4 to +1.2 mIoU |
+| 3 MIM5 | EL is far from ImageNet; MIM > contrastive in small non-object-centric domains | ImageNet R34 init is already strong (P15, Torpey); EL cells are periodic, so masked patches are predictable from fingers/busbars (easy pretext); continued pretraining ≤ ImageNet in AGSSP's 120k industrial set |
+| 4 AM | Pool is ~all non-crack px; reconstruction error is pixel-level; targets the p < 0.001 misses no PL rule reached | With per-patch normalised 32 px targets the error is high on all multi grain (coach); also fires on inactive, scuff, contamination; EL evidence cell-level only. Free once MIM5 exists, so the check stays |
+| 5 SYN | Matches crack geometry, pretrains decoder | EL crack identity is contextual (crosses fingers, darker side region); synthetic lines may train a dark-line detector; evidence is concrete cracks, synthetic-only |
+| 6 DCL/DINO | Pixel-level objective | Crops of a cell hold different defects (Torpey's reading); lower than MIM on the evidence |
+| 7 TTA | E1 brighter/higher contrast | 75% of E1 crack is a missing context |
+| 8 kNN | Free | Low precision only |
+| 9 Cluster | Might isolate dark inactive regions | Crack < 1% px, 2 px wide: no cluster isolates it |
+| 10 Diffusion | Rich generative features | Cost; no EL or thin-structure evidence found |
+
+## 5. Evidence index (Research MCP ids used here)
+[F] read today: arxiv:2301.03580 (SparK §3-4, App.); doi:10.1109/cvpr52734.2025.00489 (Wald, §4-5); arxiv:2205.11423 (DDeP §2-5); doi:10.1109/tase.2025.3583713 (Synth4Seg §III, §V); doi:10.1016/j.patcog.2026.113788 (AGSSP §4.1.2, §5.1.2, §5.2.1); doi:10.1109/iccv51070.2023.01541 (GFM §3.2-3.3, §4.3, §5.1); arxiv:2309.09637 (Jaziri §5).
+[A] abstract: doi:10.1111/mice.12844 (CEP TL, full text not retrievable); doi:10.1109/cvpr46437.2021.00294; arxiv:2203.08414; arxiv:2112.03126; doi:10.1109/cvpr52729.2023.01562 (PRN, residuals to normal prototypes + generated anomalies, MVTec); doi:10.3390/s26041385 (two-phase general → domain-adaptive MIM best at low labels, remote sensing); doi:10.1016/j.media.2025.103487 (domain-adaptive pretraining, medical).
+[lit] via `team_2026-10-27_unlabelled/lit.md`: arxiv:2402.17611, arxiv:2605.12430, doi:10.1609/aaai.v40i6.42503, doi:10.1109/wacv51458.2022.00112, arxiv:2006.10726, doi:10.1109/cvpr46437.2021.00304, doi:10.1016/j.solener.2023.04.059, doi:10.1109/wacv61042.2026.00505.
+
+## Changelog
+- v1 12:38 IST: first draft, 10 rows.
+- v2: re-ranked. CP to #1 (Synth4Seg same-architecture evidence), DDeP #2, MIM5 #3 with lower prior (AGSSP Tab. 2, GFM §3.2), AM #4, SYN #5 (Jaziri has no fine-tune numbers). Recipes §3. MIM5-D variant added.
+- v3: coach's review applied: §0 states no row is expected to move FINAL (all 100% gains ≤ MDE 0.012); DDeP framed as "decoder init", encoder BN train mode, decoder-only load without `segmentation_head`; CP bar A5c+LA with matched-bias contrast, residual transfer, seam control, E1 claim dropped; §3.3 points to `coach_mim5.md`; crack contrast measured (E). `spec_cp5.md` v1 written.
+- v3.1: DDeP noise back to the paper's γ 0.95 with ε-prediction (coach withdrew 0.10); fine-tune lr ruling and decoder-change diagnostic; MIM5-D gated on MIM5; CP net-of-LA expectation; `spec_cp5.md` v1.1 approved.

@@ -11,6 +11,8 @@ It starts with the decisions inherited from the earlier phases (phase 0 and phas
 
 Read it to answer "why did we do X and not Y?". For the experiments themselves see `08_`, `09_` and `10_`. For problems and open issues see `13_problems_pitfalls_open_issues.md`.
 
+**Update 30 Oct 2026 (additive):** §4c adds the decisions of 24 to 30 Oct (D41 to D50), with index rows, K10 and K11, and four rules in §6. Experiments for these dates: `18_experiments_trackD_trackM.md`, `19_feature_learning_and_100pct_plan.md`.
+
 **Conventions**
 - **Times are IST** (UTC + 5:30).
   - User messages are timestamped in UTC in the transcript extract and converted here.
@@ -74,6 +76,16 @@ Read it to answer "why did we do X and not Y?". For the experiments themselves s
 | D33 | 11 Oct 22:03 | user | build this handbook |
 | D34 | 12 Oct ~01:15 | user | download the full E-SCDD, audit and analyse it, report in the handbook; also read the E-SCDD paper (done; doc 17) |
 | D35 | 12 Oct ~04:40 | Claude (post hoc, disclosed) | P16 read under the locked rules (fails at all three fractions); added a without-`CSIR_00070_r8_c4` sensitivity check after seeing 4 failed runs; no rule changed; adopting it as a standing check left to the user |
+| D41 | 24 Oct | user | "take the critics decisions, and go", with the max-score goal stated: Track D and Track M (added 30 Oct) |
+| D42 | 24 Oct | critic C (locked rule) | MIM gated out after the frozen-encoder probe; judged too early by the 27 Oct team (added 30 Oct) |
+| D43 | 25 Oct | locked rule (Track M) | FINAL = SUP100 5-seed ensemble, crack bias +0.75 (headline), bias 0 reported as the robust point (added 30 Oct) |
+| D44 | 28 to 29 Oct | user; team-lead | the user's 100%-label question; team scout / runner / coach; the 5% screen copied from the 27 Oct synthesis (added 30 Oct) |
+| D45 | 30 Oct ~10:45 | user | "why 5%?": stop the 5% screens (CP5 stopped unscored), test the pool at 100% labels (added 30 Oct) |
+| D46 | 30 Oct ~10:25 to 11:12 | coach, diag, team-lead | protocol_100: 4 arms incl. SUP100-PF unconditional; DDeP100 and plain MIM100 dropped; APPROVED with G5 (added 30 Oct) |
+| D47 | 30 Oct 11:12 | user | B1 label audit yes; B2 pool mining, candidates only; scuff as its own class (added 30 Oct) |
+| D48 | 30 Oct 11:11 to 11:21 | coach, runner | CP100 excludes the 6 scuff-as-crack train cells; the star cell kept (added 30 Oct) |
+| D49 | 30 Oct 11:13 to 11:18 | coach, team-lead | two protocol_100 test openings (15 fine-tunes, then CP100) with fixed conditions (added 30 Oct) |
+| D50 | 30 Oct 12:04 to 12:10 | coach (post hoc gate amendment, disclosed) | gate 6b: a 4k decoy reading with 3 pre-stated GO conditions before any CP100 run (added 30 Oct) |
 | K1–K8 | throughout | Claude / user | housekeeping: tmux, worktrees, REVISION, md5, GPU rules, watchers, commits |
 
 ---
@@ -585,6 +597,80 @@ Verbatim, with the question each answered (from session summary 2026-10-11T09:36
 
 ---
 
+## 4c. 24 to 30 Oct: agent teams, the best model, feature learning and the move to 100% (added 30 Oct)
+
+Additive section, written 30 Oct ~12:00 IST from `SESSION_RECORD_2026-10-21_to_27.md`, `SESSION_RECORD_2026-10-28_to_30.md`, `team_2026-10-24_go/README.md` and `team_2026-10-29_features/log.md`. "team-lead" is the user's main Claude session, which orchestrates the agent teams. The 21 to 23 Oct team decisions (data decisions D1 to D7 of `team_2026-10-21/data/decision.md`, SK1, AL1) are in doc 10.
+
+### D41. "Take the critics' decisions, and go" (24 Oct)
+- **Who:** the user, after the why-SOTA team's synthesis (doc 18 §W).
+- **What:** run the critic's ranked directions (Track D) and build the best-scoring model (Track M). The user's goal, verbatim: "highest scores, a model which captures almost all of the cracks, inactive and other important defects balancing the miou for other classes as well" (`team_2026-10-24_go/README.md`).
+- **Also accepted by this:** the 3-seed-per-draw design of the labelled-set experiment (a deviation from the ≥ 5-seed rule).
+- **Outcome:** Track D and Track M (doc 18), critic-verified, committed `6c50baf` and `b04cad3`.
+
+### D42. MIM gated out on the frozen-encoder probe (24 Oct)
+- **Who:** critic C, by the locked probe rule.
+- **What:** frozen ImageNet ResNet-50 and ConvNeXt-T passed the BMRK crack-AP bar, so the encoder route went to Track M (R3), and MIM (direction 7) was gated out.
+- **Later:** the 27 Oct team judged this too early as a test of the user's question and ranked one bounded MIM test (doc 18 §U). MIM5 ran 29 to 30 Oct (D44).
+
+### D43. FINAL by the locked protocol (25 Oct)
+- **Who:** the locked `protocol_final.md` rule (Track M designer MD, critic MC).
+- **What:** no ladder rung passed val inclusion, so the recipe is SUP100. FINAL is its 5-seed mean-softmax ensemble with a +0.75 crack bias chosen on val. Bias 0 is reported beside it as the robust operating point, after the noisy-cell fragility.
+- **Outcome:** clean crack IoU 0.492 (doc 18 §M7; doc 11 row 18).
+
+### D44. The user's question, the team, and the 5% screen (28 to 29 Oct)
+- **Who:** the user (question, team shape); team-lead (the 5% choice).
+- **What:**
+  - 28 Oct: does learning features from the ~11.7k unlabelled cells, without labels, improve the model trained on all our labels?
+  - 29 Oct ~12:30: launch a researcher, an executor and a practical critic; the lead only orchestrates. Team `scout` / `runner` / `coach`.
+  - The methods (MIM5, AM, DDeP5, CP5) were screened at 5% labels. This was copied from the 27 Oct synthesis without checking it against the question (doc 13 C14).
+- **Outcome:** MIM5 and DDeP5 n.d., AM killed, CP5 stopped (doc 19 §2, §3).
+
+### D45. Stop the 5% screens; test the pool at 100% labels (30 Oct ~10:45)
+- **Who:** the user: "why 5%? I asked about adding the pool to 100% labels."
+- **What:** all 5% work stops. CP5 stopped at 10:50 IST with s0/s4 mid-run and s2 cancelled; it is not scored and no test was opened. Everything moves to 100% labels.
+- **Why:** a 5% null need not carry to 100%; it depends on the method. At 5% the defect classes are too scarce. `diag` then showed the rule holds only for methods that do not consume labels and when the 5% estimate is tight; 100% is also better powered (doc 19 §5).
+- **Also:** saved as feedback memory: pool ideas are tested on top of 100% labels unless the user asks otherwise.
+
+### D46. protocol_100 design (30 Oct ~10:25 to 11:12)
+- **Who:** coach (settings, `coach_100.md`), `diag` (analysis), team-lead (accepted coach's settings in full); coach APPROVED v1 (`review_100_v1.md`).
+- **What:**
+  - Four arms on gaint, 5 seeds each: SUP100-g, SUP100-PF, MIM100-PF, CP100 (doc 19 §7).
+  - SUP100-PF runs unconditionally (diag's and coach's advice), because MIM100-PF − SUP100-g would mix the init and the optimizer change.
+  - Dropped: DDeP at 100% and plain MIM100.
+  - Gate G5 added at approval: PF smokes to 4k with layer3/4 cosine ≥ 0.8, fallback lr_mult 0.03, then stop.
+  - All on gaint because cv02 had 0 of 8 GPUs free at 10:51.
+- **Why PF:** coach's encoder-erasure measurement (doc 19 §4).
+- **Outcome:** v1.1 (md5 8dcb231b) records the gates: identity gates IDENTICAL (re-diffed by coach), G5 PASS (lr_mult 0.1 kept), no 4th lane, gate 6 FLAG (D50). The 15 fine-tunes launched 12:05:34 IST on gaint.
+
+### D47. B1 audit, B2 mine only, scuff as its own class (30 Oct 11:12)
+- **Who:** the user, answering team-lead (relayed in `log.md` 11:12 and the session record §1).
+- **What:**
+  - **B1:** yes to the free out-of-fold label audit of train. Sheets delivered 11:37.
+  - **B2:** mine the pool for half-cut / scuff candidate cells only; whether to pixel-label 20 to 40 of them is decided later.
+  - **Scuff:** train it as its own class (B3, `spec_b3_scuff.md`), after protocol_100.
+- **Also that hour:** the user asked coach to lead as a scarce-data expert (`coach_strategy.md`); `diag` was shut down at the user's request (11:37).
+- **Still open:** for B3, keep test GT for the verdict (coach's recommendation) or also report a version with the 236 scuff px ignored (doc 15 §3b).
+
+### D48. CP100 excludes scuff-as-crack cells (30 Oct 11:11 to 11:21)
+- **Who:** coach (finding and ruling), runner (verification on gaint).
+- **What:** the 6 train cells whose E-SCDD scuff is labelled crack are excluded from the CP100 paste library, with the 7 D7 twins: 13 stems, md5 903293c9. The star cell `CFVS_00024_r3_c3` stays in the library (meaning undefined, 0.04% of library px) and on the review list.
+- **Why:** CP100 would otherwise paste scuff streaks as crack onto pool cells.
+- **Outcome:** the frozen v1.1 library has 554 components, 151,039 px from 465 cells (566 / 151,993 before this exclusion; kept-list md5 a326dffd).
+
+### D49. Two test openings for protocol_100 (30 Oct 11:13 to 11:18)
+- **Who:** coach ruled yes on early scoring; runner staged it "(coach + team-lead)" (`log.md` 11:13, 11:18). The sources do not say whether the user asked for it.
+- **What:** opening 1 = the 15 fine-tunes (~01:00 IST 31 Oct); opening 2 = CP100 at the end (~07:30 IST 31 Oct), reusing SUP100-g's opening-1 files unchanged (md5-checked).
+- **Conditions:** CP100 runs to completion whatever opening 1 shows; no protocol_100 change after opening 1.
+- **Note:** `protocol_100.md` v1 and the first review said one scoring pass; v1.1 (12:02 IST) pre-registers the two openings. v1.1 ETA: opening 1 about 00:00 to 01:00 IST 31 Oct; opening 2 (if CP100 runs) about 07:00.
+
+### D50. Gate 6b: one more decoy reading before CP100 runs (30 Oct 12:04 to 12:10)
+- **Who:** coach, after gate 6 flagged; a post hoc amendment of gate 6, disclosed as such (`review_100_v1.md`, "Gate check and gate-6 ruling"). team-lead had asked whether the 2× relative line still makes sense at 100%.
+- **What:** gate 6 flagged on the ratio only: CP decoy 0.0076 vs SUP 0.0031 (2.45×), both far below the 0.05 absolute line. Coach ruled: resume both smokes from 2k to 4k and rerun the same decoy. CP_GO only if, at 4k, CP decoy ≤ 0.05, and (≤ 2 × SUP decoy or ≤ 0.0094), and decoy/real ≤ 3.6%; else CP_STOP and no opening 2. All three conditions were written before the 4k numbers. The CP100 verdict rule is unchanged.
+- **Why:** the decoy test is a futility and safety gate (test cells hold no pastes). At 100% the SUP baseline is more selective (decoy/real 1.1% vs 3.6% for A5c at 5%), so 2× is stricter than at 5%; a seam shortcut would grow with training, which one 2k point cannot show.
+- **Outcome:** pending at 12:22 IST; CP100 waits in the queue for `CP_GO` / `CP_STOP`, decided before opening 1.
+
+---
+
 ## 5. Housekeeping decisions (how the work is run)
 
 | # | Decision | Who / why | Source |
@@ -598,6 +684,8 @@ Verbatim, with the question each answered (from session summary 2026-10-11T09:36
 | K7 | Commit to `~/mtp/research` after every result, with attribution trailers; never push to GitHub without asking; PDFs stay local | user constraints | session summaries |
 | K8 | Fill idle machines overnight with the next locked experiment ("use all resources") | the user, 10 Oct | memory `server-runs-tmux-parallel.md` |
 | K9 | Back up cv02 run dirs to gaint `cv02_noob_el` (laptop relay, manifest + MD5); no agent forwarding or keys on cv02's shared login | the user (D37); Claude on the shared account | memory `cv02-shared-account-backup.md` |
+| K10 | (added 30 Oct) Agent teams from 21 Oct: every track has an executor and a critic; no launch without APPROVED; no result reported before the critic's own recompute | the user's team set-up | `team_2026-10-21/README.md`; `team_2026-10-29_features/README.md` |
+| K11 | (added 30 Oct) gaint memory: ≥ 2 GB free at all times for root's `finllm_chat.py`; per-run start gate = own measured peak + 2 GB; starts under a flock gate, ≥ 120 s apart | team-lead, 29 Oct 13:31; race fix 30 Oct 02:37 to 02:47 | `team_2026-10-29_features/log.md`; doc 14 §1.2b |
 
 ---
 
@@ -623,6 +711,10 @@ Each rule exists because a specific mistake produced a fake or misleading result
 | Treat the user's questions as tests, not confirmations | phase-1 corrections log | phase-1 §16 |
 | Chain GPU queues, one per machine | the 10 Oct queue race | memory `server-runs-tmux-parallel.md` |
 | Use exact tmux names (`-t "=name"`) | `has-session -t p13` matched `p13smoke`, so nothing launched | memory |
+| (added 30 Oct) Check a protocol's label fraction against the user's question; test a method at the fraction where its mechanism lives | MIM5, DDeP5 and CP5 were screened at 5% for a question about 100% labels (D44, D45) | `SESSION_RECORD_2026-10-28_to_30.md` §5; `coach_strategy.md` §3 rule 2 |
+| (added 30 Oct) Report the per-stage encoder cosine to init with every init or pretraining result | "pretraining does not help" turned out to mean "pretraining was erased" by the house optimizer | `coach_100.md` §0; `coach_strategy.md` §3 rule 1 |
+| (added 30 Oct) Capture `rc=$?` before any `$(date)`, in every new script; judge completion from DONE lines and manifests | the 21 Oct bug recurred in five status lines on 29 to 30 Oct | doc 13 D20 |
+| (added 30 Oct) Absolute log paths in scripts that `cd`; atomic start gates; log stamps from `date` only | a relative path hid the AFTER-RUNS line; three runs started on one memory reading; log lines were stamped up to about 75 min ahead | doc 13 D21 to D23 |
 
 ## Related docs
 - `00_START_HERE.md`

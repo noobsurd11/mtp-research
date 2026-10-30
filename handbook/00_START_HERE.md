@@ -2,6 +2,13 @@
 
 **What this is.** A handbook for an agent that will act as a guide and interpreter for the student who owns this project (called "the user" below). The user wants to understand the whole project from zero to one: scope, domain, data, jargon, work done, problems, decisions, results, and what is left. These docs hold everything known as of **12 Oct 2026, about 05:30 IST**: every P-series experiment (P1 to P16) is finished and analysed, plus the **E-SCDD download and audit of 12 Oct, about 02:30 IST** (doc 17). The work session closed on **13 Oct, about 01:30 IST** with no new results; doc 15 records the state at the close. The `sources/` folder holds the primary documents they rest on. The live project files are reachable by command (section 5).
 
+**Update 30 Oct 2026, ~12:00 IST (additive; nothing earlier is removed).** The docs now also cover the agent-team work of 21 to 30 Oct:
+- doc 10: SK1, S-a and AL1 (21 to 23 Oct, added earlier);
+- **doc 18:** the why-SOTA team, Track D, Track M and the best model FINAL, and the unlabelled-data team (24 to 27 Oct);
+- **doc 19:** feature learning from the pool at 5% (MIM5, AM, DDeP5, CP5), encoder erasure, why 5% was the wrong test, protocol_100 (100% labels, launched 30 Oct 12:05 IST; **no results yet**), and the label work (B1 audit, scuff).
+
+Where a new finding limits an older claim, a dated "[Qualified 30 Oct: ...]" note sits next to it. The master records for these dates are `SESSION_RECORD_2026-10-21_to_27.md` and `SESSION_RECORD_2026-10-28_to_30.md` (copies in `sources/session_records/`).
+
 ---
 
 ## 1. Your role as the guide
@@ -47,8 +54,12 @@
 | 15 | `15_status_remaining_work.md` | What is running, what is left, decisions waiting on the user |
 | 16 | `16_faq_for_the_guide.md` | Short grounded answers to likely questions |
 | 17 | `17_escdd_dataset_audit.md` | The E-SCDD dataset and paper: what it really contains, the audit, and what it changes |
+| 18 | `18_experiments_trackD_trackM.md` (added 30 Oct) | 24 to 27 Oct: why SOTA SSL fails, Track D diagnosis, Track M and the best model (FINAL), the unlabelled-data synthesis |
+| 19 | `19_feature_learning_and_100pct_plan.md` (added 30 Oct) | 28 to 30 Oct: pool feature learning at 5%, encoder erasure, the 5% lesson, protocol_100, label audit and scuff |
 
 For a quick start, read 01, 04 (skim), 11 and 16. Then go back to 02 to 10 as questions come up.
+
+(Added 30 Oct) For the current state, read 11 rows 18 to 24, then 18 §M7 (FINAL), 19 §4 (encoder erasure) and §7 (protocol_100), and 15 §1f and §3b (what runs and what waits on the user). 16 section G has short answers.
 
 ## 3. Ten facts to hold onto
 1. **Data.** BenchmarkEL `dataset_20211104`: 582 labelled cells (478 train / 54 val / 50 test), 512×512, 24 classes.
@@ -66,6 +77,7 @@ For a quick start, read 01, 04 (skim), 11 and 16. Then go back to 02 to 10 as qu
 5. **Baseline.** The supervised base since P6 is **L3**: U-Net++, ImageNet ResNet34, CE+Dice, label-safe augmentation, revised masks.
    - Crack IoU: 0.396 at 10% labels, 0.471 at 100%.
    - Source: `results/p6/README.md`.
+   - [Note 30 Oct: the best model is now FINAL (25 Oct), the 5-seed ensemble of this recipe at 100% labels with a +0.75 crack bias: clean test crack IoU 0.492 (fact 10; doc 18 §M7).]
 6. **Invalid old results.** All old Mean Teacher results used SemiCE, which is not a valid consistency loss (P2). ALHVR-20's gain equals its loss-off control's.
 7. **BatchNorm handicap.** Before P13, the Mean Teacher student was handicapped by sharing BatchNorm with unlabelled images:
    - loss-off arm −0.017 crack IoU against supervised at 5% (P12);
@@ -77,6 +89,7 @@ For a quick start, read 01, 04 (skim), 11 and 16. Then go back to 02 to 10 as qu
 9. **P14.** An offset-tolerant supervised loss recovers none of the old-vs-revised label gap.
 10. **Latest results.**
     - P15 (UCF-EL encoder transfer, gaint): no better than ImageNet init at 5%, worse at 10% on all three primaries (`results/p15/README.md`).
+      [Qualified 30 Oct: P15 used the house fine-tune, which erased encoder layer3/4 in every ResNet-34 run measured (doc 19 §4). So P15 likely tested little more than conv1/layer1 transfer (S; not measured on the P15 encoder); the claim holds for that recipe only.]
     - P16 (SSL vs supervised at 20 / 50 / 100%, cv02, 5 vs 5 seeds, P13's Cs recipe with CutMix off): **fails at all three fractions**, n.d. on every primary. The 5% inactive gain shrinks to +0.029, +0.006, +0.003 (`results/p16/README.md`).
     - P17 (13 Oct, cv02, 5 vs 5): SKCDF-style decoupled decoder on BsM5 (pseudo-labels kept out of the labelled decoder). BsD5 − BsM5 is **n.d.** on all three primaries; BsD5 still beats supervised on all three. The detection threshold is about 40% of BsM5's gain, so a smaller decoder share is not ruled out (`results/p17/README.md`).
     - P18 (13 Oct, cv02, **exploratory**: the BsM recipe chosen after seeing P13's test results): BsM10 − A10 (3 v 3) and BsM20 − A20 (5 v 5) pass the rule-1 arithmetic on inactive IoU only (+0.132, +0.060); crack +0.012 / −0.006 n.d. One BsM20 seed fails on the noisy cell. Without that cell (post hoc) BsM10 passes on all three (+0.017 / +0.138 / +0.020) and BsM20 on inactive only (crack +0.013 vs threshold 0.014). Inactive bootstrap excludes 0 at 10%, not at 20% (`results/p18/README.md`).
@@ -94,6 +107,15 @@ For a quick start, read 01, 04 (skim), 11 and 16. Then go back to 02 to 10 as qu
       - Post hoc reading: the ALHVR losses halve inactive recall (doc 13 A13).
       - The old ALHVR question (doc 13 B3/E11) is closed (doc 10 AL1).
     - Measurement warning from P16: one very noisy test cell, `CSIR_00070_r8_c4`, makes about 1 run in 6 call 15 to 31% of it crack, cutting that run's crack IoU by up to 0.18. Without it P16's verdict is the same (crack Δ within ±0.003). Read every crack contrast with this in mind (doc 13).
+    - **Added 30 Oct: 24 to 30 Oct** (docs 18, 19; experiment verdicts recomputed by each team's critic):
+      - **Best model, FINAL** (25 Oct, Track M, cv02): the 5-seed mean-softmax ensemble of the 100%-label L3 recipe, crack bias +0.75 chosen on val. Clean test (49 cells): crack IoU **0.492** (single model 0.474; +0.018 [+0.013, +0.025]), relF1@2 0.897, crack components found 0.834, inactive IoU 0.456 (n.d.), E1 crack recall 0.215. Bias 0 (0.488) is the robust operating point: +0.75 calls 10,867 crack px on the noisy cell. "Almost all cracks" (relR@2 ≥ 0.90 at relP@2 ≥ 0.90) not reached: 0.866 at 0.930 (`team_2026-10-24_go/trackM/results_final.md`).
+      - **Track M ladder:** Dice on 12 classes WORSE; Dice on 3 classes, +107 E-SCDD cells, 2× resolution n.d.; ResNet-50 WORSE on inactive. None entered FINAL.
+      - **Track D:** frozen ImageNet ResNet-50 ranks BMRK crack better than the 5% model (low precision only). At +12 labelled cells, crack-containing cells beat random cells (relF1@2 +0.030) and the best SSL arm (0.352 vs 0.331), oracle-selected. Inactive-edge banding moves no SSL verdict.
+      - **27 Oct synthesis:** pseudo-label SSL is a tight null at 20 to 100% (+0.01 excluded at 100%); 75% of unseen-module crack sits in half-cut cells with scuff streaks (recall 0.126), a context training lacks.
+      - **Pool feature learning at 5% (29 to 30 Oct, gaint):** MIM5 n.d., every estimate negative; DDeP5 n.d., a threshold shift below the free bias; AM killed; CP5 stopped unscored. The 5% screen was a mistake: the user's question was about 100% labels (doc 19 §5).
+      - **Encoder erasure (30 Oct):** the house fine-tune (Adam lr 1e-3, coupled wd 1e-4, 20k steps) ends ResNet-34 encoder layer3/4 at cosine about 0 to their init, for ImageNet and MIM inits, at 5% and 100%; the direction is already lost by step 2,000. Every "init / pretraining / backbone does not help" result holds only under this never-varied optimizer (for P15's and R3's encoders erasure is likely, not measured).
+      - **Now:** protocol_100 (gaint, 4 arms × 5 seeds at 100% labels: SUP100-g, an encoder-preserving fine-tune SUP100-PF, MIM100-PF, CP100) launched 30 Oct 12:05 IST on v1.1. CP100 is held behind a decoy gate (6b), pending at 12:22. First test opening (the 15 fine-tunes) about 00:00 to 01:00 IST 31 Oct. **No results yet.**
+      - **Labels:** the B1 audit flags crack in 24 of 239 train cells (sheets with the user). Scuff is labelled crack in 6 train cells (649 px) and 2 test cells (236 px); the user decided to train scuff as its own class (doc 17 §5.11).
 
 ## 4. The `sources/` folder
 Verbatim copies of the primary documents: protocols, results READMEs and rules outputs, reports to the user, literature notes, data reports, and old-era reports from the servers. It also holds three files that exist only in the chat:
@@ -114,6 +136,8 @@ If you can run commands (the user may give you exec access), the primary places 
 | gaint: `/home/noob/work/cv02_noob_el/` | Copy of cv02 `/tmp/noob_el` (13 Oct): all `el_p*` run dirs and checkpoints, `diag/`, MD5-verified. Made because a cv02 reboot wipes `/tmp`. |
 | cv02: `cv02@10.8.1.106`, `/tmp/noob_el/` | Deployed code per experiment (`el_p6`, `el_p7`, `el_p11`, `el_p13`, `el_p14`, `el_p16`, `el_p17`), run dirs, logs, E1 in `diag/`. **Wiped on reboot**; copied to gaint `cv02_noob_el`. A shared lab login: never forward an ssh agent or put keys there. |
 
+(Added 30 Oct) Newer places: gaint worktrees `el_f1` (603e0d5), `el_f2` (2751aa8), `el_f3` (e544133, protocol_100), with the gaint memory rule (≥ 2 GB free for root's `finllm_chat.py`); cv02 Track M deployments `el_mt`, `el_mt4`, `el_mt5`; team folders `team_2026-10-21/`, `team_2026-10-24_go/`, `team_2026-10-24_why/`, `team_2026-10-27_unlabelled/`, `team_2026-10-29_features/` in `~/mtp/research`. Details in doc 14 §1.2b, §1.3b, §5b.
+
 Earlier sessions reached the servers through "Herald" exec connectors (`Gaint_Herald` on gaint, `Yugma_Herald` or `noob_herald` for ssh to cv02). Each has an allowlist; limits are in `sources/MTP_session_handoff_2026-10-07.md` §2.3.
 
 **Rules for touching the servers** (the user's standing instructions):
@@ -128,6 +152,7 @@ Earlier sessions reached the servers through "Herald" exec connectors (`Gaint_He
 - After each new result, Claude writes `results/<exp>/README.md` and updates `to_human/results_2026-10-12.md` and this handbook (P15 and P16 done 12 Oct, P17 and P13 Amendment 2 on 13 Oct).
 - To refresh the source copies, run `bash ~/mtp/research/handbook/sync_sources.sh`.
 - If a handbook statement conflicts with a newer results README, the README wins.
+- (Added 30 Oct) Agent-team results live in the team folders, not `results/<exp>/README.md`. For them the verify or results file (`verify_*.md`, `results_*.md`) wins over a session record or this handbook. Docs 18 and 19 note the discrepancies found.
 
 ## Related docs
 All files `01` to `17` in this folder, and `sources/README.md`.
