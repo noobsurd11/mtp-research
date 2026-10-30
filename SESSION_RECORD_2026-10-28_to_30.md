@@ -11,8 +11,10 @@ Team folder: `team_2026-10-29_features/` (brief `README.md`, append-only `log.md
   - DDeP5 (denoising pretraining of the decoder): n.d., small positive, below the free logit-adjustment bias.
   - CP5 (crack copy-paste onto pool cells): gates passed, then stopped unscored when the user objected to 5%.
 - **The 5% choice was a mistake.** It was copied from the 27 Oct synthesis without checking it against the user's question. An analyst (`diag`) showed that "null at 5% means null at 100%" depends on the method, and fails for label-consuming methods like copy-paste.
-- **Biggest finding (coach, E):** the house fine-tune (Adam lr 1e-3, coupled wd 1e-4, 20k steps) erases encoder layer3/4 to cosine ~0 with their starting weights, for ANY init, even at 100%. So every earlier "pretraining / init / backbone does not help" result holds only under this one never-varied optimizer.
-- **Now:** `protocol_100` v1 is APPROVED (conditional on gates). It has 4 arms x 5 seeds at 100% labels on gaint, including an encoder-preserving fine-tune (PF). Launch ~12:15 to 12:30 IST 30 Oct; first answer ~01:00 IST 31 Oct.
+- **Biggest finding (coach, E):** the house fine-tune (Adam lr 1e-3, coupled wd 1e-4, 20k steps) erases encoder layer3/4 to cosine ~0 with their starting weights, for every ResNet-34 init measured (ImageNet at 5% and 100%, MIM), and already by step 2,000.
+  - Earlier "pretraining / init / backbone does not help" results (P15, Track M R3) were likely affected too, but this was not measured on their encoders. For ConvNeXt (different normalisation) the mechanism is not established.
+  - The optimizer was never varied.
+- **Now:** `protocol_100` v1.1 launched on gaint at 12:05 IST 30 Oct. It has 4 arms x 5 seeds at 100% labels, including an encoder-preserving fine-tune (PF), and all fine-tune gates passed. CP100 is on hold behind a 4k decoy gate. First answer ~00:30 to 01:30 IST 31 Oct.
 - **Label work started:** B1 label audit panels delivered to the user; pool mining for half-cut/scuff cells queued; scuff becomes its own class (user decision).
 
 ## 1. Timeline
@@ -56,7 +58,7 @@ Baseline reproducibility: A5c-f1 test crack IoU 0.300 vs 0.304 for the original 
   - Excluded: val/test/E1 modules (413), 11 ext117 stems, 50 near-duplicates (r ≥ 0.95; coach's first 0.85 would have dropped 624 ARTS cells), the 7 D7 twins.
 - **Recipe:** SparK-style sparse MIM of the ImageNet ResNet-34 U-Net++ encoder.
   - Mask 0.6, 32 px patches at 512 px, masked-only normalised-pixel L2.
-  - Batch 32, 36,500 steps, encoder warm-up 730 then a lr ramp.
+  - Batch 32, 36,500 steps; encoder frozen for 730 steps, then its lr ramped over 1,000.
 - **Result:** monitor loss 0.914 → 0.208 (flat from ~26k). `encoder_final` md5 1c3df959.
 
 ### 3.2 MIM5 verdict (E, `verify_mim5.md`): n.d., closed
@@ -108,8 +110,8 @@ Cosine of final vs initial conv weights:
 | layer4 | 0.00 | 0.00 | 0.00 |
 - **Seeds and norms:** two SUP100 seeds are unrelated at layer4 (cosine 0.007). layer3/4 norms end at 2 to 9% of init.
 - **Why MIM5 was null:** MIM changed mostly layer2 to layer4 (cosine to ImageNet 0.53 to 0.76), exactly what fine-tuning wipes. That explains MIM5's null.
-- **The optimizer was never varied** in R1 to R5 or the P series. So every "init / pretraining / backbone does not matter" result is conditional on this recipe.
-- **Likely cause (S):** coupled weight decay on BN-followed convs shrinks the weights, and their direction then drifts.
+- **The optimizer was never varied** in R1 to R5 or the P series. Earlier "init / pretraining / backbone does not matter" results are therefore likely conditional on this recipe. Erasure was measured only on the ResNet-34 runs above, not on P15's or R3's encoders; for ConvNeXt the mechanism is not established.
+- **Fast, not slow (E, protocol_100 smokes):** the house recipe already has layer3/4 at cosine 0.070 / 0.003 by step 2,000, while their norms are still about a third of init. PF keeps them at 0.975 to 0.990 at 4,000. Coupled weight decay alone is not the whole mechanism (S).
 
 ## 5. Why 5% was wrong, and `diag`'s analysis (`diag_5pct_to_100pct.md`)
 - **The user's point:** a 5% null need not carry to 100%; it depends on the method. At 5% the defect classes are too scarce.
@@ -167,7 +169,8 @@ Cosine of final vs initial conv weights:
   - 591 components from all train cells (vs 20 at 5%).
   - Excluded: 13 stems (list md5 903293c9), the 7 D7 twins (their cracks are test cracks) and the 6 cells whose E-SCDD scuff is labelled crack.
   - With the twins out, 566 components / 151,993 px (CFVS 302, CSIR 175, ARTS 68, BMRK 21; thin BMRK disclosed).
-  - Backgrounds pool-only. cp.batch 4 (labelled stream 4,549 crack px/step, under the 12k trigger).
+  - **Frozen library, after the 6 scuff cells too: 554 components, 151,039 px** (kept-list md5 a326dffd).
+  - Backgrounds pool-only. cp.batch 4: the labelled stream carries 4,549 crack px/step, under the 12k trigger; pasting adds ~2,064 px/step (0.45x).
 - **Gates before launch:**
   - identity at e544133 (no switch, PF-neutral, CP λ 0);
   - val-off bit-identity;
@@ -185,7 +188,13 @@ Cosine of final vs initial conv weights:
   - Opening 1: the 15 fine-tunes, scored together ~01:00 IST 31 Oct.
   - Opening 2: CP100 ~07:30 IST 31 Oct, reusing SUP100-g's opening-1 files unchanged (md5-checked).
   - CP100 runs to the end whatever opening 1 shows; no protocol change after opening 1.
-- **Status 11:54 IST:** smokes and the G5 extension running; gate table ~12:05 to 12:10, then v1.1, coach re-check, launch.
+- **Status 12:55 IST: launched on gaint at 12:05:34**, protocol v1.1, val off, 3 concurrent.
+  - All gates passed: identity, PF-neutral, CP λ 0, val-off, and G5 (PF layer3/4 cosine 0.975 to 0.990 at 4k). MIM md5 OK. No 4th lane (expandable_segments saves only 0.4 GB).
+  - **CP100 decoy gate flagged on the ratio** at 2k: decoy 0.0076 vs SUP 0.0031 (2.45x; absolute limit 0.05). CP100 is on hold behind a post-hoc, disclosed gate 6b at 4k. GO needs all three of:
+    1. decoy ≤ 0.05;
+    2. decoy ≤ 2x SUP or ≤ 0.0094;
+    3. decoy / real ≤ 0.036.
+  - coach's reasoning is in `review_100_v1.md`, written before the 4k numbers or any test number. The CP100 verdict rule is unchanged.
 
 ## 8. Using the pool to choose labels (`coach_strategy.md`)
 coach's diagnosis: labels dominate. Label revision gave +0.08 crack; 50 → 100% gave +0.026; every pool method has been null from 20% up. The E1 misses are context: half-cut and scuff cells, plus BMRK.
@@ -246,7 +255,7 @@ coach's diagnosis: labels dominate. Label revision gave +0.08 crack; 50 → 100%
 - **`rc=$?` after `$(date)` bug:** five status lines recorded `date`'s exit code (MIM pretrain, MIM5 post, DDeP5 post, cv02 DDeP, f100 smoke status).
   - Training-run rc lines (run_one.sh, all versions) were correct.
   - Each affected run was confirmed complete by its DONE line, md5 manifests and 0 Tracebacks. Verdicts unaffected.
-- **Timestamps:** coach (up to ~1 h) and runner (up to 38 min) had stamped some log lines ahead of the clock. Corrected; coach marked its estimates with "~" and kept a pre-edit copy.
+- **Timestamps:** coach (up to ~75 min) and runner (up to 38 min) had stamped some log lines ahead of the clock. Corrected; coach marked its estimates with "~" and kept a pre-edit copy.
 - **ARTS footnote (commit 882f929):** ARTS has 1 small labelled crack cell at 5%, not 0. It later turned out to be scuff labelled crack (§8).
 
 ## 10. Open decisions for the user
