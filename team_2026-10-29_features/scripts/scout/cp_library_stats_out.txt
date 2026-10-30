@@ -1,0 +1,33 @@
+== 5% labelled (seed0): 23 cells, 8 with crack, crack px 17789 (0.295% of px), shapes {(512, 512)}
+components >= 20 px: 37; px median 208 p10 42 p90 1153 max 1909
+bbox extent (px) median 61 p90 158 max 234
+ring touches inactive >20%: 8; touches padding/frame/border: 9; ring on busbar >0: 0
+kept (inactive <= 20%, no padding/frame/border in ring): 22 comps, 12689 px, from 6 cells
+crack contrast (ring median - crack median, GL): median 5.5 p10 -4.4 p90 26.6; ring robust sd median 19.3; contrast/sd median 0.42
+  BMRK: comps 11, kept 2, kept px 1228, contrast median 2.0 GL
+  CFVS: comps 23, kept 18, kept px 10915, contrast median 6.0 GL
+  CSIR: comps 2, kept 2, kept px 546, contrast median 17.2 GL
+  SDLE: comps 1, kept 0, kept px 0, contrast median 21.5 GL
+  missing E-SCDD mask/image: ARTS_00057_r2_c5
+  missing E-SCDD mask/image: BMRK_02125_cell1223
+  missing E-SCDD mask/image: CSIR_00178_r7_c1
+  missing E-SCDD mask/image: CSIR_00179_r12_c4
+  missing E-SCDD mask/image: CSIR_00179_r6_c1
+== train minus 7 twins (100%): 471 cells, 196 with crack, crack px 230804 (0.189% of px), shapes {(512, 512)}
+components >= 20 px: 810; px median 154 p10 40 p90 681 max 3570
+bbox extent (px) median 58 p90 158 max 253
+ring touches inactive >20%: 140; touches padding/frame/border: 55; ring on busbar >0: 0
+kept (inactive <= 20%, no padding/frame/border in ring): 621 comps, 159576 px, from 180 cells
+crack contrast (ring median - crack median, GL): median 13.0 p10 -3.0 p90 30.0; ring robust sd median 19.3; contrast/sd median 0.67
+  ARTS: comps 73, kept 70, kept px 9952, contrast median 14.0 GL
+  BMRK: comps 71, kept 22, kept px 8257, contrast median 9.0 GL
+  CFVS: comps 463, kept 346, kept px 92349, contrast median 13.0 GL
+  CSIR: comps 201, kept 183, kept px 49018, contrast median 12.0 GL
+  SDLE: comps 2, kept 0, kept px 0, contrast median 26.2 GL
+== contrast filter on the kept library
+5%: kept comps with contrast >= 0 GL: 19 of 22, px 11936
+5%: kept comps with contrast >= 3 GL: 17 of 22, px 11819
+5%: kept comps with contrast >= 5 GL: 17 of 22, px 11819
+train-twins: kept comps with contrast >= 0 GL: 585 of 621, px 154069
+train-twins: kept comps with contrast >= 3 GL: 556 of 621, px 150998
+train-twins: kept comps with contrast >= 5 GL: 531 of 621, px 144329

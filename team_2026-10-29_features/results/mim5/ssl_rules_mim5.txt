@@ -1,0 +1,11 @@
+| arm | seeds | crack iou | inactive iou | crack rel_f1_2 | crack rel_p2 | crack ap | inactive ap | val crack iou | val inactive iou |
+|---|---|---|---|---|---|---|---|---|---|
+| p91:A_5pct | [0, 1, 2, 3, 4] | 0.300±0.005 | 0.279±0.039 | 0.714±0.012 | 0.893±0.012 | 0.285±0.005 | 0.273±0.035 | 0.273±0.003 | 0.148±0.063 |
+| p91:MIM_5pct | [0, 1, 2, 3, 4] | 0.289±0.015 | 0.230±0.092 | 0.699±0.022 | 0.882±0.019 | 0.271±0.014 | 0.234±0.088 | 0.267±0.008 | 0.150±0.075 |
+
+p91:MIM_5pct vs p91:A_5pct (test, revised; primary ['crack:iou', 'inactive:iou', 'crack:rel_f1_2']; seeds [0, 1, 2, 3, 4] / [0, 1, 2, 3, 4])
+  crack    iou      -0.0116  thr 0.0186  n.d.
+  inactive iou      -0.0495  thr 0.1158  n.d.
+  crack    rel_f1_2 -0.0141  thr 0.0295  n.d.
+  => p91:MIM_5pct better than p91:A_5pct under rule 1: False
+  width check: crack relP@2 -0.0112 -> ok

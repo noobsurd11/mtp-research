@@ -1,0 +1,49 @@
+{
+ "set": "A50",
+ "runs": [
+  "/home/noob/work/cv02_noob_el/el_p13/experiments/p16_A_50pct_s0",
+  "/home/noob/work/cv02_noob_el/el_p13/experiments/p16_A_50pct_s1",
+  "/home/noob/work/cv02_noob_el/el_p13/experiments/p16_A_50pct_s2",
+  "/home/noob/work/cv02_noob_el/el_p13/experiments/p16_A_50pct_s3",
+  "/home/noob/work/cv02_noob_el/el_p13/experiments/p16_A_50pct_s4"
+ ],
+ "labeled": "data/splits/seed0/labeled_50pct.txt",
+ "n_cells": 293,
+ "summary": {
+  "train/crack/FL": {
+   "cells": 15,
+   "px": 4771,
+   "components": 26
+  },
+  "train/inactive/FL": {
+   "cells": 9,
+   "px": 13725,
+   "components": 19
+  },
+  "train/crack/ML": {
+   "cells": 10,
+   "px": 548,
+   "components": 15
+  },
+  "val/crack/ML": {
+   "cells": 2,
+   "px": 57,
+   "components": 2
+  },
+  "val/crack/FL": {
+   "cells": 9,
+   "px": 686,
+   "components": 11
+  },
+  "val/inactive/FL": {
+   "cells": 2,
+   "px": 1032,
+   "components": 2
+  },
+  "val/inactive/ML": {
+   "cells": 2,
+   "px": 1512,
+   "components": 3
+  }
+ }
+}

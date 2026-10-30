@@ -1,0 +1,13 @@
+F3 / PF: encoder-preserving fine-tune, opt-in training.encoder_pf (coach_100.md (a))
+
+training.encoder_pf {freeze, ramp, lr_mult, wd}: build_optimizer makes two param groups
+(group 0 = all but encoder.*, house lr / wd; group 1 = encoder.*, lr x lr_mult, wd), and the
+trainer gives LambdaLR [house, house x PF], where PF = 0 for steps < freeze, then a linear
+ramp over ramp steps (build_lr_lambdas / build_pf_lr_lambda). No requires_grad toggling:
+graph, BN train mode and RNG unchanged. Encoder lr logged on its own "PF encoder lr=" line;
+the step line is unchanged. Absent: one group, one lambda (code path as before).
+Tests: absent = one group / one lambda; neutral (freeze 0, ramp 0, mult 1, wd = base) equals
+house bit for bit; freeze keeps encoder weights while BN stats adapt; wd and lr of group 1;
+off by default in configs. Suite 285 passed, 3 skipped (F1_IMAGENET=1).
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
