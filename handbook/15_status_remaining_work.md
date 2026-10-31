@@ -6,6 +6,8 @@
 
 **Update 31 Oct 2026, ~07:30 IST (additive).** New §1g (state on 31 Oct), §3c (decisions waiting on the user), §4c (ranked next items); dated notes on the protocol_100 row and §4b row A. Source: `SESSION_RECORD_2026-10-30_to_31.md`.
 
+**Update 31 Oct 2026, afternoon (additive).** Om's answers of 31 Oct (`team_2026-10-31_next/om_2026-10-31.md` A and B; doc 12 D60, D61): dated "[Answered 31 Oct: ...]" notes on §3b rows 8 and 9 and §3c rows 12 to 16; new §1h (state when PF2 started). Nothing here predicts a PF2 result.
+
 **Sources**
 - Server check at session close, 13 Oct 01:21 IST (read-only: `tmux ls`, `nvidia-smi`, `ps`, `du`), for §1b.
 - Launch logs on the servers, read at about 22:15 IST:
@@ -89,6 +91,12 @@
 - **cv02:** unused all session (never 3 of 8 GPUs free); a 6 h watcher re-armed at 05:09.
 - **Results:** every protocol_100 contrast n.d. (doc 19 §10). coach proposed PF2 at 07:15; not approved.
 
+
+## 1h. State on 31 Oct 2026, about 14:40 IST (added 31 Oct; `team_2026-10-31_next/log.md`, `protocol_PF2.md`, `build_pf2.md`)
+- **Om's answers** (pasted by the user ~13:45 IST): protocol_100 verdicts accepted, BEST = SUP100-PF, PF2 approved, B3 and the two thin-crack arms (Skeleton Recall, clDice) approved on coach's APPROVED; vetter's 11 questions answered (doc 12 D60, D61). The user: no budget limit, two more months, avoid manual labelling unless really needed. A new team (`team_2026-10-31_next/`) validates Om's 11 new ideas.
+- **gaint:** PF2 running since 14:29 IST (coach APPROVED 14:28): SUP100-g / SUP100-PF / RN50-PF, seeds 5 to 9, deploy e544133 (no code change for RN50), the 10 ResNet-34 runs in 3-lane waves first, then the 5 ResNet-50 runs one at a time (1 RN50 + 2 R34 would breach the 2 GB finllm floor). Gates: R34 9,000 MiB, RN50 13,234 (smoke peak 11,186 + 2,048), scoring passes 7,900 (RN50 LA val peak 5,824 + 2,048). Smoke 14:03 to 14:27: SUP / SUPPF bit-identical to the protocol_100 s0 runs; RN50-PF layer3 / layer4 cosine to ImageNet 0.975 / 0.983 at 4k. ETA: all trained about 06:30 to 07:00 on 1 Nov, one scoring opening after. No PF2 number exists.
+- **Handbook:** the B2 Hanifi panel cells are redacted in `handbook/sources/` until the user marks B2 (commit a076e54; `sync_sources.sh` applies it on every sync).
+
 ## 2. What ran overnight, 11 to 12 Oct (all done)
 A watcher (`scratchpad/watch.sh`) polled both servers every 2 minutes and fired on each finished set. It exited after P16 Part B; the script lived in a session scratchpad that no longer exists. What it triggered:
 1. **P15 (done 11 Oct ~22:40 IST):** `bash scripts/post_p15.sh <cv02 gpu>`.
@@ -124,8 +132,8 @@ A watcher (`scratchpad/watch.sh`) polled both servers every 2 minutes and fired 
 |---|---|---|---|
 | 6 | **B1:** mark each panel of the three sheets: label error / true hard case / unsure | 24 crack panels, 9 inactive, 15 scuff/star cells. Train crack flags (10.0 per 100) are below the val base rate (16.7 per 100 for crack FL), so many flags will be hard real cracks. No mask changes until the marks; fixes go to `masks_escdd_v2` with a change list, never to val or test without a separate decision | `team_2026-10-29_features/b1_audit/`; doc 19 §8.1 |
 | 7 | **B2:** after the candidate sheets, whether to pixel-label 20 to 40 pool cells (crack + scuff) | 100 candidates being mined (70 half-cut, all CSIR from 7 modules; 30 full). Expected (S, 27 Oct): E1 crack recall +0.04 to +0.15, BMRK crack +0.02 to +0.05, pooled test ≤ +0.01. Human time: about 6 to 10 h for 20 to 40 pixel masks (27 Oct estimate) | doc 18 §U; doc 19 §8.3 |
-| 8 | **Scuff test GT for B3:** (a) keep test GT (236 scuff px as crack) for the verdict, coach's recommendation for comparability; or (b) also report a test version with them ignored, descriptively | The 236 px are 0.26% of test crack px. Changing test GT mid-series breaks comparability with FINAL and every P-series number | `spec_b3_scuff.md` §4; doc 17 §5.11 |
-| 9 | **ELPV download** (~0.1 GB) for BMRK-like cells | Must be deduped first: 10 BMRK test cells are ELPV images | session record 21 to 27 Oct §10 |
+| 8 | **Scuff test GT for B3:** (a) keep test GT (236 scuff px as crack) for the verdict, coach's recommendation for comparability; or (b) also report a test version with them ignored, descriptively [Answered 31 Oct: the verdict uses the current test masks; the version with the 236 px ignored is reported as descriptive this round; revisit after B3 (Om B2; doc 12 D61).] | The 236 px are 0.26% of test crack px. Changing test GT mid-series breaks comparability with FINAL and every P-series number | `spec_b3_scuff.md` §4; doc 17 §5.11 |
+| 9 | **ELPV download** (~0.1 GB) for BMRK-like cells [Answered 31 Oct: no for now (Om B7).] | Must be deduped first: 10 BMRK test cells are ELPV images | session record 21 to 27 Oct §10 |
 | 10 | **The 40-segment crack audit** (about 1 h) and **4 label-convention questions** (cracks on inactive edges, faint-crack width, tiny fragments, 236 restored old-mask px in `ARTS_00051_r3_c2`) | Default for all four: keep as labelled | `team_2026-10-21/skcdf/audit_sheet.csv`, `labelling_plan.md`; session record 21 to 27 Oct §10 |
 | 11 | **Close the idle cv02 tmux shells** | Housekeeping; needs the user's say-so | session record 28 to 30 Oct §10 |
 
@@ -135,11 +143,11 @@ Decision 4 of the 21 to 27 Oct record ("the handbook refresh") is this update.
 
 | # | Decision | Facts for it | Source |
 |---|---|---|---|
-| 12 | **PF as the base recipe** for follow-ups | coach: BEST = SUP100-PF (equal on test by the rule; more robust on E1 and on the noisy cell) | `verify_100_o1.md` §5 |
-| 13 | **PF E1 replication (PF2)** | New seeds 5 to 9; SUP100-g / SUP100-PF / RN50-PF; E1 crack recall and E1 inactive IoU as pre-registered co-primaries for PF; ~15 to 17 h on gaint (coach). Needs row 15's Q1 first | `log.md` 31 Oct 07:15 |
-| 14 | **RN50-PF** vs SUP100-PF | D: RN50-5 +0.060 E1 target recall at cost 0.047, not ensemble size; R3 RN50 WORSE on test inactive | `verify_d.md` |
-| 15 | **vetter §6, questions 1 to 11** | E1 still sealed? scuff test GT; Hanifi cells (validation now, training later); labelling hours; thin-crack metric; powered inactive CV (~40+ h); downloads (DINOv3, ELPV); gate bigger encoders on the recipe; pool download (moot, D58); pool module rule; pool subset | `review_suggestions_2026-10-30.md` §6 |
-| 16 | **Marks** on the B1 sheets (3) and the B2 v2 sheets (4 x 25 panels) | B2: scuff / crack / both / neither / unsure; primary hit = scuff, crack or both | `b2_mining/v2/b2v2_report.txt` |
+| 12 | **PF as the base recipe** for follow-ups [Answered 31 Oct: yes, BEST = SUP100-PF (Om A; doc 12 D60).] | coach: BEST = SUP100-PF (equal on test by the rule; more robust on E1 and on the noisy cell) | `verify_100_o1.md` §5 |
+| 13 | **PF E1 replication (PF2)** [Answered 31 Oct: approved as proposed, plus E1 strata reported and the 7,154 MiB gate for scoring beside finllm (Om A; D60). `team_2026-10-31_next/protocol_PF2.md`; launched 14:29 IST, see §1h.] | New seeds 5 to 9; SUP100-g / SUP100-PF / RN50-PF; E1 crack recall and E1 inactive IoU as pre-registered co-primaries for PF; ~15 to 17 h on gaint (coach). Needs row 15's Q1 first | `log.md` 31 Oct 07:15 |
+| 14 | **RN50-PF** vs SUP100-PF [Answered 31 Oct: the third arm of PF2; bigger encoders are gated on SUP100-PF, ConvNeXt-T parked (Om B8; D61).] | D: RN50-5 +0.060 E1 target recall at cost 0.047, not ensemble size; R3 RN50 WORSE on test inactive | `verify_d.md` |
+| 15 | **vetter §6, questions 1 to 11** [Answered 31 Oct: all 11, doc 12 D61.] | E1 still sealed? scuff test GT; Hanifi cells (validation now, training later); labelling hours; thin-crack metric; powered inactive CV (~40+ h); downloads (DINOv3, ELPV); gate bigger encoders on the recipe; pool download (moot, D58); pool module rule; pool subset | `review_suggestions_2026-10-30.md` §6 |
+| 16 | **Marks** on the B1 sheets (3) and the B2 v2 sheets (4 x 25 panels) [Answered 31 Oct: B1 marks (about 1 h) and B2 marks (about 15 min) this week; B2 pixel masks and the Hanifi crack cleanup only if the Hanifi AUROC check and the marks show ranked > random (Om B4). Still waiting on the user's marks.] | B2: scuff / crack / both / neither / unsure; primary hit = scuff, crack or both | `b2_mining/v2/b2v2_report.txt` |
 | 17 | **Delete the 293.6 MB HF pixel sample** (`~/mtp/datasets/scdd_unlabeled_sample/`, outside the repo) | No download is planned | `pool_large/pool_large_audit_2026-10-30.md` §5 |
 | 18 | **Who rebooted gaint at 16:28 on 30 Oct?** | Orderly shutdown, console login at 16:29; runs need a warning if it may happen again | `protocol_100.md` v1.2 |
 

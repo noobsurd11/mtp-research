@@ -13,6 +13,8 @@ Read it to answer "why did we do X and not Y?". For the experiments themselves s
 
 **Update 30 Oct 2026 (additive):** §4c adds the decisions of 24 to 30 Oct (D41 to D50), with index rows, K10 and K11, and four rules in §6. Experiments for these dates: `18_experiments_trackD_trackM.md`, `19_feature_learning_and_100pct_plan.md`.
 
+**Update 31 Oct 2026, afternoon (additive).** §4e adds Om's answers of 31 Oct (`team_2026-10-31_next/om_2026-10-31.md` sections A and B): D60 (protocol_100 verdicts accepted; PF2 approved) and D61 (vetter's §6 questions 1 to 11). Status: doc 15 §1h and the dated notes in §3b / §3c.
+
 **Conventions**
 - **Times are IST** (UTC + 5:30).
   - User messages are timestamped in UTC in the transcript extract and converted here.
@@ -718,6 +720,34 @@ Sources: `team_2026-10-29_features/log.md` 30 Oct 12:00 to 31 Oct 07:15, the ver
 - **Who:** team-lead.
 - **What:** stop a process only by the PID its launcher recorded, or one printed with its full command line first. No `pkill -f` / `killall`, first on gaint and cv02, then on the laptop too.
 - **Why:** pattern matches hit an agent's own processes three times on 30 Oct (twice on gaint, once on the laptop by poolscout (poolscout's report to team-lead)).
+
+---
+
+## 4e. 31 Oct: Om's answers to the protocol_100 follow-up and to vetter's §6 (added 31 Oct)
+Source: `team_2026-10-31_next/om_2026-10-31.md` (Om's answers, pasted by the user ~13:45 IST 31 Oct with "work on this direction further"), sections A and B. The questions are in `team_2026-10-29_features/review_suggestions_2026-10-30.md` §6.
+
+### D60. protocol_100 verdicts accepted; PF2 approved (31 Oct ~13:45)
+- **Who:** Om, relayed by the user.
+- **What:** pool via MIM and CP100 closed; BEST = SUP100-PF. PF2 approved: new seeds 5 to 9, arms SUP100-g / SUP100-PF / RN50-PF, E1 crack recall and E1 inactive IoU pre-registered as co-primaries for the PF contrast, E1 strata (half-cut + scuff) reported, and the measured 7,154 MiB gate for every scoring pass that shares the GPU with finllm. B3 (scuff class) on SUP100-PF after PF2, or alongside it if lanes allow, one change per arm. Thin-crack losses: two arms on BEST, Skeleton Recall and clDice; the distance-map target is costed first and becomes a third arm only if worth it.
+- **Outcome:** coach wrote `team_2026-10-31_next/protocol_PF2.md` (APPROVED 14:28 IST after runner's build and smoke, `team_2026-10-31_next/build_pf2.md`); RN50-PF needed no code change (e544133 kept). PF2 launched on gaint at 14:29 IST 31 Oct; no result exists at the time of writing.
+
+### D61. Answers to vetter's §6 questions 1 to 11 (31 Oct ~13:45)
+- **Who:** Om.
+- **What, per question:**
+  1. E1 stays sealed: no training or selection on it. Pre-registered co-primary use in PF2 is allowed.
+  2. Scuff test GT: the verdict uses the current test masks; the version with the 236 scuff px ignored is reported as descriptive this round. Revisit after B3.
+  3. Hanifi `_rf` cells: yes as a validation set now (B2 ranking check, BN-HC bias), dropping the 7 CSIR_00300 cells and the 4 val/test-module cells. Training later, and only with cleaned crack labels on the 24 half-cut crack cells (or AI-assisted cleanup).
+  4. Labelling this week: B1 marks (about 1 h) and B2 marks (about 15 min) now. B2 pixel masks and the Hanifi crack cleanup only if the Hanifi AUROC check and the marks show ranked > random.
+  5. Metrics: crack IoU / relF1@2 / inactive IoU stay the verdict primaries. Every protocol from now on pre-registers component recall at component precision ≥ 0.90 and relR@2 at relP@2 ≥ 0.90, threshold chosen on val; they are co-primaries for the Skeleton Recall and clDice arms. Cell-level metrics are added.
+  6. Powered inactive claim (module-grouped CV): not now; revisit if PF2 confirms the E1 inactive gain.
+  7. Downloads: ELPV no for now. DINOv3 weights changed from "park" to "cheap test after PF2"; the download needs Om's OK at that point.
+  8. Encoder gate: yes, bigger encoders are gated on SUP100-PF (the recipe), not on pool features. RN50-PF is in PF2; ConvNeXt-T parked.
+  9. Large pool: no download (the MIM gate failed, D58). Item 13 closes with uses A + B (thesis negative result + provenance note). Optional later: MIM on the CSIR-complete subset (about 22.9k) only with a reason it would differ from MIM100.
+  10. Module exclusion rule, if the pool is ever downloaded: ID-wide.
+  11. Pretraining subset, if ever downloaded: CSIR-complete first.
+- **Also:** coach's fix 5 accepted: the Hanifi B2 panel cells are redacted in the handbook source copies until the B2 marks are done (done 31 Oct, commit a076e54: `sync_sources.sh` redacts them at run time and fails if a name survives). vetter's items 2 and 3B rejected (the Pratt extras are E1). The rest of vetter's verdict table accepted.
+- **Why (Om's diagnosis, S):** the remaining failure looks like domain generalisation to unseen panels, not data quantity: every pool route was n.d., while PF's preserved features moved E1 strongly with test n.d.
+- **Outcome:** a new team (`team_2026-10-31_next/`, README) validates Om's 11 new ideas (section D of the note) and runs PF2, the two thin-crack arms and B3. The user added: no budget limit, two months left, avoid manual labelling unless really needed.
 
 ---
 
