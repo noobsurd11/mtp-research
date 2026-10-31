@@ -35,6 +35,13 @@ echo "[$(date)] queue start: ${#JOBS[@]} jobs, MAXC $MAXC, VAL '${VAL}', code $(
 for j in "${JOBS[@]}"; do
   IFS='|' read -r name k gate extra <<< "$j"
   if [ -e experiments/$name ]; then echo "[$(date)] skip $name (exists)" >> $L; continue; fi
+  case "$name" in f3_CP_*)  # v1.1: gate 6 (CP100 decoy go/no-go) FLAGGED: CP100 waits for coach's ruling
+    if [ ! -e reports/f100/CP_GO ] && [ ! -e reports/f100/CP_STOP ]; then
+      echo "[$(date)] CP100 held: waiting for reports/f100/CP_GO or CP_STOP (gate 6 decoy flag; coach)" >> $L
+      until [ -e reports/f100/CP_GO ] || [ -e reports/f100/CP_STOP ]; do sleep 60; done
+    fi
+    if [ -e reports/f100/CP_STOP ]; then echo "[$(date)] skip $name (CP_STOP)" >> $L; continue; fi;;
+  esac
   while [ "$(alive)" -ge "$MAXC" ]; do sleep 30; done
   gate_wait $gate
   echo "[$(date)] start $name (free $(nvidia-smi --query-gpu=memory.free --format=csv,noheader,nounits -i 0) MiB)" >> $L

@@ -1,0 +1,10 @@
+cross-check, FINAL val (cv02 A6000 bf16 reference vs gaint CPU fp32):
+  b0.0: crack_iou 0.4352 (ref 0.4350, d +0.0002), relF1 0.8924 (ref 0.8929, d -0.0005), inact_iou 0.4244 (ref 0.4240, d +0.0004)
+  b0.75: crack_iou 0.4349 (ref 0.4349, d -0.0000), relF1 0.8963 (ref 0.8968, d -0.0005), inact_iou 0.4289 (ref 0.4287, d +0.0002)
+pre-registered read (bias +0.75, variant - FINAL; kill unless some variant gains >= +0.05 on the target recall at E1 crack-precision cost < 0.05):
+  BNHC_routed: target recall 0.299 (+0.174); must-not-hurt 0.735 (+0.183); full48 0.458; E1 crack P 0.376 (cost +0.085); crack px on 74 crack-free E1 cells 7846 (FINAL 4068); E1 inact IoU 0.071; val relF1 drop +0.0000 -> no
+  BNHC_global: target recall 0.299 (+0.174); must-not-hurt 0.735 (+0.183); full48 0.595; E1 crack P 0.291 (cost +0.170); crack px on 74 crack-free E1 cells 16306 (FINAL 4068); E1 inact IoU 0.064; val relF1 drop +0.1514 -> no
+  RN50_5: target recall 0.185 (+0.060); must-not-hurt 0.606 (+0.054); full48 0.443; E1 crack P 0.415 (cost +0.047); crack px on 74 crack-free E1 cells 5966 (FINAL 4068); E1 inact IoU 0.086; val relF1 drop -0.0020 -> passes the read
+  R34_5+RN50_5: target recall 0.161 (+0.036); must-not-hurt 0.591 (+0.039); full48 0.461; E1 crack P 0.465 (cost -0.003); crack px on 74 crack-free E1 cells 4493 (FINAL 4068); E1 inact IoU 0.068; val relF1 drop -0.0066 -> no
+FINAL@b0.75 E1: target recall 0.125, must-not-hurt 0.552, full48 0.458, P 0.462
+verdict (descriptive): variants passing the read: ['RN50_5']

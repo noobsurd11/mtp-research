@@ -1,0 +1,15 @@
+## E1 (ext), mean±sd over 5 seeds: group | n | arm | crack recall | crack IoU | inactive IoU
+E1 all 106        | 106 | SUP   | 0.169±0.019 | 0.141±0.012 | 0.041±0.027
+E1 all 106        | 106 | CP    | 0.193±0.013 | 0.158±0.009 | 0.089±0.042
+E1 scuff_halfcut  |  29 | SUP   | 0.094±0.026 | 0.086±0.021 | 0.088±0.086
+E1 scuff_halfcut  |  29 | CP    | 0.115±0.012 | 0.105±0.010 | 0.236±0.098
+E1 other          |  77 | SUP   | 0.393±0.035 | 0.261±0.023 | 0.028±0.012
+E1 other          |  77 | CP    | 0.429±0.019 | 0.268±0.020 | 0.046±0.039
+
+## predicted crack px on crack-free cells (GT crack 0), sum over cells, mean±sd over 5 seeds; cells with any crack px (mean)
+test | crack-free cells   2 | SUP   | px       0.0±     0.0 | cells with crack px   0.0
+test | crack-free cells   2 | CP    | px       0.0±     0.0 | cells with crack px   0.0
+val  | crack-free cells  31 | SUP   | px     177.6±    96.0 | cells with crack px   3.0
+val  | crack-free cells  31 | CP    | px     389.0±   144.7 | cells with crack px   3.8
+ext  | crack-free cells  74 | SUP   | px    3181.4±   660.2 | cells with crack px  34.6
+ext  | crack-free cells  74 | CP    | px    3408.0±   944.6 | cells with crack px  34.8

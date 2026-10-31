@@ -1,0 +1,116 @@
+# B2 v2 candidates (coach CHANGES 30 Oct; mine only, no labels). Half-cells only (986, CSIR, 7 modules 297-299, 301, 333-335: low diversity).
+# Proposer: FINAL members (p6_L3_100pct_s0-2 + p16_A_100pct_s3-4), mean softmax. a = crack px (p > 0.5); b_len = ellipse major axis of the
+#   largest predicted crack component (underestimates curved / branched cracks); c = px of dark (< median - 20 GL) components >= 20 px,
+#   elongation sqrt(l1 / (l2 + 1/12)) > 10 (length >= 10 x width), minor-axis sd sqrt(l2) <= 2.5 px (width about <= 10 px), not within 6 px
+#   of the structural / frame mask (classes 1-9, 21, 22), consensus not 1-9, 21, 22, 17 or 11.
+# GATE (numeric, stated before the numbers): pooled top-20 streak px within 12 px of gaps/frame 12.4%, (1); on dead_cell / inactive / structural 0.0% (2) (either > 50% -> drop c) -> gate mode abc
+# Both gate conditions are weakened by the v2 exclusions. (1) measures only the 6-12 px band, because components within 6 px of gaps/frame are
+#   already dropped. (2) is ~0% by construction. The real tests are the re-run OOF AUROC (with n_pos) and the user's hit rate on ranked vs the
+#   10 blinded random cells.
+# score = mean percentile rank of a, b_len within the half-cells (mode ab; see b2v2_gate.txt). 90 ranked (<= 13 per module) + 10 random (seed 0); panel order shuffled (seed 0).
+# validation AUROC (v2, mode ab) 0.384 (A50, n_pos 4) / 0.437 (A20, n_pos 9), below chance; train scuffs are small full-cell scuffs, not the target context; the ranking is unvalidated; the 10 blinded random cells measure it. v1: 0.33 (A50, n_pos 4) / 0.40 (A20, n_pos 9).
+# The streak score is non-zero in 14 of 986 half-cells (image-border artefacts) and is dropped. v2 is ranked on predicted crack px + largest-crack length: a list of crack-predicted half-cells, not a scuff detector.
+# Random control power: 90 ranked vs 10 random, one-sided Fisher exact at p < 0.05. If 0 random cells are hits, the ranked list needs >= 25 hits (28%); with 1 random hit, >= 38 (42%); with 2, >= 48 (53%). At a 5% base rate the random arm expects 0.5 hits. Only a large gap is readable; similar rates mean 'no evidence either way', not 'the ranking fails'.
+# Marks: scuff / crack / both / neither / unsure. Primary hit = scuff, crack or both (either is worth labelling; 0 half-cut cells are in train). Secondaries: 'both' (the E1 failure context) and scuff in any form. 'unsure' counts as not a hit for the primary and is reported separately. The power table applies to the primary hit.
+# Mode ab by coach override (30 Oct): numeric gate said abc, but v2 c > 0 in 14/986 half-cells, all on image-border background outside the cell (artefact); c dropped.
+panel	stem	module	kind	rank	a	b_px	b_len	c	c_comps	score
+1	CSIR_00333_r17_c1	CSIR_00333	ranked	83	36	36	14.7	0	0	0.8063
+2	CSIR_00298_r21_c5	CSIR_00298	ranked	37	113	112	44.8	0	0	0.9564
+3	CSIR_00334_r21_c4	CSIR_00334	ranked	21	145	145	54.9	0	0	0.9782
+4	CSIR_00301_r20_c2	CSIR_00301	ranked	6	210	210	74.2	0	0	0.9929
+5	CSIR_00298_r15_c1	CSIR_00298	random		0	0	0	0	0	0.3243
+6	CSIR_00301_r21_c2	CSIR_00301	ranked	17	158	151	54.2	0	0	0.9807
+7	CSIR_00298_r7_c3	CSIR_00298	random		65	60	21.4	0	0	0.858
+8	CSIR_00298_r20_c6	CSIR_00298	ranked	53	86	86	35.1	0	0	0.9239
+9	CSIR_00334_r12_c1	CSIR_00334	ranked	73	47	47	22.1	0	0	0.8438
+10	CSIR_00297_r12_c6	CSIR_00297	random		0	0	0	0	0	0.3243
+11	CSIR_00333_r3_c3	CSIR_00333	ranked	84	31	19	12.9	0	0	0.7888
+12	CSIR_00298_r7_c6	CSIR_00298	ranked	14	200	174	51.3	0	0	0.984
+13	CSIR_00334_r11_c3	CSIR_00334	ranked	82	32	32	17.5	0	0	0.8121
+14	CSIR_00301_r23_c6	CSIR_00301	ranked	38	200	98	34.8	0	0	0.9554
+15	CSIR_00298_r6_c6	CSIR_00298	ranked	12	216	216	51.2	0	0	0.9863
+16	CSIR_00297_r13_c3	CSIR_00297	ranked	11	338	151	49.6	78	2	0.9878
+17	CSIR_00335_r18_c5	CSIR_00335	ranked	76	50	37	18.6	0	0	0.8367
+18	CSIR_00299_r5_c3	CSIR_00299	ranked	9	354	156	50.4	0	0	0.9901
+19	CSIR_00299_r20_c5	CSIR_00299	ranked	28	128	128	50.8	0	0	0.9696
+20	CSIR_00334_r20_c4	CSIR_00334	ranked	10	202	162	57.7	0	0	0.9894
+21	CSIR_00333_r20_c1	CSIR_00333	random		0	0	0	0	0	0.3243
+22	CSIR_00299_r7_c3	CSIR_00299	ranked	24	168	168	47.3	0	0	0.9746
+23	CSIR_00297_r13_c2	CSIR_00297	ranked	23	164	145	48.4	0	0	0.9757
+24	CSIR_00297_r15_c2	CSIR_00297	ranked	20	167	156	50.2	0	0	0.9782
+25	CSIR_00334_r10_c1	CSIR_00334	ranked	51	94	94	34.8	0	0	0.9282
+26	CSIR_00334_r3_c3	CSIR_00334	random		0	0	0	0	0	0.3243
+27	CSIR_00333_r4_c3	CSIR_00333	ranked	86	16	16	12.2	0	0	0.7541
+28	CSIR_00298_r13_c3	CSIR_00298	ranked	45	94	81	38.7	0	0	0.9402
+29	CSIR_00335_r18_c1	CSIR_00335	ranked	72	55	49	21.1	0	0	0.8481
+30	CSIR_00334_r19_c4	CSIR_00334	ranked	5	238	158	58.7	0	0	0.9939
+31	CSIR_00301_r23_c5	CSIR_00301	ranked	26	134	124	52.4	0	0	0.9736
+32	CSIR_00335_r21_c6	CSIR_00335	ranked	71	53	53	23.1	0	0	0.8532
+33	CSIR_00298_r22_c6	CSIR_00298	ranked	35	123	114	45.3	0	0	0.961
+34	CSIR_00298_r17_c6	CSIR_00298	ranked	40	104	104	42.3	0	0	0.9485
+35	CSIR_00334_r19_c5	CSIR_00334	ranked	65	75	64	25.2	0	0	0.8872
+36	CSIR_00297_r9_c1	CSIR_00297	ranked	58	97	82	29.3	0	0	0.9151
+37	CSIR_00335_r19_c1	CSIR_00335	ranked	66	92	47	20.9	0	0	0.8849
+38	CSIR_00298_r16_c6	CSIR_00298	ranked	43	99	99	40.9	0	0	0.9452
+39	CSIR_00335_r20_c1	CSIR_00335	ranked	67	80	48	21.2	0	0	0.8765
+40	CSIR_00301_r19_c2	CSIR_00301	ranked	16	155	155	56.3	0	0	0.9828
+41	CSIR_00301_r3_c2	CSIR_00301	ranked	31	144	93	44.8	0	0	0.966
+42	CSIR_00299_r21_c6	CSIR_00299	ranked	3	313	155	58.3	0	0	0.9954
+43	CSIR_00301_r24_c5	CSIR_00301	ranked	36	109	109	48.5	0	0	0.9594
+44	CSIR_00333_r11_c5	CSIR_00333	ranked	87	32	15	5.4	0	0	0.748
+45	CSIR_00333_r7_c2	CSIR_00333	ranked	44	104	104	36.0	0	0	0.9404
+46	CSIR_00297_r15_c3	CSIR_00297	ranked	18	213	144	47.7	0	0	0.9802
+47	CSIR_00333_r8_c2	CSIR_00333	ranked	75	49	43	20.4	0	0	0.8395
+48	CSIR_00299_r4_c2	CSIR_00299	ranked	29	162	118	44.3	0	0	0.9693
+49	CSIR_00333_r18_c5	CSIR_00333	ranked	88	19	14	8.7	0	0	0.7477
+50	CSIR_00299_r21_c5	CSIR_00299	ranked	19	153	138	53.9	0	0	0.9792
+51	CSIR_00334_r2_c5	CSIR_00334	ranked	81	41	41	16.5	0	0	0.819
+52	CSIR_00299_r22_c6	CSIR_00299	ranked	4	349	138	55.8	0	0	0.9949
+53	CSIR_00301_r18_c6	CSIR_00301	ranked	2	271	181	63.8	0	0	0.9965
+54	CSIR_00297_r8_c1	CSIR_00297	ranked	56	91	91	31.5	0	0	0.9166
+55	CSIR_00301_r22_c6	CSIR_00301	ranked	54	124	70	27.9	0	0	0.9234
+56	CSIR_00299_r2_c2	CSIR_00299	ranked	25	165	104	47.5	0	0	0.9741
+57	CSIR_00335_r19_c6	CSIR_00335	ranked	69	56	56	23.7	0	0	0.8603
+58	CSIR_00297_r14_c2	CSIR_00297	ranked	22	172	152	48.1	0	0	0.9767
+59	CSIR_00301_r22_c4	CSIR_00301	ranked	48	142	88	30.4	0	0	0.9341
+60	CSIR_00301_r17_c6	CSIR_00301	ranked	1	323	180	63.3	0	0	0.997
+61	CSIR_00297_r6_c1	CSIR_00297	ranked	61	76	76	31.0	207	2	0.9024
+62	CSIR_00299_r6_c3	CSIR_00299	ranked	7	434	154	50.4	0	0	0.9906
+63	CSIR_00297_r21_c3	CSIR_00297	ranked	63	69	69	33.2	0	0	0.8958
+64	CSIR_00334_r21_c5	CSIR_00334	ranked	68	62	57	23.7	0	0	0.8651
+65	CSIR_00298_r22_c5	CSIR_00298	ranked	46	92	92	37.8	0	0	0.9361
+66	CSIR_00333_r19_c5	CSIR_00333	ranked	85	19	19	10.4	0	0	0.7571
+67	CSIR_00299_r22_c5	CSIR_00299	ranked	27	135	135	50.9	0	0	0.9726
+68	CSIR_00301_r18_c5	CSIR_00301	ranked	52	148	76	26.6	0	0	0.928
+69	CSIR_00298_r20_c5	CSIR_00298	ranked	50	85	85	36.6	0	0	0.9293
+70	CSIR_00297_r17_c4	CSIR_00297	random		0	0	0	0	0	0.3243
+71	CSIR_00297_r21_c6	CSIR_00297	random		0	0	0	0	0	0.3243
+72	CSIR_00334_r7_c6	CSIR_00334	random		37	28	11.3	0	0	0.7911
+73	CSIR_00335_r11_c1	CSIR_00335	ranked	41	115	99	37.6	0	0	0.9478
+74	CSIR_00297_r7_c1	CSIR_00297	ranked	62	81	73	27.8	0	0	0.8993
+75	CSIR_00297_r11_c3	CSIR_00297	ranked	13	178	178	56.0	0	0	0.9863
+76	CSIR_00299_r19_c6	CSIR_00299	ranked	33	131	114	44.9	0	0	0.9632
+77	CSIR_00301_r23_c3	CSIR_00301	random		58	44	17.9	0	0	0.8436
+78	CSIR_00335_r17_c1	CSIR_00335	ranked	47	113	85	34.2	0	0	0.9346
+79	CSIR_00335_r9_c2	CSIR_00335	ranked	59	71	71	36.4	0	0	0.911
+80	CSIR_00297_r14_c3	CSIR_00297	ranked	15	245	147	48.3	0	0	0.9838
+81	CSIR_00335_r10_c1	CSIR_00335	ranked	74	66	35	16.3	0	0	0.8415
+82	CSIR_00298_r6_c3	CSIR_00298	ranked	39	132	89	35.5	0	0	0.9493
+83	CSIR_00333_r19_c4	CSIR_00333	ranked	89	16	16	10.2	0	0	0.747
+84	CSIR_00299_r13_c3	CSIR_00299	ranked	32	152	114	42.7	0	0	0.9655
+85	CSIR_00333_r14_c2	CSIR_00333	ranked	90	16	16	9.7	0	0	0.7444
+86	CSIR_00297_r22_c3	CSIR_00297	ranked	49	80	80	41.5	0	0	0.9313
+87	CSIR_00334_r7_c4	CSIR_00334	ranked	78	43	43	18.3	0	0	0.8268
+88	CSIR_00335_r21_c1	CSIR_00335	ranked	77	52	37	17.6	0	0	0.8347
+89	CSIR_00298_r21_c6	CSIR_00298	ranked	8	228	145	55.6	0	0	0.9904
+90	CSIR_00334_r11_c1	CSIR_00334	ranked	64	59	59	32.9	0	0	0.8874
+91	CSIR_00335_r15_c3	CSIR_00335	ranked	70	56	56	22.2	0	0	0.855
+92	CSIR_00334_r9_c4	CSIR_00334	ranked	79	44	44	17.8	0	0	0.8266
+93	CSIR_00335_r20_c6	CSIR_00335	ranked	60	79	79	30.3	0	0	0.9026
+94	CSIR_00333_r6_c2	CSIR_00333	ranked	55	84	84	35.1	0	0	0.9224
+95	CSIR_00301_r22_c5	CSIR_00301	ranked	30	141	124	45.6	0	0	0.9665
+96	CSIR_00298_r18_c6	CSIR_00298	ranked	42	97	97	43.8	0	0	0.947
+97	CSIR_00334_r20_c5	CSIR_00334	ranked	57	85	85	33.1	0	0	0.9153
+98	CSIR_00299_r23_c6	CSIR_00299	ranked	34	227	105	35.2	0	0	0.9627
+99	CSIR_00333_r19_c1	CSIR_00333	ranked	80	40	40	17.5	0	0	0.8225
+100	CSIR_00299_r13_c4	CSIR_00299	random		0	0	0	0	0	0.3243

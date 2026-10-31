@@ -1,0 +1,26 @@
+validation A50 (primary): 239 OOF train cells, 4 with E-SCDD scuff (ARTS_00039_r6_c4, ARTS_00048_r2_c5, CSIR_00092_r11_c5, CSIR_00117_r8_c4); AUROC score 0.328 (a 0.387, b_len 0.381, c 0.397); n_pos 4, n_neg 235
+validation A20 (secondary, legacy masks_coded): 383 OOF train cells, 9 with E-SCDD scuff (ARTS_00039_r10_c1, ARTS_00039_r6_c4, ARTS_00041_r9_c4, ARTS_00048_r2_c5, CSIR_00092_r11_c5, CSIR_00117_r8_c4, CSIR_00161_r4_c6, CSIR_00175_r8_c3, CSIR_00176_r5_c2); AUROC score 0.396 (a 0.430, b_len 0.448, c 0.367); n_pos 9, n_neg 374
+selected 100 (70 half-cells, 30 full); list md5 65d6e040abf0c2c90a73d9556646c062
+pool: 11219 cells (986 half-cells); cells with a > 0: 1964; with c > 0: 9711
+full-cell sources in list: ARTS 1, CSIR 29
+top 20 pool cells by c: FINAL-consensus class mix of their streak px
+  CSIR_00104_r10_c2 (full) c 27329: dead_cell 67%, background 28%, crack 3%, inactive 2%
+  CSIR_00104_r6_c6 (full) c 25363: dead_cell 77%, background 23%
+  CSIR_00122_r6_c6 (full) c 25244: dead_cell 73%, background 27%
+  CSIR_00123_r5_c6 (full) c 24420: dead_cell 80%, background 20%
+  CSIR_00118_r4_c6 (full) c 24273: dead_cell 90%, background 10%
+  CSIR_00118_r7_c6 (full) c 24185: dead_cell 88%, background 12%, inactive 0%
+  CSIR_00104_r7_c6 (full) c 23854: dead_cell 96%, background 4%
+  CSIR_00122_r4_c6 (full) c 23817: dead_cell 78%, background 22%
+  CSIR_00122_r7_c6 (full) c 23724: dead_cell 83%, background 17%
+  CSIR_00122_r5_c6 (full) c 23362: dead_cell 75%, background 25%
+  CSIR_00135_r5_c6 (full) c 23305: dead_cell 80%, inactive 15%, background 5%
+  CSIR_00104_r5_c6 (full) c 22809: dead_cell 93%, background 7%
+  CSIR_00118_r5_c6 (full) c 22672: dead_cell 86%, background 14%, inactive 0%
+  CSIR_00119_r5_c6 (full) c 22370: dead_cell 84%, background 16%
+  CSIR_00104_r10_c4 (full) c 22201: dead_cell 92%, background 8%, inactive 1%
+  CSIR_00123_r6_c6 (full) c 22140: dead_cell 79%, background 21%
+  CSIR_00135_r10_c2 (full) c 21920: dead_cell 97%, background 2%, crack 1%
+  CSIR_00118_r6_c6 (full) c 21496: dead_cell 85%, background 15%, inactive 1%
+  CSIR_00119_r7_c6 (full) c 20894: dead_cell 85%, background 15%
+  CSIR_00073_r8_c6 (full) c 19845: dead_cell 83%, background 17%

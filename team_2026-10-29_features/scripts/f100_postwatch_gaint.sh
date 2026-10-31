@@ -12,6 +12,7 @@ until [ "$(cnt 'SUP|SUPPF|MIMPF')" -ge 15 ]; do
 echo "[$(date)] f3 opening1 scoring start (15 fine-tunes trained rc 0)" >> $L
 bash reports/f100_post.sh opening1
 until [ "$(cnt CP)" -ge 5 ]; do
+  [ -e reports/f100/CP_STOP ] && { echo "[$(date)] f3 opening2 not run (CP_STOP: CP100 not trained)" >> $L; exit 0; }
   b=$(bad CP); [ -n "$b" ] && { echo "[$(date)] f3 opening2 NOT scored (FAIL): $b" >> $L; exit 1; }; sleep 120; done
 grep -q "f3 opening1 scoring done: post rc=0" $L || { echo "[$(date)] f3 opening2 NOT scored (FAIL): opening1 not rc 0" >> $L; exit 1; }
 echo "[$(date)] f3 opening2 scoring start (5 CP100 trained rc 0)" >> $L

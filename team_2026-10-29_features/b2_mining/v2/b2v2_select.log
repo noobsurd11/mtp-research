@@ -1,0 +1,6 @@
+ranking mode: ab (a and b_len only: c dropped at the gate); gate: within 12 px 12.4%, dead_cell/inactive/structural 0.0%
+Mode ab by coach override (30 Oct): numeric gate said abc, but v2 c > 0 in 14/986 half-cells, all on image-border background outside the cell (artefact); c dropped.
+validation v2 A50 (primary): 239 OOF train cells, n_pos 4 (ARTS_00039_r6_c4, ARTS_00048_r2_c5, CSIR_00092_r11_c5, CSIR_00117_r8_c4); AUROC score 0.384 (a 0.387, b_len 0.381, c 0.632)
+validation v2 A20 (secondary, legacy masks_coded): 383 OOF train cells, n_pos 9 (ARTS_00039_r10_c1, ARTS_00039_r6_c4, ARTS_00041_r9_c4, ARTS_00048_r2_c5, CSIR_00092_r11_c5, CSIR_00117_r8_c4, CSIR_00161_r4_c6, CSIR_00175_r8_c3, CSIR_00176_r5_c2); AUROC score 0.437 (a 0.430, b_len 0.448, c 0.619)
+selected 90 ranked (modules {'CSIR_00297': 13, 'CSIR_00298': 13, 'CSIR_00299': 13, 'CSIR_00301': 13, 'CSIR_00333': 12, 'CSIR_00334': 13, 'CSIR_00335': 13}) + 10 random; panel list md5 753073019217cffb502cdf94de80844f
+half-cells with a > 0: 352; with v2 c > 0: 14

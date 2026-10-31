@@ -2,3 +2,12 @@ results/*/raw/*
 !results/*/raw/MANIFEST.md5
 results/*/coach_raw/*
 !results/*/coach_raw/MANIFEST.md5
+# added 31 Oct: protocol_100 per-cell raw pulls (kept locally and on gaint with MANIFEST.md5), coach's raw pulls,
+# derived rules_in copies, coach's B2 pull of large JSONs, and the 159k-row HF manifest (re-creatable with pool_large/scripts/manifest.py)
+results/f100/*/raw/*
+!results/f100/*/raw/MANIFEST.md5
+results/f100/coach_raw_*/*
+!results/f100/coach_raw_*/MANIFEST.md5
+results/f100/*/rules_in/
+results/*/coach_pull/*.json
+pool_large/out/manifest.tsv

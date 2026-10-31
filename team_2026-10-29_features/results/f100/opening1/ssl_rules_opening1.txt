@@ -1,0 +1,26 @@
+| arm | seeds | crack iou | inactive iou | crack rel_f1_2 | crack rel_p2 | crack ap | inactive ap | val crack iou | val inactive iou |
+|---|---|---|---|---|---|---|---|---|---|
+| p93:SUP_100pct | [0, 1, 2, 3, 4] | 0.460±0.026 | 0.440±0.019 | 0.864±0.031 | 0.910±0.066 | 0.584±0.015 | 0.435±0.027 | 0.425±0.004 | 0.445±0.029 |
+| p93:SUPPF_100pct | [0, 1, 2, 3, 4] | 0.459±0.009 | 0.455±0.018 | 0.876±0.014 | 0.923±0.031 | 0.562±0.006 | 0.461±0.019 | 0.421±0.007 | 0.488±0.073 |
+| p93:MIMPF_100pct | [0, 1, 2, 3, 4] | 0.463±0.003 | 0.443±0.028 | 0.879±0.004 | 0.944±0.003 | 0.568±0.009 | 0.435±0.036 | 0.422±0.005 | 0.443±0.015 |
+
+p93:SUPPF_100pct vs p93:SUP_100pct (test, revised; primary ['crack:iou', 'inactive:iou', 'crack:rel_f1_2']; seeds [0, 1, 2, 3, 4] / [0, 1, 2, 3, 4])
+  crack    iou      -0.0012  thr 0.0316  n.d.
+  inactive iou      +0.0150  thr 0.0306  n.d.
+  crack    rel_f1_2 +0.0117  thr 0.0395  n.d.
+  => p93:SUPPF_100pct better than p93:SUP_100pct under rule 1: False
+  width check: crack relP@2 +0.0131 -> ok
+
+p93:MIMPF_100pct vs p93:SUPPF_100pct (test, revised; primary ['crack:iou', 'inactive:iou', 'crack:rel_f1_2']; seeds [0, 1, 2, 3, 4] / [0, 1, 2, 3, 4])
+  crack    iou      +0.0048  thr 0.0113  n.d.
+  inactive iou      -0.0118  thr 0.0390  n.d.
+  crack    rel_f1_2 +0.0035  thr 0.0162  n.d.
+  => p93:MIMPF_100pct better than p93:SUPPF_100pct under rule 1: False
+  width check: crack relP@2 +0.0203 -> ok
+
+p93:MIMPF_100pct vs p93:SUP_100pct (test, revised; primary ['crack:iou', 'inactive:iou', 'crack:rel_f1_2']; seeds [0, 1, 2, 3, 4] / [0, 1, 2, 3, 4])
+  crack    iou      +0.0036  thr 0.0299  n.d.
+  inactive iou      +0.0032  thr 0.0398  n.d.
+  crack    rel_f1_2 +0.0152  thr 0.0366  n.d.
+  => p93:MIMPF_100pct better than p93:SUP_100pct under rule 1: False
+  width check: crack relP@2 +0.0334 -> ok

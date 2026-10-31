@@ -1,0 +1,6 @@
+cross-check gate, FINAL val (gaint CPU fp32 vs cv02 A6000 bf16 reference; tolerance 0.005):
+  b0.0 crack_iou: 0.4352 (ref 0.4350, delta +0.0002)
+  b0.0 relF1: 0.8924 (ref 0.8929, delta -0.0005)
+  b0.75 crack_iou: 0.4349 (ref 0.4349, delta -0.0000)
+  b0.75 relF1: 0.8963 (ref 0.8968, delta -0.0005)
+  -> within tolerance: proceed
