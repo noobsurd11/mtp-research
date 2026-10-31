@@ -5,9 +5,11 @@
 **Update 30 Oct 2026, ~12:00 IST (additive; nothing earlier is removed).** The docs now also cover the agent-team work of 21 to 30 Oct:
 - doc 10: SK1, S-a and AL1 (21 to 23 Oct, added earlier);
 - **doc 18:** the why-SOTA team, Track D, Track M and the best model FINAL, and the unlabelled-data team (24 to 27 Oct);
-- **doc 19:** feature learning from the pool at 5% (MIM5, AM, DDeP5, CP5), encoder erasure, why 5% was the wrong test, protocol_100 (100% labels, launched 30 Oct 12:05 IST; **no results yet**), and the label work (B1 audit, scuff).
+- **doc 19:** feature learning from the pool at 5% (MIM5, AM, DDeP5, CP5), encoder erasure, why 5% was the wrong test, protocol_100 (100% labels, launched 30 Oct 12:05 IST; **no results yet**), and the label work (B1 audit, scuff). [Qualified 31 Oct: results in doc 19 §10; every contrast n.d.]
 
 Where a new finding limits an older claim, a dated "[Qualified 30 Oct: ...]" note sits next to it. The master records for these dates are `SESSION_RECORD_2026-10-21_to_27.md` and `SESSION_RECORD_2026-10-28_to_30.md` (copies in `sources/session_records/`).
+
+**Update 31 Oct 2026, ~07:30 IST (additive).** doc 19 §10 adds the protocol_100 results (pool via MIM, pool via copy-paste and the PF recipe all n.d. on test at 100% labels; PF's E1 gain descriptive), the D checks, B2 v2 and the two reviews (vetter, poolscout). New rows and items: `11` rows 25 to 29, `12` D51 to D59, `13` C16, C17, D28 to D33, E23 to E25, `14` §1.2c, `15` §1g, §3c, §4c, `16` section H. Dated "[Qualified 31 Oct: ...]" notes mark changed claims. Master record: `SESSION_RECORD_2026-10-30_to_31.md`.
 
 ---
 
@@ -114,7 +116,7 @@ For a quick start, read 01, 04 (skim), 11 and 16. Then go back to 02 to 10 as qu
       - **27 Oct synthesis:** pseudo-label SSL is a tight null at 20 to 100% (+0.01 excluded at 100%); 75% of unseen-module crack sits in half-cut cells with scuff streaks (recall 0.126), a context training lacks.
       - **Pool feature learning at 5% (29 to 30 Oct, gaint):** MIM5 n.d., every estimate negative; DDeP5 n.d., a threshold shift below the free bias; AM killed; CP5 stopped unscored. The 5% screen was a mistake: the user's question was about 100% labels (doc 19 §5).
       - **Encoder erasure (30 Oct):** the house fine-tune (Adam lr 1e-3, coupled wd 1e-4, 20k steps) ends ResNet-34 encoder layer3/4 at cosine about 0 to their init, for ImageNet and MIM inits, at 5% and 100%; the direction is already lost by step 2,000. Every "init / pretraining / backbone does not help" result holds only under this never-varied optimizer (for P15's and R3's encoders erasure is likely, not measured).
-      - **Now:** protocol_100 (gaint, 4 arms × 5 seeds at 100% labels: SUP100-g, an encoder-preserving fine-tune SUP100-PF, MIM100-PF, CP100) launched 30 Oct 12:05 IST on v1.1. CP100 is held behind a decoy gate (6b), pending at 12:22. First test opening (the 15 fine-tunes) about 00:00 to 01:00 IST 31 Oct. **No results yet.**
+      - **Now:** protocol_100 (gaint, 4 arms × 5 seeds at 100% labels: SUP100-g, an encoder-preserving fine-tune SUP100-PF, MIM100-PF, CP100) launched 30 Oct 12:05 IST on v1.1. CP100 is held behind a decoy gate (6b), pending at 12:22. First test opening (the 15 fine-tunes) about 00:00 to 01:00 IST 31 Oct. **No results yet.** [Qualified 31 Oct: done; every contrast n.d. (doc 19 §10)]
       - **Labels:** the B1 audit flags crack in 24 of 239 train cells (sheets with the user). Scuff is labelled crack in 6 train cells (649 px) and 2 test cells (236 px); the user decided to train scuff as its own class (doc 17 §5.11).
 
 ## 4. The `sources/` folder

@@ -352,7 +352,7 @@ FINAL (25 Oct, Track M): the 5-seed mean-softmax ensemble of the 100%-label L3 r
 - Without the bias (bias 0): crack IoU 0.488. This is the robust choice: with +0.75 the ensemble calls 10,867 crack px on the corrupted test cell, at bias 0 it calls 2.
 - "Almost all cracks" (relaxed recall ≥ 0.90 at relaxed precision ≥ 0.90) is not reached: 0.866 at 0.930. On unseen modules crack recall is 0.215.
 - No single-model training change tried at 100% beat it (Dice on more classes, ResNet-50, +107 E-SCDD cells, 2× resolution), all under the house optimizer (Q29).
-- protocol_100 (running from 30 Oct 12:05 IST) may change this; it has no result yet.
+- protocol_100 (running from 30 Oct 12:05 IST) may change this; it has no result yet. [Qualified 31 Oct: it did not; every contrast n.d. (Q34, Q35)]
 
 Sources: `team_2026-10-24_go/trackM/results_final.md`, `verify_final.md`. → `18` §M7, `11` row 18
 
@@ -360,7 +360,7 @@ Sources: `team_2026-10-24_go/trackM/results_final.md`, `verify_final.md`. → `1
 It depends on how it is used and at what label fraction. What is measured:
 - **Pseudo-labels / consistency (label propagation):** yes at 5% (BsM5 crack IoU +0.029, inactive +0.107), not detectably at 20 to 100%. At 100% a crack gain of +0.01 or more is excluded (clean cells, Cs recipe). Sources: docs 10, 11; `team_2026-10-27_unlabelled/SYNTHESIS.md`.
 - **Feature learning from the pool, at 5% labels:** no detectable gain. MIM5 n.d., every estimate negative; DDeP5 n.d., a small shift equal to a free bias; AM killed. Sources: `team_2026-10-29_features/verify_mim5.md`, `verify_ddep5.md`.
-- **Not yet answered:** feature learning (MIM) with a fine-tune that keeps it, and crack copy-paste onto pool cells, both at 100% labels. That is protocol_100 (no result yet).
+- **Not yet answered:** feature learning (MIM) with a fine-tune that keeps it, and crack copy-paste onto pool cells, both at 100% labels. That is protocol_100 (no result yet). [Qualified 31 Oct: answered, no for both (Q34)]
 - **The pool's proven use so far:** choosing what to label. Track D: 12 crack-containing cells beat 12 random cells and the best SSL arm, for crack (oracle-selected).
 - **Why the pool cannot fix the main unseen-module failure:** 75% of E1 crack sits in half-cut cells with scuff streaks, a context the pool barely contains.
 
@@ -395,11 +395,45 @@ Copy-paste and loss changes fail (1); inactive at 5% fails (2). Our own data has
 Yes, in our masks. P6 put the old label back on E-SCDD's scuff pixels. In train, 649 of 3,246 scuff px (6 cells) became crack, including `ARTS_00051_r6_c2`, the only ARTS crack cell at 5% labels. In test, 2 cells hold 236 scuff px labelled crack. E1 scoring ignores scuff. The user decided to train scuff as its own class (B3, after protocol_100). Whether test GT keeps those 236 px as crack is an open user decision. → `17` §5.11, `13` A14
 
 **Q33. What is running, and what is waiting on the user?** (30 Oct, ~12:00 IST)
-- Running: protocol_100 on gaint (4 arms × 5 seeds at 100% labels), launched 12:05 IST 30 Oct. First answer (the 15 fine-tunes) about 00:00 to 01:00 IST 31 Oct. CP100 is held behind a decoy gate (pending at 12:22 IST); if it goes, its answer comes about 07:00 IST 31 Oct. No result exists yet.
+- Running: protocol_100 on gaint (4 arms × 5 seeds at 100% labels), launched 12:05 IST 30 Oct. First answer (the 15 fine-tunes) about 00:00 to 01:00 IST 31 Oct. CP100 is held behind a decoy gate (pending at 12:22 IST); if it goes, its answer comes about 07:00 IST 31 Oct. No result exists yet. [Qualified 31 Oct: done; see Q41]
 - Also running: B2 pool mining (candidates only), gaint CPU.
 - Waiting on the user: marks on the B1 label-audit sheets; whether to pixel-label mined pool cells (B2); the scuff test-GT option; ELPV download; the 40-segment audit; closing idle cv02 shells.
 
 → `15` §1f, §3b
+
+## H. 30 to 31 Oct: protocol_100 results (added 31 Oct)
+
+**Q34. Does the unlabelled pool help at 100% labels?**
+No, for both routes tested (protocol_100, gaint, 5 v 5, all 478 train labels; both openings recomputed by coach):
+- **Learned encoder features:** MIM100-PF − SUP100-PF, crack IoU +0.0048 (thr 0.0113) on all 50 / −0.0017 (0.0100) without the noisy cell; relF1@2 and inactive IoU n.d. too. The fine-tune kept the MIM encoder (layer3/4 cosine 0.96 at 20k), so this is a fair test.
+- **Pasted cracks on pool backgrounds:** CP100 − SUP100-g, crack +0.0076 (0.0307) / +0.0003 (0.0100); n.d. with and without logit adjustment.
+- Power: clean MDE crack 0.012. Conditions: one split, 50 test cells, ResNet-34 U-Net++, these two methods. Sources: `verify_100_o1.md`, `verify_100_o2.md`. → `19` §10, `11` rows 25, 26
+
+**Q35. Did keeping the encoder (PF) help?**
+Not on test: SUP100-PF − SUP100-g n.d. on all three primaries in both sets (crack −0.0012 / −0.0061). It trades a little crack recall for precision. On E1 it is the largest change any arm has made (crack recall 0.169 → 0.213, inactive IoU 0.041 → 0.245), but that is descriptive (Q36). coach recommends it as the base recipe anyway: equal on test, more robust out of distribution. → `11` row 27
+
+**Q36. Why is PF's E1 gain not a result?**
+- E1 has been read by every protocol and is never for selection (`13` C17).
+- The crack-recall gain sits in the 29 scuff + half-cut cells (0.094 → 0.152); on the other 77 cells crack IoU falls (0.261 → 0.238; `results/f100/opening1/o1_extra.txt`).
+- A claim needs new seeds with E1 co-primaries stated before the runs (coach's PF2 proposal) or an independent unseen-module set.
+
+**Q37. What does the CP100 decoy flag mean?**
+The decoy test pastes nothing on real test cells; it asks whether the model learns to call paste seams crack. At 20k steps CP100 fired on decoys 4.41x as often as SUP100-g (0.0125 vs 0.0028), and its rate had tripled since 4k. Gate 6b let CP100 run because the rate was falling at 4k; that did not hold. It changes no conclusion, because CP100 is n.d. anyway; CP also doubled false crack px on crack-free val cells (178 → 389). → `13` C16
+
+**Q38. Does a bigger encoder (ResNet-50) help?**
+Only a descriptive lead. In the inference-only D checks (val + E1, no test), a 5-model RN50 ensemble passed the pre-registered E1 read narrowly (+0.060 target recall at precision cost 0.047; limits +0.05 / 0.05), and doubling a ResNet-34 ensemble did not move the target (+0.001), so it is not ensemble size. Track M R3's RN50 was WORSE on test inactive. Next would be RN50-PF vs SUP100-PF. → `11` row 28, `verify_d.md`
+
+**Q39. Should we download the 159k-image Hugging Face pool?**
+No. poolscout showed it is Pratt's own pool: CSIR + ARTS only, no new half-cells, no BMRK / CFVS, none of E1's half-cut module family; 21 of our 50 test cells are in it by ID and about 2,400 byte-identical copies sit under other IDs. vetter's condition for a download (a MIM gain at opening 1) failed. → `11` row 29, `12` D58
+
+**Q40. Was gaint's 2 GB memory floor for root's finllm kept?**
+Not everywhere, most likely. Opening-1 scoring ran beside two CP runs under a gate that assumed ~3 GB passes; the logit-adjustment pass (5,106 MiB, measured later) probably left about 1.5 GB free for about 5.5 min (estimate, not a reading). finllm survived and no log shows an out-of-memory error. Since then free memory is logged every 10 s during any overlap (minimum over the CP overlap 6,609 MiB) and concurrent gates use measured peaks + 2 GB. → `13` D28, `14` §1.2c
+
+**Q41. What is running, and what is waiting on the user?** (31 Oct, ~07:30 IST)
+- Running: nothing of ours on gaint or cv02.
+- Waiting on the user: PF as the base; PF2 (needs vetter Q1); RN50-PF; vetter's 11 questions; B1 and B2 marks; deleting the HF sample; who rebooted gaint; the 40-segment audit and 4 label questions; the idle cv02 shells.
+
+→ `15` §1g, §3c, §4c
 
 ## Related docs
 All of them; start from `00_START_HERE.md`.

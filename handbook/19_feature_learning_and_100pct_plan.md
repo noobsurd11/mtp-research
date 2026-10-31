@@ -227,7 +227,7 @@ The user asked coach to lead as a scarce-data expert (log 30 Oct ~11:00).
 - v1 (md5 200a6734) was APPROVED by coach conditional on gates 1 to 7 and one change, G5. v1.1 (md5 8dcb231b, 12:02 IST) adds the gate table, the frozen CP100 library, the launch settings and the two openings.
 - Gates 1 to 5, G5, F2-100 and 7 pass (table below); coach re-diffed the identity gates independently. Gate 6 (CP100 decoy) FLAGGED.
 - **Launched 30 Oct 12:05:34 IST** on gaint (tmux `f100`): the 15 fine-tunes (SUP100-g, SUP100-PF, MIM100-PF). CP100 jobs come last in the queue and wait for `reports/f100/CP_GO` or `CP_STOP` (gate 6b, below). At 12:22 IST the gate-6b decision was still pending.
-- **No arm has a result. Do not quote or predict one.**
+- **No arm has a result. Do not quote or predict one.** [Qualified 31 Oct: all arms have results now, §10. Every contrast is n.d.]
 
 **Setup.** All 478 train labels, 20,000 steps, batch 8, final weights, 5 seeds (0 to 4) per arm, all on gaint (cv02 at 10:51 IST: 0 of 8 GPUs qualified). Deploy commit `el_f3` e544133 (suite 285 passed, 3 skipped). Base opts = Track M SUP100 (train.txt md5 842f27c4). Launch settings (v1.1): val only at step 20,000 (`training.val_every=20000`, after gate 4), at most 3 concurrent runs, no expandable_segments (gate 7), start gates 9,000 MiB (fine-tune) / 11,600 MiB (CP) with 120 s spacing under a lock, rc captured before `$(date)`.
 
@@ -326,6 +326,7 @@ Otherwise CP_STOP: CP100 is closed at its gate and opening 2 is not run. The CP1
 Full facts in doc 17 §5.11. In short: 12 train cells carry scuff (3,246 px); our masks label 649 of those px crack in 6 cells, including the 5% "ARTS crack cell" `ARTS_00051_r6_c2`; 2 test cells hold 236 scuff px labelled crack; the star cell `CFVS_00024_r3_c3` has 54 star px labelled crack.
 
 ### 8.3 B2: pool mining (running on gaint CPU since 12:09 IST 30 Oct; tmux `b2`)
+[Qualified 31 Oct: v1 failed its validation; v2 (half-cells only, mode ab) went to the user on 30 Oct. See §10.6.]
 - The user: candidates only; labelling decided later.
 - **Proposer:** the FINAL members (rank-averaged scores: predicted crack, largest component, dark-streak count).
 - **Validation first,** on out-of-fold train cells, with positives = train cells whose raw E-SCDD mask has scuff: scored with the A50 models (239 cells) as primary and the A20 models (383) as secondary.
@@ -348,6 +349,83 @@ Listed in `13_problems_pitfalls_open_issues.md` D20 to D27 and A15: the recurrin
 
 ---
 
+## 10. protocol_100 results, D, B2 v2 and the two reviews (30 to 31 Oct; added 31 Oct)
+
+Sources: `team_2026-10-29_features/verify_100_o1.md`, `verify_100_o2.md`, `verify_d.md`, `protocol_100.md` (final md5 42471b22), `review_100_v1.md`, `results/f100/`, `b2_mining/v2/b2v2_report.txt`, `review_suggestions_2026-10-30.md`, `pool_large/pool_large_audit_2026-10-30.md`, `log.md` 30 Oct 12:00 to 31 Oct 07:15; `SESSION_RECORD_2026-10-30_to_31.md`. coach recomputed both openings independently; runner's numbers match to 4 dp.
+
+### 10.1 How it ran (E)
+- 15 fine-tunes trained rc 0 between 12:08 IST 30 Oct and 00:56:44 31 Oct; the 5 CP100 runs between 00:21 and 06:52 31 Oct. All on gaint, e544133, val off, 3 at a time; 0 Tracebacks.
+- **gaint reboot, 30 Oct 16:28** (orderly shutdown, cause unknown): the three wave-2 runs stopped at checkpoints 16k / 12k / 12k, resumed with `--resume`, and the re-computed loss/lr lines were IDENTICAL to the pre-reboot ones (9, 12 + 12 PF, 3 + 3 PF lines). coach re-diffed; the runs count as-is (`protocol_100.md` v1.2).
+- Opening 1 scored 00:57 to 01:33 31 Oct, opening 2 06:53 to 07:07. Raw manifests 6b801fdd (87 files) and 1f307099 (42); the opening-1 comparator files were re-checked before opening 2.
+
+### 10.2 Opening 1: the 15 fine-tunes (E, `verify_100_o1.md`)
+| Contrast (Δ, thr /3) | Set | crack IoU | crack relF1@2 | inactive IoU |
+|---|---|---|---|---|
+| Pool MIM100-PF − SUP100-PF | all 50 | +0.0048 (0.0113) | +0.0035 (0.0162) | −0.0118 (0.0390) |
+| | −noisy | −0.0017 (0.0100) | −0.0039 (0.0100) | −0.0112 (0.0409) |
+| Recipe SUP100-PF − SUP100-g | all 50 | −0.0012 (0.0316) | +0.0117 (0.0395) | +0.0150 (0.0306) |
+| | −noisy | −0.0061 (0.0100) | +0.0050 (0.0100) | +0.0143 (0.0321) |
+| Bottom MIM100-PF − SUP100-g (reported) | all 50 | +0.0036 (0.0299) | +0.0152 (0.0366) | +0.0032 (0.0398) |
+| | −noisy | −0.0078 (0.0100) | +0.0012 (0.0100) | +0.0031 (0.0415) |
+
+- All n.d., also at tau 1 (LA on both arms). Pool and recipe are closed at 100% per the kill line.
+- **Mechanism check:** layer3/4 cosine to init at 20k: SUP100-g 0.015 / 0.001, SUP100-PF 0.928 / 0.936, MIM100-PF 0.959 / 0.961. PF kept the encoder, so erasure does not explain the nulls; the house-recipe erasure reproduced on 5 fresh seeds.
+- **Reported sets:** without twins and noisy (n 42), recipe crack −0.0190 (thr 0.0107) and bottom −0.0161 (0.0100) are WORSE by arithmetic (not verdict sets). PF trades test crack recall for precision (R 0.638 → 0.618, P 0.623 → 0.640).
+- **The noisy cell:** SUP100-g s0 fails on `CSIR_00070_r8_c4` (all-50 crack 0.414 vs 0.469 to 0.478 for s1-s4); no PF seed fails like that. mIoU_rob recipe +0.030 on all 50 is this noisy-cell effect (+0.006 without it). The verdict line of Track M's rung script counts mIoU_rob as a primary and does not apply; under protocol_100 recipe and bottom are n.d. (first-line notes in the rung files).
+- **E1 (descriptive; `results/f100/opening1/o1_extra.txt`, mean of 5):**
+
+| E1 group | n | crack recall SUP / SUPPF / MIMPF | crack IoU | inactive IoU |
+|---|---|---|---|---|
+| all | 106 | 0.169 / 0.213 / 0.189 | 0.141 / 0.167 / 0.150 | 0.041 / 0.245 / 0.125 |
+| scuff + half-cut | 29 | 0.094 / 0.152 / 0.131 | 0.086 / 0.132 / 0.115 | 0.088 / 0.566 / 0.423 |
+| other | 77 | 0.393 / 0.397 / 0.363 | 0.261 / 0.238 / 0.224 | 0.028 / 0.104 / 0.044 |
+
+  PF's E1 crack gain is only in the 29 scuff + half-cut cells; the other 77 lose crack IoU. coach (S): the largest E1 change any arm has produced, consistent with R arxiv:2202.10054, but E1 has been read many times; a claim needs a pre-registered replication.
+
+### 10.3 Opening 2: CP100 (E, `verify_100_o2.md`)
+| CP100 − SUP100-g | Set | crack IoU | crack relF1@2 | inactive IoU |
+|---|---|---|---|---|
+| C1, tau 0 | all 50 | +0.0076 (0.0307) | +0.0102 (0.0379) | +0.0020 (0.0277) |
+| | −noisy | +0.0003 (0.0100) | +0.0012 (0.0100) | +0.0007 (0.0299) |
+| C2, tau 1 both | all 50 | +0.0086 (0.0311) | +0.0101 (0.0354) | +0.0016 (0.0274) |
+| | −noisy | +0.0004 (0.0100) | +0.0002 (0.0101) | +0.0005 (0.0297) |
+
+- All n.d.; C3 (CP tau 0 vs SUP + LA) n.d. No crack claim; closed. Crack precision rose (+0.019 / +0.006), against the pre-stated −0.01 to −0.03. C3's rung-script verdict line compares mIoU_rob across tau (a tau effect, not a result).
+- **E3b decoy at 20k:** SUP real 0.2943, decoy 0.0028; CP real 0.4025, decoy 0.0125 (4.41x) → **FLAG** under the original gate-6 rule. Gate 6b's GO rested on the decoy falling from 2k to 4k (0.0076 → 0.0039); it tripled by 20k (coach, "Gate 6b in hindsight", `review_100_v1.md`). Reported only.
+- Crack px on 31 crack-free val cells 178 → 389; E1 crack recall 0.169 → 0.193. CP layer3/4 cosine 0.011 / 0.001 (house optimizer, erased).
+
+### 10.4 What protocol_100 decides
+- **The user's question (does the pool help at 100% labels?):** no, for both routes tested (learned encoder features with the encoder kept; pasted cracks on pool backgrounds), at clean MDE crack 0.012. With MIM5, DDeP5 and AM, the pool-representation line is closed (coach).
+- **Open lead (S):** the fine-tune recipe, on E1 only: coach recommends BEST = SUP100-PF and proposed PF2 (new seeds 5 to 9; SUP100-g / SUP100-PF / RN50-PF; E1 crack recall and E1 inactive IoU as pre-registered co-primaries for PF; ~15 to 17 h) on 31 Oct 07:15. Not approved.
+
+### 10.5 D: inference-only E1 checks (E, `verify_d.md`; val + E1 only, no test)
+Pre-registered read (`d_prereg.md`): kill unless a variant gains ≥ +0.05 E1 recall on the 29 scuff + half-cut cells at an E1 crack-precision cost < 0.05 (bias +0.75, vs FINAL re-scored on CPU; cross-check |Δ| ≤ 0.0005).
+
+| Variant | Target recall | E1 crack P (cost) | Read |
+|---|---|---|---|
+| FINAL (CPU) | 0.125 | 0.462 | reference |
+| RN50-5 | 0.185 (+0.060) | 0.415 (0.047) | passes, narrowly |
+| BN-HC routed | 0.299 (+0.174) | 0.376 (0.085) | fails: cost |
+| BN-HC global | 0.299 | 0.291 (0.170) | fails |
+| R34-5 + RN50-5 | 0.161 (+0.036) | 0.465 (−0.003) | fails: gain |
+| R34-10 (FINAL 5 + SUP100-g 5; size control, 31 Oct) | 0.1265 (+0.001) | 0.493 (−0.031) | control |
+
+The RN50 effect is not ensemble size (R34-10 +0.001). Track M R3 RN50 was WORSE on test inactive, so RN50 at 100% needs its own protocol (RN50-PF if PF is adopted).
+
+### 10.6 B2 v2 (E, `b2_mining/v2/b2v2_report.txt`)
+- v1 failed its validation (train-scuff AUROC 0.328 / 0.396). v2: the 986 pool half-cells only; structural, dead-cell and inactive classes excluded; coach overrode the numeric gate to mode ab (predicted crack px + largest-crack length) because the streak score was non-zero in only 14 cells, all border artefacts.
+- Validation (ab): AUROC 0.384 (A50, n_pos 4) / 0.437 (A20, n_pos 9): unvalidated, "a list of crack-predicted half-cells, not a scuff detector". Against the 35 Hanifi `_rf` half-cells in the 986: AUROC 0.615 (crack ≥ 20 px), 0.701 (scuff), 0.639 [0.45, 0.82] (either); Hanifi chose which cells to label.
+- 90 ranked + 10 blinded random panels, plain sheets; marks scuff / crack / both / neither / unsure; Fisher: the ranked list needs ≥ 25 / 38 / 48 hits of 90 at 0 / 1 / 2 random hits. 3 Hanifi cells are among the panels and were named in vetter's review before marking, so that 3-cell check is descriptive only.
+
+### 10.7 The two reviews
+- **vetter** (`review_suggestions_2026-10-30.md`): the user's 13 suggestions checked against the repo. Main corrections: the "Pratt extras" are E1; the Hanifi half-cuts were trained on once (R4, n.d.); no labelled or mineable source matches E1's half-cut module family. Shortlist: Hanifi cells as the B2 / BN-HC check; RN50 under PF; B3 on BEST; Skeleton Recall on BEST; user labelling. §6: 11 questions for the user.
+- **poolscout** (`pool_large/`): HF `sasan/scdd-unlabeled` (159,332 rows) is Pratt's Dropbox pool: CSIR + ARTS only, no new half-cells, no E1 module family, 21 test cells in it by ID and about 2,400 byte-identical pairs under other IDs. The download condition (a MIM100-PF gain at opening 1) failed, so there is no download.
+
+### 10.8 Incidents
+In doc 13 C16, C17 and D28 to D33: the opening-1 memory floor (LA pass about 1.5 GB free, estimated), crossed approvals, duplicate watchers, the reboot, the awk slip, poolscout's venv and `pkill`.
+
+---
+
 ## Related docs
 - `18_experiments_trackD_trackM.md`: Track D, Track M, FINAL, the 27 Oct synthesis.
 - `11_results_synthesis_and_claims.md`: rows 22 to 24 (pool feature learning at 5%, encoder erasure, the 5%-to-100% rule).
@@ -355,4 +433,5 @@ Listed in `13_problems_pitfalls_open_issues.md` D20 to D27 and A15: the recurrin
 - `13_problems_pitfalls_open_issues.md`: C14, C15, D20 to D27, E18 to E22.
 - `14_code_and_infrastructure.md` §1.2b: gaint worktrees `el_f1`, `el_f2`, `el_f3`; memory rule; run_one locks; two-opening scoring.
 - `15_status_remaining_work.md` §1f, §3b, §4b.
+- [Added 31 Oct] `11` rows 25 to 29; `12` D51 to D59; `13` C16, C17, D28 to D33, E23 to E25; `14` §1.2c; `15` §1g, §3c, §4c; `16` section H.
 - `17_escdd_dataset_audit.md` §5.11.

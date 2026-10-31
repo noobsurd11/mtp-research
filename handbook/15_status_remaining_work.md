@@ -4,6 +4,8 @@
 
 **Update 30 Oct 2026, ~12:00 IST (additive).** New §1 rows (Track D, Track M + FINAL, the two analysis teams, MIM5, AM, DDeP5, CP5, protocol_100), §1f (state on 30 Oct), §3b (decisions waiting on the user), §4b (ranked next items from `team_2026-10-29_features/coach_strategy.md`) and §7 rows. Sources: `SESSION_RECORD_2026-10-21_to_27.md`, `SESSION_RECORD_2026-10-28_to_30.md` (status as of 30 Oct 11:54 IST), the team folders, docs 18 and 19. **protocol_100 launched at 12:05 IST, just before this was finished: no result exists, and none is predicted here.**
 
+**Update 31 Oct 2026, ~07:30 IST (additive).** New §1g (state on 31 Oct), §3c (decisions waiting on the user), §4c (ranked next items); dated notes on the protocol_100 row and §4b row A. Source: `SESSION_RECORD_2026-10-30_to_31.md`.
+
 **Sources**
 - Server check at session close, 13 Oct 01:21 IST (read-only: `tmux ls`, `nvidia-smi`, `ps`, `du`), for §1b.
 - Launch logs on the servers, read at about 22:15 IST:
@@ -40,7 +42,7 @@
 | **MIM5 + AM** (gaint, 29 to 30 Oct; added 30 Oct) | **Done, coach VERIFIED.** MIM5 − A5c-f1 n.d. on all three, every estimate negative (crack −0.0116, thr 0.0186). AM (val only) KILL. [Qualified 30 Oct: the house fine-tune erased the layers MIM changed; 5% was the wrong fraction for the user's question.] | `team_2026-10-29_features/verify_mim5.md`; doc 19 §2, §3.1 |
 | **DDeP5** (pretraining cv02, fine-tunes gaint, 29 to 30 Oct; added 30 Oct) | **Done, coach VERIFIED.** n.d. on all three, small positive (crack +0.0070, thr 0.0100), mostly a threshold shift; below the free bias. Closed; DDeP at 100% dropped. | `verify_ddep5.md`; doc 19 §3.2 |
 | **CP5** (gaint, 30 Oct; added 30 Oct) | **Stopped 10:50 IST 30 Oct, not scored, no test opened.** Decoy gate PASS at 2k. s1, s3 finished; s0, s4 stopped mid-run; s2 cancelled. | `protocol_cp5.md`; doc 19 §3.3 |
-| **protocol_100** (gaint, from 30 Oct; added 30 Oct) | **Launched 12:05:34 IST 30 Oct on v1.1 (md5 8dcb231b). No results yet.** 4 arms × 5 seeds at 100% labels: SUP100-g, SUP100-PF, MIM100-PF, CP100.<br>• Gates: identity IDENTICAL; G5 PASS (layer3/4 0.975 to 0.990 at 4k); no 4th lane; gate 6 (CP decoy) FLAG, so CP100 waits for gate 6b (CP_GO / CP_STOP), pending at 12:22 IST.<br>• Opening 1 (15 fine-tunes) about 00:00 to 01:00 IST 31 Oct; opening 2 (CP100, if GO) about 07:00 IST 31 Oct. | `team_2026-10-29_features/protocol_100.md` v1.1, `review_100_v1.md`; doc 19 §7 |
+| **protocol_100** (gaint, from 30 Oct; added 30 Oct) | **Launched 12:05:34 IST 30 Oct on v1.1 (md5 8dcb231b). No results yet.** 4 arms × 5 seeds at 100% labels: SUP100-g, SUP100-PF, MIM100-PF, CP100.<br>• Gates: identity IDENTICAL; G5 PASS (layer3/4 0.975 to 0.990 at 4k); no 4th lane; gate 6 (CP decoy) FLAG, so CP100 waits for gate 6b (CP_GO / CP_STOP), pending at 12:22 IST.<br>• Opening 1 (15 fine-tunes) about 00:00 to 01:00 IST 31 Oct; opening 2 (CP100, if GO) about 07:00 IST 31 Oct. | `team_2026-10-29_features/protocol_100.md` v1.1, `review_100_v1.md`; doc 19 §7 [Qualified 31 Oct: done. 20 runs rc 0; both openings scored and verified; every contrast n.d. (doc 19 §10)] |
 | **B1 label audit** (gaint CPU, 30 Oct; added 30 Oct) | **Done.** Crack flags in 24 of 239 audited train cells (10.0 per 100), inactive 9 (3.8 per 100); three panel sheets sent to the user 11:37 IST, awaiting marks. | `team_2026-10-29_features/b1_audit/`; doc 19 §8.1 |
 | **P16** (cv02, SSL vs supervised at 20/50/100%) | **Done.** Part A 9 runs (17:28 to 22:06 IST, 11 Oct); Part B 15 runs (21:04 IST to 04:24 IST, 12 Oct); all rc = 0; analysed about 05:00 IST.<br>• **Fails at all three fractions:** S20, S50, Sx100 − supervised n.d. on all three primaries (5 vs 5 seeds). CutMix off by the locked val pick.<br>• One noisy test cell (`CSIR_00070_r8_c4`) wrecked crack in 4 of 24 runs; without it every crack Δ is within ±0.003 (post hoc), so the verdict is unchanged. | `results/p16/README.md`, `results/e1/e1_p16.md` |
 
@@ -81,6 +83,11 @@
 - **After launch:** B2 pool mining (candidates only), running since 12:09.
 
 **Held, do not touch:** the gaint `extpool_20261007` night queue (old-era Mean Teacher runs with SemiCE). It was held by hand on 8 Oct, 01:18 IST (19:48 UTC on 7 Oct) while SemiCE was under audit, and P2 later showed SemiCE is invalid. The user's standing instruction is to leave it held and untouched. (Source: the user's command in `sources/chat/user_messages_2026-10-07_to_11.md`, 2026-10-07T19:48Z; session summaries.)
+
+## 1g. State on 31 Oct 2026, about 07:30 IST (added 31 Oct; `SESSION_RECORD_2026-10-30_to_31.md`, `team_2026-10-29_features/log.md`)
+- **gaint:** protocol_100 complete: all 20 runs rc 0; both openings scored rc 0 and recomputed by coach. No process of ours is running; root's `finllm_chat.py` (5,876 MiB) is alone on the GPU. tmux `f100r` windows are left with idle shells. The memory logger stopped itself at 07:08:34.
+- **cv02:** unused all session (never 3 of 8 GPUs free); a 6 h watcher re-armed at 05:09.
+- **Results:** every protocol_100 contrast n.d. (doc 19 §10). coach proposed PF2 at 07:15; not approved.
 
 ## 2. What ran overnight, 11 to 12 Oct (all done)
 A watcher (`scratchpad/watch.sh`) polled both servers every 2 minutes and fired on each finished set. It exited after P16 Part B; the script lived in a session scratchpad that no longer exists. What it triggered:
@@ -124,6 +131,20 @@ A watcher (`scratchpad/watch.sh`) polled both servers every 2 minutes and fired 
 
 Decision 4 of the 21 to 27 Oct record ("the handbook refresh") is this update.
 
+## 3c. Decisions waiting on the user, 31 Oct (added 31 Oct)
+
+| # | Decision | Facts for it | Source |
+|---|---|---|---|
+| 12 | **PF as the base recipe** for follow-ups | coach: BEST = SUP100-PF (equal on test by the rule; more robust on E1 and on the noisy cell) | `verify_100_o1.md` §5 |
+| 13 | **PF E1 replication (PF2)** | New seeds 5 to 9; SUP100-g / SUP100-PF / RN50-PF; E1 crack recall and E1 inactive IoU as pre-registered co-primaries for PF; ~15 to 17 h on gaint (coach). Needs row 15's Q1 first | `log.md` 31 Oct 07:15 |
+| 14 | **RN50-PF** vs SUP100-PF | D: RN50-5 +0.060 E1 target recall at cost 0.047, not ensemble size; R3 RN50 WORSE on test inactive | `verify_d.md` |
+| 15 | **vetter §6, questions 1 to 11** | E1 still sealed? scuff test GT; Hanifi cells (validation now, training later); labelling hours; thin-crack metric; powered inactive CV (~40+ h); downloads (DINOv3, ELPV); gate bigger encoders on the recipe; pool download (moot, D58); pool module rule; pool subset | `review_suggestions_2026-10-30.md` §6 |
+| 16 | **Marks** on the B1 sheets (3) and the B2 v2 sheets (4 x 25 panels) | B2: scuff / crack / both / neither / unsure; primary hit = scuff, crack or both | `b2_mining/v2/b2v2_report.txt` |
+| 17 | **Delete the 293.6 MB HF pixel sample** (`~/mtp/datasets/scdd_unlabeled_sample/`, outside the repo) | No download is planned | `pool_large/pool_large_audit_2026-10-30.md` §5 |
+| 18 | **Who rebooted gaint at 16:28 on 30 Oct?** | Orderly shutdown, console login at 16:29; runs need a warning if it may happen again | `protocol_100.md` v1.2 |
+
+Still open from §3b: rows 10 (40-segment audit, 4 label questions) and 11 (idle cv02 shells). Row 7 is now row 16 (B2 sheets sent); row 8 is vetter Q2; row 9 (ELPV) is vetter Q7.
+
 ## 4. Remaining work for part 1 (training methodology)
 Ordered roughly by information per cost. None of these is started; each would need its own locked protocol and the user's go-ahead.
 
@@ -143,7 +164,7 @@ Coach's order by expected test gain per cost. None beyond protocol_100 and B1/B2
 
 | Rank | Item | Condition | Named target | Source |
 |---|---|---|---|---|
-| A | Fix the fine-tune: SUP100-PF (in flight in protocol_100) | none | test primaries at 100% | `coach_strategy.md` §2 A; R arxiv:2202.10054 |
+| A | Fix the fine-tune: SUP100-PF (in flight in protocol_100) | none | test primaries at 100% | `coach_strategy.md` §2 A; R arxiv:2202.10054 [Qualified 31 Oct: n.d. on test; E1 lead only (§4c)] |
 | A2 | ResNet-50 and ConvNeXt-T under PF, one arm each vs SUP100-PF | only if SUP100-PF passes or shows a same-sign gain on clean cells | BMRK crack (Track D's frozen-feature signal) | §2 A |
 | A3 | Weight average of the 5 PF seeds (model soup), inference only, val first | as A2 | a single-model alternative to the ensemble | §2 A; R arxiv:2203.05482 |
 | B1 | Label audit of train | done; waiting on the user's marks (§3b row 6) | label errors in train | §2 B; doc 19 §8.1 |
@@ -155,6 +176,18 @@ Coach's order by expected test gain per cost. None beyond protocol_100 and B1/B2
 **Stop (coach):** further pool representation learning (contrastive, clustering, diffusion, DDeP); pseudo-label SSL at ≥ 20% labels; 5% screens of label-consuming methods.
 
 **If SUP100-PF is n.d. or worse (coach):** erasure is benign for this task; close the init / backbone / pretraining line "with a better reason than before".
+
+## 4c. Ranked next items, 31 Oct (added 31 Oct; coach `verify_100_o2.md` §6 and vetter's shortlist, S unless tagged)
+
+| Rank | Item | Condition | Source |
+|---|---|---|---|
+| 1 | PF2: replicate PF's E1 effect with pre-registered E1 co-primaries (RN50-PF as a third arm) | user OK; vetter Q1 | `log.md` 31 Oct 07:15 |
+| 2 | Hanifi `_rf` half-cells as the check for the B2 ranking and BN-HC's bias (CPU) | vetter Q3 | `review_suggestions_2026-10-30.md` §3 |
+| 3 | B3 scuff class on BEST | test-GT choice (vetter Q2) | `spec_b3_scuff.md` |
+| 4 | Skeleton Recall loss on BEST | metric choice (vetter Q5) | vetter §3 item 4 |
+| 5 | User labelling: B1 marks, then B2 masks if the marks support it | the marks | vetter §3 item 5 |
+
+**Closed (E):** pool representation learning and crack copy-paste at 100% (n.d.); the large-pool download (condition failed, D58).
 
 ## 5. Parts 2 and 3 (after part 1)
 - **Part 2, architecture.** Phase 0 ideas:

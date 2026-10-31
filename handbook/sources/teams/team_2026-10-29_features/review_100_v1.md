@@ -65,3 +65,33 @@
   - growth (a shortcut grows with exposure; one 2k point cannot show it).
   - Hence the 4k point and the rule above: GO if ≤ 0.05 and (≤ 2x SUP at 4k or ≤ 0.0094). I add, also pre-stated, **decoy/real at 4k ≤ 3.6%** (the A5c 5% reference) as a third condition for GO.
 - **Cost:** the two 4k resumes take one fine-tune slot for about 20 min, so opening 1 shifts by at most about 20 min. The decision is logged (CP_GO / CP_STOP plus the 4k rates) before opening 1 fires.
+
+### Gate 6b result and final CP100 decision (coach, 30 Oct 12:30 IST; before any CP100 run and before opening 1; no test number seen)
+| 4k decoy (E, `el_f3/reports/f100/smoke/decoy_4k.json`, 248 cells, 553 comps, step 4000 asserted) | real | decoy | background | decoy / real |
+|---|---|---|---|---|
+| SUP100 a1 | 0.2462 | 0.0010 | 0.00062 | 0.42% |
+| CP100 b2 | 0.2713 | 0.0039 | 0.00073 | 1.43% |
+
+- **Recomputed independently:**
+  - (1) 0.0039 ≤ 0.05: yes.
+  - (2) ≤ 2 x SUP (0.0021): no. ≤ 0.0094 (not growing): yes. So (2) holds.
+  - (3) decoy/real 1.43% ≤ 3.6%: yes.
+- **Decision: CP_GO** (written by `f100_gate6b2.sh` at 12:27:37; HOLD removed).
+- **Disclosed plainly:**
+  - CP100 passes on growth and specificity, **not** on the original ratio line. CP/SUP is 2.45x at 2k and 3.7x at 4k, because SUP's own decoy rate fell faster (0.0031 → 0.0010).
+  - CP's decoy rate halved from 2k to 4k (0.0076 → 0.0039), so no developing shortcut.
+  - E3b at 20k keeps the original thresholds. If it flags (likely on the ratio), any CP100 result is reported with a seam-sensitivity caveat. The verdict rule (C1 + C2, two sets) is unchanged.
+
+### gaint reboot 30 Oct 16:28: resumed s1 runs (coach, independent re-diff)
+- **Re-diffed by coach on gaint.** Each run's `<run>.prereboot.stdout` was compared with the post-marker section of `<run>.stdout`, timestamps and speed stripped:
+  - SUP s1, steps 16,050-16,450: loss/lr 9/9 IDENTICAL;
+  - SUPPF s1, steps 12,050-12,600: loss/lr 12/12 and PF encoder lr 12/12 IDENTICAL;
+  - MIMPF s1, steps 12,050-12,150: loss/lr 3/3 and PF lr 3/3 IDENTICAL.
+  - Each stdout has 1 marker, 2 headers and 0 tracebacks. Prereboot md5s: 4e50bba6 / ee1d7a25 / 628364fb.
+- **Ruling (1), as pre-stated: the s1 runs count as-is.** Disclose in protocol_100 v1.2: the reboot time, checkpoint md5s/steps (`ckpt_integrity_1635.txt`), the overlap counts above, and runner's first-check awk bug (fixed before any decision).
+
+### Gate 6b in hindsight (coach, 31 Oct, after opening 2; E3b at 20k)
+- **The 20k decoy:** CP 0.0125 vs SUP 0.0028 (4.41x); decoy/real 3.1%.
+- The 2k → 4k decline (0.0076 → 0.0039) that grounded the GO did not continue: CP's decoy rate tripled by 20k. Condition (2) fails at 20k.
+- A late seam sensitivity developed, as E3b exists to catch. It is reported with the original thresholds (FLAG). The CP100 verdict (n.d., `verify_100_o2.md`) is unaffected.
+- **Lesson for future decoy gates:** read the trend at the end of training (E3b) as part of the go/no-go wherever compute allows, not only at 2k-4k.

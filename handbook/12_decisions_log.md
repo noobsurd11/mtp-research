@@ -667,7 +667,57 @@ Additive section, written 30 Oct ~12:00 IST from `SESSION_RECORD_2026-10-21_to_2
 - **Who:** coach, after gate 6 flagged; a post hoc amendment of gate 6, disclosed as such (`review_100_v1.md`, "Gate check and gate-6 ruling"). team-lead had asked whether the 2× relative line still makes sense at 100%.
 - **What:** gate 6 flagged on the ratio only: CP decoy 0.0076 vs SUP 0.0031 (2.45×), both far below the 0.05 absolute line. Coach ruled: resume both smokes from 2k to 4k and rerun the same decoy. CP_GO only if, at 4k, CP decoy ≤ 0.05, and (≤ 2 × SUP decoy or ≤ 0.0094), and decoy/real ≤ 3.6%; else CP_STOP and no opening 2. All three conditions were written before the 4k numbers. The CP100 verdict rule is unchanged.
 - **Why:** the decoy test is a futility and safety gate (test cells hold no pastes). At 100% the SUP baseline is more selective (decoy/real 1.1% vs 3.6% for A5c at 5%), so 2× is stricter than at 5%; a seam shortcut would grow with training, which one 2k point cannot show.
-- **Outcome:** pending at 12:22 IST; CP100 waits in the queue for `CP_GO` / `CP_STOP`, decided before opening 1.
+- **Outcome:** pending at 12:22 IST; CP100 waits in the queue for `CP_GO` / `CP_STOP`, decided before opening 1. [Qualified 31 Oct: GO at 12:27:37; at 20k the CP decoy had tripled (FLAG), see D51.]
+
+---
+
+## 4d. 30 to 31 Oct: protocol_100 results, D, B2 v2, the reviews (added 31 Oct)
+Sources: `team_2026-10-29_features/log.md` 30 Oct 12:00 to 31 Oct 07:15, the verify files named below, `SESSION_RECORD_2026-10-30_to_31.md`.
+
+### D51. CP100 runs after gate 6b (30 Oct 12:27; outcome 31 Oct)
+- **Who:** coach's three pre-stated conditions; runner's script decided.
+- **What:** at 4k the CP decoy was 0.0039 vs SUP 0.0010 (decoy/real 0.0143): (1) yes, (2) only through the 0.0094 floor, (3) yes. `CP_GO` written 12:27:37.
+- **Outcome:** at 20k the CP decoy was 0.0125 (4.41x SUP; about 3x its 4k value): FLAG under the original rule. coach's "Gate 6b in hindsight" (`review_100_v1.md`): the not-growing premise did not hold; read the end-of-training trend where compute allows. The CP verdict (n.d.) is unaffected.
+
+### D52. Resume after the gaint reboot; the s1 runs count (30 Oct 16:31 to 16:41)
+- **Who:** runner (recovery), coach (five audit items; ruling fixed before the diff), team-lead (pre-checks).
+- **What:** resume the three wave-2 runs from `latest.pth` with `--resume`. Ruling before the diff: bit-identical → counts; identical lr and no loss jump → counts with a disclosure; otherwise re-run that seed from scratch before opening 1.
+- **Outcome:** IDENTICAL over the re-computed steps (SUP 9 lines, SUPPF 12 + 12 PF lr, MIMPF 3 + 3); coach re-diffed; `protocol_100.md` v1.2. About 30 min of schedule lost.
+
+### D53. B2 v2: half-cells only, mode ab, plain sheets, 5-way marks (30 Oct 16:01 to 18:37)
+- **Who:** coach (CHANGES on v1, the v2 rules, the override), team-lead (hit definition, the "not a scuff detector" and power lines), runner.
+- **What:** v1 failed its validation (AUROC 0.328 / 0.396). v2 ranks only the 986 pool half-cells; the numeric gate said abc, coach overrode to ab (the streak score was non-zero in 14 cells, all border artefacts); 90 ranked + 10 blinded random panels on plain sheets, overlays apart; marks scuff / crack / both / neither / unsure.
+- **Outcome:** sent to the user (seconds before coach's formal OK, disclosed (team-lead's account; no team file records the send time)). Hanifi addendum and blinding note added after vetter's review named the 3 Hanifi cells among the 100 panels.
+
+### D54. D pre-registration and the R34-10 size control (30 Oct 12:32 to 12:40; 31 Oct 01:34 to 01:44)
+- **Who:** runner (plan, scorer), coach (changes: routed BN-HC, must-not-hurt group, size control; tolerance gate).
+- **What:** `d_prereg.md` (33778eb0) before any number: val + E1 only, no test; kill unless ≥ +0.05 target recall at precision cost < 0.05; FINAL cross-check |Δ| ≤ 0.005 or stop.
+- **Outcome:** RN50-5 passes narrowly; BN-HC fails on cost; R34-10 +0.001 (the RN50 effect is not ensemble size). `verify_d.md`.
+
+### D55. CP100 s1 not stopped for scheduling (31 Oct 01:03 to 01:05)
+- **Who:** runner proposed, coach approved (scheduling only, before any number), team-lead declined.
+- **Why:** the user's rule: no protocol run is stopped without the user's go-ahead. coach retracted.
+- **Outcome:** a HOLD file kept CP s2 out of the next slot; `f100_unhold.sh` lifted it on the opening-1 end line (01:34:12). Scoring finished at 01:33, but see D56.
+
+### D56. gaint memory: log every overlap, gate on measured peaks (31 Oct ~01:45 and 07:11)
+- **Who:** team-lead (rules), runner.
+- **What:** whenever our GPU jobs share the GPU, log free memory every 10 s for the whole overlap and report the minimum; any concurrent gate is a measured peak + 2,048 MiB (scoring passes: 7,154 MiB, from the LA peak 5,106).
+- **Why:** opening-1 scoring overlapped two CP runs under a 6,000 MiB gate that assumed ~3 GB passes; the LA pass likely left about 1.5 GB free for about 5.5 min (estimate). Disclosed in `protocol_100.md`.
+
+### D57. protocol_100 closed (31 Oct 01:37 and 07:14)
+- **Who:** coach (verify), runner (CONFIRMED to 4 dp).
+- **What:** pool via MIM n.d., pool via copy-paste n.d., recipe n.d. on test; all closed at 100% per the kill line.
+- **Next (proposals, not decisions):** coach recommends BEST = SUP100-PF and proposed PF2 (07:15): SUP100-g / SUP100-PF / RN50-PF, new seeds 5 to 9, E1 crack recall and E1 inactive IoU as pre-registered co-primaries for PF. Waiting on the user.
+
+### D58. No large-pool download (31 Oct)
+- **Who:** vetter's pre-stated condition (`review_suggestions_2026-10-30.md` §13.4).
+- **What:** download the 159k HF pool to gaint only if opening 1 gave MIM100-PF − SUP100-PF BETTER or a same-sign gain on the clean set, and the user wants the scaling question.
+- **Outcome:** clean-set deltas −0.0017 / −0.0039 / −0.0112: condition failed. Item 13 closes with the pool-composition finding and the provenance disclosure.
+
+### D59. PID-only kills everywhere (30 Oct 12:41; extended the same day)
+- **Who:** team-lead.
+- **What:** stop a process only by the PID its launcher recorded, or one printed with its full command line first. No `pkill -f` / `killall`, first on gaint and cv02, then on the laptop too.
+- **Why:** pattern matches hit an agent's own processes three times on 30 Oct (twice on gaint, once on the laptop by poolscout (poolscout's report to team-lead)).
 
 ---
 
@@ -715,6 +765,10 @@ Each rule exists because a specific mistake produced a fake or misleading result
 | (added 30 Oct) Report the per-stage encoder cosine to init with every init or pretraining result | "pretraining does not help" turned out to mean "pretraining was erased" by the house optimizer | `coach_100.md` §0; `coach_strategy.md` §3 rule 1 |
 | (added 30 Oct) Capture `rc=$?` before any `$(date)`, in every new script; judge completion from DONE lines and manifests | the 21 Oct bug recurred in five status lines on 29 to 30 Oct | doc 13 D20 |
 | (added 30 Oct) Absolute log paths in scripts that `cd`; atomic start gates; log stamps from `date` only | a relative path hid the AFTER-RUNS line; three runs started on one memory reading; log lines were stamped up to about 75 min ahead | doc 13 D21 to D23 |
+| (added 31 Oct) Gate concurrent passes on a measured peak + 2,048 MiB; log free memory every 10 s during any overlap | an assumed ~3 GB scoring pass let opening 1's LA pass (5,106 MiB) take free memory to about 1.5 GB (estimate) | doc 13 D28 |
+| (added 31 Oct) Read a decoy or shortcut gate at the end of training too | gate 6b's decoy fell from 2k to 4k, then tripled by 20k | `review_100_v1.md` "Gate 6b in hindsight" |
+| (added 31 Oct) Watchers only as tracked jobs with a recorded PID; no bare `&` | two untracked duplicate watchers | doc 13 D30 |
+| (added 31 Oct) Act on a formal OK only; when messages cross, disclose and offer to undo | five crossed approvals on 30 to 31 Oct | doc 13 D29 |
 
 ## Related docs
 - `00_START_HERE.md`

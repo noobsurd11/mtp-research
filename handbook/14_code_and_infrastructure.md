@@ -109,6 +109,17 @@ Sources: `team_2026-10-29_features/log.md` (29 Oct 12:40 to 30 Oct 11:18), `prot
 
 **As launched (v1.1, 30 Oct 12:05:34 IST; `protocol_100.md` v1.1, `log.md` 12:05):** queue `el_f3/reports/f100_queue.sh` (md5 e4cb4ad3), `training.val_every=20000` (gate 4 passed), at most 3 concurrent runs, no expandable_segments (gate 7: 6,442 MiB reserved per fine-tune, 4 × 6.44 + 5.9 = 31.7 GB > 30.1 GB allowed), postwatch `f100_postwatch.sh` (md5 f046bb5f). CP100 jobs wait at the queue's first CP job for `el_f3/reports/f100/CP_GO` or `CP_STOP`, written by the gate-6b script `f100_gate6b2.sh` (md5 80211978) with coach's three conditions (doc 12 D50).
 
+### 1.2c gaint, 30 to 31 Oct: protocol_100 operations, memory logging (added 31 Oct)
+Sources: `team_2026-10-29_features/log.md`, `protocol_100.md`, `scripts/`.
+- **Queue and openings (`el_f3/reports/`):** `f100_queue.sh` (strict order; waits at the first CP job for `f100/CP_GO` or `CP_STOP`; pauses while `f100/HOLD` exists); `f100_postwatch.sh` fires `f100_post.sh opening1|opening2`; each start or scoring pass takes the flock gate `f100/gate.lock` with ≥ 120 s spacing. End lines in `f100/launch.log`: `f3 opening<N> scoring done: post rc=N`.
+- **`f100_resume.sh`:** the post-reboot resume (`train.py --resume`, stdout appended after a marker line, "trained <run> rc=N (resumed)").
+- **`f100_unhold.sh`** (md5 f64cd600, tmux `f100r:unhold`): lifts HOLD on the opening-1 done or NOT-scored line; if the post process is gone for 2 min it first writes "f3 opening1 post FAIL: ...".
+- **`f100_gpumem.sh`** (local `scripts/f100_gpumem_gaint.sh`, md5 5c6b8c6a; tmux `f100r:gpumem`): writes "time free used | pid:label:MiB" to `f100/gpumem.log` every 10 s, every 1 s while a scoring process is on the GPU; PID in `f100/gpumem.pid` (stop only by that PID); stops 60 s after the opening-2 end line. Ran 01:45:40 to 07:08:34 31 Oct.
+- **Measured GPU peaks (MiB, nvidia-smi per process; scoring measured in opening 2 with finllm alone):** rescore_label_versions 4,398; m0_audit and m0_audit_tau 4,002; rescore_logit_adjust (LA) 5,106; cp_decoy 3,292; CP100 run 9,524; root's finllm 5,876.
+- **Gates now:** start gates = measured peak + 2 GB (fine-tune 9,000, CP 11,600 MiB). **Concurrent scoring passes: 7,154 MiB** (LA peak + 2,048). The 6,000 MiB gate inside `f100_post.sh` assumed ~3 GB passes; it is safe only with finllm alone on the GPU.
+- **Local analysis (team folder `scripts/`):** `f100_post_local.sh` (opening 1), `f100_post_local_o2.sh` (opening 2), `f100_o1_extra.py` (E1 split and crack px on crack-free cells; takes ARM=DIR pairs), `watch_f100.sh` (local watcher, run as a tracked job; prints its PID).
+- **D:** `el_f3/reports/d/` (`d_infer.py` md5 129edac4, `--only-r34-10` mode; CPU fp32; outputs in `reports/d/out/`, pulled to `d_checks/`).
+
 ### 1.3 cv02 (`ssh cv02@10.8.1.106`)
 - **GPUs:** 8x NVIDIA RTX A6000, 49,140 MiB each (`nvidia-smi`, 11 Oct). Shared with other users.
 - **Everything of ours is under `/tmp/noob_el/`.** Note it is under `/tmp`: a reboot or cleanup could remove it. The local `results/` folders hold copies of everything needed for the reported numbers (re-score JSONs, per-image JSONs, histograms, E1 JSONs). Checkpoints are on cv02 and, since 13 Oct, copied to gaint `cv02_noob_el` (§1.2).

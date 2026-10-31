@@ -42,4 +42,48 @@ done
 scp -q -o BatchMode=yes noob@172.18.22.20:/home/noob/work/el-fault-detection/docs/alhvr_port_notes.md $S/old_era_reports/gaint__alhvr_port_notes.md 2>/dev/null || true
 scp -q -o BatchMode=yes noob@172.18.22.20:/home/noob/work/el-fault-detection/README.md $S/old_era_reports/gaint__repo_README.md 2>/dev/null || true
 scp -q -o BatchMode=yes cv02@10.8.1.106:noob/el_results/cv02.md $S/old_era_reports/cv02__el_results_cv02.md 2>/dev/null || true
+# B2 blinding (coach fix 5, accepted by Om 31 Oct): the 3 Hanifi cells among the 100 B2 panels stay unnamed in these
+# copies until the user has marked B2. Stems and panel numbers are read at run time from b2v2_hanifi_panels.txt (that
+# file is never copied here, and this script does not contain them). Every copied file that names one is redacted, then
+# the copies are checked and the sync fails if a name survives. Set B2_MARKED=1 once the user has marked every panel.
+B2_MARKED=${B2_MARKED:-0}
+HP=$R/team_2026-10-29_features/b2_mining/v2/b2v2_hanifi_panels.txt
+if [ "$B2_MARKED" != 1 ]; then
+  [ -e "$HP" ] || { echo "sync_sources: $HP missing, cannot apply the B2 redaction" >&2; exit 1; }
+  python3 -I - "$HP" "$S" <<'PYEOF'
+import os, re, sys
+hp, src = sys.argv[1], sys.argv[2]
+rows = [l.rstrip('\n').split('\t') for l in open(hp) if l.strip() and not l.startswith('#')]
+rows = [r for r in rows if r[0].isdigit()]
+stems = [r[1] for r in rows]; panels = [r[0] for r in rows]
+assert len(stems) == 3, 'expected 3 Hanifi panel rows'
+stem_re = re.compile('|'.join(re.escape(s) for s in stems))
+pan_re = re.compile(r'panels ' + r',? (?:and )?'.join(panels))
+TAG = '[redacted until the user marks B2: Hanifi B2 panel cell]'
+n = 0
+for dp, _, fs in os.walk(src):
+    for f in fs:
+        p = os.path.join(dp, f)
+        try: txt = open(p, encoding='utf-8').read()
+        except (UnicodeDecodeError, OSError): continue
+        out = []
+        for line in txt.split('\n'):
+            if stem_re.search(line):   # drop the whole line: it may also carry the cell's label px
+                ind = line[:len(line) - len(line.lstrip())]
+                line = ind + ('- ' if line.lstrip().startswith('- ') else '') + TAG
+            line = pan_re.sub('panels [redacted until the user marks B2]', line)
+            out.append(line)
+        new = '\n'.join(out)
+        if new != txt:
+            open(p, 'w', encoding='utf-8').write(new); n += 1
+for dp, _, fs in os.walk(src):
+    for f in fs:
+        p = os.path.join(dp, f)
+        try: txt = open(p, encoding='utf-8').read()
+        except (UnicodeDecodeError, OSError): continue
+        if stem_re.search(txt) or pan_re.search(txt):
+            sys.exit('sync_sources: B2 redaction failed in ' + p)
+print('B2 redaction: %d file(s) redacted, 0 names left' % n)
+PYEOF
+fi
 echo "sources: $(find $S -type f | wc -l) files, $(du -sh $S | cut -f1)"
