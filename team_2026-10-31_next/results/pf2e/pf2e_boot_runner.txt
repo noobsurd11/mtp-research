@@ -1,0 +1,65 @@
+# PF2E: E-PF - E-g. Val decisions (pf2e_val_decisions.json): E-g b 1.25 (smallest bias with val relR@2 >= 0.90 and relP@2 >= 0.90; precision drop +0.0543; headline 0.0); E-PF b 1.5 (smallest bias with val relR@2 >= 0.90 and relP@2 >= 0.90; drop +0.0753; headline 0.0)
+
+## test, VERDICT (headline b): E-g b 0.0 vs E-PF b 0.0; paired image bootstrap 2,000, seed 0 (Track M m1_analyze.boot)
+  all 50    | crack IoU +0.0027 [-0.0146, +0.0159] P>0 0.64 | relF1@2 +0.0121 [-0.0048, +0.0309] P>0 0.92 | inactive IoU +0.0237 [-0.0310, +0.0971] P>0 0.79 | mIoU_rob +0.0349 [-0.0107, +0.0628] P>0 0.90 | E-g crack IoU 0.4788 relF1 0.8821 inact 0.4376 | E-PF 0.4815 0.8942 0.4613 | relR2 0.820->0.841 relP2 0.955->0.954 comp R 0.788->0.799 comp P 0.970->0.954
+  clean 49  | crack IoU +0.0027 [-0.0133, +0.0151] P>0 0.63 | relF1@2 +0.0121 [-0.0036, +0.0306] P>0 0.92 | inactive IoU +0.0245 [-0.0315, +0.1006] P>0 0.80 | mIoU_rob +0.0044 [-0.0145, +0.0214] P>0 0.70 | E-g crack IoU 0.4819 relF1 0.8861 inact 0.4514 | E-PF 0.4846 0.8983 0.4759 | relR2 0.827->0.849 relP2 0.955->0.954 comp R 0.797->0.807 comp P 0.970->0.954
+  -twins    | crack IoU -0.0060 [-0.0297, +0.0124] P>0 0.28 | relF1@2 +0.0170 [-0.0105, +0.0444] P>0 0.86 | inactive IoU +0.0212 [-0.0379, +0.1107] P>0 0.73 | mIoU_rob +0.0359 [-0.0112, +0.0656] P>0 0.89 | E-g crack IoU 0.4068 relF1 0.8210 inact 0.4152 | E-PF 0.4009 0.8380 0.4364 | relR2 0.729->0.760 relP2 0.940->0.934 comp R 0.724->0.738 comp P 0.966->0.957
+  -both     | crack IoU -0.0060 [-0.0292, +0.0132] P>0 0.28 | relF1@2 +0.0170 [-0.0102, +0.0457] P>0 0.87 | inactive IoU +0.0218 [-0.0423, +0.1228] P>0 0.71 | mIoU_rob +0.0041 [-0.0168, +0.0226] P>0 0.66 | E-g crack IoU 0.4112 relF1 0.8276 inact 0.4307 | E-PF 0.4052 0.8446 0.4525 | relR2 0.739->0.771 relP2 0.940->0.934 comp R 0.734->0.748 comp P 0.966->0.957
+  => test VERDICT (headline b): n.d.
+  per source (E-g -> E-PF): ARTS n 13 crack IoU 0.465->0.424 inact 0.000->0.577; BMRK n 10 crack IoU 0.391->0.387 inact 0.327->0.375; CFVS n 18 crack IoU 0.528->0.546 inact 0.569->0.552; CSIR n 8 crack IoU 0.454->0.417 inact 0.408->0.417; SDLE n 1 crack IoU 0.000->0.000 inact nan->nan
+
+## test_noscuff, VERDICT (headline b): E-g b 0.0 vs E-PF b 0.0; paired image bootstrap 2,000, seed 0 (Track M m1_analyze.boot)
+  all 50    | crack IoU +0.0027 [-0.0146, +0.0160] P>0 0.64 | relF1@2 +0.0121 [-0.0048, +0.0309] P>0 0.92 | inactive IoU +0.0237 [-0.0310, +0.0971] P>0 0.79 | mIoU_rob +0.0349 [-0.0107, +0.0628] P>0 0.90 | E-g crack IoU 0.4797 relF1 0.8833 inact 0.4376 | E-PF 0.4824 0.8954 0.4613 | relR2 0.822->0.844 relP2 0.955->0.954 comp R 0.801->0.812 comp P 0.970->0.954
+  clean 49  | crack IoU +0.0027 [-0.0133, +0.0151] P>0 0.63 | relF1@2 +0.0122 [-0.0036, +0.0306] P>0 0.92 | inactive IoU +0.0245 [-0.0315, +0.1006] P>0 0.80 | mIoU_rob +0.0044 [-0.0145, +0.0214] P>0 0.70 | E-g crack IoU 0.4829 relF1 0.8874 inact 0.4514 | E-PF 0.4856 0.8995 0.4759 | relR2 0.829->0.851 relP2 0.955->0.954 comp R 0.810->0.821 comp P 0.970->0.954
+  -twins    | crack IoU -0.0060 [-0.0298, +0.0125] P>0 0.28 | relF1@2 +0.0170 [-0.0105, +0.0445] P>0 0.86 | inactive IoU +0.0212 [-0.0379, +0.1107] P>0 0.73 | mIoU_rob +0.0359 [-0.0112, +0.0656] P>0 0.89 | E-g crack IoU 0.4081 relF1 0.8230 inact 0.4152 | E-PF 0.4022 0.8400 0.4364 | relR2 0.732->0.763 relP2 0.940->0.934 comp R 0.739->0.754 comp P 0.966->0.957
+  -both     | crack IoU -0.0060 [-0.0292, +0.0132] P>0 0.28 | relF1@2 +0.0170 [-0.0102, +0.0457] P>0 0.87 | inactive IoU +0.0218 [-0.0423, +0.1228] P>0 0.71 | mIoU_rob +0.0041 [-0.0168, +0.0225] P>0 0.66 | E-g crack IoU 0.4126 relF1 0.8296 inact 0.4307 | E-PF 0.4066 0.8466 0.4525 | relR2 0.742->0.774 relP2 0.940->0.934 comp R 0.750->0.764 comp P 0.966->0.957
+  => test_noscuff VERDICT (headline b): n.d.  (reported only)
+
+## E1 (106 cells, 71 module clusters), VERDICT (headline b): paired module-cluster bootstrap 2,000, seed 0
+  E1 crack relF1@2 +0.0355 [-0.0232, +0.0912] P>0 0.88 (E-g 0.3990, E-PF 0.4345) | E1 inactive IoU +0.2141 [+0.0303, +0.3820] P>0 0.99 (E-g 0.0665, E-PF 0.2807)
+  => E1 VERDICT (headline b): PASS (E1 inactive IoU)
+  E1 reported: crack R 0.160->0.189, P 0.547->0.495, relR2 0.293->0.345, relP2 0.626->0.588, comp R 0.159->0.209, comp P 0.670->0.608
+  E1 stratum scuff+half-cut n 29: crack R 0.088->0.127 inact IoU 0.360->0.637 relR2 0.181->0.236 relP2 0.710->0.683 relF1 0.289->0.351 comp R 0.124->0.168 comp P 0.925->0.827
+  E1 stratum other n 77: crack R 0.376->0.376 inact IoU 0.023->0.131 relR2 0.629->0.673 relP2 0.576->0.511 relF1 0.601->0.581 comp R 0.591->0.727 comp P 0.508->0.441
+  E1 stratum half-cut n 58: crack R 0.122->0.153 inact IoU 0.326->0.593 relR2 0.230->0.279 relP2 0.764->0.729 relF1 0.354->0.403 comp R 0.147->0.186 comp P 0.920->0.850
+  E1 stratum full n 48: crack R 0.341->0.362 inact IoU 0.024->0.130 relR2 0.594->0.662 relP2 0.483->0.424 relF1 0.533->0.517 comp R 0.455->0.818 comp P 0.434->0.367
+  crack px on crack-free test cells (2): E-g 0, E-PF 0
+  crack px on crack-free val cells (31): E-g 87, E-PF 0
+  crack px on crack-free ext cells (74): E-g 2138, E-PF 2528
+
+## test, reported: b 0: E-g b 0.0 vs E-PF b 0.0; paired image bootstrap 2,000, seed 0 (Track M m1_analyze.boot)
+  all 50    | crack IoU +0.0027 [-0.0146, +0.0159] P>0 0.64 | relF1@2 +0.0121 [-0.0048, +0.0309] P>0 0.92 | inactive IoU +0.0237 [-0.0310, +0.0971] P>0 0.79 | mIoU_rob +0.0349 [-0.0107, +0.0628] P>0 0.90 | E-g crack IoU 0.4788 relF1 0.8821 inact 0.4376 | E-PF 0.4815 0.8942 0.4613 | relR2 0.820->0.841 relP2 0.955->0.954 comp R 0.788->0.799 comp P 0.970->0.954
+  clean 49  | crack IoU +0.0027 [-0.0133, +0.0151] P>0 0.63 | relF1@2 +0.0121 [-0.0036, +0.0306] P>0 0.92 | inactive IoU +0.0245 [-0.0315, +0.1006] P>0 0.80 | mIoU_rob +0.0044 [-0.0145, +0.0214] P>0 0.70 | E-g crack IoU 0.4819 relF1 0.8861 inact 0.4514 | E-PF 0.4846 0.8983 0.4759 | relR2 0.827->0.849 relP2 0.955->0.954 comp R 0.797->0.807 comp P 0.970->0.954
+  -twins    | crack IoU -0.0060 [-0.0297, +0.0124] P>0 0.28 | relF1@2 +0.0170 [-0.0105, +0.0444] P>0 0.86 | inactive IoU +0.0212 [-0.0379, +0.1107] P>0 0.73 | mIoU_rob +0.0359 [-0.0112, +0.0656] P>0 0.89 | E-g crack IoU 0.4068 relF1 0.8210 inact 0.4152 | E-PF 0.4009 0.8380 0.4364 | relR2 0.729->0.760 relP2 0.940->0.934 comp R 0.724->0.738 comp P 0.966->0.957
+  -both     | crack IoU -0.0060 [-0.0292, +0.0132] P>0 0.28 | relF1@2 +0.0170 [-0.0102, +0.0457] P>0 0.87 | inactive IoU +0.0218 [-0.0423, +0.1228] P>0 0.71 | mIoU_rob +0.0041 [-0.0168, +0.0226] P>0 0.66 | E-g crack IoU 0.4112 relF1 0.8276 inact 0.4307 | E-PF 0.4052 0.8446 0.4525 | relR2 0.739->0.771 relP2 0.940->0.934 comp R 0.734->0.748 comp P 0.966->0.957
+  => test reported: b 0: n.d.  (reported only)
+  per source (E-g -> E-PF): ARTS n 13 crack IoU 0.465->0.424 inact 0.000->0.577; BMRK n 10 crack IoU 0.391->0.387 inact 0.327->0.375; CFVS n 18 crack IoU 0.528->0.546 inact 0.569->0.552; CSIR n 8 crack IoU 0.454->0.417 inact 0.408->0.417; SDLE n 1 crack IoU 0.000->0.000 inact nan->nan
+
+## test_noscuff, reported: b 0: E-g b 0.0 vs E-PF b 0.0; paired image bootstrap 2,000, seed 0 (Track M m1_analyze.boot)
+  all 50    | crack IoU +0.0027 [-0.0146, +0.0160] P>0 0.64 | relF1@2 +0.0121 [-0.0048, +0.0309] P>0 0.92 | inactive IoU +0.0237 [-0.0310, +0.0971] P>0 0.79 | mIoU_rob +0.0349 [-0.0107, +0.0628] P>0 0.90 | E-g crack IoU 0.4797 relF1 0.8833 inact 0.4376 | E-PF 0.4824 0.8954 0.4613 | relR2 0.822->0.844 relP2 0.955->0.954 comp R 0.801->0.812 comp P 0.970->0.954
+  clean 49  | crack IoU +0.0027 [-0.0133, +0.0151] P>0 0.63 | relF1@2 +0.0122 [-0.0036, +0.0306] P>0 0.92 | inactive IoU +0.0245 [-0.0315, +0.1006] P>0 0.80 | mIoU_rob +0.0044 [-0.0145, +0.0214] P>0 0.70 | E-g crack IoU 0.4829 relF1 0.8874 inact 0.4514 | E-PF 0.4856 0.8995 0.4759 | relR2 0.829->0.851 relP2 0.955->0.954 comp R 0.810->0.821 comp P 0.970->0.954
+  -twins    | crack IoU -0.0060 [-0.0298, +0.0125] P>0 0.28 | relF1@2 +0.0170 [-0.0105, +0.0445] P>0 0.86 | inactive IoU +0.0212 [-0.0379, +0.1107] P>0 0.73 | mIoU_rob +0.0359 [-0.0112, +0.0656] P>0 0.89 | E-g crack IoU 0.4081 relF1 0.8230 inact 0.4152 | E-PF 0.4022 0.8400 0.4364 | relR2 0.732->0.763 relP2 0.940->0.934 comp R 0.739->0.754 comp P 0.966->0.957
+  -both     | crack IoU -0.0060 [-0.0292, +0.0132] P>0 0.28 | relF1@2 +0.0170 [-0.0102, +0.0457] P>0 0.87 | inactive IoU +0.0218 [-0.0423, +0.1228] P>0 0.71 | mIoU_rob +0.0041 [-0.0168, +0.0225] P>0 0.66 | E-g crack IoU 0.4126 relF1 0.8296 inact 0.4307 | E-PF 0.4066 0.8466 0.4525 | relR2 0.742->0.774 relP2 0.940->0.934 comp R 0.750->0.764 comp P 0.966->0.957
+  => test_noscuff reported: b 0: n.d.  (reported only)
+
+## E1 (106 cells, 71 module clusters), reported: b 0: paired module-cluster bootstrap 2,000, seed 0
+  E1 crack relF1@2 +0.0355 [-0.0232, +0.0912] P>0 0.88 (E-g 0.3990, E-PF 0.4345) | E1 inactive IoU +0.2141 [+0.0303, +0.3820] P>0 0.99 (E-g 0.0665, E-PF 0.2807)
+  => E1 reported: b 0: PASS (E1 inactive IoU)  (reported only)
+  E1 reported: crack R 0.160->0.189, P 0.547->0.495, relR2 0.293->0.345, relP2 0.626->0.588, comp R 0.159->0.209, comp P 0.670->0.608
+  E1 stratum scuff+half-cut n 29: crack R 0.088->0.127 inact IoU 0.360->0.637 relR2 0.181->0.236 relP2 0.710->0.683 relF1 0.289->0.351 comp R 0.124->0.168 comp P 0.925->0.827
+  E1 stratum other n 77: crack R 0.376->0.376 inact IoU 0.023->0.131 relR2 0.629->0.673 relP2 0.576->0.511 relF1 0.601->0.581 comp R 0.591->0.727 comp P 0.508->0.441
+  E1 stratum half-cut n 58: crack R 0.122->0.153 inact IoU 0.326->0.593 relR2 0.230->0.279 relP2 0.764->0.729 relF1 0.354->0.403 comp R 0.147->0.186 comp P 0.920->0.850
+  E1 stratum full n 48: crack R 0.341->0.362 inact IoU 0.024->0.130 relR2 0.594->0.662 relP2 0.483->0.424 relF1 0.533->0.517 comp R 0.455->0.818 comp P 0.434->0.367
+  crack px on crack-free test cells (2): E-g 0, E-PF 0
+  crack px on crack-free val cells (31): E-g 87, E-PF 0
+  crack px on crack-free ext cells (74): E-g 2138, E-PF 2528
+
+## reported: ensemble (headline b) vs PF2 single-seed mean +- sd (argmax), descriptive
+  E-g test all 50: crack IoU 0.4788 vs 0.4662 +- 0.0014 | relF1@2 0.8821 vs 0.8730 +- 0.0017 | inactive IoU 0.4376 vs 0.4385 +- 0.0136
+  E-g test clean 49: crack IoU 0.4819 vs 0.4693 +- 0.0015 | relF1@2 0.8861 vs 0.8772 +- 0.0019 | inactive IoU 0.4514 vs 0.4524 +- 0.0139
+  E-g E1 106: crack IoU 0.1411 vs 0.1415 +- 0.0152 | relF1@2 0.3990 vs 0.3837 +- 0.0262 | inactive IoU 0.0665 vs 0.0481 +- 0.0260
+  E-PF test all 50: crack IoU 0.4815 vs 0.4651 +- 0.0048 | relF1@2 0.8942 vs 0.8847 +- 0.0057 | inactive IoU 0.4613 vs 0.4557 +- 0.0209
+  E-PF test clean 49: crack IoU 0.4846 vs 0.4684 +- 0.0045 | relF1@2 0.8983 vs 0.8891 +- 0.0054 | inactive IoU 0.4759 vs 0.4694 +- 0.0205
+  E-PF E1 106: crack IoU 0.1582 vs 0.1566 +- 0.0145 | relF1@2 0.4345 vs 0.4202 +- 0.0272 | inactive IoU 0.2807 vs 0.2371 +- 0.0271
+
+FINAL (cv02, R34 5-seed ensemble, b +0.75) clean-test crack IoU 0.492: descriptive only (other machine and commits).

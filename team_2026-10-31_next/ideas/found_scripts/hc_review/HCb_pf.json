@@ -1,0 +1,153 @@
+{
+ "code": "/home/noob/work/el_hc",
+ "opts": [
+  "seed=0",
+  "data.labeled_fraction=1.0",
+  "training.total_steps=20000",
+  "data.split_seed=0",
+  "training.labeled_batch_size=8",
+  "data.mask_subdir=labeled/masks_escdd",
+  "model.name=smp_unetpp",
+  "data.augmentation=labelsafe",
+  "loss.supervised=ce_dice",
+  "training.encoder_pf.freeze=1000",
+  "training.encoder_pf.ramp=1000",
+  "training.encoder_pf.lr_mult=0.1",
+  "training.encoder_pf.wd=0"
+ ],
+ "loss_class": "CEDiceLoss",
+ "n_params": 26075672,
+ "init_state": "d2a2255f352cef04",
+ "class_counts_sha": "262f92a5f185e8de",
+ "steps": [
+  {
+   "step": 1,
+   "out": {
+    "loss": "4.6675262451171875",
+    "loss_sup": "4.6675262451171875",
+    "loss_con": "0.0",
+    "lambda": "0.0"
+   },
+   "lr": [
+    "1e-05",
+    "0.0"
+   ],
+   "state": "b898f28593e0b728",
+   "logits": "4f2779c3b443543a",
+   "logits_shape": [
+    8,
+    24,
+    512,
+    512
+   ],
+   "sec": 14.55
+  },
+  {
+   "step": 2,
+   "out": {
+    "loss": "4.659027099609375",
+    "loss_sup": "4.659027099609375",
+    "loss_con": "0.0",
+    "lambda": "0.0"
+   },
+   "lr": [
+    "1.5e-05",
+    "0.0"
+   ],
+   "state": "da62877ce596da1d",
+   "logits": "6a4431be10cbb158",
+   "logits_shape": [
+    8,
+    24,
+    512,
+    512
+   ],
+   "sec": 14.97
+  },
+  {
+   "step": 3,
+   "out": {
+    "loss": "4.691305637359619",
+    "loss_sup": "4.691305637359619",
+    "loss_con": "0.0",
+    "lambda": "0.0"
+   },
+   "lr": [
+    "2e-05",
+    "0.0"
+   ],
+   "state": "1eddf315850eb88d",
+   "logits": "f4a7afd517f39d51",
+   "logits_shape": [
+    8,
+    24,
+    512,
+    512
+   ],
+   "sec": 14.48
+  },
+  {
+   "step": 4,
+   "out": {
+    "loss": "4.670042037963867",
+    "loss_sup": "4.670042037963867",
+    "loss_con": "0.0",
+    "lambda": "0.0"
+   },
+   "lr": [
+    "2.5e-05",
+    "0.0"
+   ],
+   "state": "8397e59793763610",
+   "logits": "4dc06ad295556d6b",
+   "logits_shape": [
+    8,
+    24,
+    512,
+    512
+   ],
+   "sec": 14.26
+  },
+  {
+   "step": 5,
+   "out": {
+    "loss": "4.730345249176025",
+    "loss_sup": "4.730345249176025",
+    "loss_con": "0.0",
+    "lambda": "0.0"
+   },
+   "lr": [
+    "3e-05",
+    "0.0"
+   ],
+   "state": "83f4bd74a94a8533",
+   "logits": "679918c9c5195d65",
+   "logits_shape": [
+    8,
+    24,
+    512,
+    512
+   ],
+   "sec": 14.75
+  }
+ ],
+ "fixed_batch": {
+  "stems": [
+   "SDLE_00195_A1-DH3000-3000h-PT-cell25",
+   "CFVS_00047_r8_c1",
+   "ARTS_00164_r4_c4",
+   "ARTS_00171_r1_c6",
+   "CSIR_00157_r8_c2",
+   "CSIR_00133_r4_c3",
+   "CFVS_00159_r6_c2",
+   "CSIR_00176_r1_c1"
+  ],
+  "image": "b404570104d886b8",
+  "mask": "b30f25da59ae75ca",
+  "keys": [
+   "image",
+   "mask",
+   "stem"
+  ]
+ }
+}

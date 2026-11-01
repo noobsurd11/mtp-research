@@ -1,0 +1,137 @@
+idea 1 label-free adaptation (calib). rf = selection set (Hanifi labels, noisy crack); E1 = DESCRIPTIVE. mean (sd) over members.
+
+FINAL rf all | A0 global b_OP: relR 0.809 relP 0.788 relF1 0.799 compR 0.523 compP 0.710 FA px/neg cell 20.387 FA cell rate 0.177 mean b 0.900 (modules 57)
+FINAL rf all | A1 module quantile: relR 0.732 relP 0.207 relF1 0.323 compR 0.534 compP 0.146 FA px/neg cell 593.194 FA cell rate 0.984 mean b 10.144 (modules 57)
+FINAL rf all | A2 module tail shift: relR 0.816 relP 0.346 relF1 0.486 compR 0.545 compP 0.261 FA px/neg cell 574.323 FA cell rate 0.855 mean b 7.482 (modules 57)
+FINAL rf all | A3 halfcut routing: relR 0.809 relP 0.820 relF1 0.814 compR 0.523 compP 0.822 FA px/neg cell 11.823 FA cell rate 0.129 mean b 0.323 (modules 57)
+
+FINAL rf halfcut 36 | A0 global b_OP: relR 0.036 relP 0.071 relF1 0.048 compR 0.037 compP 0.045 FA px/neg cell 30.737 FA cell rate 0.211 mean b 0.900 (modules 7)
+FINAL rf halfcut 36 | A1 module quantile: relR 0.148 relP 0.011 relF1 0.020 compR 0.074 compP 0.016 FA px/neg cell 749.053 FA cell rate 1.000 mean b 11.181 (modules 7)
+FINAL rf halfcut 36 | A2 module tail shift: relR 0.096 relP 0.022 relF1 0.035 compR 0.074 compP 0.011 FA px/neg cell 169.316 FA cell rate 0.842 mean b 7.289 (modules 7)
+FINAL rf halfcut 36 | A3 halfcut routing: relR 0.030 relP 0.258 relF1 0.053 compR 0.037 compP 0.200 FA px/neg cell 2.789 FA cell rate 0.053 mean b -0.800 (modules 7)
+
+FINAL rf full 70 | A0 global b_OP: relR 0.874 relP 0.825 relF1 0.849 compR 0.738 compP 0.853 FA px/neg cell 15.814 FA cell rate 0.163 mean b 0.900 (modules 50)
+FINAL rf full 70 | A1 module quantile: relR 0.781 relP 0.329 relF1 0.463 compR 0.738 compP 0.235 FA px/neg cell 524.326 FA cell rate 0.977 mean b 9.611 (modules 50)
+FINAL rf full 70 | A2 module tail shift: relR 0.876 relP 0.391 relF1 0.541 compR 0.754 compP 0.354 FA px/neg cell 753.279 FA cell rate 0.860 mean b 7.581 (modules 50)
+FINAL rf full 70 | A3 halfcut routing: relR 0.874 relP 0.825 relF1 0.849 compR 0.738 compP 0.853 FA px/neg cell 15.814 FA cell rate 0.163 mean b 0.900 (modules 50)
+
+FINAL rf F51 | A0 global b_OP: relR 0.870 relP 0.840 relF1 0.855 compR 0.698 compP 0.712 FA px/neg cell 20.000 FA cell rate 0.206 mean b 0.900 (modules 36)
+FINAL rf F51 | A1 module quantile: relR 0.769 relP 0.302 relF1 0.434 compR 0.698 compP 0.216 FA px/neg cell 509.265 FA cell rate 1.000 mean b 10.300 (modules 36)
+FINAL rf F51 | A2 module tail shift: relR 0.873 relP 0.350 relF1 0.500 compR 0.721 compP 0.327 FA px/neg cell 768.647 FA cell rate 0.882 mean b 7.967 (modules 36)
+FINAL rf F51 | A3 halfcut routing: relR 0.870 relP 0.840 relF1 0.855 compR 0.698 compP 0.712 FA px/neg cell 20.000 FA cell rate 0.206 mean b 0.900 (modules 36)
+
+FINAL E1 all | A0 global b_OP: relR 0.368 relP 0.534 relF1 0.436 compR 0.209 compP 0.487 FA px/neg cell 61.149 FA cell rate 0.297 mean b 0.900 (modules 71)
+FINAL E1 all | A1 module quantile: relR 0.561 relP 0.238 relF1 0.335 compR 0.476 compP 0.196 FA px/neg cell 550.041 FA cell rate 1.000 mean b 9.543 (modules 71)
+FINAL E1 all | A2 module tail shift: relR 0.449 relP 0.295 relF1 0.356 compR 0.328 compP 0.268 FA px/neg cell 289.311 FA cell rate 0.919 mean b 6.381 (modules 71)
+FINAL E1 all | A3 halfcut routing: relR 0.262 relP 0.505 relF1 0.345 compR 0.105 compP 0.414 FA px/neg cell 54.027 FA cell rate 0.257 mean b -0.030 (modules 71)
+
+FINAL E1 scuff+halfcut 29 | A0 global b_OP: relR 0.244 relP 0.657 relF1 0.356 compR 0.172 compP 0.790 FA px/neg cell 53.778 FA cell rate 0.444 mean b 0.900 (modules 17)
+FINAL E1 scuff+halfcut 29 | A1 module quantile: relR 0.479 relP 0.410 relF1 0.442 compR 0.442 compP 0.412 FA px/neg cell 729.778 FA cell rate 1.000 mean b 8.555 (modules 17)
+FINAL E1 scuff+halfcut 29 | A2 module tail shift: relR 0.343 relP 0.545 relF1 0.421 compR 0.292 compP 0.669 FA px/neg cell 214.556 FA cell rate 1.000 mean b 3.841 (modules 17)
+FINAL E1 scuff+halfcut 29 | A3 halfcut routing: relR 0.115 relP 0.769 relF1 0.201 compR 0.062 compP 0.950 FA px/neg cell 10.778 FA cell rate 0.333 mean b -0.800 (modules 17)
+
+FINAL E1 other 77 | A0 global b_OP: relR 0.744 relP 0.464 relF1 0.571 compR 0.682 compP 0.292 FA px/neg cell 62.169 FA cell rate 0.277 mean b 0.900 (modules 55)
+FINAL E1 other 77 | A1 module quantile: relR 0.807 relP 0.140 relF1 0.239 compR 0.909 compP 0.075 FA px/neg cell 525.154 FA cell rate 1.000 mean b 9.916 (modules 55)
+FINAL E1 other 77 | A2 module tail shift: relR 0.766 relP 0.188 relF1 0.301 compR 0.773 compP 0.101 FA px/neg cell 299.662 FA cell rate 0.908 mean b 7.338 (modules 55)
+FINAL E1 other 77 | A3 halfcut routing: relR 0.705 relP 0.448 relF1 0.548 compR 0.636 compP 0.297 FA px/neg cell 60.015 FA cell rate 0.246 mean b 0.260 (modules 55)
+
+FINAL E1 halfcut 58 | A0 global b_OP: relR 0.295 relP 0.700 relF1 0.415 compR 0.196 compP 0.773 FA px/neg cell 19.875 FA cell rate 0.188 mean b 0.900 (modules 43)
+FINAL E1 halfcut 58 | A1 module quantile: relR 0.525 relP 0.313 relF1 0.392 compR 0.460 compP 0.262 FA px/neg cell 594.656 FA cell rate 1.000 mean b 9.859 (modules 43)
+FINAL E1 halfcut 58 | A2 module tail shift: relR 0.388 relP 0.391 relF1 0.390 compR 0.316 compP 0.419 FA px/neg cell 270.750 FA cell rate 0.938 mean b 5.581 (modules 43)
+FINAL E1 halfcut 58 | A3 halfcut routing: relR 0.167 relP 0.837 relF1 0.278 compR 0.088 compP 0.964 FA px/neg cell 3.406 FA cell rate 0.094 mean b -0.800 (modules 43)
+
+FINAL E1 full 48 | A0 global b_OP: relR 0.722 relP 0.384 relF1 0.501 compR 0.545 compP 0.229 FA px/neg cell 92.595 FA cell rate 0.381 mean b 0.900 (modules 28)
+FINAL E1 full 48 | A1 module quantile: relR 0.735 relP 0.117 relF1 0.203 compR 0.909 compP 0.092 FA px/neg cell 516.048 FA cell rate 1.000 mean b 9.162 (modules 28)
+FINAL E1 full 48 | A2 module tail shift: relR 0.738 relP 0.188 relF1 0.300 compR 0.636 compP 0.101 FA px/neg cell 303.452 FA cell rate 0.905 mean b 7.348 (modules 28)
+FINAL E1 full 48 | A3 halfcut routing: relR 0.722 relP 0.384 relF1 0.501 compR 0.545 compP 0.229 FA px/neg cell 92.595 FA cell rate 0.381 mean b 0.900 (modules 28)
+
+SUPPF5 rf all | A0 global b_OP: relR 0.699 (0.015) relP 0.759 (0.036) relF1 0.727 (0.011) compR 0.466 (0.014) compP 0.806 (0.043) FA px/neg cell 27.613 (20.645) FA cell rate 0.061 (0.021) mean b 3.780 (0.952) (modules 57)
+SUPPF5 rf all | A1 module quantile: relR 0.653 (0.023) relP 0.366 (0.077) relF1 0.464 (0.059) compR 0.455 (0.028) compP 0.288 (0.101) FA px/neg cell 203.845 (110.928) FA cell rate 0.665 (0.096) mean b 10.994 (0.138) (modules 57)
+SUPPF5 rf all | A2 module tail shift: relR 0.710 (0.016) relP 0.341 (0.125) relF1 0.449 (0.112) compR 0.468 (0.015) compP 0.278 (0.133) FA px/neg cell 518.326 (316.000) FA cell rate 0.616 (0.091) mean b 10.722 (0.184) (modules 57)
+SUPPF5 rf all | A3 halfcut routing: relR 0.699 (0.015) relP 0.705 (0.104) relF1 0.699 (0.059) compR 0.466 (0.014) compP 0.695 (0.213) FA px/neg cell 54.087 (47.581) FA cell rate 0.119 (0.106) mean b 4.065 (1.222) (modules 57)
+
+SUPPF5 rf halfcut 36 | A0 global b_OP: relR 0.029 (0.017) relP 0.230 (0.164) relF1 0.051 (0.031) compR 0.030 (0.017) compP 0.189 (0.132) FA px/neg cell 4.979 (3.993) FA cell rate 0.074 (0.060) mean b 3.780 (0.952) (modules 7)
+SUPPF5 rf halfcut 36 | A1 module quantile: relR 0.038 (0.023) relP 0.021 (0.015) relF1 0.026 (0.017) compR 0.030 (0.017) compP 0.016 (0.013) FA px/neg cell 209.937 (177.671) FA cell rate 0.747 (0.237) mean b 11.996 (0.010) (modules 7)
+SUPPF5 rf halfcut 36 | A2 module tail shift: relR 0.037 (0.023) relP 0.023 (0.016) relF1 0.028 (0.018) compR 0.030 (0.017) compP 0.020 (0.015) FA px/neg cell 181.947 (175.627) FA cell rate 0.726 (0.251) mean b 11.622 (0.412) (modules 7)
+SUPPF5 rf halfcut 36 | A3 halfcut routing: relR 0.029 (0.016) relP 0.272 (0.209) relF1 0.052 (0.031) compR 0.030 (0.017) compP 0.192 (0.130) FA px/neg cell 91.368 (192.956) FA cell rate 0.263 (0.387) mean b 4.620 (4.178) (modules 7)
+
+SUPPF5 rf full 70 | A0 global b_OP: relR 0.755 (0.016) relP 0.765 (0.037) relF1 0.759 (0.013) compR 0.659 (0.014) compP 0.838 (0.030) FA px/neg cell 37.614 (30.334) FA cell rate 0.056 (0.027) mean b 3.780 (0.952) (modules 50)
+SUPPF5 rf full 70 | A1 module quantile: relR 0.704 (0.024) relP 0.481 (0.126) relF1 0.562 (0.079) compR 0.643 (0.034) compP 0.436 (0.221) FA px/neg cell 201.153 (142.352) FA cell rate 0.628 (0.092) mean b 10.479 (0.205) (modules 50)
+SUPPF5 rf full 70 | A2 module tail shift: relR 0.766 (0.016) relP 0.399 (0.175) relF1 0.506 (0.149) compR 0.662 (0.015) compP 0.424 (0.262) FA px/neg cell 666.958 (469.662) FA cell rate 0.567 (0.083) mean b 10.259 (0.197) (modules 50)
+SUPPF5 rf full 70 | A3 halfcut routing: relR 0.755 (0.016) relP 0.765 (0.037) relF1 0.759 (0.013) compR 0.659 (0.014) compP 0.838 (0.030) FA px/neg cell 37.614 (30.334) FA cell rate 0.056 (0.027) mean b 3.780 (0.952) (modules 50)
+
+SUPPF5 rf F51 | A0 global b_OP: relR 0.845 (0.009) relP 0.781 (0.061) relF1 0.811 (0.034) compR 0.674 (0.016) compP 0.750 (0.066) FA px/neg cell 47.559 (38.372) FA cell rate 0.071 (0.034) mean b 3.780 (0.952) (modules 36)
+SUPPF5 rf F51 | A1 module quantile: relR 0.758 (0.020) relP 0.493 (0.139) relF1 0.588 (0.099) compR 0.656 (0.019) compP 0.391 (0.212) FA px/neg cell 202.353 (142.730) FA cell rate 0.612 (0.073) mean b 10.960 (0.165) (modules 36)
+SUPPF5 rf F51 | A2 module tail shift: relR 0.848 (0.012) relP 0.369 (0.174) relF1 0.494 (0.166) compR 0.679 (0.019) compP 0.359 (0.257) FA px/neg cell 774.824 (531.354) FA cell rate 0.553 (0.073) mean b 10.562 (0.186) (modules 36)
+SUPPF5 rf F51 | A3 halfcut routing: relR 0.845 (0.009) relP 0.781 (0.061) relF1 0.811 (0.034) compR 0.674 (0.016) compP 0.750 (0.066) FA px/neg cell 47.559 (38.372) FA cell rate 0.071 (0.034) mean b 3.780 (0.952) (modules 36)
+
+SUPPF5 E1 all | A0 global b_OP: relR 0.426 (0.040) relP 0.480 (0.027) relF1 0.450 (0.022) compR 0.297 (0.044) compP 0.458 (0.047) FA px/neg cell 93.692 (21.701) FA cell rate 0.327 (0.049) mean b 3.780 (0.952) (modules 71)
+SUPPF5 E1 all | A1 module quantile: relR 0.470 (0.032) relP 0.307 (0.048) relF1 0.369 (0.036) compR 0.349 (0.040) compP 0.275 (0.054) FA px/neg cell 279.568 (96.431) FA cell rate 0.868 (0.061) mean b 10.373 (0.444) (modules 71)
+SUPPF5 E1 all | A2 module tail shift: relR 0.431 (0.043) relP 0.358 (0.039) relF1 0.389 (0.025) compR 0.302 (0.050) compP 0.323 (0.061) FA px/neg cell 203.611 (63.045) FA cell rate 0.843 (0.065) mean b 8.262 (0.515) (modules 71)
+SUPPF5 E1 all | A3 halfcut routing: relR 0.442 (0.036) relP 0.452 (0.044) relF1 0.445 (0.017) compR 0.316 (0.049) compP 0.432 (0.074) FA px/neg cell 103.354 (16.264) FA cell rate 0.386 (0.116) mean b 4.240 (2.097) (modules 71)
+
+SUPPF5 E1 scuff+halfcut 29 | A0 global b_OP: relR 0.316 (0.043) relP 0.611 (0.024) relF1 0.415 (0.040) compR 0.257 (0.045) compP 0.715 (0.032) FA px/neg cell 50.400 (14.931) FA cell rate 0.444 (0.079) mean b 3.780 (0.952) (modules 17)
+SUPPF5 E1 scuff+halfcut 29 | A1 module quantile: relR 0.372 (0.035) relP 0.444 (0.041) relF1 0.403 (0.026) compR 0.313 (0.042) compP 0.521 (0.084) FA px/neg cell 330.844 (147.004) FA cell rate 0.933 (0.061) mean b 9.494 (0.853) (modules 17)
+SUPPF5 E1 scuff+halfcut 29 | A2 module tail shift: relR 0.322 (0.048) relP 0.539 (0.041) relF1 0.401 (0.038) compR 0.262 (0.052) compP 0.607 (0.073) FA px/neg cell 185.200 (95.613) FA cell rate 0.933 (0.061) mean b 6.181 (0.582) (modules 17)
+SUPPF5 E1 scuff+halfcut 29 | A3 halfcut routing: relR 0.336 (0.050) relP 0.575 (0.106) relF1 0.416 (0.026) compR 0.277 (0.053) compP 0.678 (0.155) FA px/neg cell 86.378 (90.573) FA cell rate 0.533 (0.265) mean b 4.620 (4.178) (modules 17)
+
+SUPPF5 E1 other 77 | A0 global b_OP: relR 0.759 (0.033) relP 0.373 (0.035) relF1 0.499 (0.026) compR 0.791 (0.041) compP 0.256 (0.050) FA px/neg cell 99.686 (22.922) FA cell rate 0.311 (0.063) mean b 3.780 (0.952) (modules 55)
+SUPPF5 E1 other 77 | A1 module quantile: relR 0.763 (0.026) relP 0.208 (0.042) relF1 0.324 (0.053) compR 0.800 (0.025) compP 0.124 (0.033) FA px/neg cell 272.468 (92.351) FA cell rate 0.858 (0.062) mean b 10.704 (0.295) (modules 55)
+SUPPF5 E1 other 77 | A2 module tail shift: relR 0.760 (0.034) relP 0.246 (0.036) relF1 0.370 (0.041) compR 0.800 (0.025) compP 0.157 (0.041) FA px/neg cell 206.160 (59.577) FA cell rate 0.831 (0.066) mean b 9.045 (0.554) (modules 55)
+SUPPF5 E1 other 77 | A3 halfcut routing: relR 0.760 (0.025) relP 0.359 (0.025) relF1 0.487 (0.022) compR 0.791 (0.041) compP 0.238 (0.031) FA px/neg cell 105.705 (15.084) FA cell rate 0.366 (0.102) mean b 4.096 (1.367) (modules 55)
+
+SUPPF5 E1 halfcut 58 | A0 global b_OP: relR 0.362 (0.040) relP 0.641 (0.024) relF1 0.461 (0.032) compR 0.276 (0.045) compP 0.707 (0.038) FA px/neg cell 21.769 (6.782) FA cell rate 0.250 (0.058) mean b 3.780 (0.952) (modules 43)
+SUPPF5 E1 halfcut 58 | A1 module quantile: relR 0.422 (0.034) relP 0.402 (0.068) relF1 0.407 (0.038) compR 0.331 (0.042) compP 0.400 (0.098) FA px/neg cell 238.738 (157.028) FA cell rate 0.869 (0.107) mean b 10.613 (0.497) (modules 43)
+SUPPF5 E1 halfcut 58 | A2 module tail shift: relR 0.368 (0.045) relP 0.480 (0.076) relF1 0.411 (0.035) compR 0.281 (0.052) compP 0.490 (0.120) FA px/neg cell 166.037 (117.372) FA cell rate 0.831 (0.114) mean b 7.744 (0.507) (modules 43)
+SUPPF5 E1 halfcut 58 | A3 halfcut routing: relR 0.381 (0.049) relP 0.598 (0.118) relF1 0.456 (0.026) compR 0.296 (0.051) compP 0.659 (0.174) FA px/neg cell 44.112 (52.075) FA cell rate 0.388 (0.311) mean b 4.620 (4.178) (modules 43)
+
+SUPPF5 E1 full 48 | A0 global b_OP: relR 0.737 (0.046) relP 0.297 (0.033) relF1 0.422 (0.032) compR 0.818 (0.000) compP 0.201 (0.042) FA px/neg cell 148.490 (33.959) FA cell rate 0.386 (0.066) mean b 3.780 (0.952) (modules 28)
+SUPPF5 E1 full 48 | A1 module quantile: relR 0.701 (0.035) relP 0.162 (0.022) relF1 0.262 (0.029) compR 0.836 (0.041) compP 0.121 (0.020) FA px/neg cell 310.676 (56.753) FA cell rate 0.867 (0.036) mean b 10.084 (0.387) (modules 28)
+SUPPF5 E1 full 48 | A2 module tail shift: relR 0.738 (0.047) relP 0.222 (0.013) relF1 0.340 (0.013) compR 0.836 (0.041) compP 0.143 (0.024) FA px/neg cell 232.238 (28.893) FA cell rate 0.852 (0.046) mean b 8.887 (0.583) (modules 28)
+SUPPF5 E1 full 48 | A3 halfcut routing: relR 0.737 (0.046) relP 0.297 (0.033) relF1 0.422 (0.032) compR 0.818 (0.000) compP 0.201 (0.042) FA px/neg cell 148.490 (33.959) FA cell rate 0.386 (0.066) mean b 3.780 (0.952) (modules 28)
+
+SUP5 rf all | A0 global b_OP: relR 0.779 (0.021) relP 0.772 (0.013) relF1 0.775 (0.012) compR 0.507 (0.024) compP 0.714 (0.037) FA px/neg cell 27.781 (5.531) FA cell rate 0.158 (0.037) mean b 1.700 (0.689) (modules 57)
+SUP5 rf all | A1 module quantile: relR 0.757 (0.008) relP 0.239 (0.029) relF1 0.362 (0.034) compR 0.520 (0.012) compP 0.144 (0.026) FA px/neg cell 550.429 (86.165) FA cell rate 0.971 (0.021) mean b 10.531 (0.172) (modules 57)
+SUP5 rf all | A2 module tail shift: relR 0.783 (0.021) relP 0.214 (0.041) relF1 0.335 (0.051) compR 0.518 (0.022) compP 0.174 (0.077) FA px/neg cell 1137.406 (252.046) FA cell rate 0.845 (0.033) mean b 8.678 (0.271) (modules 57)
+SUP5 rf all | A3 halfcut routing: relR 0.779 (0.021) relP 0.784 (0.022) relF1 0.781 (0.011) compR 0.507 (0.024) compP 0.743 (0.051) FA px/neg cell 23.874 (6.950) FA cell rate 0.165 (0.085) mean b 0.803 (1.472) (modules 57)
+
+SUP5 rf halfcut 36 | A0 global b_OP: relR 0.035 (0.008) relP 0.089 (0.025) relF1 0.050 (0.011) compR 0.037 (0.000) compP 0.074 (0.041) FA px/neg cell 28.568 (16.421) FA cell rate 0.189 (0.047) mean b 1.700 (0.689) (modules 7)
+SUP5 rf halfcut 36 | A1 module quantile: relR 0.084 (0.034) relP 0.009 (0.003) relF1 0.016 (0.005) compR 0.067 (0.017) compP 0.010 (0.007) FA px/neg cell 652.579 (78.850) FA cell rate 1.000 (0.000) mean b 11.758 (0.149) (modules 7)
+SUP5 rf halfcut 36 | A2 module tail shift: relR 0.061 (0.018) relP 0.012 (0.005) relF1 0.020 (0.008) compR 0.044 (0.017) compP 0.013 (0.007) FA px/neg cell 340.516 (135.132) FA cell rate 0.779 (0.126) mean b 8.547 (0.708) (modules 7)
+SUP5 rf halfcut 36 | A3 halfcut routing: relR 0.036 (0.010) relP 0.117 (0.042) relF1 0.054 (0.012) compR 0.037 (0.000) compP 0.094 (0.019) FA px/neg cell 15.821 (7.580) FA cell rate 0.211 (0.207) mean b -0.940 (3.993) (modules 7)
+
+SUP5 rf full 70 | A0 global b_OP: relR 0.841 (0.022) relP 0.803 (0.013) relF1 0.821 (0.010) compR 0.715 (0.034) compP 0.819 (0.037) FA px/neg cell 27.433 (7.917) FA cell rate 0.144 (0.045) mean b 1.700 (0.689) (modules 50)
+SUP5 rf full 70 | A1 module quantile: relR 0.813 (0.005) relP 0.360 (0.045) relF1 0.498 (0.043) compR 0.721 (0.020) compP 0.237 (0.050) FA px/neg cell 505.293 (94.800) FA cell rate 0.958 (0.030) mean b 9.899 (0.236) (modules 50)
+SUP5 rf full 70 | A2 module tail shift: relR 0.844 (0.022) relP 0.243 (0.049) relF1 0.375 (0.060) compR 0.728 (0.027) compP 0.243 (0.116) FA px/neg cell 1489.521 (392.658) FA cell rate 0.874 (0.021) mean b 8.745 (0.129) (modules 50)
+SUP5 rf full 70 | A3 halfcut routing: relR 0.841 (0.022) relP 0.803 (0.013) relF1 0.821 (0.010) compR 0.715 (0.034) compP 0.819 (0.037) FA px/neg cell 27.433 (7.917) FA cell rate 0.144 (0.045) mean b 1.700 (0.689) (modules 50)
+
+SUP5 rf F51 | A0 global b_OP: relR 0.851 (0.004) relP 0.808 (0.020) relF1 0.829 (0.011) compR 0.688 (0.031) compP 0.666 (0.051) FA px/neg cell 34.341 (9.855) FA cell rate 0.171 (0.057) mean b 1.700 (0.689) (modules 36)
+SUP5 rf F51 | A1 module quantile: relR 0.799 (0.003) relP 0.316 (0.038) relF1 0.452 (0.039) compR 0.684 (0.021) compP 0.173 (0.043) FA px/neg cell 522.900 (95.201) FA cell rate 0.988 (0.016) mean b 10.553 (0.188) (modules 36)
+SUP5 rf F51 | A2 module tail shift: relR 0.853 (0.004) relP 0.221 (0.030) relF1 0.350 (0.038) compR 0.693 (0.025) compP 0.179 (0.089) FA px/neg cell 1554.882 (336.056) FA cell rate 0.894 (0.016) mean b 9.124 (0.153) (modules 36)
+SUP5 rf F51 | A3 halfcut routing: relR 0.851 (0.004) relP 0.808 (0.020) relF1 0.829 (0.011) compR 0.688 (0.031) compP 0.666 (0.051) FA px/neg cell 34.341 (9.855) FA cell rate 0.171 (0.057) mean b 1.700 (0.689) (modules 36)
+
+SUP5 E1 all | A0 global b_OP: relR 0.318 (0.044) relP 0.525 (0.055) relF1 0.393 (0.027) compR 0.179 (0.046) compP 0.483 (0.085) FA px/neg cell 59.941 (16.795) FA cell rate 0.354 (0.088) mean b 1.700 (0.689) (modules 71)
+SUP5 E1 all | A1 module quantile: relR 0.466 (0.023) relP 0.209 (0.018) relF1 0.288 (0.016) compR 0.351 (0.027) compP 0.191 (0.012) FA px/neg cell 546.092 (73.349) FA cell rate 0.992 (0.012) mean b 10.678 (0.332) (modules 71)
+SUP5 E1 all | A2 module tail shift: relR 0.324 (0.043) relP 0.237 (0.045) relF1 0.273 (0.043) compR 0.186 (0.045) compP 0.225 (0.028) FA px/neg cell 299.535 (62.259) FA cell rate 0.932 (0.021) mean b 6.655 (0.370) (modules 71)
+SUP5 E1 all | A3 halfcut routing: relR 0.289 (0.066) relP 0.514 (0.052) relF1 0.365 (0.048) compR 0.143 (0.068) compP 0.473 (0.082) FA px/neg cell 55.422 (17.861) FA cell rate 0.324 (0.125) mean b 0.255 (2.237) (modules 71)
+
+SUP5 E1 scuff+halfcut 29 | A0 global b_OP: relR 0.202 (0.056) relP 0.623 (0.042) relF1 0.300 (0.062) compR 0.141 (0.044) compP 0.711 (0.052) FA px/neg cell 58.222 (34.214) FA cell rate 0.689 (0.199) mean b 1.700 (0.689) (modules 17)
+SUP5 E1 scuff+halfcut 29 | A1 module quantile: relR 0.377 (0.019) relP 0.355 (0.025) relF1 0.365 (0.016) compR 0.316 (0.024) compP 0.395 (0.035) FA px/neg cell 700.244 (153.900) FA cell rate 1.000 (0.000) mean b 10.466 (0.858) (modules 17)
+SUP5 E1 scuff+halfcut 29 | A2 module tail shift: relR 0.208 (0.055) relP 0.478 (0.052) relF1 0.287 (0.060) compR 0.146 (0.045) compP 0.563 (0.043) FA px/neg cell 215.467 (53.459) FA cell rate 1.000 (0.000) mean b 3.655 (0.466) (modules 17)
+SUP5 E1 scuff+halfcut 29 | A3 halfcut routing: relR 0.169 (0.076) relP 0.665 (0.094) relF1 0.258 (0.084) compR 0.106 (0.066) compP 0.769 (0.112) FA px/neg cell 40.644 (41.104) FA cell rate 0.533 (0.355) mean b -0.940 (3.993) (modules 17)
+
+SUP5 E1 other 77 | A0 global b_OP: relR 0.669 (0.043) relP 0.465 (0.073) relF1 0.546 (0.047) compR 0.655 (0.119) compP 0.327 (0.130) FA px/neg cell 60.178 (15.414) FA cell rate 0.308 (0.081) mean b 1.700 (0.689) (modules 55)
+SUP5 E1 other 77 | A1 module quantile: relR 0.734 (0.039) relP 0.128 (0.014) relF1 0.218 (0.019) compR 0.782 (0.075) compP 0.071 (0.006) FA px/neg cell 524.748 (70.324) FA cell rate 0.991 (0.014) mean b 10.758 (0.191) (modules 55)
+SUP5 E1 other 77 | A2 module tail shift: relR 0.676 (0.042) relP 0.167 (0.029) relF1 0.267 (0.038) compR 0.691 (0.104) compP 0.111 (0.009) FA px/neg cell 311.175 (64.243) FA cell rate 0.923 (0.024) mean b 7.785 (0.375) (modules 55)
+SUP5 E1 other 77 | A3 halfcut routing: relR 0.652 (0.058) relP 0.461 (0.061) relF1 0.537 (0.044) compR 0.609 (0.127) compP 0.326 (0.122) FA px/neg cell 57.468 (15.622) FA cell rate 0.295 (0.098) mean b 0.706 (1.604) (modules 55)
+
+SUP5 E1 halfcut 58 | A0 global b_OP: relR 0.251 (0.049) relP 0.639 (0.071) relF1 0.356 (0.042) compR 0.164 (0.045) compP 0.676 (0.077) FA px/neg cell 32.394 (17.026) FA cell rate 0.350 (0.131) mean b 1.700 (0.689) (modules 43)
+SUP5 E1 halfcut 58 | A1 module quantile: relR 0.423 (0.021) relP 0.269 (0.030) relF1 0.328 (0.019) compR 0.338 (0.027) compP 0.257 (0.029) FA px/neg cell 599.056 (114.696) FA cell rate 1.000 (0.000) mean b 11.049 (0.546) (modules 43)
+SUP5 E1 halfcut 58 | A2 module tail shift: relR 0.257 (0.048) relP 0.296 (0.075) relF1 0.271 (0.044) compR 0.168 (0.046) compP 0.320 (0.049) FA px/neg cell 321.706 (99.797) FA cell rate 0.950 (0.017) mean b 5.738 (0.345) (modules 43)
+SUP5 E1 halfcut 58 | A3 halfcut routing: relR 0.216 (0.072) relP 0.689 (0.110) relF1 0.318 (0.067) compR 0.126 (0.066) compP 0.743 (0.123) FA px/neg cell 21.944 (19.458) FA cell rate 0.281 (0.201) mean b -0.940 (3.993) (modules 43)
+
+SUP5 E1 full 48 | A0 global b_OP: relR 0.641 (0.043) relP 0.405 (0.057) relF1 0.493 (0.034) compR 0.582 (0.138) compP 0.273 (0.114) FA px/neg cell 80.929 (19.317) FA cell rate 0.357 (0.081) mean b 1.700 (0.689) (modules 28)
+SUP5 E1 full 48 | A1 module quantile: relR 0.671 (0.033) relP 0.114 (0.006) relF1 0.194 (0.008) compR 0.691 (0.050) compP 0.083 (0.012) FA px/neg cell 505.738 (58.446) FA cell rate 0.986 (0.021) mean b 10.230 (0.240) (modules 28)
+SUP5 E1 full 48 | A2 module tail shift: relR 0.648 (0.041) relP 0.183 (0.041) relF1 0.284 (0.052) compR 0.655 (0.119) compP 0.122 (0.026) FA px/neg cell 282.643 (75.169) FA cell rate 0.919 (0.036) mean b 7.763 (0.655) (modules 28)
+SUP5 E1 full 48 | A3 halfcut routing: relR 0.641 (0.043) relP 0.405 (0.057) relF1 0.493 (0.034) compR 0.582 (0.138) compP 0.273 (0.114) FA px/neg cell 80.929 (19.317) FA cell rate 0.357 (0.081) mean b 1.700 (0.689) (modules 28)
+

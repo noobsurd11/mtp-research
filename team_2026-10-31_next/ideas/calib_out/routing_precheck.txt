@@ -1,0 +1,33 @@
+routing pre-check (judge 3b + R1 + Amendment A), rule ideas/routing_precheck.md; non-E1, non-test. Synthetic set: SHV1 (primary).
+PASS needs all three terms for FINAL and SUPPF5 pooled on SHV1. SENS rows (synvar V4) never decide.
+
+FINAL: b_V0 +1.1  b_V4 +1.5  delta_b +0.4 (< 1.0: routing = no-op); G in-sample +0.0079; G_cf +0.0023 (folds -0.0051 / +0.0096) -> FAIL {'db>=1.0': False, 'G>=0.02': False, 'Gcf>=0.01': False}
+   at b_V0: V0 relR 0.899 relP 0.895 relF1 0.897 | V4 relR 0.763 relP 0.873 relF1 0.815
+   at b_V4: V0 relR 0.916 relP 0.873 relF1 0.894 | V4 relR 0.799 relP 0.847 relF1 0.822
+   at b_dep: V0 relR 0.887 relP 0.906 relF1 0.896 | V4 relR 0.743 relP 0.890 relF1 0.810
+   FA guard, 68 crack-free V4 half-images: crack px/image 15.1 -> 21.0; flagged 0.147 -> 0.191
+   mixed V0+V4 relF1: unrouted 0.8409 routed 0.8460
+   matched precision, max relR@2: relP>=0.90 V0 0.892 V4 0.730; relP>=0.80 V0 0.941 V4 0.834
+SUPPF5 pooled: b_V0 +2.9  b_V4 +3.8  delta_b +0.9 (< 1.0: routing = no-op); G in-sample +0.0011; G_cf -0.0027 (folds -0.0051 / -0.0003) -> FAIL {'db>=1.0': False, 'G>=0.02': False, 'Gcf>=0.01': False}
+   at b_V0: V0 relR 0.870 relP 0.909 relF1 0.889 | V4 relR 0.731 relP 0.871 relF1 0.795
+   at b_V4: V0 relR 0.877 relP 0.900 relF1 0.888 | V4 relR 0.742 relP 0.858 relF1 0.796
+   at b_dep: V0 relR 0.846 relP 0.929 relF1 0.886 | V4 relR 0.693 relP 0.902 relF1 0.784
+   FA guard, 340 crack-free V4 half-images: crack px/image 6.0 -> 7.8; flagged 0.094 -> 0.106
+   mixed V0+V4 relF1: unrouted 0.8251 routed 0.8257
+   matched precision, max relR@2: relP>=0.90 V0 0.876 V4 0.694; relP>=0.80 V0 0.912 V4 0.774
+SENS synvar V4 FINAL: b_V0 +1.1  b_V4 +1.5  delta_b +0.4 (< 1.0: routing = no-op); G in-sample +0.0042; G_cf +0.0013 (folds -0.0022 / +0.0048) -> FAIL {'db>=1.0': False, 'G>=0.02': False, 'Gcf>=0.01': False}
+   at b_V0: V0 relR 0.899 relP 0.895 relF1 0.897 | V4 relR 0.793 relP 0.875 relF1 0.832
+   at b_V4: V0 relR 0.916 relP 0.873 relF1 0.894 | V4 relR 0.824 relP 0.847 relF1 0.836
+   at b_dep: V0 relR 0.887 relP 0.906 relF1 0.896 | V4 relR 0.774 relP 0.891 relF1 0.828
+   FA guard, 68 crack-free V4 half-images: crack px/image 8.0 -> 14.5; flagged 0.147 -> 0.221
+   mixed V0+V4 relF1: unrouted 0.8523 routed 0.8550
+   matched precision, max relR@2: relP>=0.90 V0 0.892 V4 0.760; relP>=0.80 V0 0.941 V4 0.858
+SENS synvar V4 SUPPF5 pooled: b_V0 +2.9  b_V4 +3.8  delta_b +0.9 (< 1.0: routing = no-op); G in-sample +0.0007; G_cf -0.0019 (folds -0.0040 / +0.0003) -> FAIL {'db>=1.0': False, 'G>=0.02': False, 'Gcf>=0.01': False}
+   at b_V0: V0 relR 0.870 relP 0.909 relF1 0.889 | V4 relR 0.751 relP 0.869 relF1 0.806
+   at b_V4: V0 relR 0.877 relP 0.900 relF1 0.888 | V4 relR 0.762 relP 0.857 relF1 0.807
+   at b_dep: V0 relR 0.846 relP 0.929 relF1 0.886 | V4 relR 0.713 relP 0.900 relF1 0.796
+   FA guard, 340 crack-free V4 half-images: crack px/image 7.0 -> 8.8; flagged 0.091 -> 0.109
+   mixed V0+V4 relF1: unrouted 0.8325 routed 0.8328
+   matched precision, max relR@2: relP>=0.90 V0 0.876 V4 0.713; relP>=0.80 V0 0.912 V4 0.797
+SUPPF5 per seed (reported, not deciding): s0 b_V0 +3.4 b_V4 +4.3 db +0.9 G +0.001 Gcf +0.000; s1 b_V0 +2.8 b_V4 +4.6 db +1.8 G +0.002 Gcf -0.004; s2 b_V0 +2.9 b_V4 +3.7 db +0.8 G +0.001 Gcf -0.002; s3 b_V0 +1.1 b_V4 +4.3 db +3.2 G +0.006 Gcf -0.002; s4 b_V0 +2.0 b_V4 +3.1 db +1.1 G +0.002 Gcf -0.001
+VERDICT: FAIL

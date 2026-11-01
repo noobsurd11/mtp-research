@@ -1,0 +1,110 @@
+{
+ "set": "ext",
+ "n_cells": 106,
+ "gt_comp20": 296,
+ "op_comp": {
+  "b": 1.1,
+  "j": 52,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.864,
+  "val_P": 0.9071428571428571
+ },
+ "op_rel": {
+  "b": 1.2,
+  "j": 53,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.8999156518530234,
+  "val_P": 0.9026889562062904
+ },
+ "comp_recall_at_opc": 0.2533783783783784,
+ "comp_prec_at_opc": 0.4946236559139785,
+ "relR_at_opr": 0.3997336966619186,
+ "relP_at_opr": 0.4979157982492705,
+ "speck_guard": {
+  "opc": {
+   "compP_all": 0.23660714285714285,
+   "speck_share": 0.13690771691764575
+  },
+  "opr": {
+   "compP_all": 0.2365747460087083,
+   "speck_share": 0.13041892455189663
+  }
+ },
+ "deployed_b": 0.0,
+ "at_deployed": {
+  "P": 0.5466101694915254,
+  "R": 0.1597820028488264,
+  "IoU": 0.14108383004320008,
+  "relP": 0.6258474576271187,
+  "relR": 0.29290270638508703,
+  "compR": 0.15878378378378377,
+  "compP": 0.6699029126213593,
+  "compP_all": 0.2929061784897025,
+  "speck_share": 0.15402542372881356,
+  "inactIoU": 0.06653592270161676
+ },
+ "cell_deployed": {
+  "b": 0.0,
+  "n_pos": 32,
+  "n_neg": 74,
+  "n_ambiguous": 0,
+  "recall": 0.75,
+  "fa_rate": 0.21621621621621623,
+  "precision": 0.6,
+  "auroc": 0.8853462837837838
+ },
+ "cell_at_opc": {
+  "b": 1.1,
+  "n_pos": 32,
+  "n_neg": 74,
+  "n_ambiguous": 0,
+  "recall": 0.875,
+  "fa_rate": 0.35135135135135137,
+  "precision": 0.5185185185185185,
+  "auroc": 0.8853462837837838
+ },
+ "cell_b0": {
+  "b": 0.0,
+  "n_pos": 32,
+  "n_neg": 74,
+  "n_ambiguous": 0,
+  "recall": 0.75,
+  "fa_rate": 0.21621621621621623,
+  "precision": 0.6,
+  "auroc": 0.8853462837837838
+ },
+ "inactive_area_err": {
+  "b": 0.0,
+  "mae_all": 0.26564612820211286,
+  "mae_inactive_cells": 0.6291515404722122,
+  "n_inactive_cells": 6,
+  "mae_other": 0.24383580346590691,
+  "signed_mean": 0.1784899313119991,
+  "max_err": 13.224700917081838
+ },
+ "oracle_upper_bound": {
+  "E1 all": {
+   "oracle_relF1": 0.4583567987332154,
+   "at_b": 2.0,
+   "relR": 0.4819161454140088,
+   "relP": 0.4369935736239173,
+   "label": "oracle upper bound, chooses nothing, descriptive"
+  },
+  "E1 sh29": {
+   "oracle_relF1": 0.5101819457661324,
+   "at_b": 7.5,
+   "relR": 0.5064340509774808,
+   "relP": 0.5139857271757854,
+   "label": "oracle upper bound, chooses nothing, descriptive"
+  }
+ },
+ "excluded": [],
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": true,
+ "el_metrics_md5": "6e73ff11aaa6171a52b5a5404877ab46"
+}

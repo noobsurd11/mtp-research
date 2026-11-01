@@ -1,0 +1,23 @@
+## val decisions (D2 rule re-applied to the stored sweep; stored entries at scored b re-computed from val cells)
+  E-g: chosen b 1.25 (val relR@2 0.9018 relP@2 0.9003 relF1 0.9011), val crack P drop +0.0543 -> headline b 0.0; sweep entries at scored b == own val recompute: OK
+  E-PF: chosen b 1.5 (val relR@2 0.9089 relP@2 0.9011 relF1 0.9050), val crack P drop +0.0753 -> headline b 0.0; sweep entries at scored b == own val recompute: OK
+
+## VERDICT (headline b): E-g b 0.0 vs E-PF b 0.0
+  test         all 50   crack IoU +0.0027 [-0.0138, +0.0148] | relF1@2 +0.0121 [-0.0037, +0.0296] | inactive IoU +0.0237 [-0.0317, +0.0995]
+  test         clean 49 crack IoU +0.0027 [-0.0141, +0.0150] | relF1@2 +0.0121 [-0.0049, +0.0309] | inactive IoU +0.0245 [-0.0331, +0.1071]
+  => test VERDICT (headline b): n.d.
+  test_noscuff all 50   crack IoU +0.0027 [-0.0140, +0.0161] | relF1@2 +0.0121 [-0.0047, +0.0311] | inactive IoU +0.0237 [-0.0302, +0.0969]
+  test_noscuff clean 49 crack IoU +0.0027 [-0.0134, +0.0163] | relF1@2 +0.0122 [-0.0037, +0.0314] | inactive IoU +0.0245 [-0.0291, +0.1037]
+  => test_noscuff VERDICT (headline b): n.d.
+  E1 (106 cells, 71 clusters) crack IoU +0.0171 [-0.0148, +0.0411] | relF1@2 +0.0355 [-0.0270, +0.0897] | inactive IoU +0.2141 [+0.0357, +0.3893]
+  => E1 VERDICT (headline b): PASS (inactive IoU)
+
+## reported: b 0: E-g b 0.0 vs E-PF b 0.0
+  test         all 50   crack IoU +0.0027 [-0.0141, +0.0154] | relF1@2 +0.0121 [-0.0043, +0.0305] | inactive IoU +0.0237 [-0.0286, +0.0938]
+  test         clean 49 crack IoU +0.0027 [-0.0148, +0.0148] | relF1@2 +0.0121 [-0.0050, +0.0299] | inactive IoU +0.0245 [-0.0318, +0.1019]
+  => test reported: b 0: n.d.
+  test_noscuff all 50   crack IoU +0.0027 [-0.0140, +0.0162] | relF1@2 +0.0121 [-0.0045, +0.0318] | inactive IoU +0.0237 [-0.0312, +0.0968]
+  test_noscuff clean 49 crack IoU +0.0027 [-0.0149, +0.0151] | relF1@2 +0.0122 [-0.0046, +0.0319] | inactive IoU +0.0245 [-0.0305, +0.1024]
+  => test_noscuff reported: b 0: n.d.
+  E1 (106 cells, 71 clusters) crack IoU +0.0171 [-0.0121, +0.0425] | relF1@2 +0.0355 [-0.0217, +0.0937] | inactive IoU +0.2141 [+0.0194, +0.3898]
+  => E1 reported: b 0: PASS (inactive IoU)  (reported only)

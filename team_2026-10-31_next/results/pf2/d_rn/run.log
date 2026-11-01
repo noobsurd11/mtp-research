@@ -1,0 +1,83 @@
+{
+ "suppf": [
+  {
+   "run": "/home/noob/work/el_f3/experiments/pf2_SUPPF_100pct_s5",
+   "encoder": null,
+   "name": "smp_unetpp",
+   "revision": "e544133"
+  },
+  {
+   "run": "/home/noob/work/el_f3/experiments/pf2_SUPPF_100pct_s6",
+   "encoder": null,
+   "name": "smp_unetpp",
+   "revision": "e544133"
+  },
+  {
+   "run": "/home/noob/work/el_f3/experiments/pf2_SUPPF_100pct_s7",
+   "encoder": null,
+   "name": "smp_unetpp",
+   "revision": "e544133"
+  },
+  {
+   "run": "/home/noob/work/el_f3/experiments/pf2_SUPPF_100pct_s8",
+   "encoder": null,
+   "name": "smp_unetpp",
+   "revision": "e544133"
+  },
+  {
+   "run": "/home/noob/work/el_f3/experiments/pf2_SUPPF_100pct_s9",
+   "encoder": null,
+   "name": "smp_unetpp",
+   "revision": "e544133"
+  }
+ ],
+ "rn50pf": [
+  {
+   "run": "/home/noob/work/el_f3/experiments/pf2_RN50PF_100pct_s5",
+   "encoder": "resnet50",
+   "name": "smp_unetpp",
+   "revision": "e544133"
+  },
+  {
+   "run": "/home/noob/work/el_f3/experiments/pf2_RN50PF_100pct_s6",
+   "encoder": "resnet50",
+   "name": "smp_unetpp",
+   "revision": "e544133"
+  },
+  {
+   "run": "/home/noob/work/el_f3/experiments/pf2_RN50PF_100pct_s7",
+   "encoder": "resnet50",
+   "name": "smp_unetpp",
+   "revision": "e544133"
+  },
+  {
+   "run": "/home/noob/work/el_f3/experiments/pf2_RN50PF_100pct_s8",
+   "encoder": "resnet50",
+   "name": "smp_unetpp",
+   "revision": "e544133"
+  },
+  {
+   "run": "/home/noob/work/el_f3/experiments/pf2_RN50PF_100pct_s9",
+   "encoder": "resnet50",
+   "name": "smp_unetpp",
+   "revision": "e544133"
+  }
+ ]
+}
+v3 gate: pf2_SUPPF_100pct_s5 alone, val, bias 0: gaint CPU fp32 vs its PF2-opening m0 JSON (GPU bf16); tolerance 0.005:
+  crack_iou: 0.4104 (ref 0.4100, delta +0.0004)
+  relF1: 0.8803 (ref 0.8799, delta +0.0004)
+  -> within tolerance: proceed
+val done, 281 s
+ext done, 795 s
+PF2 RN named secondary (protocol_PF2 §3c; descriptive; computed after opening #1 on the same models): 5-member mean-softmax
+ensembles, crack bias +0.75 (D's rule); CPU fp32; val + E1 only.
+v3 gate: pf2_SUPPF_100pct_s5 alone, val, bias 0: gaint CPU fp32 vs its PF2-opening m0 JSON (GPU bf16); tolerance 0.005:
+  crack_iou: 0.4104 (ref 0.4100, delta +0.0004)
+  relF1: 0.8803 (ref 0.8799, delta +0.0004)
+  -> within tolerance: proceed
+  SUPPF_5: E1 scuff+half-cut (29) recall 0.168; half-cut no-scuff (29) 0.504; full (48) 0.461; E1 crack P 0.414, R 0.244, IoU 0.182; crack px on 74 crack-free E1 cells 5208; E1 inact IoU 0.282 | val crack IoU 0.4441, relF1@2 0.9030, inact IoU 0.5100
+  RN50PF_5: E1 scuff+half-cut (29) recall 0.143; half-cut no-scuff (29) 0.574; full (48) 0.499; E1 crack P 0.425, R 0.237, IoU 0.180; crack px on 74 crack-free E1 cells 5559; E1 inact IoU 0.255 | val crack IoU 0.4496, relF1@2 0.9088, inact IoU 0.5637
+  RN50PF_5 - SUPPF_5: target recall -0.025; must-not-hurt +0.069; full48 +0.038; E1 crack P +0.011; crack px on crack-free +351; val relF1@2 +0.0057
+total 795 s
+[Sun Nov  1 08:47:30 AM IST 2026] d_infer pf2-rn rc=0

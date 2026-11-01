@@ -1,0 +1,36 @@
+## per-run OP | test
+  SUP     compR@P.90 0.8053±0.0189 (compP 0.8927) | relR@relP.90 0.8381±0.0096 (relP 0.9181) | b_comp [2.2, 0.9, 3.2, 2.2, 4.1] b_rel [2.3, 4.1, 1.4, 2.0, 2.0] reachable True edge False
+  SUPPF   compR@P.90 0.8286±0.0200 (compP 0.7831) | relR@relP.90 0.8722±0.0092 (relP 0.8976) | b_comp [6.6, 3.2, 2.7, 5.1, 6.7] b_rel [4.4, 3.8, 3.0, 4.0, 4.2] reachable True edge False
+  RN50PF  compR@P.90 0.8497±0.0096 (compP 0.7695) | relR@relP.90 0.8688±0.0113 (relP 0.9000) | b_comp [3.6, 5.4, 8.1, 6.3, 3.8] b_rel [3.5, 2.9, 3.1, 4.2, 4.4] reachable True edge False
+  PF2  compR +0.0233(0.0317) nd | relR +0.0342(0.0154) BETTER
+  RN   compR +0.0212(0.0256) nd | relR -0.0035(0.0169) nd
+## per-run OP | test_clean
+  SUP     compR@P.90 0.8139±0.0191 (compP 0.8988) | relR@relP.90 0.8453±0.0097 (relP 0.9189) | b_comp [2.2, 0.9, 3.2, 2.2, 4.1] b_rel [2.3, 4.1, 1.4, 2.0, 2.0] reachable True edge False
+  SUPPF   compR@P.90 0.8374±0.0202 (compP 0.8834) | relR@relP.90 0.8794±0.0093 (relP 0.9083) | b_comp [6.6, 3.2, 2.7, 5.1, 6.7] b_rel [4.4, 3.8, 3.0, 4.0, 4.2] reachable True edge False
+  RN50PF  compR@P.90 0.8588±0.0097 (compP 0.8790) | relR@relP.90 0.8760±0.0112 (relP 0.9050) | b_comp [3.6, 5.4, 8.1, 6.3, 3.8] b_rel [3.5, 2.9, 3.1, 4.2, 4.4] reachable True edge False
+  PF2  compR +0.0235(0.0321) nd | relR +0.0341(0.0155) BETTER
+  RN   compR +0.0214(0.0259) nd | relR -0.0034(0.0168) nd
+## per-run OP | ext
+  SUP     compR@P.90 0.2088±0.0458 (compP 0.4591) | relR@relP.90 0.3347±0.0305 (relP 0.4952) | b_comp [2.2, 0.9, 3.2, 2.2, 4.1] b_rel [2.3, 4.1, 1.4, 2.0, 2.0] reachable True edge False
+  SUPPF   compR@P.90 0.2750±0.0329 (compP 0.4245) | relR@relP.90 0.3987±0.0244 (relP 0.4645) | b_comp [6.6, 3.2, 2.7, 5.1, 6.7] b_rel [4.4, 3.8, 3.0, 4.0, 4.2] reachable True edge False
+  RN50PF  compR@P.90 0.2595±0.0313 (compP 0.4211) | relR@relP.90 0.3909±0.0196 (relP 0.4594) | b_comp [3.6, 5.4, 8.1, 6.3, 3.8] b_rel [3.5, 2.9, 3.1, 4.2, 4.4] reachable True edge False
+  PF2  compR +0.0662(0.0651) BETTER | relR +0.0641(0.0451) BETTER
+  RN   compR -0.0155(0.0524) nd | relR -0.0078(0.0362) nd
+## arm-pooled OP | test
+  SUP     compR@P.90 0.8063±0.0166 (compP 0.8999) | relR@relP.90 0.8381±0.0090 (relP 0.9196) | b_comp [2.2, 2.2, 2.2, 2.2, 2.2] b_rel [2.3, 2.3, 2.3, 2.3, 2.3] reachable True edge False
+  SUPPF   compR@P.90 0.8212±0.0199 (compP 0.8464) | relR@relP.90 0.8723±0.0100 (relP 0.8997) | b_comp [3.9, 3.9, 3.9, 3.9, 3.9] b_rel [3.9, 3.9, 3.9, 3.9, 3.9] reachable True edge False
+  RN50PF  compR@P.90 0.8455±0.0132 (compP 0.8413) | relR@relP.90 0.8693±0.0059 (relP 0.9005) | b_comp [4.7, 4.7, 4.7, 4.7, 4.7] b_rel [3.7, 3.7, 3.7, 3.7, 3.7] reachable True edge False
+  PF2  compR +0.0148(0.0299) nd | relR +0.0343(0.0155) BETTER
+  RN   compR +0.0243(0.0276) nd | relR -0.0031(0.0134) nd
+## arm-pooled OP | test_clean
+  SUP     compR@P.90 0.8150±0.0167 (compP 0.9060) | relR@relP.90 0.8453±0.0091 (relP 0.9204) | b_comp [2.2, 2.2, 2.2, 2.2, 2.2] b_rel [2.3, 2.3, 2.3, 2.3, 2.3] reachable True edge False
+  SUPPF   compR@P.90 0.8299±0.0202 (compP 0.8904) | relR@relP.90 0.8795±0.0101 (relP 0.9086) | b_comp [3.9, 3.9, 3.9, 3.9, 3.9] b_rel [3.9, 3.9, 3.9, 3.9, 3.9] reachable True edge False
+  RN50PF  compR@P.90 0.8545±0.0133 (compP 0.8793) | relR@relP.90 0.8765±0.0058 (relP 0.9049) | b_comp [4.7, 4.7, 4.7, 4.7, 4.7] b_rel [3.7, 3.7, 3.7, 3.7, 3.7] reachable True edge False
+  PF2  compR +0.0150(0.0303) nd | relR +0.0342(0.0156) BETTER
+  RN   compR +0.0246(0.0279) nd | relR -0.0030(0.0134) nd
+## arm-pooled OP | ext
+  SUP     compR@P.90 0.2027±0.0378 (compP 0.4637) | relR@relP.90 0.3341±0.0372 (relP 0.4949) | b_comp [2.2, 2.2, 2.2, 2.2, 2.2] b_rel [2.3, 2.3, 2.3, 2.3, 2.3] reachable True edge False
+  SUPPF   compR@P.90 0.2696±0.0399 (compP 0.4390) | relR@relP.90 0.3998±0.0298 (relP 0.4646) | b_comp [3.9, 3.9, 3.9, 3.9, 3.9] b_rel [3.9, 3.9, 3.9, 3.9, 3.9] reachable True edge False
+  RN50PF  compR@P.90 0.2514±0.0199 (compP 0.4344) | relR@relP.90 0.3911±0.0186 (relP 0.4601) | b_comp [4.7, 4.7, 4.7, 4.7, 4.7] b_rel [3.7, 3.7, 3.7, 3.7, 3.7] reachable True edge False
+  PF2  compR +0.0669(0.0635) BETTER | relR +0.0657(0.0551) BETTER
+  RN   compR -0.0182(0.0515) nd | relR -0.0086(0.0406) nd

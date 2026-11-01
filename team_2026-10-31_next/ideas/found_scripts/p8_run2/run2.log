@@ -1,0 +1,22 @@
+[2026-11-01 14:29:39] start (pid 347936) f2033a3e1089eabc7bebafaf9f6570f7  p8_probe.py
+/home/noob/work/found/p8/p8_probe.py:250: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:820.)
+  meta["encoders"][name]["seeds"][seed] = {"final_train_loss": float(loss)}
+dinov3_cnx_t/seed0 loss 0.1829 816s
+dinov3_cnx_t/seed1 loss 0.2084 1464s
+dinov3_vits16_512/seed0 loss 0.2081 769s
+dinov3_vits16_512/seed1 loss 0.2970 1491s
+dinov3_vits16_1024/seed0 loss 0.1394 1091s
+dinov3_vits16_1024/seed1 loss 0.1971 1771s
+{
+ "pick": [
+  "dinov3_cnx_t"
+ ],
+ "f51_crack_ap_mean": {
+  "dinov3_cnx_t": 0.36348919968872373,
+  "dinov3_vits16_512": 0.14721518071420883,
+  "dinov3_vits16_1024": 0.21247944280060285
+ },
+ "ref": null
+}
+[2026-11-01 15:48:35] P8 run2 rc=0

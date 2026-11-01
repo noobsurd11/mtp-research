@@ -1,0 +1,40 @@
+
+train (478): cells 478, crack cells 209, GT crack px 271805
+  width (2*EDT on skeleton, px): median 2.00, p75 2.83, p90 4.00
+  stride  lost_major  diluted<25%  ceilIoU  mixed_with_other_class  merged_components
+  1/2          0.079        0.000    0.637                   0.101  214/953 = 0.225
+  1/4          0.428        0.085    0.375                   0.229  547/953 = 0.574
+  1/8          0.881        0.350    0.219                   0.352  709/953 = 0.744
+  1/16         0.991        0.707    0.135                   0.573  753/953 = 0.790
+
+val (54): cells 54, crack cells 23, GT crack px 37938
+  width (2*EDT on skeleton, px): median 2.00, p75 2.83, p90 4.00
+  stride  lost_major  diluted<25%  ceilIoU  mixed_with_other_class  merged_components
+  1/2          0.070        0.000    0.647                   0.050  15/128 = 0.117
+  1/4          0.395        0.078    0.382                   0.163  68/128 = 0.531
+  1/8          0.896        0.313    0.221                   0.313  84/128 = 0.656
+  1/16         1.000        0.732    0.134                   0.554  96/128 = 0.750
+
+E1 all 106 (descriptive): cells 106, crack cells 32, GT crack px 32294
+  width (2*EDT on skeleton, px): median 4.00, p75 4.00, p90 4.47
+  stride  lost_major  diluted<25%  ceilIoU  mixed_with_other_class  merged_components
+  1/2          0.056        0.000    0.711                   0.044  66/324 = 0.204
+  1/4          0.260        0.070    0.452                   0.135  150/324 = 0.463
+  1/8          0.815        0.211    0.253                   0.273  276/324 = 0.852
+  1/16         0.986        0.729    0.136                   0.490  303/324 = 0.935
+
+E1 half-cut 58 (descriptive): cells 58, crack cells 26, GT crack px 26737
+  width (2*EDT on skeleton, px): median 4.00, p75 4.00, p90 4.47
+  stride  lost_major  diluted<25%  ceilIoU  mixed_with_other_class  merged_components
+  1/2          0.057        0.000    0.708                   0.039  64/311 = 0.206
+  1/4          0.270        0.073    0.446                   0.128  148/311 = 0.476
+  1/8          0.829        0.229    0.246                   0.261  272/311 = 0.875
+  1/16         0.989        0.742    0.132                   0.510  297/311 = 0.955
+
+E1 full 48 (descriptive): cells 48, crack cells 6, GT crack px 5557
+  width (2*EDT on skeleton, px): median 4.00, p75 4.00, p90 4.47
+  stride  lost_major  diluted<25%  ceilIoU  mixed_with_other_class  merged_components
+  1/2          0.051        0.000    0.727                   0.064  2/13 = 0.154
+  1/4          0.211        0.052    0.488                   0.172  2/13 = 0.154
+  1/8          0.747        0.123    0.295                   0.328  4/13 = 0.308
+  1/16         0.974        0.669    0.160                   0.396  6/13 = 0.462

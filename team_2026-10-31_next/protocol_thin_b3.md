@@ -1,0 +1,83 @@
+# Protocol THIN-B3: Skeleton Recall, clDice and a scuff class on SUP100-PF (100% labels, gaint)
+
+coach, 31 Oct 2026, **v1 (2026-11-01 00:25 IST)**; v0.2 17:34, v0.1 14:32. **Status: LOCKED design (written before any PF2 or THIN-B3 number); launch on coach's APPROVED after the §8 open gates.** It locks (v1) before PF2's opening fires (~07:30 1 Nov) and launches on coach's APPROVED after the items in §8. Approved in design by Om (`om_2026-10-31.md` A: two thin-crack arms on BEST, Skeleton Recall AND clDice; B3 on SUP100-PF; distance-map target costed only). Tags: E / R / S.
+
+## 0. What I had seen when writing this (E)
+- protocol_100 (verified), D, Track M R3, `spec_b3_scuff.md`, protocol_PF2 v1.1 (launched 14:29; no PF2 number exists), builder's `build_thin_b3.md` (code el_thin 9461ecc).
+- No thin-crack or B3 number of any kind.
+- **Disclosed slip (builder, 31 Oct 14:46-14:54, CPU):** before coach's S4 ruling reached it, a builder batch ran `m0_audit_b3 --test-scuff --ext-scuff` (and a CPU scorer-identity pair) on the already-opened `f3_SUPPF_100pct_s0` and `p6_L3_100pct_s0`, computing test (incl. test_noscuff) and E1-scuff numbers outside any opening. Not used for any choice, not reported; quarantined unread on gaint (`builder_scratch/quarantine_test_reads_2026-10-31`, outputs chmod a-r, MANIFEST.md5 md5 e367b101). Neither run belongs to any contrast here (seeds 5-9).
+
+## 1. Questions (each vs SUP100-PF, 5 v 5, seeds 5-9)
+1. **SKR:** SUP100-PF + Skeleton Recall loss on crack (R doi:10.1007/978-3-031-72980-5_13, arXiv 2404.03010).
+2. **CLD:** SUP100-PF + soft-clDice on crack (R doi:10.1109/cvpr46437.2021.01629, arXiv 2003.07311).
+3. **B3:** SUP100-PF + scuff as its own class (`team_2026-10-29_features/spec_b3_scuff.md` §3).
+- BEST = SUP100-PF (Om A), fixed before any PF2 number, whatever PF2 shows (`protocol_PF2.md` §6-7).
+
+## 2. Baseline
+- **Shared:** PF2's `pf2_SUPPF_100pct_s5..9` (e544133, gaint), on condition (protocol_PF2 §7): el_thin with all switches off is bit-identical to e544133 on SUP100-PF opts on gaint GPU for ≥ 2,000 steps (step and PF encoder lr lines vs `f3_SUPPF_100pct_s0.stdout`; smoke S0), plus the CPU pairs (builder §4), data md5-identical.
+- Their per-cell files from PF2's opening are reused unchanged (manifest re-checked), as CP100's opening 2 reused SUP100-g. The baseline's test numbers will be known before these arms are scored; this protocol is locked before PF2's opening, so nothing here can move on them.
+- **Else:** a new SUP100-PF s5-9 at the el_thin deploy commit, queued first (+5 runs).
+
+## 3. Arms (5 seeds, 5-9; 20,000 steps, batch 8, final weights; SUP100-PF opts exactly as `pf2_jobs.txt`, val off)
+| Arm | One change (opts added) | Settings, fixed now (papers' defaults; no tuning) |
+|---|---|---|
+| SKR | `loss.skel_recall.weight=1.0` | w 1 (official trainer default; paper Sec. 4.4 tested 0.1 / 1.0); tube = skeleton (numpy port of skimage, identical on 423/423 crack masks) dilated by a diamond r 2, clipped to GT crack (paper Sec. 3.2); smooth 1e-5, batch sums |
+| CLD | `loss.cldice.weight=1.0 loss.cldice.iters=10` | additive house + w · L_clDice (the Skeleton Recall paper's Eq. 2 form); soft-skeleton k = 10 (official code; ≥ max train crack radius 4.24 px, E builder §7); smooth 1; crack channel only |
+| B3 | `data.scuff_class=24 model.num_classes=25 data.mask_subdir=labeled/masks_escdd_s` | 12 train cells' E-SCDD scuff px (3,246; were bg 1,207 / material 1,390 / crack 649) → class 24; CE over 25 classes, Dice stays on (14, 11); predicted 24 → 0 before every 24-class metric; LA prior over 25 classes from masks_escdd_s |
+
+- Both thin losses act on float32 p(crack) outside autocast, ignore px excluded; on a crack-free batch SKR is 0 and clDice keeps the paper / official finite form (smooth 1; it then pushes the predicted soft skeleton down; ~1% of batches); each logged on its own `thin ...` line (step line unchanged). Refused combinations raise at start.
+- **What SKR is on our data (E, builder §6):** the r-2 tube covers 99.2% of train crack px (cracks 1-3 px wide), so SKR acts as a soft crack-recall term, not a centerline term. Its gradient never penalises false positives (R arXiv 2508.11374 [to confirm as MCP-returned]: on concrete cracks SRL left DSC n.s. and raised FPR).
+- **Disclosures:** B3's 25-channel head draws a different head init (encoder / decoder unchanged), so the global RNG stream after model build may differ (seed-like noise); thin terms add head / decoder gradient, so PF's freeze-time global clip may bind more often (protocol_100 disclosure).
+
+## 4. Co-primaries and verdict (rule 1 /3, 5 v 5, two-set rule on test)
+- **All three arms:** test crack IoU, crack relF1@2, inactive IoU (protocol_PF2 §3a; all 50 and clean).
+- **SKR and CLD also (Om B5):** test component recall at component precision ≥ 0.90, and test relR@2 at relP@2 ≥ 0.90, each at the **arm-level pooled OP**: one b per arm chosen on the pooled 5-seed val counts (max pooled val recall s.t. pooled val precision ≥ 0.90; grid −4..+12; protocol_PF2 §4.1), each seed's test value read at that b; two-set rule. Per-run OPs reported. Reason: per-run b_comp seed sd 1.1-2.8 (judge, E calib backfill). **calib's scorer md5 is frozen into this file before launch** (co-primary definitions must be locked before the runs).
+- PASS: ≥ 1 co-primary BETTER, none WORSE. Flags: crack relP@2 drop > 0.05 (argmax); speck share and all-size component precision at each OP (A1).
+- **E1 co-primary (user decision 31 Oct ~15:00: E1 = second test set, pre-registered co-primaries read once at the opening, never for tuning / selection / thresholds):** **E1 crack relF1@2**, all 106 cells pooled per run, argmax (as the test primaries), one set, rule 1 /3, all three arms. Chosen because it is width-robust (relaxed 2 px; E1 GT is ~1.5x wider than train, judge) and penalises the precision cost a recall-pushing loss can carry, which E1 recall alone would reward. Threshold estimate (E, opening-1 m0 JSONs, coach): SUPPF seeds 0-4 E1 relF1@2 0.444 ± 0.026, so ~0.042 for SKR / CLD / B3 vs SUPPF.
+- **E1 reported (descriptive):** relR@2, relP@2, crack recall / precision, component recall at the pooled val OP, oracle relF1@2 (ranking-only), E1 strata (29 / 77, 58 / 48), predicted width.
+- **B3 named secondaries** (spec_b3_scuff §4, descriptive): E1 crack px predicted on E1 scuff px (105 E1 cells with raw masks, 38 with scuff, 84,511 px; manifest 8a7a028b; crack-on-scuff count cross-checked on one old run vs the 27 Oct scuff_check); E1 scuff + half-cut crack recall and E1 crack precision; test crack precision and relP@2. Test verdict on current masks; the 236-px-ignored test (`test_noscuff`, same px as PF2 §4.3) descriptive.
+- Multiplicity: 3 contrasts; SKR / CLD 6 co-primaries (3 test + 2 B5 on two sets, 1 E1), B3 4 (3 test + 1 E1); no correction, disclosed.
+
+## 5. Reported
+As protocol_PF2 §4: B5 OPs for B3 too, cell-level, scuff-ignored test, E1 strata and E1 width-robust checks, LA tau 1 for every arm, crack-free px (test / val / E1), 20k encoder cosines, thin-term magnitudes per 50 steps.
+
+## 6. Expectations (S), next to the clean MDE (crack 0.012)
+- **SKR:** crack recall up, precision down (tube ≈ mask; R arXiv 2508.11374). Test crack IoU −0.015 to +0.010, relF1@2 −0.01 to +0.01; risk of WORSE through precision; relP@2 flag possible. B5 co-primaries (val-chosen bias absorbs a pure prior shift): −0.01 to +0.02, n.d. likeliest.
+- **CLD:** component recall at P ≥ 0.90 +0.00 to +0.03; relF1@2 n.d.; crack IoU −0.01 to +0.01.
+- **B3:** spec_b3_scuff §5: test primaries n.d. (649 of ~272k crack px change); E1 crack-on-scuff −20% to −60% (descriptive).
+- **E1 relF1@2 (threshold ~0.042):** SKR −0.03 to +0.02 (recall up, precision down); CLD −0.02 to +0.03; B3 0 to +0.02 (fewer crack calls on scuff). n.d. likeliest.
+- Likeliest overall: n.d. on test and E1 for all three; if anything passes, CLD on component recall.
+
+## 7. Lanes and order (E: gaint is saturated by one R34 run, ~7 steps/s alone vs 3 × 2.25 packed; RN50 alone 3.7)
+- Smokes (§8) run one at a time beside PF2's lone RN50 runs (from about 23:00 31 Oct), through runner's shared gate.
+- The 15 runs start after PF2's last run trains (about 07:30 1 Nov): waves by seed (SKR sK, CLD sK, B3 sK), at most 2 at once while PF2's opening is pending or running (2 × 6.8 + 5.9 GB leaves ~11.9 GB ≥ GS 7,900), 3 after its end line. Starting them beside RN50 earlier would move no total work forward (saturated GPU) and would delay PF2's opening by ~8 h.
+- Gates: each arm's measured smoke peak + 2,048 MiB, shared flock, ≥ 120 s; gpumem logger 10 s / 1 s while scoring for the whole queue and its opening. ETA about 11-12 h of GPU after start; one opening.
+
+## 8. Build, smokes and launch gates
+**Done (E):**
+- **Code:** gaint `el_thin`, branch thin from e544133; code 9461ecc, smoked deploy d93d9a1, **run deploy c9bbb02** (= b4ddb08 + `scripts/b3/scuff_train_iou.py` **f6d77562** only, the 20k B3 readout incl. comparator runs; checked by coach: `git diff --stat b4ddb08 c9bbb02` = that one file; m0_audit_b3 still 7aa7d6d8; 0 tracked changes). b4ddb08 (coach ruling 1 Nov 00:3x: `git diff d93d9a1 b4ddb08` touches only `scripts/b3/m0_audit_b3.py` (now **7aa7d6d8**, a refactor calling the new tested helper `src/evaluation/b3_scuff.py`) and tests; no file in src/trainers, src/losses, src/data, scripts/train.py or configs changes (checked by coach; the only `b3_scuff` strings in training files are comments naming the spec), so S0's identity carries over; scorer identity re-run at b4ddb08: m0_audit_b3 without flags = opening-1 m0_audit cells on val / val_tta / test / ext; LA el_thin 419486b1 = el_f3 ec315d2e BYTE-IDENTICAL on f3_SUPPF s0 val (15e6fd36)). Earlier: deploy d93d9a1 (`reports/thin/DEPLOY`, 0 tracked changes; smoke script 92956d86). CPU identity vs e544133 (5 real steps; loss repr, lr, param / buffer sha, fixed-batch logits): house, PF and weight-0 switches IDENTICAL; SKR / CLD / B3 differ as designed. Suite 312 passed / 3 skipped.
+- **GPU smokes (runner side queue, 23:34-00:19, one at a time beside the lone RN50-PF s5, shared gate; `el_thin/reports/thin/smoke/smoke.log`):**
+
+  | smoke | result |
+  |---|---|
+  | S0 flags off, SUP100-PF s0, 2,000 steps | **IDENTICAL** to `f3_SUPPF_100pct_s0.stdout` (80 step + PF lr lines) → the **shared-baseline condition (§2) is met**: PF2's `pf2_SUPPF_100pct_s5..9` are the comparator |
+  | S1 SKR w 1 | finite; loss_srec 0.181 at 2k; peak 7,020 MiB (nvidia-smi); 3.26 steps/s beside RN50 |
+  | S2 CLD w 1, k 10 | finite; loss_cldice 0.410 at 2k; peak 8,374 MiB; 3.02 steps/s |
+  | S3 B3 | finite; peak 5,738 MiB; 3.42 steps/s; **train scuff IoU 0.0 at 2k** (0 of 3,246 GT scuff px predicted scuff: 2,372 → bg, 501 → crack, 182 → class 4, 185 → class 18) |
+  | S4 (runner, identity only) | `m0_audit_b3.py` (ba16eaed) without B3 flags on f3_SUPPF_100pct_s0: cells identical to opening-1 `m0_audit.py` on val / test / ext / val_tta (recomputes already-opened numbers; no new value) |
+- **Scorer:** calib's frozen B5 files as PF2 (FROZEN 475d78fb; el_metrics 6e73ff11 supports `--pooled-val`); GPU bf16 self-check exact on f3_SUPPF s0 val (side queue 31 Oct 23:32; protocol_PF2 §11).
+- **B3 mechanism risk (S, stated now):** at 2k the scuff class is not predicted at all (0.1% of train px, CE only, no class weighting by design). Reported at 20k: train scuff IoU per seed. If its 5-seed mean is < 0.10, B3 is reported as "scuff class not learned; the arm's effect is the relabelling of 649 train crack px", whatever the primaries show. Also reported at 20k on the 12 train scuff cells (`scuff_train_iou.py` f6d77562, **CPU fp32 for both arms**: GPU bf16 gave 501 vs CPU 490 crack-on-scuff px on the same checkpoint): mean p(scuff) on GT scuff px vs elsewhere, and crack px predicted on GT scuff px vs the comparator. E (builder, 2k, one seed, train cells; `builder_scratch/b3diag` e9cc84ae): p(scuff) 1.3e-4 on GT scuff vs 3.2e-5 elsewhere (≈ its 2.6e-5 pixel frequency), no px > 0.1; crack on GT scuff 490 vs the house 2k checkpoint 617 (−21%). S: B3 as spec'd (no class weight, one change) runs as Om approved; a weighted or Dice-on-scuff variant would be a separate, later arm needing its own OK.
+
+**Launch gates still open (runner, then coach APPROVED; target: queue armed before PF2's last run trains, ~07:20 1 Nov):**
+1. Jobs file (15 opts strings = pf2_jobs SUPPF opts + the one change per arm; seeds 5-9; run names `thin_{SKR,CLD,B3}_100pct_s{5..9}`), md5 recorded; per-run config re-diff vs `pf2_SUPPF_100pct_s0` config (SKR: `loss.skel_recall`; CLD: `loss.cldice` w 1 iters 10; B3: `data.scuff_class` 24, `model.num_classes` 25, `data.mask_subdir` masks_escdd_s) → HOLD on any other difference.
+2. Gates: SKR 9,100, CLD 10,500, B3 9,000 MiB (B3 uses the R34 peak 6,830 as a floor: its smoke peak 5,738 is below the 24-class run's), flock, 120 s; MAXC 2 until PF2's `pf2 scoring done` line, then 3; gpumem logger (10 s; 1 s while scoring) for the whole queue and its opening.
+3. Scorers at THIN-B3's opening: `rescore_label_versions.py` (1e41202b, same in el_f3 and el_thin); `m0_audit_b3.py` **7aa7d6d8** for all three arms (= m0_audit, S4 re-run at b4ddb08), with `--ext-scuff` (E1 crack-on-scuff, B3 secondary; also run on the comparator `pf2_SUPPF` s5-9, pre-registered here) and `--test-scuff` (test_noscuff, descriptive); LA: el_thin's `rescore_logit_adjust.py` (419486b1, 25-class prior for B3) = el_f3's (ec315d2e) byte for byte on a 24-class run (val only): **done**; calib's B5 hook with B3's 25-channel head: **confirmed without a patch** (calib, 1 Nov 00:3x; frozen md5s unchanged): the margin's max over k ≠ crack includes scuff, and el_metrics reads the argmax-without-crack map only as `== 11` (inactive), so a stored 24 counts as background exactly as m0_audit_b3's fold; tested (`test_b3_25ch.py` 2550ae3f: synthetic 25-channel logits with scuff the argmax at 35,285 px, 0 mismatches vs m0_audit_b3's rule; builder's S3 smoke checkpoint on val, 0 mismatches); the hook is called with CODE = el_thin for all THIN-B3 runs. Disclosed: calib's mask-format check read the max class id of the 50 test masks (21; no score or prediction); E1 relF1@2 co-primary from the m0 per-cell JSONs (`pf2_e1_extra.py`-style successor, md5 before launch).
+4. Opening trigger: all 15 trained rc 0; PF2's SUPPF s5-9 per-cell files reused unchanged (manifest re-checked); one opening, logged in `e1_openings.md` (#2).
+
+## 9. Build record and APPROVED (verified by coach on gaint, 2026-11-01 00:38 IST)
+- Deploy el_thin **c9bbb02** (HEAD = `reports/thin/DEPLOY`, 0 tracked changes; REVISION written at arming). Jobs `reports/thin/q/thin_jobs.txt` **0d613197** (15 runs `thin_{SKR,CLD,B3}_100pct_s5..9`, opts = pf2_jobs SUPPF opts + the one change, waves by seed).
+- Queue `thin_queue.sh` 46b871c1 (starts on "PF2 ALL TRAINED"; MAXC 2 until "pf2 scoring done", then 3; gates SKR 9,100 / CLD 10,500 / B3 9,000; per-run config re-diff vs pf2_SUPPF s5 → HOLD on mismatch); gpumem logger `thin_gpumem.sh` 83feb47d; trigger `thin_postwatch.sh` 3e08db72 (all 15 rc 0 AND PF2's "pf2 scoring done: post rc=0"); opening `thin_post.sh` **ca436052** (GS raised 7,900 → **9,900** on 1 Nov 08:30 after PF2's measured LA peak 7,758 MiB; trigger restarted by PID, new PID 2926375; before any THIN number) (asserts scorer md5s 1e41202b / 419486b1 / 7aa7d6d8 / f6d77562; PF2 comparator MANIFEST md5sum -c; every GPU call gated at GS 7,900; FAST for 1 s gpumem; B3 secondaries non-fatal: comparator ext-scuff with equality check vs PF2's ext cells, scuff_train_iou on CPU fp32 for B3 s5-9 and pf2_SUPPF s5-9); launcher `thin_launch.sh` 02bb74ab.
+- B5: `reports/thin/post_extra/FROZEN.md5` **584cabea** (md5sum -c OK): thin_b5.sh 2dfaf915 + calib dump c172717e / el_metrics 6e73ff11 / hook e06dfc5f / pooled 873591ff (no patch for B3's 25-channel head; per-run self-check at tol exact; DEVICE from PF2's B5_DEVICE = cuda; SUPPF arm-pooled OP from PF2's records).
+- E1 relF1@2 co-primary scorer `scripts/thin/thin_e1_relf1.py` **98bcb979** (= Track M agg on all 15 opening-1 runs; SUPPF s0-4 0.4438 ± 0.0258, threshold vs SUP 0.0416, matching coach's own computation).
+
+**APPROVED for launch (coach, 2026-11-01 00:38 IST).** Arm with `DEPLOY=c9bbb02 JOBS_MD5=0d613197d491fbedf82aa3b4f292db3c M0B3=7aa7d6d8 GS=7900 bash reports/thin/scripts/thin_launch.sh`. The queue starts only after PF2's last run trains. Nothing is stopped, re-ordered or re-parameterised on any number; one opening (E1 opening #2 in `e1_openings.md`). **Armed 1 Nov 00:38:42** (runner; queue PID 390091, trigger 390098, gpumem 389948).

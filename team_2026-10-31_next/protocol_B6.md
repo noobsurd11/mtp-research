@@ -1,0 +1,62 @@
+# Protocol B6: an in-distribution inactive test of the PF recipe by module-grouped cross-validation
+
+coach, 1 Nov 2026. **v1 LOCKED design (judge SIGNED 09d74b4c, `judge/review_B6_v0.md`; drafted 18:52 IST); v1.0.1 adds builder's --stems assert and judge's two non-blocking notes (no design change)**; v0.9 18:49 (048d5284), v0 14:30 (d90323de). **Status: design LOCKED (no number of any B6 run exists); APPROVED for launch after §8.2-8.4 (builder's roots + scorer md5s, runner's jobs, the user's spend decision).** User OK in principle 1 Nov ~13:15 (Om B6: "revisit if PF2 confirms the E1 inactive gain"; PF2 did, `verify_pf2.md`). judge's review: `judge/review_B6_v0.md` (036a7ef2) + message 1 Nov ~19:00 (items 1-6, all applied below). Tags: E / S.
+
+## 0. Why (E / S)
+- PF2: SUP100-PF − SUP100-g on test inactive IoU +0.017 (thr 0.029) n.d. on 5 v 5; paired image bootstrap 95% CI [−0.022, +0.072] (all 50; `results/pf2/coach_v/verify_PF2_tau0.txt`). E1 inactive +0.189 BETTER, but E1 is a different domain and was read many times before.
+- Test inactive is decided by a handful of cells: 16 inactive cells, top 3 hold 58.8% of inactive px, effective n (1/Σw², w = px share) **7.2** (E, PF2 m0 GT rows).
+- Train + val (E, coach count 18:47, `el_f3/data/labeled/masks_escdd`): **48 inactive cells** (train 42, val 6), 285,020 px; by source of px CFVS 78.2%, CSIR 10.9%, BMRK 10.4%, ARTS 0.4%. Effective n 21.5 by cell, but **13.3 by physical group** (judge's groups; reproduced by coach from `b6_groups.tsv`), group top-3 share 38.8%.
+- **Twins favour PF (E, judge, re-analysis of opened PF2 s5-9 per-cell files; descriptive, small n):** val inactive SUP→PF 0.423 → 0.509 (+0.086) on all 54 cells, but 0.501 → 0.472 (−0.029) without the 7 val cells that have a train twin; the val gain sits on `CFVS_00046_r8_c4` and `CFVS_00143_r4_c3`. coach's recompute with a broader twin set (9 val cells: any train cell of another image id in the same group) gives 0.521 → 0.499 (−0.022), same sign. Test +0.0173 on all 50, +0.0145 without the 7 D6 twins. So a fold key that leaks twins risks a false PASS driven by twin recall; hence §2's grouping.
+
+## 1. Question
+On held-out physical modules from the labelled pool, is SUP100-PF's inactive IoU higher than SUP100-g's (house recipe)? One contrast: PF − house. **Scope (S): mostly a CFVS claim** (78% of the inactive px).
+
+## 2. Data and folds (fixed before any run)
+- **Cells:** train 478 + val 54 = 532. **Test (50) and E1 (106) are excluded** and stay untouched for their own openings. CSIR_00300: 0 cells in train + val (judge).
+- **Groups (frozen):** judge's physical-module groups, `judge/out/b6_groups.tsv` **md5 5ff33e20** (column phys_group; `judge/b6_groups.py` d35b9359 from `judge/b6_audit.py` 8fa1106d; pair evidence `b6_neardup.tsv` 2a1dee00; montage `b6_twin_montage.png`, looked at by coach: the BMRK pair is two different cells, the CFVS pairs are the same cells at different stages). Edges: same image id; same source + same (r, c) + different image id with inactive or crack mask IoU ≥ 0.2; CFVS same position with 128-px high-pass r ≥ 0.90; D6's listed twins and early stages. BMRK / SDLE: no screen edges (D6; BMRK_00222 / 01660 checked visually, different cells). 334 groups (image-id keys: 354), 13 multi-image groups (8 with inactive), 35 groups with inactive; 47.6% of inactive px (17 of 48 inactive cells) sit in multi-image groups. The 512-px crops hold neighbouring cells with their labels, so whole images move together.
+- **Folds (frozen):** `results/b6/b6_folds.tsv` **md5 e2cafce1** by `scripts/coach/b6_folds.py` e0e684ba (deterministic greedy, no draw: inactive groups by px descending into the fold with the lowest running inactive px; then the other groups per source by size into the fold with the fewest cells of that source). Table (`results/b6/b6_folds_table.txt`):
+
+  | fold | cells (train / val) | groups | inactive cells | inactive px (share) | crack cells | crack px |
+  |---|---|---|---|---|---|---|
+  | 0 | 107 (97 / 10) | 66 | 10 | 56,753 (0.199) | 52 | 49,358 |
+  | 1 | 107 (94 / 13) | 68 | 8 | 57,565 (0.202) | 44 | 58,635 |
+  | 2 | 106 (98 / 8) | 64 | 7 | 57,142 (0.200) | 47 | 59,361 |
+  | 3 | 106 (95 / 11) | 69 | 15 | 56,785 (0.199) | 47 | 100,201 |
+  | 4 | 106 (94 / 12) | 67 | 8 | 56,775 (0.199) | 42 | 42,188 |
+
+  Sources per fold: ARTS 36-37, BMRK 10, CFVS 33-34, CSIR 22-23, SDLE 3-4. Largest inactive group: the `CFVS_00016` r7_c4 chain, 12 cells, 15.5% of inactive px (fold 0). Crack px is not balanced (fold 3 holds 100k); crack is reported only.
+
+## 3. Arms and runs
+- House = SUP100-g opts; PF = SUP100-PF opts (as `pf2_jobs.txt`, val off, 20,000 steps, batch 8, final weights). Seeds 5 and 6 for every (fold, arm): **5 folds × 2 arms × 2 seeds = 20 runs.** One hardware type for the whole experiment.
+- **Code e544133 unchanged; per-fold data root (judge item 3).** At e544133 `data.labeled_list` needs labeled_fraction < 1 and refuses stems outside `splits/train.txt` (train.py l.341-356), so val cells cannot enter by option. Instead each fold k gets a root `b6_root_k/` with `labeled/` (symlink to el_f3's `data/labeled`, md5-checked), `splits/train.txt` = the 4 other folds (~425 stems; order: the original train.txt order, then val.txt order), and **`splits/val.txt` = `splits/test.txt` = fold k's held-out stems**. E (train.py l.436-466 at e544133): train, val and test loaders all read `<root>/labeled/images` and the same `mask_subdir` (`labeled/masks_escdd`), and class counts come from the labelled list, so the root needs nothing else (builder's E: the 54 val masks in escdd_masks/val are byte-identical to labeled/masks_escdd). Run opts add only `data.root=<b6_root_k>`. Ruled over builder's new-key route (data.train_list + training.final_test=false on a new commit): the root route needs no code change and also makes the step-20000 val pass out-of-fold (builder flag b).
+  - Reason for val = test = fold k: e544133 evaluates the test split at the end of every run (trainer.py l.857-880). With this root that end-of-run evaluation sees only fold k's held-out cells, **never a real test or E1 cell**. Its logged numbers are not used for the verdict (§3's scorer is); the TEST block is reported as a cross-check of the scorer on the same fold (judge item 7). **Assert before launch: no real test stem and no E1 stem in any fold root's test.txt / val.txt / train.txt.**
+  - **Asserts per run (runner, from the stdout / train.log before the run counts):** the log line "Labelled: N ... val: n test: n" with N = the 4-fold size and n = fold k's size; "CE class weights" equal to builder's CPU computation from the 4-fold list (build_losses on that list's class counts) (they come from the labelled subset, train.py l.273, so they differ from full-train; tolerance 1e-3); the config re-diff vs pf2_{SUP,SUPPF}_100pct_s5 = `data.root` + seed only (else HOLD).
+- **Held-out scorer (judge item 4):** m0 per-cell format (conf, crack_rel2, crack_cc, inact_cc), argmax, final weights, TTA off, on **fold k's stem list only**. Asserts: `--stems` == the run's own `<data.root>/splits/test.txt` (read from its config_used.yaml; builder) and output cell set == fold k's stems; no stem in the real `splits/test.txt` or in the E1 eval list. Also asserts step 20000 on the weights it loads (latest.pth, final weights; the step-20000 val pass also writes best.pth, which is never scored; judge note 1). **No default m0_audit, rescore or LA pass** (they score test + ext; LA's log_prior would also read the wrong train list, builder flag c; B6 is argmax-only). Union over folds = one out-of-fold prediction per cell per (arm, seed).
+
+## 4. Verdict (pre-registered)
+- **Primary:** pooled out-of-fold inactive IoU over all 532 cells, per (arm, seed); Δ = mean over the 2 seeds (PF − house).
+- **CI (judge item 1): two-stage paired bootstrap**, 2,000 resamples, seed 0: (a) resample the §2 groups with replacement; (b) for each (fold, arm) draw the seed from {5, 6} with replacement; pool the resampled cells' counts per arm; Δ* = PF − house. 95% percentile CI.
+- **PASS ("in-distribution inactive gain"): CI lower bound > 0 and Δ ≥ 0.01** (rule 1's floor; judge item 2). **FAIL:** CI upper bound < 0. Else n.d.
+- n.d. wording (fixed now): "no in-distribution inactive gain detectable at this power; PF's inactive gain is shown on unseen panels (E1) only".
+- Reported: per seed-pair Δ (s5, s6), the one-stage (groups only) CI, crack IoU, crack relF1@2, per source, per fold, inactive component recall / precision (inact_cc), leave-top-3-groups-out (by inactive px), the twin-group subset vs the rest, the 5-fold × 2-seed table. No test, no E1.
+
+## 5. Expectations and power (S)
+- In-distribution inactive Δ +0.01 to +0.03 (test singles +0.017 all / +0.0145 without twins; E1 +0.19 is out of distribution).
+- **One power number (judge's two-stage estimate, seed noise included; coach's cell-only scaling 0.014-0.018 is consistent): SE ≈ 0.020.** PASS power ≈ **13% at Δ +0.017**, ≈ 32% at +0.03; 80% needs Δ ≈ **+0.055**. B6 will most likely be n.d. at test's effect size; it can show a ≥ +0.05 in-distribution gain or bound the effect. Stated before any run; the user decides with this number (team-lead).
+
+## 6. Cost, machine, order
+- 20 R34 runs of 20k steps (~16 GPU-h). **gaint:** ~16-17 h wall (GPU saturated), after HC and the A8 screen (and the A8 full arm if GO). **cv02** (8 × A6000): ~3.2 h per run at 3 per GPU; ≥ 3 qualifying GPUs (no other user > 4 GB on them, README) → 9 lanes, ~10 h; 4 GPUs ~6.5 h. One machine type for all 20. cv02 via runner only: e544133 by `git archive`, data md5 = gaint's, per-fold roots copied with md5s, a 1,000-step repeat-identity check of one run on A6000; never `ssh -A`, no keys on cv02.
+- E (runner, cv02 read-only snapshot 18:50, `ssh -a`, nothing started): 8 × A6000 49 GB; GPUs 0, 1, 5, 6, 7 idle (≤ 7 MiB); GPUs 2-4 held by another user's process (35.8 / 16.3 / 12.7 GB) → excluded. **5 qualify** → per the plan, **B6 runs on cv02 as one whole experiment** (≥ 3 qualifying), re-checked by runner before **each wave** (other users' memory per GPU; judge note 2): 3 per GPU on 5 GPUs = 15 lanes, ~6.5 h for 20 runs (2 waves); if fewer than 3 qualify, B6 is not run (user, §8.4).
+- Fallback if time is short: 1 seed (10 runs; gaint ~8 h), CI one-stage over groups, same PASS rule (disclosed; seed noise then unmeasured).
+
+## 7. Disclosures (judge item 6)
+- Val (54) was the selection set for B5 OPs and bias rules elsewhere; B6 uses argmax and PF's settings were fixed a priori, so no choice here depends on val.
+- ARTS r1_c6 near-identical clean cells (hp r 0.96-0.99, no defect px) are left ungrouped.
+- Each run trains on ~425 cells (train 478 in the house runs): a smaller train set for every arm alike.
+- Multiplicity: one contrast, one primary.
+
+## 8. Before lock / APPROVED
+1. judge: **SIGNED v1 (md5 09d74b4c), 1 Nov ~19:00**: folds e2cafce1 re-checked with judge's own code (532 = train ∪ val, 0 test / 0 E1 stems, phys_group = 5ff33e20 for every stem, 0 of 334 groups split, per-fold inactive px 56,753-57,565); power arithmetic confirmed.
+2. builder: per-fold roots (5) from `b6_folds.tsv`, md5s, the no-test / no-E1 assert; one CPU check per root that train.py's data build loads exactly fold k's complement ('Labelled: N ... val: n test: n') and its CE weights; held-out scorer tested on f3_SUPPF_100pct_s0 with the 54 val stems = its opening-1 m0 val cells exactly; the CE-weight table per fold (CPU).
+3. runner: cv02 snapshot → machine; jobs (20, md5), config re-diff (`data.root` + seed only), gates from measured peaks, gpumem logger; one scoring pass after all 20 trained.
+4. **User decision (team-lead, 1 Nov ~19:00): "Only if cv02 frees up".** Run on cv02 as one whole experiment if ≥ 3 GPUs qualify (no other user > 4 GB) at launch; otherwise **skip** (no gaint time). Report it as low-powered either way, with §5's numbers (v1: ~13% at +0.017, 80% at ~+0.055; the v0.9 estimate shown to the user was 15-25% / +0.04-0.05, same conclusion). Runner watches cv02 and launches only on coach's APPROVED with a qualifying snapshot (re-checked per wave).

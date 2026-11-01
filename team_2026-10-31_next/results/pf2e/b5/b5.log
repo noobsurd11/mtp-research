@@ -1,0 +1,250 @@
+c172717e5989edb8e0b7b312096f9180  /home/noob/work/el_f3/reports/pf2/post_extra/calib/calib_dump.py
+6e73ff11aaa6171a52b5a5404877ab46  /home/noob/work/el_f3/reports/pf2/post_extra/calib/el_metrics.py
+4e7bd28e68606a6a565a3b23d6320bf5  pf2e_b5.sh
+405384198c47d30553927b5648c2be90  out/pf2e_val_decisions.json
+73b68c6b01d3a1e89d0190051e559d38  out/E-g.b0.json
+d6e1c5498c9fa32a097192db0631b7b3  out/E-PF.b0.json
+[2s] group E-g: 5 models: ['/home/noob/work/el_f3/experiments/pf2_SUP_100pct_s5', '/home/noob/work/el_f3/experiments/pf2_SUP_100pct_s6', '/home/noob/work/el_f3/experiments/pf2_SUP_100pct_s7', '/home/noob/work/el_f3/experiments/pf2_SUP_100pct_s8', '/home/noob/work/el_f3/experiments/pf2_SUP_100pct_s9']
+[76s] E-g val: 54 cells -> ['E-g']
+[145s] E-g test: 50 cells -> ['E-g']
+[293s] E-g ext: 106 cells -> ['E-g']
+[294s] group E-PF: 5 models: ['/home/noob/work/el_f3/experiments/pf2_SUPPF_100pct_s5', '/home/noob/work/el_f3/experiments/pf2_SUPPF_100pct_s6', '/home/noob/work/el_f3/experiments/pf2_SUPPF_100pct_s7', '/home/noob/work/el_f3/experiments/pf2_SUPPF_100pct_s8', '/home/noob/work/el_f3/experiments/pf2_SUPPF_100pct_s9']
+[356s] E-PF val: 54 cells -> ['E-PF']
+[414s] E-PF test: 50 cells -> ['E-PF']
+[544s] E-PF ext: 106 cells -> ['E-PF']
+DONE 544s
+[Sun Nov  1 07:36:28 PM IST 2026] b5 dump rc=0
+el_metrics 6e73ff11aaa6171a52b5a5404877ab46 records selfcheck at b = 0, tol profile exact
+dump /home/noob/work/el_f3/reports/pf2e/b5_work/dump/E-g.val.npz
+m0 out/E-g.b0.json md5 73b68c6b01d3a1e89d0190051e559d38 set val
+  IoU: records 0.4352 m0 0.4352 delta +0.00000 (tol 0.0005)
+  relP: records 0.9357 m0 0.9357 delta +0.00000 (tol 0.0005)
+  relR: records 0.8527 m0 0.8527 delta +0.00000 (tol 0.0005)
+  inactIoU: records 0.4355 m0 0.4355 delta +0.00000 (tol 0.0005)
+  compR: records 0.7920 m0 0.7920 delta +0.00000 (tol 0.0005)
+  compP: records 0.9552 m0 0.9552 delta +0.00000 (tol 0.0005)
+SELFCHECK PASS
+
+[Sun Nov  1 07:36:30 PM IST 2026] b5 records+selfcheck E-g val profile exact rc=0
+el_metrics 6e73ff11aaa6171a52b5a5404877ab46 records selfcheck at b = 0, tol profile exact
+dump /home/noob/work/el_f3/reports/pf2e/b5_work/dump/E-g.test.npz
+m0 out/E-g.b0.json md5 73b68c6b01d3a1e89d0190051e559d38 set test
+  IoU: records 0.4788 m0 0.4788 delta +0.00000 (tol 0.0005)
+  relP: records 0.9549 m0 0.9549 delta +0.00000 (tol 0.0005)
+  relR: records 0.8195 m0 0.8195 delta +0.00000 (tol 0.0005)
+  inactIoU: records 0.4376 m0 0.4376 delta +0.00000 (tol 0.0005)
+  compR: records 0.7884 m0 0.7884 delta +0.00000 (tol 0.0005)
+  compP: records 0.9701 m0 0.9701 delta +0.00000 (tol 0.0005)
+SELFCHECK PASS
+
+[Sun Nov  1 07:36:32 PM IST 2026] b5 records+selfcheck E-g test profile exact rc=0
+el_metrics 6e73ff11aaa6171a52b5a5404877ab46 records selfcheck at b = 0, tol profile exact
+dump /home/noob/work/el_f3/reports/pf2e/b5_work/dump/E-g.ext.npz
+m0 out/E-g.b0.json md5 73b68c6b01d3a1e89d0190051e559d38 set ext
+  IoU: records 0.1411 m0 0.1411 delta +0.00000 (tol 0.0005)
+  relP: records 0.6258 m0 0.6258 delta +0.00000 (tol 0.0005)
+  relR: records 0.2929 m0 0.2929 delta +0.00000 (tol 0.0005)
+  inactIoU: records 0.0665 m0 0.0665 delta +0.00000 (tol 0.0005)
+  compR: records 0.1588 m0 0.1588 delta +0.00000 (tol 0.0005)
+  compP: records 0.6699 m0 0.6699 delta +0.00000 (tol 0.0005)
+SELFCHECK PASS
+
+[Sun Nov  1 07:36:38 PM IST 2026] b5 records+selfcheck E-g ext profile exact rc=0
+{
+ "set": "test",
+ "op_comp": {
+  "b": 1.1,
+  "j": 52,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.864,
+  "val_P": 0.9071428571428571
+ },
+ "op_rel": {
+  "b": 1.2,
+  "j": 53,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.8999156518530234,
+  "val_P": 0.9026889562062904
+ },
+ "comp_recall_at_opc": 0.8306878306878307,
+ "relR_at_opr": 0.8654777678823555,
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": false
+}
+[Sun Nov  1 07:36:39 PM IST 2026] b5 summary E-g test (deployed b 0.0) rc=0
+{
+ "set": "ext",
+ "op_comp": {
+  "b": 1.1,
+  "j": 52,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.864,
+  "val_P": 0.9071428571428571
+ },
+ "op_rel": {
+  "b": 1.2,
+  "j": 53,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.8999156518530234,
+  "val_P": 0.9026889562062904
+ },
+ "comp_recall_at_opc": 0.2533783783783784,
+ "relR_at_opr": 0.3997336966619186,
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": true
+}
+[Sun Nov  1 07:36:39 PM IST 2026] b5 summary E-g ext (deployed b 0.0) rc=0
+{
+ "set": "test",
+ "op_comp": {
+  "b": 1.1,
+  "j": 52,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.864,
+  "val_P": 0.9071428571428571
+ },
+ "op_rel": {
+  "b": 1.2,
+  "j": 53,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.8999156518530234,
+  "val_P": 0.9026889562062904
+ },
+ "comp_recall_at_opc": 0.839572192513369,
+ "relR_at_opr": 0.8729391917797715,
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": false
+}
+[Sun Nov  1 07:36:39 PM IST 2026] b5 summary E-g test_clean (deployed b 0.0) rc=0
+el_metrics 6e73ff11aaa6171a52b5a5404877ab46 records selfcheck at b = 0, tol profile exact
+dump /home/noob/work/el_f3/reports/pf2e/b5_work/dump/E-PF.val.npz
+m0 out/E-PF.b0.json md5 d6e1c5498c9fa32a097192db0631b7b3 set val
+  IoU: records 0.4338 m0 0.4338 delta +0.00000 (tol 0.0005)
+  relP: records 0.9422 m0 0.9422 delta +0.00000 (tol 0.0005)
+  relR: records 0.8496 m0 0.8496 delta +0.00000 (tol 0.0005)
+  inactIoU: records 0.5085 m0 0.5085 delta +0.00000 (tol 0.0005)
+  compR: records 0.8000 m0 0.8000 delta +0.00000 (tol 0.0005)
+  compP: records 0.9630 m0 0.9630 delta +0.00000 (tol 0.0005)
+SELFCHECK PASS
+
+[Sun Nov  1 07:36:41 PM IST 2026] b5 records+selfcheck E-PF val profile exact rc=0
+el_metrics 6e73ff11aaa6171a52b5a5404877ab46 records selfcheck at b = 0, tol profile exact
+dump /home/noob/work/el_f3/reports/pf2e/b5_work/dump/E-PF.test.npz
+m0 out/E-PF.b0.json md5 d6e1c5498c9fa32a097192db0631b7b3 set test
+  IoU: records 0.4815 m0 0.4815 delta +0.00000 (tol 0.0005)
+  relP: records 0.9541 m0 0.9541 delta +0.00000 (tol 0.0005)
+  relR: records 0.8414 m0 0.8414 delta +0.00000 (tol 0.0005)
+  inactIoU: records 0.4613 m0 0.4613 delta +0.00000 (tol 0.0005)
+  compR: records 0.7989 m0 0.7989 delta +0.00000 (tol 0.0005)
+  compP: records 0.9539 m0 0.9539 delta +0.00000 (tol 0.0005)
+SELFCHECK PASS
+
+[Sun Nov  1 07:36:43 PM IST 2026] b5 records+selfcheck E-PF test profile exact rc=0
+el_metrics 6e73ff11aaa6171a52b5a5404877ab46 records selfcheck at b = 0, tol profile exact
+dump /home/noob/work/el_f3/reports/pf2e/b5_work/dump/E-PF.ext.npz
+m0 out/E-PF.b0.json md5 d6e1c5498c9fa32a097192db0631b7b3 set ext
+  IoU: records 0.1582 m0 0.1582 delta +0.00000 (tol 0.0005)
+  relP: records 0.5877 m0 0.5877 delta +0.00000 (tol 0.0005)
+  relR: records 0.3447 m0 0.3447 delta +0.00000 (tol 0.0005)
+  inactIoU: records 0.2807 m0 0.2807 delta +0.00000 (tol 0.0005)
+  compR: records 0.2095 m0 0.2095 delta +0.00000 (tol 0.0005)
+  compP: records 0.6083 m0 0.6083 delta +0.00000 (tol 0.0005)
+SELFCHECK PASS
+
+[Sun Nov  1 07:36:48 PM IST 2026] b5 records+selfcheck E-PF ext profile exact rc=0
+{
+ "set": "test",
+ "op_comp": {
+  "b": 1.5,
+  "j": 56,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.888,
+  "val_P": 0.9
+ },
+ "op_rel": {
+  "b": 1.5,
+  "j": 56,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.9089040012652222,
+  "val_P": 0.9011232098247488
+ },
+ "comp_recall_at_opc": 0.8624338624338624,
+ "relR_at_opr": 0.9035123922062689,
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": false
+}
+[Sun Nov  1 07:36:48 PM IST 2026] b5 summary E-PF test (deployed b 0.0) rc=0
+{
+ "set": "ext",
+ "op_comp": {
+  "b": 1.5,
+  "j": 56,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.888,
+  "val_P": 0.9
+ },
+ "op_rel": {
+  "b": 1.5,
+  "j": 56,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.9089040012652222,
+  "val_P": 0.9011232098247488
+ },
+ "comp_recall_at_opc": 0.3783783783783784,
+ "relR_at_opr": 0.4979253112033195,
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": true
+}
+[Sun Nov  1 07:36:48 PM IST 2026] b5 summary E-PF ext (deployed b 0.0) rc=0
+{
+ "set": "test",
+ "op_comp": {
+  "b": 1.5,
+  "j": 56,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.888,
+  "val_P": 0.9
+ },
+ "op_rel": {
+  "b": 1.5,
+  "j": 56,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.9089040012652222,
+  "val_P": 0.9011232098247488
+ },
+ "comp_recall_at_opc": 0.8716577540106952,
+ "relR_at_opr": 0.9106882688663227,
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": false
+}
+[Sun Nov  1 07:36:49 PM IST 2026] b5 summary E-PF test_clean (deployed b 0.0) rc=0

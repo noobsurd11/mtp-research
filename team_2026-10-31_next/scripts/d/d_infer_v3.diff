@@ -1,0 +1,108 @@
+5a6,10
+> v3 (runner, 1 Nov; protocol_PF2 §3c RN named secondary, pre-registered): --pf2-rn --suppf SUPPF x5 --rn50pf RN50PF x5 --m0ref DIR
+>   scores only the two 5-member mean-softmax ensembles SUPPF_5 (comparator) and RN50PF_5 on val + E1 (no test, no BN-HC, no FINAL);
+>   gate before any E1 read: SUPPF s5 alone on CPU fp32 vs its PF2-opening m0 JSON (GPU bf16), val pooled crack IoU and relF1@2 at
+>   bias 0, |delta| <= 0.005, else stop. Read at bias +0.75 as D: RN50PF_5 - SUPPF_5. Outputs *_pf2_rn.
+>   python d_infer.py --pf2-rn --code EL_F3 --tm DIR --out OUT --suppf ... --rn50pf ... --m0ref EL_F3/reports/pf2/post/m0 --threads 8
+21c26
+< ap.add_argument("--final", nargs=5, required=True)
+---
+> ap.add_argument("--final", nargs=5)
+24a30,32
+> ap.add_argument("--pf2-rn", action="store_true", help="v3: PF2's RN named secondary: SUPPF_5 vs RN50PF_5 ensembles only")
+> ap.add_argument("--suppf", nargs=5); ap.add_argument("--rn50pf", nargs=5); ap.add_argument("--m0ref")
+> ap.add_argument("--gate-only", action="store_true", help="v3 dry check: load the 10 models, run the val gate, exit before any E1 cell is read")
+72,75c80,89
+< final = [load(r) for r in a.final]; rn50 = [load(r) for r in a.rn50] if (a.rn50 and not a.only_r34_10) else []
+< sup10 = [load(r) for r in a.sup10] if a.sup10 else []
+< assert not a.only_r34_10 or len(sup10) == 5, "--only-r34-10 needs --sup10"
+< meta = {"final": [x[1] for x in final], "rn50": [x[1] for x in rn50], "sup10": [x[1] for x in sup10]}
+---
+> assert a.pf2_rn or a.final, "--final is required unless --pf2-rn"
+> if a.pf2_rn:  # v3: the two PF2 ensembles; "final" holds SUPPF_5 (the comparator), "rn50" RN50PF_5
+>     assert a.suppf and a.rn50pf and a.m0ref and not (a.only_r34_10 or a.sup10)
+>     final = [load(r) for r in a.suppf]; rn50 = [load(r) for r in a.rn50pf]; sup10 = []
+>     meta = {"suppf": [x[1] for x in final], "rn50pf": [x[1] for x in rn50]}
+> else:
+>     final = [load(r) for r in a.final]; rn50 = [load(r) for r in a.rn50] if (a.rn50 and not a.only_r34_10) else []
+>     sup10 = [load(r) for r in a.sup10] if a.sup10 else []
+>     assert not a.only_r34_10 or len(sup10) == 5, "--only-r34-10 needs --sup10"
+>     meta = {"final": [x[1] for x in final], "rn50": [x[1] for x in rn50], "sup10": [x[1] for x in sup10]}
+81c95,117
+< if not a.limit:
+---
+> if a.pf2_rn and not a.limit:  # v3 gate: SUPPF s5 alone, CPU fp32 vs its PF2-opening m0 JSON (GPU bf16), val, bias 0
+>     r5 = Path(a.suppf[0]).name; ref5 = json.load(open(Path(a.m0ref) / f"{r5}.json"))["cells"]["val"]; mine5 = {}
+>     with torch.no_grad():
+>         for s_ in _val:
+>             x_ = x_of(D / "labeled" / "images" / f"{s_}.png"); g_ = np.array(Image.open(D / "escdd_masks" / "val" / f"{s_}.png"))
+>             p_ = torch.softmax(final[0][0](x_).float(), 1)[0]
+>             mine5[s_] = cell_stats(torch.log(p_ + 1e-12).argmax(0).numpy(), g_, None, p_[CRACK].numpy())
+>     def _pool(cs):
+>         C_ = sum(np.array(v["conf"], np.int64).reshape(NC, NC) for v in cs.values()); tp_ = np.diag(C_).astype(float)
+>         den_ = C_.sum(1) + C_.sum(0) - tp_; rel_ = np.sum([v["crack_rel2"] for v in cs.values()], 0)
+>         rP_, rR_ = rel_[0] / max(rel_[1], 1), rel_[2] / max(rel_[3], 1)
+>         return {"crack_iou": tp_[CRACK] / max(den_[CRACK], 1), "relF1": 2 * rP_ * rR_ / max(rP_ + rR_, 1e-9)}
+>     me5, rf5 = _pool(mine5), _pool({s_: ref5[s_] for s_ in _val}); _bad = False
+>     _lines = [f"v3 gate: {r5} alone, val, bias 0: gaint CPU fp32 vs its PF2-opening m0 JSON (GPU bf16); tolerance 0.005:"]
+>     for k_ in me5:
+>         d_ = me5[k_] - rf5[k_]; _bad |= abs(d_) > 0.005; _lines.append(f"  {k_}: {me5[k_]:.4f} (ref {rf5[k_]:.4f}, delta {d_:+.4f})")
+>     _lines.append("  -> " + ("FAIL: stop before any E1 read" if _bad else "within tolerance: proceed"))
+>     (OUT / "d_crosscheck_pf2_rn.txt").write_text("\n".join(_lines) + "\n"); print("\n".join(_lines), flush=True)
+>     if _bad:
+>         sys.exit(3)
+>     if a.gate_only:
+>         print("gate-only: stopping before any E1 cell", flush=True); sys.exit(0)
+> if not a.limit and not a.pf2_rn:
+107,115c143,154
+< inv = json.load(open("/home/noob/work/sa-unetpp-ssl-el/data/unlabeled/_inventory.json"))
+< half = {Path(e["name"]).stem for e in inv if "half" in e.get("rel", "").lower()}
+< pool = [r.strip() for r in open("/home/noob/work/el_f1/reports/f1/mim_pool_v11.txt") if r.strip().startswith("unlabeled/")]
+< hc_paths = [D / r for r in pool if Path(r).stem in half]
+< assert len(hc_paths) == 986, len(hc_paths)
+< if a.limit:  # smoke only
+<     hc_paths = hc_paths[:16]
+< bnhc = [] if a.only_r34_10 else [bn_reestimate(m, hc_paths) for m, _ in final]
+< print(f"BN re-estimated on {len(hc_paths)} pool half-cells, {time.time() - t0:.0f} s", flush=True)
+---
+> if a.pf2_rn:  # v3: no BN-HC
+>     bnhc = []
+> else:
+>     inv = json.load(open("/home/noob/work/sa-unetpp-ssl-el/data/unlabeled/_inventory.json"))
+>     half = {Path(e["name"]).stem for e in inv if "half" in e.get("rel", "").lower()}
+>     pool = [r.strip() for r in open("/home/noob/work/el_f1/reports/f1/mim_pool_v11.txt") if r.strip().startswith("unlabeled/")]
+>     hc_paths = [D / r for r in pool if Path(r).stem in half]
+>     assert len(hc_paths) == 986, len(hc_paths)
+>     if a.limit:  # smoke only
+>         hc_paths = hc_paths[:16]
+>     bnhc = [] if a.only_r34_10 else [bn_reestimate(m, hc_paths) for m, _ in final]
+>     print(f"BN re-estimated on {len(hc_paths)} pool half-cells, {time.time() - t0:.0f} s", flush=True)
+123a163,164
+> if a.pf2_rn:  # v3: "FINAL" slot = SUPPF_5 (comparator), "RN50_5" slot = RN50PF_5; renamed in the outputs
+>     VARS = ["FINAL", "RN50_5"]
+147a189,190
+>             elif a.pf2_rn:
+>                 P = {"FINAL": pf, "RN50_5": sm([m for m, _ in rn50])}
+195c238,242
+< TAG = "_r34_10" if a.only_r34_10 else ""
+---
+> TAG = "_r34_10" if a.only_r34_10 else ("_pf2_rn" if a.pf2_rn else "")
+> if a.pf2_rn:  # v3: rename the slots for the outputs (SUPPF_5 = comparator, RN50PF_5)
+>     REN = {"FINAL": "SUPPF_5", "RN50_5": "RN50PF_5"}
+>     res = {"meta": meta, **{sp: {k.replace(k.split("@")[0], REN[k.split("@")[0]]): v for k, v in res[sp].items()} for sp in ("val", "ext")}}
+>     cells = {sp: {REN[v]: d for v, d in vv.items()} for sp, vv in cells.items()}
+197a245,258
+> if a.pf2_rn:  # v3 report: RN50PF_5 - SUPPF_5 at bias +0.75 (as D), descriptive; val as the sanity read; no test
+>     F = res["ext"]["SUPPF_5@b0.75"]; Fv = res["val"]["SUPPF_5@b0.75"]; e = res["ext"]["RN50PF_5@b0.75"]; vv = res["val"]["RN50PF_5@b0.75"]
+>     L = ["PF2 RN named secondary (protocol_PF2 §3c; descriptive; computed after opening #1 on the same models): 5-member mean-softmax",
+>          "ensembles, crack bias +0.75 (D's rule); CPU fp32; val + E1 only.", (OUT / "d_crosscheck_pf2_rn.txt").read_text().rstrip()]
+>     for name, x, xv in (("SUPPF_5", F, Fv), ("RN50PF_5", e, vv)):
+>         L.append(f"  {name}: E1 scuff+half-cut (29) recall {x['recall_target_scuff_halfcut29']:.3f}; half-cut no-scuff (29) {x['recall_halfcut_noscuff29']:.3f}; "
+>                  f"full (48) {x['recall_full48']:.3f}; E1 crack P {x['crack_P']:.3f}, R {x['crack_R']:.3f}, IoU {x['crack_iou']:.3f}; crack px on "
+>                  f"{x['crackfree_cells']} crack-free E1 cells {x['crack_px_on_crackfree']}; E1 inact IoU {x['inact_iou']:.3f} | val crack IoU {xv['crack_iou']:.4f}, "
+>                  f"relF1@2 {xv['relF1']:.4f}, inact IoU {xv['inact_iou']:.4f}")
+>     L.append(f"  RN50PF_5 - SUPPF_5: target recall {e['recall_target_scuff_halfcut29'] - F['recall_target_scuff_halfcut29']:+.3f}; must-not-hurt "
+>              f"{e['recall_halfcut_noscuff29'] - F['recall_halfcut_noscuff29']:+.3f}; full48 {e['recall_full48'] - F['recall_full48']:+.3f}; E1 crack P "
+>              f"{e['crack_P'] - F['crack_P']:+.3f}; crack px on crack-free {e['crack_px_on_crackfree'] - F['crack_px_on_crackfree']:+d}; val relF1@2 {vv['relF1'] - Fv['relF1']:+.4f}")
+>     (OUT / f"d_report{TAG}.txt").write_text("\n".join(L) + "\n"); print("\n".join(L)); print(f"total {time.time() - t0:.0f} s")
+>     sys.exit(0)

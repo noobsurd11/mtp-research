@@ -1,0 +1,11 @@
+--- calib_dump.py_c172717e
++++ a8_calib_dump_4k.py
+@@ -51,7 +51,7 @@
+ def load(run):
+     run = Path(run); cfg = load_config(run / "config_used.yaml")
+     st = torch.load(run / "checkpoints" / "latest.pth", map_location="cpu", weights_only=False)
+-    assert int(st.get("step", -1)) == 20000, run
++    assert int(st.get("step", -1)) == 4000, run  # a8 4k screen: the ONLY change vs calib_dump c172717e (l.54: == 20000)
+     mc = {k: v for k, v in cfg["model"].items() if k not in ("encoder_init", "decoder_init")}; mc["encoder_weights"] = None
+     m = build_model(mc); m.load_state_dict(st["models"]["model"]); m.eval()
+     return m.to(a.device)

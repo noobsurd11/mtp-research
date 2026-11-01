@@ -1,0 +1,102 @@
+idea 7 backfill (calib, descriptive; val + E1 + Hanifi rf only, no test). Per-run OPs chosen on that run's val.
+cell metrics at the deployed b (0 single runs, +0.75 FINAL); cell positive = GT crack >= 20 px; flag = >= 20 px predicted.
+mean (sd) over seeds; FINAL = one ensemble.
+
+SUP5    val        n=54 comps=125 cells+/-/amb=23/31/0: compR@OPc 0.818(0.021); compP@OPc 0.923(0.018); relR@OPr 0.868(0.005); relP@OPr 0.901(0.000); cellR 0.957(0.000); cellFA 0.052(0.029); cellP 0.933(0.034); cellAUROC 0.994(0.004); inactMAE% 0.069(0.018); inactMAE%(inact cells) 0.830(0.169); crackIoU@dep 0.425(0.004); relR@dep 0.851(0.007); b_OPc 0.600(2.077); b_OPr 1.700(0.689)
+SUP5    E1         n=106 comps=296 cells+/-/amb=32/74/0: compR@OPc 0.164(0.056); compP@OPc 0.503(0.086); relR@OPr 0.318(0.044); relP@OPr 0.525(0.055); cellR 0.850(0.068); cellFA 0.314(0.072); cellP 0.544(0.055); cellAUROC 0.869(0.012); inactMAE% 0.182(0.033); inactMAE%(inact cells) 0.937(0.102); crackIoU@dep 0.142(0.011); relR@dep 0.292(0.033); b_OPc 0.600(2.077); b_OPr 1.700(0.689)
+SUP5    E1 sh29    n=29 comps=274 cells+/-/amb=20/9/0: compR@OPc 0.126(0.059); compP@OPc 0.739(0.064); relR@OPr 0.202(0.056); relP@OPr 0.623(0.042); cellR 0.830(0.091); cellFA 0.578(0.165); cellP 0.764(0.051); cellAUROC 0.782(0.072); inactMAE% 0.166(0.020); inactMAE%(inact cells) 0.888(0.113); crackIoU@dep 0.086(0.021); relR@dep 0.178(0.044); b_OPc 0.600(2.077); b_OPr 1.700(0.689)
+SUP5    E1 other77 n=77 comps=22 cells+/-/amb=12/65/0: compR@OPc 0.627(0.081); compP@OPc 0.350(0.125); relR@OPr 0.669(0.043); relP@OPr 0.465(0.073); cellR 0.883(0.046); cellFA 0.277(0.067); cellP 0.378(0.058); cellAUROC 0.901(0.011); inactMAE% 0.188(0.044); inactMAE%(inact cells) 1.184(0.085); crackIoU@dep 0.262(0.024); relR@dep 0.638(0.051); b_OPc 0.600(2.077); b_OPr 1.700(0.689)
+SUP5    rf         n=106 comps=88 cells+/-/amb=38/62/6: compR@OPc 0.495(0.029); compP@OPc 0.726(0.060); relR@OPr 0.779(0.021); relP@OPr 0.772(0.013); cellR 0.479(0.022); cellFA 0.126(0.021); cellP 0.701(0.037); cellAUROC 0.694(0.022); inactMAE% 0.160(0.041); inactMAE%(inact cells) 1.920(0.206); crackIoU@dep 0.363(0.011); relR@dep 0.760(0.020); b_OPc 0.600(2.077); b_OPr 1.700(0.689)
+SUP5    rf F51     n=51 comps=43 cells+/-/amb=12/34/5: compR@OPc 0.679(0.030); compP@OPc 0.667(0.096); relR@OPr 0.851(0.004); relP@OPr 0.808(0.020); cellR 0.567(0.037); cellFA 0.129(0.034); cellP 0.611(0.075); cellAUROC 0.662(0.035); inactMAE% 0.272(0.075); inactMAE%(inact cells) 2.261(0.346); crackIoU@dep 0.436(0.008); relR@dep 0.838(0.002); b_OPc 0.600(2.077); b_OPr 1.700(0.689)
+
+SUPPF5  val        n=54 comps=125 cells+/-/amb=23/31/0: compR@OPc 0.846(0.023); compP@OPc 0.912(0.015); relR@OPr 0.876(0.009); relP@OPr 0.900(0.000); cellR 0.974(0.024); cellFA 0.013(0.018); cellP 0.983(0.024); cellAUROC 0.997(0.005); inactMAE% 0.049(0.014); inactMAE%(inact cells) 0.679(0.218); crackIoU@dep 0.421(0.007); relR@dep 0.846(0.009); b_OPc 4.440(2.764); b_OPr 3.780(0.952)
+SUPPF5  E1         n=106 comps=296 cells+/-/amb=32/74/0: compR@OPc 0.309(0.067); compP@OPc 0.450(0.110); relR@OPr 0.426(0.040); relP@OPr 0.480(0.027); cellR 0.863(0.036); cellFA 0.257(0.044); cellP 0.594(0.034); cellAUROC 0.889(0.013); inactMAE% 0.097(0.006); inactMAE%(inact cells) 0.382(0.074); crackIoU@dep 0.167(0.015); relR@dep 0.380(0.035); b_OPc 4.440(2.764); b_OPr 3.780(0.952)
+SUPPF5  E1 sh29    n=29 comps=274 cells+/-/amb=20/9/0: compR@OPc 0.271(0.070); compP@OPc 0.691(0.098); relR@OPr 0.316(0.043); relP@OPr 0.611(0.024); cellR 0.830(0.057); cellFA 0.400(0.061); cellP 0.822(0.027); cellAUROC 0.856(0.031); inactMAE% 0.069(0.016); inactMAE%(inact cells) 0.300(0.087); crackIoU@dep 0.133(0.020); relR@dep 0.270(0.037); b_OPc 4.440(2.764); b_OPr 3.780(0.952)
+SUPPF5  E1 other77 n=77 comps=22 cells+/-/amb=12/65/0: compR@OPc 0.782(0.038); compP@OPc 0.249(0.088); relR@OPr 0.759(0.033); relP@OPr 0.373(0.035); cellR 0.917(0.000); cellFA 0.237(0.052); cellP 0.422(0.049); cellAUROC 0.916(0.022); inactMAE% 0.107(0.002); inactMAE%(inact cells) 0.794(0.069); crackIoU@dep 0.239(0.006); relR@dep 0.710(0.034); b_OPc 4.440(2.764); b_OPr 3.780(0.952)
+SUPPF5  rf         n=106 comps=88 cells+/-/amb=38/62/6: compR@OPc 0.466(0.016); compP@OPc 0.807(0.063); relR@OPr 0.699(0.015); relP@OPr 0.759(0.036); cellR 0.326(0.040); cellFA 0.045(0.013); cellP 0.818(0.034); cellAUROC 0.700(0.027); inactMAE% 0.188(0.064); inactMAE%(inact cells) 1.948(0.086); crackIoU@dep 0.307(0.015); relR@dep 0.670(0.014); b_OPc 4.440(2.764); b_OPr 3.780(0.952)
+SUPPF5  rf F51     n=51 comps=43 cells+/-/amb=12/34/5: compR@OPc 0.674(0.023); compP@OPc 0.771(0.076); relR@OPr 0.845(0.009); relP@OPr 0.781(0.061); cellR 0.450(0.046); cellFA 0.047(0.034); cellP 0.782(0.147); cellAUROC 0.704(0.112); inactMAE% 0.331(0.135); inactMAE%(inact cells) 2.330(0.086); crackIoU@dep 0.401(0.020); relR@dep 0.813(0.017); b_OPc 4.440(2.764); b_OPr 3.780(0.952)
+
+MIMPF5  val        n=54 comps=125 cells+/-/amb=23/31/0: compR@OPc 0.821(0.016); compP@OPc 0.917(0.023); relR@OPr 0.866(0.005); relP@OPr 0.901(0.000); cellR 0.974(0.024); cellFA 0.058(0.042); cellP 0.928(0.051); cellAUROC 0.997(0.003); inactMAE% 0.055(0.006); inactMAE%(inact cells) 0.753(0.095); crackIoU@dep 0.422(0.005); relR@dep 0.830(0.004); b_OPc 3.600(1.699); b_OPr 4.300(0.308)
+MIMPF5  E1         n=106 comps=296 cells+/-/amb=32/74/0: compR@OPc 0.281(0.035); compP@OPc 0.440(0.049); relR@OPr 0.420(0.020); relP@OPr 0.440(0.005); cellR 0.912(0.034); cellFA 0.346(0.034); cellP 0.534(0.022); cellAUROC 0.894(0.022); inactMAE% 0.170(0.014); inactMAE%(inact cells) 0.533(0.045); crackIoU@dep 0.151(0.004); relR@dep 0.355(0.016); b_OPc 3.600(1.699); b_OPr 4.300(0.308)
+MIMPF5  E1 sh29    n=29 comps=274 cells+/-/amb=20/9/0: compR@OPc 0.240(0.034); compP@OPc 0.706(0.063); relR@OPr 0.320(0.021); relP@OPr 0.570(0.035); cellR 0.910(0.055); cellFA 0.556(0.111); cellP 0.786(0.031); cellAUROC 0.872(0.037); inactMAE% 0.097(0.012); inactMAE%(inact cells) 0.408(0.058); crackIoU@dep 0.115(0.007); relR@dep 0.255(0.018); b_OPc 3.600(1.699); b_OPr 4.300(0.308)
+MIMPF5  E1 other77 n=77 comps=22 cells+/-/amb=12/65/0: compR@OPc 0.791(0.083); compP@OPc 0.227(0.041); relR@OPr 0.723(0.022); relP@OPr 0.341(0.013); cellR 0.917(0.000); cellFA 0.317(0.035); cellP 0.350(0.027); cellAUROC 0.904(0.020); inactMAE% 0.198(0.017); inactMAE%(inact cells) 1.158(0.199); crackIoU@dep 0.225(0.004); relR@dep 0.656(0.020); b_OPc 3.600(1.699); b_OPr 4.300(0.308)
+MIMPF5  rf         n=106 comps=88 cells+/-/amb=38/62/6: compR@OPc 0.434(0.010); compP@OPc 0.702(0.081); relR@OPr 0.700(0.014); relP@OPr 0.704(0.067); cellR 0.389(0.022); cellFA 0.097(0.026); cellP 0.715(0.047); cellAUROC 0.726(0.022); inactMAE% 0.223(0.019); inactMAE%(inact cells) 2.148(0.081); crackIoU@dep 0.326(0.005); relR@dep 0.665(0.010); b_OPc 3.600(1.699); b_OPr 4.300(0.308)
+MIMPF5  rf F51     n=51 comps=43 cells+/-/amb=12/34/5: compR@OPc 0.623(0.030); compP@OPc 0.705(0.095); relR@OPr 0.841(0.008); relP@OPr 0.738(0.118); cellR 0.417(0.000); cellFA 0.059(0.021); cellP 0.720(0.074); cellAUROC 0.662(0.024); inactMAE% 0.391(0.039); inactMAE%(inact cells) 2.489(0.083); crackIoU@dep 0.430(0.011); relR@dep 0.811(0.009); b_OPc 3.600(1.699); b_OPr 4.300(0.308)
+
+CP5     val        n=54 comps=125 cells+/-/amb=23/31/0: compR@OPc 0.797(0.034); compP@OPc 0.913(0.014); relR@OPr 0.864(0.010); relP@OPr 0.900(0.000); cellR 0.983(0.024); cellFA 0.097(0.040); cellP 0.884(0.043); cellAUROC 0.990(0.004); inactMAE% 0.065(0.007); inactMAE%(inact cells) 0.717(0.174); crackIoU@dep 0.421(0.003); relR@dep 0.849(0.014); b_OPc -0.540(1.128); b_OPr 1.240(0.518)
+CP5     E1         n=106 comps=296 cells+/-/amb=32/74/0: compR@OPc 0.167(0.027); compP@OPc 0.543(0.089); relR@OPr 0.352(0.018); relP@OPr 0.527(0.043); cellR 0.887(0.036); cellFA 0.308(0.048); cellP 0.557(0.034); cellAUROC 0.877(0.007); inactMAE% 0.169(0.041); inactMAE%(inact cells) 0.773(0.132); crackIoU@dep 0.158(0.009); relR@dep 0.326(0.017); b_OPc -0.540(1.128); b_OPr 1.240(0.518)
+CP5     E1 sh29    n=29 comps=274 cells+/-/amb=20/9/0: compR@OPc 0.133(0.026); compP@OPc 0.822(0.063); relR@OPr 0.238(0.019); relP@OPr 0.649(0.034); cellR 0.900(0.050); cellFA 0.533(0.122); cellP 0.791(0.039); cellAUROC 0.828(0.034); inactMAE% 0.146(0.017); inactMAE%(inact cells) 0.716(0.130); crackIoU@dep 0.105(0.010); relR@dep 0.211(0.015); b_OPc -0.540(1.128); b_OPr 1.240(0.518)
+CP5     E1 other77 n=77 comps=22 cells+/-/amb=12/65/0: compR@OPc 0.591(0.045); compP@OPc 0.364(0.101); relR@OPr 0.698(0.020); relP@OPr 0.451(0.050); cellR 0.867(0.046); cellFA 0.277(0.042); cellP 0.369(0.036); cellAUROC 0.885(0.008); inactMAE% 0.178(0.055); inactMAE%(inact cells) 1.056(0.412); crackIoU@dep 0.269(0.019); relR@dep 0.673(0.025); b_OPc -0.540(1.128); b_OPr 1.240(0.518)
+CP5     rf         n=106 comps=88 cells+/-/amb=38/62/6: compR@OPc 0.486(0.015); compP@OPc 0.784(0.046); relR@OPr 0.771(0.028); relP@OPr 0.793(0.019); cellR 0.463(0.040); cellFA 0.106(0.061); cellP 0.740(0.101); cellAUROC 0.677(0.021); inactMAE% 0.167(0.047); inactMAE%(inact cells) 1.973(0.253); crackIoU@dep 0.366(0.010); relR@dep 0.755(0.024); b_OPc -0.540(1.128); b_OPr 1.240(0.518)
+CP5     rf F51     n=51 comps=43 cells+/-/amb=12/34/5: compR@OPc 0.670(0.025); compP@OPc 0.761(0.087); relR@OPr 0.848(0.015); relP@OPr 0.835(0.027); cellR 0.533(0.046); cellFA 0.118(0.075); cellP 0.642(0.138); cellAUROC 0.663(0.046); inactMAE% 0.278(0.093); inactMAE%(inact cells) 2.273(0.287); crackIoU@dep 0.446(0.008); relR@dep 0.837(0.010); b_OPc -0.540(1.128); b_OPr 1.240(0.518)
+
+FINAL   val        n=54 comps=125 cells+/-/amb=23/31/0: compR@OPc 0.864; compP@OPc 0.904; relR@OPr 0.892; relP@OPr 0.902; cellR 1.000; cellFA 0.032; cellP 0.958; cellAUROC 0.996; inactMAE% 0.070; inactMAE%(inact cells) 0.836; crackIoU@dep 0.435; relR@dep 0.887; b_OPc 1.300; b_OPr 0.900
+FINAL   E1         n=106 comps=296 cells+/-/amb=32/74/0: compR@OPc 0.270; compP@OPc 0.421; relR@OPr 0.368; relP@OPr 0.534; cellR 0.875; cellFA 0.284; cellP 0.571; cellAUROC 0.893; inactMAE% 0.169; inactMAE%(inact cells) 0.792; crackIoU@dep 0.172; relR@dep 0.356; b_OPc 1.300; b_OPr 0.900
+FINAL   E1 sh29    n=29 comps=274 cells+/-/amb=20/9/0: compR@OPc 0.226; compP@OPc 0.740; relR@OPr 0.244; relP@OPr 0.657; cellR 0.850; cellFA 0.444; cellP 0.810; cellAUROC 0.794; inactMAE% 0.144; inactMAE%(inact cells) 0.730; crackIoU@dep 0.113; relR@dep 0.234; b_OPc 1.300; b_OPr 0.900
+FINAL   E1 other77 n=77 comps=22 cells+/-/amb=12/65/0: compR@OPc 0.818; compP@OPc 0.224; relR@OPr 0.744; relP@OPr 0.464; cellR 0.917; cellFA 0.262; cellP 0.393; cellAUROC 0.933; inactMAE% 0.178; inactMAE%(inact cells) 1.103; crackIoU@dep 0.287; relR@dep 0.724; b_OPc 1.300; b_OPr 0.900
+FINAL   rf         n=106 comps=88 cells+/-/amb=38/62/6: compR@OPc 0.534; compP@OPc 0.600; relR@OPr 0.809; relP@OPr 0.788; cellR 0.500; cellFA 0.113; cellP 0.731; cellAUROC 0.692; inactMAE% 0.255; inactMAE%(inact cells) 2.056; crackIoU@dep 0.380; relR@dep 0.805; b_OPc 1.300; b_OPr 0.900
+FINAL   rf F51     n=51 comps=43 cells+/-/amb=12/34/5: compR@OPc 0.721; compP@OPc 0.565; relR@OPr 0.870; relP@OPr 0.840; cellR 0.583; cellFA 0.147; cellP 0.583; cellAUROC 0.650; inactMAE% 0.457; inactMAE%(inact cells) 2.302; crackIoU@dep 0.455; relR@dep 0.867; b_OPc 1.300; b_OPr 0.900
+
+descriptive contrasts (mean difference, seeds; NOT a rule-1 verdict):
+  SUPPF5 - SUP5 [val]: compR@OPc +0.029; compP@OPc -0.011; relR@OPr +0.008; relP@OPr -0.001; cellR +0.017; cellFA -0.039; cellP +0.049; cellAUROC +0.003; inactMAE% -0.020; inactMAE%(inact cells) -0.150
+  SUPPF5 - SUP5 [E1]: compR@OPc +0.145; compP@OPc -0.054; relR@OPr +0.108; relP@OPr -0.045; cellR +0.013; cellFA -0.057; cellP +0.050; cellAUROC +0.019; inactMAE% -0.086; inactMAE%(inact cells) -0.555
+  SUPPF5 - SUP5 [E1 sh29]: compR@OPc +0.145; compP@OPc -0.048; relR@OPr +0.114; relP@OPr -0.012; cellR +0.000; cellFA -0.178; cellP +0.058; cellAUROC +0.073; inactMAE% -0.097; inactMAE%(inact cells) -0.588
+  SUPPF5 - SUP5 [E1 other77]: compR@OPc +0.155; compP@OPc -0.101; relR@OPr +0.090; relP@OPr -0.092; cellR +0.033; cellFA -0.040; cellP +0.044; cellAUROC +0.015; inactMAE% -0.081; inactMAE%(inact cells) -0.391
+  SUPPF5 - SUP5 [rf]: compR@OPc -0.030; compP@OPc +0.081; relR@OPr -0.080; relP@OPr -0.013; cellR -0.153; cellFA -0.081; cellP +0.117; cellAUROC +0.006; inactMAE% +0.028; inactMAE%(inact cells) +0.028
+  SUPPF5 - SUP5 [rf F51]: compR@OPc -0.005; compP@OPc +0.104; relR@OPr -0.006; relP@OPr -0.026; cellR -0.117; cellFA -0.082; cellP +0.171; cellAUROC +0.042; inactMAE% +0.059; inactMAE%(inact cells) +0.069
+  MIMPF5 - SUPPF5 [val]: compR@OPc -0.026; compP@OPc +0.005; relR@OPr -0.010; relP@OPr +0.000; cellR -0.000; cellFA +0.045; cellP -0.054; cellAUROC -0.000; inactMAE% +0.007; inactMAE%(inact cells) +0.073
+  MIMPF5 - SUPPF5 [E1]: compR@OPc -0.028; compP@OPc -0.010; relR@OPr -0.006; relP@OPr -0.040; cellR +0.050; cellFA +0.089; cellP -0.061; cellAUROC +0.006; inactMAE% +0.073; inactMAE%(inact cells) +0.150
+  MIMPF5 - SUPPF5 [E1 sh29]: compR@OPc -0.031; compP@OPc +0.014; relR@OPr +0.004; relP@OPr -0.041; cellR +0.080; cellFA +0.156; cellP -0.036; cellAUROC +0.017; inactMAE% +0.027; inactMAE%(inact cells) +0.107
+  MIMPF5 - SUPPF5 [E1 other77]: compR@OPc +0.009; compP@OPc -0.023; relR@OPr -0.036; relP@OPr -0.033; cellR +0.000; cellFA +0.080; cellP -0.072; cellAUROC -0.012; inactMAE% +0.091; inactMAE%(inact cells) +0.365
+  MIMPF5 - SUPPF5 [rf]: compR@OPc -0.032; compP@OPc -0.105; relR@OPr +0.001; relP@OPr -0.055; cellR +0.063; cellFA +0.052; cellP -0.103; cellAUROC +0.026; inactMAE% +0.035; inactMAE%(inact cells) +0.200
+  MIMPF5 - SUPPF5 [rf F51]: compR@OPc -0.051; compP@OPc -0.066; relR@OPr -0.004; relP@OPr -0.043; cellR -0.033; cellFA +0.012; cellP -0.062; cellAUROC -0.042; inactMAE% +0.059; inactMAE%(inact cells) +0.158
+  CP5 - SUP5 [val]: compR@OPc -0.021; compP@OPc -0.010; relR@OPr -0.004; relP@OPr -0.000; cellR +0.026; cellFA +0.045; cellP -0.049; cellAUROC -0.003; inactMAE% -0.004; inactMAE%(inact cells) -0.113
+  CP5 - SUP5 [E1]: compR@OPc +0.003; compP@OPc +0.040; relR@OPr +0.034; relP@OPr +0.002; cellR +0.037; cellFA -0.005; cellP +0.012; cellAUROC +0.007; inactMAE% -0.013; inactMAE%(inact cells) -0.164
+  CP5 - SUP5 [E1 sh29]: compR@OPc +0.007; compP@OPc +0.083; relR@OPr +0.036; relP@OPr +0.026; cellR +0.070; cellFA -0.044; cellP +0.027; cellAUROC +0.046; inactMAE% -0.020; inactMAE%(inact cells) -0.172
+  CP5 - SUP5 [E1 other77]: compR@OPc -0.036; compP@OPc +0.014; relR@OPr +0.029; relP@OPr -0.014; cellR -0.017; cellFA +0.000; cellP -0.009; cellAUROC -0.016; inactMAE% -0.010; inactMAE%(inact cells) -0.128
+  CP5 - SUP5 [rf]: compR@OPc -0.009; compP@OPc +0.058; relR@OPr -0.008; relP@OPr +0.021; cellR -0.016; cellFA -0.019; cellP +0.038; cellAUROC -0.017; inactMAE% +0.006; inactMAE%(inact cells) +0.053
+  CP5 - SUP5 [rf F51]: compR@OPc -0.009; compP@OPc +0.094; relR@OPr -0.003; relP@OPr +0.027; cellR -0.033; cellFA -0.012; cellP +0.031; cellAUROC +0.001; inactMAE% +0.006; inactMAE%(inact cells) +0.012
+
+self-check: CPU fp32 records vs the opening m0 JSONs (GPU bf16) at b = 0; max |delta| over crack IoU, relP@2, relR@2, inactive IoU, comp R / P
+  SUP5_m0    val: FAIL max|delta| 0.00052 vs opening1 m0 (GPU bf16) f3_SUP_100pct_s0
+  SUP5_m0    ext: FAIL max|delta| 0.00376 vs opening1 m0 (GPU bf16) f3_SUP_100pct_s0
+  SUP5_m1    val: FAIL max|delta| 0.00483 vs opening1 m0 (GPU bf16) f3_SUP_100pct_s1
+  SUP5_m1    ext: FAIL max|delta| 0.01205 vs opening1 m0 (GPU bf16) f3_SUP_100pct_s1
+  SUP5_m2    val: FAIL max|delta| 0.00250 vs opening1 m0 (GPU bf16) f3_SUP_100pct_s2
+  SUP5_m2    ext: FAIL max|delta| 0.00146 vs opening1 m0 (GPU bf16) f3_SUP_100pct_s2
+  SUP5_m3    val: FAIL max|delta| 0.00800 vs opening1 m0 (GPU bf16) f3_SUP_100pct_s3
+  SUP5_m3    ext: PASS max|delta| 0.00045 vs opening1 m0 (GPU bf16) f3_SUP_100pct_s3
+  SUP5_m4    val: FAIL max|delta| 0.00102 vs opening1 m0 (GPU bf16) f3_SUP_100pct_s4
+  SUP5_m4    ext: FAIL max|delta| 0.00637 vs opening1 m0 (GPU bf16) f3_SUP_100pct_s4
+  SUPPF5_m0  val: FAIL max|delta| 0.01315 vs opening1 m0 (GPU bf16) f3_SUPPF_100pct_s0
+  SUPPF5_m0  ext: FAIL max|delta| 0.00686 vs opening1 m0 (GPU bf16) f3_SUPPF_100pct_s0
+  SUPPF5_m1  val: FAIL max|delta| 0.00459 vs opening1 m0 (GPU bf16) f3_SUPPF_100pct_s1
+  SUPPF5_m1  ext: FAIL max|delta| 0.00541 vs opening1 m0 (GPU bf16) f3_SUPPF_100pct_s1
+  SUPPF5_m2  val: FAIL max|delta| 0.01406 vs opening1 m0 (GPU bf16) f3_SUPPF_100pct_s2
+  SUPPF5_m2  ext: FAIL max|delta| 0.00590 vs opening1 m0 (GPU bf16) f3_SUPPF_100pct_s2
+  SUPPF5_m3  val: FAIL max|delta| 0.00685 vs opening1 m0 (GPU bf16) f3_SUPPF_100pct_s3
+  SUPPF5_m3  ext: FAIL max|delta| 0.00588 vs opening1 m0 (GPU bf16) f3_SUPPF_100pct_s3
+  SUPPF5_m4  val: FAIL max|delta| 0.01449 vs opening1 m0 (GPU bf16) f3_SUPPF_100pct_s4
+  SUPPF5_m4  ext: FAIL max|delta| 0.00744 vs opening1 m0 (GPU bf16) f3_SUPPF_100pct_s4
+  MIMPF5_m0  val: FAIL max|delta| 0.00314 vs opening1 m0 (GPU bf16) f3_MIMPF_100pct_s0
+  MIMPF5_m0  ext: FAIL max|delta| 0.00350 vs opening1 m0 (GPU bf16) f3_MIMPF_100pct_s0
+  MIMPF5_m1  val: FAIL max|delta| 0.00112 vs opening1 m0 (GPU bf16) f3_MIMPF_100pct_s1
+  MIMPF5_m1  ext: FAIL max|delta| 0.01351 vs opening1 m0 (GPU bf16) f3_MIMPF_100pct_s1
+  MIMPF5_m2  val: FAIL max|delta| 0.00719 vs opening1 m0 (GPU bf16) f3_MIMPF_100pct_s2
+  MIMPF5_m2  ext: FAIL max|delta| 0.00676 vs opening1 m0 (GPU bf16) f3_MIMPF_100pct_s2
+  MIMPF5_m3  val: FAIL max|delta| 0.00800 vs opening1 m0 (GPU bf16) f3_MIMPF_100pct_s3
+  MIMPF5_m3  ext: FAIL max|delta| 0.01014 vs opening1 m0 (GPU bf16) f3_MIMPF_100pct_s3
+  MIMPF5_m4  val: FAIL max|delta| 0.00614 vs opening1 m0 (GPU bf16) f3_MIMPF_100pct_s4
+  MIMPF5_m4  ext: FAIL max|delta| 0.00338 vs opening1 m0 (GPU bf16) f3_MIMPF_100pct_s4
+  CP5_m0     val: FAIL max|delta| 0.00158 vs opening2 m0 (GPU bf16) f3_CP_100pct_s0
+  CP5_m0     ext: FAIL max|delta| 0.00422 vs opening2 m0 (GPU bf16) f3_CP_100pct_s0
+  CP5_m1     val: FAIL max|delta| 0.00140 vs opening2 m0 (GPU bf16) f3_CP_100pct_s1
+  CP5_m1     ext: FAIL max|delta| 0.02140 vs opening2 m0 (GPU bf16) f3_CP_100pct_s1
+  CP5_m2     val: FAIL max|delta| 0.00800 vs opening2 m0 (GPU bf16) f3_CP_100pct_s2
+  CP5_m2     ext: FAIL max|delta| 0.00207 vs opening2 m0 (GPU bf16) f3_CP_100pct_s2
+  CP5_m3     val: FAIL max|delta| 0.00800 vs opening2 m0 (GPU bf16) f3_CP_100pct_s3
+  CP5_m3     ext: FAIL max|delta| 0.00645 vs opening2 m0 (GPU bf16) f3_CP_100pct_s3
+  CP5_m4     val: FAIL max|delta| 0.00140 vs opening2 m0 (GPU bf16) f3_CP_100pct_s4
+  CP5_m4     ext: FAIL max|delta| 0.00500 vs opening2 m0 (GPU bf16) f3_CP_100pct_s4
+  FINAL      val: PASS max|delta| 0.00000 vs d_cells (CPU fp32)
+  FINAL      ext: PASS max|delta| 0.00000 vs d_cells (CPU fp32)

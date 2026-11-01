@@ -1,0 +1,5 @@
+HCa_house.json vs A_e544133_house.json: IDENTICAL; steps equal 5/5; batch keys sym-diff []
+HCb_pf.json vs C_e544133_pf.json: IDENTICAL; steps equal 5/5; batch keys sym-diff []
+HCc_pf_p0.json vs C_e544133_pf.json: IDENTICAL; steps equal 5/5; batch keys sym-diff ['synth']
+HCd_pf_p35.json vs C_e544133_pf.json: DIFFER ['fixed_batch.image', 'fixed_batch.mask', 'step1.out', 'step1.state', 'step1.logits', 'step2.out', 'step2.state', 'step2.logits']; steps equal 0/5; batch keys sym-diff ['synth']
+HCc_pf_p0.json vs HCb_pf.json: IDENTICAL; steps equal 5/5; batch keys sym-diff ['synth']

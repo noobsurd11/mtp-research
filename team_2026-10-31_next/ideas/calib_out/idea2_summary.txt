@@ -1,0 +1,66 @@
+idea 2 (calib): intensity statistics per cell (grey 0-255, all px; PIL convert L as the house loader). E1 = ext, DESCRIPTIVE.
+
+1. medians [p25, p75] per set
+  c_mean     train 137.9 [112.1, 159.8] | val 133.6 [109.6, 159.5] | test 142.8 [117.0, 153.8] | ext 143.0 [105.7, 165.6] | rf 132.1 [118.3, 156.4] | pool 130.0 [99.2, 156.5]
+  c_sd       train 36.7 [28.4, 45.3] | val 37.1 [32.0, 45.5] | test 37.3 [29.4, 45.5] | ext 26.7 [17.9, 39.9] | rf 27.1 [20.1, 37.1] | pool 22.8 [14.8, 34.3]
+  c_p1       train 24.0 [18.0, 59.0] | val 21.5 [18.2, 57.8] | test 25.5 [16.8, 69.0] | ext 45.5 [31.0, 79.8] | rf 39.0 [0.2, 73.5] | pool 44.0 [19.0, 83.0]
+  c_p5       train 55.5 [29.0, 83.8] | val 44.5 [21.2, 80.5] | test 58.0 [33.0, 90.2] | ext 65.5 [48.0, 98.0] | rf 75.0 [31.0, 101.8] | pool 73.0 [34.0, 109.0]
+  c_p50      train 147.0 [118.0, 169.0] | val 143.5 [119.0, 163.5] | test 149.0 [123.0, 160.0] | ext 156.0 [110.2, 176.8] | rf 141.0 [127.0, 162.8] | pool 137.0 [106.0, 163.0]
+  c_p95      train 183.0 [152.2, 216.0] | val 190.0 [150.2, 219.5] | test 191.5 [162.2, 215.8] | ext 171.0 [119.8, 207.8] | rf 163.0 [147.0, 181.8] | pool 158.0 [134.0, 185.0]
+  c_p99      train 197.0 [164.0, 232.0] | val 205.0 [162.0, 232.2] | test 207.5 [173.0, 233.0] | ext 175.5 [125.0, 214.8] | rf 171.0 [154.0, 188.0] | pool 165.5 [143.0, 192.0]
+  c_contrast train 0.9 [0.7, 1.1] | val 0.9 [0.7, 1.1] | test 0.9 [0.7, 1.1] | ext 0.7 [0.5, 0.9] | rf 0.6 [0.4, 1.0] | pool 0.5 [0.4, 1.0]
+  c_noise    train 1.5 [1.5, 3.0] | val 1.5 [1.5, 3.0] | test 1.5 [1.5, 1.5] | ext 1.5 [1.5, 1.5] | rf 1.5 [0.0, 3.0] | pool 1.5 [0.0, 1.5]
+  rows_dark  train 3.0 [2.0, 4.0] | val 3.0 [2.0, 4.0] | test 3.0 [2.0, 4.0] | ext 2.0 [2.0, 3.0] | rf 3.0 [2.0, 4.0] | pool 2.0 [2.0, 3.0]
+  cols_dark  train 11.0 [9.0, 13.0] | val 11.0 [9.2, 13.0] | test 11.0 [9.0, 13.8] | ext 9.0 [5.0, 10.0] | rf 8.0 [4.2, 11.0] | pool 10.0 [8.0, 11.0]
+  content_frac train 0.9 [0.8, 1.0] | val 0.9 [0.8, 1.0] | test 1.0 [0.8, 1.0] | ext 0.5 [0.4, 0.9] | rf 1.0 [0.9, 1.0] | pool 1.0 [0.8, 1.0]
+  letterbox  train 0.0 [0.0, 0.0] | val 0.0 [0.0, 0.0] | test 0.0 [0.0, 0.0] | ext 1.0 [0.0, 1.0] | rf 0.0 [0.0, 0.0] | pool 0.0 [0.0, 0.0]
+  mean       train 158.4 [131.2, 178.8] | val 162.9 [138.6, 183.6] | test 167.1 [146.4, 179.1] | ext 193.5 [169.5, 214.9] | rf 148.8 [127.0, 162.7] | pool 144.5 [118.3, 164.7]
+  ext:full n=40: c_mean 167.5, c_sd 34.2, c_contrast 0.75, c_noise 1.48, rows_dark 3, cols_dark 10, letterbox 0.00, content_frac 1.00
+  ext:full+scuff n=8: c_mean 83.6, c_sd 17.1, c_contrast 0.64, c_noise 1.48, rows_dark 2, cols_dark 8, letterbox 0.00, content_frac 0.84
+  ext:halfcut n=29: c_mean 137.7, c_sd 22.0, c_contrast 0.50, c_noise 1.48, rows_dark 2, cols_dark 8, letterbox 0.93, content_frac 0.43
+  ext:halfcut+scuff n=29: c_mean 141.0, c_sd 37.2, c_contrast 0.82, c_noise 1.48, rows_dark 2, cols_dark 6, letterbox 0.97, content_frac 0.36
+  rf:full n=69: c_mean 125.1, c_sd 30.9, c_contrast 0.72, c_noise 1.48, rows_dark 3, cols_dark 10, letterbox 0.00, content_frac 0.99
+  rf:full+scuff n=1: c_mean 148.2, c_sd 64.3, c_contrast 1.15, c_noise 2.97, rows_dark 3, cols_dark 7, letterbox 0.00, content_frac 1.00
+  rf:halfcut n=26: c_mean 155.1, c_sd 22.8, c_contrast 0.44, c_noise 0.00, rows_dark 4, cols_dark 5, letterbox 0.00, content_frac 1.00
+  rf:halfcut+scuff n=10: c_mean 160.8, c_sd 20.4, c_contrast 0.38, c_noise 0.00, rows_dark 4, cols_dark 3, letterbox 0.00, content_frac 0.99
+  pool:full n=10786: c_mean 125.5, c_sd 22.4, c_contrast 0.54, c_noise 1.48, rows_dark 2, cols_dark 10, letterbox 0.00, content_frac 0.94
+  pool:halfcut n=1152: c_mean 152.9, c_sd 24.2, c_contrast 0.47, c_noise 0.00, rows_dark 4, cols_dark 5, letterbox 0.00, content_frac 1.00
+
+2. AUROC per stat, set vs train (0.5 = same; |AUROC-0.5| > 0.25 = strongly separated). test = in-domain reference
+  val   c_mean 0.48; c_sd 0.53; c_p1 0.49; c_p5 0.45; c_p50 0.48; c_p95 0.50; c_p99 0.51; c_contrast 0.57; c_noise 0.51; rows_dark 0.51; cols_dark 0.51; content_frac 0.47; letterbox 0.50; mean 0.52
+  test  c_mean 0.50; c_sd 0.52; c_p1 0.52; c_p5 0.53; c_p50 0.48; c_p95 0.55; c_p99 0.55; c_contrast 0.54; c_noise 0.46; rows_dark 0.54; cols_dark 0.48; content_frac 0.50; letterbox 0.50; mean 0.56
+  ext   c_mean 0.52; c_sd 0.35; c_p1 0.69; c_p5 0.61; c_p50 0.53; c_p95 0.43; c_p99 0.41; c_contrast 0.30; c_noise 0.37; rows_dark 0.38; cols_dark 0.26; content_frac 0.31; letterbox 0.76; mean 0.71
+  rf    c_mean 0.47; c_sd 0.30; c_p1 0.49; c_p5 0.57; c_p50 0.47; c_p95 0.36; c_p99 0.32; c_contrast 0.34; c_noise 0.38; rows_dark 0.57; cols_dark 0.32; content_frac 0.57; letterbox 0.50; mean 0.37
+  pool  c_mean 0.44; c_sd 0.26; c_p1 0.60; c_p5 0.60; c_p50 0.44; c_p95 0.35; c_p99 0.32; c_contrast 0.30; c_noise 0.37; rows_dark 0.40; cols_dark 0.36; content_frac 0.56; letterbox 0.50; mean 0.38
+  E1 halfcut+scuff (n=29) c_mean 0.53; c_sd 0.49; c_p1 0.66; c_p5 0.50; c_p50 0.60; c_p95 0.43; c_p99 0.38; c_contrast 0.35; c_noise 0.38; rows_dark 0.28; cols_dark 0.16; content_frac 0.12; letterbox 0.98; mean 0.86
+  E1 halfcut (n=29) c_mean 0.47; c_sd 0.26; c_p1 0.72; c_p5 0.63; c_p50 0.49; c_p95 0.32; c_p99 0.27; c_contrast 0.18; c_noise 0.33; rows_dark 0.26; cols_dark 0.21; content_frac 0.14; letterbox 0.97; mean 0.83
+  E1 full (n=40) c_mean 0.64; c_sd 0.38; c_p1 0.73; c_p5 0.71; c_p50 0.61; c_p95 0.60; c_p99 0.61; c_contrast 0.36; c_noise 0.38; rows_dark 0.56; cols_dark 0.37; content_frac 0.55; letterbox 0.50; mean 0.62
+  E1 full+scuff (n=8) c_mean 0.03; c_sd 0.07; c_p1 0.45; c_p5 0.38; c_p50 0.03; c_p95 0.02; c_p99 0.02; c_contrast 0.26; c_noise 0.40; rows_dark 0.25; cols_dark 0.22; content_frac 0.34; letterbox 0.50; mean 0.15
+
+3. multivariate separability (L2 logistic, leave-one-module-out CV AUROC, features c_mean,c_sd,c_p5,c_p50,c_p95,c_contrast,c_noise,rows_dark,cols_dark)
+  test vs train: 0.597
+  val vs train: 0.476
+  ext vs train: 0.782
+  rf vs train: 0.814
+  ext vs train, brightness only (mean, p50): 0.309; contrast/noise only (c_sd, c_contrast, c_noise): 0.725; frame/structure only (content_frac, rows_dark, cols_dark): 0.729
+  E1 full cells only vs train: 0.775; brightness only 0.495
+  rf F51 vs train: 0.764; brightness only 0.619
+
+4. house augmentation coverage: RandomBrightnessContrast(0.2, 0.2, p 0.4): out = alpha*x + beta*255, alpha in [0.8,1.2], beta in [-0.2,0.2]
+  val: reachable from a train cell under the jitter 1.000; inside train [p1, p99] of mean and sd 1.000
+  test: reachable from a train cell under the jitter 1.000; inside train [p1, p99] of mean and sd 0.960
+  ext: reachable from a train cell under the jitter 0.981; inside train [p1, p99] of mean and sd 0.934
+  rf: reachable from a train cell under the jitter 1.000; inside train [p1, p99] of mean and sd 0.943
+  pool: reachable from a train cell under the jitter 0.997; inside train [p1, p99] of mean and sd 0.835
+
+5. module share of variance of the cell mean (one-way ANOVA ICC-like: between-module var / total), pool modules with >= 5 cells
+  pool: 284 modules, 11757 cells: between-module share 0.889; within-module sd 11.5, between-module sd 38.2
+  train: 100 modules, 256 cells: between-module share 0.874; within-module sd 10.6, between-module sd 27.7
+  ext: 17 modules, 52 cells: between-module share 0.975; within-module sd 6.6, between-module sd 43.2
+  rf: 22 modules, 71 cells: between-module share 0.666; within-module sd 14.8, between-module sd 22.1
+
+6. failure link: Spearman rho of per-cell crack relR@2 (FINAL, b +0.75) with intensity stats, crack cells (>= 20 GT px)
+  val (n=23 crack cells, median relR 0.90): c_mean +0.36; c_sd +0.07; c_p1 +0.54; c_p5 +0.35; c_p50 +0.33; c_p95 +0.40; c_p99 +0.41; c_contrast -0.32; c_noise -0.27; rows_dark +0.26; cols_dark +0.38; content_frac +0.21; letterbox +0.10; mean +0.01
+  ext (n=32 crack cells, median relR 0.28): c_mean -0.03; c_sd -0.36; c_p1 +0.26; c_p5 +0.19; c_p50 -0.04; c_p95 -0.06; c_p99 -0.08; c_contrast -0.31; c_noise +0.12; rows_dark +0.16; cols_dark -0.05; content_frac +0.37; letterbox +0.17; mean -0.26
+    E1 halfcut (n=6): median relR 0.86; content mean grey 135.8
+    E1 halfcut+scuff (n=20): median relR 0.16; content mean grey 146.0

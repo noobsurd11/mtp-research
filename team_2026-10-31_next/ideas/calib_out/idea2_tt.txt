@@ -1,0 +1,79 @@
+calib idea 2: does mapping each cell's intensity into the train distribution at TEST time move the models? (diagnostic)
+Written 31 Oct ~14:50 IST, before any test-time-mapping number existed. Variants (calib_dump --tt, content px only, F6 letterbox rule):
+  none      the plain dump (reference)
+  cellz     per-cell affine: content mean / sd -> train content mean / sd
+  modz      per-module affine (module stats over the set's own cells of that module; E1 modules have 1-2 cells)
+  cellhist  per-cell histogram matching of content px to the pooled train content histogram (fixes shape, domain's gap)
+Models: FINAL (ensemble, deployed b +0.75) and SUP100-PF (5 seeds, b 0). Sets: val (guard), Hanifi _rf F51 (selection set), E1 (descriptive).
+Per variant the OP-rel b is re-chosen on that variant's own val records (deploy = normalise everything, pick b on val).
+Reported: relR@2 / relP@2 / relF1@2 at the deployed b and at the variant's OP-rel b; oracle relF1@2 (ranking only, own labels,
+diagnostic); cell AUROC; per stratum (E1 sh29 / other 77).
+PRE-STATED READ (GO / NO-GO for a normalisation TRAINING arm):
+  GO only if some variant, for BOTH FINAL and the SUP100-PF seed mean, (a) does not lower val relF1@2 at OP-rel by > 0.01 and
+  (b) raises _rf F51 relF1@2 at OP-rel by >= 0.02. Otherwise NO-GO (S caveat: a test-time mapping is a weaker test than training
+  with the normalisation; stated in the report).
+  AMENDED 31 Oct ~17:35 IST, BEFORE any test-time-mapping number was read: the original (b) also allowed "or raises E1 sh29
+  oracle relF1@2 by >= 0.03". Dropped because the user made E1 a second test set (never for selection); E1 is reported only.
+
+results: mean (sd over seeds for SUPPF5); deltas vs 'none' in brackets
+
+FINAL  val        none    : relF1_opr 0.897; relR_opr 0.892; relP_opr 0.902; relF1_dep 0.896; oracle_relF1 0.897; cell_auroc 0.996; fa_dep 0.032; b_opr 0.900
+FINAL  val        cellz   : relF1_opr 0.872 [-0.025]; relR_opr 0.845 [-0.047]; relP_opr 0.900 [-0.002]; relF1_dep 0.871 [-0.025]; oracle_relF1 0.873 [-0.024]; cell_auroc 0.986 [-0.010]; fa_dep 0.065 [+0.032]; b_opr 0.700 [-0.200]
+FINAL  val        modz    : relF1_opr 0.872 [-0.025]; relR_opr 0.845 [-0.047]; relP_opr 0.900 [-0.002]; relF1_dep 0.872 [-0.025]; oracle_relF1 0.873 [-0.024]; cell_auroc 0.987 [-0.008]; fa_dep 0.065 [+0.032]; b_opr 0.700 [-0.200]
+FINAL  val        cellhist: relF1_opr 0.837 [-0.059]; relR_opr 0.781 [-0.111]; relP_opr 0.903 [+0.001]; relF1_dep 0.843 [-0.053]; oracle_relF1 0.843 [-0.054]; cell_auroc 0.938 [-0.058]; fa_dep 0.194 [+0.161]; b_opr 0.100 [-0.800]
+
+FINAL  F51        none    : relF1_opr 0.855; relR_opr 0.870; relP_opr 0.840; relF1_dep 0.857; oracle_relF1 0.866; cell_auroc 0.650; fa_dep 0.147; b_opr 0.900
+FINAL  F51        cellz   : relF1_opr 0.861 [+0.006]; relR_opr 0.857 [-0.013]; relP_opr 0.865 [+0.025]; relF1_dep 0.860 [+0.003]; oracle_relF1 0.866 [-0.000]; cell_auroc 0.642 [-0.007]; fa_dep 0.088 [-0.059]; b_opr 0.700 [-0.200]
+FINAL  F51        modz    : relF1_opr 0.859 [+0.005]; relR_opr 0.858 [-0.013]; relP_opr 0.861 [+0.021]; relF1_dep 0.858 [+0.001]; oracle_relF1 0.866 [-0.000]; cell_auroc 0.654 [+0.005]; fa_dep 0.088 [-0.059]; b_opr 0.700 [-0.200]
+FINAL  F51        cellhist: relF1_opr 0.837 [-0.017]; relR_opr 0.802 [-0.068]; relP_opr 0.876 [+0.036]; relF1_dep 0.834 [-0.023]; oracle_relF1 0.838 [-0.028]; cell_auroc 0.706 [+0.056]; fa_dep 0.176 [+0.029]; b_opr 0.100 [-0.800]
+
+FINAL  E1         none    : relF1_opr 0.436; relR_opr 0.368; relP_opr 0.534; relF1_dep 0.432; oracle_relF1 0.461; cell_auroc 0.893; fa_dep 0.284; b_opr 0.900
+FINAL  E1         cellz   : relF1_opr 0.401 [-0.035]; relR_opr 0.320 [-0.048]; relP_opr 0.535 [+0.000]; relF1_dep 0.403 [-0.029]; oracle_relF1 0.447 [-0.013]; cell_auroc 0.876 [-0.016]; fa_dep 0.230 [-0.054]; b_opr 0.700 [-0.200]
+FINAL  E1         modz    : relF1_opr 0.415 [-0.021]; relR_opr 0.333 [-0.036]; relP_opr 0.551 [+0.016]; relF1_dep 0.418 [-0.014]; oracle_relF1 0.454 [-0.007]; cell_auroc 0.883 [-0.010]; fa_dep 0.243 [-0.041]; b_opr 0.700 [-0.200]
+FINAL  E1         cellhist: relF1_opr 0.356 [-0.080]; relR_opr 0.261 [-0.107]; relP_opr 0.558 [+0.024]; relF1_dep 0.385 [-0.047]; oracle_relF1 0.398 [-0.063]; cell_auroc 0.855 [-0.038]; fa_dep 0.230 [-0.054]; b_opr 0.100 [-0.800]
+
+FINAL  E1 sh29    none    : relF1_opr 0.356; relR_opr 0.244; relP_opr 0.657; relF1_dep 0.346; oracle_relF1 0.490; cell_auroc 0.794; fa_dep 0.444; b_opr 0.900
+FINAL  E1 sh29    cellz   : relF1_opr 0.313 [-0.043]; relR_opr 0.202 [-0.042]; relP_opr 0.699 [+0.041]; relF1_dep 0.317 [-0.029]; oracle_relF1 0.489 [-0.001]; cell_auroc 0.778 [-0.017]; fa_dep 0.333 [-0.111]; b_opr 0.700 [-0.200]
+FINAL  E1 sh29    modz    : relF1_opr 0.323 [-0.033]; relR_opr 0.210 [-0.034]; relP_opr 0.702 [+0.044]; relF1_dep 0.329 [-0.017]; oracle_relF1 0.493 [+0.003]; cell_auroc 0.806 [+0.011]; fa_dep 0.333 [-0.111]; b_opr 0.700 [-0.200]
+FINAL  E1 sh29    cellhist: relF1_opr 0.234 [-0.122]; relR_opr 0.139 [-0.105]; relP_opr 0.738 [+0.081]; relF1_dep 0.295 [-0.051]; oracle_relF1 0.431 [-0.059]; cell_auroc 0.833 [+0.039]; fa_dep 0.444 [+0.000]; b_opr 0.100 [-0.800]
+
+FINAL  E1 other77 none    : relF1_opr 0.571; relR_opr 0.744; relP_opr 0.464; relF1_dep 0.580; oracle_relF1 0.623; cell_auroc 0.933; fa_dep 0.262; b_opr 0.900
+FINAL  E1 other77 cellz   : relF1_opr 0.540 [-0.031]; relR_opr 0.677 [-0.066]; relP_opr 0.449 [-0.014]; relF1_dep 0.540 [-0.040]; oracle_relF1 0.551 [-0.072]; cell_auroc 0.924 [-0.009]; fa_dep 0.215 [-0.046]; b_opr 0.700 [-0.200]
+FINAL  E1 other77 modz    : relF1_opr 0.562 [-0.009]; relR_opr 0.702 [-0.041]; relP_opr 0.469 [+0.005]; relF1_dep 0.562 [-0.018]; oracle_relF1 0.567 [-0.056]; cell_auroc 0.927 [-0.006]; fa_dep 0.231 [-0.031]; b_opr 0.700 [-0.200]
+FINAL  E1 other77 cellhist: relF1_opr 0.547 [-0.025]; relR_opr 0.629 [-0.114]; relP_opr 0.483 [+0.019]; relF1_dep 0.522 [-0.058]; oracle_relF1 0.553 [-0.069]; cell_auroc 0.867 [-0.067]; fa_dep 0.200 [-0.062]; b_opr 0.100 [-0.800]
+
+SUPPF5 val        none    : relF1_opr 0.888(0.005); relR_opr 0.876(0.009); relP_opr 0.900(0.000); relF1_dep 0.886(0.005); oracle_relF1 0.889(0.005); cell_auroc 0.997(0.005); fa_dep 0.013(0.018); b_opr 3.780(0.952)
+SUPPF5 val        cellz   : relF1_opr 0.869(0.004) [-0.019]; relR_opr 0.839(0.008) [-0.037]; relP_opr 0.901(0.000) [+0.000]; relF1_dep 0.866(0.005) [-0.020]; oracle_relF1 0.870(0.004) [-0.019]; cell_auroc 0.992(0.009) [-0.005]; fa_dep 0.039(0.027) [+0.026]; b_opr 3.360(0.777) [-0.420]
+SUPPF5 val        modz    : relF1_opr 0.869(0.004) [-0.019]; relR_opr 0.840(0.008) [-0.036]; relP_opr 0.900(0.000) [-0.000]; relF1_dep 0.866(0.005) [-0.020]; oracle_relF1 0.870(0.004) [-0.019]; cell_auroc 0.992(0.010) [-0.005]; fa_dep 0.032(0.032) [+0.019]; b_opr 3.440(0.747) [-0.340]
+SUPPF5 val        cellhist: relF1_opr 0.832(0.012) [-0.056]; relR_opr 0.774(0.020) [-0.102]; relP_opr 0.900(0.000) [-0.000]; relF1_dep 0.833(0.010) [-0.052]; oracle_relF1 0.838(0.009) [-0.051]; cell_auroc 0.964(0.009) [-0.033]; fa_dep 0.071(0.014) [+0.058]; b_opr -0.120(0.829) [-3.900]
+
+SUPPF5 F51        none    : relF1_opr 0.811(0.034); relR_opr 0.845(0.009); relP_opr 0.781(0.061); relF1_dep 0.835(0.017); oracle_relF1 0.838(0.017); cell_auroc 0.704(0.112); fa_dep 0.047(0.034); b_opr 3.780(0.952)
+SUPPF5 F51        cellz   : relF1_opr 0.827(0.057) [+0.016]; relR_opr 0.833(0.015) [-0.012]; relP_opr 0.823(0.093) [+0.042]; relF1_dep 0.840(0.016) [+0.004]; oracle_relF1 0.845(0.018) [+0.007]; cell_auroc 0.722(0.100) [+0.018]; fa_dep 0.018(0.026) [-0.029]; b_opr 3.360(0.777) [-0.420]
+SUPPF5 F51        modz    : relF1_opr 0.827(0.056) [+0.016]; relR_opr 0.834(0.015) [-0.010]; relP_opr 0.822(0.093) [+0.041]; relF1_dep 0.840(0.016) [+0.004]; oracle_relF1 0.845(0.018) [+0.007]; cell_auroc 0.695(0.124) [-0.010]; fa_dep 0.018(0.026) [-0.029]; b_opr 3.440(0.747) [-0.340]
+SUPPF5 F51        cellhist: relF1_opr 0.783(0.007) [-0.028]; relR_opr 0.734(0.008) [-0.110]; relP_opr 0.839(0.021) [+0.058]; relF1_dep 0.786(0.011) [-0.049]; oracle_relF1 0.790(0.012) [-0.048]; cell_auroc 0.667(0.082) [-0.038]; fa_dep 0.053(0.044) [+0.006]; b_opr -0.120(0.829) [-3.900]
+
+SUPPF5 E1         none    : relF1_opr 0.450(0.022); relR_opr 0.426(0.040); relP_opr 0.480(0.027); relF1_dep 0.445(0.025); oracle_relF1 0.453(0.022); cell_auroc 0.889(0.013); fa_dep 0.257(0.044); b_opr 3.780(0.952)
+SUPPF5 E1         cellz   : relF1_opr 0.421(0.038) [-0.029]; relR_opr 0.359(0.055) [-0.067]; relP_opr 0.515(0.030) [+0.035]; relF1_dep 0.409(0.039) [-0.036]; oracle_relF1 0.425(0.034) [-0.028]; cell_auroc 0.880(0.009) [-0.009]; fa_dep 0.208(0.033) [-0.049]; b_opr 3.360(0.777) [-0.420]
+SUPPF5 E1         modz    : relF1_opr 0.427(0.038) [-0.023]; relR_opr 0.367(0.056) [-0.059]; relP_opr 0.518(0.030) [+0.038]; relF1_dep 0.416(0.041) [-0.029]; oracle_relF1 0.431(0.035) [-0.022]; cell_auroc 0.882(0.009) [-0.006]; fa_dep 0.211(0.037) [-0.046]; b_opr 3.440(0.747) [-0.340]
+SUPPF5 E1         cellhist: relF1_opr 0.355(0.028) [-0.096]; relR_opr 0.264(0.031) [-0.163]; relP_opr 0.546(0.029) [+0.066]; relF1_dep 0.356(0.024) [-0.089]; oracle_relF1 0.379(0.018) [-0.074]; cell_auroc 0.852(0.021) [-0.037]; fa_dep 0.254(0.020) [-0.003]; b_opr -0.120(0.829) [-3.900]
+
+SUPPF5 E1 sh29    none    : relF1_opr 0.415(0.040); relR_opr 0.316(0.043); relP_opr 0.611(0.024); relF1_dep 0.381(0.040); oracle_relF1 0.447(0.030); cell_auroc 0.856(0.031); fa_dep 0.400(0.061); b_opr 3.780(0.952)
+SUPPF5 E1 sh29    cellz   : relF1_opr 0.372(0.063) [-0.043]; relR_opr 0.267(0.061) [-0.050]; relP_opr 0.629(0.026) [+0.019]; relF1_dep 0.341(0.059) [-0.039]; oracle_relF1 0.419(0.039) [-0.028]; cell_auroc 0.848(0.044) [-0.007]; fa_dep 0.333(0.079) [-0.067]; b_opr 3.360(0.777) [-0.420]
+SUPPF5 E1 sh29    modz    : relF1_opr 0.377(0.061) [-0.038]; relR_opr 0.272(0.059) [-0.044]; relP_opr 0.627(0.028) [+0.017]; relF1_dep 0.347(0.058) [-0.033]; oracle_relF1 0.422(0.039) [-0.026]; cell_auroc 0.854(0.042) [-0.002]; fa_dep 0.333(0.079) [-0.067]; b_opr 3.440(0.747) [-0.340]
+SUPPF5 E1 sh29    cellhist: relF1_opr 0.248(0.042) [-0.167]; relR_opr 0.154(0.030) [-0.162]; relP_opr 0.653(0.033) [+0.043]; relF1_dep 0.250(0.036) [-0.131]; oracle_relF1 0.339(0.038) [-0.109]; cell_auroc 0.772(0.054) [-0.083]; fa_dep 0.467(0.093) [+0.067]; b_opr -0.120(0.829) [-3.900]
+
+SUPPF5 E1 other77 none    : relF1_opr 0.499(0.026); relR_opr 0.759(0.033); relP_opr 0.373(0.035); relF1_dep 0.548(0.012); oracle_relF1 0.576(0.013); cell_auroc 0.916(0.022); fa_dep 0.237(0.052); b_opr 3.780(0.952)
+SUPPF5 E1 other77 cellz   : relF1_opr 0.500(0.034) [+0.001]; relR_opr 0.639(0.058) [-0.119]; relP_opr 0.415(0.053) [+0.042]; relF1_dep 0.528(0.029) [-0.020]; oracle_relF1 0.543(0.029) [-0.033]; cell_auroc 0.917(0.019) [+0.001]; fa_dep 0.191(0.030) [-0.046]; b_opr 3.360(0.777) [-0.420]
+SUPPF5 E1 other77 modz    : relF1_opr 0.508(0.029) [+0.009]; relR_opr 0.653(0.066) [-0.106]; relP_opr 0.420(0.050) [+0.047]; relF1_dep 0.536(0.024) [-0.012]; oracle_relF1 0.551(0.024) [-0.025]; cell_auroc 0.915(0.017) [-0.001]; fa_dep 0.194(0.035) [-0.043]; b_opr 3.440(0.747) [-0.340]
+SUPPF5 E1 other77 cellhist: relF1_opr 0.531(0.023) [+0.032]; relR_opr 0.595(0.055) [-0.164]; relP_opr 0.484(0.042) [+0.111]; relF1_dep 0.531(0.024) [-0.017]; oracle_relF1 0.541(0.020) [-0.035]; cell_auroc 0.895(0.027) [-0.022]; fa_dep 0.225(0.018) [-0.012]; b_opr -0.120(0.829) [-3.900]
+
+pre-stated read per variant (needs BOTH FINAL and SUPPF5):
+  cellz FINAL: val relF1@OPr -0.025 (>= -0.01: False); F51 relF1@OPr +0.006 -> False; (E1 sh29 oracle relF1 -0.001, descriptive, not in the rule)
+  cellz SUPPF5: val relF1@OPr -0.019 (>= -0.01: False); F51 relF1@OPr +0.016 -> False; (E1 sh29 oracle relF1 -0.028, descriptive, not in the rule)
+  => cellz: NO-GO
+  modz FINAL: val relF1@OPr -0.025 (>= -0.01: False); F51 relF1@OPr +0.005 -> False; (E1 sh29 oracle relF1 +0.003, descriptive, not in the rule)
+  modz SUPPF5: val relF1@OPr -0.019 (>= -0.01: False); F51 relF1@OPr +0.016 -> False; (E1 sh29 oracle relF1 -0.026, descriptive, not in the rule)
+  => modz: NO-GO
+  cellhist FINAL: val relF1@OPr -0.059 (>= -0.01: False); F51 relF1@OPr -0.017 -> False; (E1 sh29 oracle relF1 -0.059, descriptive, not in the rule)
+  cellhist SUPPF5: val relF1@OPr -0.056 (>= -0.01: False); F51 relF1@OPr -0.028 -> False; (E1 sh29 oracle relF1 -0.109, descriptive, not in the rule)
+  => cellhist: NO-GO

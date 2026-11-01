@@ -1,0 +1,26 @@
+# files: ['E-PF b0', 'E-PF b1.5', 'E-g b0', 'E-g b1.25']
+  members E-PF b0: ['pf2_SUPPF_100pct_s5', 'pf2_SUPPF_100pct_s6', 'pf2_SUPPF_100pct_s7', 'pf2_SUPPF_100pct_s8', 'pf2_SUPPF_100pct_s9'] ok=True
+  members E-PF b1.5: ['pf2_SUPPF_100pct_s5', 'pf2_SUPPF_100pct_s6', 'pf2_SUPPF_100pct_s7', 'pf2_SUPPF_100pct_s8', 'pf2_SUPPF_100pct_s9'] ok=True
+  members E-g b0: ['pf2_SUP_100pct_s5', 'pf2_SUP_100pct_s6', 'pf2_SUP_100pct_s7', 'pf2_SUP_100pct_s8', 'pf2_SUP_100pct_s9'] ok=True
+  members E-g b1.25: ['pf2_SUP_100pct_s5', 'pf2_SUP_100pct_s6', 'pf2_SUP_100pct_s7', 'pf2_SUP_100pct_s8', 'pf2_SUP_100pct_s9'] ok=True
+  decisions meta: {'script_md5': '272463d3d897c159aeeb99792665c9ef', 'm_common_md5': '10f0d37c751c69d9394ee2dd0a845020', 'ext_stems_md5': '5266806b559f74bcf9eae167bb076b95', 'device': 'cpu fp32', 'threads': 8}
+  D2 E-g: mine b 1.25 (smallest b relR>=.90 & relP>=.90), drop +0.0543, headline 0.0 | file b 1.25, headline 0.0 | agree True
+    val sweep relR2 0:0.853/0.936 0.25:0.862/0.930 0.5:0.875/0.923 0.75:0.886/0.916 1:0.893/0.910 1.25:0.902/0.900 1.5:0.915/0.885 1.75:0.919/0.878 2:0.922/0.872 2.25:0.925/0.866 2.5:0.926/0.862 2.75:0.928/0.858 3:0.930/0.853
+    val cells at b0 re-summed vs sweep: max |d| 0.00e+00
+    val cells at b1.25 re-summed vs sweep: max |d| 0.00e+00
+  D2 E-PF: mine b 1.5 (smallest b relR>=.90 & relP>=.90), drop +0.0753, headline 0.0 | file b 1.5, headline 0.0 | agree True
+    val sweep relR2 0:0.850/0.942 0.25:0.859/0.938 0.5:0.873/0.931 0.75:0.882/0.925 1:0.889/0.919 1.25:0.898/0.912 1.5:0.909/0.901 1.75:0.912/0.895 2:0.915/0.890 2.25:0.917/0.886 2.5:0.919/0.883 2.75:0.921/0.879 3:0.923/0.876
+    val cells at b0 re-summed vs sweep: max |d| 0.00e+00
+    val cells at b1.5 re-summed vs sweep: max |d| 0.00e+00
+
+## VERDICT headline: E-g b 0.0 vs E-PF b 0.0
+  test all 50: crack IoU +0.0027 [-0.0146, +0.0159] P>0 0.64 | relF1@2 +0.0121 [-0.0048, +0.0309] P>0 0.92 | inact IoU +0.0237 [-0.0310, +0.0971] P>0 0.79
+  test clean 49: crack IoU +0.0027 [-0.0133, +0.0151] P>0 0.63 | relF1@2 +0.0121 [-0.0036, +0.0306] P>0 0.92 | inact IoU +0.0245 [-0.0315, +0.1006] P>0 0.80
+  E1 (71 clusters): relF1@2 +0.0355 [-0.0232, +0.0912] P>0 0.88 | inact IoU +0.2141 [+0.0303, +0.3820] P>0 0.99 | LOCO relF1 [+0.0129, +0.0558] inact [+0.1375, +0.2768]
+  E1 cell-level (unclustered, comparison only): relF1 [-0.0105, +0.0798] inact [+0.0935, +0.3842]
+
+## b 0: E-g b 0.0 vs E-PF b 0.0
+  test all 50: crack IoU +0.0027 [-0.0146, +0.0159] P>0 0.64 | relF1@2 +0.0121 [-0.0048, +0.0309] P>0 0.92 | inact IoU +0.0237 [-0.0310, +0.0971] P>0 0.79
+  test clean 49: crack IoU +0.0027 [-0.0133, +0.0151] P>0 0.63 | relF1@2 +0.0121 [-0.0036, +0.0306] P>0 0.92 | inact IoU +0.0245 [-0.0315, +0.1006] P>0 0.80
+  E1 (71 clusters): relF1@2 +0.0355 [-0.0232, +0.0912] P>0 0.88 | inact IoU +0.2141 [+0.0303, +0.3820] P>0 0.99 | LOCO relF1 [+0.0129, +0.0558] inact [+0.1375, +0.2768]
+  E1 cell-level (unclustered, comparison only): relF1 [-0.0105, +0.0798] inact [+0.0935, +0.3842]
