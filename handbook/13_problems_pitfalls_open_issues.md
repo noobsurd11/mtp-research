@@ -25,6 +25,8 @@ Status date: 12 Oct 2026, ~05:30 IST, updated 13 Oct ~16:30 IST for P17 and P13 
 
 Update 30 Oct 2026, ~12:00 IST (handbook refresh for 24 to 30 Oct; additive). New items A14, A15, C14, C15, D20 to D27, E18 to E22. Dated "[Qualified 30 Oct: ...]" notes on A12, A5, C13, E2, E8 and E12. Sources: `SESSION_RECORD_2026-10-21_to_27.md`, `SESSION_RECORD_2026-10-28_to_30.md`, `team_2026-10-29_features/` (`log.md`, `coach_100.md`, `spec_b3_scuff.md`, `verify_*.md`), docs 18 and 19.
 
+Update 1 Nov 2026, ~21:00 IST (handbook refresh for 31 Oct to 1 Nov; additive). New items A16, A17, C18, C19, D34 to D45, E26 to E30 and summary rows for them. Dated "[Qualified 1 Nov: ...]" / "[Answered 1 Nov: ...]" notes on C17, E23 and E24. Sources: `SESSION_RECORD_2026-10-31_to_11-01.md`, `team_2026-10-31_next/` (`log.md`, verifications, `ideas/`); doc 20.
+
 ## Sources
 - `results/*/README.md` (P1–P17, E1), `protocols/*.md`.
 - `to_human/situation_report_2026-10-08.md`, `to_human/directions_2026-10-10.md`, `to_human/proposal_reframe_2026-10-11.md`, `to_human/results_2026-10-12.md`, `to_human/midterm_deck_outline.md`.
@@ -75,6 +77,12 @@ Update 30 Oct 2026, ~12:00 IST (handbook refresh for 24 to 30 Oct; additive). Ne
 | D20–D27 | Infrastructure incidents, 29 to 30 Oct (added 30 Oct) | resolved; verdicts unaffected | low |
 | E1–E16 | Open questions | open (E1, E2 answered) | see section (e) |
 | E18–E22 | Open questions from 24 to 30 Oct (added 30 Oct) | open | see section (e) |
+| A16 | Hanifi `_rf` half-cut (H36) crack labels are unusable; no labelled half-cut crack set exists outside E1 (added 1 Nov) | open (structural) | high for any half-cut claim or selector |
+| A17 | E1 crack labels are about 1.5x wider than train (added 1 Nov) | mitigated (width-robust E1 metrics reported) | medium for E1 crack recall |
+| C18 | The trainer evaluates the test split at the end of every run (added 1 Nov) | mitigated per protocol (data roots for A8, B6) | high for test hygiene |
+| C19 | Multiplicity across E1 openings (added 1 Nov) | open (ledger, disclosure) | medium |
+| D34–D45 | Infrastructure incidents and disclosures, 31 Oct to 1 Nov (added 1 Nov) | resolved or disclosed; verdicts unaffected | low |
+| E26–E30 | Open questions from 31 Oct to 1 Nov (added 1 Nov) | open | see section (e) |
 
 ---
 
@@ -317,6 +325,18 @@ Update 30 Oct 2026, ~12:00 IST (handbook refresh for 24 to 30 Oct; additive). Ne
 - **Impact:** a gaint score read from `data/escdd_masks` would differ from every cv02 P-series and Track M number on those 236 px.
 - **Mitigation:** gaint `el_f1/data/escdd_masks` was replaced by per-stem symlinks to `labeled/masks_escdd` (val 54, test 50; pixel md5 8bcd3691 = cv02); `el_f2` and `el_f3` link to the same. All 29 to 30 Oct scoring uses `labeled/masks_escdd`. `coach_strategy.md` (B1 appendix) notes `el_m/data/escdd_masks` still holds class 25 for test.
 
+### A16. Hanifi half-cut crack labels are unusable; no labelled half-cut crack set outside E1 (open, structural; added 1 Nov)
+- **What:** the 36 Hanifi `_rf` half-cuts (H36) hold 1,792 crack px over 17 cells, median ~70 px per cell; 48% lie within 10 px of spacing, border or the cut line; 75% of `_rf` crack components are < 5 px (Pratt labels 4%). FINAL finds 1 of 17 (relR@2 0.036).
+- **Evidence:** `team_2026-10-31_next/ideas/idea05_synthetic_halfcut.md` §1.6, `t9_prereg.md` judge review, `idea10_ai_labelling.md` §1 (`label_geometry.txt`); judge's ruling 31 Oct 14:23.
+- **Impact:** no non-E1 set can choose a half-cut bias or validate a half-cut crack method. H36 is used for false alarms on its 19 crack-free cells only; F51 (51 unseen-module full cells) decides on `_rf`. R4's null (Track M) may partly reflect these labels (S). Half-cut routing is parked for this reason (doc 20 §3.1).
+- **Resolution:** labelled half-cuts with E1-like context (B2 masks, or B3 + mining); cleaning H36 (~2 to 3 h, the user's call) would likely not show E1's offset (judge, S).
+
+### A17. E1 crack labels are about 1.5x wider than train (mitigated; added 1 Nov)
+- **What:** area / skeleton length: E1 3.66 px, train 2.41 (2·EDT median 4.0 vs 2.0); val 2.46 (judge recompute 1 Nov, log 21:1x; train / val masks only).
+- **Evidence:** `judge/crack_width.py` (md5 87f57a58); `protocol_PF2.md` §3b.
+- **Impact:** pixel E1 crack recall is partly a width readout (a train-width prediction centred on every crack caps near 0.66), and E1 "faintness" over GT px is partly dilution by edge px.
+- **Mitigation:** every protocol since PF2 reports width-robust E1 metrics (relR@2, relP@2, component recall / precision, predicted width); THIN-B3, HC and PF2E use E1 crack relF1@2 as the co-primary.
+
 ## (b) Past results that are invalid or were misread
 
 None of these may be quoted as a method result. Old-era numbers stay in separate tables from the P-series (standing rule; memory `mtp-el-ssl-project.md`). History: `06_history_phase0_phase1.md`.
@@ -538,7 +558,17 @@ None of these may be quoted as a method result. Old-era numbers stay in separate
 ### C17. E1 has been read many times (open; added 31 Oct)
 - **What:** E1 (106 cells) is the only sealed unseen-module set, and every protocol reports it. PF's E1 gain is the largest yet (crack recall 0.169 → 0.213, inactive IoU 0.041 → 0.245) but was not a pre-registered primary. Its crack-recall gain sits in the 29 scuff + half-cut cells (0.094 → 0.152; the other 77 lose crack IoU 0.261 → 0.238); the inactive gain is in both groups (0.088 → 0.566 and 0.028 → 0.104).
 - **Impact:** a PF E1 claim needs new seeds with E1 co-primaries stated before the runs, or an independent unseen-module set. Training on the "Pratt extras" would use E1 up (vetter finding 1).
-- **Status:** open; the user's call (vetter §6 Q1).
+- **Status:** open; the user's call (vetter §6 Q1). [Qualified 1 Nov: the user made E1 a second test set (31 Oct ~15:00): pre-registered co-primaries, one read per opening, never for selection; ledger `team_2026-10-31_next/e1_openings.md`. PF2 replicated the inactive gain on new seeds (doc 11 row 30); cell selection is still not controlled (same E1 cells).]
+
+### C18. The trainer evaluates the test split at the end of every run (mitigated per protocol; added 1 Nov)
+- **What:** `trainer.py` l.857-880 (e544133, and el_f8) runs a TEST pass after the final step (and on `best.pth`) and prints it to the stdout and the results payload; no option turns it off (`train.py` always builds the test loader).
+- **Impact:** every training run computes test numbers before its protocol's opening. Reading a stdout's tail shows them (D40). For protocols that must read no test cell (A8 screen, B6) a run would compute them anyway.
+- **Mitigation:** never tail a stdout (doc 12 D76); for A8 and B6 a per-run `data.root` whose `splits/test.txt` is the held-out list (A8: a copy of val.txt; B6: the held-out fold), checked by md5 and a CPU data-build line (doc 12 D74). No code change. The verdict files never use the trainer's TEST block.
+
+### C19. Multiplicity across E1 openings (open; added 1 Nov)
+- **What:** four registered E1 openings by 1 Nov (PF2, THIN-B3, HC armed, PF2E), each with uncorrected co-primaries (PF2 5, THIN SKR / CLD 6, B3 4, HC 5, PF2E 5). PF2E repeats PF2's members and cells.
+- **Impact:** a single E1 pass is weaker than it looks: PF2E's E1 inactive pass is borderline under Bonferroni (99% LB ≈ 0.000).
+- **Mitigation:** `e1_openings.md` lists every opening and the pre-policy reads; comparator files are reused, not re-read; a pre-declared no-op readout is dropped rather than read (routing, doc 20 §3.1). The paper reports every opening.
 
 ---
 
@@ -579,6 +609,18 @@ None of these may be quoted as a method result. Old-era numbers stay in separate
 | D31 | gaint reboot, 30 Oct 16:28 (added 31 Oct): orderly shutdown, cause unknown (a console login at 16:29) | Wave-2 runs stopped at checkpoints 16k / 12k / 12k; B2 v2 and D stopped | Resumed from `latest.pth`, overlap bit-identical, runs count (v1.2). Who rebooted it is a question for the user | `protocol_100.md` v1.2 |
 | D32 | awk slip (added 31 Oct): the first resume identity check read the wrong field and selected 0 lines | A false "DIFFER or incomplete" | Fixed and re-run before any decision; disclosed in v1.2 | `protocol_100.md` v1.2 |
 | D33 | poolscout's venv and `pkill` (added 31 Oct): a pip install into a throwaway venv completed (first reported as aborted); its `pkill -f` on the laptop matched only its own shell (poolscout's report to team-lead) | Traffic about 0.51 GB, over the 0.5 GB cap if tooling counts; nothing else changed | venv deleted unused; the PID-only rule now covers the laptop | `pool_large/pool_large_audit_2026-10-30.md` §5 |
+| D34 | builder's GPU context (added 1 Nov): pytest on gaint without `CUDA_VISIBLE_DEVICES=""` (31 Oct ~14:12 to 14:15, 14:32) | 254 MiB on the GPU beside finllm (margin then 7.2 GB); finllm unaffected | Every gaint command: CUDA hidden, nice 19, ≤ 8 threads; GPU smokes only through runner's gate | `team_2026-10-31_next/log.md` 31 Oct 14:15, 14:34 |
+| D35 | builder's test / E1-scuff read outside an opening (added 1 Nov): a CPU batch (31 Oct 14:46 to 14:54) ran `m0_audit_b3 --test-scuff --ext-scuff` on the already-opened f3_SUPPF s0 and p6_L3 s0, before coach's ruling reached it | Test (incl. test_noscuff) and E1-scuff numbers computed; not used, not reported | Quarantined unread on gaint (`builder_scratch/quarantine_test_reads_2026-10-31`, chmod a-r, MANIFEST.md5 e367b101); disclosed in protocol_thin_b3 §0 | log 31 Oct 17:32, 17:34 |
+| D36 | A gate inside a comment (added 1 Nov): `pf2_post.sh` a82ad566 put the extra-pass `gate_wait` in a trailing comment | Extra hooks would have run ungated | coach found it (14:40); fixed 14:41 (0b5fe17b), each GPU call checked for a live gate | log 31 Oct 14:40, 14:41 |
+| D37 | Usage caps and respawns (added 1 Nov): 31 Oct 14:54 to 17:30 (all agents paused); 1 Nov ~14:36 to 18:40 (all agents ended) | THIN ran unattended; the HC / A8 smoke slot after THIN's last dispatch was missed; PF2E's build finished after the respawn | Respawned from disk state (runner, coach, found, builder, judge; calib and domain done); state on disk in log and build files | log 31 Oct 17:31; 1 Nov 18:40 |
+| D38 | Smoke peak below the real scoring peak (added 1 Nov): PF2's LA pass (15 runs, test + val) peaked at 7,758 MiB at 07:45:13 1 Nov; the gate (7,900) assumed the smoke's 5,824 (one run, val only) | Min free 2,635 MiB (< 3,000 for ~30 s): the 2 GB floor held by 587 MiB; finllm unaffected | THIN opening gate 9,900 before any THIN number; rule max(smoke, last real peak) + 2 GB | log 1 Nov 08:28, 08:30; `verify_pf2.md` |
+| D39 | Test images touched for structure (added 1 Nov): domain's half-cut detector feature runs (R1, R2b) included the 50 test images; calib read test images for appearance stats and the max class id of the test masks; judge read test masks for padding class 7 | No labels, scores or predictions read; nothing chosen | Test dropped from every detector set (coach 18:21); mask-format checks on train / val only | log 31 Oct 18:21, 18:28; 1 Nov 00:27; `idea02_intensity.md` judge note 2 |
+| D40 | Training stdout tails (added 1 Nov): judge printed the last ~150 chars of 13 trained THIN stdouts (~18:49 1 Nov); builder and runner tailed HC smoke stdouts | judge saw per-run TEST crack / inactive IoU of 13 THIN runs before the opening; not recorded, no comparator, nothing chosen (protocol locked). The smokes exit before any TEST block | Rule: never tail / cat / less a training stdout; grep step lines (team-lead 19:02); watchers count Tracebacks with `grep -ho \| wc -l` | log 1 Nov 18:58, 18:55, 19:02, 19:05 |
+| D41 | Laptop memory pressure (added 1 Nov, 19:10): 544 MB available of 15.6 GB, swap full (mostly the user's own apps) | Claude Code stopped runner's 4 local background tasks (THIN and cv02 watchers, two waits) | Watchers moved to gaint (one event watcher, `rwatch.sh`, tmux rwatch); one local waiter for cv02 polls; at most one helper agent; found and builder stopped after logging state | log 1 Nov 19:11, 19:15, 19:28, 19:43 |
+| D42 | `set -e` chained checks (added 1 Nov): `[ a ] && [ b ]` under `set -e` does not stop on an early failing term, so integrity checks in `thin_post.sh` / `pf2_post.sh` could pass silently | None found: THIN re-verified directly (HEAD = DEPLOY = REVISION c9bbb02, comparator MANIFEST, scorer md5s) | Separate checks with explicit exits in new scripts; coach's verify re-checks independently | log 1 Nov 20:19, 20:20 |
+| D43 | Hand-written timestamps (added 1 Nov): coach (31 Oct 14:10), runner (14:13), found's version headers, judge (31 Oct 14:30; 1 Nov four lines stamped 18:51 / 18:58 / 19:20 / 19:36 for events at ~18:49-18:54, the furthest ~42 min ahead) | Wrong order in the log for a few minutes | coach's and runner's lines corrected in place; found's and judge's 31 Oct headers set to log.md times; judge's four 1 Nov lines stand as written, followed by a correction line at 18:55 (only the sign-off header in `judge/review_B6_v0.md` corrected in place). Stamps from `date` only | log 31 Oct 14:13, 14:30; 1 Nov 18:55 |
+| D44 | Small slips caught before any number (added 1 Nov): coach printed `$(md5sum ...)` literally; judge's unquoted heredoc lost backtick paths; runner closed its own idle tmux window by name; the 7 s R34 B5 dump fell between memory samples; runner's ssh heredoc partly ran on the laptop (stopped at the deploy check) | None | Corrected and disclosed in the log | log 31 Oct 14:28, 14:41, 14:49, 23:34; 1 Nov 18:45 |
+| D45 | PF2E copy slips (added 1 Nov): `pf2e_b5.sh` copied records and summaries into one folder and lost the test / ext summaries; a relative path broke runner's first local scoring | Summaries on gaint only for ~10 min; FileNotFoundError before any output | Fixed (out_b5 MANIFEST 6ea19679); rerun with an absolute path | log 1 Nov 19:16, 19:39, 19:46 |
 
 ---
 
@@ -608,9 +650,14 @@ None of these may be quoted as a method result. Old-era numbers stay in separate
 | E20 | (added 30 Oct) Does crack copy-paste onto pool cells help at 100%? | CP5 stopped unscored; diag: 5% is the wrong test for a label-dosed method. Pre-stated crack 0 to +0.015 vs MDE 0.012 (S) | protocol_100 CP100 − SUP100-g with the LA co-condition (running) [Qualified 31 Oct: answered, no (n.d.; E3b decoy FLAG, C16)] |
 | E21 | (added 30 Oct) How many train masks are wrong? | B1: crack flags in 24 of 239 audited cells (10.0 per 100), below the val base rate (16.7 per 100 for crack FL) | The user's marks on the three B1 sheets; then a `masks_escdd_v2` with a change list |
 | E22 | (added 30 Oct) Does a scuff class reduce E1 crack false alarms on streaks without losing crack? | 8.7k crack px per run on streaks (L3 100%); scuff labelled crack in 6 train cells (A14). Expected test n.d. (S) | B3 (`spec_b3_scuff.md`), stronger with B2 mined labels |
-| E23 | (added 31 Oct) Is PF's E1 gain real? | E1 crack recall 0.169 → 0.213, inactive IoU 0.041 → 0.245; the crack gain only in 29 scuff + half-cut cells; E1 read many times (C17) | PF2: new seeds 5 to 9 with E1 co-primaries pre-registered (coach's proposal; needs the user and vetter Q1) |
-| E24 | (added 31 Oct) Does ResNet-50 help at 100% under PF? | D: RN50-5 passes the E1 read narrowly (+0.060, cost 0.047), not an ensemble-size effect (R34-10 +0.001); Track M R3 RN50 WORSE on test inactive | RN50-PF vs SUP100-PF, 5 v 5, test primaries plus an E1 secondary |
+| E23 | (added 31 Oct) Is PF's E1 gain real? | E1 crack recall 0.169 → 0.213, inactive IoU 0.041 → 0.245; the crack gain only in 29 scuff + half-cut cells; E1 read many times (C17) | PF2: new seeds 5 to 9 with E1 co-primaries pre-registered (coach's proposal; needs the user and vetter Q1) [Answered 1 Nov: PF2 on seeds 5 to 9: E1 inactive replicated (+0.1890, BETTER); E1 crack recall not (+0.0271, n.d.); doc 11 rows 30, 32.] |
+| E24 | (added 31 Oct) Does ResNet-50 help at 100% under PF? | D: RN50-5 passes the E1 read narrowly (+0.060, cost 0.047), not an ensemble-size effect (R34-10 +0.001); Track M R3 RN50 WORSE on test inactive | RN50-PF vs SUP100-PF, 5 v 5, test primaries plus an E1 secondary [Answered 1 Nov: no. RN50-PF test inactive WORSE (−0.0289); closed (doc 11 row 33).] |
 | E25 | (added 31 Oct) Does the B2 ranking find scuff / crack half-cells? | Train-scuff AUROC 0.384 / 0.437 (n_pos 4 / 9); against Hanifi labels 0.62 to 0.70 (35 cells) | The user's marks: 90 ranked vs 10 random panels (≥ 25 / 38 / 48 ranked hits at 0 / 1 / 2 random hits) |
+| E26 | (added 1 Nov) Is PF's inactive gain also in-distribution? | Test inactive +0.017 n.d. (16 cells, n_eff 7.2); E1 +0.19 (10 cells) | B6 (module-grouped CV, cv02 only; power ~13% at +0.017, 80% at ~+0.055) |
+| E27 | (added 1 Nov) Do thin-crack losses or a scuff class help on BEST? | Smokes only; B3 scuff IoU 0 at 2k | THIN-B3 opening (running at writing) |
+| E28 | (added 1 Nov) Does training on synthetic half-cuts help E1? | Val made into half-cuts loses 0.14 recall; the SHV1 loss is ranking | HC (queued), E1 opening #3 |
+| E29 | (added 1 Nov) Does a foundation encoder help under PF? | Frozen probe: IN R50 0.444 > DINOv3 CNX-T 0.363 > IN-1k CNX-T 0.310 (F51 AP) | A8 screen (A8 vs A8c, 2 seeds, 4k), then a full arm if GO |
+| E30 | (added 1 Nov) Can E1's half-cut offset be chosen without E1? | Oracle on E1: b +5.4 half-cut vs −0.8 full; simulated half-cuts show +0.4 / +0.9 (pre-check FAIL); no labelled non-E1 half-cut crack set (A16) | Labelled half-cuts with E1-like context (B2 masks, B3 + mining) |
 
 ## Related docs
 - `00_START_HERE.md`

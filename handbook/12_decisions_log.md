@@ -15,6 +15,8 @@ Read it to answer "why did we do X and not Y?". For the experiments themselves s
 
 **Update 31 Oct 2026, afternoon (additive).** §4e adds Om's answers of 31 Oct (`team_2026-10-31_next/om_2026-10-31.md` sections A and B): D60 (protocol_100 verdicts accepted; PF2 approved) and D61 (vetter's §6 questions 1 to 11). Status: doc 15 §1h and the dated notes in §3b / §3c.
 
+**Update 1 Nov 2026, ~21:00 IST (additive).** §4f adds the decisions of 31 Oct to 1 Nov (D62 to D77): the new team, the E1 policy, the idea verdicts, the routing pre-check, weights, PF2, THIN-B3, PF2E, HC, the A8 / B6 data roots, B6 on cv02, the never-tail rule. Five rules in §6. Experiments: `20_pf2_and_domain_ideas.md`.
+
 **Conventions**
 - **Times are IST** (UTC + 5:30).
   - User messages are timestamped in UTC in the transcript extract and converted here.
@@ -751,6 +753,72 @@ Source: `team_2026-10-31_next/om_2026-10-31.md` (Om's answers, pasted by the use
 
 ---
 
+## 4f. 31 Oct to 1 Nov: the new team, the E1 policy, PF2, PF2E and the idea protocols (added 1 Nov)
+Sources: `team_2026-10-31_next/` (`README.md`, `log.md`, `e1_openings.md`, the protocols and verifications), `SESSION_RECORD_2026-10-31_to_11-01.md`, doc 20. Times are IST from `log.md`.
+
+### D62. A new team for Om's ideas; no budget limit, no manual labelling (31 Oct 13:51)
+- **Who:** the user (directive), team-lead.
+- **What:** runner, coach, builder, calib, domain, found, judge (`README.md`). Every idea gets a validation report and a judge verdict before any protocol; GPU only on coach's APPROVED; work Om did not approve needs the user's OK. The user: "no budget boundaries, we have 2 more months ... refrain from manual labelling unless very much needed". Agents do not ask the user to label; a step that truly needs labels states the minimal hours.
+
+### D63. E1 becomes a second test set (user, 31 Oct ~15:00; logged 17:31)
+- **What:** a protocol may pre-register E1 co-primaries, read once at its single opening, never for tuning, selection or thresholds; the paper reports every E1 opening. coach keeps `e1_openings.md` (from 17:37); reads before the policy are listed there, and FINAL and protocol_100 seeds 0 to 4 are "not blind" on E1.
+- **Effect:** PF2's design was unchanged; THIN-B3, HC and PF2E pre-registered E1 co-primaries; calib dropped its E1 branch from idea 2's GO rule before reading any number (17:32).
+
+### D64. Verdicts on the 11 ideas (judge, 31 Oct 14:13 to 17:36)
+- **PASS to protocol:** 5 (synthetic half-cuts, narrowed), 7 (metrics, already in protocol), 8 (foundation encoder: probe descriptive, a 2-seed PF fine-tune screen is the kill gate).
+- **PARK:** 3 and 4 jointly (one structure-channel arm at most, chosen by a pre-set val rule); half-cut routing from idea 1 (after D66).
+- **DROP:** 2, 6, 11 (as arms); TENT (idea 9); label-free per-panel thresholds (idea 1); SAM on cracks (idea 10). Pre-registered CPU checks for idea 9 (T9) and idea 10 (S10).
+- **Why:** doc 20 §2; each verdict is appended to its `ideas/` file.
+
+### D65. Hanifi H36 crack labels unusable; F51 decides on `_rf` (judge and coach, 31 Oct 14:23)
+- **What:** the 36 Hanifi half-cuts are for false alarms only; F51 (51 unseen-module full cells) is the `_rf` crack decision set. No protocol uses `_rf` for a PF2 or THIN-B3 verdict.
+- **Why:** H36 crack GT is 1,792 px over 17 cells, 48% within 10 px of structure; FINAL relR@2 0.036. Consequence: no labelled half-cut crack set exists outside E1.
+
+### D66. Routing pre-check before any E1 routed readout; it failed (31 Oct 17:34 to 18:05)
+- **Who:** coach (conditional PF2 §13), judge (pre-check rule + cross-fit term R1), calib (run), domain (SHV1).
+- **What:** a half-cut bias selector had to pass on non-E1 synthetic half-cuts (SHV1) first: Δb ≥ 1.0, in-sample gain ≥ 0.02, cross-fitted gain ≥ 0.01. Result FAIL for FINAL and SUP100-PF (Δb +0.4 / +0.9, gain ≤ 0.008). PF2 §13 void, never computed; routing PARKED.
+
+### D67. Weights and venvs (user, 31 Oct ~15:00 and 1 Nov ~13:15)
+- **What:** idea 8 weights (DINOv3 ConvNeXt-T, ViT-S/16, SAM2 Hiera-T) and the 2-seed 4k screen after PF2; the user accepts the DINOv3 licence. idea 10: a separate sam2 venv on gaint and ~156 MB of weights. On 1 Nov the user chose **route B**, verbatim "B: I accept, fetch timm": found fetched the two timm DINOv3 mirrors with sha256 checks (14:28).
+- **How:** SAM2 from Meta's repo at a pinned commit (PyPI `sam2` is a third-party upload, not used); the sam2 venv reuses torch read-only; the house venv unchanged (torch md5 before / after equal).
+
+### D68. PF2 launched with measured gates (coach APPROVED 31 Oct 14:28)
+- **What (log 31 Oct 14:09 to 14:28):** seeds 5 to 9; queue "twohead", 3 lanes, at most 1 RN50 at a time (1 RN50 + 2 R34 + finllm would breach the floor); gates R34 9,000, RN50 13,234, scoring 7,900 MiB; B5 scorer frozen after a GPU bf16 self-check came out exact (31 Oct 23:35).
+
+### D69. THIN-B3 locked and armed; opening gate raised (1 Nov 00:25 to 08:30)
+- **What:** Skeleton Recall (w 1), clDice (w 1, k 10) and B3 on SUP100-PF, comparator PF2's SUPPF s5-9 (smoke S0 bit-identical over 2,000 steps); distance-map arm not recommended. E1 co-primary E1 crack relF1@2. B3's "not learned" outcome stated before the runs. Armed 00:38:42.
+- **Gate:** after PF2's measured LA peak (7,758 MiB), THIN's opening gate went 7,900 → 9,900 MiB (08:30, before any THIN number). Rule since: max(smoke peak, last real peak) + 2 GB.
+
+### D70. PF2 verdict: BEST stays SUP100-PF; RN50 closed (coach, 1 Nov 08:30)
+- **What:** PF2 PASS (E1 inactive replicated; test relF1@2 BETTER, narrow); RN FAIL (test inactive WORSE). Pre-registered follow-ups: the ensemble (PF2E) and Om B6. A8's deployable comparator stays SUP100-PF.
+
+### D71. HC, PF2E, DINOv3 and B6 approved (user, 1 Nov ~13:15; logged 14:27)
+- **What:** HC (idea 5) GPU after THIN-B3; PF2E with E1 crack relF1@2 and E1 inactive IoU as co-primaries (module-cluster bootstrap; E1 opening #4); DINOv3 route B (D67); Om B6 designed now, competing for gaint time with ideas 5 and 8.
+- **Queue after THIN (runner):** PF2E, HC, A8 screen, B6, each on coach's APPROVED.
+
+### D72. PF2E's verdict uses the headline bias (coach, 1 Nov 19:04:56)
+- **Who:** judge flagged that protocol §2 said "the chosen b" while the approved scorer used "headline b"; coach clarified in writing with the output folder empty (val decisions written 19:05:49).
+- **What:** the verdict uses each ensemble's headline b (D2's b, or 0 if it trips the val width flag). Both tripped, so argmax.
+- **Outcome (19:18 to 19:21):** PASS on E1 inactive, test n.d.; judge's five qualifications go with it everywhere; no "matches FINAL" claim. coach and judge recommend E-PF over E-g as the deployable candidate; the user decides.
+
+### D73. HC design (coach and domain, 31 Oct 18:05 to 18:41; v1.1 1 Nov 18:54)
+- **What:** sources by rule_p (gap found, band ≤ 20 px, band padding fraction < 0.4): 353 train cells; p 0.35 per eligible sample (~26% synthetic views, the costed dose); mechanism kill on SHV1 relR@2 at relP@2 ≥ 0.90 (ranking, since the routing pre-check showed the SHV1 loss is ranking); F51 harm guard. found's independent code review PASS.
+
+### D74. No test cell in the A8 screen or B6, by data root (coach, 1 Nov 18:54 and 19:24)
+- **What:** the trainer evaluates the test split at the end of every run. For A8 and B6 each run gets a `data.root` whose `splits/test.txt` is the held-out list (A8: val; B6: the held-out fold). No code change; checks: split md5s, 0 real test or E1 stems, a CPU data-build line.
+
+### D75. B6 only on cv02 (user, 1 Nov ~19:00; team-lead 19:02)
+- **What:** run only if cv02 frees up (≥ 3 qualifying GPUs, one whole experiment there), else skip; never on gaint; report as low-powered (judge: ~13% power at Δ +0.017, 80% at ~+0.055). cv02 had 5 qualifying GPUs at 18:50 and 19:02, so B6 = 2 seeds / 20 runs on cv02. team-lead (19:46): cv02 gets a fresh `labeled/` with only the 532 train + val stems.
+- **Design:** v1 locked at judge's sign-off 18:54 (signed md5 09d74b4c); v1.0.1 (md5 e1f1c894) adds builder's --stems assert and judge's two non-blocking notes, no design change. It sets folds by judge's physical-module groups, because image-id folds leak CFVS time-series twins and favour PF.
+
+### D76. Never tail a training stdout; laptop memory rules (team-lead, 1 Nov 19:02 to 19:43)
+- **What:** never `tail` / `cat` / `less` a training stdout (the end-of-run TEST block prints test numbers); grep step lines only. After the laptop ran out of memory (19:10): watchers on gaint (one event watcher), at most one local waiter and one helper agent at a time; found and builder stopped after logging state.
+
+### D77. B1 / B2 marks optional (team-lead's reading of the user's 31 Oct ~13:45 line)
+- **What:** B1 / B2 marks: optional (team-lead's reading of the user's 31 Oct ~13:45 line '…refrain from manual labelling unless very much needed', which overrides Om B4's 'now'); not done; not re-asked. Not a separate user ruling. Om B4 had asked for the B1 marks (about 1 h) and the B2 marks (about 15 min) "now" (D61 item 4); team-lead read the user's line, quoted at the top of `team_2026-10-31_next/om_2026-10-31.md`, as overriding that, so the team does not chase the marks and uses proxies instead (the Hanifi AUROC check, synthetic half-cuts). B2 pixel masks and the Hanifi crack cleanup were already conditional on the marks (D61 item 4). The B2 Hanifi panel redaction in `handbook/sources` stays until the marks are done.
+
+---
+
 ## 5. Housekeeping decisions (how the work is run)
 
 | # | Decision | Who / why | Source |
@@ -799,6 +867,11 @@ Each rule exists because a specific mistake produced a fake or misleading result
 | (added 31 Oct) Read a decoy or shortcut gate at the end of training too | gate 6b's decoy fell from 2k to 4k, then tripled by 20k | `review_100_v1.md` "Gate 6b in hindsight" |
 | (added 31 Oct) Watchers only as tracked jobs with a recorded PID; no bare `&` | two untracked duplicate watchers | doc 13 D30 |
 | (added 31 Oct) Act on a formal OK only; when messages cross, disclose and offer to undo | five crossed approvals on 30 to 31 Oct | doc 13 D29 |
+| (added 1 Nov) Never tail / cat / less a training stdout; grep step lines only | the trainer prints an end-of-run TEST block; judge saw 13 THIN runs' test numbers before the opening | doc 13 D40, D76 |
+| (added 1 Nov) A run that must read no test cell gets a data root whose test list is the held-out list | the trainer evaluates the test split at the end of every run, with no switch | doc 13 C18, D74 |
+| (added 1 Nov) Gate a scoring pass on max(smoke peak, last real peak) + 2 GB; a smoke on one run and one set understates a pass over 15 runs and two sets | PF2's LA pass peaked at 7,758 MiB against a 5,824 smoke peak; min free 2,635 | doc 13 D38 |
+| (added 1 Nov) Under `set -e`, write each integrity check as its own test with an explicit exit; never chain them with `&&` | `[ a ] && [ b ]` does not stop on an early failing term | doc 13 D42 |
+| (added 1 Nov) Any command on gaint: `CUDA_VISIBLE_DEVICES=""`, nice 19, ≤ 8 threads unless it is a gated GPU job | builder's pytest opened a CUDA context beside finllm | doc 13 D34 |
 
 ## Related docs
 - `00_START_HERE.md`

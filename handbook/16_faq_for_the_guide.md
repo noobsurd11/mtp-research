@@ -2,6 +2,8 @@
 
 **Update 30 Oct 2026 (additive):** section G (Q27 to Q33) covers 24 to 30 Oct: the best model, the unlabelled pool, encoder erasure, the 5% lesson, scuff labels and what is running. A dated qualifier is added to Q20 (P15).
 
+**Update 1 Nov 2026, ~21:00 IST (additive):** section I (Q42 to Q50) covers 31 Oct to 1 Nov: PF2, the PF ensemble (PF2E), Om's 11 unseen-panel ideas, the E1 policy and what is running. Dated "[Qualified 1 Nov: ...]" notes on Q27, Q35, Q36 and Q38.
+
 **What this covers.** Short answers to the questions a newcomer to this project tends to ask, each with its numbers and the doc or file to read next. The answers are as of 12 Oct 2026, about 05:30 IST, updated 13 Oct ~08:15 IST for P17 and P13 Amendment 2 (Q8, Q10, Q20b). All experiments, P17 included, are finished. Do not give a stronger answer than the one here without new evidence.
 
 **Sources:** every answer names its own source. The main ones:
@@ -352,7 +354,7 @@ FINAL (25 Oct, Track M): the 5-seed mean-softmax ensemble of the 100%-label L3 r
 - Without the bias (bias 0): crack IoU 0.488. This is the robust choice: with +0.75 the ensemble calls 10,867 crack px on the corrupted test cell, at bias 0 it calls 2.
 - "Almost all cracks" (relaxed recall ≥ 0.90 at relaxed precision ≥ 0.90) is not reached: 0.866 at 0.930. On unseen modules crack recall is 0.215.
 - No single-model training change tried at 100% beat it (Dice on more classes, ResNet-50, +107 E-SCDD cells, 2× resolution), all under the house optimizer (Q29).
-- protocol_100 (running from 30 Oct 12:05 IST) may change this; it has no result yet. [Qualified 31 Oct: it did not; every contrast n.d. (Q34, Q35)]
+- protocol_100 (running from 30 Oct 12:05 IST) may change this; it has no result yet. [Qualified 31 Oct: it did not; every contrast n.d. (Q34, Q35)] [Qualified 1 Nov: still FINAL by rule; the PF ensemble does not match it on test at its pre-registered operating point (Q42).]
 
 Sources: `team_2026-10-24_go/trackM/results_final.md`, `verify_final.md`. → `18` §M7, `11` row 18
 
@@ -411,17 +413,20 @@ No, for both routes tested (protocol_100, gaint, 5 v 5, all 478 train labels; bo
 
 **Q35. Did keeping the encoder (PF) help?**
 Not on test: SUP100-PF − SUP100-g n.d. on all three primaries in both sets (crack −0.0012 / −0.0061). It trades a little crack recall for precision. On E1 it is the largest change any arm has made (crack recall 0.169 → 0.213, inactive IoU 0.041 → 0.245), but that is descriptive (Q36). coach recommends it as the base recipe anyway: equal on test, more robust out of distribution. → `11` row 27
+[Qualified 1 Nov: on new seeds 5 to 9 (PF2) PF is BETTER on test crack relF1@2, narrowly (+0.0117 / +0.0120 vs floor 0.0100), with crack IoU and inactive IoU n.d., and its E1 inactive gain replicated (+0.1890). Q44.]
 
 **Q36. Why is PF's E1 gain not a result?**
 - E1 has been read by every protocol and is never for selection (`13` C17).
 - The crack-recall gain sits in the 29 scuff + half-cut cells (0.094 → 0.152); on the other 77 cells crack IoU falls (0.261 → 0.238; `results/f100/opening1/o1_extra.txt`).
 - A claim needs new seeds with E1 co-primaries stated before the runs (coach's PF2 proposal) or an independent unseen-module set.
+[Qualified 1 Nov: PF2 replicated the inactive part on new seeds with pre-registered E1 co-primaries (+0.1890 BETTER); the crack-recall part did not replicate (+0.0271 n.d.). Same E1 cells, so cell selection is still not controlled. Q44, Q46.]
 
 **Q37. What does the CP100 decoy flag mean?**
 The decoy test pastes nothing on real test cells; it asks whether the model learns to call paste seams crack. At 20k steps CP100 fired on decoys 4.41x as often as SUP100-g (0.0125 vs 0.0028), and its rate had tripled since 4k. Gate 6b let CP100 run because the rate was falling at 4k; that did not hold. It changes no conclusion, because CP100 is n.d. anyway; CP also doubled false crack px on crack-free val cells (178 → 389). → `13` C16
 
 **Q38. Does a bigger encoder (ResNet-50) help?**
 Only a descriptive lead. In the inference-only D checks (val + E1, no test), a 5-model RN50 ensemble passed the pre-registered E1 read narrowly (+0.060 target recall at precision cost 0.047; limits +0.05 / 0.05), and doubling a ResNet-34 ensemble did not move the target (+0.001), so it is not ensemble size. Track M R3's RN50 was WORSE on test inactive. Next would be RN50-PF vs SUP100-PF. → `11` row 28, `verify_d.md`
+[Qualified 1 Nov: no. Under PF, RN50-PF − SUP100-PF is WORSE on test inactive (−0.0289, thr 0.0251, both sets), and the E1 scuff + half-cut lead turned negative (−0.0225; ensembles −0.025). RN50 is closed under PF. Q45.]
 
 **Q39. Should we download the 159k-image Hugging Face pool?**
 No. poolscout showed it is Pratt's own pool: CSIR + ARTS only, no new half-cells, no BMRK / CFVS, none of E1's half-cut module family; 21 of our 50 test cells are in it by ID and about 2,400 byte-identical copies sit under other IDs. vetter's condition for a download (a MIM gain at opening 1) failed. → `11` row 29, `12` D58
@@ -434,6 +439,51 @@ Not everywhere, most likely. Opening-1 scoring ran beside two CP runs under a ga
 - Waiting on the user: PF as the base; PF2 (needs vetter Q1); RN50-PF; vetter's 11 questions; B1 and B2 marks; deleting the HF sample; who rebooted gaint; the 40-segment audit and 4 label questions; the idle cv02 shells.
 
 → `15` §1g, §3c, §4c
+
+## I. 31 Oct to 1 Nov: PF2, the PF ensemble, Om's 11 ideas (added 1 Nov)
+
+**Q42. Is the PF ensemble better than FINAL?**
+No claim either way.
+- At its pre-registered operating point (argmax, because D2's bias tripped the val width flag), the PF ensemble E-PF has clean-test crack IoU 0.4846 vs FINAL's 0.492.
+- E-PF reaches 0.4920 only at bias 1.5, which the pre-registered val width flag rejected (val crack precision drop +0.0753 > 0.05; on test, crack precision 0.670 → 0.584). That is not a "matches FINAL" result.
+- FINAL ran on cv02 with other commits and bias +0.75; PF2E ran on gaint. They are not compared by rule.
+- What PF2E does show: E-PF vs the house ensemble E-g, test n.d. on all three primaries (all point estimates positive) and E1 inactive IoU +0.2141 (CI above 0). coach and judge recommend E-PF over E-g as the deployable candidate; the user decides.
+Sources: `team_2026-10-31_next/verify_pf2e.md`. → `20` §5, `11` row 34
+
+**Q43. Did any unseen-panel idea work?**
+Not yet on a verdict, apart from PF's inactive effect.
+- Dropped or closed: per-panel thresholds (idea 1), intensity normalisation (2: E1's "brighter" look is a white letterbox), high resolution (6: a repeat of R5), appearance augmentation (11), test-time BN adaptation (9: T9 FAIL; entropy TTA / TENT dropped without a run), SAM on cracks (10).
+- Parked: neighbour reference and periodic removal (3, 4: the model does not confuse busbars with cracks), half-cut routing (the pre-check on synthetic half-cuts failed).
+- Running or queued: thin-crack losses and a scuff class (THIN-B3), synthetic half-cuts (HC, idea 5), a DINOv3 encoder screen (A8, idea 8).
+- Method note: SAM fills partly found inactive regions (S10), at 50% labels.
+→ `20` §2, §3, `11` rows 35 to 39
+
+**Q44. Is PF now better than the house recipe?**
+On these numbers, yes for inactive on E1's cells (10 inactive cells in 7 images), narrowly for test crack relF1@2, and no difference on test crack IoU or inactive IoU.
+- PF2 (seeds 5 to 9): E1 inactive IoU 0.048 → 0.237 (BETTER, replicated); test relF1@2 +0.0117 / +0.0120 (BETTER by 0.0017 / 0.0020; leave-top-3-out +0.0015); E1 crack recall n.d.
+- PF2E (ensembles): E1 inactive +0.214 with CI above 0, test n.d.
+- judge's reading of the E1 inactive gain: "fewer false inactive calls on module edges plus twice the inactive recall on E1", on 10 cells in 7 images; borderline under Bonferroni.
+→ `20` §4-5, `11` rows 30 to 34
+
+**Q45. What did ResNet-50 under PF show?**
+A FAIL: test inactive IoU 0.4557 → 0.4269 (−0.0289, thr 0.0251) in both sets, the same risk Track M's R3 showed. D's E1 lead (+0.060 under the house recipe) became −0.025 under PF. RN50 is closed under PF; the foundation-encoder question moved to the A8 screen. → `20` §4, `11` row 33
+
+**Q46. What is E1 now, and how often has it been read?**
+Since 31 Oct ~15:00 (user) E1 is a second test set: a protocol may pre-register E1 co-primaries, read once at its opening, never for tuning or selection. Openings so far: #1 PF2 (1 Nov 06:33), #2 THIN-B3 (running at writing), #3 HC (armed), #4 PF2E (1 Nov 19:02). Before the policy E1 was read many times, so FINAL and protocol_100 seeds 0 to 4 are "not blind" on E1. Co-primaries are not corrected for multiplicity (disclosed). Ledger: `team_2026-10-31_next/e1_openings.md`. → `20` §8, `13` C17, C19
+
+**Q47. Is the E1 failure a threshold problem?**
+Not within each cell type: the E1 precision-recall curve lies below val's at every bias, and label-free per-panel thresholds lose. Across cell types there is a large offset on E1's own labels (best half-cut bias +5.4 vs full −0.8, oracle), but simulated half-cuts do not show it (+0.4 / +0.9), so it cannot be chosen without labelled half-cuts that look like E1's. → `20` §2.1, §3.1, `11` row 35
+
+**Q48. Why is there no labelled half-cut set to tune on?**
+Our 582 labelled cells hold no half-cuts. Hanifi's 36 half-cuts have unusable crack labels (1,792 px over 17 cells, 48% within 10 px of spacing, border or the cut line; FINAL finds 1 of 17). E1's 58 half-cuts are the only good half-cut labels, and E1 is a test set. → `13` A16
+
+**Q49. Did gaint's 2 GB memory floor hold in PF2?**
+Yes, by 587 MiB. PF2's logit-adjustment pass over 15 runs peaked at 7,758 MiB (the smoke said 5,824), taking free memory to 2,635 MiB for about 30 s beside two THIN runs and finllm. The scoring gate was raised to 9,900 MiB before any THIN number. → `13` D38
+
+**Q50. What is running, and what is waiting on the user?** (1 Nov, ~20:30 IST)
+- Running: THIN-B3's opening on gaint (started 19:40). Armed behind it: the A8 screen and HC runs, A8 scoring, the HC opening. B6 waits for cv02 (≥ 3 free GPUs) and its build.
+- Waiting on the user: the deployable model (E-PF?), the D2 width flag for future protocols, whether half-cut labels are wanted, the A8 full arm if the screen says GO; still open: the HF sample, the 30 Oct gaint reboot, the 40-segment audit; the B1 / B2 marks are optional (team-lead's reading of the user's 31 Oct line on manual labelling; not done, not re-asked).
+→ `15` §1i, §3d, §4d
 
 ## Related docs
 All of them; start from `00_START_HERE.md`.

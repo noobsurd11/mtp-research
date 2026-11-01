@@ -8,6 +8,8 @@
 
 **Update 31 Oct 2026, afternoon (additive).** Om's answers of 31 Oct (`team_2026-10-31_next/om_2026-10-31.md` A and B; doc 12 D60, D61): dated "[Answered 31 Oct: ...]" notes on §3b rows 8 and 9 and §3c rows 12 to 16; new §1h (state when PF2 started). Nothing here predicts a PF2 result.
 
+**Update 1 Nov 2026, ~21:00 IST (additive).** New §1i (state at ~20:30 IST 1 Nov), §3d (decisions waiting on the user), §4d (ranked next items with ETAs); dated "[1 Nov: ...]" notes on §3c row 16 and §4c rows 1 to 5; a §7 row. Sources: `SESSION_RECORD_2026-10-31_to_11-01.md`, `team_2026-10-31_next/`, doc 20. THIN-B3 had no verified result at writing.
+
 **Sources**
 - Server check at session close, 13 Oct 01:21 IST (read-only: `tmux ls`, `nvidia-smi`, `ps`, `du`), for §1b.
 - Launch logs on the servers, read at about 22:15 IST:
@@ -97,6 +99,13 @@
 - **gaint:** PF2 running since 14:29 IST (coach APPROVED 14:28): SUP100-g / SUP100-PF / RN50-PF, seeds 5 to 9, deploy e544133 (no code change for RN50), the 10 ResNet-34 runs in 3-lane waves first, then the 5 ResNet-50 runs one at a time (1 RN50 + 2 R34 would breach the 2 GB finllm floor). Gates: R34 9,000 MiB, RN50 13,234 (smoke peak 11,186 + 2,048), scoring passes 7,900 (RN50 LA val peak 5,824 + 2,048). Smoke 14:03 to 14:27: SUP / SUPPF bit-identical to the protocol_100 s0 runs; RN50-PF layer3 / layer4 cosine to ImageNet 0.975 / 0.983 at 4k. ETA: all trained about 06:30 to 07:00 on 1 Nov, one scoring opening after. No PF2 number exists.
 - **Handbook:** the B2 Hanifi panel cells are redacted in `handbook/sources/` until the user marks B2 (commit a076e54; `sync_sources.sh` applies it on every sync).
 
+## 1i. State on 1 Nov 2026, about 20:30 IST (added 1 Nov; `SESSION_RECORD_2026-10-31_to_11-01.md` §11, `team_2026-10-31_next/log.md`)
+- **Done since §1h:** PF2 (PASS; RN50-PF FAIL; doc 20 §4); PF2E (PASS on E1 inactive with qualifications, test n.d.; §5); the 11 idea validations (§2); routing pre-check FAIL, T9 FAIL (TTA closed), S10 PASS (method note), P8 probe runs 1 and 2 (§3). Item 13 closed (no pool download).
+- **gaint, running:** THIN-B3's opening (E1 opening #2), started 19:40:18 (trigger PID 2926375, GS 9,900); ETA end ~21:45 to 22:00 (runner). All 15 THIN runs trained rc 0 (06:32 to 19:39).
+- **gaint, armed behind it:** nq queue (PID 1843760; jobs A8 s0, A8c s0, HC s5, A8 s1, A8c s1, HC s6 to s9; 3 lanes; gates HC 9,000, A8 11,400), starting on THIN's "thin scoring done: post rc=0"; A8 scoring (PID 1908697, CPU, val + rf only); HC opening trigger (PID 2122911, FROZEN a23994c4; E1 opening #3). Event watcher `rwatch_v2.sh` (PID 1914687).
+- **cv02:** nothing of ours; read-only polls every 15 min (5 GPUs qualified at 18:50 and 19:02). B6 waits for builder's fold roots and scorer, runner's jobs and coach's APPROVED.
+- **Team:** calib and domain finished (not respawned after 1 Nov's cap); found and builder stopped at 19:15 for laptop memory (builder returns after THIN's window for B6); runner, coach, judge active; scribe writing the record and this refresh.
+
 ## 2. What ran overnight, 11 to 12 Oct (all done)
 A watcher (`scratchpad/watch.sh`) polled both servers every 2 minutes and fired on each finished set. It exited after P16 Part B; the script lived in a session scratchpad that no longer exists. What it triggered:
 1. **P15 (done 11 Oct ~22:40 IST):** `bash scripts/post_p15.sh <cv02 gpu>`.
@@ -147,11 +156,22 @@ Decision 4 of the 21 to 27 Oct record ("the handbook refresh") is this update.
 | 13 | **PF E1 replication (PF2)** [Answered 31 Oct: approved as proposed, plus E1 strata reported and the 7,154 MiB gate for scoring beside finllm (Om A; D60). `team_2026-10-31_next/protocol_PF2.md`; launched 14:29 IST, see §1h.] | New seeds 5 to 9; SUP100-g / SUP100-PF / RN50-PF; E1 crack recall and E1 inactive IoU as pre-registered co-primaries for PF; ~15 to 17 h on gaint (coach). Needs row 15's Q1 first | `log.md` 31 Oct 07:15 |
 | 14 | **RN50-PF** vs SUP100-PF [Answered 31 Oct: the third arm of PF2; bigger encoders are gated on SUP100-PF, ConvNeXt-T parked (Om B8; D61).] | D: RN50-5 +0.060 E1 target recall at cost 0.047, not ensemble size; R3 RN50 WORSE on test inactive | `verify_d.md` |
 | 15 | **vetter §6, questions 1 to 11** [Answered 31 Oct: all 11, doc 12 D61.] | E1 still sealed? scuff test GT; Hanifi cells (validation now, training later); labelling hours; thin-crack metric; powered inactive CV (~40+ h); downloads (DINOv3, ELPV); gate bigger encoders on the recipe; pool download (moot, D58); pool module rule; pool subset | `review_suggestions_2026-10-30.md` §6 |
-| 16 | **Marks** on the B1 sheets (3) and the B2 v2 sheets (4 x 25 panels) [Answered 31 Oct: B1 marks (about 1 h) and B2 marks (about 15 min) this week; B2 pixel masks and the Hanifi crack cleanup only if the Hanifi AUROC check and the marks show ranked > random (Om B4). Still waiting on the user's marks.] | B2: scuff / crack / both / neither / unsure; primary hit = scuff, crack or both | `b2_mining/v2/b2v2_report.txt` |
+| 16 | **Marks** on the B1 sheets (3) and the B2 v2 sheets (4 x 25 panels) [Answered 31 Oct: B1 marks (about 1 h) and B2 marks (about 15 min) this week; B2 pixel masks and the Hanifi crack cleanup only if the Hanifi AUROC check and the marks show ranked > random (Om B4). Still waiting on the user's marks.] [1 Nov: optional (team-lead's reading of the user's 31 Oct ~13:45 line '…refrain from manual labelling unless very much needed', which overrides Om B4's 'now'); not done; not re-asked (doc 12 D77).] | B2: scuff / crack / both / neither / unsure; primary hit = scuff, crack or both | `b2_mining/v2/b2v2_report.txt` |
 | 17 | **Delete the 293.6 MB HF pixel sample** (`~/mtp/datasets/scdd_unlabeled_sample/`, outside the repo) | No download is planned | `pool_large/pool_large_audit_2026-10-30.md` §5 |
 | 18 | **Who rebooted gaint at 16:28 on 30 Oct?** | Orderly shutdown, console login at 16:29; runs need a warning if it may happen again | `protocol_100.md` v1.2 |
 
 Still open from §3b: rows 10 (40-segment audit, 4 label questions) and 11 (idle cv02 shells). Row 7 is now row 16 (B2 sheets sent); row 8 is vetter Q2; row 9 (ELPV) is vetter Q7.
+
+## 3d. Decisions waiting on the user, 1 Nov (added 1 Nov)
+
+| # | Decision | Facts for it | Source |
+|---|---|---|---|
+| 19 | **The deployable model:** adopt E-PF (the PF 5-member ensemble at argmax) over the house ensemble? | coach and judge recommend E-PF: test n.d. on all three primaries with positive point estimates (relF1@2 +0.0121); E1 inactive IoU +0.2141, CI above 0 (10 cells / 7 images, borderline under Bonferroni); E1 crack precision lower (−0.05). FINAL (cv02, +0.75, 0.492) is not comparable by rule; E-PF's 0.4920 needs a bias the pre-registered val width flag rejected (val crack precision drop +0.0753 > 0.05) | `verify_pf2e.md`; doc 20 §5 |
+| 20 | **D2 width flag:** both ensembles tripped it (val crack precision drop +0.0543 / +0.0753), so the headline is argmax. Change the D2 grid or the threshold for future protocols? | A pre-registered question for a later protocol, never a re-pick of PF2E (coach) | `verify_pf2e.md` "What this decides" |
+| 21 | **Half-cut routing (parked):** wanted enough to label half-cuts with E1-like context? | The offset exists only on E1's own labels (oracle b +5.4 vs −0.8); simulated half-cuts show no offset; H36 cleanup would likely not show it (judge); B2 masks or B3 + mining are the route; no manual labelling unless really needed | doc 20 §3.1; doc 13 A16, E30 |
+| 22 | **A8 full arm** if the screen says GO (5 seeds, E1 co-primaries possible: one more GPU run set and an E1 opening) | Screen queued first after THIN-B3 | `protocol_A8screen.md` §5 |
+
+Still open: §3c rows 16 (marks: optional by team-lead's reading of the user's 31 Oct line; not done, not re-asked), 17 (HF sample), 18 (who rebooted gaint on 30 Oct); §3b rows 10 and 11.
 
 ## 4. Remaining work for part 1 (training methodology)
 Ordered roughly by information per cost. None of these is started; each would need its own locked protocol and the user's go-ahead.
@@ -189,13 +209,25 @@ Coach's order by expected test gain per cost. None beyond protocol_100 and B1/B2
 
 | Rank | Item | Condition | Source |
 |---|---|---|---|
-| 1 | PF2: replicate PF's E1 effect with pre-registered E1 co-primaries (RN50-PF as a third arm) | user OK; vetter Q1 | `log.md` 31 Oct 07:15 |
-| 2 | Hanifi `_rf` half-cells as the check for the B2 ranking and BN-HC's bias (CPU) | vetter Q3 | `review_suggestions_2026-10-30.md` §3 |
-| 3 | B3 scuff class on BEST | test-GT choice (vetter Q2) | `spec_b3_scuff.md` |
-| 4 | Skeleton Recall loss on BEST | metric choice (vetter Q5) | vetter §3 item 4 |
-| 5 | User labelling: B1 marks, then B2 masks if the marks support it | the marks | vetter §3 item 5 |
+| 1 | PF2: replicate PF's E1 effect with pre-registered E1 co-primaries (RN50-PF as a third arm) [Done 1 Nov: PF2 PASS (E1 inactive replicated, test relF1@2 narrow); RN50-PF FAIL. doc 20 §4.] | user OK; vetter Q1 | `log.md` 31 Oct 07:15 |
+| 2 | Hanifi `_rf` half-cells as the check for the B2 ranking and BN-HC's bias (CPU) [1 Nov: `_rf` used as a validation set (F51 for crack); the H36 half-cut crack labels proved unusable (doc 13 A16); T9 closed TTA (doc 20 §3.2).] | vetter Q3 | `review_suggestions_2026-10-30.md` §3 |
+| 3 | B3 scuff class on BEST [1 Nov: in THIN-B3, opening running at writing.] | test-GT choice (vetter Q2) | `spec_b3_scuff.md` |
+| 4 | Skeleton Recall loss on BEST [1 Nov: in THIN-B3 with clDice, opening running at writing.] | metric choice (vetter Q5) | vetter §3 item 4 |
+| 5 | User labelling: B1 marks, then B2 masks if the marks support it [1 Nov: optional by team-lead's reading of the user's 31 Oct line "refrain from manual labelling unless very much needed"; not done, not re-asked (doc 12 D77).] | the marks | vetter §3 item 5 |
 
 **Closed (E):** pool representation learning and crack copy-paste at 100% (n.d.); the large-pool download (condition failed, D58).
+
+## 4d. Ranked next items, 1 Nov (added 1 Nov; ETAs are S, from runner's and the build files' estimates)
+
+| Rank | Item | Condition | ETA | Source |
+|---|---|---|---|---|
+| 1 | THIN-B3 verify (runner local, coach on gaint CPU, judge on the laptop); fill the record's THIN section and docs 11 / 15 / 20 | opening rc 0 | tonight, after ~22:00 | `protocol_thin_b3.md` |
+| 2 | A8 screen (4 runs × 4k steps, then CPU scoring 15 to 30 min) | THIN's opening done | night of 1 to 2 Nov | `protocol_A8screen.md`, `build_a8_runner.md` |
+| 3 | HC (5 runs ≈ 12.5 lane-h, then an opening ~1.5 to 2 h; E1 opening #3) | THIN's opening done | 2 Nov, likely midday or later | `protocol_HC.md`, `build_hc_runner.md` |
+| 4 | B6 on cv02 (builder's fold roots + scorer ~2 to 3.5 h CPU; ~6.5 h on cv02) | ≥ 3 qualifying cv02 GPUs per wave; coach APPROVED | 2 Nov at the earliest | `protocol_B6.md` |
+| 5 | A8 full arm, if the screen says GO | the user (row 22) | after the screen | `protocol_A8screen.md` §5 |
+
+**Closed (E):** RN50 under PF (FAIL); TTA (T9); label-free per-panel thresholds; intensity normalisation; high resolution; appearance augmentation as an arm; the large-pool download (item 13). **Parked:** half-cut routing; the structure channel (ideas 3 + 4); scuff via SAM; trust-region crack cleanup.
 
 ## 5. Parts 2 and 3 (after part 1)
 - **Part 2, architecture.** Phase 0 ideas:
@@ -236,6 +268,8 @@ After any new result, update these docs (done for P15 and P16 on 12 Oct; P17 on 
 | (Added 30 Oct) Untracked or modified files in `~/mtp/research` on 30 Oct | Untracked: `log.md`, `papers/`, `results/seipv_compare/`, `team_2026-10-21/alhvr/handbook_al1.diff`; modified: `team_2026-10-21/alhvr/log.md` (one appended line). Left as they are; the handbook commit touches only `handbook/` | `git status`, 30 Oct |
 | (Added 30 Oct) Per-cell raw JSONs of MIM5, DDeP5, CP5 | About 240 MB, kept locally and on gaint with `MANIFEST.md5`, not in git | `SESSION_RECORD_2026-10-28_to_30.md` §11 |
 | (Added 30 Oct) CP5 s1/s3 automatic rescore files | Exist, unopened; CP5 is not scored | doc 19 §3.3 |
+| (Added 1 Nov) Quarantined test / E1-scuff outputs on gaint | `builder_scratch/quarantine_test_reads_2026-10-31` (chmod a-r, MANIFEST.md5 e367b101): keep unread; delete only on coach's or the user's word | doc 13 D35 |
+| (Added 1 Nov) Large local per-cell files of the 31 Oct team | About 370 MB (raw pulls, calib records), gitignored, with `MANIFEST.md5`; laptop disk is tight | `team_2026-10-31_next/.gitignore` |
 
 ## Related docs
 - `10_experiments_P13_P16_E1.md`: designs of P15 and P16

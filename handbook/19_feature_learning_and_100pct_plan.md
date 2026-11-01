@@ -396,7 +396,7 @@ Sources: `team_2026-10-29_features/verify_100_o1.md`, `verify_100_o2.md`, `verif
 
 ### 10.4 What protocol_100 decides
 - **The user's question (does the pool help at 100% labels?):** no, for both routes tested (learned encoder features with the encoder kept; pasted cracks on pool backgrounds), at clean MDE crack 0.012. With MIM5, DDeP5 and AM, the pool-representation line is closed (coach).
-- **Open lead (S):** the fine-tune recipe, on E1 only: coach recommends BEST = SUP100-PF and proposed PF2 (new seeds 5 to 9; SUP100-g / SUP100-PF / RN50-PF; E1 crack recall and E1 inactive IoU as pre-registered co-primaries for PF; ~15 to 17 h) on 31 Oct 07:15. Not approved.
+- **Open lead (S):** the fine-tune recipe, on E1 only: coach recommends BEST = SUP100-PF and proposed PF2 (new seeds 5 to 9; SUP100-g / SUP100-PF / RN50-PF; E1 crack recall and E1 inactive IoU as pre-registered co-primaries for PF; ~15 to 17 h) on 31 Oct 07:15. Not approved. [Qualified 1 Nov: approved by Om 31 Oct ~13:45 and run: PF2 PASS (E1 inactive replicated, test relF1@2 BETTER narrowly), RN50-PF FAIL; doc 20 §4.]
 
 ### 10.5 D: inference-only E1 checks (E, `verify_d.md`; val + E1 only, no test)
 Pre-registered read (`d_prereg.md`): kill unless a variant gains ≥ +0.05 E1 recall on the 29 scuff + half-cut cells at an E1 crack-precision cost < 0.05 (bias +0.75, vs FINAL re-scored on CPU; cross-check |Δ| ≤ 0.0005).
@@ -410,7 +410,7 @@ Pre-registered read (`d_prereg.md`): kill unless a variant gains ≥ +0.05 E1 re
 | R34-5 + RN50-5 | 0.161 (+0.036) | 0.465 (−0.003) | fails: gain |
 | R34-10 (FINAL 5 + SUP100-g 5; size control, 31 Oct) | 0.1265 (+0.001) | 0.493 (−0.031) | control |
 
-The RN50 effect is not ensemble size (R34-10 +0.001). Track M R3 RN50 was WORSE on test inactive, so RN50 at 100% needs its own protocol (RN50-PF if PF is adopted).
+The RN50 effect is not ensemble size (R34-10 +0.001). Track M R3 RN50 was WORSE on test inactive, so RN50 at 100% needs its own protocol (RN50-PF if PF is adopted). [Qualified 1 Nov: RN50-PF ran in PF2 and FAILED (test inactive WORSE, −0.0289); its E1 scuff + half-cut lead did not carry over (−0.025 as ensembles). RN50 is closed under PF (doc 20 §4). BN-HC: per-panel BN adaptation (T9) also failed and raised false alarms; a half-cut bias cannot be chosen outside E1, because the Hanifi half-cut crack labels are unusable (doc 13 A16) and synthetic half-cuts show no offset (routing pre-check FAIL). Test-time adaptation is closed and calibration routing parked (doc 20 §3).]
 
 ### 10.6 B2 v2 (E, `b2_mining/v2/b2v2_report.txt`)
 - v1 failed its validation (train-scuff AUROC 0.328 / 0.396). v2: the 986 pool half-cells only; structural, dead-cell and inactive classes excluded; coach overrode the numeric gate to mode ab (predicted crack px + largest-crack length) because the streak score was non-zero in only 14 cells, all border artefacts.
@@ -435,3 +435,4 @@ In doc 13 C16, C17 and D28 to D33: the opening-1 memory floor (LA pass about 1.5
 - `15_status_remaining_work.md` §1f, §3b, §4b.
 - [Added 31 Oct] `11` rows 25 to 29; `12` D51 to D59; `13` C16, C17, D28 to D33, E23 to E25; `14` §1.2c; `15` §1g, §3c, §4c; `16` section H.
 - `17_escdd_dataset_audit.md` §5.11.
+- [Added 1 Nov] `20_pf2_and_domain_ideas.md`: PF2, PF2E, Om's 11 ideas, THIN-B3 / HC / A8 / B6 protocols; `11` rows 30 to 39; `12` D62 to D77; `13` A16, A17, C18, C19, D34 to D45, E26 to E30; `14` §1.2d, §5c; `15` §1i, §3d, §4d; `16` section I.

@@ -13,6 +13,8 @@ Read 07_methodology_rules_and_statistics.md for *why* runs are set up this way (
 
 **Update 30 Oct 2026 (additive):** §1.2b (gaint worktrees `el_f1`, `el_f2`, `el_f3`, the memory rule, `run_one.sh` locks and spacing, two-opening scoring), §1.3b (Track D/M deployments), a dated note in §3.1 (the rc bug recurred), throughput rows in §3.3 and §5b (experiment map for 24 to 30 Oct). Taken from the team files, not from a fresh server listing; sources are named in each part.
 
+**Update 1 Nov 2026, ~21:00 IST (additive):** §1.2d (worktrees `el_thin`, `el_hc`, `el_f8`; the shared GPU gate; the PF2, THIN, nq and A8-scoring queues; gates from measured peaks, GS 9,900; frozen scorer sets; the data-root trick against the trainer's end-of-run test pass; the gaint event watcher; weights and the sam2 venv) and §5c (experiments of 31 Oct to 1 Nov). Sources: `team_2026-10-31_next/`, doc 20.
+
 Everything below was checked on 11 Oct 2026, about 22:00 IST, by listing files, reading code and running `git log` / `nvidia-smi`. Status then: P13 and P14 done; P15 (gaint) running, 5 of 6 runs re-scored; P16 SSL arms running on cv02 (ETA about 03:00 to 04:30 IST on 12 Oct). Later: both finished and were analysed by 12 Oct 05:30 IST; server state at the 13 Oct close is in doc 15 §1b. Updated 13 Oct ~16:30 IST for P17 and P13 Amendment 2 (worktree `el_p17`, deployment, `ssl.decouple_decoder`, scripts) and the cv02 backup on gaint; state after P17 is in doc 15 §1c.
 
 ## Sources
@@ -119,6 +121,23 @@ Sources: `team_2026-10-29_features/log.md`, `protocol_100.md`, `scripts/`.
 - **Gates now:** start gates = measured peak + 2 GB (fine-tune 9,000, CP 11,600 MiB). **Concurrent scoring passes: 7,154 MiB** (LA peak + 2,048). The 6,000 MiB gate inside `f100_post.sh` assumed ~3 GB passes; it is safe only with finllm alone on the GPU.
 - **Local analysis (team folder `scripts/`):** `f100_post_local.sh` (opening 1), `f100_post_local_o2.sh` (opening 2), `f100_o1_extra.py` (E1 split and crack px on crack-free cells; takes ARM=DIR pairs), `watch_f100.sh` (local watcher, run as a tracked job; prints its PID).
 - **D:** `el_f3/reports/d/` (`d_infer.py` md5 129edac4, `--only-r34-10` mode; CPU fp32; outputs in `reports/d/out/`, pulled to `d_checks/`).
+
+### 1.2d gaint, 31 Oct to 1 Nov: new worktrees, shared gate, queues, data roots, frozen scorers (added 1 Nov)
+Sources: `team_2026-10-31_next/log.md`, `build_*.md`, the protocols' build records.
+- **Worktrees (all branched from e544133; each deploy frozen until its opening ends):**
+  - `el_f3` (e544133, unchanged): PF2 (`reports/pf2/`), PF2E (`reports/pf2e/`), the RN ensemble secondary (`reports/d_pf2rn/`).
+  - `el_thin` (branch thin): Skeleton Recall, clDice, B3 scuff class (opt-in, default off). Code 9461ecc, smoked d93d9a1, **run deploy c9bbb02**; `reports/thin/` (q, post, post_extra, smoke). CPU identity with flags off = e544133 (house and PF).
+  - `el_hc` (branch hc): `data.synth_halfcut` loader transform. **Deploy c2e6973** (`smoke_hc.sh` 5a5c707b); p = 0 bit-identical to SUP100-PF over 2,000 GPU steps (H0).
+  - `el_f8` (branch f8): `model.name=hrstem_unetpp` (timm ConvNeXt-T / Hiera-T + a stride-2 stem + the house U-Net++ decoder), `model.backbone_drop_path`, `reports/enc_cosine_hr.py` d72f4324. **Deploy c280e8c2**; house and PF IDENTICAL to e544133 on CPU.
+- **Shared GPU gate** `/home/noob/work/gpu_gate` (runner, `gpu_gate.sh`): flock `gate.lock`, start only if free ≥ the job's gate, ≥ 120 s spacing, a HOLD file, `gate.log`; a `FAST` file makes the gpumem loggers sample every 1 s (set for whole openings and smokes).
+- **Queues:** PF2 `el_f3/reports/pf2/scripts/pf2_queue.sh` (twohead, 3 lanes, at most 1 RN50); THIN `el_thin/reports/thin/q/thin_queue.sh` 46b871c1; **nq** `/home/noob/work/nq/` (`nq_queue.sh` 156c6936, jobs 5cb4bad9: A8 / A8c s0-1 and HC s5-9, 3 lanes) with the HC opening in `nq/hc/` (FROZEN a23994c4, trigger `hc_postwatch.sh`); A8 scoring `/home/noob/work/a8_score/` (`a8_score.sh` 75a57c9c, MODE=check / wait, HOLD for CPU windows). Every queue re-diffs each run's `config_used.yaml` against its expected one-change diff and HOLDs on a mismatch.
+- **Gates now (MiB; measured peak + 2,048):** training R34 9,000, RN50 13,234, SKR 9,100, CLD 10,500, B3 9,000, HC 9,000, A8 / A8c 11,400. **Scoring beside other jobs: GS 9,900** (PF2's LA pass over 15 runs, 7,758 measured on 1 Nov). Measured peaks: RN50-PF train 11,186; SKR 7,020; CLD 8,374; B3 5,738; HC 6,826; A8 / A8c 9,254; PF2 opening rescore_label_versions 6,020, m0_audit 5,254, LA 7,758; RN50 B5 dump 5,252. Rule: max(smoke peak, last real peak) + 2 GB.
+- **Frozen scorer sets (coach writes FROZEN.md5; nothing listed changes before the opening):** PF2 `el_f3/reports/pf2/post_extra/FROZEN.md5` 475d78fb + `B5_DEVICE` cuda; THIN `el_thin/reports/thin/post_extra/FROZEN.md5` 584cabea; A8 `a8_score/scripts/FROZEN.md5`; HC `nq/hc/FROZEN.md5` a23994c4. calib's B5 scorer inside them: `el_metrics.py` 6e73ff11, `calib_dump.py` c172717e, `pf2_b5_hook.sh` e06dfc5f, `pf2_b5_pooled.sh` 873591ff (local copy `team_2026-10-31_next/ideas/scripts/frozen_pf2/`). The opening dump runs on GPU bf16, which reproduces m0 exactly; CPU fp32 differs by up to 0.0046 on pixel metrics, 0.0069 on inactive IoU and 0.0214 on component metrics (calib's 20-run check; coach, log 31 Oct 14:42).
+- **Data-root trick (no code change):** the trainer evaluates the test split at the end of every run (doc 13 C18). A run that must read no test cell gets `data.root=<root>` with `labeled/` (symlink), `splits/train.txt` and `splits/val.txt` byte copies, and `splits/test.txt` = the held-out list. A8: `/home/noob/work/a8_root` (train 842f27c4, val 9dcccf00, test = val). B6 (planned): `b6_root_{0..4}` (folds 0-4 as in `b6_folds.tsv`) with val = test = fold k; on cv02 a fresh `labeled/` holding only the 532 train + val stems. Checks: split md5s, 0 real test / E1 stems, the CPU data-build line ("Labelled: N ... val: n test: n").
+- **Event watcher (since 1 Nov 19:28):** one gaint watcher `/home/noob/work/runner_events/` (`rwatch.sh` f266e5cc, now `rwatch_v2.sh` a07d7490, tmux rwatch2) appends events from the queue / opening / smoke logs, Traceback counts (`grep -ho | wc -l`, never the stdout itself) and free < 2,048 MiB twice to `events.log`; stopped via its STOP file. Laptop side: one tracked waiter `lwait.sh` (d05cb68a) reads new events every 5 min and polls cv02 read-only every 15 min (gaint cannot reach cv02: no key there, by design).
+- **Weights and venv:** `/home/noob/work/weights/` (`MD5SUMS`): SAM2 `sam2.1_hiera_tiny.pt` 6aa6761c, timm `sam2_hiera_tiny` c453c074, DINOv3 ConvNeXt-T `dinov3_convnext_tiny_lvd1689m_timm.safetensors` abf90463, DINOv3 ViT-S/16 d6f2118f. `/home/noob/work/venv_sam2` (SAM2 code from Meta's repo at a pinned commit; torch reused read-only from the house venv).
+- **Recompute on gaint CPU (coach, since the laptop ran short of memory):** `/home/noob/work/coach_v/bin` (reads an opening's `post/` in place after `md5sum -c`; only text comes back).
+- **CPU windows:** runner declares a critical window around each opening; other agents start no gaint CPU job inside it.
 
 ### 1.3 cv02 (`ssh cv02@10.8.1.106`)
 - **GPUs:** 8x NVIDIA RTX A6000, 49,140 MiB each (`nvidia-smi`, 11 Oct). Shared with other users.
@@ -376,6 +395,22 @@ Run names follow `p<NN>_<arm>_<frac>pct_s<seed>` (e.g. `p13_CsM_5pct_s3`); gaint
 | protocol_100 | `el_f3` `e544133` | gaint | `protocol_100.md` (v1.1, md5 8dcb231b), `review_100_v1.md`, `coach_100.md` | (running since 12:05 IST 30 Oct; reports to `el_f3/reports/f100/`) |
 
 Per-cell raw JSONs of MIM5, DDeP5 and CP5 (about 240 MB) are kept locally and on gaint with `MANIFEST.md5`, not in git (`SESSION_RECORD_2026-10-28_to_30.md` §11). Script paths in the 29 to 30 Oct team files (`scripts/...`) are relative to `team_2026-10-29_features/` (e.g. `scripts/f3/enc_cosine.py`, `scripts/f100_post_gaint.sh`, `scripts/coach_verify.py`); Track M's are in `team_2026-10-24_go/trackM/scripts/`; Track D's analysis scripts are in the repo's `scripts/trackD_*_analysis.py`.
+
+### 5c. Experiments of 31 Oct to 1 Nov (added 1 Nov)
+
+| Exp | Code | Machine | Team folder (protocols, results, verification) | Local raw outputs |
+|---|---|---|---|---|
+| PF2 | `el_f3` e544133 | gaint | `team_2026-10-31_next/protocol_PF2.md`, `build_pf2.md`, `verify_pf2.md` | `results/pf2/` |
+| PF2E | `el_f3` e544133 (`pf2e_infer.py` 272463d3), CPU fp32 | gaint | `protocol_PF2E.md`, `build_pf2e.md`, `verify_pf2e.md` | `results/pf2e/` |
+| THIN-B3 | `el_thin` c9bbb02 | gaint | `protocol_thin_b3.md`, `build_thin_b3.md`, `build_thin_runner.md` | `results/thin/` (after the opening) |
+| HC | `el_hc` c2e6973 | gaint | `protocol_HC.md`, `build_hc.md`, `build_hc_runner.md`, `review_hc.md` | (queued) |
+| A8 screen | `el_f8` c280e8c2 | gaint | `protocol_A8screen.md`, `ideas/idea08_runspec.md`, `build_a8_runner.md`, `review_f8_wrapper.md` | (queued) |
+| B6 | e544133 + per-fold data roots | cv02 (planned) | `protocol_B6.md`, `judge/review_B6_v0.md` | `results/b6/` (folds, counts, cv02 polls) |
+| Idea checks (1, 2, 7; routing pre-check) | `ideas/scripts/` (calib) | gaint CPU | `ideas/idea01`, `idea02`, `idea07`, `routing_precheck.md` | `ideas/calib_out/` |
+| Idea checks (3, 4, 5, 11; SHV1; detector) | domain scripts on gaint `/home/noob/work/domain_scratch` | gaint CPU | `ideas/idea03`, `idea04`, `idea05`, `idea11` | `ideas/domain_out/` |
+| T9, S10, P8 probe | `ideas/scripts/`, gaint `/home/noob/work/found/` | gaint CPU | `t9_prereg.md`, `s10_prereg.md`, `idea08_foundation.md` §4c-4d | `ideas/found_scripts/` |
+
+Per-cell raw pulls (`results/*/raw`, `coach_raw`), the protocol_100 per-cell copies in `results/pf2/pooled10_m0`, `rules_in` copies, PF2E's B5 record JSONs and calib's per-cell records (`ideas/calib_out/rec*`) are kept locally and on gaint with `MANIFEST.md5`, not in git (`team_2026-10-31_next/.gitignore`).
 
 ---
 

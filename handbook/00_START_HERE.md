@@ -11,6 +11,8 @@ Where a new finding limits an older claim, a dated "[Qualified 30 Oct: ...]" not
 
 **Update 31 Oct 2026, ~07:30 IST (additive).** doc 19 §10 adds the protocol_100 results (pool via MIM, pool via copy-paste and the PF recipe all n.d. on test at 100% labels; PF's E1 gain descriptive), the D checks, B2 v2 and the two reviews (vetter, poolscout). New rows and items: `11` rows 25 to 29, `12` D51 to D59, `13` C16, C17, D28 to D33, E23 to E25, `14` §1.2c, `15` §1g, §3c, §4c, `16` section H. Dated "[Qualified 31 Oct: ...]" notes mark changed claims. Master record: `SESSION_RECORD_2026-10-30_to_31.md`.
 
+**Update 1 Nov 2026, ~21:00 IST (additive).** New **doc 20** (`20_pf2_and_domain_ideas.md`): Om's 11 unseen-panel ideas and judge's verdicts, the routing pre-check, T9, S10 and the P8 probe, PF2 (PF's E1 inactive gain replicated on new seeds; test relF1@2 BETTER narrowly; RN50-PF FAIL), PF2E (the PF ensemble: E1 inactive PASS with qualifications, test n.d.), the THIN-B3 / HC / A8 screen / B6 protocols, and the E1 policy (E1 is a second test set since 31 Oct). New rows and items: `11` rows 30 to 39; `12` D62 to D77; `13` A16, A17, C18, C19, D34 to D45, E26 to E30; `14` §1.2d, §5c; `15` §1i, §3d, §4d; `16` section I. Dated "[Qualified 1 Nov: ...]" notes mark changed claims (RN50, PF, BN-HC / calibration, E1 reads). THIN-B3 had no verified result at writing. Master record: `SESSION_RECORD_2026-10-31_to_11-01.md`.
+
 ---
 
 ## 1. Your role as the guide
@@ -58,6 +60,7 @@ Where a new finding limits an older claim, a dated "[Qualified 30 Oct: ...]" not
 | 17 | `17_escdd_dataset_audit.md` | The E-SCDD dataset and paper: what it really contains, the audit, and what it changes |
 | 18 | `18_experiments_trackD_trackM.md` (added 30 Oct) | 24 to 27 Oct: why SOTA SSL fails, Track D diagnosis, Track M and the best model (FINAL), the unlabelled-data synthesis |
 | 19 | `19_feature_learning_and_100pct_plan.md` (added 30 Oct) | 28 to 30 Oct: pool feature learning at 5%, encoder erasure, the 5% lesson, protocol_100, label audit and scuff |
+| 20 | `20_pf2_and_domain_ideas.md` (added 1 Nov) | 31 Oct to 1 Nov: Om's 11 ideas validated, PF2 and the PF ensemble, the E1 policy, THIN-B3 / HC / A8 / B6 |
 
 For a quick start, read 01, 04 (skim), 11 and 16. Then go back to 02 to 10 as questions come up.
 
