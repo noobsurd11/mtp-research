@@ -435,4 +435,4 @@ In doc 13 C16, C17 and D28 to D33: the opening-1 memory floor (LA pass about 1.5
 - `15_status_remaining_work.md` §1f, §3b, §4b.
 - [Added 31 Oct] `11` rows 25 to 29; `12` D51 to D59; `13` C16, C17, D28 to D33, E23 to E25; `14` §1.2c; `15` §1g, §3c, §4c; `16` section H.
 - `17_escdd_dataset_audit.md` §5.11.
-- [Added 1 Nov] `20_pf2_and_domain_ideas.md`: PF2, PF2E, Om's 11 ideas, THIN-B3 / HC / A8 / B6 protocols; `11` rows 30 to 39; `12` D62 to D77; `13` A16, A17, C18, C19, D34 to D45, E26 to E30; `14` §1.2d, §5c; `15` §1i, §3d, §4d; `16` section I.
+- [Added 1 Nov] `20_pf2_and_domain_ideas.md`: PF2, PF2E, Om's 11 ideas, THIN-B3 / HC / A8 / B6 protocols; `11` rows 30 to 42; `12` D62 to D78; `13` A16, A17, C18, C19, D34 to D45, E26 to E30; `14` §1.2d, §5c; `15` §1i, §3d, §4d; `16` section I.

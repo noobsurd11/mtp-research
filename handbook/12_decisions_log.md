@@ -15,7 +15,7 @@ Read it to answer "why did we do X and not Y?". For the experiments themselves s
 
 **Update 31 Oct 2026, afternoon (additive).** §4e adds Om's answers of 31 Oct (`team_2026-10-31_next/om_2026-10-31.md` sections A and B): D60 (protocol_100 verdicts accepted; PF2 approved) and D61 (vetter's §6 questions 1 to 11). Status: doc 15 §1h and the dated notes in §3b / §3c.
 
-**Update 1 Nov 2026, ~21:00 IST (additive).** §4f adds the decisions of 31 Oct to 1 Nov (D62 to D77): the new team, the E1 policy, the idea verdicts, the routing pre-check, weights, PF2, THIN-B3, PF2E, HC, the A8 / B6 data roots, B6 on cv02, the never-tail rule. Five rules in §6. Experiments: `20_pf2_and_domain_ideas.md`.
+**Update 1 Nov 2026, ~21:00 IST (additive).** §4f adds the decisions of 31 Oct to 1 Nov (D62 to D78; D78 = the THIN-B3 verdict, added ~21:40): the new team, the E1 policy, the idea verdicts, the routing pre-check, weights, PF2, THIN-B3, PF2E, HC, the A8 / B6 data roots, B6 on cv02, the never-tail rule. Five rules in §6. Experiments: `20_pf2_and_domain_ideas.md`.
 
 **Conventions**
 - **Times are IST** (UTC + 5:30).
@@ -816,6 +816,11 @@ Sources: `team_2026-10-31_next/` (`README.md`, `log.md`, `e1_openings.md`, the p
 
 ### D77. B1 / B2 marks optional (team-lead's reading of the user's 31 Oct ~13:45 line)
 - **What:** B1 / B2 marks: optional (team-lead's reading of the user's 31 Oct ~13:45 line '…refrain from manual labelling unless very much needed', which overrides Om B4's 'now'); not done; not re-asked. Not a separate user ruling. Om B4 had asked for the B1 marks (about 1 h) and the B2 marks (about 15 min) "now" (D61 item 4); team-lead read the user's line, quoted at the top of `team_2026-10-31_next/om_2026-10-31.md`, as overriding that, so the team does not chase the marks and uses proxies instead (the Hanifi AUROC check, synthetic half-cuts). B2 pixel masks and the Hanifi crack cleanup were already conditional on the marks (D61 item 4). The B2 Hanifi panel redaction in `handbook/sources` stays until the marks are done.
+
+### D78. THIN-B3 verdict: no arm passes; BEST stays SUP100-PF (coach 1 Nov 21:21; judge 21:29)
+- **What:** SKR FAIL (test crack IoU WORSE, narrow), CLD FAIL (B5 relR@2 WORSE), B3 n.d. with the pre-stated "scuff class not learned" reading. B3 as spec'd is closed; a weighted or Dice-on-scuff variant would be a new arm with its own OK. No CLD follow-up.
+- **judge's corrected readings (adopted):** SKR's test loss is "precision from wider predictions, concentrated on the largest cracks" (not twins in the comparator); SKR's E1 gain is quoted as relF1@2 +0.059 and any-hit component recall 0.381 → 0.523 with its false-alarm cost, not as pixel recall or IoU; CLD is "no better at matched precision"; B3's E1 crack-on-scuff drop is not scuff-specific.
+- **Open (the user's call):** an SKR follow-up as a new protocol (weight 0.1 or a val OP on a wider grid; a precision guard as a co-primary; a width-insensitive E1 readout).
 
 ---
 

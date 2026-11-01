@@ -1,0 +1,41 @@
+## A. volume / width proxy (argmax): pred/GT crack px, relP@2 - pixel P gap (fattening shows as a larger gap), E1 relR@2 vs comp recall
+  test SUPPF  pred/GT 0.954 (sd 0.035) | relP-P gap 0.291 | relR@2 0.8344 | compR 0.7958
+  test SKR    pred/GT 1.545 (sd 0.053) | relP-P gap 0.359 | relR@2 0.9044 | compR 0.8582
+  test CLD    pred/GT 1.251 (sd 0.021) | relP-P gap 0.355 | relR@2 0.8459 | compR 0.7915
+  test B3     pred/GT 0.952 (sd 0.030) | relP-P gap 0.286 | relR@2 0.8360 | compR 0.8042
+  ext  SUPPF  pred/GT 0.466 (sd 0.060) | relP-P gap 0.096 | relR@2 0.3515 | compR 0.2284
+  ext  SKR    pred/GT 1.096 (sd 0.050) | relP-P gap 0.129 | relR@2 0.4939 | compR 0.3649
+  ext  CLD    pred/GT 0.796 (sd 0.068) | relP-P gap 0.159 | relR@2 0.3944 | compR 0.2507
+  ext  B3     pred/GT 0.427 (sd 0.045) | relP-P gap 0.096 | relR@2 0.3475 | compR 0.2155
+
+## B. B5 pooled-OP stability
+  compR@compP>=0.90 SUPPF : b 3.9 | val compP 0.9055 compR 0.8368 | val compP at b+0.1 / b-0.1: 0.9049 / 0.9099 | LOSO b 3.9/5.5/5.4/3.9/3.2 | test compP at b 0.8464 (seeds 0.734 0.824 0.924 0.896 0.855) test compR 0.8212
+  compR@compP>=0.90 SKR   : b 1.4 | val compP 0.9015 compR 0.8672 | val compP at b+0.1 / b-0.1: 0.8985 / 0.9000 | LOSO b 1.4/2.4/1.4/1.4/-0.1 | test compP at b 0.8487 (seeds 0.868 0.759 0.886 0.857 0.874) test compR 0.8624
+  compR@compP>=0.90 CLD   : b 1.8 | val compP 0.9014 compR 0.8432 | val compP at b+0.1 / b-0.1: 0.8986 / 0.9018 | LOSO b 4.7/1.8/-0.2/-0.1/1.8 | test compP at b 0.9105 (seeds 0.905 0.955 0.883 0.910 0.900) test compR 0.8032
+  compR@compP>=0.90 B3    : b 5.6 | val compP 0.9036 compR 0.8608 | val compP at b+0.1 / b-0.1: 0.9021 / 0.9010 | LOSO b 5.6/5.6/5.2/5.2/6.7 | test compP at b 0.7935 (seeds 0.569 0.883 0.887 0.910 0.719) test compR 0.8413
+  LOSO compR SKR-SUPPF (test all 50): delta min +0.0275 median +0.0413 max +0.0466; BETTER in 15/25, WORSE in 0/25
+  LOSO compR CLD-SUPPF (test all 50): delta min -0.0392 median -0.0254 max -0.0063; BETTER in 0/25, WORSE in 8/25
+  LOSO compR B3-SUPPF (test all 50): delta min +0.0085 median +0.0190 max +0.0328; BETTER in 3/25, WORSE in 0/25
+  relR@relP>=0.90 SUPPF : b 3.9 | val relP 0.9001 relR 0.8760 | val relP at b+0.1 / b-0.1: 0.8993 / 0.9010 | LOSO b 3.7/3.9/4.1/3.8/3.8 | test relP at b 0.8997 (seeds 0.883 0.895 0.908 0.909 0.904) test relR 0.8723
+  relR@relP>=0.90 SKR   : b -4.0 | val relP 0.8942 relR 0.8885 | val relP at b+0.1 / b-0.1: 0.8932 / 0.7733 | LOSO b -4.0/-4.0/-4.0/-4.0/-4.0 | test relP at b 0.9035 (seeds 0.901 0.913 0.895 0.911 0.897) test relR 0.8838
+  relR@relP>=0.90 CLD   : b -1.6 | val relP 0.9002 relR 0.8656 | val relP at b+0.1 / b-0.1: 0.8996 / 0.9007 | LOSO b -1.7/-1.5/-1.8/-1.9/-1.2 | test relP at b 0.9317 (seeds 0.931 0.938 0.926 0.933 0.931) test relR 0.8349
+  relR@relP>=0.90 B3    : b 4.1 | val relP 0.9001 relR 0.8757 | val relP at b+0.1 / b-0.1: 0.8991 / 0.9011 | LOSO b 4.1/4.2/4.0/4.0/4.0 | test relP at b 0.8952 (seeds 0.850 0.906 0.903 0.906 0.909) test relR 0.8735
+  LOSO relR SKR-SUPPF (test all 50): delta min +0.0095 median +0.0122 max +0.0131; BETTER in 0/25, WORSE in 0/25
+  LOSO relR CLD-SUPPF (test all 50): delta min -0.0418 median -0.0374 max -0.0328; BETTER in 0/25, WORSE in 25/25
+  LOSO relR B3-SUPPF (test all 50): delta min -0.0018 median +0.0009 max +0.0037; BETTER in 0/25, WORSE in 0/25
+
+## C. B3 scuff
+   pf2_SUPPF_100pct_s5.json {'step': 20000, 'scuff_px': 3246, 'crack_on_scuff': 218}
+   pf2_SUPPF_100pct_s6.json {'step': 20000, 'scuff_px': 3246, 'crack_on_scuff': 200}
+   pf2_SUPPF_100pct_s7.json {'step': 20000, 'scuff_px': 3246, 'crack_on_scuff': 203}
+   pf2_SUPPF_100pct_s8.json {'step': 20000, 'scuff_px': 3246, 'crack_on_scuff': 245}
+   pf2_SUPPF_100pct_s9.json {'step': 20000, 'scuff_px': 3246, 'crack_on_scuff': 243}
+   thin_B3_100pct_s5.json {'step': 20000, 'scuff_px': 3246, 'crack_on_scuff': 0, 'scuff_iou': 0.0, 'tp': 0, 'fp': 0, 'fn': 3246, 'p_scuff_on_scuff_mean': 0.001221, 'p_scuff_on_scuff_p90': 0.003612, 'p_scuff_other_mean': 4.3e-05, 'p_scuff_ratio': 28.133608}
+   thin_B3_100pct_s6.json {'step': 20000, 'scuff_px': 3246, 'crack_on_scuff': 0, 'scuff_iou': 0.0, 'tp': 0, 'fp': 0, 'fn': 3246, 'p_scuff_on_scuff_mean': 0.000929, 'p_scuff_on_scuff_p90': 0.00258, 'p_scuff_other_mean': 3e-05, 'p_scuff_ratio': 31.104038}
+   thin_B3_100pct_s7.json {'step': 20000, 'scuff_px': 3246, 'crack_on_scuff': 0, 'scuff_iou': 0.0, 'tp': 0, 'fp': 0, 'fn': 3246, 'p_scuff_on_scuff_mean': 0.00287, 'p_scuff_on_scuff_p90': 0.01001, 'p_scuff_other_mean': 1.6e-05, 'p_scuff_ratio': 178.488785}
+   thin_B3_100pct_s8.json {'step': 20000, 'scuff_px': 3246, 'crack_on_scuff': 0, 'scuff_iou': 0.0, 'tp': 0, 'fp': 0, 'fn': 3246, 'p_scuff_on_scuff_mean': 0.00111, 'p_scuff_on_scuff_p90': 0.003082, 'p_scuff_other_mean': 2.1e-05, 'p_scuff_ratio': 51.638981}
+   thin_B3_100pct_s9.json {'step': 20000, 'scuff_px': 3246, 'crack_on_scuff': 0, 'scuff_iou': 0.0, 'tp': 0, 'fp': 0, 'fn': 3246, 'p_scuff_on_scuff_mean': 0.001654, 'p_scuff_on_scuff_p90': 0.004917, 'p_scuff_other_mean': 1.6e-05, 'p_scuff_ratio': 102.946159}
+  E1 B3    : crack on scuff px 8184 of 84511 scuff px (38 cells) | scuff predicted px 0 (on GT scuff 0) | crack px off-scuff in scuff cells 1027 | crack px in other E1 cells 4589
+  E1 SUPPF : crack on scuff px 8830 of 84511 scuff px (38 cells) | scuff predicted px 0 (on GT scuff 0) | crack px off-scuff in scuff cells 1517 | crack px in other E1 cells 4701
+  B3 vs SUPPF: crack-on-scuff -7.3% | off-scuff crack px in scuff cells -32.3% | crack px in other cells -2.4%  (specific only if the first is clearly below the other two)
+  per-seed crack-on-scuff B3 6252 6871 9144 10437 8215 | SUPPF 7522 8453 10127 8041 10005

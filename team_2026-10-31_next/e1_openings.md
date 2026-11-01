@@ -16,7 +16,7 @@ E1 was read many times before 31 Oct ~15:00. The PF2 replication exists because 
 | # | protocol | models | E1 co-primaries / readouts (pre-registered) | registered | opened | result file |
 |---|---|---|---|---|---|---|
 | 1 | protocol_PF2 | pf2_{SUP,SUPPF,RN50PF}_100pct_s5..9 | co-primary (PF2 contrast): E1 crack recall, E1 inactive IoU; reported: relR@2 / relP@2 / component R-P, strata, oracle relF1@2, B5 at val b; §13 routing readout VOID (non-E1 pre-check FAILED 18:03: no-op), so not read | 31 Oct 13:58 (v1), Om; policy note §12 | **opened 1 Nov 06:33-08:26** | `verify_pf2.md`: E1 inactive IoU +0.189 BETTER (replicated); E1 crack recall +0.027 n.d. Addendum (1 Nov 08:47, same models, pre-registered §3c RN secondary, descriptive): SUPPF_5 vs RN50PF_5 ensembles at +0.75, E1 + val, `results/pf2/d_rn/` |
-| 2 | protocol_thin_b3 | SKR / CLD / B3 s5-9 (+ PF2's SUPPF s5-9 reused) | co-primary: E1 crack relF1@2 (all 106, argmax) | v0.2 31 Oct 17:34 (locks before PF2's opening) | pending | |
+| 2 | protocol_thin_b3 | SKR / CLD / B3 s5-9 (+ PF2's SUPPF s5-9 reused) | co-primary: E1 crack relF1@2 (all 106, argmax) | v0.2 31 Oct 17:34 (locks before PF2's opening) | **opened 1 Nov 19:40-21:13** | `verify_thin_b3.md` (coach): E1 crack relF1@2 SKR +0.059 BETTER, CLD +0.037 n.d., B3 +0.001 n.d.; overall SKR FAIL (test crack IoU WORSE), CLD FAIL (B5 relR@2 WORSE), B3 n.d. (scuff class not learned) |
 | 3 | protocol_HC | HC s5-9 (+ SUPPF s5-9 reused) | co-primaries: E1 crack relF1@2, E1 inactive IoU | v0 draft 31 Oct | pending (user GPU OK) | |
 
 - Re-use note: PF2's SUPPF s5-9 E1 per-cell files are opened at opening #1 and reused unchanged as the comparator in #2 and #3. That is a re-use of already-opened comparator numbers, not a new E1 read of those models.

@@ -1,0 +1,19 @@
+## 1. SKR test crack IoU by subset (5 seeds; per-seed pooled)
+  all 50     SKR: IoU 0.4651 -> 0.4514 (-0.0136, thr 0.0100) | P 0.650 -> 0.513 | R 0.620 -> 0.791 | pred/GT 0.95 -> 1.54 | GT px 92074
+  all 50     CLD: IoU 0.4651 -> 0.4610 (-0.0041, thr 0.0100) | P 0.650 -> 0.568 | R 0.620 -> 0.710 | pred/GT 0.95 -> 1.25 | GT px 92074
+  7 D6 twins SKR: IoU 0.5857 -> 0.5359 (-0.0498, thr 0.0100) | P 0.700 -> 0.561 | R 0.782 -> 0.924 | pred/GT 1.12 -> 1.65 | GT px 36405
+  7 D6 twins CLD: IoU 0.5857 -> 0.5608 (-0.0249, thr 0.0100) | P 0.700 -> 0.617 | R 0.782 -> 0.861 | pred/GT 1.12 -> 1.40 | GT px 36405
+  43 others  SKR: IoU 0.3861 -> 0.3977 (+0.0116, thr 0.0101) | P 0.607 -> 0.478 | R 0.515 -> 0.705 | pred/GT 0.85 -> 1.48 | GT px 55669
+  43 others  CLD: IoU 0.3861 -> 0.3961 (+0.0100, thr 0.0103) | P 0.607 -> 0.529 | R 0.515 -> 0.611 | pred/GT 0.85 -> 1.16 | GT px 55669
+  SKR - SUPPF crack IoU (seed-pooled counts): -0.0137, paired image bootstrap [-0.0356, +0.0122], P<0 0.83; leave-top-3-out +0.0097 (top: CFVS_00018_r4_c4 -0.0104, CFVS_00027_r4_c4 -0.0057, CSIR_00173_r4_c4 -0.0033)
+
+## 2. E1 component recall (GT comps >= 20 px): >= 50% covered (protocol) vs any-hit (>= 1 px within 2 px)
+  SUPPF  compR50 0.2284 | any-hit 0.3811 | n GT comps 296
+  SKR    compR50 0.3649 | any-hit 0.5230 | n GT comps 296
+  CLD    compR50 0.2507 | any-hit 0.4095 | n GT comps 296
+
+## 3. Matched TEST precision (descriptive, test-oracle, chooses nothing): max test relR@2 with test relP@2 >= 0.90 per run
+  SUPPF  0.8733 (seeds 0.850 0.874 0.882 0.877 0.885)
+  SKR    0.8859 (seeds 0.887 0.895 nan 0.876 nan)
+  CLD    0.8676 (seeds 0.874 0.864 0.866 0.860 0.875)
+  B3     0.8718 (seeds 0.853 0.880 0.871 0.883 0.872)

@@ -1,0 +1,114 @@
+# SUPPF: pf2_SUPPF_100pct_s[5, 6, 7, 8, 9] code_revision ['e544133']
+# SKR: thin_SKR_100pct_s[5, 6, 7, 8, 9] code_revision ['c9bbb02']
+# CLD: thin_CLD_100pct_s[5, 6, 7, 8, 9] code_revision ['c9bbb02']
+# B3: thin_B3_100pct_s[5, 6, 7, 8, 9] code_revision ['c9bbb02']
+
+## test all 50 (argmax, m0 JSONs; per arm mean over seeds; free_px = mean crack px per crack-free cell)
+arm      crackIoU     relF1  inactIoU      relP      relR    crackP    crackR     compR     compP compP_all   free_px  n_free
+SUPPF      0.4651    0.8847    0.4557    0.9417    0.8344    0.6504    0.6204    0.7958    0.9524    0.8029    0.0000  2
+SKR        0.4514    0.8876    0.4387    0.8715    0.9044    0.5126    0.7914    0.8582    0.8650    0.7014    0.0000  2
+CLD        0.4610    0.8828    0.4443    0.9231    0.8459    0.5679    0.7101    0.7915    0.9272    0.8550    0.0000  2
+B3         0.4660    0.8840    0.4458    0.9379    0.8360    0.6519    0.6206    0.8042    0.9247    0.7669    0.0000  2
+  SKR-SUPPF: crackIoU -0.0136 (thr 0.0100) WORSE | relF1 +0.0028 (thr 0.0100) n.d. | inactIoU -0.0170 (thr 0.0404) n.d. | relP@2 d -0.0702 FLAG(>0.05 drop)
+  CLD-SUPPF: crackIoU -0.0041 (thr 0.0100) n.d. | relF1 -0.0020 (thr 0.0100) n.d. | inactIoU -0.0114 (thr 0.0280) n.d. | relP@2 d -0.0186
+  B3-SUPPF: crackIoU +0.0009 (thr 0.0100) n.d. | relF1 -0.0008 (thr 0.0100) n.d. | inactIoU -0.0099 (thr 0.0250) n.d. | relP@2 d -0.0038
+  per-seed SUPPF: relF1 0.8752 0.8876 0.8859 0.8849 0.8901 | crackIoU 0.4573 0.4667 0.4683 0.4638 0.4693 | inact 0.4578 0.4810 0.4251 0.4663 0.4484
+  per-seed SKR: relF1 0.8880 0.8919 0.8860 0.8865 0.8854 | crackIoU 0.4512 0.4526 0.4491 0.4560 0.4482 | inact 0.4015 0.4784 0.4301 0.4349 0.4487
+  per-seed CLD: relF1 0.8859 0.8810 0.8827 0.8778 0.8864 | crackIoU 0.4640 0.4608 0.4613 0.4572 0.4614 | inact 0.4296 0.4559 0.4337 0.4558 0.4465
+  per-seed B3: relF1 0.8774 0.8865 0.8835 0.8876 0.8850 | crackIoU 0.4572 0.4715 0.4632 0.4687 0.4693 | inact 0.4436 0.4501 0.4535 0.4419 0.4399
+
+## test clean 49 (argmax, m0 JSONs; per arm mean over seeds; free_px = mean crack px per crack-free cell)
+arm      crackIoU     relF1  inactIoU      relP      relR    crackP    crackR     compR     compP compP_all   free_px  n_free
+SUPPF      0.4684    0.8891    0.4694    0.9426    0.8414    0.6511    0.6257    0.8043    0.9541    0.8354    0.0000  2
+SKR        0.4544    0.8919    0.4533    0.8730    0.9118    0.5136    0.7981    0.8674    0.8766    0.7466    0.0000  2
+CLD        0.4642    0.8874    0.4588    0.9247    0.8530    0.5689    0.7162    0.8000    0.9332    0.8643    0.0000  2
+B3         0.4700    0.8892    0.4599    0.9408    0.8431    0.6539    0.6258    0.8128    0.9405    0.8295    0.0000  2
+  SKR-SUPPF: crackIoU -0.0140 (thr 0.0100) WORSE | relF1 +0.0028 (thr 0.0100) n.d. | inactIoU -0.0161 (thr 0.0411) n.d. | relP@2 d -0.0696 FLAG(>0.05 drop)
+  CLD-SUPPF: crackIoU -0.0042 (thr 0.0100) n.d. | relF1 -0.0018 (thr 0.0100) n.d. | inactIoU -0.0106 (thr 0.0279) n.d. | relP@2 d -0.0179
+  B3-SUPPF: crackIoU +0.0016 (thr 0.0100) n.d. | relF1 +0.0001 (thr 0.0100) n.d. | inactIoU -0.0095 (thr 0.0246) n.d. | relP@2 d -0.0018
+  per-seed SUPPF: relF1 0.8802 0.8922 0.8899 0.8891 0.8941 | crackIoU 0.4612 0.4703 0.4713 0.4669 0.4723 | inact 0.4724 0.4924 0.4383 0.4811 0.4628
+  per-seed SKR: relF1 0.8917 0.8986 0.8897 0.8904 0.8891 | crackIoU 0.4535 0.4583 0.4513 0.4584 0.4504 | inact 0.4148 0.4945 0.4445 0.4489 0.4640
+  per-seed CLD: relF1 0.8899 0.8850 0.8898 0.8817 0.8904 | crackIoU 0.4666 0.4634 0.4674 0.4598 0.4640 | inact 0.4436 0.4710 0.4477 0.4707 0.4609
+  per-seed B3: relF1 0.8876 0.8905 0.8874 0.8916 0.8890 | crackIoU 0.4651 0.4745 0.4662 0.4717 0.4725 | inact 0.4579 0.4641 0.4676 0.4562 0.4539
+
+## E1 all 106 (argmax, m0 JSONs; per arm mean over seeds; free_px = mean crack px per crack-free cell)
+arm      crackIoU     relF1  inactIoU      relP      relR    crackP    crackR     compR     compP compP_all   free_px  n_free
+SUPPF      0.1566    0.4202    0.2371    0.5245    0.3515    0.4284    0.1986    0.2284    0.5171    0.2505   53.1162  74
+SKR        0.2135    0.4793    0.2218    0.4657    0.4939    0.3368    0.3685    0.3649    0.4264    0.2189  127.4081  74
+CLD        0.2054    0.4569    0.2381    0.5446    0.3944    0.3855    0.3059    0.2507    0.4808    0.2469   81.3081  74
+B3         0.1520    0.4216    0.2377    0.5375    0.3475    0.4418    0.1885    0.2155    0.5705    0.2619   45.3676  74
+  SKR-SUPPF: relF1 +0.0590 (thr 0.0392) BETTER | inactIoU -0.0153 (thr 0.0837) n.d. | crackR +0.1699 (thr 0.0264) BETTER | relR +0.1424 (thr 0.0359) BETTER | relP -0.0588 (thr 0.0592) n.d. | compR +0.1365 (thr 0.0515) BETTER | relP@2 d -0.0588 FLAG(>0.05 drop)
+  CLD-SUPPF: relF1 +0.0367 (thr 0.0415) n.d. | inactIoU +0.0011 (thr 0.0575) n.d. | crackR +0.1073 (thr 0.0361) BETTER | relR +0.0429 (thr 0.0444) n.d. | relP +0.0201 (thr 0.0631) n.d. | compR +0.0223 (thr 0.0548) n.d. | relP@2 d +0.0201
+  B3-SUPPF: relF1 +0.0013 (thr 0.0408) n.d. | inactIoU +0.0007 (thr 0.0954) n.d. | crackR -0.0101 (thr 0.0327) n.d. | relR -0.0040 (thr 0.0439) n.d. | relP +0.0130 (thr 0.0579) n.d. | compR -0.0128 (thr 0.0607) n.d. | relP@2 d +0.0130
+  per-seed SUPPF: relF1 0.4432 0.4275 0.4403 0.4140 0.3762 | crackIoU 0.1582 0.1637 0.1732 0.1541 0.1341 | inact 0.2465 0.2252 0.2074 0.2787 0.2276
+  per-seed SKR: relF1 0.4683 0.4698 0.5098 0.4894 0.4590 | crackIoU 0.2100 0.2105 0.2292 0.2175 0.2005 | inact 0.2132 0.1810 0.3024 0.2746 0.1378
+  per-seed CLD: relF1 0.4406 0.4515 0.4877 0.4309 0.4738 | crackIoU 0.1946 0.2079 0.2204 0.1887 0.2152 | inact 0.1874 0.2922 0.2685 0.2222 0.2204
+  per-seed B3: relF1 0.4311 0.3973 0.4515 0.4007 0.4273 | crackIoU 0.1496 0.1385 0.1722 0.1479 0.1517 | inact 0.2935 0.1908 0.1619 0.3456 0.1970
+
+## E1 scuff+half-cut 29 (argmax, m0 JSONs; per arm mean over seeds; free_px = mean crack px per crack-free cell)
+arm      crackIoU     relF1  inactIoU      relP      relR    crackP    crackR     compR     compP compP_all   free_px  n_free
+SUPPF      0.1217    0.3591    0.5722    0.6427    0.2494    0.5096    0.1378    0.1920    0.7730    0.3981   34.9333  9
+SKR        0.1952    0.4550    0.5608    0.5541    0.3862    0.3885    0.2817    0.3292    0.6134    0.3859  119.1333  9
+CLD        0.1649    0.3889    0.5135    0.6373    0.2810    0.4498    0.2075    0.2109    0.6948    0.4099   68.5111  9
+B3         0.1156    0.3542    0.5598    0.6633    0.2427    0.5285    0.1294    0.1774    0.8327    0.4299   17.6889  9
+  SKR-SUPPF: relF1 +0.0959 (thr 0.0531) BETTER | inactIoU -0.0113 (thr 0.1014) n.d. | crackR +0.1440 (thr 0.0302) BETTER | relR +0.1368 (thr 0.0443) BETTER | relP -0.0887 (thr 0.0614) WORSE | compR +0.1372 (thr 0.0553) BETTER | relP@2 d -0.0887 FLAG(>0.05 drop)
+  CLD-SUPPF: relF1 +0.0297 (thr 0.0652) n.d. | inactIoU -0.0587 (thr 0.0991) n.d. | crackR +0.0697 (thr 0.0438) BETTER | relR +0.0316 (thr 0.0572) n.d. | relP -0.0054 (thr 0.0753) n.d. | compR +0.0190 (thr 0.0620) n.d. | relP@2 d -0.0054
+  B3-SUPPF: relF1 -0.0049 (thr 0.0620) n.d. | inactIoU -0.0124 (thr 0.1059) n.d. | crackR -0.0084 (thr 0.0356) n.d. | relR -0.0067 (thr 0.0527) n.d. | relP +0.0205 (thr 0.0666) n.d. | compR -0.0146 (thr 0.0699) n.d. | relP@2 d +0.0205
+
+## E1 other 77 (argmax, m0 JSONs; per arm mean over seeds; free_px = mean crack px per crack-free cell)
+arm      crackIoU     relF1  inactIoU      relP      relR    crackP    crackR     compR     compP compP_all   free_px  n_free
+SUPPF      0.2292    0.5207    0.0986    0.4326    0.6591    0.3652    0.3818    0.6818    0.3075    0.1217   55.6338  65
+SKR        0.2452    0.5180    0.1050    0.3796    0.8182    0.2869    0.6297    0.8091    0.2106    0.0804  128.5538  65
+CLD        0.2751    0.5754    0.1190    0.4738    0.7359    0.3367    0.6023    0.7455    0.2705    0.1118   83.0800  65
+B3         0.2285    0.5312    0.1123    0.4440    0.6633    0.3778    0.3664    0.6909    0.3486    0.1269   49.2000  65
+  SKR-SUPPF: relF1 -0.0026 (thr 0.0775) n.d. | inactIoU +0.0064 (thr 0.0712) n.d. | crackR +0.2479 (thr 0.0616) BETTER | relR +0.1591 (thr 0.0529) BETTER | relP -0.0530 (thr 0.0901) n.d. | compR +0.1273 (thr 0.1010) BETTER | relP@2 d -0.0530 FLAG(>0.05 drop)
+  CLD-SUPPF: relF1 +0.0548 (thr 0.0661) n.d. | inactIoU +0.0204 (thr 0.0583) n.d. | crackR +0.2205 (thr 0.0582) BETTER | relR +0.0768 (thr 0.0539) BETTER | relP +0.0412 (thr 0.0861) n.d. | compR +0.0636 (thr 0.0796) n.d. | relP@2 d +0.0412
+  B3-SUPPF: relF1 +0.0105 (thr 0.0818) n.d. | inactIoU +0.0138 (thr 0.0944) n.d. | crackR -0.0155 (thr 0.0712) n.d. | relR +0.0042 (thr 0.0724) n.d. | relP +0.0113 (thr 0.0950) n.d. | compR +0.0091 (thr 0.1197) n.d. | relP@2 d +0.0113
+
+## E1 half-cut 58 (argmax, m0 JSONs; per arm mean over seeds; free_px = mean crack px per crack-free cell)
+arm      crackIoU     relF1  inactIoU      relP      relR    crackP    crackR     compR     compP compP_all   free_px  n_free
+SUPPF      0.1451    0.4080    0.5367    0.6847    0.2908    0.5603    0.1638    0.2084    0.7832    0.3943   12.0437  32
+SKR        0.2213    0.4935    0.5464    0.5834    0.4278    0.4208    0.3183    0.3467    0.6025    0.3498   43.4312  32
+CLD        0.1971    0.4408    0.5144    0.6818    0.3265    0.4811    0.2511    0.2288    0.6915    0.3744   24.2563  32
+B3         0.1397    0.4077    0.5382    0.7069    0.2875    0.5837    0.1557    0.1951    0.8448    0.4265    6.2000  32
+  SKR-SUPPF: relF1 +0.0855 (thr 0.0442) BETTER | inactIoU +0.0097 (thr 0.0926) n.d. | crackR +0.1545 (thr 0.0242) BETTER | relR +0.1370 (thr 0.0381) BETTER | relP -0.1013 (thr 0.0480) WORSE | compR +0.1382 (thr 0.0543) BETTER | relP@2 d -0.1013 FLAG(>0.05 drop)
+  CLD-SUPPF: relF1 +0.0328 (thr 0.0521) n.d. | inactIoU -0.0223 (thr 0.0917) n.d. | crackR +0.0873 (thr 0.0352) BETTER | relR +0.0357 (thr 0.0478) n.d. | relP -0.0030 (thr 0.0633) n.d. | compR +0.0204 (thr 0.0590) n.d. | relP@2 d -0.0030
+  B3-SUPPF: relF1 -0.0002 (thr 0.0508) n.d. | inactIoU +0.0015 (thr 0.0983) n.d. | crackR -0.0080 (thr 0.0304) n.d. | relR -0.0033 (thr 0.0470) n.d. | relP +0.0222 (thr 0.0537) n.d. | compR -0.0133 (thr 0.0665) n.d. | relP@2 d +0.0222
+
+## E1 full 48 (argmax, m0 JSONs; per arm mean over seeds; free_px = mean crack px per crack-free cell)
+arm      crackIoU     relF1  inactIoU      relP      relR    crackP    crackR     compR     compP compP_all   free_px  n_free
+SUPPF      0.1906    0.4520    0.0966    0.3508    0.6437    0.2851    0.3662    0.7455    0.2405    0.0949   84.4095  42
+SKR        0.1978    0.4485    0.0939    0.3105    0.8120    0.2266    0.6098    0.8364    0.1537    0.0619  191.3905  42
+CLD        0.2258    0.4986    0.0977    0.3826    0.7209    0.2727    0.5697    0.8182    0.2134    0.0925  124.7762  42
+B3         0.1879    0.4573    0.1068    0.3577    0.6364    0.2917    0.3460    0.7455    0.2628    0.0981   75.2095  42
+  SKR-SUPPF: relF1 -0.0034 (thr 0.0921) n.d. | inactIoU -0.0028 (thr 0.0730) n.d. | crackR +0.2435 (thr 0.0792) BETTER | relR +0.1683 (thr 0.0675) BETTER | relP -0.0403 (thr 0.0938) n.d. | compR +0.0909 (thr 0.1447) n.d. | relP@2 d -0.0403
+  CLD-SUPPF: relF1 +0.0466 (thr 0.0808) n.d. | inactIoU +0.0011 (thr 0.0613) n.d. | crackR +0.2034 (thr 0.0802) BETTER | relR +0.0772 (thr 0.0685) BETTER | relP +0.0319 (thr 0.0904) n.d. | compR +0.0727 (thr 0.0878) n.d. | relP@2 d +0.0319
+  B3-SUPPF: relF1 +0.0053 (thr 0.0894) n.d. | inactIoU +0.0102 (thr 0.1056) n.d. | crackR -0.0203 (thr 0.0852) n.d. | relR -0.0073 (thr 0.0768) n.d. | relP +0.0069 (thr 0.0939) n.d. | compR -0.0000 (thr 0.1242) n.d. | relP@2 d +0.0069
+
+## val 54 (argmax, m0 JSONs; per arm mean over seeds; free_px = mean crack px per crack-free cell)
+arm      crackIoU     relF1  inactIoU      relP      relR    crackP    crackR     compR     compP compP_all   free_px  n_free
+SUPPF      0.4189    0.8858    0.5092    0.9297    0.8460    0.5861    0.5952    0.8192    0.9409    0.8309    0.2194  31
+SKR        0.4093    0.8854    0.4808    0.8687    0.9027    0.4607    0.7858    0.8640    0.9055    0.8100    2.4323  31
+CLD        0.3989    0.8822    0.4933    0.8911    0.8736    0.4585    0.7541    0.8416    0.9123    0.8630    3.7677  31
+B3         0.4169    0.8849    0.4907    0.9317    0.8427    0.5865    0.5906    0.8288    0.9518    0.8381    0.2065  31
+  SKR-SUPPF: relF1 -0.0005 (thr 0.0100) n.d. | inactIoU -0.0284 (thr 0.0790) n.d. | crackR +0.1906 (thr 0.0243) BETTER | relR +0.0567 (thr 0.0123) BETTER | relP -0.0609 (thr 0.0100) WORSE | compR +0.0448 (thr 0.0250) BETTER | relP@2 d -0.0609 FLAG(>0.05 drop)
+  CLD-SUPPF: relF1 -0.0036 (thr 0.0100) n.d. | inactIoU -0.0160 (thr 0.0732) n.d. | crackR +0.1589 (thr 0.0223) BETTER | relR +0.0276 (thr 0.0119) BETTER | relP -0.0386 (thr 0.0100) WORSE | compR +0.0224 (thr 0.0160) BETTER | relP@2 d -0.0386
+  B3-SUPPF: relF1 -0.0009 (thr 0.0100) n.d. | inactIoU -0.0185 (thr 0.0869) n.d. | crackR -0.0046 (thr 0.0243) n.d. | relR -0.0033 (thr 0.0122) n.d. | relP +0.0020 (thr 0.0100) n.d. | compR +0.0096 (thr 0.0286) n.d. | relP@2 d +0.0020
+
+## B5 (records; OPGRID -4..+12; P target 0.90 on val)
+SUPPF: pooled b_comp 3.9 b_rel 3.9 reach (True, True) | per-run b_comp 6.6/3.2/2.7/5.1/6.7 b_rel 4.4/3.8/3.0/4.0/4.2
+SKR: pooled b_comp 1.4 b_rel -4.0 reach (True, False) | per-run b_comp -0.1/-4.0/1.4/2.4/1.4 b_rel -4.0/-4.0/-4.0/-4.0/-4.0
+CLD: pooled b_comp 1.8 b_rel -1.6 reach (True, True) | per-run b_comp -2.0/8.3/4.0/5.2/-0.2 b_rel -1.4/-2.0/-0.5/-0.6/-3.0
+B3: pooled b_comp 5.6 b_rel 4.1 reach (True, True) | per-run b_comp 3.5/3.1/5.6/4.3/2.9 b_rel 3.7/3.5/4.3/4.3/4.5
+pooled  test       compR: SUPPF 0.8212 (compP 0.846, speck 0.011, compP_all 0.598) SKR 0.8624 (compP 0.849, speck 0.005, compP_all 0.662) CLD 0.8032 (compP 0.910, speck 0.004, compP_all 0.837) B3 0.8413 (compP 0.793, speck 0.012, compP_all 0.449) || SKR-SUPPF +0.0413 thr 0.0322 BETTER || CLD-SUPPF -0.0180 thr 0.0247 n.d. || B3-SUPPF +0.0201 thr 0.0250 n.d.
+pooled  test       relR: SUPPF 0.8723 (relP 0.900, speck 0.011, compP_all 0.598) SKR 0.8838 (relP 0.903, speck 0.005, compP_all 0.662) CLD 0.8349 (relP 0.932, speck 0.004, compP_all 0.837) B3 0.8735 (relP 0.895, speck 0.012, compP_all 0.449) || SKR-SUPPF +0.0114 thr 0.0168 n.d. || CLD-SUPPF -0.0374 thr 0.0152 WORSE || B3-SUPPF +0.0011 thr 0.0126 n.d.
+pooled  test_clean compR: SUPPF 0.8299 (compP 0.890, speck 0.007, compP_all 0.730) SKR 0.8717 (compP 0.864, speck 0.004, compP_all 0.719) CLD 0.8118 (compP 0.916, speck 0.004, compP_all 0.846) B3 0.8503 (compP 0.898, speck 0.007, compP_all 0.667) || SKR-SUPPF +0.0417 thr 0.0325 BETTER || CLD-SUPPF -0.0182 thr 0.0250 n.d. || B3-SUPPF +0.0203 thr 0.0252 n.d.
+pooled  test_clean relR: SUPPF 0.8795 (relP 0.909, speck 0.007, compP_all 0.730) SKR 0.8911 (relP 0.904, speck 0.004, compP_all 0.719) CLD 0.8419 (relP 0.933, speck 0.004, compP_all 0.846) B3 0.8807 (relP 0.908, speck 0.007, compP_all 0.667) || SKR-SUPPF +0.0116 thr 0.0170 n.d. || CLD-SUPPF -0.0376 thr 0.0153 WORSE || B3-SUPPF +0.0012 thr 0.0129 n.d.
+pooled  E1         compR: SUPPF 0.2696 (compP 0.439, speck 0.102, compP_all 0.235) SKR 0.3723 (compP 0.418, speck 0.090, compP_all 0.217) CLD 0.2655 (compP 0.464, speck 0.068, compP_all 0.236) B3 0.2838 (compP 0.433, speck 0.102, compP_all 0.220) || SKR-SUPPF +0.1027 thr 0.0554 BETTER || CLD-SUPPF -0.0041 thr 0.0601 n.d. || B3-SUPPF +0.0142 thr 0.0608 n.d.
+pooled  E1         relR: SUPPF 0.3998 (relP 0.465, speck 0.102, compP_all 0.235) SKR 0.4598 (relP 0.515, speck 0.090, compP_all 0.217) CLD 0.3805 (relP 0.562, speck 0.068, compP_all 0.236) B3 0.3939 (relP 0.471, speck 0.102, compP_all 0.220) || SKR-SUPPF +0.0601 thr 0.0383 BETTER || CLD-SUPPF -0.0193 thr 0.0466 n.d. || B3-SUPPF -0.0058 thr 0.0492 n.d.
+per_run test       compR: SUPPF 0.8286 (compP 0.783, speck 0.011, compP_all 0.521) SKR 0.8561 (compP 0.878, speck 0.005, compP_all 0.711) CLD 0.8021 (compP 0.910, speck 0.004, compP_all 0.742) B3 0.8307 (compP 0.859, speck 0.012, compP_all 0.576) || SKR-SUPPF +0.0275 thr 0.0346 n.d. || CLD-SUPPF -0.0265 thr 0.0384 n.d. || B3-SUPPF +0.0021 thr 0.0250 n.d.
+per_run test       relR: SUPPF 0.8722 (relP 0.898, speck 0.011, compP_all 0.521) SKR 0.8838 (relP 0.903, speck 0.005, compP_all 0.711) CLD 0.8349 (relP 0.931, speck 0.004, compP_all 0.742) B3 0.8733 (relP 0.896, speck 0.012, compP_all 0.576) || SKR-SUPPF +0.0115 thr 0.0162 n.d. || CLD-SUPPF -0.0373 thr 0.0156 WORSE || B3-SUPPF +0.0011 thr 0.0115 n.d.
+per_run test_clean compR: SUPPF 0.8374 (compP 0.883, speck 0.007, compP_all 0.688) SKR 0.8652 (compP 0.883, speck 0.004, compP_all 0.738) CLD 0.8107 (compP 0.917, speck 0.004, compP_all 0.783) B3 0.8396 (compP 0.918, speck 0.007, compP_all 0.752) || SKR-SUPPF +0.0278 thr 0.0349 n.d. || CLD-SUPPF -0.0267 thr 0.0389 n.d. || B3-SUPPF +0.0021 thr 0.0253 n.d.
+per_run test_clean relR: SUPPF 0.8794 (relP 0.908, speck 0.007, compP_all 0.688) SKR 0.8911 (relP 0.904, speck 0.004, compP_all 0.738) CLD 0.8419 (relP 0.933, speck 0.004, compP_all 0.783) B3 0.8805 (relP 0.909, speck 0.007, compP_all 0.752) || SKR-SUPPF +0.0117 thr 0.0164 n.d. || CLD-SUPPF -0.0375 thr 0.0155 WORSE || B3-SUPPF +0.0011 thr 0.0118 n.d.
+per_run E1         compR: SUPPF 0.2750 (compP 0.425, speck 0.103, compP_all 0.229) SKR 0.3676 (compP 0.438, speck 0.090, compP_all 0.225) CLD 0.2730 (compP 0.450, speck 0.068, compP_all 0.226) B3 0.2649 (compP 0.480, speck 0.102, compP_all 0.229) || SKR-SUPPF +0.0926 thr 0.0523 BETTER || CLD-SUPPF -0.0020 thr 0.0612 n.d. || B3-SUPPF -0.0101 thr 0.0571 n.d.
+per_run E1         relR: SUPPF 0.3987 (relP 0.464, speck 0.103, compP_all 0.229) SKR 0.4598 (relP 0.515, speck 0.090, compP_all 0.225) CLD 0.3816 (relP 0.563, speck 0.068, compP_all 0.226) B3 0.3942 (relP 0.473, speck 0.102, compP_all 0.229) || SKR-SUPPF +0.0611 thr 0.0328 BETTER || CLD-SUPPF -0.0171 thr 0.0426 n.d. || B3-SUPPF -0.0046 thr 0.0473 n.d.

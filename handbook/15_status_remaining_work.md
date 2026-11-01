@@ -8,7 +8,7 @@
 
 **Update 31 Oct 2026, afternoon (additive).** Om's answers of 31 Oct (`team_2026-10-31_next/om_2026-10-31.md` A and B; doc 12 D60, D61): dated "[Answered 31 Oct: ...]" notes on §3b rows 8 and 9 and §3c rows 12 to 16; new §1h (state when PF2 started). Nothing here predicts a PF2 result.
 
-**Update 1 Nov 2026, ~21:00 IST (additive).** New §1i (state at ~20:30 IST 1 Nov), §3d (decisions waiting on the user), §4d (ranked next items with ETAs); dated "[1 Nov: ...]" notes on §3c row 16 and §4c rows 1 to 5; a §7 row. Sources: `SESSION_RECORD_2026-10-31_to_11-01.md`, `team_2026-10-31_next/`, doc 20. THIN-B3 had no verified result at writing.
+**Update 1 Nov 2026, ~21:00 IST (additive).** New §1i (state at ~20:30 IST 1 Nov), §3d (decisions waiting on the user), §4d (ranked next items with ETAs); dated "[1 Nov: ...]" notes on §3c row 16 and §4c rows 1 to 5; a §7 row. Sources: `SESSION_RECORD_2026-10-31_to_11-01.md`, `team_2026-10-31_next/`, doc 20. THIN-B3 had no verified result at writing; [added ~21:40: its verified result in §1i, §3d row 23 and §4d].
 
 **Sources**
 - Server check at session close, 13 Oct 01:21 IST (read-only: `tmux ls`, `nvidia-smi`, `ps`, `du`), for §1b.
@@ -101,7 +101,7 @@
 
 ## 1i. State on 1 Nov 2026, about 20:30 IST (added 1 Nov; `SESSION_RECORD_2026-10-31_to_11-01.md` §11, `team_2026-10-31_next/log.md`)
 - **Done since §1h:** PF2 (PASS; RN50-PF FAIL; doc 20 §4); PF2E (PASS on E1 inactive with qualifications, test n.d.; §5); the 11 idea validations (§2); routing pre-check FAIL, T9 FAIL (TTA closed), S10 PASS (method note), P8 probe runs 1 and 2 (§3). Item 13 closed (no pool download).
-- **gaint, running:** THIN-B3's opening (E1 opening #2), started 19:40:18 (trigger PID 2926375, GS 9,900); ETA end ~21:45 to 22:00 (runner). All 15 THIN runs trained rc 0 (06:32 to 19:39).
+- **gaint, running:** THIN-B3's opening (E1 opening #2), started 19:40:18 (trigger PID 2926375, GS 9,900); ETA end ~21:45 to 22:00 (runner). All 15 THIN runs trained rc 0 (06:32 to 19:39). [~21:40: opening done 21:13:45, post rc 0; coach VERIFIED 21:21, judge CONFIRMED 21:29: no arm passes (SKR FAIL, CLD FAIL, B3 n.d., scuff not learned); BEST stays SUP100-PF (doc 20 §6.0). The nq queue started A8 s0 21:15 and A8c s0 21:17; HC s5 waits for a lane. builder respawned ~21:25 for B6.]
 - **gaint, armed behind it:** nq queue (PID 1843760; jobs A8 s0, A8c s0, HC s5, A8 s1, A8c s1, HC s6 to s9; 3 lanes; gates HC 9,000, A8 11,400), starting on THIN's "thin scoring done: post rc=0"; A8 scoring (PID 1908697, CPU, val + rf only); HC opening trigger (PID 2122911, FROZEN a23994c4; E1 opening #3). Event watcher `rwatch_v2.sh` (PID 1914687).
 - **cv02:** nothing of ours; read-only polls every 15 min (5 GPUs qualified at 18:50 and 19:02). B6 waits for builder's fold roots and scorer, runner's jobs and coach's APPROVED.
 - **Team:** calib and domain finished (not respawned after 1 Nov's cap); found and builder stopped at 19:15 for laptop memory (builder returns after THIN's window for B6); runner, coach, judge active; scribe writing the record and this refresh.
@@ -170,6 +170,7 @@ Still open from §3b: rows 10 (40-segment audit, 4 label questions) and 11 (idle
 | 20 | **D2 width flag:** both ensembles tripped it (val crack precision drop +0.0543 / +0.0753), so the headline is argmax. Change the D2 grid or the threshold for future protocols? | A pre-registered question for a later protocol, never a re-pick of PF2E (coach) | `verify_pf2e.md` "What this decides" |
 | 21 | **Half-cut routing (parked):** wanted enough to label half-cuts with E1-like context? | The offset exists only on E1's own labels (oracle b +5.4 vs −0.8); simulated half-cuts show no offset; H36 cleanup would likely not show it (judge); B2 masks or B3 + mining are the route; no manual labelling unless really needed | doc 20 §3.1; doc 13 A16, E30 |
 | 22 | **A8 full arm** if the screen says GO (5 seeds, E1 co-primaries possible: one more GPU run set and an E1 opening) | Screen queued first after THIN-B3 | `protocol_A8screen.md` §5 |
+| 23 | **SKR follow-up?** (added ~21:40) | SKR FAILED by the rule (test crack IoU −0.0136, narrow: leave-top-3-out +0.010) but lifts E1 crack detection (relF1@2 +0.059 BETTER; any-hit component recall 0.381 → 0.523) at ~2x false-alarm px. A follow-up is a new protocol: weight 0.1 or a val OP on a wider grid, a precision guard as a co-primary, a width-insensitive E1 readout | `verify_thin_b3.md` (coach, judge) |
 
 Still open: §3c rows 16 (marks: optional by team-lead's reading of the user's 31 Oct line; not done, not re-asked), 17 (HF sample), 18 (who rebooted gaint on 30 Oct); §3b rows 10 and 11.
 
@@ -221,7 +222,7 @@ Coach's order by expected test gain per cost. None beyond protocol_100 and B1/B2
 
 | Rank | Item | Condition | ETA | Source |
 |---|---|---|---|---|
-| 1 | THIN-B3 verify (runner local, coach on gaint CPU, judge on the laptop); fill the record's THIN section and docs 11 / 15 / 20 | opening rc 0 | tonight, after ~22:00 | `protocol_thin_b3.md` |
+| 1 | THIN-B3 verify (runner local, coach on gaint CPU, judge on the laptop); fill the record's THIN section and docs 11 / 15 / 20 [Done 1 Nov 21:21-21:29: no arm passes; doc 20 §6.0.] | opening rc 0 | tonight, after ~22:00 | `protocol_thin_b3.md` |
 | 2 | A8 screen (4 runs × 4k steps, then CPU scoring 15 to 30 min) | THIN's opening done | night of 1 to 2 Nov | `protocol_A8screen.md`, `build_a8_runner.md` |
 | 3 | HC (5 runs ≈ 12.5 lane-h, then an opening ~1.5 to 2 h; E1 opening #3) | THIN's opening done | 2 Nov, likely midday or later | `protocol_HC.md`, `build_hc_runner.md` |
 | 4 | B6 on cv02 (builder's fold roots + scorer ~2 to 3.5 h CPU; ~6.5 h on cv02) | ≥ 3 qualifying cv02 GPUs per wave; coach APPROVED | 2 Nov at the earliest | `protocol_B6.md` |

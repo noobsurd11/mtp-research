@@ -25,7 +25,7 @@ Status date: 12 Oct 2026, ~05:30 IST, updated 13 Oct ~16:30 IST for P17 and P13 
 
 Update 30 Oct 2026, ~12:00 IST (handbook refresh for 24 to 30 Oct; additive). New items A14, A15, C14, C15, D20 to D27, E18 to E22. Dated "[Qualified 30 Oct: ...]" notes on A12, A5, C13, E2, E8 and E12. Sources: `SESSION_RECORD_2026-10-21_to_27.md`, `SESSION_RECORD_2026-10-28_to_30.md`, `team_2026-10-29_features/` (`log.md`, `coach_100.md`, `spec_b3_scuff.md`, `verify_*.md`), docs 18 and 19.
 
-Update 1 Nov 2026, ~21:00 IST (handbook refresh for 31 Oct to 1 Nov; additive). New items A16, A17, C18, C19, D34 to D45, E26 to E30 and summary rows for them. Dated "[Qualified 1 Nov: ...]" / "[Answered 1 Nov: ...]" notes on C17, E23 and E24. Sources: `SESSION_RECORD_2026-10-31_to_11-01.md`, `team_2026-10-31_next/` (`log.md`, verifications, `ideas/`); doc 20.
+Update 1 Nov 2026, ~21:00 IST (handbook refresh for 31 Oct to 1 Nov; additive). New items A16, A17, C18, C19, D34 to D45, E26 to E30 and summary rows for them. (~21:40: THIN-B3 notes on A17 and E27.) Dated "[Qualified 1 Nov: ...]" / "[Answered 1 Nov: ...]" notes on C17, E23 and E24. Sources: `SESSION_RECORD_2026-10-31_to_11-01.md`, `team_2026-10-31_next/` (`log.md`, verifications, `ideas/`); doc 20.
 
 ## Sources
 - `results/*/README.md` (P1–P17, E1), `protocols/*.md`.
@@ -332,10 +332,10 @@ Update 1 Nov 2026, ~21:00 IST (handbook refresh for 31 Oct to 1 Nov; additive). 
 - **Resolution:** labelled half-cuts with E1-like context (B2 masks, or B3 + mining); cleaning H36 (~2 to 3 h, the user's call) would likely not show E1's offset (judge, S).
 
 ### A17. E1 crack labels are about 1.5x wider than train (mitigated; added 1 Nov)
-- **What:** area / skeleton length: E1 3.66 px, train 2.41 (2·EDT median 4.0 vs 2.0); val 2.46 (judge recompute 1 Nov, log 21:1x; train / val masks only).
+- **What:** area / skeleton length: E1 3.66 px, train 2.41 (2·EDT median 4.0 vs 2.0); val 2.46 (judge recompute 1 Nov, log 21:01; train / val masks only).
 - **Evidence:** `judge/crack_width.py` (md5 87f57a58); `protocol_PF2.md` §3b.
 - **Impact:** pixel E1 crack recall is partly a width readout (a train-width prediction centred on every crack caps near 0.66), and E1 "faintness" over GT px is partly dilution by edge px.
-- **Mitigation:** every protocol since PF2 reports width-robust E1 metrics (relR@2, relP@2, component recall / precision, predicted width); THIN-B3, HC and PF2E use E1 crack relF1@2 as the co-primary.
+- **Mitigation:** every protocol since PF2 reports width-robust E1 metrics (relR@2, relP@2, component recall / precision, predicted width); THIN-B3, HC and PF2E use E1 crack relF1@2 as the co-primary. [1 Nov ~21:40, THIN-B3: Skeleton Recall widens predictions ~1.5x (test pred/GT 0.95 → 1.54), so its E1 pixel recall (0.199 → 0.369) and crack IoU are inflated by this width match; judge quotes any-hit component recall (0.381 → 0.523) and relF1@2 instead.]
 
 ## (b) Past results that are invalid or were misread
 
@@ -654,7 +654,7 @@ None of these may be quoted as a method result. Old-era numbers stay in separate
 | E24 | (added 31 Oct) Does ResNet-50 help at 100% under PF? | D: RN50-5 passes the E1 read narrowly (+0.060, cost 0.047), not an ensemble-size effect (R34-10 +0.001); Track M R3 RN50 WORSE on test inactive | RN50-PF vs SUP100-PF, 5 v 5, test primaries plus an E1 secondary [Answered 1 Nov: no. RN50-PF test inactive WORSE (−0.0289); closed (doc 11 row 33).] |
 | E25 | (added 31 Oct) Does the B2 ranking find scuff / crack half-cells? | Train-scuff AUROC 0.384 / 0.437 (n_pos 4 / 9); against Hanifi labels 0.62 to 0.70 (35 cells) | The user's marks: 90 ranked vs 10 random panels (≥ 25 / 38 / 48 ranked hits at 0 / 1 / 2 random hits) |
 | E26 | (added 1 Nov) Is PF's inactive gain also in-distribution? | Test inactive +0.017 n.d. (16 cells, n_eff 7.2); E1 +0.19 (10 cells) | B6 (module-grouped CV, cv02 only; power ~13% at +0.017, 80% at ~+0.055) |
-| E27 | (added 1 Nov) Do thin-crack losses or a scuff class help on BEST? | Smokes only; B3 scuff IoU 0 at 2k | THIN-B3 opening (running at writing) |
+| E27 | (added 1 Nov) Do thin-crack losses or a scuff class help on BEST? | Smokes only; B3 scuff IoU 0 at 2k | THIN-B3 opening (running at writing) [Answered 1 Nov ~21:40: no arm passes (SKR FAIL, CLD FAIL, B3 n.d.: scuff not learned); SKR lifts E1 crack detection at a precision cost (doc 11 rows 40 to 42).] |
 | E28 | (added 1 Nov) Does training on synthetic half-cuts help E1? | Val made into half-cuts loses 0.14 recall; the SHV1 loss is ranking | HC (queued), E1 opening #3 |
 | E29 | (added 1 Nov) Does a foundation encoder help under PF? | Frozen probe: IN R50 0.444 > DINOv3 CNX-T 0.363 > IN-1k CNX-T 0.310 (F51 AP) | A8 screen (A8 vs A8c, 2 seeds, 4k), then a full arm if GO |
 | E30 | (added 1 Nov) Can E1's half-cut offset be chosen without E1? | Oracle on E1: b +5.4 half-cut vs −0.8 full; simulated half-cuts show +0.4 / +0.9 (pre-check FAIL); no labelled non-E1 half-cut crack set (A16) | Labelled half-cuts with E1-like context (B2 masks, B3 + mining) |

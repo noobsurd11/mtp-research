@@ -402,7 +402,7 @@ Per-cell raw JSONs of MIM5, DDeP5 and CP5 (about 240 MB) are kept locally and on
 |---|---|---|---|---|
 | PF2 | `el_f3` e544133 | gaint | `team_2026-10-31_next/protocol_PF2.md`, `build_pf2.md`, `verify_pf2.md` | `results/pf2/` |
 | PF2E | `el_f3` e544133 (`pf2e_infer.py` 272463d3), CPU fp32 | gaint | `protocol_PF2E.md`, `build_pf2e.md`, `verify_pf2e.md` | `results/pf2e/` |
-| THIN-B3 | `el_thin` c9bbb02 | gaint | `protocol_thin_b3.md`, `build_thin_b3.md`, `build_thin_runner.md` | `results/thin/` (after the opening) |
+| THIN-B3 | `el_thin` c9bbb02 | gaint | `protocol_thin_b3.md`, `build_thin_b3.md`, `build_thin_runner.md` | `results/thin/` (opened 1 Nov 19:40-21:13; `verify_thin_b3.md`) |
 | HC | `el_hc` c2e6973 | gaint | `protocol_HC.md`, `build_hc.md`, `build_hc_runner.md`, `review_hc.md` | (queued) |
 | A8 screen | `el_f8` c280e8c2 | gaint | `protocol_A8screen.md`, `ideas/idea08_runspec.md`, `build_a8_runner.md`, `review_f8_wrapper.md` | (queued) |
 | B6 | e544133 + per-fold data roots | cv02 (planned) | `protocol_B6.md`, `judge/review_B6_v0.md` | `results/b6/` (folds, counts, cv02 polls) |

@@ -1,12 +1,12 @@
 # 20. PF2, the PF ensemble, and Om's 11 unseen-panel ideas (31 Oct to 1 Nov 2026)
 
 ## What this covers
-This file covers the session of 31 Oct ~07:30 to 1 Nov ~20:30 IST, after `19_feature_learning_and_100pct_plan.md`:
+This file covers the session of 31 Oct ~07:30 to 1 Nov ~20:30 IST (THIN-B3's verified result added ~21:40), after `19_feature_learning_and_100pct_plan.md`:
 - **The ask (31 Oct ~13:45):** Om's answers to the protocol_100 follow-up and 11 new ideas aimed at unseen panels (E1), pasted by the user with "work on this direction further, no budget boundaries, we have 2 more months ... refrain from manual labelling unless very much needed".
 - **The 11 ideas:** each validated by one agent (calib, domain or found) and reviewed by judge. Three pass to a protocol (5, 7, 8); the rest are dropped or parked, two by a pre-registered CPU check (TTA, half-cut routing).
 - **PF2:** the PF recipe replicated on new seeds 5 to 9 with E1 co-primaries; RN50 under PF.
 - **PF2E:** PF vs house as 5-member ensembles (the deployable object).
-- **Protocols written and armed:** THIN-B3 (Skeleton Recall, clDice, scuff class; opening running at writing), HC (synthetic half-cuts), A8 screen (DINOv3 encoder), B6 (module-grouped CV for inactive).
+- **Protocols written and armed:** THIN-B3 (Skeleton Recall, clDice, scuff class; no arm passes), HC (synthetic half-cuts), A8 screen (DINOv3 encoder), B6 (module-grouped CV for inactive).
 - **The E1 policy:** E1 became a second test set with one read per registered opening.
 
 Added 1 Nov 2026 (handbook refresh). **Tags.** E = measured (file), R = literature (Research MCP id), S = judgement. "Clean" = the 50 test cells without `CSIR_00070_r8_c4`. Rule 1 = house rule, divisor 3 (doc 07, doc 19 §0).
@@ -22,7 +22,7 @@ Added 1 Nov 2026 (handbook refresh). **Tags.** E = measured (file), R = literatu
 | P8 probe | runs 1 and 2 done; descriptive | `ideas/idea08_foundation.md` §4c-4d |
 | PF2 | PASS (E1 inactive replicated; test relF1@2 narrow); RN FAIL | `verify_pf2.md` |
 | PF2E | PASS on E1 inactive (with qualifications); test n.d. | `verify_pf2e.md` |
-| THIN-B3 | 15 runs trained; opening started 1 Nov 19:40:18; **no verified result at writing** | `protocol_thin_b3.md` |
+| THIN-B3 | opened 1 Nov 19:40-21:13; **no arm passes** (SKR FAIL, CLD FAIL, B3 n.d.: scuff not learned); coach VERIFIED, judge CONFIRMED (added ~21:40) | `verify_thin_b3.md` |
 | HC | locked, smoked, queued; opening trigger armed | `protocol_HC.md` |
 | A8 screen | locked, smoked, queued; scoring armed | `protocol_A8screen.md` |
 | B6 | design locked; cv02 only; build open | `protocol_B6.md` |
@@ -66,7 +66,7 @@ Where a session record and a verify or idea file disagree, the verify or idea fi
 | 11 | Appearance augmentation (domain) | E1 brightness / contrast inside house-jitter reach; histogram shape outside the train envelope for 60% of E1 half-cuts (descriptive) | no arm |
 
 ### 2.1 Data facts found on the way (E)
-- **E1 crack labels are about 1.5x wider than train:** area / skeleton 3.66 px vs train 2.41 (judge, `judge/crack_width.py`); val 2.46 (judge recompute 1 Nov, log 21:1x). Pixel E1 crack recall is partly a width readout, so protocols report width-robust E1 metrics (relR@2, component recall).
+- **E1 crack labels are about 1.5x wider than train:** area / skeleton 3.66 px vs train 2.41 (judge, `judge/crack_width.py`); val 2.46 (judge recompute 1 Nov, log 21:01). Pixel E1 crack recall is partly a width readout, so protocols report width-robust E1 metrics (relR@2, component recall).
 - **Hanifi H36 half-cut crack labels are unusable** (judge, 31 Oct 14:23): 1,792 px over 17 cells, 48% within 10 px of spacing / border / cut line; FINAL relR@2 0.036 (1 of 17 cells). **No labelled half-cut crack set exists outside E1.** R4 (Track M) trained on these cells, which may explain its null (protocol_HC §2, S).
 - **Where E1's crack is:** 75% of E1 crack px are in the 29 scuff + half-cut cells; 5% in the 40 plain full cells.
 - **The letterbox:** E1's "brighter" statistic is the white frame (padding fraction 0.40 vs train 0.17); on content px E1 matches train (mean of cell means 137.3 vs 136.5).
@@ -154,7 +154,23 @@ Where a session record and a verify or idea file disagree, the verify or idea fi
 ### 6.0 THIN-B3 (`protocol_thin_b3.md` v1, locked 1 Nov 00:25, APPROVED 00:38)
 - Three arms on SUP100-PF, seeds 5-9, comparator PF2's SUPPF s5-9 (bit-identity shown over 2,000 steps): **SKR** (Skeleton Recall, w 1; its r-2 tube covers 99.2% of train crack px, so it acts as a soft crack-recall term), **CLD** (soft-clDice, w 1, k 10), **B3** (scuff as its own class; scuff IoU 0.0 at 2k, so "not learned" is a stated risk).
 - Co-primaries: test 3; for SKR / CLD also the two B5 OPs at the arm-pooled val OP; for all, E1 crack relF1@2 (E1 opening #2).
-- 15 runs trained 06:32 to 19:39 1 Nov (rc 0); opening started 19:40:18. **Results: pending verification at writing** (see the session record §8 when filled).
+- 15 runs trained 06:32 to 19:39 1 Nov (rc 0); opened 19:40:18 to 21:13:45 (E1 opening #2).
+- **Results (added 1 Nov ~21:40; `verify_thin_b3.md`, coach recompute, judge CONFIRMED with corrected readings): no arm passes; BEST stays SUP100-PF.**
+
+| Co-primary (Δ vs SUP100-PF; all / clean) | SKR | CLD | B3 |
+|---|---|---|---|
+| test crack IoU (thr 0.0100) | **−0.0136 / −0.0140 WORSE** | −0.0041 / −0.0042 n.d. | +0.0009 / +0.0016 n.d. |
+| test crack relF1@2 | +0.0028 / +0.0028 n.d. | −0.0020 / −0.0018 n.d. | −0.0008 / +0.0001 n.d. |
+| test inactive IoU | −0.0170 / −0.0161 n.d. | −0.0114 / −0.0106 n.d. | −0.0099 / −0.0095 n.d. |
+| B5 comp recall at comp P ≥ 0.90 | **+0.0413 / +0.0417 BETTER** (thr 0.032) | −0.0180 / −0.0182 n.d. | (reported) |
+| B5 relR@2 at relP@2 ≥ 0.90 | +0.0114 / +0.0116 n.d. (OP unreachable on val) | **−0.0374 / −0.0376 WORSE** (thr 0.015) | (reported) |
+| E1 crack relF1@2 | **+0.0590 BETTER** (thr 0.0392) | +0.0367 n.d. | +0.0013 n.d. |
+| Verdict | **FAIL** | **FAIL** | **n.d.** |
+
+  - **SKR:** the test WORSE is narrow (bootstrap [−0.036, +0.012]; leave-top-3-out +0.010). Mechanism (judge): precision from wider predictions (test pred/GT 0.95 → 1.54; relP@2 flag −0.070), concentrated on the largest cracks; not twins in the comparator (CLD shows the same split, and both arms trained on the same twins). On E1 it is the first clear crack-detection lift: relF1@2 +0.059, any-hit component recall 0.381 → 0.523, relR@2 +0.142. Its price: crack px on crack-free E1 cells ×2.4, crack on E1 scuff ×2.0, relP@2 −0.059. E1 pixel recall and IoU are not quoted: SKR's ~1.5x wider masks meet E1's ~1.5x wider labels (doc 13 A17).
+  - **CLD:** no better at matched precision. The B5 WORSE comes from a val-chosen operating point that does not transfer (over-precise on test: relP@2 0.932 vs 0.900); at matched test precision 0.868 vs 0.873 (descriptive).
+  - **B3:** the scuff class is not learned (train scuff IoU 0.000, all 5 seeds; never predicted). The arm is a 649-px crack → background relabel; its E1 crack-on-scuff drop (−7.3%) is not scuff-specific (crack off the scuff in the same cells −32%). Closed as spec'd.
+  - **Next (S):** an SKR follow-up is the user's call: a new protocol with weight 0.1 or a val OP on a wider grid, a precision guard as a co-primary, and a width-insensitive E1 detection readout.
 ### 6.1 HC: synthetic half-cuts (`protocol_HC.md` v1.1)
 - HC − SUP100-PF, seeds 5-9; loader transform at p 0.35 per eligible sample (~26% of views) from 353 train cells with a realistic gap band. Co-primaries: test 3, E1 crack relF1@2, E1 inactive IoU (E1 opening #3). Mechanism kill: SHV1 relR@2 at relP@2 ≥ 0.90 gain < +0.05. Harm guard on F51.
 - Code reviewed independently (found: PASS); smoke H0 identical to SUP100-PF over 2,000 steps. Queued after THIN-B3; opening trigger armed.
@@ -172,7 +188,7 @@ No download of the 159k HF pool. Use A (thesis negative result): the pool has no
 | # | Protocol | E1 co-primaries | Opened | Result |
 |---|---|---|---|---|
 | 1 | PF2 | E1 crack recall, E1 inactive IoU | 1 Nov 06:33-08:26 | inactive BETTER; crack n.d. |
-| 2 | THIN-B3 | E1 crack relF1@2 | started 1 Nov 19:40 | pending |
+| 2 | THIN-B3 | E1 crack relF1@2 | 1 Nov 19:40-21:13 | SKR +0.059 BETTER; CLD, B3 n.d. (no arm passes overall) |
 | 3 | HC | E1 crack relF1@2, E1 inactive IoU | armed | |
 | 4 | PF2E | E1 crack relF1@2, E1 inactive IoU | 1 Nov 19:02-19:13 | inactive PASS; relF1@2 n.d. |
 - **Multiplicity:** co-primaries are uncorrected within each protocol (disclosed) and across openings; #4 repeats #1's models and cells. Reusing PF2's opened comparator files in #2 and #3 is not a new read. FINAL and protocol_100 seeds 0-4 are not blind on E1.
@@ -184,9 +200,9 @@ In doc 13 D34 to D45: PF2's LA scoring peak (7,758 MiB; min free 2,635, floor he
 
 ## Related docs
 - `19_feature_learning_and_100pct_plan.md` §10: protocol_100 and D, the starting point.
-- `11_results_synthesis_and_claims.md`: rows 30 to 39.
-- `12_decisions_log.md`: §4f, D62 to D77.
+- `11_results_synthesis_and_claims.md`: rows 30 to 42.
+- `12_decisions_log.md`: §4f, D62 to D78.
 - `13_problems_pitfalls_open_issues.md`: A16, A17, C18, C19, D34 to D45, E26 to E30.
 - `14_code_and_infrastructure.md` §1.2d, §5c.
 - `15_status_remaining_work.md` §1i, §3d, §4d.
-- `16_faq_for_the_guide.md` section I.
+- `16_faq_for_the_guide.md` section I (Q42 to Q51).

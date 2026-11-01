@@ -2,7 +2,7 @@
 
 **Update 30 Oct 2026 (additive):** section G (Q27 to Q33) covers 24 to 30 Oct: the best model, the unlabelled pool, encoder erasure, the 5% lesson, scuff labels and what is running. A dated qualifier is added to Q20 (P15).
 
-**Update 1 Nov 2026, ~21:00 IST (additive):** section I (Q42 to Q50) covers 31 Oct to 1 Nov: PF2, the PF ensemble (PF2E), Om's 11 unseen-panel ideas, the E1 policy and what is running. Dated "[Qualified 1 Nov: ...]" notes on Q27, Q35, Q36 and Q38.
+**Update 1 Nov 2026, ~21:00 IST (additive):** section I (Q42 to Q51; Q51 added ~21:40 after THIN-B3) covers 31 Oct to 1 Nov: PF2, the PF ensemble (PF2E), Om's 11 unseen-panel ideas, the E1 policy and what is running. Dated "[Qualified 1 Nov: ...]" notes on Q27, Q35, Q36 and Q38.
 
 **What this covers.** Short answers to the questions a newcomer to this project tends to ask, each with its numbers and the doc or file to read next. The answers are as of 12 Oct 2026, about 05:30 IST, updated 13 Oct ~08:15 IST for P17 and P13 Amendment 2 (Q8, Q10, Q20b). All experiments, P17 included, are finished. Do not give a stronger answer than the one here without new evidence.
 
@@ -454,7 +454,7 @@ Sources: `team_2026-10-31_next/verify_pf2e.md`. → `20` §5, `11` row 34
 Not yet on a verdict, apart from PF's inactive effect.
 - Dropped or closed: per-panel thresholds (idea 1), intensity normalisation (2: E1's "brighter" look is a white letterbox), high resolution (6: a repeat of R5), appearance augmentation (11), test-time BN adaptation (9: T9 FAIL; entropy TTA / TENT dropped without a run), SAM on cracks (10).
 - Parked: neighbour reference and periodic removal (3, 4: the model does not confuse busbars with cracks), half-cut routing (the pre-check on synthetic half-cuts failed).
-- Running or queued: thin-crack losses and a scuff class (THIN-B3), synthetic half-cuts (HC, idea 5), a DINOv3 encoder screen (A8, idea 8).
+- Running or queued: thin-crack losses and a scuff class (THIN-B3), synthetic half-cuts (HC, idea 5), a DINOv3 encoder screen (A8, idea 8). [Qualified 1 Nov ~21:40: THIN-B3 is verified: no arm passes; Skeleton Recall lifts E1 crack detection at a precision cost (Q51). HC and A8 still queued.]
 - Method note: SAM fills partly found inactive regions (S10), at 50% labels.
 → `20` §2, §3, `11` rows 35 to 39
 
@@ -484,6 +484,14 @@ Yes, by 587 MiB. PF2's logit-adjustment pass over 15 runs peaked at 7,758 MiB (t
 - Running: THIN-B3's opening on gaint (started 19:40). Armed behind it: the A8 screen and HC runs, A8 scoring, the HC opening. B6 waits for cv02 (≥ 3 free GPUs) and its build.
 - Waiting on the user: the deployable model (E-PF?), the D2 width flag for future protocols, whether half-cut labels are wanted, the A8 full arm if the screen says GO; still open: the HF sample, the 30 Oct gaint reboot, the 40-segment audit; the B1 / B2 marks are optional (team-lead's reading of the user's 31 Oct line on manual labelling; not done, not re-asked).
 → `15` §1i, §3d, §4d
+[Qualified 1 Nov ~21:40: THIN-B3's opening ended 21:13 and is verified (Q51); the A8 screen runs started at 21:15; the SKR follow-up is a new open question for the user.]
+
+**Q51. Did the thin-crack losses or the scuff class help?** (added ~21:40)
+No arm passes its pre-registered rule (THIN-B3, gaint, seeds 5 to 9 vs SUP100-PF; coach VERIFIED, judge CONFIRMED):
+- **Skeleton Recall: FAIL.** Test crack IoU −0.0136 / −0.0140 (WORSE; narrow: leave-top-3-out +0.010), from wider predictions on the largest cracks (relP@2 −0.070). But at matched val precision it finds more test crack components (+0.041, BETTER), and on E1 it is the first arm that clearly lifts crack detection: relF1@2 +0.059 (BETTER), any-hit component recall 0.381 → 0.523, at ~2x the false-alarm px (crack-free E1 cells ×2.4, scuff ×2.0). E1 pixel recall and IoU are inflated by width and not quoted.
+- **clDice: FAIL** (relR@2 at matched val precision WORSE, −0.037); no better at matched test precision.
+- **Scuff class (B3): n.d.;** the class was never learned (train scuff IoU 0.000, all 5 seeds), so the arm only relabelled 649 train px.
+- BEST stays SUP100-PF. An SKR follow-up (weight 0.1 or a wider OP grid, a precision guard) is the user's call. → `20` §6.0, `11` rows 40 to 42
 
 ## Related docs
 All of them; start from `00_START_HERE.md`.

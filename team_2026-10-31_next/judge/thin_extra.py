@@ -46,7 +46,8 @@ if all(r != '-' for _, _, r in ARM.values()):
         return dict(relP=dv(rp, pred), relR=dv(rr, np.full_like(rr, ng)), compR=f.mean(0), compP=dv(S('pc20_hit'), S('pc20_n')))
     def op(cv, rk, pk):
         ok = np.where(OPG & (np.nan_to_num(cv[pk], nan=-1) >= 0.90))[0]
-        if not len(ok): return None
+        if not len(ok):  # unreachable: calib's frozen rule = max-precision b, ties to the smaller b (flagged by the caller's printout of val P)
+            cand = np.where(OPG)[0]; bp = np.nanmax(cv[pk][cand]); return min([j for j in cand if cv[pk][j] == bp], key=lambda j: GRID[j])
         b = np.nanmax(cv[rk][ok]); return min([j for j in ok if cv[rk][j] == b], key=lambda j: GRID[j])
     V, T = {}, {}
     for n in ARM:

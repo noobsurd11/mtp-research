@@ -1,6 +1,6 @@
 # Session record, 31 Oct to 1 Nov 2026: Om's 11 ideas validated, PF2 and PF2E, THIN-B3, HC / A8 / B6 armed
 
-Covers the session after `SESSION_RECORD_2026-10-30_to_31.md` (which stops at 31 Oct ~07:30 IST). Status as of 1 Nov ~20:30 IST.
+Covers the session after `SESSION_RECORD_2026-10-30_to_31.md` (which stops at 31 Oct ~07:30 IST). Status as of 1 Nov ~20:30 IST; §0, §1, §8, §9, §11-§13 updated ~21:40 IST after THIN-B3's verification.
 Team folder: `team_2026-10-31_next/` (brief `README.md`, append-only `log.md`, ledger `e1_openings.md`). Tags: E = measured (file), R = literature (id), S = judgement. "Clean" = the 50 test cells without `CSIR_00070_r8_c4`. Rule 1 = house rule, divisor 3.
 
 ## 0. In one screen
@@ -13,7 +13,8 @@ Team folder: `team_2026-10-31_next/` (brief `README.md`, append-only `log.md`, l
 - **The 11 ideas (judge reviewed all):** PASS to protocol: 5 (synthetic half-cuts → HC), 7 (metrics, in every protocol), 8 (foundation encoder → A8 screen). PARK: 3 + 4 jointly (structure channel), half-cut routing (idea 1). DROP: 2 (intensity; the "brighter E1" is a white letterbox), 6 (high resolution; a repeat of R5), 11 (no appearance arm), TENT (idea 9), label-free per-panel thresholds (idea 1), SAM on cracks (idea 10). Closed by result: **TTA (T9 FAIL)**, **half-cut routing pre-check FAIL**. Method note: **S10** (SAM fills inactive regions, passes its rule at A50).
 - **Data facts found:** E1 crack labels are about 1.5x wider than train; Hanifi `_rf` half-cut crack labels are unusable (no labelled half-cut crack set exists outside E1); within E1 strata the failure is ranking, not threshold.
 - **User decisions:** E1 = second test set (31 Oct ~15:00); idea 8 weights + screen; idea 10 S10; HC; PF2E with E1 co-primaries; DINOv3 route B with the user's licence acceptance; B6 only on cv02 (1 Nov). §3.
-- **Now:** THIN-B3's opening is running (E1 opening #2; results §8, pending verify). Armed behind it: the nq queue (A8 screen + HC runs), A8 scoring, HC opening. B6 locked for cv02 only.
+- **THIN-B3 (E1 opening #2; coach `verify_thin_b3.md`, judge CONFIRMED): no arm passes; BEST stays SUP100-PF.** SKR FAIL (test crack IoU WORSE −0.0136, narrow: leave-top-3-out +0.010; B5 component recall BETTER +0.041; E1 crack relF1@2 BETTER +0.059, the first clear E1 crack-detection lift, paid with wider masks and ~2x false-alarm px). CLD FAIL (B5 relR@2 WORSE −0.037; no better at matched precision). B3 n.d.: the scuff class was not learned (train scuff IoU 0.000, all 5 seeds); closed as spec'd.
+- **Now (~21:40):** THIN's opening done 21:13:45; the nq queue started (A8 s0 21:15, A8c s0 21:17; HC s5 waits for a lane); A8 scoring and the HC opening armed. B6 locked for cv02 only; builder building its fold roots.
 
 ## 1. Timeline (IST)
 | When | Event |
@@ -58,6 +59,10 @@ Team folder: `team_2026-10-31_next/` (brief `README.md`, append-only `log.md`, l
 | 1 Nov 19:39:03 | THIN-B3 ALL TRAINED (15 rc 0); **THIN opening started 19:40:18** |
 | 1 Nov 19:43:42 | nq queue (A8 + HC) armed; 19:54 A8 scoring armed; 20:22:33 HC opening armed |
 | 1 Nov 20:19 | `set -e` chained-check finding (runner's helper) |
+| 1 Nov 21:13:45 | THIN opening done (post rc 0; 1 h 33 min); 21:14 window over |
+| 1 Nov 21:15-21:17 | nq: A8 s0 and A8c s0 start (config OK); HC s5 waits for a lane |
+| 1 Nov 21:21-21:29 | **THIN-B3 VERIFIED** (coach, on gaint CPU) and CONFIRMED with corrected readings (judge); runner's readout = coach's to 4 dp |
+| 1 Nov ~21:25 | builder respawned for B6's fold roots and held-out scorer |
 
 ## 2. Team, rules, infrastructure (changes this session)
 - **Roles** (`README.md`): `team-lead` (orchestrates), `runner` (gaint GPU owner, the only agent starting GPU jobs), `coach` (protocols, APPROVED, independent recompute), `builder` (code), `calib` (ideas 1, 2, 7), `domain` (ideas 3, 4, 5, 11, item-13 close-out), `found` (ideas 6, 8, 9, 10), `judge` (adversarial review of every idea, recomputes E claims). calib and domain finished their work 31 Oct and were not respawned after 1 Nov's cap.
@@ -148,7 +153,7 @@ Team folder: `team_2026-10-31_next/` (brief `README.md`, append-only `log.md`, l
 - **Item 13 closed** (`team_2026-10-29_features/pool_large/CLOSED.md`, domain; judge correction applied): no download; Use A (the 159k pool holds no E1 module family or new cell type: a thesis negative result), Use B (provenance, leakage, licence note).
 
 ### 6.1 Data facts (E)
-- **E1 crack labels are ~1.5x wider** than train: area / skeleton 3.66 px vs train 2.41 (judge `judge/crack_width.py`); val 2.46 (judge recompute 1 Nov, log 21:1x; train / val masks only). Pixel E1 crack recall is partly a width readout; protocols report width-robust E1 metrics.
+- **E1 crack labels are ~1.5x wider** than train: area / skeleton 3.66 px vs train 2.41 (judge `judge/crack_width.py`); val 2.46 (judge recompute 1 Nov, log 21:01; train / val masks only). Pixel E1 crack recall is partly a width readout; protocols report width-robust E1 metrics.
 - **Hanifi H36 half-cut crack labels are unusable** (judge 14:23, coach): 1,792 px over 17 cells, 48% within 10 px of spacing / border / cut line; FINAL relR@2 0.036 (1/17 cells). F51 is the `_rf` crack decision set; H36 is for false alarms on its 19 crack-free cells. **There is no labelled half-cut crack set outside E1.**
 - 75% of E1 crack px sit in the 29 scuff + half-cut cells, 5% in the 40 plain full cells (judge, SUP s0 m0 GT rows).
 - **Letterbox (ideas 2, 11):** E1's "brighter" whole-image statistic is the white letterbox (padding fraction 0.40 vs train 0.17); on content px E1 matches train (mean of cell means 137.3 vs 136.5).
@@ -207,14 +212,36 @@ Team folder: `team_2026-10-31_next/` (brief `README.md`, append-only `log.md`, l
 - Verdict: two-stage bootstrap (groups + seed); PASS = CI LB > 0 and Δ ≥ 0.01. **Power (stated before any run): ~13% at Δ +0.017, ~32% at +0.03, 80% needs ~+0.055.** n.d. is the likely outcome.
 - Per-fold `data.root` with val.txt = test.txt = the held-out fold (the trainer's end-of-run test pass then sees only that fold). cv02 only, ≥ 3 qualifying GPUs re-checked per wave. Open: builder's roots + held-out scorer, runner's jobs, coach's APPROVED.
 
-## 8. THIN-B3 results (pending verify)
-[Placeholder: filled after runner's and coach's verification tonight (E1 opening #2). Verdicts per arm (SKR, CLD, B3) on the test co-primaries, the B5 co-primaries (SKR, CLD), the E1 crack relF1@2 co-primary; B3 scuff readouts; judge's check.]
+## 8. THIN-B3 results (E1 opening #2; coach `verify_thin_b3.md`, judge CONFIRMED with corrected readings)
+- **Opening** 1 Nov 19:40:18-21:13:45, post rc 0; THIN MANIFEST 5d3f5b31 (305 files), comparator PF2 3827f7c0; min free 19,344 MiB. coach recomputed on gaint CPU (laptop memory) in place after `md5sum -c`; judge on the laptop from the pulled opening files; runner's readout equals coach's to 4 dp; judge reproduces every co-primary, threshold and verdict to 4 dp.
+- **Integrity (E):** 15/15 rc 0, step 20000, 0 Tracebacks, configs = seed + one change; REVISION = HEAD = c9bbb02; scorer md5s as protocol; B5 self-checks 45/45 exact. PF kept the encoder in every arm (layer3 0.925-0.932, layer4 0.927-0.946). The `set -e` conditions (§10) re-verified independently.
+
+| Co-primary (Δ vs SUP100-PF; all / clean; thr) | SKR | CLD | B3 |
+|---|---|---|---|
+| test crack IoU | **−0.0136 / −0.0140 (0.0100) WORSE** | −0.0041 / −0.0042 n.d. | +0.0009 / +0.0016 n.d. |
+| test crack relF1@2 | +0.0028 / +0.0028 n.d. | −0.0020 / −0.0018 n.d. | −0.0008 / +0.0001 n.d. |
+| test inactive IoU | −0.0170 / −0.0161 n.d. | −0.0114 / −0.0106 n.d. | −0.0099 / −0.0095 n.d. |
+| B5 component recall at comp P ≥ 0.90 (arm-pooled OP) | **+0.0413 / +0.0417 (0.032) BETTER** | −0.0180 / −0.0182 n.d. | (reported) +0.0201 / +0.0203 |
+| B5 relR@2 at relP@2 ≥ 0.90 (arm-pooled OP) | +0.0114 / +0.0116 n.d. (OP unreachable on val: max relP@2 0.894 at b −4.0, flagged) | **−0.0374 / −0.0376 (0.015) WORSE** | (reported) +0.0011 / +0.0012 |
+| E1 crack relF1@2 (106 cells) | **+0.0590 (0.0392) BETTER** | +0.0367 (0.0415) n.d. | +0.0013 (0.0408) n.d. |
+| **Verdict** | **FAIL** | **FAIL** | **n.d.** |
+
+- Flags and reported lines: SKR crack relP@2 at argmax −0.070 / −0.070 (FLAG); LA tau 1: SKR crack IoU −0.027, CLD −0.012 (WORSE by the arithmetic), B3 n.d.; scuff-ignored test: same pattern.
+- **SKR (judge's corrected reading):**
+  - The test WORSE is narrow: paired image bootstrap [−0.036, +0.012], P(Δ < 0) 0.83; **leave-top-3-out +0.010** (two CFVS cells of ~10k GT px each carry most of it). As fragile as PF2's relF1@2 pass.
+  - Mechanism: **precision from wider predictions (test pred/GT 0.95 → 1.54, relP@2 flag −0.070), concentrated on the largest cracks.** The 7 D6 twin cells (39.5% of test crack px, the largest cracks) go 0.586 → 0.536 while the other 43 go 0.386 → 0.398; CLD shows the same split, and both arms trained on the same twins, so this is not "twins in the comparator".
+  - B5 component recall BETTER is robust (25 leave-one-seed-out OPs: min +0.028, 0/25 WORSE; comp precision at the OP matched, 0.849 vs 0.846). Per-run OPs: n.d. (+0.028).
+  - **E1 (the first clear crack-detection lift on E1):** relF1@2 +0.059 BETTER (co-primary); **any-hit component recall 0.381 → 0.523** (width-insensitive, GT components ≥ 20 px); relR@2 +0.142. **Price:** crack px on the 74 crack-free E1 cells 3,931 → 9,428 (×2.4); crack px on E1 scuff 8,830 → 18,067 (×2.0); relP@2 −0.059; pixel precision 0.428 → 0.337. E1 pixel recall and crack IoU are not quoted: SKR widens masks ~1.5x and E1 GT is ~1.5x wider than train, so they are inflated by a width coincidence.
+- **CLD:** the relR@2 WORSE is stable (LOSO OPs b −1.2 to −1.9, WORSE 25/25), but at its val-chosen b (−1.6) CLD is over-precise on test (test relP@2 0.932 vs 0.900). **No better at matched precision:** at matched test precision (test-oracle, descriptive) 0.868 vs 0.873. The operating point does not transfer from val to test. No follow-up.
+- **B3: the scuff class is not learned** (pre-stated rule: train scuff IoU 5-seed mean < 0.10): 0.000 in all 5 seeds, tp 0, fp 0; p(scuff) on GT scuff 0.0009-0.0029 vs 1.6e-5-4.3e-5 elsewhere (no px > 0.1); E1 scuff-predicted px 0. The arm is a 649-px crack → background relabel (train crack-on-scuff 222 → 0). **The E1 crack-on-scuff drop (8,830 → 8,184, −7.3%; expected −20% to −60%) is not scuff-specific:** crack off the scuff in the same 38 cells −32%; per-seed ranges overlap. Closed as spec'd; a weighted or Dice-on-scuff variant would be a new arm with its own OK.
+- **Decides (S, coach and judge):** no THIN-B3 arm passes; BEST stays SUP100-PF. An SKR follow-up is the user's call and a new pre-registered protocol: SKR weight 0.1 (paper) or a val OP on a wider grid, a precision guard (crack-free px, relP@2) as a co-primary, and a width-insensitive E1 detection readout (any-hit component recall).
+- **Disclosure:** judge's ~18:49 tail of 13 THIN stdouts (§10; coach's file says ~18:52, judge corrected to ~18:49); nothing recorded; both verifications use opening files only.
 
 ## 9. E1 openings ledger and multiplicity (`e1_openings.md`)
 | # | Protocol | Models | E1 co-primaries | Opened | Result |
 |---|---|---|---|---|---|
 | 1 | PF2 | pf2_{SUP,SUPPF,RN50PF} s5-9 | E1 crack recall, E1 inactive IoU (PF contrast) | 1 Nov 06:33-08:26 | inactive +0.189 BETTER; crack recall n.d. (addendum: RN secondary ensembles, descriptive) |
-| 2 | THIN-B3 | SKR / CLD / B3 s5-9 (+ PF2 SUPPF s5-9 reused) | E1 crack relF1@2 | started 1 Nov 19:40:18 | pending (§8) |
+| 2 | THIN-B3 | SKR / CLD / B3 s5-9 (+ PF2 SUPPF s5-9 reused) | E1 crack relF1@2 | 1 Nov 19:40-21:13 | SKR +0.059 BETTER; CLD, B3 n.d. (§8) |
 | 3 | HC | HC s5-9 (+ SUPPF s5-9 reused) | E1 crack relF1@2, E1 inactive IoU | not yet (armed) | |
 | 4 | PF2E | E-PF vs E-g (PF2 s5-9 members) | E1 crack relF1@2, E1 inactive IoU (71-cluster bootstrap) | 1 Nov 19:02-19:13 | inactive +0.214 PASS; relF1@2 n.d. |
 - **Multiplicity note:** within each protocol the co-primaries are uncorrected and disclosed (PF2 5, THIN SKR / CLD 6, B3 4, HC 5, PF2E 5 primaries). Across openings nothing is corrected either. #4 is not independent of #1 (same member models and cells). PF2E's E1 pass is borderline under Bonferroni (LB ≈ 0.000). Reusing PF2's already-opened SUPPF files as a comparator in #2 and #3 is not a new E1 read. Reading E1 for a pre-declared no-op adds multiplicity for no information, so the routing readout was dropped (judge).
@@ -232,21 +259,20 @@ Team folder: `team_2026-10-31_next/` (brief `README.md`, append-only `log.md`, l
 - **`set -e` chained checks (1 Nov 20:19, runner's helper):** `[ a ] && [ b ]` under `set -e` does not stop on an early failing term, so integrity checks in `thin_post.sh` / `pf2_post.sh` could pass silently. runner re-verified THIN directly (HEAD = DEPLOY = REVISION c9bbb02, 0 tracked changes, comparator MANIFEST 3827f7c0, scorer md5s hold); coach's verify re-checks independently.
 - **Other slips (all caught before any number):** `pf2_post.sh` a82ad566 had the extra-pass `gate_wait` inside a comment (coach, 14:40; fixed 14:41); hand-written timestamps ahead of the clock: coach (14:10) and runner (14:13), corrected in place; found's version headers, corrected to log.md times; judge (31 Oct 14:30, verdict headers corrected to log.md times; 1 Nov four lines stamped 18:51 / 18:58 / 19:20 / 19:36 for events at ~18:49-18:54, the furthest ~42 min ahead: the lines stand as written, followed by a correction line at 18:55; only the sign-off header in `judge/review_B6_v0.md` was corrected in place); coach printed `$(md5sum ...)` literally once; judge's unquoted heredoc lost backtick paths (14:41); runner closed its own idle tmux window by name once (14:49, disclosed); the R34 B5 dump peak was not captured (7 s run between samples); runner's ssh heredoc partly ran on the laptop (18:45, stopped at the deploy check, nothing written); PF2E's out_b5 copy lost the test / ext summaries (fixed 19:46, MANIFEST 6ea19679); a relative-path FileNotFoundError in runner's first PF2E local scoring (before any output).
 
-## 11. Running and armed now (1 Nov ~20:30) and next steps
+## 11. Running and armed now (1 Nov ~21:40) and next steps
 - **gaint:**
-  - THIN-B3 opening (E1 opening #2), started 19:40:18 (trigger PID 2926375, `thin_post.sh` ca436052, GS 9,900, FROZEN 584cabea). Progress: m0_audit_b3 default 20:12, tau 0 20:18; min free since 19:40 21,400 MiB. ETA end ~21:45-22:00 (runner).
-  - nq queue armed 19:43:42 (queue PID 1843760, gpumem 1843423; jobs 5cb4bad9: A8 s0, A8c s0, HC s5, A8 s1, A8c s1, HC s6-9; MAXC 3; gates HC 9,000, A8 / A8c 11,400); starts on THIN's "thin scoring done: post rc=0".
+  - THIN-B3 opening done 21:13:45 (post rc 0); runner declared the CPU window over at 21:14.
+  - nq queue (queue PID 1843760, gpumem 1843423; jobs 5cb4bad9: A8 s0, A8c s0, HC s5, A8 s1, A8c s1, HC s6-9; MAXC 3; gates HC 9,000, A8 / A8c 11,400): A8 s0 started 21:15:16, A8c s0 21:17:19 (config OK, ~2.9 steps/s); HC s5 waits for a lane (free 7,283 MiB at 21:24, as designed).
   - A8 scoring armed (PID 1908697, MODE=wait; FROZEN a8_score 75a57c9c, a8_calib_dump_4k 12e4818e, a8_init_dump 87923f8e; CPU fp32, val + rf only).
   - HC opening trigger armed 20:22:33 (PID 2122911, FROZEN a23994c4, GS 9,900); E1 opening #3 at that opening.
   - Frozen scorers: B5 (calib) FROZEN 475d78fb / THIN 584cabea (el_metrics 6e73ff11, calib_dump c172717e); THIN E1 relF1@2 98bcb979.
   - gaint watcher `rwatch_v2.sh` (PID 1914687).
-- **cv02:** nothing of ours running; read-only polls every 15 min (`results/b6/cv02_polls.log`); 5 GPUs qualified at 18:50 and 19:02.
+- **cv02:** nothing of ours running; read-only polls every 15 min (`results/b6/cv02_polls.log`); 5 GPUs qualified at 18:50 and 19:02. builder (respawned ~21:25) builds B6's fold roots and held-out scorer.
 - **Next, with ETAs (S unless stated):**
-  1. THIN-B3 verify (runner local analysis `thin_post_local.sh`, coach on gaint CPU, judge on the laptop): tonight after ~22:00.
-  2. A8 screen: the 4 runs go first after THIN's opening (4k steps each); scoring 15-30 min after the 4th trains (`build_a8_runner.md`): night of 1-2 Nov. GO → a full-arm protocol (5 seeds, E1 co-primaries possible); KILL → "foundation encoder" closed.
-  3. HC: 5 runs ≈ 12.5 lane-h (protocol_HC) + opening ~1.5-2 h (`build_hc_runner.md`): 2 Nov, likely midday or later.
-  4. B6: builder respawns after THIN's window (~22:15) for the 5 fold roots + held-out scorer (~2-3.5 h CPU), then runner's jobs and coach's APPROVED; ~6.5 h on cv02 if ≥ 3 GPUs qualify per wave: 2 Nov at the earliest.
-  5. Handbook refresh of this session (scribe, tonight); THIN-B3 section filled after verify.
+  1. A8 screen: A8 s0 / A8c s0 ETA ~21:38 / ~21:44 (runner), then the s1 pair; scoring 15-30 min after the 4th trains (`build_a8_runner.md`): night of 1-2 Nov. GO → a full-arm protocol (5 seeds, E1 co-primaries possible); KILL → "foundation encoder" closed.
+  2. HC: 5 runs ≈ 12.5 lane-h (protocol_HC) + opening ~1.5-2 h (`build_hc_runner.md`): 2 Nov, likely midday or later.
+  3. B6: fold roots + held-out scorer (~2-3.5 h CPU), then runner's jobs and coach's APPROVED; ~6.5 h on cv02 if ≥ 3 GPUs qualify per wave: 2 Nov at the earliest.
+  4. An SKR follow-up only if the user wants one (§12).
 
 ## 12. Open decisions for the user
 1. **Deployable model:** coach and judge recommend E-PF (PF ensemble, argmax) over the house ensemble; FINAL (cv02, +0.75, clean crack 0.492) is not comparable by rule. Adopt E-PF as the deployable candidate?
@@ -254,14 +280,15 @@ Team folder: `team_2026-10-31_next/` (brief `README.md`, append-only `log.md`, l
 3. **Half-cut routing (PARKED):** needs a labelled half-cut set with E1-like context (Hanifi H36 cleanup would likely not show it, judge; B2 masks or B3 + mining are the route). Labelling stays the user's call (no manual labelling unless really needed).
 4. **B1 / B2 marks:** optional (team-lead's reading of the user's 31 Oct ~13:45 line '…refrain from manual labelling unless very much needed', which overrides Om B4's 'now'); not done; not re-asked (§3). The user may still mark them; the B2 Hanifi panel redaction stays in the handbook sources until the marks are done.
 5. **A8 full arm** if the screen says GO (GPU + E1 opening).
+6. **SKR follow-up?** SKR failed by the rule (test crack IoU WORSE, narrow) but is the first arm to lift E1 crack detection (relF1@2 +0.059; any-hit component recall 0.381 → 0.523), at ~2x false-alarm px. A follow-up would be a new protocol (weight 0.1 or a val OP on a wider grid, a precision guard as co-primary, a width-insensitive E1 readout).
 6. Still open from 31 Oct: delete the 293.6 MB HF sample; who rebooted gaint on 30 Oct 16:28; the 40-segment crack audit and 4 label questions; idle cv02 tmux shells.
 
 ## 13. Files
 - **Brief, log, ledger:** `team_2026-10-31_next/README.md`, `log.md`, `om_2026-10-31.md`, `e1_openings.md`.
 - **Protocols:** `protocol_PF2.md`, `protocol_PF2E.md`, `protocol_thin_b3.md`, `protocol_HC.md`, `protocol_A8screen.md`, `protocol_B6.md`.
 - **Builds and reviews:** `build_pf2.md`, `build_pf2e.md`, `build_thin_b3.md`, `build_thin_runner.md`, `build_hc.md`, `build_hc_runner.md`, `build_a8_runner.md`, `review_hc.md`, `review_f8_wrapper.md`; judge's reviews in `judge/` (`review_B6_v0.md`, recompute scripts, `out/`).
-- **Verifications:** `verify_pf2.md`, `verify_pf2e.md`.
+- **Verifications:** `verify_pf2.md`, `verify_pf2e.md`, `verify_thin_b3.md` (judge's section appended).
 - **Ideas:** `ideas/idea01`-`idea11` reports with judge verdicts, `idea7_metrics_defs.md`, `idea08_download.md`, `idea08_runspec.md`, `idea10_runspec.md`, `routing_precheck.md`, `t9_prereg.md`, `s10_prereg.md`; outputs `ideas/calib_out/`, `domain_out/`, `found_scripts/`, `figs/`; scripts `ideas/scripts/`.
-- **Results:** `results/pf2/` (`results_pf2_runner.md`, rung files, `pf2_e1_extra.txt`, `pf2_e1_width.txt`, `coach_v/`, `d_rn/`, `gpumem.log`), `results/pf2e/` (`pf2e_boot_runner.txt`, `coach_v/`, `b5/`), `results/b6/` (folds, inactive counts, cv02 polls). Per-cell raw pulls (`results/*/raw`, `coach_raw`), the protocol_100 per-cell copies in `results/pf2/pooled10_m0`, `rules_in` copies, PF2E B5 record JSONs and calib's per-cell records (`ideas/calib_out/rec*`) are gitignored (kept locally and on gaint with MANIFEST.md5).
+- **Results:** `results/thin/` (runner's rung files and readout, `coach_v/`, `gpumem.log`), `results/pf2/` (`results_pf2_runner.md`, rung files, `pf2_e1_extra.txt`, `pf2_e1_width.txt`, `coach_v/`, `d_rn/`, `gpumem.log`), `results/pf2e/` (`pf2e_boot_runner.txt`, `coach_v/`, `b5/`), `results/b6/` (folds, inactive counts, cv02 polls). Per-cell raw pulls (`results/*/raw`, `coach_raw`), the protocol_100 per-cell copies in `results/pf2/pooled10_m0`, `rules_in` copies, PF2E B5 record JSONs and calib's per-cell records (`ideas/calib_out/rec*`) are gitignored (kept locally and on gaint with MANIFEST.md5).
 - **Item 13:** `team_2026-10-29_features/pool_large/CLOSED.md`.
 - **Servers:** gaint worktrees `el_f3` (e544133; PF2, PF2E), `el_thin` (c9bbb02), `el_hc` (c2e6973), `el_f8` (c280e8c2); `/home/noob/work/nq/` (queue, HC opening), `a8_root/`, `a8_score/`, `weights/` (SAM2, DINOv3, MD5SUMS), `venv_sam2/`, `runner_events/`; quarantine `builder_scratch/quarantine_test_reads_2026-10-31`. cv02: unused.

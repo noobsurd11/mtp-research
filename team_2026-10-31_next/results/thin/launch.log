@@ -1,0 +1,70 @@
+[Sun Nov  1 12:38:42 AM IST 2026] runner: THIN-B3 armed (coach APPROVED; DEPLOY c9bbb02, jobs 0d613197d491fbedf82aa3b4f292db3c, m0_audit_b3 7aa7d6d8, GS 7900)
+[Sun Nov  1 12:38:45 AM IST 2026] thin opening trigger armed (pid 390098)
+[Sun Nov  1 12:38:45 AM IST 2026] thin queue armed: 15 jobs (md5 0d613197d491fbedf82aa3b4f292db3c), deploy c9bbb02, gates SKR 9100 / CLD 10500 / B3 9000, pid 390091; waiting for PF2 ALL TRAINED
+[Sun Nov  1 06:32:46 AM IST 2026] thin: PF2 ALL TRAINED seen; dispatching
+[Sun Nov  1 06:32:46 AM IST 2026] start thin_SKR_100pct_s5 (free 25805 MiB; alive 0; MAXC 2)
+[Sun Nov  1 06:32:49 AM IST 2026] pid thin_SKR_100pct_s5 2039243
+[Sun Nov  1 06:32:49 AM IST 2026] config OK thin_SKR_100pct_s5 vs pf2_SUPPF_100pct_s5: seed 5 + SKR change only
+[Sun Nov  1 06:36:50 AM IST 2026] start thin_CLD_100pct_s5 (free 18782 MiB; alive 1; MAXC 2)
+[Sun Nov  1 06:36:53 AM IST 2026] pid thin_CLD_100pct_s5 2066760
+[Sun Nov  1 06:36:53 AM IST 2026] config OK thin_CLD_100pct_s5 vs pf2_SUPPF_100pct_s5: seed 5 + CLD change only
+[Sun Nov  1 08:14:34 AM IST 2026] trained thin_SKR_100pct_s5 rc=0
+[Sun Nov  1 08:16:54 AM IST 2026] start thin_B3_100pct_s5 (free 17424 MiB; alive 1; MAXC 2)
+[Sun Nov  1 08:16:57 AM IST 2026] pid thin_B3_100pct_s5 2833303
+[Sun Nov  1 08:16:57 AM IST 2026] config OK thin_B3_100pct_s5 vs pf2_SUPPF_100pct_s5: seed 5 + B3 change only
+[Sun Nov  1 08:27:27 AM IST 2026] start thin_SKR_100pct_s6 (free 11680 MiB; alive 2; MAXC 3)
+[Sun Nov  1 08:27:30 AM IST 2026] pid thin_SKR_100pct_s6 2912047
+[Sun Nov  1 08:27:30 AM IST 2026] config OK thin_SKR_100pct_s6 vs pf2_SUPPF_100pct_s5: seed 6 + SKR change only
+[Sun Nov  1 08:29:00 AM IST 2026] trained thin_CLD_100pct_s5 rc=0
+[Sun Nov  1 08:29:30 AM IST 2026] start thin_CLD_100pct_s6 (free 13036 MiB; alive 2; MAXC 3)
+[Sun Nov  1 08:29:33 AM IST 2026] pid thin_CLD_100pct_s6 2922650
+[Sun Nov  1 08:29:33 AM IST 2026] config OK thin_CLD_100pct_s6 vs pf2_SUPPF_100pct_s5: seed 6 + CLD change only
+[Sun Nov  1 08:30:15 AM IST 2026] runner: thin opening trigger pid 390098 stopped by recorded PID (waiting only, no work) to restart with GS 9900 (coach OK: measured PF2-opening LA peak 7,758 + 2,048); nothing else changed
+[Sun Nov  1 08:30:16 AM IST 2026] thin opening trigger armed (pid 2926375)
+[Sun Nov  1 10:36:56 AM IST 2026] trained thin_B3_100pct_s5 rc=0
+[Sun Nov  1 10:37:06 AM IST 2026] start thin_B3_100pct_s6 (free 10398 MiB; alive 2; MAXC 3)
+[Sun Nov  1 10:37:09 AM IST 2026] pid thin_B3_100pct_s6 3495426
+[Sun Nov  1 10:37:09 AM IST 2026] config OK thin_B3_100pct_s6 vs pf2_SUPPF_100pct_s5: seed 6 + B3 change only
+[Sun Nov  1 10:59:46 AM IST 2026] trained thin_SKR_100pct_s6 rc=0
+[Sun Nov  1 11:00:09 AM IST 2026] start thin_SKR_100pct_s7 (free 11680 MiB; alive 2; MAXC 3)
+[Sun Nov  1 11:00:12 AM IST 2026] pid thin_SKR_100pct_s7 3599280
+[Sun Nov  1 11:00:12 AM IST 2026] config OK thin_SKR_100pct_s7 vs pf2_SUPPF_100pct_s5: seed 7 + SKR change only
+[Sun Nov  1 11:13:28 AM IST 2026] trained thin_CLD_100pct_s6 rc=0
+[Sun Nov  1 11:13:43 AM IST 2026] start thin_CLD_100pct_s7 (free 13034 MiB; alive 2; MAXC 3)
+[Sun Nov  1 11:13:46 AM IST 2026] pid thin_CLD_100pct_s7 3660564
+[Sun Nov  1 11:13:46 AM IST 2026] config OK thin_CLD_100pct_s7 vs pf2_SUPPF_100pct_s5: seed 7 + CLD change only
+[Sun Nov  1 01:02:03 PM IST 2026] trained thin_B3_100pct_s6 rc=0
+[Sun Nov  1 01:02:19 PM IST 2026] start thin_B3_100pct_s7 (free 10398 MiB; alive 2; MAXC 3)
+[Sun Nov  1 01:02:22 PM IST 2026] pid thin_B3_100pct_s7 4147128
+[Sun Nov  1 01:02:22 PM IST 2026] config OK thin_B3_100pct_s7 vs pf2_SUPPF_100pct_s5: seed 7 + B3 change only
+[Sun Nov  1 01:32:40 PM IST 2026] trained thin_SKR_100pct_s7 rc=0
+[Sun Nov  1 01:32:52 PM IST 2026] start thin_SKR_100pct_s8 (free 11680 MiB; alive 2; MAXC 3)
+[Sun Nov  1 01:32:56 PM IST 2026] pid thin_SKR_100pct_s8 93892
+[Sun Nov  1 01:32:56 PM IST 2026] config OK thin_SKR_100pct_s8 vs pf2_SUPPF_100pct_s5: seed 8 + SKR change only
+[Sun Nov  1 01:57:51 PM IST 2026] trained thin_CLD_100pct_s7 rc=0
+[Sun Nov  1 01:57:56 PM IST 2026] start thin_CLD_100pct_s8 (free 13034 MiB; alive 2; MAXC 3)
+[Sun Nov  1 01:57:59 PM IST 2026] pid thin_CLD_100pct_s8 206869
+[Sun Nov  1 01:57:59 PM IST 2026] config OK thin_CLD_100pct_s8 vs pf2_SUPPF_100pct_s5: seed 8 + CLD change only
+[Sun Nov  1 03:27:33 PM IST 2026] trained thin_B3_100pct_s7 rc=0
+[Sun Nov  1 03:28:02 PM IST 2026] start thin_B3_100pct_s8 (free 10398 MiB; alive 2; MAXC 3)
+[Sun Nov  1 03:28:05 PM IST 2026] pid thin_B3_100pct_s8 612561
+[Sun Nov  1 03:28:10 PM IST 2026] config OK thin_B3_100pct_s8 vs pf2_SUPPF_100pct_s5: seed 8 + B3 change only
+[Sun Nov  1 04:05:23 PM IST 2026] trained thin_SKR_100pct_s8 rc=0
+[Sun Nov  1 04:05:42 PM IST 2026] start thin_SKR_100pct_s9 (free 11680 MiB; alive 2; MAXC 3)
+[Sun Nov  1 04:05:45 PM IST 2026] pid thin_SKR_100pct_s9 779855
+[Sun Nov  1 04:05:50 PM IST 2026] config OK thin_SKR_100pct_s9 vs pf2_SUPPF_100pct_s5: seed 9 + SKR change only
+[Sun Nov  1 04:41:55 PM IST 2026] trained thin_CLD_100pct_s8 rc=0
+[Sun Nov  1 04:42:21 PM IST 2026] start thin_CLD_100pct_s9 (free 13034 MiB; alive 2; MAXC 3)
+[Sun Nov  1 04:42:24 PM IST 2026] pid thin_CLD_100pct_s9 943082
+[Sun Nov  1 04:42:24 PM IST 2026] config OK thin_CLD_100pct_s9 vs pf2_SUPPF_100pct_s5: seed 9 + CLD change only
+[Sun Nov  1 05:53:02 PM IST 2026] trained thin_B3_100pct_s8 rc=0
+[Sun Nov  1 05:53:27 PM IST 2026] start thin_B3_100pct_s9 (free 10397 MiB; alive 2; MAXC 3)
+[Sun Nov  1 05:53:30 PM IST 2026] pid thin_B3_100pct_s9 1258732
+[Sun Nov  1 05:53:30 PM IST 2026] config OK thin_B3_100pct_s9 vs pf2_SUPPF_100pct_s5: seed 9 + B3 change only
+[Sun Nov  1 05:53:30 PM IST 2026] thin queue: all jobs dispatched; waiting
+[Sun Nov  1 06:37:58 PM IST 2026] trained thin_SKR_100pct_s9 rc=0
+[Sun Nov  1 07:20:15 PM IST 2026] trained thin_CLD_100pct_s9 rc=0
+[Sun Nov  1 07:39:03 PM IST 2026] trained thin_B3_100pct_s9 rc=0
+[Sun Nov  1 07:39:03 PM IST 2026] THIN ALL TRAINED (15 rc 0)
+[Sun Nov  1 07:40:18 PM IST 2026] thin scoring start (15 runs trained rc 0; PF2 opening rc 0)
+[Sun Nov  1 09:13:45 PM IST 2026] thin scoring done: post rc=0
