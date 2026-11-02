@@ -1,0 +1,21 @@
+## val decisions (D2 + width flag re-applied to the stored sweep)
+  E-PF: D2 b 1.5, val crack P drop +0.0753, headline b 0.0: = decisions file
+  E-SKR2: D2 b 1.0, val crack P drop +0.0485, headline b 1.0: = decisions file
+
+## VERDICT pair: both arms at b 0
+  test all 50   crack IoU +0.0102 [+0.0031, +0.0193] | relF1@2 +0.0104 [+0.0017, +0.0241] | inactive IoU +0.0050 [-0.0099, +0.0293] | relP@2 -0.0110
+  test clean 49 crack IoU +0.0101 [+0.0029, +0.0192] | relF1@2 +0.0103 [+0.0015, +0.0230] | inactive IoU +0.0055 [-0.0110, +0.0329] | relP@2 -0.0110
+  => test b 0 (verdict): PASS (crack IoU, relF1@2)  [bound within 0.002 of 0: ['all 50 relF1@2', 'clean 49 relF1@2']]
+  E1 (106, 71 clusters) relF1@2 +0.0353 [+0.0120, +0.0599] | any-hit +0.0676 [+0.0275, +0.1236] | inactive IoU -0.0418 [-0.0543, +0.0148] | any-hit E-PF 102/296 E-SKR2 122/296
+  => E1 b 0 (verdict): PASS (relF1@2, any-hit)
+  guards b 0 (verdict): G2a relP@2 -0.0110 ok | G2b E1 crack-free px 2673 vs 2528 (x1.06) ok | G1t inactive +0.0050 / +0.0055 ok | G1e E1 inactive -0.0418 [-0.0543, +0.0148] ok
+
+## headline pair: E-PF b 0.0 vs E-SKR2 b 1.0 (guards apply; primaries reported)
+  test all 50   crack IoU +0.0103 [-0.0059, +0.0316] | relF1@2 +0.0168 [+0.0026, +0.0405] | inactive IoU +0.0097 [-0.0128, +0.0393] | relP@2 -0.0379
+  test clean 49 crack IoU +0.0103 [-0.0061, +0.0309] | relF1@2 +0.0162 [+0.0022, +0.0376] | inactive IoU +0.0108 [-0.0135, +0.0404] | relP@2 -0.0373
+  => test headline pair (reported; guards apply): PASS (relF1@2)
+  E1 (106, 71 clusters) relF1@2 +0.0634 [+0.0071, +0.1069] | any-hit +0.1892 [+0.1067, +0.2467] | inactive IoU -0.0377 [-0.0492, +0.0314] | any-hit E-PF 102/296 E-SKR2 158/296
+  => E1 headline pair (reported; guards apply): PASS (relF1@2, any-hit)
+  guards headline pair (reported; guards apply): G2a relP@2 -0.0379 TRIP | G2b E1 crack-free px 5358 vs 2528 (x2.12) TRIP | G1t inactive +0.0097 / +0.0108 ok | G1e E1 inactive -0.0377 [-0.0492, +0.0314] ok
+
+## SKR2E VERDICT (coach recompute): FAIL; guard trips ['G2a at headline pair', 'G2b at headline pair']

@@ -13,6 +13,8 @@ Where a new finding limits an older claim, a dated "[Qualified 30 Oct: ...]" not
 
 **Update 1 Nov 2026, ~21:00 IST (additive).** New **doc 20** (`20_pf2_and_domain_ideas.md`): Om's 11 unseen-panel ideas and judge's verdicts, the routing pre-check, T9, S10 and the P8 probe, PF2 (PF's E1 inactive gain replicated on new seeds; test relF1@2 BETTER narrowly; RN50-PF FAIL), PF2E (the PF ensemble: E1 inactive PASS with qualifications, test n.d.), the THIN-B3 / HC / A8 screen / B6 protocols, and the E1 policy (E1 is a second test set since 31 Oct). New rows and items: `11` rows 30 to 42; `12` D62 to D78; `13` A16, A17, C18, C19, D34 to D45, E26 to E30; `14` §1.2d, §5c; `15` §1i, §3d, §4d; `16` section I. Dated "[Qualified 1 Nov: ...]" notes mark changed claims (RN50, PF, BN-HC / calibration, E1 reads). THIN-B3 had no verified result at first writing; added ~21:40: no arm passes (Skeleton Recall FAIL but lifts E1 crack detection at a precision cost; clDice FAIL; scuff class not learned), doc 20 §6.0, `11` rows 40 to 42, `12` D78, `16` Q51. Master record: `SESSION_RECORD_2026-10-31_to_11-01.md`.
 
+**Update 3 Nov 2026, ~02:40 IST (additive).** New **doc 21** (`21_a8_hc_b6_skr2_skr2e.md`): the A8 screen (DINOv3 under PF: KILL, foundation encoder closed), HC (synthetic half-cuts: n.d.), B6 (PF's inactive gain in-distribution: n.d., realised power ~6%), SKR2 (Skeleton Recall at w 0.1: PASS, narrow, on E1 crack relF1@2) and HC2 (inactive ignored in synthetic views: FAIL), SKR2E (the SKR2 ensemble: FAIL; **E-PF at argmax stays the recommended deployable candidate**; the user's adoption is still open), PF2's E1 inactive gain sitting in 3 images, Om's architecture ideas A1 to A6 (all DROP, A4 PARK), the B2 agent raters (calibration FAIL on scuff), and SKR2C (fresh seeds, being locked). New rows and items: `11` rows 43 to 50; `12` D79 to D92; `13` A18, C20 to C23, D46 to D54, E31 to E34; `14` §1.2e, §5d; `15` §1j, §3e, §4e; `16` section J. Dated "[Qualified 3 Nov: ...]" / "[3 Nov: ...]" notes in 11, 13, 15, 16 and 20. Master record: `SESSION_RECORD_2026-11-01_to_11-03.md`.
+
 ---
 
 ## 1. Your role as the guide
@@ -61,6 +63,7 @@ Where a new finding limits an older claim, a dated "[Qualified 30 Oct: ...]" not
 | 18 | `18_experiments_trackD_trackM.md` (added 30 Oct) | 24 to 27 Oct: why SOTA SSL fails, Track D diagnosis, Track M and the best model (FINAL), the unlabelled-data synthesis |
 | 19 | `19_feature_learning_and_100pct_plan.md` (added 30 Oct) | 28 to 30 Oct: pool feature learning at 5%, encoder erasure, the 5% lesson, protocol_100, label audit and scuff |
 | 20 | `20_pf2_and_domain_ideas.md` (added 1 Nov) | 31 Oct to 1 Nov: Om's 11 ideas validated, PF2 and the PF ensemble, the E1 policy, THIN-B3 / HC / A8 / B6 |
+| 21 | `21_a8_hc_b6_skr2_skr2e.md` (added 3 Nov) | 1 to 3 Nov: A8 KILL, HC and B6 n.d., SKR2 PASS / HC2 FAIL, SKR2E FAIL (E-PF stays), Om's A1 to A6, B2 agent raters, SKR2C |
 
 For a quick start, read 01, 04 (skim), 11 and 16. Then go back to 02 to 10 as questions come up.
 
@@ -121,6 +124,13 @@ For a quick start, read 01, 04 (skim), 11 and 16. Then go back to 02 to 10 as qu
       - **Encoder erasure (30 Oct):** the house fine-tune (Adam lr 1e-3, coupled wd 1e-4, 20k steps) ends ResNet-34 encoder layer3/4 at cosine about 0 to their init, for ImageNet and MIM inits, at 5% and 100%; the direction is already lost by step 2,000. Every "init / pretraining / backbone does not help" result holds only under this never-varied optimizer (for P15's and R3's encoders erasure is likely, not measured).
       - **Now:** protocol_100 (gaint, 4 arms × 5 seeds at 100% labels: SUP100-g, an encoder-preserving fine-tune SUP100-PF, MIM100-PF, CP100) launched 30 Oct 12:05 IST on v1.1. CP100 is held behind a decoy gate (6b), pending at 12:22. First test opening (the 15 fine-tunes) about 00:00 to 01:00 IST 31 Oct. **No results yet.** [Qualified 31 Oct: done; every contrast n.d. (doc 19 §10)]
       - **Labels:** the B1 audit flags crack in 24 of 239 train cells (sheets with the user). Scuff is labelled crack in 6 train cells (649 px) and 2 test cells (236 px); the user decided to train scuff as its own class (doc 17 §5.11).
+    - **Added 3 Nov: 1 to 3 Nov** (doc 21; every verdict recomputed by coach and confirmed by judge):
+      - **Recommended deployable candidate:** E-PF, the 5-member PF ensemble at argmax (PF2E; coach and judge). The user's adoption is still open (doc 15 §3d row 19). The SKR2 ensemble failed its guards at its own operating point (SKR2E, decided by the val width flag by 0.0015). FINAL (0.492, cv02) is not comparable by rule.
+      - **Closed:** foundation encoder (A8 screen KILL: F51 AP −0.0243); the HC2 ignore design; Om's A1, A2, A3, A5, A6. HC (synthetic half-cuts) n.d.; route kept open by the user.
+      - **Skeleton Recall at w 0.1 (SKR2):** E1 crack relF1@2 +0.0364 vs a 0.0351 bar, PASS, no test or false-alarm cost; label fragile, effect robust. Fresh-seed replication (SKR2C) was locked 3 Nov 02:37; its launch waits on fixes to the guard code; its opening needs the user's OK.
+      - **B6:** PF's inactive gain is not shown in-distribution (n.d., power ~6% at +0.017), but a gain as large as E1's is excluded there.
+      - **E1 inactive is a 3-image readout:** the top 3 source images hold 87% of its pixels; PF2's +0.189 is +0.023 without them.
+      - **B2:** agent raters failed the scuff calibration gate; B2 is unmarked and back with the user.
 
 ## 4. The `sources/` folder
 Verbatim copies of the primary documents: protocols, results READMEs and rules outputs, reports to the user, literature notes, data reports, and old-era reports from the servers. It also holds three files that exist only in the chat:

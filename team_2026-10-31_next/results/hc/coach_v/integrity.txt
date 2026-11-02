@@ -1,0 +1,130 @@
+[Mon Nov  2 03:09:57 AM IST 2026] nq scoring done: post rc=0
+HC post md5sum -c OK d5c39e0d 190 files
+PF2 comparator post md5sum -c OK 3827f7c0 (expect 3827f7c0)
+syn_work dumps md5sum -c OK (30)
+coach code: b0456b28 850e056e 7562d97f 12bd1385 
+rf_sets 14771356 (expect 14771356); shv1p 7f651fc7 (expect 7f651fc7)
+REVISION c2e6973 HEAD c2e6973 tracked-modified 0
+hc_HC_100pct_s5 hdr=1 s20k=1 tb=0 pf=400 synth=2
+   1c1
+   < run_name: pf2_SUPPF_100pct_s5
+   ---
+   > run_name: hc_HC_100pct_s5
+   59a60,62
+   >   synth_halfcut:
+   >     p: 0.35
+   >     pool: data/splits/synth_halfcut_pool_ap.tsv
+   [Sun Nov  1 09:41:23 PM IST 2026] config OK hc_HC_100pct_s5 vs pf2_SUPPF_100pct_s5: seed 5 + HC change only
+   [Sun Nov  1 11:49:58 PM IST 2026] trained hc_HC_100pct_s5 rc=0
+hc_HC_100pct_s6 hdr=1 s20k=1 tb=0 pf=400 synth=2
+   1,2c1,2
+   < run_name: pf2_SUPPF_100pct_s5
+   < seed: 5
+   ---
+   > run_name: hc_HC_100pct_s6
+   > seed: 6
+   59a60,62
+   >   synth_halfcut:
+   >     p: 0.35
+   >     pool: data/splits/synth_halfcut_pool_ap.tsv
+   [Sun Nov  1 10:16:35 PM IST 2026] config OK hc_HC_100pct_s6 vs pf2_SUPPF_100pct_s5: seed 6 + HC change only
+   [Mon Nov  2 12:44:19 AM IST 2026] trained hc_HC_100pct_s6 rc=0
+hc_HC_100pct_s7 hdr=1 s20k=1 tb=0 pf=400 synth=2
+   1,2c1,2
+   < run_name: pf2_SUPPF_100pct_s5
+   < seed: 5
+   ---
+   > run_name: hc_HC_100pct_s7
+   > seed: 7
+   59a60,62
+   >   synth_halfcut:
+   >     p: 0.35
+   >     pool: data/splits/synth_halfcut_pool_ap.tsv
+   [Sun Nov  1 10:56:14 PM IST 2026] config OK hc_HC_100pct_s7 vs pf2_SUPPF_100pct_s5: seed 7 + HC change only
+   [Mon Nov  2 01:23:43 AM IST 2026] trained hc_HC_100pct_s7 rc=0
+hc_HC_100pct_s8 hdr=1 s20k=1 tb=0 pf=400 synth=2
+   1,2c1,2
+   < run_name: pf2_SUPPF_100pct_s5
+   < seed: 5
+   ---
+   > run_name: hc_HC_100pct_s8
+   > seed: 8
+   59a60,62
+   >   synth_halfcut:
+   >     p: 0.35
+   >     pool: data/splits/synth_halfcut_pool_ap.tsv
+   [Sun Nov  1 11:50:19 PM IST 2026] config OK hc_HC_100pct_s8 vs pf2_SUPPF_100pct_s5: seed 8 + HC change only
+   [Mon Nov  2 01:59:40 AM IST 2026] trained hc_HC_100pct_s8 rc=0
+hc_HC_100pct_s9 hdr=1 s20k=1 tb=0 pf=400 synth=2
+   1,2c1,2
+   < run_name: pf2_SUPPF_100pct_s5
+   < seed: 5
+   ---
+   > run_name: hc_HC_100pct_s9
+   > seed: 9
+   59a60,62
+   >   synth_halfcut:
+   >     p: 0.35
+   >     pool: data/splits/synth_halfcut_pool_ap.tsv
+   [Mon Nov  2 12:44:23 AM IST 2026] config OK hc_HC_100pct_s9 vs pf2_SUPPF_100pct_s5: seed 9 + HC change only
+   [Mon Nov  2 02:17:01 AM IST 2026] trained hc_HC_100pct_s9 rc=0
+gpumem min free (nq log): 2880 22:16:46
+== decision_rc.txt
+e1_coprim rc=0
+shv1 rc=0
+f51 rc=0
+== secondary_rc.txt
+== extra_rc.txt
+enc_cosine rc=0
+extra post_extra/hc_b5.sh rc=0
+extra post_extra/hc_scuffign.sh rc=0
+== tau0_check.txt
+tau0 == default cells for all runs: True | step 20000 and code_revision c2e6973 for all 5 | cells per set {'val': 54, 'val_tta': 54, 'test': 50, 'ext': 106}
+== comparator_check.txt
+PF2 comparator files unchanged (MANIFEST 3827f7c0, 290 files)
+== scorer_md5.txt
+/home/noob/work/el_f1/reports/f1/m0_audit.py: OK
+/home/noob/work/el_f1/reports/f1/m0_audit_tau.py: OK
+/home/noob/work/el_hc/scripts/rescore_label_versions.py: OK
+/home/noob/work/el_hc/scripts/rescore_logit_adjust.py: OK
+/home/noob/work/el_f3/reports/enc_cosine.py: OK
+/home/noob/work/el_f1/reports/f1/smoke_v1/mim_step0.pth: OK
+/home/noob/work/el_f3/reports/pf2/scripts/gpu_gate.sh: OK
+/home/noob/work/el_f3/reports/pf2/post_extra/B5_DEVICE: OK
+/home/noob/work/el_f3/reports/pf2/post/MANIFEST.md5: OK
+/home/noob/work/el_f3/reports/d/e1_context.tsv: OK
+/home/noob/work/el_f1/reports/f1/ext117/stems_eval.txt: OK
+/home/noob/work/found/t9/rf_sets.tsv: OK
+/home/noob/work/calib/data/rf/stems_eval.txt: OK
+/home/noob/work/el_hc/data/splits/val.txt: OK
+/home/noob/work/el_hc/data/splits/test.txt: OK
+/home/noob/work/nq/exp_HC.txt: OK
+== enc cosine 20k
+hc_HC_100pct_s5 vs ImageNet                  conv1 +1.000/1.00  layer1 +0.983/1.02  layer2 +0.964/1.04  layer3 +0.928/1.09  layer4 +0.934/1.08  (steps None, 20000)
+hc_HC_100pct_s6 vs ImageNet                  conv1 +1.000/1.00  layer1 +0.983/1.02  layer2 +0.963/1.04  layer3 +0.928/1.09  layer4 +0.932/1.08  (steps None, 20000)
+hc_HC_100pct_s7 vs ImageNet                  conv1 +1.000/1.00  layer1 +0.982/1.02  layer2 +0.963/1.04  layer3 +0.929/1.09  layer4 +0.938/1.08  (steps None, 20000)
+hc_HC_100pct_s8 vs ImageNet                  conv1 +1.000/1.00  layer1 +0.983/1.02  layer2 +0.963/1.04  layer3 +0.928/1.09  layer4 +0.930/1.09  (steps None, 20000)
+hc_HC_100pct_s9 vs ImageNet                  conv1 +1.000/1.00  layer1 +0.983/1.02  layer2 +0.963/1.04  layer3 +0.927/1.09  layer4 +0.937/1.08  (steps None, 20000)
+== runner/scorer readouts (decision passes)
+half-cut without scuff      |  29 | SUPPF  | 0.7803±0.0190 | 0.1500±0.2042
+half-cut without scuff      |  29 | HC     | 0.8225±0.0414 | 0.2249±0.1729
+full                        |  48 | SUPPF  | 0.4520±0.0663 | 0.0966±0.0319
+full                        |  48 | HC     | 0.4919±0.0098 | 0.1218±0.0615
+half-cut                    |  58 | SUPPF  | 0.4080±0.0359 | 0.5367±0.0643
+half-cut                    |  58 | HC     | 0.4078±0.0363 | 0.4942±0.0757
+other (not scuff+half-cut)  |  77 | SUPPF  | 0.5207±0.0556 | 0.0986±0.0301
+other (not scuff+half-cut)  |  77 | HC     | 0.5708±0.0076 | 0.1253±0.0534
+SUPPF per seed, matched SHV1 relR@2: 0.6813 0.6750 0.7246 0.6811 0.7221 | SHV1 oracle b: +5.6 +4.2 +4.1 +4.5 +3.0
+SUPPF val records self-check vs m0 (cpu profile, reported): {'pf2_SUPPF_100pct_s5': 'PASS', 'pf2_SUPPF_100pct_s6': 'PASS', 'pf2_SUPPF_100pct_s7': 'PASS', 'pf2_SUPPF_100pct_s8': 'PASS', 'pf2_SUPPF_100pct_s9': 'PASS'}
+HC per seed, matched SHV1 relR@2: 0.8120 0.8082 0.8183 0.8375 0.8185 | SHV1 oracle b: +1.8 +0.2 +1.3 +1.8 +1.6
+HC val records self-check vs m0 (cpu profile, reported): {'hc_HC_100pct_s5': 'PASS', 'hc_HC_100pct_s6': 'PASS', 'hc_HC_100pct_s7': 'PASS', 'hc_HC_100pct_s8': 'PASS', 'hc_HC_100pct_s9': 'PASS'}
+MECHANISM: matched SHV1 relR@2 HC 0.8192 - SUPPF 0.6959 = +0.1233 -> mechanism gain >= +0.05 (not failed)
+(reported) SHV1-p delta +0.1304; V0 delta +0.0136
+F51 crack AP: HC 0.5371 SUPPF 0.4702 | d +0.0669 | boot lo +0.0125 hi +0.0867 | guard passed (upper 95% bound >= 0) | sign up 6/12 | 36 modules, 2000 resamples
+per run F51 AP: hc_HC_100pct_s5 0.5523 hc_HC_100pct_s6 0.4946 hc_HC_100pct_s7 0.5649 hc_HC_100pct_s8 0.5648 hc_HC_100pct_s9 0.5088 pf2_SUPPF_100pct_s5 0.4743 pf2_SUPPF_100pct_s6 0.4796 pf2_SUPPF_100pct_s7 0.4721 pf2_SUPPF_100pct_s8 0.4781 pf2_SUPPF_100pct_s9 0.4468
+FA px on crack-free cells at val b_rel (H36 / F51), arm means: HC [10.6, 122.4] SUPPF [277.8, 1231.0]
+verify tau0 rc=0
+verify tau1 rc=0
+coach_hc selftest rc=0
+coach_hc run rc=0
+coach hc verify done 03:11:13

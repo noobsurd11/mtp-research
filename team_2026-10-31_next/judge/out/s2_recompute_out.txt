@@ -1,0 +1,189 @@
+# SUPPF: pf2_SUPPF_100pct_s[5, 6, 7, 8, 9]; code_revision ['e544133']; run names ['pf2_SUPPF_100pct_s5', 'pf2_SUPPF_100pct_s6', 'pf2_SUPPF_100pct_s7', 'pf2_SUPPF_100pct_s8', 'pf2_SUPPF_100pct_s9']
+# SKR2: skr2_SKR01_100pct_s[5, 6, 7, 8, 9]; code_revision ['c9bbb02']; run names ['skr2_SKR01_100pct_s5', 'skr2_SKR01_100pct_s6', 'skr2_SKR01_100pct_s7', 'skr2_SKR01_100pct_s8', 'skr2_SKR01_100pct_s9']
+# HC2: hc2_HCig_100pct_s[5, 6, 7, 8, 9]; code_revision ['0405151']; run names ['hc2_HCig_100pct_s5', 'hc2_HCig_100pct_s6', 'hc2_HCig_100pct_s7', 'hc2_HCig_100pct_s8', 'hc2_HCig_100pct_s9']
+# HC: hc_HC_100pct_s[5, 6, 7, 8, 9]; code_revision ['c2e6973']; run names ['hc_HC_100pct_s5', 'hc_HC_100pct_s6', 'hc_HC_100pct_s7', 'hc_HC_100pct_s8', 'hc_HC_100pct_s9']
+# SKRw1: thin_SKR_100pct_s[5, 6, 7, 8, 9]; code_revision ['c9bbb02']; run names ['thin_SKR_100pct_s5', 'thin_SKR_100pct_s6', 'thin_SKR_100pct_s7', 'thin_SKR_100pct_s8', 'thin_SKR_100pct_s9']
+
+## A. co-primaries (rule 1 /3, 5 v 5; per-seed values)
+SUPPF  test50 crackIoU 0.4651 relF1 0.8847 inact 0.4557 | test49 crackIoU 0.4684 relF1 0.8891 inact 0.4694 | E1 relF1 0.4202 any-hit 0.3811 inact 0.2371
+SKR2   test50 crackIoU 0.4741 relF1 0.8936 inact 0.4656 | test49 crackIoU 0.4772 relF1 0.8976 inact 0.4796 | E1 relF1 0.4567 any-hit 0.4250 inact 0.2393
+HC2    test50 crackIoU 0.4684 relF1 0.8816 inact 0.4301 | test49 crackIoU 0.4748 relF1 0.8897 inact 0.4435 | E1 relF1 0.4276 any-hit 0.3628 inact 0.1575
+HC     test50 crackIoU 0.4742 relF1 0.8874 inact 0.4329 | test49 crackIoU 0.4773 relF1 0.8914 inact 0.4464 | E1 relF1 0.4338 any-hit 0.3770 inact 0.2369
+SKRw1  test50 crackIoU 0.4514 relF1 0.8876 inact 0.4387 | test49 crackIoU 0.4544 relF1 0.8919 inact 0.4533 | E1 relF1 0.4793 any-hit 0.5230 inact 0.2218
+  per-seed SUPPF: test50 crackIoU 0.4573 0.4667 0.4683 0.4638 0.4693 | relF1 0.8752 0.8876 0.8859 0.8849 0.8901 | inact 0.4578 0.4810 0.4251 0.4663 0.4484 | E1 relF1 0.4432 0.4275 0.4403 0.4140 0.3762 | E1 any-hit 0.3986 0.3547 0.4291 0.3649 0.3581 | E1 inact 0.2465 0.2252 0.2074 0.2787 0.2276
+  per-seed SKR2: test50 crackIoU 0.4774 0.4718 0.4758 0.4699 0.4758 | relF1 0.8945 0.8897 0.8988 0.8906 0.8946 | inact 0.4680 0.4497 0.4802 0.4647 0.4656 | E1 relF1 0.4653 0.4589 0.4345 0.4691 0.4556 | E1 any-hit 0.4662 0.4291 0.4088 0.4392 0.3818 | E1 inact 0.2822 0.2394 0.1577 0.1818 0.3353
+  per-seed HC2: test50 crackIoU 0.4694 0.4675 0.4599 0.4728 0.4721 | relF1 0.8828 0.8824 0.8670 0.8867 0.8891 | inact 0.4268 0.4224 0.4435 0.4165 0.4413 | E1 relF1 0.3761 0.4302 0.4578 0.4489 0.4252 | E1 any-hit 0.2669 0.3818 0.3649 0.4122 0.3885 | E1 inact 0.1794 0.1842 0.0431 0.2158 0.1652
+  per-seed HC: test50 crackIoU 0.4797 0.4705 0.4745 0.4719 0.4746 | relF1 0.8916 0.8819 0.8862 0.8868 0.8903 | inact 0.4379 0.4303 0.4444 0.4419 0.4102 | E1 relF1 0.4005 0.4248 0.4252 0.4620 0.4563 | E1 any-hit 0.3176 0.3581 0.3514 0.4527 0.4054 | E1 inact 0.2714 0.2389 0.1893 0.2015 0.2834
+  per-seed SKRw1: test50 crackIoU 0.4512 0.4526 0.4491 0.4560 0.4482 | relF1 0.8880 0.8919 0.8860 0.8865 0.8854 | inact 0.4015 0.4784 0.4301 0.4349 0.4487 | E1 relF1 0.4683 0.4698 0.5098 0.4894 0.4590 | E1 any-hit 0.5304 0.4899 0.5743 0.5034 0.5169 | E1 inact 0.2132 0.1810 0.3024 0.2746 0.1378
+  E1 GT comps >= 20 px per run: [296.0]; E1 crack-free cells [74.0]
+
+SKR2 - SUPPF:
+  test50  crackIoU  d +0.0091 thr 0.0100 n.d.
+  test49  crackIoU  d +0.0088 thr 0.0100 n.d.
+  test50  relF1     d +0.0089 thr 0.0100 n.d.
+  test49  relF1     d +0.0085 thr 0.0100 n.d.
+  test50  inact     d +0.0099 thr 0.0272 n.d.
+  test49  inact     d +0.0102 thr 0.0285 n.d.
+  E1      relF1     d +0.0364 thr 0.0351 BETTER
+  E1      anyhit    d +0.0439 thr 0.0521 n.d.
+
+HC2 - SUPPF:
+  test50  crackIoU  d +0.0033 thr 0.0100 n.d.
+  test49  crackIoU  d +0.0064 thr 0.0100 n.d.
+  test50  relF1     d -0.0032 thr 0.0119 n.d.
+  test49  relF1     d +0.0006 thr 0.0100 n.d.
+  test50  inact     d -0.0256 thr 0.0277 n.d.
+  test49  inact     d -0.0259 thr 0.0279 n.d.
+  E1      relF1     d +0.0074 thr 0.0483 n.d.
+  E1      inact     d -0.0795 thr 0.0830 n.d.
+
+## B. guards
+SKR2 G1 test inactive d all +0.0099 clean +0.0102 -> ok
+SKR2 G2 test relP@2 d -0.0121 (trip < -0.03) | E1 crack-free px 3819 vs 3931 ratio x0.972 (trip > 1.5) -> ok
+   per-seed E1 crack-free px SKR2 3182 3995 4323 3295 4300 | SUPPF 3092 2718 5178 4179 4486
+HC2 G1 test inactive d all -0.0256 clean -0.0259 -> TRIP
+
+## C. width / volume (arm means over seeds; rule-1 d for the contrasts; reference rows descriptive)
+-- test50 (GT comps>=20 per run 189, crack-free cells 2)
+   arm       relF1     relP     relR crackIoU      pxP      pxR   predGT   anyhit     half   freepx    inact
+   SUPPF    0.8847   0.9417   0.8344   0.4651   0.6504   0.6204   0.9542   0.8751   0.7958        0   0.4557
+   SKR2     0.8936   0.9296   0.8605   0.4741   0.6245   0.6633   1.0623   0.8857   0.8212        0   0.4656
+   HC2      0.8816   0.9225   0.8443   0.4684   0.6189   0.6585   1.0648   0.8995   0.8243        0   0.4301
+   HC       0.8874   0.9433   0.8377   0.4742   0.6421   0.6447   1.0040   0.9016   0.8169        0   0.4329
+   SKRw1    0.8876   0.8715   0.9044   0.4514   0.5126   0.7914   1.5448   0.9122   0.8582        0   0.4387
+   SKR2-SUPPF: relF1 +0.0089 (0.0100) | relP -0.0121 (0.0100) | relR +0.0262 (0.0176) | anyhit +0.0106 (0.0204) | half +0.0254 (0.0280) | predGT +0.1081 (0.0507) | inact +0.0099 (0.0272)
+   HC2-SUPPF: relF1 -0.0032 (0.0119) | relP -0.0192 (0.0189) | relR +0.0099 (0.0127) | anyhit +0.0243 (0.0191) | half +0.0286 (0.0280) | predGT +0.1106 (0.0599) | inact -0.0256 (0.0277)
+-- test49 (GT comps>=20 per run 187, crack-free cells 2)
+   arm       relF1     relP     relR crackIoU      pxP      pxR   predGT   anyhit     half   freepx    inact
+   SUPPF    0.8891   0.9426   0.8414   0.4684   0.6511   0.6257   0.9613   0.8813   0.8043        0   0.4694
+   SKR2     0.8976   0.9299   0.8675   0.4772   0.6250   0.6689   1.0704   0.8930   0.8299        0   0.4796
+   HC2      0.8897   0.9316   0.8514   0.4748   0.6251   0.6642   1.0630   0.9070   0.8332        0   0.4435
+   HC       0.8914   0.9434   0.8448   0.4773   0.6421   0.6502   1.0126   0.9102   0.8257        0   0.4464
+   SKRw1    0.8919   0.8730   0.9118   0.4544   0.5136   0.7981   1.5548   0.9198   0.8674        0   0.4533
+   SKR2-SUPPF: relF1 +0.0085 (0.0100) | relP -0.0127 (0.0100) | relR +0.0261 (0.0175) | anyhit +0.0118 (0.0220) | half +0.0257 (0.0283) | predGT +0.1091 (0.0506) | inact +0.0102 (0.0285)
+   HC2-SUPPF: relF1 +0.0006 (0.0100) | relP -0.0110 (0.0106) | relR +0.0100 (0.0128) | anyhit +0.0257 (0.0214) | half +0.0289 (0.0283) | predGT +0.1017 (0.0558) | inact -0.0259 (0.0279)
+-- E1 (GT comps>=20 per run 296, crack-free cells 74)
+   arm       relF1     relP     relR crackIoU      pxP      pxR   predGT   anyhit     half   freepx    inact
+   SUPPF    0.4202   0.5245   0.3515   0.1566   0.4284   0.1986   0.4659   0.3811   0.2284     3931   0.2371
+   SKR2     0.4567   0.5393   0.3962   0.1785   0.4287   0.2342   0.5463   0.4250   0.2615     3819   0.2393
+   HC2      0.4276   0.5532   0.3498   0.1662   0.4446   0.2101   0.4729   0.3628   0.2074     3125   0.1575
+   HC       0.4338   0.5531   0.3572   0.1704   0.4498   0.2154   0.4784   0.3770   0.2095     3523   0.2369
+   SKRw1    0.4793   0.4657   0.4939   0.2135   0.3368   0.3685   1.0962   0.5230   0.3649     9428   0.2218
+   SKR2-SUPPF: relF1 +0.0364 (0.0351) | relP +0.0148 (0.0533) | relR +0.0446 (0.0362) | anyhit +0.0439 (0.0521) | half +0.0331 (0.0480) | predGT +0.0803 (0.0720) | inact +0.0022 (0.0894)
+   HC2-SUPPF: relF1 +0.0074 (0.0483) | relP +0.0287 (0.0550) | relR -0.0018 (0.0542) | anyhit -0.0182 (0.0747) | half -0.0209 (0.0589) | predGT +0.0069 (0.0934) | inact -0.0795 (0.0830)
+-- E1 scuff+halfcut 29 (GT comps>=20 per run 274, crack-free cells 9)
+   arm       relF1     relP     relR crackIoU      pxP      pxR   predGT   anyhit     half   freepx    inact
+   SUPPF    0.3591   0.6427   0.2494   0.1217   0.5096   0.1378   0.2694   0.3482   0.1920      314   0.5722
+   SKR2     0.4004   0.6322   0.2932   0.1454   0.4860   0.1718   0.3538   0.3927   0.2234      375   0.5478
+   HC2      0.3430   0.6324   0.2374   0.1233   0.4906   0.1420   0.2904   0.3277   0.1672      312   0.4146
+   HC       0.3492   0.6516   0.2399   0.1247   0.5102   0.1420   0.2780   0.3416   0.1693      328   0.5192
+   SKRw1    0.4550   0.5541   0.3862   0.1952   0.3885   0.2817   0.7258   0.4964   0.3292     1072   0.5608
+   SKR2-SUPPF: relF1 +0.0413 (0.0498) | relP -0.0106 (0.0588) | relR +0.0437 (0.0407) | anyhit +0.0445 (0.0561) | half +0.0314 (0.0493) | predGT +0.0845 (0.0385) | inact -0.0244 (0.1166)
+   HC2-SUPPF: relF1 -0.0161 (0.0784) | relP -0.0103 (0.0898) | relR -0.0121 (0.0658) | anyhit -0.0204 (0.0810) | half -0.0248 (0.0649) | predGT +0.0211 (0.0788) | inact -0.1576 (0.2327)
+-- E1 halfcut no-scuff 29 (GT comps>=20 per run 11, crack-free cells 23)
+   arm       relF1     relP     relR crackIoU      pxP      pxR   predGT   anyhit     half   freepx    inact
+   SUPPF    0.7803   0.8924   0.6935   0.3804   0.8136   0.4166   0.5118   0.7455   0.6182       71   0.1500
+   SKR2     0.7857   0.8570   0.7281   0.3952   0.7701   0.4483   0.5823   0.8000   0.6909      119   0.2007
+   HC2      0.7946   0.8931   0.7187   0.4177   0.7964   0.4694   0.5910   0.7455   0.6000       86   0.0264
+   HC       0.8225   0.8854   0.7687   0.4424   0.7782   0.5057   0.6506   0.8000   0.6545       66   0.2249
+   SKRw1    0.8036   0.7780   0.8321   0.4855   0.6364   0.6743   1.0637   0.8364   0.7818      318   0.4011
+   SKR2-SUPPF: relF1 +0.0055 (0.0308) | relP -0.0354 (0.0532) | relR +0.0346 (0.0574) | anyhit +0.0545 (0.1242) | half +0.0727 (0.1485) | predGT +0.0704 (0.0709) | inact +0.0507 (0.3321)
+   HC2-SUPPF: relF1 +0.0143 (0.0543) | relP +0.0007 (0.0591) | relR +0.0252 (0.0781) | anyhit +0.0000 (0.1447) | half -0.0182 (0.1485) | predGT +0.0792 (0.1322) | inact -0.1237 (0.2454)
+-- E1 full 48 (GT comps>=20 per run 11, crack-free cells 42)
+   arm       relF1     relP     relR crackIoU      pxP      pxR   predGT   anyhit     half   freepx    inact
+   SUPPF    0.4520   0.3508   0.6437   0.1906   0.2851   0.3662   1.3030   0.8364   0.7455     3545   0.0966
+   SKR2     0.4869   0.3746   0.6967   0.2095   0.2995   0.4104   1.3698   0.8545   0.7818     3324   0.1147
+   HC2      0.5013   0.4002   0.6748   0.2145   0.3232   0.3913   1.2159   0.8545   0.8182     2726   0.0179
+   HC       0.4919   0.3840   0.6845   0.2166   0.3179   0.4052   1.2758   0.8364   0.7636     3130   0.1218
+   SKRw1    0.4485   0.3105   0.8120   0.1978   0.2266   0.6098   2.7269   0.8727   0.8364     8038   0.0939
+   SKR2-SUPPF: relF1 +0.0350 (0.0862) | relP +0.0238 (0.0899) | relR +0.0530 (0.0732) | anyhit +0.0182 (0.0742) | half +0.0364 (0.1050) | predGT +0.0668 (0.2860) | inact +0.0181 (0.0797)
+   HC2-SUPPF: relF1 +0.0493 (0.0778) | relP +0.0494 (0.0863) | relR +0.0311 (0.0738) | anyhit +0.0182 (0.0742) | half +0.0727 (0.1150) | predGT -0.0871 (0.3128) | inact -0.0787 (0.0532)
+-- val54 (GT comps>=20 per run 125, crack-free cells 31)
+   arm       relF1     relP     relR crackIoU      pxP      pxR   predGT   anyhit     half   freepx    inact
+   SUPPF    0.8858   0.9297   0.8460   0.4189   0.5861   0.5952   1.0158   0.8960   0.8192        7   0.5092
+   SKR2     0.8882   0.9182   0.8603   0.4240   0.5624   0.6331   1.1265   0.9184   0.8352       66   0.5186
+   HC2      0.8931   0.9219   0.8660   0.4274   0.5557   0.6498   1.1700   0.9184   0.8464       37   0.4836
+   HC       0.8947   0.9319   0.8604   0.4302   0.5711   0.6359   1.1140   0.9152   0.8400       32   0.4710
+   SKRw1    0.8854   0.8687   0.9027   0.4093   0.4607   0.7858   1.7057   0.9232   0.8640       75   0.4808
+   SKR2-SUPPF: relF1 +0.0024 (0.0100) | relP -0.0115 (0.0100) | relR +0.0143 (0.0172) | anyhit +0.0224 (0.0295) | half +0.0160 (0.0187) | predGT +0.1107 (0.0720) | inact +0.0094 (0.0844)
+   HC2-SUPPF: relF1 +0.0073 (0.0100) | relP -0.0078 (0.0100) | relR +0.0201 (0.0100) | anyhit +0.0224 (0.0280) | half +0.0272 (0.0207) | predGT +0.1542 (0.0661) | inact -0.0256 (0.0936)
+
+## D. seed-aware two-stage bootstrap (2000; clusters + seeds per arm; rng 20261102)
+SKR2-SUPPF test50  crackIoU (48 clusters): CI [+0.0006, +0.0194] P(d<0) 0.018
+SKR2-SUPPF test50  relF1    (48 clusters): CI [-0.0003, +0.0223] P(d<0) 0.034
+SKR2-SUPPF test50  inact    (48 clusters): CI [-0.0148, +0.0403] P(d<0) 0.247
+SKR2-SUPPF test49  inact    (47 clusters): CI [-0.0180, +0.0435] P(d<0) 0.243
+SKR2-SUPPF E1      relF1    (71 clusters): CI [+0.0038, +0.0759] P(d<0) 0.015
+SKR2-SUPPF E1      anyhit   (71 clusters): CI [-0.0065, +0.0987] P(d<0) 0.038
+SKR2-SUPPF E1      predGT   (71 clusters): CI [-0.0015, +0.1478] P(d<0) 0.027
+SKR2-SUPPF E1      freepx   (71 clusters): CI [-1501.4100, +1129.5200] P(d<0) 0.586 ratio +0.6385, +1.3141
+HC2-SUPPF test50  crackIoU (48 clusters): CI [-0.0118, +0.0181] P(d<0) 0.283
+HC2-SUPPF test50  relF1    (48 clusters): CI [-0.0230, +0.0115] P(d<0) 0.593
+HC2-SUPPF test50  inact    (48 clusters): CI [-0.0816, +0.0170] P(d<0) 0.892
+HC2-SUPPF test49  inact    (47 clusters): CI [-0.0817, +0.0193] P(d<0) 0.880
+HC2-SUPPF E1      relF1    (71 clusters): CI [-0.0404, +0.0602] P(d<0) 0.351
+HC2-SUPPF E1      inact    (71 clusters): CI [-0.2605, +0.0711] P(d<0) 0.881
+HC2-SUPPF E1      predGT   (71 clusters): CI [-0.1052, +0.0928] P(d<0) 0.432
+HC2-SUPPF E1      freepx   (71 clusters): CI [-2497.2500, +546.6100] P(d<0) 0.879 ratio +0.4300, +1.1395
+
+## E. HC2 vs HC vs SUPPF (inactive: label cause vs dilution)
+-- test50 inactive per seed: SUPPF 0.4578 0.4810 0.4251 0.4663 0.4484 (mean 0.4557, sd 0.0209) | HC 0.4379 0.4303 0.4444 0.4419 0.4102 (mean 0.4329, sd 0.0138) | HC2 0.4268 0.4224 0.4435 0.4165 0.4413 (mean 0.4301, sd 0.0118)
+   HC2-SUPPF: d -0.0256 thr 0.0277 n.d.
+   HC2-HC: d -0.0028 thr 0.0210 n.d.
+   HC-SUPPF: d -0.0228 thr 0.0289 n.d.
+   recovered share (HC2-HC)/(SUPPF-HC) = -0.12  (1 = back to SUPPF: label cause; 0 = stays at HC: dilution)
+   paired-by-seed HC2-HC: -0.0111 -0.0079 -0.0009 -0.0254 +0.0311; corr(HC, HC2) over seeds -0.34
+   seed-aware (48 clusters): HC2-SUPPF [-0.0837, +0.0169] P(<0) 0.893 | HC2-HC [-0.0553, +0.0443] P(>0) 0.439 | HC-SUPPF [-0.0530, +0.0035] P(<0) 0.963 | recovered share median -0.10 IQR [-0.87, +0.49] (only draws with SUPPF>HC: 0.96 of draws)
+-- test49 inactive per seed: SUPPF 0.4724 0.4924 0.4383 0.4811 0.4628 (mean 0.4694, sd 0.0205) | HC 0.4517 0.4435 0.4584 0.4558 0.4226 (mean 0.4464, sd 0.0144) | HC2 0.4387 0.4356 0.4584 0.4294 0.4552 (mean 0.4435, sd 0.0127)
+   HC2-SUPPF: d -0.0259 thr 0.0279 n.d.
+   HC2-HC: d -0.0029 thr 0.0222 n.d.
+   HC-SUPPF: d -0.0230 thr 0.0290 n.d.
+   recovered share (HC2-HC)/(SUPPF-HC) = -0.13  (1 = back to SUPPF: label cause; 0 = stays at HC: dilution)
+   paired-by-seed HC2-HC: -0.0130 -0.0079 +0.0000 -0.0264 +0.0326; corr(HC, HC2) over seeds -0.32
+   seed-aware (47 clusters): HC2-SUPPF [-0.0774, +0.0246] P(<0) 0.879 | HC2-HC [-0.0506, +0.0484] P(>0) 0.457 | HC-SUPPF [-0.0571, +0.0063] P(<0) 0.953 | recovered share median -0.05 IQR [-0.76, +0.54] (only draws with SUPPF>HC: 0.95 of draws)
+-- val54 inactive per seed: SUPPF 0.4817 0.4329 0.5742 0.5649 0.4923 (mean 0.5092, sd 0.0596) | HC 0.4750 0.4349 0.5447 0.4202 0.4802 (mean 0.4710, sd 0.0485) | HC2 0.4956 0.5700 0.4653 0.4651 0.4218 (mean 0.4836, sd 0.0550)
+   HC2-SUPPF: d -0.0256 thr 0.0936 n.d.
+   HC2-HC: d +0.0126 thr 0.0847 n.d.
+   HC-SUPPF: d -0.0382 thr 0.0887 n.d.
+   recovered share (HC2-HC)/(SUPPF-HC) = +0.33  (1 = back to SUPPF: label cause; 0 = stays at HC: dilution)
+   paired-by-seed HC2-HC: +0.0206 +0.1351 -0.0794 +0.0449 -0.0583; corr(HC, HC2) over seeds -0.38
+-- E1 inactive per seed: SUPPF 0.2465 0.2252 0.2074 0.2787 0.2276 (mean 0.2371, sd 0.0271) | HC 0.2714 0.2389 0.1893 0.2015 0.2834 (mean 0.2369, sd 0.0414) | HC2 0.1794 0.1842 0.0431 0.2158 0.1652 (mean 0.1575, sd 0.0666)
+   HC2-SUPPF: d -0.0795 thr 0.0830 n.d.
+   HC2-HC: d -0.0793 thr 0.0906 n.d.
+   HC-SUPPF: d -0.0002 thr 0.0572 n.d.
+   recovered share (HC2-HC)/(SUPPF-HC) = -383.06  (1 = back to SUPPF: label cause; 0 = stays at HC: dilution)
+   paired-by-seed HC2-HC: -0.0919 -0.0547 -0.1462 +0.0143 -0.1182; corr(HC, HC2) over seeds +0.41
+   seed-aware (71 clusters): HC2-SUPPF [-0.2617, +0.0843] P(<0) 0.877 | HC2-HC [-0.2853, +0.1110] P(>0) 0.162 | HC-SUPPF [-0.1183, +0.1062] P(<0) 0.545 | recovered share median +0.85 IQR [-1.77, +3.49] (only draws with SUPPF>HC: 0.55 of draws)
+-- test50 crack IoU means SUPPF 0.4651 HC 0.4742 HC2 0.4684 | relF1 SUPPF 0.8847 HC 0.8874 HC2 0.8816 | HC2-HC crackIoU -0.0059 (thr 0.0100) relF1 -0.0058 (thr 0.0109)
+-- E1 crack IoU means SUPPF 0.1566 HC 0.1704 HC2 0.1662 | relF1 SUPPF 0.4202 HC 0.4338 HC2 0.4276 | HC2-HC crackIoU -0.0042 (thr 0.0235) relF1 -0.0061 (thr 0.0469)
+-- test inactive cells (seed-pooled IoU): stem GTpx SUPPF HC HC2 | HC2-SUPPF HC2-HC
+   BMRK_00073_cell0253      21382 0.140 0.114 0.106 | -0.034 -0.008
+   CFVS_00114_r6_c5         19305 0.523 0.504 0.526 | +0.003 +0.023
+   BMRK_00070_cell0250      13500 0.351 0.333 0.275 | -0.076 -0.058
+   BMRK_00797_cell1631       8597 0.647 0.618 0.621 | -0.026 +0.003
+   CFVS_00027_r4_c4          5214 0.815 0.770 0.712 | -0.103 -0.058
+   CSIR_00092_r8_c4          4203 0.757 0.783 0.705 | -0.052 -0.078
+   CSIR_00070_r8_c4          3815 0.027 0.000 0.026 | -0.002 +0.026
+   CFVS_00042_r8_c4          3178 0.513 0.479 0.587 | +0.074 +0.108
+   CFVS_00035_r8_c4          2728 0.797 0.798 0.814 | +0.017 +0.015
+   BMRK_00219_cell0879       2715 0.876 0.881 0.888 | +0.012 +0.007
+   BMRK_00788_cell1622       2155 0.304 0.252 0.502 | +0.197 +0.250
+   BMRK_00062_cell0242       1672 0.477 0.222 0.000 | -0.477 -0.222
+   ARTS_00073_r4_c2          1367 0.535 0.325 0.124 | -0.411 -0.201
+   CFVS_00026_r9_c5          1288 0.514 0.595 0.080 | -0.434 -0.515
+   CFVS_00180_r11_c4          920 0.835 0.876 0.769 | -0.066 -0.107
+   CFVS_00129_r1_c5            86 0.000 0.000 0.000 | +0.000 +0.000
+   cells down: HC<SUPPF 10, HC2<SUPPF 10, HC2<HC 8 of 16
+
+## F. E1 inactive concentration (by source image = stem tokens 0-1; GT px seed-invariant)
+E1 GT inactive px 9158 in 7 images (10 cells); top-3 images share 0.870; top-1 0.404; effective n images (1/sum w^2) 3.26
+   CSIR_01637   GT    3702 (0.404, 4 inact cells) SUPPF 0.626 SKR2 0.589 HC2 0.451 HC 0.570 SKRw1 0.624 | per-seed SUPPF 0.65/0.64/0.62/0.63/0.59 ; SKR2 0.44/0.62/0.65/0.60/0.64 ; HC2 0.37/0.55/0.15/0.52/0.64 ; HC 0.57/0.61/0.46/0.57/0.63
+   CSIR_01101   GT    3228 (0.352, 1 inact cells) SUPPF 0.327 SKR2 0.351 HC2 0.054 HC 0.499 SKRw1 0.382 | per-seed SUPPF 0.26/0.50/0.21/0.42/0.24 ; SKR2 0.42/0.44/0.21/0.29/0.39 ; HC2 0.00/0.23/0.00/0.02/0.00 ; HC 0.60/0.68/0.59/0.04/0.57
+   CSIR_01647   GT    1033 (0.113, 1 inact cells) SUPPF 0.704 SKR2 0.749 HC2 0.455 HC 0.598 SKRw1 0.779 | per-seed SUPPF 0.88/0.27/0.78/0.74/0.81 ; SKR2 0.87/0.77/0.81/0.45/0.81 ; HC2 0.65/0.00/0.00/0.75/0.77 ; HC 0.12/0.84/0.58/0.54/0.87
+   CSIR_02136   GT     554 (0.060, 1 inact cells) SUPPF 0.158 SKR2 0.211 HC2 0.026 HC 0.226 SKRw1 0.415 | per-seed SUPPF 0.00/0.03/0.46/0.26/0.00 ; SKR2 0.39/0.44/0.14/0.00/0.04 ; HC2 0.13/0.00/0.00/0.00/0.00 ; HC 0.10/0.41/0.25/0.36/0.00
+   CSIR_00400   GT     436 (0.048, 1 inact cells) SUPPF 0.555 SKR2 0.570 HC2 0.011 HC 0.138 SKRw1 0.486 | per-seed SUPPF 0.72/0.47/0.52/0.66/0.40 ; SKR2 0.71/0.69/0.24/0.62/0.59 ; HC2 0.00/0.00/0.06/0.00/0.00 ; HC 0.02/0.16/0.14/0.38/0.00
+   CSIR_02026   GT     148 (0.016, 1 inact cells) SUPPF 0.000 SKR2 0.000 HC2 0.000 HC 0.000 SKRw1 0.000 | per-seed SUPPF 0.00/0.00/0.00/0.00/0.00 ; SKR2 0.00/0.00/0.00/0.00/0.00 ; HC2 0.00/0.00/0.00/0.00/0.00 ; HC 0.00/0.00/0.00/0.00/0.00
+   CSIR_01717   GT      57 (0.006, 1 inact cells) SUPPF 0.000 SKR2 0.000 HC2 0.000 HC 0.000 SKRw1 0.000 | per-seed SUPPF 0.00/0.00/0.00/0.00/0.00 ; SKR2 0.00/0.00/0.00/0.00/0.00 ; HC2 0.00/0.00/0.00/0.00/0.00 ; HC 0.00/0.00/0.00/0.00/0.00
+SKR2-SUPPF E1 inactive d all +0.0022 | leave-top-3-images-out d +0.0059 (remaining GT px 1195)
+HC2-SUPPF E1 inactive d all -0.0795 | leave-top-3-images-out d -0.0229 (remaining GT px 1195)
+HC-SUPPF E1 inactive d all -0.0002 | leave-top-3-images-out d -0.0111 (remaining GT px 1195)

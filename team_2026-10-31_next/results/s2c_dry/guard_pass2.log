@@ -1,0 +1,36 @@
+2026-11-03 02:39:28 guard start pid 2211678 (DRY 1; THR 2048 MiB x 3 samples; cool-down 20; MAXSTOPS 2; jobs 0839f340; Q /home/noob/work/runner_s2c_dry/guard)
+2026-11-03 02:39:29 low sample: free 1900 MiB < 2048 (1/3)
+2026-11-03 02:39:30 low sample: free 1900 MiB < 2048 (2/3)
+2026-11-03 02:39:31 low sample: free 1900 MiB < 2048 (3/3)
+2026-11-03 02:39:31 TRIGGER: free < 2048 on 3 consecutive samples; trace (last 4): 02:39:28:12000 02:39:29:1900 02:39:30:1900 02:39:31:1900
+2026-11-03 02:39:31   GPU processes: 6206,5876 
+2026-11-03 02:39:31   HOLD set (/home/noob/work/runner_s2c_dry/guard/HOLD; DRY scratch dir)
+2026-11-03 02:39:31   candidate s2c_SKR01_100pct_s10 pid 2203728: not alive
+2026-11-03 02:39:31   candidate s2c_SKR01_100pct_s11 pid 2204534: refused (cmdline lacks scripts/train.py + run_name=s2c_SKR01_100pct_s11): sleep 600 
+2026-11-03 02:39:31   candidate s2c_SKR01_100pct_s12 pid 4194000: not alive
+2026-11-03 02:39:31   candidate s2c_SUPPF_100pct_s10 pid 2204115: not alive
+2026-11-03 02:39:31   candidate s2c_SUPPF_100pct_s11 pid 6206: refused (finllm PID)
+2026-11-03 02:39:31   candidate s2c_SUPPF_100pct_s12 pid 1: refused (owner root != noob)
+2026-11-03 02:39:31   candidate stray: refused (not a jobs-file name)
+2026-11-03 02:39:31   no valid live SKR2C run to stop
+2026-11-03 02:39:32   post-stop sample: free 12000 MiB (cool-down 19 left)
+2026-11-03 02:39:33   post-stop sample: free 12000 MiB (cool-down 18 left)
+2026-11-03 02:39:34   post-stop sample: free 12000 MiB (cool-down 17 left)
+2026-11-03 02:39:35   post-stop sample: free 12000 MiB (cool-down 16 left)
+2026-11-03 02:39:36   post-stop sample: free 12000 MiB (cool-down 15 left)
+2026-11-03 02:39:37   post-stop sample: free 12000 MiB (cool-down 14 left)
+2026-11-03 02:39:38   post-stop sample: free 12000 MiB (cool-down 13 left)
+2026-11-03 02:39:39   post-stop sample: free 12000 MiB (cool-down 12 left)
+2026-11-03 02:39:40   post-stop sample: free 12000 MiB (cool-down 11 left)
+2026-11-03 02:39:41   post-stop sample: free 12000 MiB (cool-down 10 left)
+2026-11-03 02:39:42   post-stop sample: free 12000 MiB (cool-down 9 left)
+2026-11-03 02:39:43   post-stop sample: free 12000 MiB (cool-down 8 left)
+2026-11-03 02:39:44   post-stop sample: free 12000 MiB (cool-down 7 left)
+2026-11-03 02:39:45   post-stop sample: free 12000 MiB (cool-down 6 left)
+2026-11-03 02:39:46   post-stop sample: free 12000 MiB (cool-down 5 left)
+2026-11-03 02:39:47   post-stop sample: free 12000 MiB (cool-down 4 left)
+2026-11-03 02:39:48   post-stop sample: free 12000 MiB (cool-down 3 left)
+2026-11-03 02:39:49   post-stop sample: free 12000 MiB (cool-down 2 left)
+2026-11-03 02:39:50   post-stop sample: free 12000 MiB (cool-down 1 left)
+2026-11-03 02:39:51   post-stop sample: free 12000 MiB (cool-down 0 left)
+2026-11-03 02:39:52 DRY: end of FAKE trace after 24 samples; stops 0

@@ -1,0 +1,24 @@
+## 1-2. _rf false alarms and F51 width (own b_rel from val records)
+SUPPF pf2_SUPPF_100pct_s5  b_rel +4.5 | H36 FA b_rel   267 (cells>=20px 4, top cell 0.43) b0  156 | F51 FA b_rel   834 (cells>=20px 4, top cell 0.71) b0  150 | F51 crack cells b_rel: pred/GT 1.153 pxP 0.568 pxR 0.655 relP 0.854 relR 0.844 | F51 crack cells b0: pred/GT 0.873 pxP 0.632 pxR 0.552 relP 0.882 relR 0.809
+SUPPF pf2_SUPPF_100pct_s6  b_rel +3.8 | H36 FA b_rel   144 (cells>=20px 2, top cell 0.85) b0   91 | F51 FA b_rel  2506 (cells>=20px 5, top cell 0.92) b0  177 | F51 crack cells b_rel: pred/GT 1.191 pxP 0.562 pxR 0.669 relP 0.859 relR 0.863 | F51 crack cells b0: pred/GT 0.931 pxP 0.619 pxR 0.576 relP 0.881 relR 0.836
+SUPPF pf2_SUPPF_100pct_s7  b_rel +2.9 | H36 FA b_rel   314 (cells>=20px 4, top cell 0.74) b0  204 | F51 FA b_rel  1832 (cells>=20px 3, top cell 0.92) b0  196 | F51 crack cells b_rel: pred/GT 1.101 pxP 0.586 pxR 0.645 relP 0.858 relR 0.843 | F51 crack cells b0: pred/GT 0.909 pxP 0.631 pxR 0.573 relP 0.870 relR 0.821
+SUPPF pf2_SUPPF_100pct_s8  b_rel +4.0 | H36 FA b_rel   282 (cells>=20px 3, top cell 0.48) b0  165 | F51 FA b_rel    70 (cells>=20px 1, top cell 0.80) b0   35 | F51 crack cells b_rel: pred/GT 1.179 pxP 0.569 pxR 0.671 relP 0.855 relR 0.866 | F51 crack cells b0: pred/GT 0.915 pxP 0.623 pxR 0.570 relP 0.879 relR 0.836
+SUPPF pf2_SUPPF_100pct_s9  b_rel +4.3 | H36 FA b_rel   382 (cells>=20px 4, top cell 0.45) b0  197 | F51 FA b_rel   913 (cells>=20px 2, top cell 0.96) b0   11 | F51 crack cells b_rel: pred/GT 1.151 pxP 0.550 pxR 0.633 relP 0.827 relR 0.842 | F51 crack cells b0: pred/GT 0.851 pxP 0.623 pxR 0.530 relP 0.869 relR 0.804
+HC    hc_HC_100pct_s5      b_rel +3.0 | H36 FA b_rel    29 (cells>=20px 1, top cell 1.00) b0   17 | F51 FA b_rel    18 (cells>=20px 0, top cell 0.89) b0    0 | F51 crack cells b_rel: pred/GT 1.393 pxP 0.541 pxR 0.754 relP 0.861 relR 0.881 | F51 crack cells b0: pred/GT 1.141 pxP 0.596 pxR 0.680 relP 0.879 relR 0.864
+HC    hc_HC_100pct_s6      b_rel +3.9 | H36 FA b_rel     4 (cells>=20px 0, top cell 1.00) b0    0 | F51 FA b_rel   120 (cells>=20px 2, top cell 0.56) b0   54 | F51 crack cells b_rel: pred/GT 1.444 pxP 0.505 pxR 0.729 relP 0.834 relR 0.876 | F51 crack cells b0: pred/GT 1.129 pxP 0.575 pxR 0.649 relP 0.871 relR 0.848
+HC    hc_HC_100pct_s7      b_rel +3.5 | H36 FA b_rel     0 (cells>=20px 0, top cell 0.00) b0    0 | F51 FA b_rel    14 (cells>=20px 0, top cell 1.00) b0    6 | F51 crack cells b_rel: pred/GT 1.455 pxP 0.531 pxR 0.772 relP 0.861 relR 0.886 | F51 crack cells b0: pred/GT 1.171 pxP 0.595 pxR 0.697 relP 0.887 relR 0.870
+HC    hc_HC_100pct_s8      b_rel +3.9 | H36 FA b_rel     3 (cells>=20px 0, top cell 1.00) b0    0 | F51 FA b_rel   210 (cells>=20px 2, top cell 0.70) b0  134 | F51 crack cells b_rel: pred/GT 1.562 pxP 0.509 pxR 0.795 relP 0.855 relR 0.893 | F51 crack cells b0: pred/GT 1.202 pxP 0.585 pxR 0.703 relP 0.889 relR 0.873
+HC    hc_HC_100pct_s9      b_rel +4.3 | H36 FA b_rel    17 (cells>=20px 0, top cell 1.00) b0    4 | F51 FA b_rel   250 (cells>=20px 2, top cell 0.80) b0   30 | F51 crack cells b_rel: pred/GT 1.348 pxP 0.538 pxR 0.725 relP 0.844 relR 0.867 | F51 crack cells b0: pred/GT 0.995 pxP 0.615 pxR 0.612 relP 0.875 relR 0.830
+H36 FA at b_rel: mean SUPPF 277.8 HC 10.6 (x26.2); median 282 vs 4 (x70.5); max HC 29 vs min SUPPF 144
+F51 FA at b_rel: mean SUPPF 1231.0 HC 122.4 (x10.1); median 913 vs 120 (x7.6); max HC 250 vs min SUPPF 70
+F51 crack cells at b_rel (seed means) pred/GT / pxP / pxR / relP / relR: SUPPF [1.155, 0.567, 0.655, 0.851, 0.852] HC [1.44, 0.525, 0.755, 0.851, 0.88]
+F51 crack cells at b0 (seed means) pred/GT / pxP / pxR / relP / relR: SUPPF [0.896, 0.625, 0.56, 0.876, 0.821] HC [1.127, 0.593, 0.668, 0.88, 0.857]
+
+## 3. test inactive IoU, seed-aware two-stage bootstrap (modules + seeds)
+test inactive IoU: d (seed-mean) -0.0228; two-stage 95% [-0.0539, +0.0051] P(d*<0) 0.948
+test crack IoU: d (seed-mean) +0.0092; two-stage 95% [-0.0024, +0.0233] P(d*<0) 0.056
+  test crack pxP SUPPF 0.6504 HC 0.6421 | pxR 0.6204 0.6447 | pred/GT 0.954 1.004
+
+## 4. E1 half-cut without scuff: GT comps >= 20 px, per seed
+SUPPF: anyhit 8/11 half 7 pred/GT 0.43 | anyhit 10/11 half 7 pred/GT 0.58 | anyhit 8/11 half 8 pred/GT 0.52 | anyhit 8/11 half 6 pred/GT 0.49 | anyhit 7/11 half 6 pred/GT 0.53
+HC: anyhit 9/11 half 7 pred/GT 0.65 | anyhit 9/11 half 8 pred/GT 0.72 | anyhit 9/11 half 7 pred/GT 0.62 | anyhit 9/11 half 8 pred/GT 0.71 | anyhit 8/11 half 6 pred/GT 0.55

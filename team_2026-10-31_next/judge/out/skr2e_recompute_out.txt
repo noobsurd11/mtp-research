@@ -1,0 +1,108 @@
+# files: ['E-PF b0', 'E-PF b1', 'E-PF b1.5', 'E-SKR2 b0', 'E-SKR2 b1', 'E-SKR2 b1.5'] | union in decisions: [0.0, 1.0, 1.5]
+
+## 1 integrity
+  E-PF b0: members ok=True rev e544133 model e544133 cells {'val': 54, 'test': 50, 'test_noscuff': 50, 'ext': 106} chosen 1.5 headline 0.0
+  E-PF b1: members ok=True rev e544133 model e544133 cells {'val': 54, 'test': 50, 'test_noscuff': 50, 'ext': 106} chosen 1.5 headline 0.0
+  E-PF b1.5: members ok=True rev e544133 model e544133 cells {'val': 54, 'test': 50, 'test_noscuff': 50, 'ext': 106} chosen 1.5 headline 0.0
+  E-SKR2 b0: members ok=True rev c9bbb02 model e544133 cells {'val': 54, 'test': 50, 'test_noscuff': 50, 'ext': 106} chosen 1.0 headline 1.0
+  E-SKR2 b1: members ok=True rev c9bbb02 model e544133 cells {'val': 54, 'test': 50, 'test_noscuff': 50, 'ext': 106} chosen 1.0 headline 1.0
+  E-SKR2 b1.5: members ok=True rev c9bbb02 model e544133 cells {'val': 54, 'test': 50, 'test_noscuff': 50, 'ext': 106} chosen 1.0 headline 1.0
+  E-PF written at b [0.0, 1.0, 1.5]; union U [0.0, 1.0, 1.5]: ok
+  E-SKR2 written at b [0.0, 1.0, 1.5]; union U [0.0, 1.0, 1.5]: ok
+  E-PF: val GT comps>=20 125 (125), E1 296 (296), E1 crack-free cells / px at b0 (74, 2528)
+  E-SKR2: val GT comps>=20 125 (125), E1 296 (296), E1 crack-free cells / px at b0 (74, 2673)
+  identical stem sets across arms: True; E1 clusters 71
+  GT-only columns (comps n, GT crack px, relR denominator) equal across arms and b: True
+
+## 2 D2 re-derived from the stored val sweep
+  E-PF: mine b 1.5 (smallest b relR>=.90 & relP>=.90), drop +0.0753, headline 0.0 | file b 1.5 drop +0.0753 headline 0.0 | agree True
+    val sweep relR/relP/crackP: 0:0.850/0.942/0.605 0.25:0.859/0.938/0.594 0.5:0.873/0.931/0.579 0.75:0.882/0.925/0.569 1:0.889/0.919/0.559 1.25:0.898/0.912/0.548 1.5:0.909/0.901/0.529 1.75:0.912/0.895/0.519 2:0.915/0.890/0.513 2.25:0.917/0.886/0.507 2.5:0.919/0.883/0.501 2.75:0.921/0.879/0.496 3:0.923/0.876/0.491
+    val cells at b0 re-summed vs sweep: max |d| 0.00e+00
+    val cells at b1 re-summed vs sweep: max |d| 0.00e+00
+    val cells at b1.5 re-summed vs sweep: max |d| 0.00e+00
+  E-SKR2: mine b 1.0 (smallest b relR>=.90 & relP>=.90), drop +0.0485, headline 1.0 | file b 1.0 drop +0.0485 headline 1.0 | agree True
+    val sweep relR/relP/crackP: 0:0.868/0.932/0.580 0.25:0.878/0.926/0.569 0.5:0.893/0.919/0.554 0.75:0.898/0.912/0.542 1:0.903/0.906/0.532 1.25:0.909/0.897/0.519 1.5:0.920/0.880/0.499 1.75:0.923/0.874/0.489 2:0.924/0.869/0.482 2.25:0.926/0.866/0.477 2.5:0.927/0.862/0.472 2.75:0.929/0.860/0.468 3:0.930/0.857/0.464
+    val cells at b0 re-summed vs sweep: max |d| 0.00e+00
+    val cells at b1 re-summed vs sweep: max |d| 0.00e+00
+    val cells at b1.5 re-summed vs sweep: max |d| 0.00e+00
+  E-PF vs PF2E decisions: b 1.5 / 1.5, headline 0.0 / 0.0, drop 0.075308 / 0.075308
+
+## 3 E-PF identity vs PF2E (exact, every split / cell)
+  b0: splits True, cells 260, mismatches 0 []
+  b1.5: splits True, cells 260, mismatches 0 []
+
+## VERDICT b 0 (both arms): E-SKR2 b 0 vs E-PF b 0
+  test all 50: crack IoU +0.0102 [+0.0031, +0.0197] P>0 0.999 | relF1@2 +0.0104 [+0.0016, +0.0232] P>0 0.995 | inact IoU +0.0050 [-0.0090, +0.0280] P>0 0.734
+      reported: relP@2 -0.0110 | relR@2 +0.0277 | crack P -0.0279 | crack R +0.0462 | pred/GT +0.1130 | any-hit +0.0159
+  test clean 49: crack IoU +0.0101 [+0.0031, +0.0188] P>0 0.999 | relF1@2 +0.0103 [+0.0017, +0.0231] P>0 0.995 | inact IoU +0.0055 [-0.0104, +0.0317] P>0 0.721
+      reported: relP@2 -0.0110 | relR@2 +0.0279 | crack P -0.0279 | crack R +0.0466 | pred/GT +0.1140 | any-hit +0.0107
+  E1 (71 clusters): relF1@2 +0.0353 [+0.0102, +0.0613] P>0 0.997 | any-hit +0.0676 [+0.0253, +0.1282] P>0 1.000 | inact IoU -0.0418 [-0.0545, +0.0123] P>0 0.061
+      LOCO range: relF1 [+0.0262, +0.0398] any-hit [+0.0421, +0.0745] inact [-0.0478, -0.0308]
+      cell-level (unclustered, comparison only): relF1 [+0.0121, +0.0614] any-hit [+0.0106, +0.1246]
+      reported: crack IoU +0.0236 | relP@2 +0.0013 | relR@2 +0.0460 | crack P -0.0133 | crack R +0.0373 | pred/GT +0.0880
+  primaries: {'test crack IoU': 'PASS', 'test relF1@2': 'PASS', 'test inact IoU': 'n.d.', 'E1 relF1@2': 'PASS', 'E1 any-hit': 'PASS'}
+  guards (E1 crack-free cells 74/74; px E-PF 2528 E-SKR2 2673, bar 3792):
+    G2a test relP@2 all 50 < -0.03: -0.011 -> ok
+    G2b E1 crack-free px > 1.5x E-PF: 1.0574 -> ok
+    G1t test inact <= -0.015 both sets: [0.005, 0.0055] -> ok
+    G1e E1 inact cluster CI wholly < 0: [-0.0418, 0.0123] -> ok
+
+## HEADLINE PAIR (guards apply; primaries reported): E-SKR2 b 1 vs E-PF b 0
+  test all 50: crack IoU +0.0103 [-0.0052, +0.0310] P>0 0.885 | relF1@2 +0.0168 [+0.0031, +0.0391] P>0 0.998 | inact IoU +0.0097 [-0.0119, +0.0358] P>0 0.769
+      reported: relP@2 -0.0379 | relR@2 +0.0645 | crack P -0.0810 | crack R +0.1179 | pred/GT +0.3300 | any-hit +0.0582
+  test clean 49: crack IoU +0.0103 [-0.0060, +0.0296] P>0 0.881 | relF1@2 +0.0162 [+0.0026, +0.0386] P>0 0.999 | inact IoU +0.0108 [-0.0132, +0.0413] P>0 0.791
+      reported: relP@2 -0.0373 | relR@2 +0.0636 | crack P -0.0802 | crack R +0.1184 | pred/GT +0.3303 | any-hit +0.0535
+  E1 (71 clusters): relF1@2 +0.0634 [+0.0085, +0.1057] P>0 0.986 | any-hit +0.1892 [+0.1189, +0.2493] P>0 1.000 | inact IoU -0.0377 [-0.0493, +0.0224] P>0 0.090
+      LOCO range: relF1 [+0.0496, +0.0719] any-hit [+0.1647, +0.2025] inact [-0.0433, -0.0277]
+      cell-level (unclustered, comparison only): relF1 [+0.0221, +0.1056] any-hit [+0.1283, +0.2377]
+      reported: crack IoU +0.0528 | relP@2 -0.0693 | relR@2 +0.1344 | crack P -0.0876 | crack R +0.1157 | pred/GT +0.3661
+  primaries: {'test crack IoU': 'n.d.', 'test relF1@2': 'PASS', 'test inact IoU': 'n.d.', 'E1 relF1@2': 'PASS', 'E1 any-hit': 'PASS'}
+  guards (E1 crack-free cells 74/74; px E-PF 2528 E-SKR2 5358, bar 3792):
+    G2a test relP@2 all 50 < -0.03: -0.0379 -> TRIP
+    G2b E1 crack-free px > 1.5x E-PF: 2.1195 -> TRIP
+    G1t test inact <= -0.015 both sets: [0.0097, 0.0108] -> ok
+    G1e E1 inact cluster CI wholly < 0: [-0.0377, 0.0224] -> ok
+
+## SKR2E VERDICT (judge recompute, protocol §3c): FAIL; carried by ['test crack IoU', 'test relF1@2', 'E1 relF1@2', 'E1 any-hit']; primary FAIL -; guard trip True
+
+## 6 bias share: every arm x b in U (readouts), then all U x U pairs (reported, not a verdict)
+  E-PF b0: test crack IoU 0.4815 (clean 0.4846) relF1 0.8942 inact 0.4613 (clean 0.4759) relP 0.9541 relR 0.8414 P 0.6697 pred/GT 0.943 | E1 relF1 0.4345 any-hit 0.3446 inact 0.2807 relP 0.5877 pred/GT 0.381 cf px 2528
+  E-PF b1: test crack IoU 0.4919 (clean 0.4948) relF1 0.9060 inact 0.4659 (clean 0.4810) relP 0.9314 relR 0.8818 P 0.6167 pred/GT 1.149 | E1 relF1 0.4522 any-hit 0.4696 inact 0.2839 relP 0.4874 pred/GT 0.660 cf px 6174
+  E-PF b1.5: test crack IoU 0.4888 (clean 0.4920) relF1 0.9078 inact 0.4680 (clean 0.4833) relP 0.9122 relR 0.9035 P 0.5838 pred/GT 1.285 | E1 relF1 0.4733 any-hit 0.5574 inact 0.2874 relP 0.4510 pred/GT 0.906 cf px 9431
+  E-SKR2 b0: test crack IoU 0.4917 (clean 0.4947) relF1 0.9046 inact 0.4662 (clean 0.4814) relP 0.9432 relR 0.8691 P 0.6418 pred/GT 1.056 | E1 relF1 0.4698 any-hit 0.4122 inact 0.2389 relP 0.5890 pred/GT 0.469 cf px 2673
+  E-SKR2 b1: test crack IoU 0.4918 (clean 0.4949) relF1 0.9110 inact 0.4710 (clean 0.4867) relP 0.9162 relR 0.9058 P 0.5887 pred/GT 1.273 | E1 relF1 0.4979 any-hit 0.5338 inact 0.2430 relP 0.5184 pred/GT 0.747 cf px 5358
+  E-SKR2 b1.5: test crack IoU 0.4815 (clean 0.4846) relF1 0.9079 inact 0.4733 (clean 0.4893) relP 0.8927 relR 0.9235 P 0.5545 pred/GT 1.417 | E1 relF1 0.5111 any-hit 0.5946 inact 0.2453 relP 0.4762 pred/GT 1.017 cf px 8464
+  pairs (dS - dP): test crack IoU / relF1 / inact (all 50) | E1 relF1 / any-hit | G2a relP, G2b ratio
+    SKR2 b0 - PF b0: +0.0102 / +0.0104 / +0.0050 | +0.0353 / +0.0676 | -0.0110, x1.06
+    SKR2 b0 - PF b1: -0.0002 / -0.0013 / +0.0003 | +0.0176 / -0.0574 | +0.0117, x0.43
+    SKR2 b0 - PF b1.5: +0.0028 / -0.0032 / -0.0017 | -0.0035 / -0.1453 | +0.0310, x0.28
+    SKR2 b1 - PF b0: +0.0103 / +0.0168 / +0.0097 | +0.0634 / +0.1892 | -0.0379, x2.12
+    SKR2 b1 - PF b1: -0.0001 / +0.0050 / +0.0051 | +0.0458 / +0.0642 | -0.0152, x0.87
+    SKR2 b1 - PF b1.5: +0.0030 / +0.0032 / +0.0030 | +0.0247 / -0.0236 | +0.0040, x0.57
+    SKR2 b1.5 - PF b0: +0.0001 / +0.0137 / +0.0121 | +0.0766 / +0.2500 | -0.0614, x3.35
+    SKR2 b1.5 - PF b1: -0.0103 / +0.0019 / +0.0074 | +0.0590 / +0.1250 | -0.0387, x1.37
+    SKR2 b1.5 - PF b1.5: -0.0073 / +0.0000 / +0.0054 | +0.0379 / +0.0372 | -0.0195, x0.90
+  E1 aggregate sweep (reported only; re-checked at U from the cells):
+    E-PF: 0:0.435/0.345/0.38/2528 0.25:0.440/0.368/0.43/3093 0.5:0.454/0.409/0.52/4256 0.75:0.454/0.439/0.59/5208 1:0.452/0.470/0.66/6174 1.25:0.457/0.517/0.74/7331 1.5:0.473/0.557/0.91/9431 1.75:0.474/0.568/0.98/10332 2:0.474/0.584/1.03/11046 2.25:0.473/0.588/1.07/11692 2.5:0.472/0.588/1.12/12297 2.75:0.471/0.595/1.16/12844 3:0.470/0.595/1.19/13372  (relF1/any-hit/predGT/cf px)
+      at b0: sweep vs cells relF1 +0.0e+00 any-hit +0.0e+00 pred/GT +0.0e+00 cf px +0
+      at b1: sweep vs cells relF1 +0.0e+00 any-hit +0.0e+00 pred/GT +0.0e+00 cf px +0
+      at b1.5: sweep vs cells relF1 +0.0e+00 any-hit +0.0e+00 pred/GT +0.0e+00 cf px +0
+    E-SKR2: 0:0.470/0.412/0.47/2673 0.25:0.476/0.443/0.52/3050 0.5:0.497/0.493/0.61/4001 0.75:0.500/0.520/0.68/4635 1:0.498/0.534/0.75/5358 1.25:0.500/0.551/0.83/6310 1.5:0.511/0.595/1.02/8464 1.75:0.509/0.601/1.09/9357 2:0.507/0.618/1.15/10062 2.25:0.505/0.622/1.19/10675 2.5:0.503/0.625/1.23/11265 2.75:0.500/0.625/1.27/11836 3:0.497/0.635/1.31/12415  (relF1/any-hit/predGT/cf px)
+      at b0: sweep vs cells relF1 +0.0e+00 any-hit +0.0e+00 pred/GT +0.0e+00 cf px +0
+      at b1: sweep vs cells relF1 +0.0e+00 any-hit +0.0e+00 pred/GT +0.0e+00 cf px +0
+      at b1.5: sweep vs cells relF1 +0.0e+00 any-hit +0.0e+00 pred/GT +0.0e+00 cf px +0
+  b 0 E1 gap: relF1 +0.0353, any-hit +0.0676. E-PF own bias gain over b (relF1 / any-hit): 0:+0.000/+0.000 0.25:+0.006/+0.024 0.5:+0.020/+0.064 0.75:+0.019/+0.095 1:+0.018/+0.125 1.25:+0.022/+0.172 1.5:+0.039/+0.213 1.75:+0.040/+0.223 2:+0.040/+0.240 2.25:+0.038/+0.243 2.5:+0.037/+0.243 2.75:+0.036/+0.250 3:+0.035/+0.250
+  E1 volume at b 0: E-SKR2 pred/GT 0.4692, E-PF 0.3811
+  matched volume: E-PF at b 0.353 (interp 0.25-0.5) relF1 0.4460 any-hit 0.3849 -> gap at matched volume relF1 +0.0238 (67% of the b 0 gap left), any-hit +0.0273
+  test volume at b 0: E-SKR2 pred/GT 1.0558, E-PF 0.9428; E-PF at U b: b0 0.9428 crack IoU 0.4815 relF1 0.8942, b1 1.1487 crack IoU 0.4919 relF1 0.9060, b1.5 1.2853 crack IoU 0.4888 relF1 0.9078
+
+## 7 any-hit concentration at b 0 (E1)
+  GT comps 296 in 21 of 71 images; n_eff images (GT comps) 7.1; hits E-PF 102 E-SKR2 122 (gap +20)
+  top images by GT comps (n, hits PF, hits SKR2, d): CSIR_01717 70 21 25 +4; CSIR_01637 59 32 35 +3; CSIR_01679 41 10 11 +1; CSIR_02222 35 12 21 +9; CSIR_02026 22 0 2 +2; CSIR_02228 14 0 0 +0; CSIR_01647 11 6 6 +0; CSIR_01621 10 1 2 +1; CSIR_02301 10 0 0 +0; CSIR_01101 5 5 5 +0
+  top-3 / top-10 share of GT comps 0.574 / 0.936; images with d>0 6, d<0 0, d=0 (with comps) 15
+  |d| gross 20; top-3 |d| images CSIR_02222 +9, CSIR_01717 +4, CSIR_01637 +3 share of gross 0.800; n_eff of |d| 3.6
+  leave-top-3-GT-images-out any-hit: E-PF 0.3095 E-SKR2 0.4048 d +0.0952 (n 126)
+  scuff+half-cut 29 (29 cells): comps 274, hits 84 -> 104 (any-hit 0.3066 -> 0.3796); relF1 0.3505 -> 0.3943; inact 0.6370 -> 0.6133; crack R 0.1266 -> 0.1600
+  other 77 (77 cells): comps 22, hits 18 -> 18 (any-hit 0.8182 -> 0.8182); relF1 0.5809 -> 0.6045; inact 0.1308 -> 0.1073; crack R 0.3756 -> 0.4250
+  half-cut 58 (58 cells): comps 285, hits 93 -> 113 (any-hit 0.3263 -> 0.3965); relF1 0.4032 -> 0.4424; inact 0.5931 -> 0.5882; crack R 0.1527 -> 0.1865
+  full 48 (48 cells): comps 11, hits 9 -> 9 (any-hit 0.8182 -> 0.8182); relF1 0.5168 -> 0.5443; inact 0.1302 -> 0.1003; crack R 0.3617 -> 0.4161

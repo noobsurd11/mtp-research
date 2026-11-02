@@ -1,0 +1,46 @@
+B6 verdict (protocol_B6 v1.0.1 s4): n.d.: no in-distribution inactive gain detectable at this power; PF's inactive gain is shown on unseen panels (E1) only
+primary: pooled OOF inactive IoU, 532 cells, 334 groups
+  house_s5 0.4992  house_s6 0.5193  PF_s5 0.4996  PF_s6 0.4901
+  delta (mean over seeds, PF - house) -0.0144; two-stage 95% CI [-0.0977, +0.0570] (B 2000, seed 0, boot sd 0.0392)
+  rule: PASS iff lo > 0 and delta >= 0.01; FAIL iff hi < 0
+reported: seed pairs s5 +0.0004, s6 -0.0291 (same sign: False; weak, ~25% under the null); one-stage CI [-0.0780, +0.0465] (sd 0.0315)
+  crack_iou      house 0.3715  PF 0.3612  delta -0.0104 (s5 -0.0010, s6 -0.0198)
+  crack_relF1_2  house 0.8346  PF 0.8388  delta +0.0042 (s5 +0.0163, s6 -0.0079)
+  inact_compR    house 0.5172  PF 0.5749  delta +0.0577 (s5 +0.0614, s6 +0.0541)
+  inact_compP    house 0.6226  PF 0.7288  delta +0.1061 (s5 +0.1742, s6 +0.0381)
+per source (inactive IoU, mean over seeds):
+  ARTS  cells 182 inact cells  2 px    1150  house 0.0000  PF 0.0535  delta +0.0535
+  BMRK  cells  50 inact cells  6 px   29704  house 0.6131  PF 0.5169  delta -0.0961
+  CFVS  cells 169 inact cells 29 px  222994  house 0.5458  PF 0.5465  delta +0.0007
+  CSIR  cells 114 inact cells 11 px   31172  house 0.1457  PF 0.1586  delta +0.0129
+  SDLE  cells  17 inact cells  0 px       0  house nan  PF nan  delta nan
+per fold (inactive IoU; fold-seed sign count 4 / 10):
+  fold 0 cells 107 px  56753  house s5 0.2671 s6 0.3434  PF s5 0.3296 s6 0.2498  delta s5 +0.0626 s6 -0.0936
+  fold 1 cells 107 px  57565  house s5 0.6085 s6 0.5736  PF s5 0.4834 s6 0.5381  delta s5 -0.1251 s6 -0.0355
+  fold 2 cells 106 px  57142  house s5 0.4417 s6 0.5026  PF s5 0.5083 s6 0.4545  delta s5 +0.0666 s6 -0.0481
+  fold 3 cells 106 px  56785  house s5 0.5213 s6 0.4793  PF s5 0.5122 s6 0.5271  delta s5 -0.0091 s6 +0.0477
+  fold 4 cells 106 px  56775  house s5 0.6316 s6 0.6801  PF s5 0.6595 s6 0.6493  delta s5 +0.0279 s6 -0.0308
+leave top-3 groups out (CFVS_00016, CFVS_00130, CFVS_00146; 0.388 of px): delta -0.0290
+twin groups (13 groups, 56 cells, px 135595): delta -0.0115; rest (476 cells, px 149425): delta -0.0161
+provenance: scorer 981b5f296e3d39bf11f17fb6b10637ce, device cuda, code e5441339768b9e7ec54fd4de0b50b2a819bfbeab
+trainer TEST block (final weights = held-out fold) vs scorer, reported only:
+b6_SUP_f0_s5                     fold 0 house s5  scorer 0.2671  trainer 0.2669  diff +0.00015  GT px 56753 / 56753
+b6_SUPPF_f0_s5                   fold 0 PF    s5  scorer 0.3296  trainer 0.3293  diff +0.00038  GT px 56753 / 56753
+b6_SUP_f1_s5                     fold 1 house s5  scorer 0.6085  trainer 0.6085  diff -0.00005  GT px 57565 / 57565
+b6_SUPPF_f1_s5                   fold 1 PF    s5  scorer 0.4834  trainer 0.4835  diff -0.00009  GT px 57565 / 57565
+b6_SUP_f2_s5                     fold 2 house s5  scorer 0.4417  trainer 0.4415  diff +0.00012  GT px 57142 / 57142
+b6_SUPPF_f2_s5                   fold 2 PF    s5  scorer 0.5083  trainer 0.5082  diff +0.00010  GT px 57142 / 57142
+b6_SUP_f3_s5                     fold 3 house s5  scorer 0.5213  trainer 0.5213  diff -0.00005  GT px 56785 / 56785
+b6_SUPPF_f3_s5                   fold 3 PF    s5  scorer 0.5122  trainer 0.5121  diff +0.00006  GT px 56785 / 56785
+b6_SUP_f4_s5                     fold 4 house s5  scorer 0.6316  trainer 0.6320  diff -0.00039  GT px 56775 / 56775
+b6_SUPPF_f4_s5                   fold 4 PF    s5  scorer 0.6595  trainer 0.6600  diff -0.00044  GT px 56775 / 56775
+b6_SUP_f0_s6                     fold 0 house s6  scorer 0.3434  trainer 0.3435  diff -0.00011  GT px 56753 / 56753
+b6_SUPPF_f0_s6                   fold 0 PF    s6  scorer 0.2498  trainer 0.2497  diff +0.00003  GT px 56753 / 56753
+b6_SUP_f1_s6                     fold 1 house s6  scorer 0.5736  trainer 0.5736  diff -0.00003  GT px 57565 / 57565
+b6_SUPPF_f1_s6                   fold 1 PF    s6  scorer 0.5381  trainer 0.5381  diff +0.00003  GT px 57565 / 57565
+b6_SUP_f2_s6                     fold 2 house s6  scorer 0.5026  trainer 0.5025  diff +0.00009  GT px 57142 / 57142
+b6_SUPPF_f2_s6                   fold 2 PF    s6  scorer 0.4545  trainer 0.4548  diff -0.00022  GT px 57142 / 57142
+b6_SUP_f3_s6                     fold 3 house s6  scorer 0.4793  trainer 0.4792  diff +0.00015  GT px 56785 / 56785
+b6_SUPPF_f3_s6                   fold 3 PF    s6  scorer 0.5271  trainer 0.5271  diff -0.00005  GT px 56785 / 56785
+b6_SUP_f4_s6                     fold 4 house s6  scorer 0.6801  trainer 0.6804  diff -0.00034  GT px 56775 / 56775
+b6_SUPPF_f4_s6                   fold 4 PF    s6  scorer 0.6493  trainer 0.6498  diff -0.00046  GT px 56775 / 56775

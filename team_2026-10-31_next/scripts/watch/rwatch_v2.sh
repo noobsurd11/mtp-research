@@ -1,0 +1,41 @@
+#!/bin/bash
+# runner (1 Nov 2026; team-lead option b; v2 19:55 adds the A8 scoring log): ONE gaint-side watcher in tmux, recorded PID, writing event lines to ONE events file
+# /home/noob/work/runner_events/events.log ("YYYY-MM-DD HH:MM:SS <source>: <line>"). Read-only on every job; never prints or reads
+# a training stdout beyond counting Traceback lines (grep -ho | wc -l). Poll every 30 s.
+# Sources (new lines only, filtered): THIN queue / opening log, PF2E run log, runner smoke log, the HC + A8 queue log and its
+# opening log (once they exist). Checks: Tracebacks in THIN / nq run stdouts (count only), GPU free < 2,048 MiB on 2 polls in a
+# row, THIN gpumem logger alive until THIN's end line, nq gpumem logger alive while the nq queue runs.
+# PID in /home/noob/work/runner_events/rwatch.pid; stop only by that PID (or the STOP file in the same dir).
+set -u
+E=/home/noob/work/runner_events; mkdir -p $E/off; EV=$E/events.log; touch $EV; echo $$ > $E/rwatch.pid
+ev(){ echo "$(date '+%F %T') $1: $2" >> $EV; }
+declare -A SRC=(
+  [thin]="/home/noob/work/el_thin/reports/thin/q/launch.log|trained|scoring|NOT scored|FAIL|HOLD|not starting|deploy check|ALL TRAINED"
+  [pf2e]="/home/noob/work/el_f3/reports/pf2e/run.log|start|end rc"
+  [smk]="/home/noob/work/runner_smk/runner_smk.log|start|end"
+  [nq]="/home/noob/work/nq/launch.log|trained|start |CONFIG|HOLD|FAIL|ALL TRAINED|dispatching|not starting|armed|skip"
+  [nqpost]="/home/noob/work/nq/post.log|done|FAIL|NOT scored|start"
+  [a8s]="/home/noob/work/a8_score/v1/a8_score.log|start condition|FAIL|NOT scored|refused|done: rc|HOLD|missing|changed" )
+for k in "${!SRC[@]}"; do f=${SRC[$k]%%|*}; [ -e $E/off/$k ] || { [ -e "$f" ] && wc -l < "$f" > $E/off/$k || echo 0 > $E/off/$k; }; done
+tb(){ grep -ho Traceback "$@" 2>/dev/null | wc -l; }
+TB_THIN0=$(tb /home/noob/work/el_thin/experiments/thin_[SCB]*_100pct_s*.stdout); TB_NQ0=$(tb /home/noob/work/el_hc/experiments/hc_HC_100pct_s*.stdout /home/noob/work/el_f8/experiments/f8_A8*_4k_s*.stdout)
+LOW=0; ev rwatch "start pid $$ (TB thin $TB_THIN0, nq $TB_NQ0)"
+while :; do
+  [ -e $E/STOP ] && { ev rwatch "stop (STOP file)"; rm -f $E/STOP $E/rwatch.pid; exit 0; }
+  for k in "${!SRC[@]}"; do
+    f=${SRC[$k]%%|*}; pat=${SRC[$k]#*|}; [ -e "$f" ] || continue
+    n=$(wc -l < "$f"); o=$(cat $E/off/$k)
+    if [ "$n" -gt "$o" ]; then tail -n +$((o+1)) "$f" | head -n $((n-o)) | grep -E "$pat" | cut -c1-300 | while IFS= read -r l; do ev $k "$l"; done; echo $n > $E/off/$k; fi
+  done
+  t=$(tb /home/noob/work/el_thin/experiments/thin_[SCB]*_100pct_s*.stdout); [ "$t" -gt "$TB_THIN0" ] && { ev ALERT "THIN Traceback count $TB_THIN0 -> $t"; TB_THIN0=$t; }
+  t=$(tb /home/noob/work/el_hc/experiments/hc_HC_100pct_s*.stdout /home/noob/work/el_f8/experiments/f8_A8*_4k_s*.stdout); [ "$t" -gt "$TB_NQ0" ] && { ev ALERT "nq Traceback count $TB_NQ0 -> $t"; TB_NQ0=$t; }
+  fr=$(nvidia-smi --query-gpu=memory.free --format=csv,noheader,nounits -i 0)
+  if [ "$fr" -lt 2048 ]; then LOW=$((LOW+1)); else LOW=0; fi
+  [ $LOW = 2 ] && ev ALERT "GPU free $fr MiB < 2048 on 2 polls"
+  if ! grep -qE "thin scoring done|thin NOT scored" /home/noob/work/el_thin/reports/thin/q/launch.log && ! kill -0 "$(cat /home/noob/work/el_thin/reports/thin/q/gpumem.pid 2>/dev/null)" 2>/dev/null; then
+    [ -e $E/off/thin_gm_alert ] || { ev ALERT "THIN gpumem logger gone before THIN's end line"; touch $E/off/thin_gm_alert; }; fi
+  if [ -e /home/noob/work/nq/launch.log ] && grep -q "nq queue armed" /home/noob/work/nq/launch.log && ! grep -qE "nq scoring done|nq NOT scored" /home/noob/work/nq/post.log 2>/dev/null \
+     && ! kill -0 "$(cat /home/noob/work/nq/gpumem.pid 2>/dev/null)" 2>/dev/null; then
+    [ -e $E/off/nq_gm_alert ] || { ev ALERT "nq gpumem logger gone while the nq queue runs"; touch $E/off/nq_gm_alert; }; fi
+  sleep 30
+done

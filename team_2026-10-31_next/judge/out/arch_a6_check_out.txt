@@ -1,0 +1,9 @@
+## (a) val off-GT px at b 0, seed means (bf16 b5 records)
+SUPPF: off-GT px on crack cells 15950 | crack px on crack-free cells 6.8 | val cell AUROC s1 0.992
+SKR: off-GT px on crack cells 34821 | crack px on crack-free cells 75.4 | val cell AUROC s1 0.995
+CLD: off-GT px on crack cells 33677 | crack px on crack-free cells 116.8 | val cell AUROC s1 0.993
+
+## (b, c) _rf at val b_rel, gate t = min val-positive s1 - 1e-3
+SUPPF s5-9: b_rel [4.5, 3.8, 2.9, 4.0, 4.3] t [5.85, -7.77, -7.58, -10.87, -5.52] | F51 FA 1231 -> gated 1109; AUROC 0.736 | H36 FA 277.8 -> 260.6; AUROC 0.533
+SUPPF s0-4: b_rel [5.2, 2.9, 4.3, 3.2, 3.3] t [4.8, 0.0, 7.41, -9.27, 7.98] | F51 FA 1617 -> gated 528; AUROC 0.722 | H36 FA 94.6 -> 68.0; AUROC 0.578
+HC s5-9: b_rel [3.0, 3.9, 3.5, 3.9, 4.3] t [6.97, -10.1, -10.27, 1.38, 6.24] | F51 FA 122 -> gated 79; AUROC 0.740 | H36 FA 10.6 -> 0.8; AUROC 0.532

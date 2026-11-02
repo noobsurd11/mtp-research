@@ -1,0 +1,18 @@
+2026-11-03 02:37:56 dry harness start pid 2203707; jobs 0839f340; guard 99291944
+2026-11-03 02:37:58 dummy s2c_SKR01_100pct_s10: subshell 2203726, pid file 2203728, subshell children: 2203728 , pid-file cmdline: /usr/bin/python3 -u scripts/train.py --overwrite --config configs/supervised.yaml --opts seed=10 data.labeled_fraction=1.0 training.total_steps=20000 data.split_seed=0 training.labeled_batch_size=8 data.mask_subdir=labeled/masks_escdd model.name=smp_unetpp data.augmentation=labelsafe loss.supervised=ce_dice training.val_every=20000 training.encoder_pf.freeze=1000 training.encoder_pf.ramp=1000 training.encoder_pf.lr_mult=0.1 training.encoder_pf.wd=0 loss.skel_recall.weight=0.1 data.root=/home/noob/work/s2c_root run_name=s2c_SKR01_100pct_s10 
+2026-11-03 02:37:58   OK: pid file = the python child of the subshell
+2026-11-03 02:38:03 dummy s2c_SUPPF_100pct_s10: subshell 2204113, pid file 2204115, subshell children: 2204115 , pid-file cmdline: /usr/bin/python3 -u scripts/train.py --overwrite --config configs/supervised.yaml --opts seed=10 data.labeled_fraction=1.0 training.total_steps=20000 data.split_seed=0 training.labeled_batch_size=8 data.mask_subdir=labeled/masks_escdd model.name=smp_unetpp data.augmentation=labelsafe loss.supervised=ce_dice training.val_every=20000 training.encoder_pf.freeze=1000 training.encoder_pf.ramp=1000 training.encoder_pf.lr_mult=0.1 training.encoder_pf.wd=0 data.root=/home/noob/work/s2c_root run_name=s2c_SUPPF_100pct_s10 
+2026-11-03 02:38:03   OK: pid file = the python child of the subshell
+2026-11-03 02:38:06 decoys: s2c_SKR01_100pct_s11 -> sleep 2204534 (newest, wrong cmdline), s2c_SUPPF_100pct_s11 -> 6206, s2c_SUPPF_100pct_s12 -> 1, s2c_SKR01_100pct_s12 -> 4194000 (dead), stray -> 2204534
+2026-11-03 02:38:06 pass 1: FAKE fake1.txt (78 samples), MAXSTOPS 2
+2026-11-03 02:39:25 pass 1 guard rc=0
+2026-11-03 02:39:25 after pass 1: s2c_SKR01_100pct_s10 pid 2203728 ALIVE (no signal sent)
+2026-11-03 02:39:25 after pass 1: s2c_SUPPF_100pct_s10 pid 2204115 ALIVE (no signal sent)
+2026-11-03 02:39:25 after pass 1: HOLD file present
+2026-11-03 02:39:25 harness stop of own dummy s2c_SUPPF_100pct_s10: pid 2204115 cmdline: /usr/bin/python3 -u scripts/train.py --overwrite --config configs/supervised.yaml --opts seed=10 data.labeled_fraction=1.0 training.total_steps=20000 data.split_seed=0 training.labeled_batch_size=8 data.mask_subdir=labeled/masks_escdd model.name=smp_unetpp data.augmentation=labelsafe loss.supervised=ce_dice training.val_every=20000 training.encoder_pf.freeze=1000 training.encoder_pf.ramp=1000 training.encoder_pf.lr_mult=0.1 training.encoder_pf.wd=0 data.root=/home/noob/work/s2c_root run_name=s2c_SUPPF_100pct_s10 
+2026-11-03 02:39:25 harness stop of own dummy s2c_SKR01_100pct_s10: pid 2203728 cmdline: /usr/bin/python3 -u scripts/train.py --overwrite --config configs/supervised.yaml --opts seed=10 data.labeled_fraction=1.0 training.total_steps=20000 data.split_seed=0 training.labeled_batch_size=8 data.mask_subdir=labeled/masks_escdd model.name=smp_unetpp data.augmentation=labelsafe loss.supervised=ce_dice training.val_every=20000 training.encoder_pf.freeze=1000 training.encoder_pf.ramp=1000 training.encoder_pf.lr_mult=0.1 training.encoder_pf.wd=0 loss.skel_recall.weight=0.1 data.root=/home/noob/work/s2c_root run_name=s2c_SKR01_100pct_s10 
+2026-11-03 02:39:28 launch.log after the harness stops: [Tue Nov  3 02:39:25 AM IST 2026] trained s2c_SUPPF_100pct_s10 rc=143|[Tue Nov  3 02:39:25 AM IST 2026] trained s2c_SKR01_100pct_s10 rc=143|
+2026-11-03 02:39:28 pass 2: FAKE fake2.txt (24 samples), dummies gone
+2026-11-03 02:39:52 pass 2 guard rc=0
+2026-11-03 02:39:52 harness stop of decoy sleep pid 2204534 cmdline: sleep 600 
+2026-11-03 02:39:52 dry harness end

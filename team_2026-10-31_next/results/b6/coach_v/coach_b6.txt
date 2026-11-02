@@ -1,0 +1,12 @@
+## primary: pooled OOF inactive IoU (532 cells): house s5 0.4992 house s6 0.5193 PF s5 0.4996 PF s6 0.4901
+  delta (PF - house, seed means) -0.0144; two-stage CI [-0.0955, +0.0609] (own RNG, 2,000) -> **n.d.** (PASS iff lo > 0 and delta >= 0.01; FAIL iff hi < 0)
+  [reported] one-stage CI [-0.0816, +0.0462]; seed-pair deltas s5 +0.0004, s6 -0.0291
+  [reported] crack IoU delta -0.0104; crack relF1@2 delta +0.0042
+  [reported] inactive comp R / P: house 0.517 / 0.618 | PF 0.575 / 0.729
+  [reported] per source: ARTS +0.0535 | BMRK -0.0961 | CFVS +0.0007 | CSIR +0.0129
+  [reported] per fold (delta, PF / house seed means): f0 -0.0155 | f1 -0.0803 | f2 +0.0093 | f3 +0.0193 | f4 -0.0014
+  [reported] leave-top-3-groups-out (CFVS_00016, CFVS_00130, CFVS_00146): -0.0290
+  [reported] twin groups (13): -0.0115 | rest -0.0161
+  [reported] class 19 (fold 0, GT px 21935): inactive predicted on it: house s5 0 house s6 0 PF s5 0 PF s6 0
+  [reported] class 12 (fold 2, GT px 1204): inactive predicted on it: house s5 0 house s6 0 PF s5 0 PF s6 0
+  [reported] class 8 (fold 3, GT px 1238): inactive predicted on it: house s5 0 house s6 0 PF s5 0 PF s6 0

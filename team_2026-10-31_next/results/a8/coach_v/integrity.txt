@@ -1,0 +1,56 @@
+a8 out md5sum -c OK 3cdd7286 31 files
+dumps md5sum -c OK (8)
+init refs md5sum -c OK (4)
+coach code: 2da944cd b7de8d5f 
+rf_sets 14771356; a8_root test.txt 9dcccf00 val.txt 9dcccf00 train.txt 842f27c4
+el_f8 HEAD c280e8c tracked-modified 0
+[Sun Nov  1 09:15:16 PM IST 2026] config OK f8_A8_4k_s0 vs pf2_SUPPF_100pct_s5: seed 0 + A8 change only
+[Sun Nov  1 09:17:19 PM IST 2026] config OK f8_A8c_4k_s0 vs pf2_SUPPF_100pct_s5: seed 0 + A8c change only
+[Sun Nov  1 09:41:18 PM IST 2026] trained f8_A8_4k_s0 rc=0
+[Sun Nov  1 09:45:28 PM IST 2026] trained f8_A8c_4k_s0 rc=0
+[Sun Nov  1 09:45:57 PM IST 2026] config OK f8_A8_4k_s1 vs pf2_SUPPF_100pct_s5: seed 1 + A8 change only
+[Sun Nov  1 10:14:16 PM IST 2026] trained f8_A8_4k_s1 rc=0
+[Sun Nov  1 10:14:32 PM IST 2026] config OK f8_A8c_4k_s1 vs pf2_SUPPF_100pct_s5: seed 1 + A8c change only
+[Sun Nov  1 10:55:52 PM IST 2026] trained f8_A8c_4k_s1 rc=0
+== config diff f8_A8_4k_s0 vs f8_A8c_4k_s0
+1c1
+< run_name: f8_A8_4k_s0
+---
+> run_name: f8_A8c_4k_s0
+13,15c13,15
+<   backbone: convnext_tiny.dinov3_lvd1689m
+<   backbone_weights: /home/noob/work/weights/dinov3_convnext_tiny_lvd1689m_timm.safetensors
+<   backbone_weights_format: timm
+---
+>   backbone: convnext_tiny
+>   backbone_weights: /home/noob/.cache/torch/hub/checkpoints/convnext_tiny-983f1562.pth
+>   backbone_weights_format: torchvision_convnext
+== config diff f8_A8_4k_s0 vs f8_A8_4k_s1
+1,2c1,2
+< run_name: f8_A8_4k_s0
+< seed: 0
+---
+> run_name: f8_A8_4k_s1
+> seed: 1
+== config diff f8_A8_4k_s0 vs f8_A8c_4k_s1
+1,2c1,2
+< run_name: f8_A8_4k_s0
+< seed: 0
+---
+> run_name: f8_A8c_4k_s1
+> seed: 1
+13,15c13,15
+<   backbone: convnext_tiny.dinov3_lvd1689m
+<   backbone_weights: /home/noob/work/weights/dinov3_convnext_tiny_lvd1689m_timm.safetensors
+<   backbone_weights_format: timm
+---
+>   backbone: convnext_tiny
+>   backbone_weights: /home/noob/.cache/torch/hub/checkpoints/convnext_tiny-983f1562.pth
+>   backbone_weights_format: torchvision_convnext
+== f8_A8_4k_s0 data / schedule keys
+seed: 0  name: hrstem_unetpp  backbone: convnext_tiny.dinov3_lvd1689m  backbone_weights: /home/noob/work/weights/dinov3_convnext_tiny_lvd1689m_timm.safetensors  backbone_weights_format: timm  backbone_drop_path: 0.0  total_steps: 4000  val_every: 4000  warmup_steps: 200  lr_mult: 0.1  warmup_steps: 2000  ramp_steps: 2000  root: /home/noob/work/a8_root 
+== f8_A8c_4k_s0 data / schedule keys
+seed: 0  name: hrstem_unetpp  backbone: convnext_tiny  backbone_weights: /home/noob/.cache/torch/hub/checkpoints/convnext_tiny-983f1562.pth  backbone_weights_format: torchvision_convnext  backbone_drop_path: 0.0  total_steps: 4000  val_every: 4000  warmup_steps: 200  lr_mult: 0.1  warmup_steps: 2000  ramp_steps: 2000  root: /home/noob/work/a8_root 
+coach_a8 rc=0
+coach_a8_extra rc=0
+coach a8 verify done 23:34:07

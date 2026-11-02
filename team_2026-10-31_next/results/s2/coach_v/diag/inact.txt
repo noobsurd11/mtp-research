@@ -1,0 +1,29 @@
+## test: units with GT inactive px: 16; per unit inactive IoU (seed mean) | pred inactive px | GT-inactive px predicted crack
+   HC - SUPPF: 10 / 16 units down; median -0.023
+   HC2 - SUPPF: 10 / 16 units down; median -0.030
+   SKR01 - SUPPF: 7 / 16 units down; median +0.002
+   HC2 - HC: 8 / 16 units down; median -0.004
+   BMRK_00073_cell0253    gt   21382 | SUPPF 0.140 pred    3205 in->cr    690 | HC 0.114 pred    2600 in->cr    656 | HC2 0.106 pred    2367 in->cr   1205
+   CFVS_00114_r6_c5       gt   19305 | SUPPF 0.525 pred   36451 in->cr    126 | HC 0.504 pred   38161 in->cr     56 | HC2 0.527 pred   36232 in->cr    111
+   BMRK_00070_cell0250    gt   13500 | SUPPF 0.351 pred    5195 in->cr    436 | HC 0.333 pred    4924 in->cr    395 | HC2 0.275 pred    3907 in->cr    833
+   BMRK_00797_cell1631    gt    8597 | SUPPF 0.648 pred   10652 in->cr    374 | HC 0.619 pred   11568 in->cr    355 | HC2 0.622 pred   10291 in->cr    391
+   CFVS_00027_r4_c4       gt    5214 | SUPPF 0.817 pred    5823 in->cr    211 | HC 0.774 pred    6247 in->cr    153 | HC2 0.723 pred    6620 in->cr    222
+   CSIR_00092_r8_c4       gt    4203 | SUPPF 0.757 pred    3915 in->cr    233 | HC 0.783 pred    3946 in->cr    199 | HC2 0.705 pred    3533 in->cr    221
+   CSIR_00070_r8_c4       gt    3815 | SUPPF 0.027 pred     106 in->cr     10 | HC 0.000 pred       0 in->cr      3 | HC2 0.026 pred      97 in->cr     19
+   CFVS_00042_r8_c4       gt    3178 | SUPPF 0.517 pred    5497 in->cr    203 | HC 0.491 pred    5897 in->cr    199 | HC2 0.619 pred    4807 in->cr    190
+   CFVS_00035_r8_c4       gt    2728 | SUPPF 0.797 pred    3096 in->cr    119 | HC 0.798 pred    3019 in->cr    118 | HC2 0.814 pred    3056 in->cr     94
+   BMRK_00219_cell0879    gt    2715 | SUPPF 0.876 pred    3098 in->cr      0 | HC 0.881 pred    3082 in->cr      0 | HC2 0.889 pred    3056 in->cr      0
+   BMRK_00788_cell1622    gt    2155 | SUPPF 0.314 pred    4364 in->cr     98 | HC 0.257 pred    5545 in->cr     98 | HC2 0.525 pred    2200 in->cr    167
+   BMRK_00062_cell0242    gt    1672 | SUPPF 0.473 pred     915 in->cr     34 | HC 0.211 pred     452 in->cr     42 | HC2 0.000 pred       0 in->cr    102
+## ext: units with GT inactive px: 7; per unit inactive IoU (seed mean) | pred inactive px | GT-inactive px predicted crack
+   HC - SUPPF: 3 / 7 units down; median +0.000
+   HC2 - SUPPF: 5 / 7 units down; median -0.182
+   SKR01 - SUPPF: 1 / 7 units down; median +0.015
+   HC2 - HC: 5 / 7 units down; median -0.127
+   CSIR_01637             gt    3702 | SUPPF 0.627 pred    3493 in->cr     92 | HC 0.571 pred    3084 in->cr    117 | HC2 0.444 pred    2381 in->cr     96 | scuff_halfcut scuff=1 halfcut=1
+   CSIR_01101             gt    3228 | SUPPF 0.327 pred    1487 in->cr     40 | HC 0.496 pred    2209 in->cr     35 | HC2 0.052 pred     327 in->cr     54 | other scuff=0 halfcut=0
+   CSIR_01647             gt    1033 | SUPPF 0.696 pred     943 in->cr      4 | HC 0.591 pred     776 in->cr      2 | HC2 0.435 pred     578 in->cr      4 | scuff_halfcut scuff=1 halfcut=1
+   CSIR_02136             gt     554 | SUPPF 0.150 pred     130 in->cr      4 | HC 0.225 pred     159 in->cr      3 | HC2 0.026 pred      15 in->cr      3 | other scuff=0 halfcut=1
+   CSIR_00400             gt     436 | SUPPF 0.555 pred     243 in->cr      1 | HC 0.139 pred      64 in->cr      3 | HC2 0.011 pred       5 in->cr      0 | other scuff=0 halfcut=0
+   CSIR_02026             gt     148 | SUPPF 0.000 pred       0 in->cr      1 | HC 0.000 pred       0 in->cr      0 | HC2 0.000 pred       0 in->cr      0 | scuff_halfcut scuff=1 halfcut=1
+   CSIR_01717             gt      57 | SUPPF 0.000 pred     271 in->cr      0 | HC 0.000 pred     141 in->cr      0 | HC2 0.000 pred      39 in->cr      0 | other scuff=0 halfcut=1,scuff_halfcut scuff=1 halfcut=1

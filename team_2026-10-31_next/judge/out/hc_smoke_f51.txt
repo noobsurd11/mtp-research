@@ -1,0 +1,21 @@
+F51 cells 51 modules 36 crack cells 12 crack px 14639
+f8_A8_4k_s0: F51 AP 1000-bin 0.547966 fp16 0.577800 | FA px at b 0: H36 102 F51 274
+f8_A8_4k_s1: F51 AP 1000-bin 0.541584 fp16 0.569896 | FA px at b 0: H36 0 F51 163
+f8_A8c_4k_s0: F51 AP 1000-bin 0.535772 fp16 0.568886 | FA px at b 0: H36 42 F51 186
+f8_A8c_4k_s1: F51 AP 1000-bin 0.602414 fp16 0.635940 | FA px at b 0: H36 0 F51 151
+1000-bin: d A8-A8c -0.0243 | module boot (seed 0) 2.5% -0.0463 97.5% +0.0454 P(d*<0) 0.839 | HC guard (FAIL iff 97.5% < 0): pass
+two-stage (modules + seeds with replacement): 2.5% -0.0692 97.5% +0.0473
+fp16-exact: d A8-A8c -0.0286 | module boot (seed 0) 2.5% -0.0493 97.5% +0.0476 P(d*<0) 0.847 | HC guard (FAIL iff 97.5% < 0): pass
+  CSIR_00031: crack px 84 module dAP +0.0082 | F51 without it d -0.0246
+  CSIR_00035: crack px 37 module dAP +0.0000 | F51 without it d -0.0244
+  CSIR_00038: crack px 39 module dAP +0.0000 | F51 without it d -0.0244
+  CSIR_00048: crack px 83 module dAP +0.0000 | F51 without it d -0.0245
+  CSIR_00063: crack px 163 module dAP +0.0027 | F51 without it d -0.0240
+  CSIR_00067: crack px 844 module dAP +0.0445 | F51 without it d -0.0283
+  CSIR_00073: crack px 11110 module dAP -0.0131 | F51 without it d -0.0047
+  CSIR_00081: crack px 211 module dAP -0.0459 | F51 without it d -0.0284
+  CSIR_00083: crack px 45 module dAP +0.0000 | F51 without it d -0.0244
+  CSIR_00139: crack px 211 module dAP -0.0482 | F51 without it d -0.0219
+  CSIR_00385: crack px 1367 module dAP -0.0742 | F51 without it d -0.0096
+  CSIR_02428: crack px 406 module dAP -0.0302 | F51 without it d -0.0257
+DONE

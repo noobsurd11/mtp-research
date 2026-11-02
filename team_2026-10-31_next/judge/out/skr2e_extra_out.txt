@@ -1,0 +1,31 @@
+## (1) test bias share (all 50; E-PF stored at U only, so linear in pred/GT between U points; E-PF curve is concave in b, so the remaining gap is an upper bound)
+  E-PF: b0 vol 0.943 IoU 0.4815 relF1 0.8942 relP 0.9541 | b1 vol 1.149 IoU 0.4919 relF1 0.9060 relP 0.9314 | b1.5 vol 1.285 IoU 0.4888 relF1 0.9078 relP 0.9122
+  E-SKR2 b0: vol 1.056 IoU 0.4917 relF1 0.9046 relP 0.9432
+  matched test volume: E-PF ~b 0.55: IoU 0.4872 relF1 0.9006 relP 0.9417 -> gap left IoU +0.0045 (44% of +0.0102), relF1 +0.0040 (38% of +0.0104); relP +0.0015
+
+## (2) E1 sweep: equal-b gap and matched-volume gap, E-SKR2 at each grid b (relF1 / any-hit / crack-free px)
+  SKR2 b0 (vol 0.469): equal-b +0.0353 / +0.0676 / +145 | matched volume E-PF ~b 0.35: +0.0238 / +0.0273 / -897
+  SKR2 b0.25 (vol 0.516): equal-b +0.0355 / +0.0743 / -43 | matched volume E-PF ~b 0.48: +0.0227 / +0.0370 / -1113
+  SKR2 b0.5 (vol 0.614): equal-b +0.0428 / +0.0845 / -255 | matched volume E-PF ~b 0.83: +0.0439 / +0.0439 / -1531
+  SKR2 b0.75 (vol 0.677): equal-b +0.0459 / +0.0811 / -573 | matched volume E-PF ~b 1.05: +0.0465 / +0.0412 / -1771
+  SKR2 b1 (vol 0.747): equal-b +0.0458 / +0.0642 / -816 | matched volume E-PF ~b 1.25: +0.0411 / +0.0162 / -2011
+  SKR2 b1.25 (vol 0.834): equal-b +0.0435 / +0.0338 / -1021 | matched volume E-PF ~b 1.39: +0.0342 / +0.0111 / -2196
+  SKR2 b1.5 (vol 1.017): equal-b +0.0379 / +0.0372 / -967 | matched volume E-PF ~b 1.94: +0.0370 / +0.0140 / -2418
+  SKR2 b1.75 (vol 1.093): equal-b +0.0349 / +0.0338 / -975 | matched volume E-PF ~b 2.36: +0.0371 / +0.0135 / -2609
+  SKR2 b2 (vol 1.146): equal-b +0.0329 / +0.0338 / -984 | matched volume E-PF ~b 2.69: +0.0358 / +0.0253 / -2647
+  SKR2 b2.25 (vol 1.191): equal-b +0.0325 / +0.0338 / -1017 | matched volume E-PF ~b 3.00: +0.0355 / +0.0270 / -2687
+  SKR2 b2.5 (vol 1.234): equal-b +0.0310 / +0.0372 / -1032 | matched volume outside E-PF grid volume
+  SKR2 b2.75 (vol 1.273): equal-b +0.0288 / +0.0304 / -1008 | matched volume outside E-PF grid volume
+  SKR2 b3 (vol 1.313): equal-b +0.0276 / +0.0405 / -957 | matched volume outside E-PF grid volume
+  E-PF best E1 relF1 over the grid: 0.4744 at b 1.75 (vol 0.975); E-SKR2 b0 0.4698 (vol 0.469)
+
+## (3) G2b (E1 crack-free px vs E-PF b 0 = 2528; bar x1.5 = 3792) for every candidate E-SKR2 headline b on the grid
+  0:x1.06 0.25:x1.21 0.5:x1.58T 0.75:x1.83T 1:x2.12T 1.25:x2.50T 1.5:x3.35T 1.75:x3.70T 2:x3.98T 2.25:x4.22T 2.5:x4.46T 2.75:x4.68T 3:x4.91T   (T = trip)
+  E-SKR2 val D2 path: 0.0: relR 0.8680 relP 0.9317 drop +0.0000 0.25: relR 0.8776 relP 0.9255 drop +0.0112 0.5: relR 0.8926 relP 0.9188 drop +0.0267 0.75: relR 0.8981 relP 0.9120 drop +0.0382 1.0: relR 0.9034 relP 0.9056 drop +0.0485 1.25: relR 0.9091 relP 0.8967 drop +0.0609
+
+## (4) guard statistics with bootstrap CIs (2,000, seed 0): test relP@2 delta (image boot, all 50), E1 crack-free px ratio (71-cluster boot)
+  b 0 (E-PF b0, E-SKR2 b0): G2a relP@2 -0.0110 [-0.0182, -0.0060] P(< -0.03) 0.000 | G2b x1.06 [x0.83, x1.22] P(> 1.5) 0.000; crack-free FA px by top clusters SKR2: CSIR_00394 738 (PF 664), CSIR_00345 638 (PF 464), CSIR_00341 460 (PF 433), CSIR_00391 204 (PF 238)
+  headline pair (E-PF b0, E-SKR2 b1): G2a relP@2 -0.0379 [-0.0520, -0.0272] P(< -0.03) 0.914 | G2b x2.12 [x1.70, x2.58] P(> 1.5) 0.997; crack-free FA px by top clusters SKR2: CSIR_00394 1692 (PF 664), CSIR_00345 927 (PF 464), CSIR_00341 660 (PF 433), CSIR_00395 420 (PF 166)
+
+## (5) any-hit at b 0 by image
+  images with GT comps 21: SKR2 more hits in 6, fewer in 0, equal 15; exact two-sided sign p 0.031

@@ -1,0 +1,21 @@
+f8_A8_4k_s0: latest.pth step 4000
+  4k vs own init: stage0 mean 0.9741 cat 0.9785 (n 9); stage1 mean 0.9615 cat 0.9657 (n 10); stage2 mean 0.9868 cat 0.9879 (n 28); stage3 mean 0.9963 cat 0.9971 (n 10); stem mean 0.9989 cat 0.9989 (n 1)
+  validity (stage2 & stage3 mean >= 0.5): PASS
+f8_A8_4k_s1: latest.pth step 4000
+  4k vs own init: stage0 mean 0.9737 cat 0.9782 (n 9); stage1 mean 0.9627 cat 0.9659 (n 10); stage2 mean 0.9833 cat 0.9844 (n 28); stage3 mean 0.9969 cat 0.9973 (n 10); stem mean 0.9989 cat 0.9989 (n 1)
+  validity (stage2 & stage3 mean >= 0.5): PASS
+f8_A8c_4k_s0: latest.pth step 4000
+  4k vs own init: stage0 mean 0.9971 cat 0.9973 (n 9); stage1 mean 0.9960 cat 0.9963 (n 10); stage2 mean 0.9971 cat 0.9972 (n 28); stage3 mean 0.9986 cat 0.9988 (n 10); stem mean 0.9999 cat 0.9999 (n 1)
+  validity (stage2 & stage3 mean >= 0.5): PASS
+f8_A8c_4k_s1: latest.pth step 4000
+  4k vs own init: stage0 mean 0.9971 cat 0.9972 (n 9); stage1 mean 0.9959 cat 0.9963 (n 10); stage2 mean 0.9971 cat 0.9971 (n 28); stage3 mean 0.9984 cat 0.9986 (n 10); stem mean 0.9999 cat 0.9999 (n 1)
+  validity (stage2 & stage3 mean >= 0.5): PASS
+== arm-swap control (4k of one arm vs the init of the other arm)
+f8_A8_4k_s0 4k vs f8_A8c_4k_s0 init: stage0 0.0148; stage1 -0.0062; stage2 -0.0010; stage3 0.0023; stem 0.0452
+f8_A8c_4k_s0 4k vs f8_A8_4k_s0 init: stage0 0.0144; stage1 -0.0053; stage2 -0.0010; stage3 0.0024; stem 0.0450
+A8 init vs A8c init: stage0 0.0145; stage1 -0.0053; stage2 -0.0009; stage3 0.0024; stem 0.0452
+encoder init identical across seeds within each arm: True
+== init vs weight files (no el_f8 remap)
+A8 init vs DINOv3 safetensors by key: tensors 178 max|d| 0.00e+00 mismatches 0
+A8c init vs torchvision file by exact values: matched 178/178; unmatched []
+DONE

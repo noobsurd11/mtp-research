@@ -1,0 +1,148 @@
+[Mon Nov  2 09:23:18 PM IST 2026] s2q scoring done: post rc=0
+S2 post md5sum -c OK bd671e26 490 files
+PF2 post OK 3827f7c0 (expect 3827f7c0)
+HC post OK d5c39e0d (expect d5c39e0d)
+HC syn dumps OK
+S2 syn dumps OK (30)
+FROZEN used: fb5becd2 (expect fb5becd2)
+coach code: b0456b28 a95649de 850e056e 7562d97f 12bd1385 
+el_thin HEAD c9bbb02 REVISION c9bbb02 tracked 0 (expect c9bbb02)
+el_hc2 HEAD 0405151 REVISION 0405151 tracked 0 (expect 0405151)
+skr2_SKR01_100pct_s5 hdr=1 s20k=1 tb=0 pf=400
+   >   skel_recall:
+   >     weight: 0.1
+   [Mon Nov  2 11:34:52 AM IST 2026] config OK skr2_SKR01_100pct_s5 vs pf2_SUPPF_100pct_s5: seed 5 + SKR01 change only
+   [Mon Nov  2 02:03:37 PM IST 2026] trained skr2_SKR01_100pct_s5 rc=0
+skr2_SKR01_100pct_s6 hdr=1 s20k=1 tb=0 pf=400
+   >   skel_recall:
+   >     weight: 0.1
+   [Mon Nov  2 11:36:55 AM IST 2026] config OK skr2_SKR01_100pct_s6 vs pf2_SUPPF_100pct_s5: seed 6 + SKR01 change only
+   [Mon Nov  2 02:10:00 PM IST 2026] trained skr2_SKR01_100pct_s6 rc=0
+skr2_SKR01_100pct_s7 hdr=1 s20k=1 tb=0 pf=400
+   >   skel_recall:
+   >     weight: 0.1
+   [Mon Nov  2 11:38:59 AM IST 2026] config OK skr2_SKR01_100pct_s7 vs pf2_SUPPF_100pct_s5: seed 7 + SKR01 change only
+   [Mon Nov  2 02:12:56 PM IST 2026] trained skr2_SKR01_100pct_s7 rc=0
+skr2_SKR01_100pct_s8 hdr=1 s20k=1 tb=0 pf=400
+   >   skel_recall:
+   >     weight: 0.1
+   [Mon Nov  2 02:04:04 PM IST 2026] config OK skr2_SKR01_100pct_s8 vs pf2_SUPPF_100pct_s5: seed 8 + SKR01 change only
+   [Mon Nov  2 04:33:14 PM IST 2026] trained skr2_SKR01_100pct_s8 rc=0
+skr2_SKR01_100pct_s9 hdr=1 s20k=1 tb=0 pf=400
+   >   skel_recall:
+   >     weight: 0.1
+   [Mon Nov  2 02:10:07 PM IST 2026] config OK skr2_SKR01_100pct_s9 vs pf2_SUPPF_100pct_s5: seed 9 + SKR01 change only
+   [Mon Nov  2 04:39:10 PM IST 2026] trained skr2_SKR01_100pct_s9 rc=0
+hc2_HCig_100pct_s5 hdr=1 s20k=1 tb=0 pf=400
+   >   synth_halfcut:
+   >     p: 0.35
+   >     pool: data/splits/synth_halfcut_pool_ap.tsv
+   >   synth_halfcut_ignore_inactive: true
+   [Mon Nov  2 02:33:35 PM IST 2026] config OK hc2_HCig_100pct_s5 vs pf2_SUPPF_100pct_s5: seed 5 + HC2 change only
+   [Mon Nov  2 05:00:33 PM IST 2026] trained hc2_HCig_100pct_s5 rc=0
+hc2_HCig_100pct_s6 hdr=1 s20k=1 tb=0 pf=400
+   >   synth_halfcut:
+   >     p: 0.35
+   >     pool: data/splits/synth_halfcut_pool_ap.tsv
+   >   synth_halfcut_ignore_inactive: true
+   [Mon Nov  2 04:33:41 PM IST 2026] config OK hc2_HCig_100pct_s6 vs pf2_SUPPF_100pct_s5: seed 6 + HC2 change only
+   [Mon Nov  2 07:01:05 PM IST 2026] trained hc2_HCig_100pct_s6 rc=0
+hc2_HCig_100pct_s7 hdr=1 s20k=1 tb=0 pf=400
+   >   synth_halfcut:
+   >     p: 0.35
+   >     pool: data/splits/synth_halfcut_pool_ap.tsv
+   >   synth_halfcut_ignore_inactive: true
+   [Mon Nov  2 04:39:14 PM IST 2026] config OK hc2_HCig_100pct_s7 vs pf2_SUPPF_100pct_s5: seed 7 + HC2 change only
+   [Mon Nov  2 07:06:35 PM IST 2026] trained hc2_HCig_100pct_s7 rc=0
+hc2_HCig_100pct_s8 hdr=1 s20k=1 tb=0 pf=400
+   >   synth_halfcut:
+   >     p: 0.35
+   >     pool: data/splits/synth_halfcut_pool_ap.tsv
+   >   synth_halfcut_ignore_inactive: true
+   [Mon Nov  2 05:00:48 PM IST 2026] config OK hc2_HCig_100pct_s8 vs pf2_SUPPF_100pct_s5: seed 8 + HC2 change only
+   [Mon Nov  2 07:21:06 PM IST 2026] trained hc2_HCig_100pct_s8 rc=0
+hc2_HCig_100pct_s9 hdr=1 s20k=1 tb=0 pf=400
+   >   synth_halfcut:
+   >     p: 0.35
+   >     pool: data/splits/synth_halfcut_pool_ap.tsv
+   >   synth_halfcut_ignore_inactive: true
+   [Mon Nov  2 07:01:25 PM IST 2026] config OK hc2_HCig_100pct_s9 vs pf2_SUPPF_100pct_s5: seed 9 + HC2 change only
+   [Mon Nov  2 07:59:41 PM IST 2026] trained hc2_HCig_100pct_s9 rc=0
+gpumem min free: 2078 12:18:28
+== decision_rc.txt
+hc2_synth_inactive rc=0
+e1_coprim rc=0
+b5w rc=0
+shv1 rc=0
+f51 rc=0
+guards rc=0
+== extra_rc.txt
+enc_cosine rc=0
+cellgate rc=0
+scuffign rc=0
+== hc2_synth_readout.txt
+hc2_HCig_100pct_s5 | synth window: made 103 eligible_not_drawn 191 not_eligible 106 | total: made 41455 eligible_not_drawn 76711 not_eligible 41834 (share 0.2591, eligible 0.7385, p_eff 0.3508) at step 20000 | synth inactive: excluded 0 synthetic_inactive_px 0 synthetic_ignored_px 66830 | total: excluded 0 (share 0.0000) synthetic_inactive_px 0 synthetic_ignored_px 23019579 (share of synthetic px 0.00212) at step 20000 | total synthetic_inactive_px 0
+hc2_HCig_100pct_s6 | synth window: made 102 eligible_not_drawn 195 not_eligible 103 | total: made 41333 eligible_not_drawn 76832 not_eligible 41835 (share 0.2583, eligible 0.7385, p_eff 0.3498) at step 20000 | synth inactive: excluded 0 synthetic_inactive_px 0 synthetic_ignored_px 108038 | total: excluded 0 (share 0.0000) synthetic_inactive_px 0 synthetic_ignored_px 22693474 (share of synthetic px 0.00209) at step 20000 | total synthetic_inactive_px 0
+hc2_HCig_100pct_s7 | synth window: made 97 eligible_not_drawn 202 not_eligible 101 | total: made 41523 eligible_not_drawn 76610 not_eligible 41867 (share 0.2595, eligible 0.7383, p_eff 0.3515) at step 20000 | synth inactive: excluded 0 synthetic_inactive_px 0 synthetic_ignored_px 46611 | total: excluded 0 (share 0.0000) synthetic_inactive_px 0 synthetic_ignored_px 22474884 (share of synthetic px 0.00206) at step 20000 | total synthetic_inactive_px 0
+hc2_HCig_100pct_s8 | synth window: made 122 eligible_not_drawn 176 not_eligible 102 | total: made 41688 eligible_not_drawn 76501 not_eligible 41811 (share 0.2606, eligible 0.7387, p_eff 0.3527) at step 20000 | synth inactive: excluded 0 synthetic_inactive_px 0 synthetic_ignored_px 72796 | total: excluded 0 (share 0.0000) synthetic_inactive_px 0 synthetic_ignored_px 22569675 (share of synthetic px 0.00207) at step 20000 | total synthetic_inactive_px 0
+hc2_HCig_100pct_s9 | synth window: made 104 eligible_not_drawn 182 not_eligible 114 | total: made 41243 eligible_not_drawn 76914 not_eligible 41843 (share 0.2578, eligible 0.7385, p_eff 0.3491) at step 20000 | synth inactive: excluded 0 synthetic_inactive_px 0 synthetic_ignored_px 60695 | total: excluded 0 (share 0.0000) synthetic_inactive_px 0 synthetic_ignored_px 22476491 (share of synthetic px 0.00208) at step 20000 | total synthetic_inactive_px 0
+== opening readouts (decision passes)
+half-cut without scuff      |  29 | SUPPF  | 0.7803±0.0190 | 0.1500±0.2042 | 0.7455±0.0996
+half-cut without scuff      |  29 | SKR01  | 0.7857±0.0188 | 0.2007±0.2025 | 0.8000±0.0407
+half-cut without scuff      |  29 | HC2    | 0.7946±0.0430 | 0.0264±0.0589 | 0.7455±0.0761
+full                        |  48 | SUPPF  | 0.4520±0.0663 | 0.0966±0.0319 | 0.8364±0.0407
+full                        |  48 | SKR01  | 0.4869±0.0344 | 0.1147±0.0612 | 0.8545±0.0498
+full                        |  48 | HC2    | 0.5013±0.0121 | 0.0179±0.0332 | 0.8545±0.0498
+half-cut                    |  58 | SUPPF  | 0.4080±0.0359 | 0.5367±0.0643 | 0.3635±0.0328
+half-cut                    |  58 | SKR01  | 0.4440±0.0106 | 0.5187±0.0686 | 0.4084±0.0326
+half-cut                    |  58 | HC2    | 0.3968±0.0448 | 0.3805±0.1758 | 0.3439±0.0581
+other (not scuff+half-cut)  |  77 | SUPPF  | 0.5207±0.0556 | 0.0986±0.0301 | 0.7909±0.0518
+other (not scuff+half-cut)  |  77 | SKR01  | 0.5507±0.0294 | 0.1178±0.0625 | 0.8273±0.0380
+other (not scuff+half-cut)  |  77 | HC2    | 0.5700±0.0244 | 0.0189±0.0307 | 0.8000±0.0610
+G1 inactive | HC2 - SUPPF | test inactive IoU delta all 50 -0.0256, clean -0.0259 | TRIP iff <= -0.015 in both | TRIP
+G2 precision | SKR01 - SUPPF | test crack relP@2 delta (all 50) -0.0121 (TRIP if < -0.03) | E1 crack px on 74 crack-free cells 3819 vs 3931 = x0.97 (TRIP if > 1.5) | ok
+G3 F51 harm | HC2 - SUPPF | F51 crack AP d +0.0376, boot upper 97.5% +0.0869 (TRIP if < 0) | ok
+
+## reported only (never a verdict): seed means per arm
+SUPPF  test_relP2_clean 0.9426 | test_pred_over_gt 0.9542 | test_anyhit 0.8751 | test_crackfree_px 0.0000 | test_n_crackfree 2.0000 | e1_pred_over_gt 0.4659 | e1_relP2 0.5245 | e1_relR2 0.3515 | test_inact_all 0.4557 | test_inact_clean 0.4694 | test_relP2_all 0.9417 | e1_crackfree_px 3930.6000
+SKR01  test_relP2_clean 0.9299 | test_pred_over_gt 1.0623 | test_anyhit 0.8857 | test_crackfree_px 0.2000 | test_n_crackfree 2.0000 | e1_pred_over_gt 0.5463 | e1_relP2 0.5393 | e1_relR2 0.3962 | test_inact_all 0.4656 | test_inact_clean 0.4796 | test_relP2_all 0.9296 | e1_crackfree_px 3819.0000
+HC2    test_relP2_clean 0.9316 | test_pred_over_gt 1.0648 | test_anyhit 0.8995 | test_crackfree_px 0.0000 | test_n_crackfree 2.0000 | e1_pred_over_gt 0.4729 | e1_relP2 0.5532 | e1_relR2 0.3498 | test_inact_all 0.4301 | test_inact_clean 0.4435 | test_relP2_all 0.9225 | e1_crackfree_px 3125.0000
+SKR01 per seed, matched SHV1 relR@2: 0.7141 0.7246 0.7164 0.7066 0.7199 | SHV1 oracle b: +3.2 +3.1 +2.9 +3.4 +3.4 | inactive IoU b0 val: 0.5774 0.5283 0.4724 0.5329 0.4773 | SHV1: 0.4480 0.4349 0.3980 0.5208 0.3619
+SKR01 val records self-check vs m0 (cpu profile, reported): {'skr2_SKR01_100pct_s5': 'PASS', 'skr2_SKR01_100pct_s6': 'PASS', 'skr2_SKR01_100pct_s7': 'PASS', 'skr2_SKR01_100pct_s8': 'PASS', 'skr2_SKR01_100pct_s9': 'PASS'}
+HC per seed, matched SHV1 relR@2: 0.8120 0.8082 0.8183 0.8375 0.8185 | SHV1 oracle b: +1.8 +0.2 +1.3 +1.8 +1.6 | inactive IoU b0 val: 0.4711 0.4342 0.5452 0.4152 0.4757 | SHV1: 0.3248 0.3820 0.4173 0.3750 0.4177
+HC val records self-check vs m0 (cpu profile, reported): {'hc_HC_100pct_s5': 'PASS', 'hc_HC_100pct_s6': 'PASS', 'hc_HC_100pct_s7': 'PASS', 'hc_HC_100pct_s8': 'PASS', 'hc_HC_100pct_s9': 'PASS'}
+MECHANISM [DECISION]: matched SHV1 relR@2 HC2 nan - SUPPF 0.6959 = +nan -> UNDEFINED (relP@2 >= 0.90 unreachable on SHV1 for an arm): coach decides | (reported) SHV1-p delta +nan; V0 delta +0.0117
+MECHANISM [reported (context)]: matched SHV1 relR@2 SKR01 0.7159 - SUPPF 0.6959 = +0.0200 -> mechanism FAILED (SKR01 - SUPPF < +0.05) | (reported) SHV1-p delta +0.0266; V0 delta +0.0010
+MECHANISM [reference (opened), not a contrast]: matched SHV1 relR@2 HC 0.8192 - SUPPF 0.6959 = +0.1233 -> mechanism gain >= +0.05 (not failed) | (reported) SHV1-p delta +0.1304; V0 delta +0.0136
+(descriptive) HC2 - HC: matched_SHV1_relR +nan, inactive_iou_b0_val +0.0160, inactive_iou_b0_SHV1 -0.3811
+  FA px on crack-free cells (H36 / F51), arm means: at val b_rel SKR01 [181.8, 769.6] SUPPF [277.8, 1231.0] | at b 0 SKR01 [131.2, 197.8] SUPPF [162.6, 113.8]
+[reference (opened), not a contrast] HC - SUPPF: F51 crack AP 0.5371 vs 0.4702 | d +0.0669 | boot lo +0.0125 hi +0.0867 | (no verdict role) | sign up 6/12 | 36 modules, 2000 resamples
+  per run F51 AP: hc_HC_100pct_s5 0.5523 hc_HC_100pct_s6 0.4946 hc_HC_100pct_s7 0.5649 hc_HC_100pct_s8 0.5648 hc_HC_100pct_s9 0.5088 pf2_SUPPF_100pct_s5 0.4743 pf2_SUPPF_100pct_s6 0.4796 pf2_SUPPF_100pct_s7 0.4721 pf2_SUPPF_100pct_s8 0.4781 pf2_SUPPF_100pct_s9 0.4468
+  FA px on crack-free cells (H36 / F51), arm means: at val b_rel HC [10.6, 122.4] SUPPF [277.8, 1231.0] | at b 0 HC [4.2, 44.8] SUPPF [162.6, 113.8]
+G3 (HC2): guard passed (upper 95% bound >= 0)
+check: reference contrast HC reproduces the frozen HC opening F51 result exactly (d, boot_hi, fail): True
+## B5 on the wide grid (-8.0 .. +12.0), arm-pooled OP chosen on val (calib rule; el_metrics_w)
+SUPPF  pooled OP comp b +3.9 | rel b +3.9 | per-run b_comp [6.6, 3.2, 2.7, 5.1, 6.7] b_rel [4.4, 3.8, 3.0, 4.0, 4.2]
+SKR01  pooled OP comp b +4.8 | rel b +2.7 | per-run b_comp [0.3, 6.6, 2.7, 0.7, 4.5] b_rel [1.1, 3.0, 2.6, 3.7, 2.9]
+SKR01  (reported) 6e73ff11 pooled OP on -4..+12: comp b +4.8 (reachable True), rel b +2.7 (reachable True) -> wide same
+HC2    pooled OP comp b +5.1 | rel b +2.6 | per-run b_comp [4.7, 6.6, 6.3, 6.5, 4.7] b_rel [2.2, 2.7, 1.5, 3.3, 3.2]
+HC2    (reported) 6e73ff11 pooled OP on -4..+12: comp b +5.1 (reachable True), rel b +2.6 (reachable True) -> wide same
+
+## rule 1 (/3) vs SUPPF per set (two-set combination: coach); co-primary for ['SKR01'], reported otherwise
+SKR01 - SUPPF | CO-PRIMARY test comp recall at comp P >= 0.90 (pooled OP) | all 50 | SKR01 0.8381±0.0152 | SUPPF 0.8212±0.0199 | delta +0.0169 | thr 0.0290 | n.d.
+SKR01 - SUPPF | CO-PRIMARY test comp recall at comp P >= 0.90 (pooled OP) | clean 49 | SKR01 0.8471±0.0154 | SUPPF 0.8299±0.0202 | delta +0.0171 | thr 0.0293 | n.d.
+SKR01 - SUPPF | CO-PRIMARY test relR@2 at relP@2 >= 0.90 (pooled OP) | all 50 | SKR01 0.8818±0.0117 | SUPPF 0.8723±0.0100 | delta +0.0094 | thr 0.0177 | n.d.
+SKR01 - SUPPF | CO-PRIMARY test relR@2 at relP@2 >= 0.90 (pooled OP) | clean 49 | SKR01 0.8889±0.0115 | SUPPF 0.8795±0.0101 | delta +0.0094 | thr 0.0177 | n.d.
+SKR01 - SUPPF | (reported) per-run OPs, all 50: comp recall d +0.0053, relR@2 d +0.0091 | E1 (descriptive) at pooled OP: comp recall d +0.0493, relR@2 d +0.0251
+HC2 - SUPPF | (reported) test comp recall at comp P >= 0.90 (pooled OP) | all 50 | HC2 0.8603±0.0089 | SUPPF 0.8212±0.0199 | delta +0.0392 | thr 0.0252 | BETTER
+HC2 - SUPPF | (reported) test comp recall at comp P >= 0.90 (pooled OP) | clean 49 | HC2 0.8695±0.0089 | SUPPF 0.8299±0.0202 | delta +0.0396 | thr 0.0255 | BETTER
+HC2 - SUPPF | (reported) test relR@2 at relP@2 >= 0.90 (pooled OP) | all 50 | HC2 0.8687±0.0079 | SUPPF 0.8723±0.0100 | delta -0.0036 | thr 0.0147 | n.d.
+HC2 - SUPPF | (reported) test relR@2 at relP@2 >= 0.90 (pooled OP) | clean 49 | HC2 0.8759±0.0081 | SUPPF 0.8795±0.0101 | delta -0.0036 | thr 0.0149 | n.d.
+HC2 - SUPPF | (reported) per-run OPs, all 50: comp recall d +0.0392, relR@2 d -0.0033 | E1 (descriptive) at pooled OP: comp recall d +0.0007, relR@2 d -0.0181
+verify SKR01 tau0 rc=0
+verify SKR01 tau1 rc=0
+verify HC2 tau0 rc=0
+verify HC2 tau1 rc=0
+coach_s2 selftest rc=0
+coach_s2 run rc=0
+coach s2 verify done 21:24:39

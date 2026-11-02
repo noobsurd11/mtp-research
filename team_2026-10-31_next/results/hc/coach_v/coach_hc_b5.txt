@@ -1,0 +1,26 @@
+## B5 per-run OP | test
+  SUPPF   compR@P.90 0.8286±0.0200 (compP 0.7831) | relR@relP.90 0.8722±0.0092 (relP 0.8976) | b_comp [6.6, 3.2, 2.7, 5.1, 6.7] b_rel [4.4, 3.8, 3.0, 4.0, 4.2] reachable True edge False | speck guard opc compP_all 0.521 speck 0.0128; opr compP_all 0.596 speck 0.0114
+  HC      compR@P.90 0.8487±0.0294 (compP 0.8510) | relR@relP.90 0.8783±0.0117 (relP 0.9086) | b_comp [4.3, 7.2, 1.8, 8.0, -1.2] b_rel [3.2, 3.9, 3.5, 3.9, 4.3] reachable True edge False | speck guard opc compP_all 0.609 speck 0.0105; opr compP_all 0.718 speck 0.0061
+  HC-SUPPF     compR +0.0201 (thr 0.0410) nd | relR +0.0061 (thr 0.0172) nd
+## B5 per-run OP | test_clean
+  SUPPF   compR@P.90 0.8374±0.0202 (compP 0.8834) | relR@relP.90 0.8794±0.0093 (relP 0.9083) | b_comp [6.6, 3.2, 2.7, 5.1, 6.7] b_rel [4.4, 3.8, 3.0, 4.0, 4.2] reachable True edge False | speck guard opc compP_all 0.688 speck 0.0071; opr compP_all 0.735 speck 0.0071
+  HC      compR@P.90 0.8578±0.0297 (compP 0.8964) | relR@relP.90 0.8857±0.0120 (relP 0.9089) | b_comp [4.3, 7.2, 1.8, 8.0, -1.2] b_rel [3.2, 3.9, 3.5, 3.9, 4.3] reachable True edge False | speck guard opc compP_all 0.714 speck 0.0071; opr compP_all 0.734 speck 0.0058
+  HC-SUPPF     compR +0.0203 (thr 0.0415) nd | relR +0.0063 (thr 0.0175) nd
+## B5 per-run OP | ext
+  SUPPF   compR@P.90 0.2750±0.0329 (compP 0.4245) | relR@relP.90 0.3987±0.0244 (relP 0.4645) | b_comp [6.6, 3.2, 2.7, 5.1, 6.7] b_rel [4.4, 3.8, 3.0, 4.0, 4.2] reachable True edge False | speck guard opc compP_all 0.229 speck 0.0948; opr compP_all 0.235 speck 0.1031
+  HC      compR@P.90 0.2689±0.0776 (compP 0.4971) | relR@relP.90 0.4015±0.0387 (relP 0.4914) | b_comp [4.3, 7.2, 1.8, 8.0, -1.2] b_rel [3.2, 3.9, 3.5, 3.9, 4.3] reachable True edge False | speck guard opc compP_all 0.233 speck 0.0865; opr compP_all 0.233 speck 0.0821
+  HC-SUPPF     compR -0.0061 (thr 0.0973) nd | relR +0.0028 (thr 0.0528) nd  [E1: descriptive]
+## B5 pooled OP | test
+  SUPPF   compR@P.90 0.8212±0.0199 (compP 0.8464) | relR@relP.90 0.8723±0.0100 (relP 0.8997) | b_comp [3.9, 3.9, 3.9, 3.9, 3.9] b_rel [3.9, 3.9, 3.9, 3.9, 3.9] reachable True edge False | speck guard opc compP_all 0.598 speck 0.0109; opr compP_all 0.598 speck 0.0109
+  HC      compR@P.90 0.8582±0.0102 (compP 0.8649) | relR@relP.90 0.8785±0.0100 (relP 0.9084) | b_comp [5.3, 5.3, 5.3, 5.3, 5.3] b_rel [3.8, 3.8, 3.8, 3.8, 3.8] reachable True edge False | speck guard opc compP_all 0.652 speck 0.0062; opr compP_all 0.720 speck 0.0062
+  HC-SUPPF     compR +0.0370 (thr 0.0258) BETTER | relR +0.0062 (thr 0.0163) nd
+## B5 pooled OP | test_clean
+  SUPPF   compR@P.90 0.8299±0.0202 (compP 0.8904) | relR@relP.90 0.8795±0.0101 (relP 0.9086) | b_comp [3.9, 3.9, 3.9, 3.9, 3.9] b_rel [3.9, 3.9, 3.9, 3.9, 3.9] reachable True edge False | speck guard opc compP_all 0.730 speck 0.0072; opr compP_all 0.730 speck 0.0072
+  HC      compR@P.90 0.8674±0.0103 (compP 0.8681) | relR@relP.90 0.8860±0.0103 (relP 0.9087) | b_comp [5.3, 5.3, 5.3, 5.3, 5.3] b_rel [3.8, 3.8, 3.8, 3.8, 3.8] reachable True edge False | speck guard opc compP_all 0.692 speck 0.0057; opr compP_all 0.735 speck 0.0060
+  HC-SUPPF     compR +0.0374 (thr 0.0261) BETTER | relR +0.0065 (thr 0.0166) nd
+## B5 pooled OP | ext
+  SUPPF   compR@P.90 0.2696±0.0399 (compP 0.4390) | relR@relP.90 0.3998±0.0298 (relP 0.4646) | b_comp [3.9, 3.9, 3.9, 3.9, 3.9] b_rel [3.9, 3.9, 3.9, 3.9, 3.9] reachable True edge False | speck guard opc compP_all 0.235 speck 0.1022; opr compP_all 0.235 speck 0.1022
+  HC      compR@P.90 0.2784±0.0569 (compP 0.4458) | relR@relP.90 0.4019±0.0344 (relP 0.4922) | b_comp [5.3, 5.3, 5.3, 5.3, 5.3] b_rel [3.8, 3.8, 3.8, 3.8, 3.8] reachable True edge False | speck guard opc compP_all 0.227 speck 0.0682; opr compP_all 0.232 speck 0.0839
+  HC-SUPPF     compR +0.0088 (thr 0.0802) nd | relR +0.0021 (thr 0.0526) nd  [E1: descriptive]
+## B5 co-primaries, two-set rule at the ARM-POOLED OP (protocol_thin_b3 §4)
+  HC-SUPPF     comp recall @ compP>=0.90: BETTER | relR@2 @ relP@2>=0.90: nd

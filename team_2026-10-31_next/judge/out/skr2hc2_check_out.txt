@@ -1,0 +1,15 @@
+SUPPF test inact all [0.4578, 0.481, 0.4251, 0.4663, 0.4484] sd 0.0209 | clean sd 0.0205 | test relP@2 mean 0.9417 sd 0.0015 | E1 crack-free px [3092, 2718, 5178, 4179, 4486] mean 3931 | E1 any-hit [0.399, 0.355, 0.429, 0.365, 0.358] mean 0.3811 (comps 296)
+HC    test inact all [0.4379, 0.4303, 0.4444, 0.4419, 0.4102] sd 0.0138 | clean sd 0.0144 | test relP@2 mean 0.9433 sd 0.0028 | E1 crack-free px [3288, 3525, 3623, 3620, 3561] mean 3523 | E1 any-hit [0.318, 0.358, 0.351, 0.453, 0.405] mean 0.3770 (comps 296)
+SKR   test inact all [0.4015, 0.4784, 0.4301, 0.4349, 0.4487] sd 0.0281 | clean sd 0.0291 | test relP@2 mean 0.8715 sd 0.0095 | E1 crack-free px [10949, 10305, 7329, 7867, 10691] mean 9428 | E1 any-hit [0.53, 0.49, 0.574, 0.503, 0.517] mean 0.5230 (comps 296)
+CLD   test inact all [0.4296, 0.4559, 0.4337, 0.4558, 0.4465] sd 0.0123 | clean sd 0.0127 | test relP@2 mean 0.9231 sd 0.0055 | E1 crack-free px [6771, 4648, 5739, 6670, 6256] mean 6017 | E1 any-hit [0.375, 0.365, 0.459, 0.419, 0.429] mean 0.4095 (comps 296)
+G1 (d <= -0.015), pooled SUPPF/HC sd 0.0177: SE of d 0.0112; null trip 0.090; power at -0.023 0.763; at -0.030 0.910
+G1 (d <= -0.015), SUPPF sd both arms 0.0209: SE of d 0.0132; null trip 0.128; power at -0.023 0.728; at -0.030 0.872
+G2 E1 crack-free px: SUPPF per seed [3092, 2718, 5178, 4179, 4486] cv 0.258; 1.5x bar 5896; approx null trip (normal, 5-seed mean, same sd) 0.0000
+G2 test relP@2: SUPPF sd 0.0015; SE of d 0.0009; null trip at -0.03 0.00e+00
+  HC: G1 d -0.0228 / -0.0230 -> TRIP; G2 relP d +0.0017, E1 free x0.90 -> ok
+  SKR: G1 d -0.0170 / -0.0161 -> TRIP; G2 relP d -0.0702, E1 free x2.40 -> TRIP
+  CLD: G1 d -0.0114 / -0.0106 -> ok; G2 relP d -0.0186, E1 free x1.53 -> TRIP
+
+## HC opening records, inactive IoU at b 0 per seed
+SUPPF {'val': ([0.478, 0.431, 0.573, 0.565, 0.492], 0.5077), 'synval': ([0.417, 0.506, 0.46, 0.499, 0.475], 0.4714), 'F51': ([0.187, 0.116, 0.198, 0.223, 0.181], 0.1811), 'F19': ([0.084, 0.507, 0.114, 0.058, 0.346], 0.222), 'H36': ([0.0, 0.0, 0.0, 0.0, 0.0], 0.0)}
+HC {'val': ([0.471, 0.434, 0.545, 0.415, 0.476], 0.4683), 'synval': ([0.325, 0.382, 0.417, 0.375, 0.418], 0.3834), 'F51': ([0.251, 0.246, 0.247, 0.249, 0.182], 0.2351), 'F19': ([0.317, 0.374, 0.174, 0.301, 0.404], 0.314), 'H36': ([0.0, 0.0, 0.0, 0.0, 0.0], 0.0)}

@@ -4,6 +4,8 @@
 
 **Update 1 Nov 2026, ~21:00 IST (additive):** section I (Q42 to Q51; Q51 added ~21:40 after THIN-B3) covers 31 Oct to 1 Nov: PF2, the PF ensemble (PF2E), Om's 11 unseen-panel ideas, the E1 policy and what is running. Dated "[Qualified 1 Nov: ...]" notes on Q27, Q35, Q36 and Q38.
 
+**Update 3 Nov 2026, ~02:40 IST (additive):** section J (Q52 to Q60) covers 1 to 3 Nov: the A8 screen, HC, B6, SKR2 / HC2, SKR2E, Om's A1 to A6, the B2 agent raters and what is waiting on the user. Dated "[Qualified 3 Nov: ...]" notes on Q43, Q44 and Q50.
+
 **What this covers.** Short answers to the questions a newcomer to this project tends to ask, each with its numbers and the doc or file to read next. The answers are as of 12 Oct 2026, about 05:30 IST, updated 13 Oct ~08:15 IST for P17 and P13 Amendment 2 (Q8, Q10, Q20b). All experiments, P17 included, are finished. Do not give a stronger answer than the one here without new evidence.
 
 **Sources:** every answer names its own source. The main ones:
@@ -457,6 +459,7 @@ Not yet on a verdict, apart from PF's inactive effect.
 - Running or queued: thin-crack losses and a scuff class (THIN-B3), synthetic half-cuts (HC, idea 5), a DINOv3 encoder screen (A8, idea 8). [Qualified 1 Nov ~21:40: THIN-B3 is verified: no arm passes; Skeleton Recall lifts E1 crack detection at a precision cost (Q51). HC and A8 still queued.]
 - Method note: SAM fills partly found inactive regions (S10), at 50% labels.
 → `20` §2, §3, `11` rows 35 to 39
+[Qualified 3 Nov: A8 KILLED; HC n.d.; only Skeleton Recall at w 0.1 (SKR2) passed, on one E1 co-primary by 0.0013 (Q55).]
 
 **Q44. Is PF now better than the house recipe?**
 On these numbers, yes for inactive on E1's cells (10 inactive cells in 7 images), narrowly for test crack relF1@2, and no difference on test crack IoU or inactive IoU.
@@ -464,6 +467,7 @@ On these numbers, yes for inactive on E1's cells (10 inactive cells in 7 images)
 - PF2E (ensembles): E1 inactive +0.214 with CI above 0, test n.d.
 - judge's reading of the E1 inactive gain: "fewer false inactive calls on module edges plus twice the inactive recall on E1", on 10 cells in 7 images; borderline under Bonferroni.
 → `20` §4-5, `11` rows 30 to 34
+[Qualified 3 Nov: 3 images hold 87% of E1 inactive px (+0.023 without them); B6 found no in-distribution gain and excludes one as large as E1's (Q54).]
 
 **Q45. What did ResNet-50 under PF show?**
 A FAIL: test inactive IoU 0.4557 → 0.4269 (−0.0289, thr 0.0251) in both sets, the same risk Track M's R3 showed. D's E1 lead (+0.060 under the house recipe) became −0.025 under PF. RN50 is closed under PF; the foundation-encoder question moved to the A8 screen. → `20` §4, `11` row 33
@@ -485,6 +489,7 @@ Yes, by 587 MiB. PF2's logit-adjustment pass over 15 runs peaked at 7,758 MiB (t
 - Waiting on the user: the deployable model (E-PF?), the D2 width flag for future protocols, whether half-cut labels are wanted, the A8 full arm if the screen says GO; still open: the HF sample, the 30 Oct gaint reboot, the 40-segment audit; the B1 / B2 marks are optional (team-lead's reading of the user's 31 Oct line on manual labelling; not done, not re-asked).
 → `15` §1i, §3d, §4d
 [Qualified 1 Nov ~21:40: THIN-B3's opening ended 21:13 and is verified (Q51); the A8 screen runs started at 21:15; the SKR follow-up is a new open question for the user.]
+[Qualified 3 Nov: superseded by Q60.]
 
 **Q51. Did the thin-crack losses or the scuff class help?** (added ~21:40)
 No arm passes its pre-registered rule (THIN-B3, gaint, seeds 5 to 9 vs SUP100-PF; coach VERIFIED, judge CONFIRMED):
@@ -492,6 +497,37 @@ No arm passes its pre-registered rule (THIN-B3, gaint, seeds 5 to 9 vs SUP100-PF
 - **clDice: FAIL** (relR@2 at matched val precision WORSE, −0.037); no better at matched test precision.
 - **Scuff class (B3): n.d.;** the class was never learned (train scuff IoU 0.000, all 5 seeds), so the arm only relabelled 649 train px.
 - BEST stays SUP100-PF. An SKR follow-up (weight 0.1 or a wider OP grid, a precision guard) is the user's call. → `20` §6.0, `11` rows 40 to 42
+
+## J. 1 to 3 Nov: A8, HC, B6, SKR2 / HC2, SKR2E, Om's A1 to A6, B2 agent raters (added 3 Nov)
+
+**Q52. Did the DINOv3 foundation encoder help?**
+No sign of it. In the pre-registered screen (DINOv3 ConvNeXt-T vs ImageNet ConvNeXt-T, both under PF, 2 seeds, 4k steps, no test, no E1), F51 crack AP fell by 0.0243 with a module-bootstrap lower bound of −0.0463 (GO needed > 0): KILL. By the protocol, "foundation encoder" is closed for the thesis. Say "no sign of a gain", not "worse": F51 is 76% one cell and A8c's own seed spread (0.067) is larger than the gap. → `21` §1, `11` row 43
+
+**Q53. Did training on synthetic half-cuts (HC) help?**
+Not on the verdict: all five co-primaries n.d. (test crack IoU +0.0092, test inactive −0.0228, E1 relF1@2 +0.0135, E1 inactive −0.0002). Inside the simulator it works (SHV1 matched recall +0.1233), and on real `_rf` half-cuts it rarely calls the gap a crack (false alarms 11 vs 278 px, every seed). Its F51 crack AP gain (+0.067) is extra coverage on 12 crack cells, not fewer false alarms. Test crack and test inactive lean ~0.02 in opposite directions (seed-aware intervals include 0). The follow-up HC2 failed (Q56); the user kept the HC route open. → `21` §2, `11` row 44
+
+**Q54. Is PF's inactive gain also there on familiar panels (B6)?**
+B6 cannot say for a test-size effect: Δ −0.0144, CI [−0.0977, +0.0570], n.d., and the realised power was only ~6% at +0.017 (the plan said 13%; the SE came out 0.038, not 0.020). What it does show: an in-distribution gain as large as PF's E1 gain (+0.19 / +0.21) is excluded (CI upper bound +0.06). So PF's inactive advantage is an unseen-panel result. → `21` §3, `11` row 45
+
+**Q55. Did Skeleton Recall at a lower weight (SKR2) work?**
+Narrowly, by its rule: E1 crack relF1@2 +0.0364 against a 0.0351 bar (BETTER), nothing worse, no guard trip; test co-primaries n.d. The label is fragile (5 of 10 leave-one-seed-out drops keep it), the effect is robust (seed-aware P 0.985) and it is not a bias shift. At w 0.1 it keeps about a third of w 1.0's E1 detection gain and none of its false alarms. Its width-insensitive detection gain (any-hit +0.044) is n.d. → `21` §4.3, `11` row 46
+
+**Q56. Why did HC2 fail, and is the half-cut route closed?**
+HC2 (HC with inactive pixels ignored in synthetic views) tripped the test-inactive guard (−0.0256 / −0.0259 vs a −0.015 bar) and its mechanism failed (post hoc readout: on synthetic views with inactive, HC2 predicts almost no inactive, IoU 0.002 vs HC 0.386, and ×5.1 off-GT crack pixels; the cause is not shown). It did not decide whether HC's inactive cost comes from the synthetic labels or from dilution. The protocol's route-closing line was formally triggered; coach and judge advised not applying it, and the user kept the HC route open; only the ignore design is closed. Its design went half dose → exclude inactive sources → ignore, by a rule fixed before any HC2 number. → `21` §4.1, §4.4, `11` row 47
+
+**Q57. Is the SKR2 ensemble the new best model?**
+No. SKR2E failed: at each ensemble's own operating point (E-PF at argmax, E-SKR2 at bias 1.0) E-SKR2 trips both precision guards (test relP@2 −0.0379; E1 false-alarm px ×2.12). At a shared argmax it passes four primaries, but those are a re-measurement of the same models, E-PF matches its test gain with a bias step, and choosing argmax now would be picked after seeing test and E1. The val width flag decided it by 0.0015. **E-PF at argmax stays the recommended deployable candidate**; adopting it is still the user's call. → `21` §5, `11` row 48
+
+**Q58. What about Om's architecture ideas (A1 to A6)?**
+All dropped on non-E1 premise checks, except A4 (structured crack head), parked behind SKR2. A1 repeats the killed DINOv3 screen; A2's style premise is contradicted (E1 brightness matches train); A3's target (cut-line false alarms) is already removed by HC; A6's cell gate cannot recover Skeleton Recall's precision (its extra pixels are inside crack cells). → `21` §7, `11` row 49
+
+**Q59. Can an agent do the B2 marks?**
+Not for scuff. Two agent raters passed the crack calibration gate (sensitivity 20/20, specificity 17/20) but failed the scuff gate (1 of 8 scuff regions found; 4 needed), so no agent marks were made. The crack gate used house CSIR cells; on Hanifi half-cells the raters found 1 of 14 cracks (speck-level labels, reported only), so a crack-only prereg for the Hanifi B2 panels is untested on Hanifi cracks. B2 is unmarked and back with the user: mark it (the whole 512 crop), try a crack-only agent prereg, or skip. → `21` §8, `11` row 50
+
+**Q60. What is running, and what is waiting on the user?** (3 Nov, ~02:40 IST)
+- Tonight: SKR2C, Skeleton Recall (w 0.1) vs SUPPF on fresh seeds 10 to 14, training only on gaint at 2 lanes, with an auto-stop on low GPU memory (protocol locked 02:37; judge's code review at 02:38 found the guard and queue not ready, so launch waits for the fixes and coach's APPROVED). Its opening (E1 #7) waits for the user's OK.
+- Waiting on the user: adopting E-PF as the deployable model (still open); the next step (pause and write up, SKR2 on new seeds, or wait for B2); B2 (mark, crack-only agent prereg, or skip); a standing rule for outside Blender renders vs gaint lanes (a render took free memory to 2,078 MiB on 2 Nov); the D2 width-flag rule; whether to try a dilution-targeted HC variant.
+→ `15` §1j, §3e, §4e
 
 ## Related docs
 All of them; start from `00_START_HERE.md`.

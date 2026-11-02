@@ -1,0 +1,28 @@
+{
+ "arm": "SKR01",
+ "code": "/home/noob/work/el_thin",
+ "run": "skr2_SKR01_100pct_s5",
+ "jobs_md5": "d6efb9af81e5bc98101cbf674c20d5f2",
+ "root": "/home/noob/work/s2c_root",
+ "control": {
+  "labelled": "Labelled: 478 (data/splits/train.txt)  unlabelled: 0 (-)  val: 54  test: 50",
+  "ce": "CE class weights: none (plain CE)",
+  "zero": "Zero-pixel classes in labelled subset (weight 0): none",
+  "loss_class": "ThinCrackLoss"
+ },
+ "control_yaml_md5": "677e971b689a42876e0209d0a61e0440",
+ "root_lines": {
+  "labelled": "Labelled: 478 (/home/noob/work/s2c_root/splits/train.txt)  unlabelled: 0 (-)  val: 54  test: 54",
+  "ce": "CE class weights: none (plain CE)",
+  "zero": "Zero-pixel classes in labelled subset (weight 0): none",
+  "loss_class": "ThinCrackLoss"
+ },
+ "root_yaml_md5": "f768a57368452ce81c215ac7e0ce9698",
+ "counts_sha": "262f92a5f185e8de",
+ "n_val": 54,
+ "n_test": 54,
+ "test_eq_val": true,
+ "config_diff_vs_control": [
+  "data.root"
+ ]
+}

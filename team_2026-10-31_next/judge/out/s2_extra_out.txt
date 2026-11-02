@@ -1,0 +1,39 @@
+## 1. SKR2 E1 relF1@2: d +0.0364 thr 0.0351 BETTER; per-seed SUPPF 0.4432 0.4275 0.4403 0.4140 0.3762 SKR2 0.4653 0.4589 0.4345 0.4691 0.4556
+leave-one-image-out (71 images): BETTER kept in 65/71; n.d. in 6; margin (d - thr) min -0.0031 median +0.0014
+   drop CSIR_01637   (GT crack px/run    5586): d +0.0359 thr 0.0390 n.d.
+   drop CSIR_01101   (GT crack px/run    1264): d +0.0357 thr 0.0384 n.d.
+   drop CSIR_01647   (GT crack px/run    1066): d +0.0364 thr 0.0384 n.d.
+   drop CSIR_01774   (GT crack px/run     536): d +0.0350 thr 0.0366 n.d.
+   drop CSIR_02026   (GT crack px/run    1079): d +0.0345 thr 0.0355 n.d.
+   drop CSIR_00308   (GT crack px/run       0): d +0.0335 thr 0.0344 n.d.
+   drop CSIR_00305   (GT crack px/run       0): d +0.0354 thr 0.0349 BETTER
+   drop CSIR_02301   (GT crack px/run     685): d +0.0361 thr 0.0356 BETTER
+leave-one-seed-out of SUPPF: s5 +0.0422/0.0356 BETTER | s6 +0.0383/0.0391 n.d. | s7 +0.0414/0.0366 BETTER | s8 +0.0349/0.0392 n.d. | s9 +0.0254/0.0219 BETTER
+leave-one-seed-out of SKR2: s5 +0.0343/0.0356 n.d. | s6 +0.0359/0.0362 n.d. | s7 +0.0420/0.0322 BETTER | s8 +0.0333/0.0350 n.d. | s9 +0.0367/0.0362 BETTER
+per-image swap contribution to seed-pooled d relF1 (top 6 / bottom 3): CSIR_02222 +0.0094 (GT 3071), CSIR_01637 +0.0066 (GT 5586), CSIR_01717 +0.0054 (GT 7068), CSIR_01101 +0.0036 (GT 1264), CSIR_00341 +0.0034 (GT 3194), CSIR_00308 +0.0030 (GT 0) ... CSIR_00394 -0.0009, CSIR_01966 -0.0009, CSIR_00345 -0.0014; sum of all +0.0381 vs pooled +0.0365
+   images with + contribution 27, - 28; top-3 share of positive sum 0.49
+
+## 2. E1 relF1@2 vs constant bias b (records; mean of per-run values; E1-oracle = descriptive, chooses nothing)
+SUPPF b 0 0.4202, b 0.75 0.4230, best b +4.0 0.4289 | SKR2 b 0 0.4567, b 0.75 0.4581, best b +1.6 0.4594
+SKR2 b 0 - SUPPF best-b +0.0278 ; SKR2 best - SUPPF best +0.0305 ; rule 1 at each arm's E1-best b: +0.0305 thr 0.0342 n.d.
+   b -1.0: SUPPF 0.4163  SKR2 0.4533  d +0.0370 (thr 0.0359 BETTER)
+   b +0.0: SUPPF 0.4202  SKR2 0.4567  d +0.0364 (thr 0.0351 BETTER)
+   b +0.5: SUPPF 0.4219  SKR2 0.4578  d +0.0359 (thr 0.0352 BETTER)
+   b +1.0: SUPPF 0.4237  SKR2 0.4585  d +0.0348 (thr 0.0354 n.d.)
+   b +1.5: SUPPF 0.4253  SKR2 0.4592  d +0.0339 (thr 0.0355 n.d.)
+   b +2.0: SUPPF 0.4264  SKR2 0.4591  d +0.0327 (thr 0.0351 n.d.)
+   b +3.0: SUPPF 0.4280  SKR2 0.4584  d +0.0304 (thr 0.0359 n.d.)
+   b +4.0: SUPPF 0.4289  SKR2 0.4566  d +0.0277 (thr 0.0367 n.d.)
+
+## 3. records-based SHV1 (synval 108) / val (54) readouts, 5 seeds pooled per arm (grid -4.0..12.0, 162 pts)
+-- synval all (n 108, GT inactive px/run 26529): SUPPF matched 0.6959 relR0 0.6973 relP0 0.8999 inact0 0.4696 offGT0/run 6357 | HC matched 0.8192 relR0 0.8233 relP0 0.8970 inact0 0.3802 offGT0/run 9875 | HC2 matched nan relR0 0.8459 relP0 0.7320 inact0 0.0023 offGT0/run 35835
+-- synval views with GT inactive (n 11, GT inactive px/run 26529): SUPPF matched 0.5724 relR0 0.6352 relP0 0.8577 inact0 0.4808 offGT0/run 3987 | HC matched 0.7560 relR0 0.8156 relP0 0.8601 inact0 0.3862 offGT0/run 6329 | HC2 matched nan relR0 0.8842 relP0 0.6131 inact0 0.0023 offGT0/run 32314
+-- synval views without GT inactive (n 97, GT inactive px/run 0): SUPPF matched 0.7843 relR0 0.7475 relP0 0.9332 inact0 0.0000 offGT0/run 2370 | HC matched 0.8584 relR0 0.8294 relP0 0.9300 inact0 0.0000 offGT0/run 3546 | HC2 matched 0.8446 relR0 0.8149 relP0 0.9298 inact0 0.0000 offGT0/run 3521
+   per seed matched: SUPPF 0.681 0.675 0.725 0.681 0.722 | HC 0.812 0.808 0.818 0.837 0.818 | HC2 nan nan nan nan nan
+   per seed inact0: SUPPF 0.417 0.506 0.460 0.499 0.475 | HC 0.325 0.382 0.417 0.375 0.418 | HC2 0.000 0.006 0.000 0.006 0.000
+-- val all (n 54, GT inactive px/run 12277): SUPPF matched 0.8757 relR0 0.8461 relP0 0.9295 inact0 0.5045 offGT0/run 2718 | HC matched 0.8893 relR0 0.8607 relP0 0.9316 inact0 0.4647 offGT0/run 2896 | HC2 matched 0.8874 relR0 0.8667 relP0 0.9218 inact0 0.4842 offGT0/run 3475
+-- val views with GT inactive (n 6, GT inactive px/run 12277): SUPPF matched 0.8239 relR0 0.8304 relP0 0.8946 inact0 0.5141 offGT0/run 1878 | HC matched 0.8524 relR0 0.8524 relP0 0.9004 inact0 0.4785 offGT0/run 1934 | HC2 matched 0.8393 relR0 0.8609 relP0 0.8821 inact0 0.4901 offGT0/run 2445
+-- val views without GT inactive (n 48, GT inactive px/run 0): SUPPF matched 0.9064 relR0 0.8579 relP0 0.9595 inact0 0.0000 offGT0/run 840 | HC matched 0.9138 relR0 0.8669 relP0 0.9580 inact0 0.0000 offGT0/run 962 | HC2 matched 0.9165 relR0 0.8710 relP0 0.9566 inact0 0.0000 offGT0/run 1030
+   per seed matched: SUPPF 0.869 0.871 0.869 0.880 0.890 | HC 0.897 0.885 0.890 0.889 0.887 | HC2 0.884 0.888 0.874 0.899 0.895
+   per seed inact0: SUPPF 0.478 0.431 0.573 0.565 0.492 | HC 0.471 0.434 0.545 0.415 0.476 | HC2 0.495 0.572 0.470 0.462 0.422
+mechanism (records): HC2 - SUPPF matched SHV1 relR@2 +nan (kill < +0.05); HC - SUPPF +0.1233

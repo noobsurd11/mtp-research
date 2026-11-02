@@ -1,0 +1,100 @@
+2,14c2,11
+< # runner DRAFT v2 (2 Nov 2026): launch queue for SKR2 + HC2 (one protocol, one opening; user 11:18) on gaint. Copy of nq_queue.sh
+< # 156c6936 (coach-approved 1 Nov) with: queue dir /home/noob/work/s2q; arms SKR01 (el_thin c9bbb02) and HC2 (builder's new deploy:
+< # HC2_WT / HC2_DEP from env, required only when the jobs file holds HC2 lines); no predecessor to wait for. v2 (after D1, coach's
+< # queue split): the arm checks (deploy, exp file, REVISION stamp) run only for the arms present in the jobs file. Else unchanged.
+< # v3 (2 Nov, chained HC2 queue; coach's conditions 1-3): JOBS_FILE = jobs file (default s2q_jobs.txt); AFTER = a line to wait for in the
+< # shared launch.log before dispatching (the SKR queue's 's2q queue: all jobs dispatched'; chained-queue rule); same Q dir, pids/ and
+< # launch.log as the running queue, so alive() / MAXC 3 count both queues and the opening trigger reads one log; the gpumem logger must be
+< # alive at arming (as before); the ALL TRAINED line counts this queue's own jobs only.
+< # Jobs file lines "name|seed|arm|opts" (md5 JOBS_MD5), strict list order. Per arm: worktree, deploy commit, start gate
+< # (measured peak + 2,048), reference config and the expected config difference (file exp_<arm>.txt).
+< # MAXC lanes (file MAXC in the queue dir, default 3). Each start: shared gate (gpu_gate.sh: flock, free >= gate, >= 120 s since any
+< # start, HOLD). After each start config_used.yaml is diffed vs the arm's reference (run_name, seed, experiments_dir ignored): the
+< # difference must equal exp_<arm>.txt and seed must be K, else HOLD + CONFIG FAIL. python PIDs in pids/. rc captured before $(date).
+---
+> # runner DRAFT (3 Nov 2026): SKR2C training queue on gaint (protocol_SKR2C; TRAINING ONLY: no scoring, no opening trigger).
+> # Copy of s2q_queue_v3.sh 928742a0 with only: queue dir /home/noob/work/s2c; arms SKR01 (el_thin c9bbb02) and SUPPF (el_f3 e544133),
+> # gates GATE_SKR01 / GATE_SUPPF from env (measured peak + 2,048); exp_<arm>.txt must exist and may be empty (SUPPF: config = reference
+> # apart from seed); MAXC default 2 (file MAXC); no AFTER / chained queue; own PID -> queue.pid; the gpumem logger is re-checked before
+> # every start (gone -> HOLD set + one line; running jobs continue); the same for the guard (s2c_guard.sh, guard.pid); HOLD re-checked
+> # after a gate pass; the trainer is started as a plain background command so pids/<name>.pid = the python PID (s2q's 'cd && python &'
+> # recorded the bash subshell's PID, E: s2q pid 2170515 vs GPU python 2170519); end line 'S2C ALL TRAINED'. Else unchanged.
+> # Jobs file lines "name|seed|arm|opts" (md5 JOBS_MD5), strict list order. Each start: shared gate (gpu_gate.sh 00fabfdd: flock,
+> # free >= gate, >= 120 s since any start, HOLD). After each start config_used.yaml is diffed vs pf2_SUPPF_100pct_s5 (run_name, seed,
+> # experiments_dir ignored): the difference must equal exp_<arm>.txt and seed must be K, else HOLD + CONFIG FAIL. rc captured before $(date).
+16c13
+< Q=/home/noob/work/s2q; L=$Q/launch.log; J=${JOBS_FILE:-$Q/s2q_jobs.txt}; AFTER=${AFTER:-}
+---
+> Q=/home/noob/work/s2c; L=$Q/launch.log; J=$Q/s2c_jobs.txt
+19c16
+< JOBS_MD5=${JOBS_MD5:?}; mkdir -p $Q/pids
+---
+> JOBS_MD5=${JOBS_MD5:?}; mkdir -p $Q/pids; echo $$ > $Q/queue.pid
+21c18
+< declare -A WT=([SKR01]=/home/noob/work/el_thin [HC2]=${HC2_WT:-}) DEP=([SKR01]=c9bbb02 [HC2]=${HC2_DEP:-}) GATE=([SKR01]=${GATE_SKR01:-} [HC2]=${GATE_HC2:-})
+---
+> declare -A WT=([SKR01]=/home/noob/work/el_thin [SUPPF]=/home/noob/work/el_f3) DEP=([SKR01]=c9bbb02 [SUPPF]=e544133) GATE=([SKR01]=${GATE_SKR01:-} [SUPPF]=${GATE_SUPPF:-})
+23c20
+< declare -A REF=([SKR01]=$R0 [HC2]=$R0)
+---
+> declare -A REF=([SKR01]=$R0 [SUPPF]=$R0)
+25c22,24
+< [ "$(md5sum < $J | cut -c1-32)" = "$JOBS_MD5" ] || { echo "[$(date)] s2q jobs file md5 FAIL" >> $L; exit 1; }
+---
+> gm_ok(){ kill -0 "$(cat $Q/gpumem.pid 2>/dev/null)" 2>/dev/null; }
+> gd_ok(){ kill -0 "$(cat $Q/guard.pid 2>/dev/null)" 2>/dev/null; }
+> [ "$(md5sum < $J | cut -c1-32)" = "$JOBS_MD5" ] || { echo "[$(date)] s2c jobs file md5 FAIL" >> $L; exit 1; }
+27,32c26,32
+<   case $a in SKR01|HC2) ;; *) echo "[$(date)] s2q: unknown arm $a in jobs file" >> $L; exit 1;; esac
+<   [ -n "${WT[$a]}" ] && [ -n "${DEP[$a]}" ] && [ -n "${GATE[$a]}" ] || { echo "[$(date)] s2q: worktree / deploy / gate unset for arm $a" >> $L; exit 1; }
+<   deploy_ok ${WT[$a]} ${DEP[$a]} || { echo "[$(date)] s2q deploy check FAIL $a (${WT[$a]} != ${DEP[$a]} or tracked changes)" >> $L; exit 1; }
+<   [ -s $Q/exp_$a.txt ] || { echo "[$(date)] s2q: exp_$a.txt missing" >> $L; exit 1; }
+<   [ "$(cut -c1-7 ${WT[$a]}/REVISION)" = "${DEP[$a]}" ] || { echo "[$(date)] s2q: REVISION stamp FAIL $a" >> $L; exit 1; }; done
+< kill -0 "$(cat $Q/gpumem.pid 2>/dev/null)" 2>/dev/null || { echo "[$(date)] s2q: own gpumem logger (s2q_gpumem.sh) not running, not starting" >> $L; exit 1; }
+---
+>   case $a in SKR01|SUPPF) ;; *) echo "[$(date)] s2c: unknown arm $a in jobs file" >> $L; exit 1;; esac
+>   [ -n "${GATE[$a]}" ] || { echo "[$(date)] s2c: gate unset for arm $a" >> $L; exit 1; }
+>   deploy_ok ${WT[$a]} ${DEP[$a]} || { echo "[$(date)] s2c deploy check FAIL $a (${WT[$a]} != ${DEP[$a]} or tracked changes)" >> $L; exit 1; }
+>   [ -e $Q/exp_$a.txt ] || { echo "[$(date)] s2c: exp_$a.txt missing" >> $L; exit 1; }
+>   [ "$(cut -c1-7 ${WT[$a]}/REVISION)" = "${DEP[$a]}" ] || { echo "[$(date)] s2c: REVISION stamp FAIL $a" >> $L; exit 1; }; done
+> gm_ok || { echo "[$(date)] s2c: own gpumem logger (s2c_gpumem.sh) not running, not starting" >> $L; exit 1; }
+> gd_ok || { echo "[$(date)] s2c: own guard (s2c_guard.sh) not running, not starting" >> $L; exit 1; }
+42,46c42
+< echo "[$(date)] s2q queue armed: ${#JOBS[@]} jobs ($(basename $J), md5 $JOBS_MD5), arms $ARMS, gates SKR01 ${GATE[SKR01]:--} / HC2 ${GATE[HC2]:--}, pid $$; $([ -n "$AFTER" ] && echo "waiting for '$AFTER'" || echo dispatching)" >> $L
+< if [ -n "$AFTER" ]; then
+<   until grep -qF "$AFTER" $L; do sleep 60; done
+<   echo "[$(date)] s2q queue pid $$: '$AFTER' seen; dispatching" >> $L
+< fi
+---
+> echo "[$(date)] s2c queue armed: ${#JOBS[@]} jobs ($(basename $J), md5 $JOBS_MD5), arms $ARMS, gates SKR01 ${GATE[SKR01]:--} / SUPPF ${GATE[SUPPF]:--}, MAXC $(cat $Q/MAXC 2>/dev/null || echo 2), pid $$; dispatching" >> $L
+52c48,50
+<     MAXC=$(cat $Q/MAXC 2>/dev/null || echo 3)
+---
+>     gm_ok || { echo "[$(date)] s2c: gpumem logger gone before start of $name; HOLD set" >> $L; touch $Q/HOLD; continue; }
+>     gd_ok || { echo "[$(date)] s2c: guard gone before start of $name; HOLD set" >> $L; touch $Q/HOLD; continue; }
+>     MAXC=$(cat $Q/MAXC 2>/dev/null || echo 2)
+54,55c52,54
+<     gate_try ${GATE[$arm]} "s2q $name" && break
+<     sleep 30
+---
+>     gate_try ${GATE[$arm]} "s2c $name" || { sleep 30; continue; }
+>     [ -e $Q/HOLD ] && { echo "[$(date)] s2c: HOLD seen after the gate pass for $name; not starting" >> $L; continue; }
+>     break
+57c56
+<   deploy_ok $w ${DEP[$arm]} || { echo "[$(date)] s2q deploy check FAIL at start of $name; HOLD set" >> $L; touch $Q/HOLD; continue; }
+---
+>   deploy_ok $w ${DEP[$arm]} || { echo "[$(date)] s2c deploy check FAIL at start of $name; HOLD set" >> $L; touch $Q/HOLD; continue; }
+59c58,59
+<   ( cd $w && HF_HUB_OFFLINE=1 OMP_NUM_THREADS=4 $P -u scripts/train.py --overwrite --config configs/supervised.yaml --opts $opts > experiments/$name.stdout 2>&1 &
+---
+>   ( cd $w || exit 1
+>     HF_HUB_OFFLINE=1 OMP_NUM_THREADS=4 $P -u scripts/train.py --overwrite --config configs/supervised.yaml --opts $opts > experiments/$name.stdout 2>&1 &
+66c66
+< echo "[$(date)] s2q queue: all jobs dispatched; waiting" >> $L
+---
+> echo "[$(date)] s2c queue: all jobs dispatched; waiting" >> $L
+69c69
+< echo "[$(date)] S2Q ALL TRAINED ($(grep -cE "trained ($NM) rc=0\$" $L) rc 0 of ${#JOBS[@]}; pid $$, $(basename $J))" >> $L
+---
+> echo "[$(date)] S2C ALL TRAINED ($(grep -cE "trained ($NM) rc=0\$" $L) rc 0 of ${#JOBS[@]}; pid $$, $(basename $J))" >> $L

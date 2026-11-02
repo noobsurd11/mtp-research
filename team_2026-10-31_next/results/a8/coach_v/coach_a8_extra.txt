@@ -1,0 +1,13 @@
+## (1) encoder weight cosine at 4k vs the weights file (coach remap; concat cos | min per-tensor cos | n tensors | norm ratio)
+  f8_A8_4k_s0 step 4000: stage0 0.9785 | 0.9438 | 9 | 1.0333; stage1 0.9657 | 0.9248 | 10 | 1.0530; stage2 0.9889 | 0.9804 | 28 | 1.0152; stage3 0.9985 | 0.9930 | 10 | 1.0027
+  f8_A8_4k_s1 step 4000: stage0 0.9782 | 0.9424 | 9 | 1.0319; stage1 0.9659 | 0.9329 | 10 | 1.0525; stage2 0.9854 | 0.9772 | 28 | 1.0194; stage3 0.9987 | 0.9948 | 10 | 1.0024
+  ARM A8 VALID (stages 2-3 concat cos >= 0.5 in both runs)
+  f8_A8c_4k_s0 step 4000: stage0 0.9973 | 0.9958 | 9 | 1.0032; stage1 0.9963 | 0.9945 | 10 | 1.0039; stage2 0.9980 | 0.9958 | 28 | 1.0031; stage3 1.0003 | 0.9979 | 10 | 1.0011
+  f8_A8c_4k_s1 step 4000: stage0 0.9972 | 0.9957 | 9 | 1.0034; stage1 0.9963 | 0.9940 | 10 | 1.0039; stage2 0.9980 | 0.9958 | 28 | 1.0031; stage3 1.0001 | 0.9977 | 10 | 1.0013
+  ARM A8c VALID (stages 2-3 concat cos >= 0.5 in both runs)
+## (2) val dump at b 0 vs trainer metrics.json val_history[-1] (pooled 54 cells; tol 0.005)
+  f8_A8_4k_s0: crack 0.4221 vs 0.4220 (+0.00006); inactive 0.3666 vs 0.3676 (-0.00105); step 4000; rf 106 cells {'F51': 51, 'H36': 36, 'F19': 19} -> PASS
+  f8_A8_4k_s1: crack 0.4338 vs 0.4336 (+0.00011); inactive 0.3826 vs 0.3834 (-0.00072); step 4000; rf 106 cells {'F51': 51, 'H36': 36, 'F19': 19} -> PASS
+  f8_A8c_4k_s0: crack 0.4241 vs 0.4246 (-0.00048); inactive 0.4360 vs 0.4376 (-0.00158); step 4000; rf 106 cells {'F51': 51, 'H36': 36, 'F19': 19} -> PASS
+  f8_A8c_4k_s1: crack 0.4436 vs 0.4442 (-0.00062); inactive 0.3733 vs 0.3721 (+0.00125); step 4000; rf 106 cells {'F51': 51, 'H36': 36, 'F19': 19} -> PASS
+## coach validity: {'A8': True, 'A8c': True}; coach dump integrity: PASS

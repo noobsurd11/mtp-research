@@ -1,0 +1,32 @@
+## synval (pooled 5 seeds per arm; grid -4..+12; b0 = grid point nearest 0)
+ -- all
+   SUPPF cells 540 ngt  441360 gt_inact   132645 | matched relR 0.6959 | max relP 0.9362 at b -4.0 (relR 0.6313) | b0 relP 0.8999 relR 0.6973 pred   317433 off-GT(2px)    31786 | inact pred b0   167578 IoU 0.4696
+   HC    cells 540 ngt  441360 gt_inact   132645 | matched relR 0.8192 | max relP 0.9392 at b -4.0 (relR 0.7484) | b0 relP 0.8970 relR 0.8233 pred   479528 off-GT(2px)    49373 | inact pred b0   235360 IoU 0.3802
+   HC2   cells 540 ngt  441360 gt_inact   132645 | matched relR nan | max relP 0.7759 at b -4.0 (relR 0.7893) | b0 relP 0.7320 relR 0.8459 pred   668527 off-GT(2px)   179173 | inact pred b0      340 IoU 0.0023
+   SKR01 cells 540 ngt  441360 gt_inact   132645 | matched relR 0.7159 | max relP 0.9232 at b -4.0 (relR 0.6698) | b0 relP 0.8880 relR 0.7336 pred   356991 off-GT(2px)    39987 | inact pred b0   195350 IoU 0.4264
+ -- inact-bearing (gt_inact>0)
+   SUPPF cells  55 ngt  197340 gt_inact   132645 | matched relR 0.5724 | max relP 0.9054 at b -4.0 (relR 0.5636) | b0 relP 0.8577 relR 0.6352 pred   140061 off-GT(2px)    19934 | inact pred b0   162829 IoU 0.4808
+   HC    cells  55 ngt  197340 gt_inact   132645 | matched relR 0.7560 | max relP 0.9203 at b -4.0 (relR 0.7165) | b0 relP 0.8601 relR 0.8156 pred   226137 off-GT(2px)    31643 | inact pred b0   231221 IoU 0.3862
+   HC2   cells  55 ngt  197340 gt_inact   132645 | matched relR nan | max relP 0.6662 at b -4.0 (relR 0.8202) | b0 relP 0.6131 relR 0.8842 pred   417601 off-GT(2px)   161569 | inact pred b0      340 IoU 0.0023
+   SKR01 cells  55 ngt  197340 gt_inact   132645 | matched relR 0.6243 | max relP 0.9012 at b -4.0 (relR 0.6213) | b0 relP 0.8540 relR 0.6979 pred   161139 off-GT(2px)    23522 | inact pred b0   187083 IoU 0.4423
+ -- no GT inactive
+   SUPPF cells 485 ngt  244020 gt_inact        0 | matched relR 0.7843 | max relP 0.9595 at b -4.0 (relR 0.6860) | b0 relP 0.9332 relR 0.7475 pred   177372 off-GT(2px)    11852 | inact pred b0     4749 IoU 0.0000
+   HC    cells 485 ngt  244020 gt_inact        0 | matched relR 0.8584 | max relP 0.9546 at b -4.0 (relR 0.7743) | b0 relP 0.9300 relR 0.8294 pred   253391 off-GT(2px)    17730 | inact pred b0     4139 IoU 0.0000
+   HC2   cells 485 ngt  244020 gt_inact        0 | matched relR 0.8446 | max relP 0.9536 at b -4.0 (relR 0.7643) | b0 relP 0.9298 relR 0.8149 pred   250926 off-GT(2px)    17604 | inact pred b0        0 IoU 0.0000
+   SKR01 cells 485 ngt  244020 gt_inact        0 | matched relR 0.7828 | max relP 0.9403 at b -4.0 (relR 0.7091) | b0 relP 0.9159 relR 0.7625 pred   195852 off-GT(2px)    16465 | inact pred b0     8267 IoU 0.0000
+## val (pooled 5 seeds per arm; grid -4..+12; b0 = grid point nearest 0)
+ -- all
+   SUPPF cells 270 ngt  189690 gt_inact    61385 | matched relR 0.8757 | max relP 0.9531 at b -4.0 (relR 0.7992) | b0 relP 0.9295 relR 0.8461 pred   192716 off-GT(2px)    13591 | inact pred b0    73506 IoU 0.5045
+   HC    cells 270 ngt  189690 gt_inact    61385 | matched relR 0.8893 | max relP 0.9597 at b -4.0 (relR 0.8049) | b0 relP 0.9316 relR 0.8607 pred   211662 off-GT(2px)    14480 | inact pred b0    77899 IoU 0.4647
+   HC2   cells 270 ngt  189690 gt_inact    61385 | matched relR 0.8874 | max relP 0.9499 at b -4.0 (relR 0.8147) | b0 relP 0.9218 relR 0.8667 pred   222247 off-GT(2px)    17377 | inact pred b0    61554 IoU 0.4842
+   SKR01 cells 270 ngt  189690 gt_inact    61385 | matched relR 0.8767 | max relP 0.9421 at b -4.0 (relR 0.8225) | b0 relP 0.9176 relR 0.8609 pred   214123 off-GT(2px)    17634 | inact pred b0    74448 IoU 0.5166
+ -- inact-bearing (gt_inact>0)
+   SUPPF cells  30 ngt   81420 gt_inact    61385 | matched relR 0.8239 | max relP 0.9302 at b -4.0 (relR 0.7770) | b0 relP 0.8946 relR 0.8304 pred    89137 off-GT(2px)     9391 | inact pred b0    71820 IoU 0.5141
+   HC    cells  30 ngt   81420 gt_inact    61385 | matched relR 0.8524 | max relP 0.9417 at b -4.0 (relR 0.7892) | b0 relP 0.9004 relR 0.8524 pred    97063 off-GT(2px)     9669 | inact pred b0    75152 IoU 0.4785
+   HC2   cells  30 ngt   81420 gt_inact    61385 | matched relR 0.8393 | max relP 0.9231 at b -4.0 (relR 0.8040) | b0 relP 0.8821 relR 0.8609 pred   103689 off-GT(2px)    12226 | inact pred b0    60557 IoU 0.4901
+   SKR01 cells  30 ngt   81420 gt_inact    61385 | matched relR 0.8284 | max relP 0.9152 at b -4.0 (relR 0.8084) | b0 relP 0.8796 relR 0.8524 pred    99892 off-GT(2px)    12026 | inact pred b0    71482 IoU 0.5342
+ -- no GT inactive
+   SUPPF cells 240 ngt  108270 gt_inact        0 | matched relR 0.9064 | max relP 0.9729 at b -4.0 (relR 0.8159) | b0 relP 0.9595 relR 0.8579 pred   103579 off-GT(2px)     4200 | inact pred b0     1686 IoU 0.0000
+   HC    cells 240 ngt  108270 gt_inact        0 | matched relR 0.9138 | max relP 0.9748 at b -4.0 (relR 0.8167) | b0 relP 0.9580 relR 0.8669 pred   114599 off-GT(2px)     4811 | inact pred b0     2747 IoU 0.0000
+   HC2   cells 240 ngt  108270 gt_inact        0 | matched relR 0.9165 | max relP 0.9730 at b -4.0 (relR 0.8227) | b0 relP 0.9566 relR 0.8710 pred   118558 off-GT(2px)     5151 | inact pred b0      997 IoU 0.0000
+   SKR01 cells 240 ngt  108270 gt_inact        0 | matched relR 0.9065 | max relP 0.9653 at b -4.0 (relR 0.8331) | b0 relP 0.9509 relR 0.8674 pred   114231 off-GT(2px)     5608 | inact pred b0     2966 IoU 0.0000

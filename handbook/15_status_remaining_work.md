@@ -10,6 +10,8 @@
 
 **Update 1 Nov 2026, ~21:00 IST (additive).** New §1i (state at ~20:30 IST 1 Nov), §3d (decisions waiting on the user), §4d (ranked next items with ETAs); dated "[1 Nov: ...]" notes on §3c row 16 and §4c rows 1 to 5; a §7 row. Sources: `SESSION_RECORD_2026-10-31_to_11-01.md`, `team_2026-10-31_next/`, doc 20. THIN-B3 had no verified result at writing; [added ~21:40: its verified result in §1i, §3d row 23 and §4d].
 
+**Update 3 Nov 2026, ~02:40 IST (additive).** New §1j (state at ~02:40 IST 3 Nov), §3e (decisions waiting on the user), §4e (ranked next items); dated "[3 Nov: ...]" notes on §3d rows 19, 20, 22, 23 and §4d rows 2 to 5. Sources: `SESSION_RECORD_2026-11-01_to_11-03.md`, `team_2026-10-31_next/`, doc 21.
+
 **Sources**
 - Server check at session close, 13 Oct 01:21 IST (read-only: `tmux ls`, `nvidia-smi`, `ps`, `du`), for §1b.
 - Launch logs on the servers, read at about 22:15 IST:
@@ -106,6 +108,13 @@
 - **cv02:** nothing of ours; read-only polls every 15 min (5 GPUs qualified at 18:50 and 19:02). B6 waits for builder's fold roots and scorer, runner's jobs and coach's APPROVED.
 - **Team:** calib and domain finished (not respawned after 1 Nov's cap); found and builder stopped at 19:15 for laptop memory (builder returns after THIN's window for B6); runner, coach, judge active; scribe writing the record and this refresh.
 
+## 1j. State on 3 Nov 2026, about 02:40 IST (added 3 Nov; `SESSION_RECORD_2026-11-01_to_11-03.md` §12, `team_2026-10-31_next/log.md`)
+- **Done since §1i (all verified by coach and confirmed by judge):** A8 screen **KILL** (1 Nov 23:40; idea 8 closed); HC **n.d.** (2 Nov 03:18; E1 #3); B6 **n.d.**, realised power ~6% at +0.017 (22:19); SKR2 **PASS**, narrow, and HC2 **FAIL** by G1 (~21:44; E1 #5); SKR2E **FAIL** by G2a + G2b at the headline pair (23:39; E1 #6); Om's A1-A6 all DROP, A4 PARK (11:43); B2 agent raters calibration **FAIL** (scuff gate; 11:49). Doc 21.
+- **Recommended deployable candidate:** E-PF at argmax (PF2E; coach and judge); SKR2E did not displace it; adoption is still the user's call (§3d row 19).
+- **gaint:** GPU = finllm only (free 25,804 MiB at 02:22); `rwatch4` alive; idle tmux sessions listed, none killed; disk 476 GB free. SKR2C (SKR2 vs SUPPF, fresh seeds 10-14, 10 runs, training only, MAXC 2, ~12.3 h wall): protocol v1 locked 02:37 (judge signed), data root verified; judge's stage-1 code review (02:38) found the guard / queue NOT READY (7 must-fixes: outside-process HOLD and live startup check missing; exact command-line check, owner re-check before SIGKILL, ≥ 30 s between stops, nvidia-smi timeout, a dry run with real signals); coach holds APPROVED until judge confirms the fixes; runner launches training only after APPROVED. **The SKR2C opening (E1 #7) waits for the user's OK.**
+- **cv02:** nothing of ours; B6's deploy removed.
+- **Team:** runner, coach, judge active for SKR2C; scribe writing this refresh; builder, arch, marker1, marker2 stopped; all agents to be closed after tonight (the user's line, 3 Nov ~02:20).
+
 ## 2. What ran overnight, 11 to 12 Oct (all done)
 A watcher (`scratchpad/watch.sh`) polled both servers every 2 minutes and fired on each finished set. It exited after P16 Part B; the script lived in a session scratchpad that no longer exists. What it triggered:
 1. **P15 (done 11 Oct ~22:40 IST):** `bash scripts/post_p15.sh <cv02 gpu>`.
@@ -166,13 +175,25 @@ Still open from §3b: rows 10 (40-segment audit, 4 label questions) and 11 (idle
 
 | # | Decision | Facts for it | Source |
 |---|---|---|---|
-| 19 | **The deployable model:** adopt E-PF (the PF 5-member ensemble at argmax) over the house ensemble? | coach and judge recommend E-PF: test n.d. on all three primaries with positive point estimates (relF1@2 +0.0121); E1 inactive IoU +0.2141, CI above 0 (10 cells / 7 images, borderline under Bonferroni); E1 crack precision lower (−0.05). FINAL (cv02, +0.75, 0.492) is not comparable by rule; E-PF's 0.4920 needs a bias the pre-registered val width flag rejected (val crack precision drop +0.0753 > 0.05) | `verify_pf2e.md`; doc 20 §5 |
-| 20 | **D2 width flag:** both ensembles tripped it (val crack precision drop +0.0543 / +0.0753), so the headline is argmax. Change the D2 grid or the threshold for future protocols? | A pre-registered question for a later protocol, never a re-pick of PF2E (coach) | `verify_pf2e.md` "What this decides" |
+| 19 | **The deployable model:** adopt E-PF (the PF 5-member ensemble at argmax) over the house ensemble? | coach and judge recommend E-PF: test n.d. on all three primaries with positive point estimates (relF1@2 +0.0121); E1 inactive IoU +0.2141, CI above 0 (10 cells / 7 images, borderline under Bonferroni); E1 crack precision lower (−0.05). FINAL (cv02, +0.75, 0.492) is not comparable by rule; E-PF's 0.4920 needs a bias the pre-registered val width flag rejected (val crack precision drop +0.0753 > 0.05) | `verify_pf2e.md`; doc 20 §5. [3 Nov: still open; SKR2E FAILED and did not displace E-PF as the recommended candidate (doc 21 §5).] |
+| 20 | **D2 width flag:** both ensembles tripped it (val crack precision drop +0.0543 / +0.0753), so the headline is argmax. Change the D2 grid or the threshold for future protocols? | A pre-registered question for a later protocol, never a re-pick of PF2E (coach). [3 Nov: the flag also decided SKR2E, by 0.0015; now §3e row 27.] | `verify_pf2e.md` "What this decides" |
 | 21 | **Half-cut routing (parked):** wanted enough to label half-cuts with E1-like context? | The offset exists only on E1's own labels (oracle b +5.4 vs −0.8); simulated half-cuts show no offset; H36 cleanup would likely not show it (judge); B2 masks or B3 + mining are the route; no manual labelling unless really needed | doc 20 §3.1; doc 13 A16, E30 |
-| 22 | **A8 full arm** if the screen says GO (5 seeds, E1 co-primaries possible: one more GPU run set and an E1 opening) | Screen queued first after THIN-B3 | `protocol_A8screen.md` §5 |
-| 23 | **SKR follow-up?** (added ~21:40) | SKR FAILED by the rule (test crack IoU −0.0136, narrow: leave-top-3-out +0.010) but lifts E1 crack detection (relF1@2 +0.059 BETTER; any-hit component recall 0.381 → 0.523) at ~2x false-alarm px. A follow-up is a new protocol: weight 0.1 or a val OP on a wider grid, a precision guard as a co-primary, a width-insensitive E1 readout | `verify_thin_b3.md` (coach, judge) |
+| 22 | **A8 full arm** if the screen says GO (5 seeds, E1 co-primaries possible: one more GPU run set and an E1 opening) | Screen queued first after THIN-B3. [3 Nov: moot; the screen KILLED, doc 21 §1.] | `protocol_A8screen.md` §5 |
+| 23 | **SKR follow-up?** (added ~21:40) | SKR FAILED by the rule (test crack IoU −0.0136, narrow: leave-top-3-out +0.010) but lifts E1 crack detection (relF1@2 +0.059 BETTER; any-hit component recall 0.381 → 0.523) at ~2x false-alarm px. A follow-up is a new protocol: weight 0.1 or a val OP on a wider grid, a precision guard as a co-primary, a width-insensitive E1 readout. [3 Nov: done as SKR2 (w 0.1): PASS, narrow; its ensemble check SKR2E FAILED; fresh-seed SKR2C pending, §3e row 24.] | `verify_thin_b3.md` (coach, judge) |
 
 Still open: §3c rows 16 (marks: optional by team-lead's reading of the user's 31 Oct line; not done, not re-asked), 17 (HF sample), 18 (who rebooted gaint on 30 Oct); §3b rows 10 and 11.
+
+## 3e. Decisions waiting on the user, 3 Nov (added 3 Nov)
+
+| # | Decision | Facts for it | Source |
+|---|---|---|---|
+| 24 | **Next step:** (a) pause GPU work and write up; (b) SKR2 on new seeds (SKR2C: training tonight, opening = E1 #7 on your OK); (c) wait for B2 | SKR2's E1 relF1@2 pass is 0.0013 over its bar (label fragile, effect robust); SKR2E failed at its own OP; judge's P(PASS) for SKR2C 0.34 to 0.90 if the true effect is 0.5 to 1x #5's, ~0.05 if none | `verify_skr2_hc2.md`, `verify_skr2e.md`, `judge/out/skr2c_power_out.txt` |
+| 25 | **B2:** (a) the user marks (sheets sent 2 Nov 11:18; whole 512 crop is the unit); (b) a new crack-only agent prereg (its crack gate passed on house CSIR cells only, not on Hanifi cracks); (c) skip B2 | Agent raters passed the crack gate (sens 20/20, spec 17/20) and failed the scuff gate (1/8); on gate B's Hanifi half-cells the raters found 1 of 14 cracks (speck-level labels; reported, not gated); B2's purpose is scuff / crack half-cell context | `ideas/b2_agent_marking_prereg.md`; log 2 Nov 11:49 |
+| 26 | **Blender renders vs gaint lanes:** a standing rule when outside GPU jobs share gaint | Outside processes took free memory to 2,078 MiB with 3 lanes (2 Nov 12:18); team-lead chose MAXC 2 for the unattended night | doc 13 D46 |
+| 27 | **D2 width flag (0.05 on val crack pixel precision):** keep, or pre-register a shared / matched-precision OP rule for future ensemble protocols | It sent both PF2E arms to argmax and passed E-SKR2 by 0.0015, which decided SKR2E | doc 13 C20, E34 |
+| 28 | **HC route (open):** a dilution-targeted variant, or leave it | HC n.d.; HC2 FAIL (G1); label vs dilution undecided | `verify_skr2_hc2.md`; doc 13 E31 |
+
+Still open: §3c rows 17 (HF sample), 18 (who rebooted gaint on 30 Oct); §3b rows 10 (40-segment audit, 4 label questions) and 11 (idle cv02 shells); §3d row 21 (half-cut labels for routing).
 
 ## 4. Remaining work for part 1 (training methodology)
 Ordered roughly by information per cost. None of these is started; each would need its own locked protocol and the user's go-ahead.
@@ -223,12 +244,23 @@ Coach's order by expected test gain per cost. None beyond protocol_100 and B1/B2
 | Rank | Item | Condition | ETA | Source |
 |---|---|---|---|---|
 | 1 | THIN-B3 verify (runner local, coach on gaint CPU, judge on the laptop); fill the record's THIN section and docs 11 / 15 / 20 [Done 1 Nov 21:21-21:29: no arm passes; doc 20 §6.0.] | opening rc 0 | tonight, after ~22:00 | `protocol_thin_b3.md` |
-| 2 | A8 screen (4 runs × 4k steps, then CPU scoring 15 to 30 min) | THIN's opening done | night of 1 to 2 Nov | `protocol_A8screen.md`, `build_a8_runner.md` |
-| 3 | HC (5 runs ≈ 12.5 lane-h, then an opening ~1.5 to 2 h; E1 opening #3) | THIN's opening done | 2 Nov, likely midday or later | `protocol_HC.md`, `build_hc_runner.md` |
-| 4 | B6 on cv02 (builder's fold roots + scorer ~2 to 3.5 h CPU; ~6.5 h on cv02) | ≥ 3 qualifying cv02 GPUs per wave; coach APPROVED | 2 Nov at the earliest | `protocol_B6.md` |
-| 5 | A8 full arm, if the screen says GO | the user (row 22) | after the screen | `protocol_A8screen.md` §5 |
+| 2 | A8 screen (4 runs × 4k steps, then CPU scoring 15 to 30 min) | THIN's opening done | night of 1 to 2 Nov [Done: KILL, 1 Nov 23:40] | `protocol_A8screen.md`, `build_a8_runner.md` |
+| 3 | HC (5 runs ≈ 12.5 lane-h, then an opening ~1.5 to 2 h; E1 opening #3) | THIN's opening done | 2 Nov, likely midday or later [Done: n.d., 2 Nov 03:18] | `protocol_HC.md`, `build_hc_runner.md` |
+| 4 | B6 on cv02 (builder's fold roots + scorer ~2 to 3.5 h CPU; ~6.5 h on cv02) | ≥ 3 qualifying cv02 GPUs per wave; coach APPROVED | 2 Nov at the earliest [Done: n.d., 2 Nov 22:19] | `protocol_B6.md` |
+| 5 | A8 full arm, if the screen says GO | the user (row 22) | after the screen [Moot: KILL] | `protocol_A8screen.md` §5 |
 
 **Closed (E):** RN50 under PF (FAIL); TTA (T9); label-free per-panel thresholds; intensity normalisation; high resolution; appearance augmentation as an arm; the large-pool download (item 13). **Parked:** half-cut routing; the structure channel (ideas 3 + 4); scuff via SAM; trust-region crack cleanup.
+
+## 4e. Ranked next items, 3 Nov (added 3 Nov; S unless tagged)
+
+| Rank | Item | Condition | ETA | Source |
+|---|---|---|---|---|
+| 1 | SKR2C training (10 runs, seeds 10-14, MAXC 2) | judge confirms the guard / queue fixes (stage-1 review b0d866a4, G1-G8) and dry passes 1-3; then coach's APPROVED (protocol locked 02:37) | ~12.3 h wall from launch (runner's estimate) | log 3 Nov 02:23 |
+| 2 | SKR2C opening (E1 #7) | the user's OK (§3e row 24) | ~1.5 h after the last run (S; the S2 opening took 1 h 22 min) | `protocol_SKR2C.md` v1 (locked 02:37) |
+| 3 | B2 marks or a crack-only agent prereg | the user (row 25) | user marks ~15 min (Om B4's estimate) | `ideas/b2_agent_marking_prereg.md` |
+| 4 | Write-up of the session's negative and narrow results (A8 KILL, HC n.d., B6 n.d., SKR2 PASS narrow, HC2 / SKR2E FAIL) | the user (row 24a) | | doc 21, doc 11 rows 43 to 50 |
+
+**Closed (E):** foundation encoder (A8 KILL); the HC2 (a2) ignore design; Om's A1, A2, A3, A5, A6. **Parked:** A4 (structured crack head) behind SKR2; half-cut routing; the structure channel (ideas 3 + 4). **Open:** the HC route (user, 2 Nov 21:51).
 
 ## 5. Parts 2 and 3 (after part 1)
 - **Part 2, architecture.** Phase 0 ideas:
@@ -271,6 +303,8 @@ After any new result, update these docs (done for P15 and P16 on 12 Oct; P17 on 
 | (Added 30 Oct) CP5 s1/s3 automatic rescore files | Exist, unopened; CP5 is not scored | doc 19 §3.3 |
 | (Added 1 Nov) Quarantined test / E1-scuff outputs on gaint | `builder_scratch/quarantine_test_reads_2026-10-31` (chmod a-r, MANIFEST.md5 e367b101): keep unread; delete only on coach's or the user's word | doc 13 D35 |
 | (Added 1 Nov) Large local per-cell files of the 31 Oct team | About 370 MB (raw pulls, calib records), gitignored, with `MANIFEST.md5`; laptop disk is tight | `team_2026-10-31_next/.gitignore` |
+| (Added 3 Nov) B2 blinding files | `judge/b2_key/` (the bundle key) and `judge/b2_scores/` stay with judge and out of git; `b2_bundle/` (70 MB) is gitignored; the 3 Hanifi B2 panel cells stay redacted in `handbook/sources/` until the user marks B2 | log 2 Nov 11:38, 11:49 |
+| (Added 3 Nov) Laptop disk at 98% | judge deleted its 171 MB scratch pull (2 Nov 21:48); raw pulls of A8, HC, S2, SKR2E, B6 are gitignored with MANIFESTs | log 2 Nov 21:48, 23:32 |
 
 ## Related docs
 - `10_experiments_P13_P16_E1.md`: designs of P15 and P16

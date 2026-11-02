@@ -1,0 +1,42 @@
+
+## E1 106 (n 106; GT comps>=20 296; crack-free cells 74)
+arm        relF1     relP     relR      IoU      pxP      pxR   predGT   anyhit     half   freepx    inact
+SUP       0.3837   0.5370   0.3007   0.1415   0.4539   0.1715   0.3805   0.3122   0.1730     3626   0.0481
+SUPPF     0.4202   0.5245   0.3515   0.1566   0.4284   0.1986   0.4659   0.3811   0.2284     3931   0.2371
+  d relF1 +0.0365 (thr 0.0436) | inact +0.1890 (thr 0.0433) | anyhit +0.0689 (thr 0.0718) | relP -0.0125 (thr 0.0620) | relR +0.0508 (thr 0.0515) | IoU +0.0152 (thr 0.0242) | pxR +0.0271 (thr 0.0370) | predGT +0.0855 (thr 0.1056)
+  per seed SUP: relF1 0.3915 0.3588 0.4042 0.3536 0.4107 inact 0.0399 0.0248 0.0578 0.0293 0.0886 || SUPPF: relF1 0.4432 0.4275 0.4403 0.4140 0.3762 inact 0.2465 0.2252 0.2074 0.2787 0.2276
+
+## E1 scuff+half-cut 29 (n 29; GT comps>=20 274; crack-free cells 9)
+arm        relF1     relP     relR      IoU      pxP      pxR   predGT   anyhit     half   freepx    inact
+SUP       0.2993   0.6582   0.1947   0.0941   0.5420   0.1026   0.1899   0.2759   0.1365      302   0.1783
+SUPPF     0.3591   0.6427   0.2494   0.1217   0.5096   0.1378   0.2694   0.3482   0.1920      314   0.5722
+  d relF1 +0.0598 (thr 0.0665) | inact +0.3939 (thr 0.2162) | anyhit +0.0723 (thr 0.0785) | relP -0.0154 (thr 0.0602) | relR +0.0547 (thr 0.0541) | IoU +0.0276 (thr 0.0313) | pxR +0.0351 (thr 0.0369) | predGT +0.0795 (thr 0.0610)
+
+## E1 half-cut no scuff 29 (n 29; GT comps>=20 11; crack-free cells 23)
+arm        relF1     relP     relR      IoU      pxP      pxR   predGT   anyhit     half   freepx    inact
+SUP       0.7528   0.8067   0.7098   0.3921   0.7563   0.4531   0.6078   0.7455   0.6909      204   0.0000
+SUPPF     0.7803   0.8924   0.6935   0.3804   0.8136   0.4166   0.5118   0.7455   0.6182       71   0.1500
+  d relF1 +0.0275 (thr 0.0340) | inact +0.1500 (thr 0.2358) | anyhit -0.0000 (thr 0.1447) | relP +0.0857 (thr 0.0953) | relR -0.0164 (thr 0.0395) | IoU -0.0117 (thr 0.0550) | pxR -0.0365 (thr 0.0726) | predGT -0.0959 (thr 0.1419)
+
+## E1 full 48 (n 48; GT comps>=20 11; crack-free cells 42)
+arm        relF1     relP     relR      IoU      pxP      pxR   predGT   anyhit     half   freepx    inact
+SUP       0.4577   0.3822   0.5796   0.1957   0.3163   0.3456   1.1102   0.7818   0.5636     3120   0.0250
+SUPPF     0.4520   0.3508   0.6437   0.1906   0.2851   0.3662   1.3030   0.8364   0.7455     3545   0.0966
+  d relF1 -0.0057 (thr 0.0777) | inact +0.0716 (thr 0.0409) | anyhit +0.0545 (thr 0.1050) | relP -0.0314 (thr 0.0895) | relR +0.0641 (thr 0.0898) | IoU -0.0051 (thr 0.0460) | pxR +0.0207 (thr 0.0908) | predGT +0.1928 (thr 0.3936)
+
+## test 50 precision guard (argmax)
+SUP     predGT 0.957 relP@2 0.9408 pxP 0.6506 crack px on crack-free cells 0 (n 2)
+SUPPF   predGT 0.954 relP@2 0.9417 pxP 0.6504 crack px on crack-free cells 0 (n 2)
+
+## E1 image-cluster bootstrap (71 source images, 2,000, seed 0; seed-pooled counts; descriptive)
+relF1@2: d +0.0357 95% [-0.0136, +0.0858] P(d*>0) 0.919
+inactive IoU: d +0.1886 95% [+0.0232, +0.3537] P(d*>0) 0.995
+E1 inactive images (GT inactive px > 0): 7; top-3 share 0.870
+leave-top-3-inactive-images-out d inactive IoU +0.0225; d relF1@2 +0.0151
+  CSIR_01637: cells 4 GT inactive px 3702 | inact IoU SUP 0.154 SUPPF 0.626 d +0.473 | strata ['scuff_halfcut/halfcut=1']
+  CSIR_01101: cells 2 GT inactive px 3228 | inact IoU SUP 0.186 SUPPF 0.327 d +0.141 | strata ['other/halfcut=0']
+  CSIR_01647: cells 1 GT inactive px 1033 | inact IoU SUP 0.364 SUPPF 0.704 d +0.340 | strata ['scuff_halfcut/halfcut=1']
+  CSIR_02136: cells 1 GT inactive px 554 | inact IoU SUP 0.000 SUPPF 0.158 d +0.158 | strata ['other/halfcut=1']
+  CSIR_00400: cells 1 GT inactive px 436 | inact IoU SUP 0.278 SUPPF 0.555 d +0.278 | strata ['other/halfcut=0']
+  CSIR_02026: cells 1 GT inactive px 148 | inact IoU SUP 0.000 SUPPF 0.000 d +0.000 | strata ['scuff_halfcut/halfcut=1']
+  CSIR_01717: cells 5 GT inactive px 57 | inact IoU SUP 0.000 SUPPF 0.000 d +0.000 | strata ['other/halfcut=1', 'scuff_halfcut/halfcut=1']

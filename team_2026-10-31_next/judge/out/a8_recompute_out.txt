@@ -1,0 +1,61 @@
+run f8_A8_4k_s0: loaded; val OP b_rel 2.9 relP 0.9005 relR 0.8794 reachable True edt spot equal True (n 2)
+run f8_A8_4k_s1: loaded; val OP b_rel 2.8 relP 0.9003 relR 0.8891 reachable True edt spot equal True (n 2)
+run f8_A8c_4k_s0: loaded; val OP b_rel 1.0 relP 0.9005 relR 0.8910 reachable True edt spot equal True (n 2)
+run f8_A8c_4k_s1: loaded; val OP b_rel 2.7 relP 0.9009 relR 0.9089 reachable True edt spot equal True (n 2)
+== sets (E)
+F51 cells 51 modules 36 crack cells (>=20 px in keep) 12 ambiguous 1-19 px 5 crack-free 34 crack px 14639
+H36 cells 36 crack-free 19 | F19 cells 19 | val 54
+dump stems vs real test.txt names: 0 shared; vs E1 stems_eval names: 0 shared (asserted per dump)
+== crack AP per run (1000-bin = the rule's definition; fp16-exact = ties at fp16 resolution)
+f8_A8_4k_s0 F51 0.5480/0.5778 H36 0.0122/0.0165 F19 0.4237/0.4649 val 0.5107/0.5564
+f8_A8_4k_s1 F51 0.5416/0.5699 H36 0.0100/0.0117 F19 0.2773/0.3405 val 0.5385/0.5800
+f8_A8c_4k_s0 F51 0.5358/0.5689 H36 0.0046/0.0049 F19 0.2288/0.2991 val 0.5085/0.5423
+f8_A8c_4k_s1 F51 0.6024/0.6359 H36 0.0197/0.0200 F19 0.2120/0.2370 val 0.5489/0.5885
+arm means 1000-bin: F51 A8 0.5448 A8c 0.5691 d -0.0243 | H36 A8 0.0111 A8c 0.0122 d -0.0010 | F19 A8 0.3505 A8c 0.2204 d +0.1301 | val A8 0.5246 A8c 0.5287 d -0.0041
+arm means fp16-exact: F51 A8 0.5738 A8c 0.6024 d -0.0286 | H36 A8 0.0141 A8c 0.0124 d +0.0017 | F19 A8 0.4027 A8c 0.2681 d +0.1346 | val A8 0.5682 A8c 0.5654 d +0.0028
+seed-pair dF51 (1000-bin): s0 +0.0122  s1 -0.0608; cross pairs A8s0-A8cs1 -0.0544 A8s1-A8cs0 +0.0058
+== F51 paired module-cluster bootstrap (2,000, seed 0, resample the 36 modules; rule term 1b = lower 2.5% > 0)
+1000-bin (rule): 2.5% -0.0463 97.5% +0.0454 mean -0.0143 median -0.0177 P(d*>0) 0.162 n 2000
+fp16-exact: 2.5% -0.0493 97.5% +0.0476 mean -0.0168 median -0.0210 P(d*>0) 0.153 n 2000
+two-stage (modules + seed draw per arm, 1000-bin): 2.5% -0.0692 97.5% +0.0473 P(d*>0) 0.325
+bootstrap seed 1 (1000-bin): 2.5% -0.0462 97.5% +0.0515
+bootstrap seed 2 (1000-bin): 2.5% -0.0456 97.5% +0.0424
+== per crack module dAP (1000-bin, seed means) and leave-one-crack-module-out dF51
+CSIR_00031: cells 1 crack px 84 AP 0.017 0.000 0.000 0.000 | dAP +0.0082 | F51 without it d -0.0246
+CSIR_00035: cells 1 crack px 37 AP 0.000 0.000 0.000 0.000 | dAP +0.0000 | F51 without it d -0.0244
+CSIR_00038: cells 2 crack px 39 AP 0.000 0.000 0.000 0.000 | dAP +0.0000 | F51 without it d -0.0244
+CSIR_00048: cells 1 crack px 83 AP 0.000 0.000 0.000 0.000 | dAP +0.0000 | F51 without it d -0.0245
+CSIR_00063: cells 2 crack px 163 AP 0.006 0.000 0.000 0.000 | dAP +0.0027 | F51 without it d -0.0240
+CSIR_00067: cells 3 crack px 844 AP 0.053 0.039 0.001 0.001 | dAP +0.0445 | F51 without it d -0.0283
+CSIR_00073: cells 1 crack px 11110 AP 0.673 0.686 0.660 0.725 | dAP -0.0131 | F51 without it d -0.0047
+CSIR_00081: cells 1 crack px 211 AP 0.044 0.047 0.093 0.090 | dAP -0.0459 | F51 without it d -0.0284
+CSIR_00083: cells 2 crack px 45 AP 0.000 0.000 0.000 0.000 | dAP +0.0000 | F51 without it d -0.0244
+CSIR_00139: cells 3 crack px 211 AP 0.385 0.418 0.416 0.484 | dAP -0.0482 | F51 without it d -0.0219
+CSIR_00385: cells 1 crack px 1367 AP 0.487 0.440 0.501 0.573 | dAP -0.0742 | F51 without it d -0.0096
+CSIR_02428: cells 1 crack px 406 AP 0.485 0.543 0.483 0.606 | dAP -0.0302 | F51 without it d -0.0257
+== false alarms: crack px (margin + b > 0, keep) on crack-free cells (n_gt == 0) at each run's own val b_rel; and at b 0 / common b
+f8_A8_4k_s0 b_rel 2.9: H36 182 F51 537 | at b 0: H36 102 F51 274 | at b 2.8: H36 175 F51 525 | crack-free cells with >= 20 FA px at b_rel: H36 1 F51 3
+f8_A8_4k_s1 b_rel 2.8: H36 2 F51 247 | at b 0: H36 0 F51 163 | at b 2.8: H36 2 F51 247 | crack-free cells with >= 20 FA px at b_rel: H36 0 F51 3
+f8_A8c_4k_s0 b_rel 1.0: H36 56 F51 210 | at b 0: H36 42 F51 186 | at b 2.8: H36 87 F51 262 | crack-free cells with >= 20 FA px at b_rel: H36 1 F51 2
+f8_A8c_4k_s1 b_rel 2.7: H36 0 F51 192 | at b 0: H36 0 F51 151 | at b 2.8: H36 0 F51 193 | crack-free cells with >= 20 FA px at b_rel: H36 0 F51 1
+term 3 H36: A8 92.0 A8c 28.0 bound max(1.5x, +200) 228.0 -> PASS (ratio 3.29; without the +200 floor: FAIL)
+term 3 F51: A8 392.0 A8c 201.0 bound max(1.5x, +200) 401.0 -> PASS (ratio 1.95; without the +200 floor: FAIL)
+== GO rule (own numbers)
+1a dF51 -0.0243 -> FAIL; 1b boot lo -0.0463 -> FAIL; 2 dval -0.0041 -> PASS
+== reported only
+f8_A8_4k_s0: cell AUROC (max p, >=20 vs 0) F51 0.7733 H36 0.5015 F19 0.9136 | inactive IoU at b_rel val 0.3675 F51 0.2153 F19 0.0593
+f8_A8_4k_s1: cell AUROC (max p, >=20 vs 0) F51 0.7255 H36 0.7214 F19 1.0000 | inactive IoU at b_rel val 0.3850 F51 0.2280 F19 0.0622
+f8_A8c_4k_s0: cell AUROC (max p, >=20 vs 0) F51 0.6679 H36 0.7028 F19 0.8519 | inactive IoU at b_rel val 0.4360 F51 0.3580 F19 0.4850
+f8_A8c_4k_s1: cell AUROC (max p, >=20 vs 0) F51 0.6740 H36 0.6254 F19 0.8519 | inactive IoU at b_rel val 0.3797 F51 0.2564 F19 0.3669
+== CPU dump vs trainer val gate (own: pooled val IoU at b 0 from the dump vs metrics.json val_history[-1]; and test_final == val_history[-1])
+f8_A8_4k_s0: step 4000 | crack IoU dump 0.42207 trainer 0.42200 d +0.00006 | inactive IoU dump 0.36659 trainer 0.36763 d -0.00105 | test_final == val_history[-1] (7 scalars): True; test_final n_images 54; per-class GT px equal: n/a
+f8_A8_4k_s1: step 4000 | crack IoU dump 0.43376 trainer 0.43365 d +0.00011 | inactive IoU dump 0.38265 trainer 0.38337 d -0.00072 | test_final == val_history[-1] (7 scalars): True; test_final n_images 54; per-class GT px equal: n/a
+f8_A8c_4k_s0: step 4000 | crack IoU dump 0.42409 trainer 0.42457 d -0.00048 | inactive IoU dump 0.43599 trainer 0.43757 d -0.00158 | test_final == val_history[-1] (7 scalars): True; test_final n_images 54; per-class GT px equal: n/a
+f8_A8c_4k_s1: step 4000 | crack IoU dump 0.44356 trainer 0.44418 d -0.00062 | inactive IoU dump 0.37331 trainer 0.37205 d +0.00125 | test_final == val_history[-1] (7 scalars): True; test_final n_images 54; per-class GT px equal: n/a
+== vs a8_screen_score.json
+f8_A8_4k_s0 F51 AP scorer 0.547966 own 0.547966 | val AP scorer 0.510685 own 0.510685 | b_rel scorer 2.9 own 2.9 | FA H36 182.0 / 182 F51 537.0 / 537
+f8_A8_4k_s1 F51 AP scorer 0.541584 own 0.541584 | val AP scorer 0.538501 own 0.538501 | b_rel scorer 2.8 own 2.8 | FA H36 2.0 / 2 F51 247.0 / 247
+f8_A8c_4k_s0 F51 AP scorer 0.535772 own 0.535772 | val AP scorer 0.508476 own 0.508476 | b_rel scorer 1.0 own 1.0 | FA H36 56.0 / 56 F51 210.0 / 210
+f8_A8c_4k_s1 F51 AP scorer 0.602414 own 0.602414 | val AP scorer 0.548896 own 0.548896 | b_rel scorer 2.7 own 2.7 | FA H36 0.0 / 0 F51 192.0 / 192
+terms scorer {"1a_F51_dAP>0": [-0.0243, false], "1b_F51_module_boot_lo>0": [-0.0463, false], "2_val_dAP>=-0.02": [-0.0041, true], "3_FA_H36": [[92.0, 28.0], true], "3_FA_F51": [[392.0, 201.0], true]}
+DONE

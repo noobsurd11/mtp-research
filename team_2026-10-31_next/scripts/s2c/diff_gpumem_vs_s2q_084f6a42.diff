@@ -1,0 +1,29 @@
+2,7c2,7
+< # runner DRAFT (2 Nov 2026): GPU memory log on gaint for the SKR2 + HC2 queue (copy of nq_gpumem.sh 1c3671a3; queue dir and end
+< # lines changed). 1 s samples while a scoring process is on the GPU or /home/noob/work/gpu_gate/FAST exists; 10 s otherwise.
+< # Line: "HH:MM:SS free_MiB used_MiB | pid:label:MiB ...". Stops 60 s after an end line in /home/noob/work/s2q/post.log
+< # ("s2q scoring done" / "s2q NOT scored"), or the GPUMEM_STOP file, or MAXH hours. PID in /home/noob/work/s2q/gpumem.pid.
+< Q=/home/noob/work/s2q; mkdir -p $Q; L=$Q/gpumem.log; LL=$Q/post.log; touch $LL
+< MAXH=${MAXH:-72}; T0=$(date +%s); END=0; N0=$(wc -l < $LL); GG=/home/noob/work/gpu_gate
+---
+> # runner DRAFT (3 Nov 2026): GPU memory log on gaint for the SKR2C queue. Copy of s2q_gpumem.sh 084f6a42 with: queue dir
+> # /home/noob/work/s2c; 1 s samples always (team-lead 3 Nov: unattended overnight); stop 60 s after 'S2C ALL TRAINED' in s2c/launch.log,
+> # or the GPUMEM_STOP file, or MAXH hours (default 24); label regex = run_name / finllm only (no scorers tonight).
+> # Line: "HH:MM:SS free_MiB used_MiB | pid:label:MiB ...". PID in /home/noob/work/s2c/gpumem.pid.
+> Q=/home/noob/work/s2c; mkdir -p $Q; L=$Q/gpumem.log; LL=$Q/launch.log; touch $LL
+> MAXH=${MAXH:-24}; T0=$(date +%s); END=0; N0=$(wc -l < $LL)
+9,11c9,10
+< echo "# start $(date '+%F %T') pid $$ (10 s; 1 s while scoring or FAST); cols: time free_MiB used_MiB | pid:label:MiB" >> $L
+< RX='run_name=[A-Za-z0-9_]+|rescore_label_versions|m0_audit_b3|m0_audit_tau|m0_audit|rescore_logit_adjust|scuff_train_iou|calib_dump|enc_cosine|pf2e_infer|finllm_chat'
+< SC=':(rescore_label_versions|m0_audit_b3|m0_audit_tau|m0_audit|rescore_logit_adjust|scuff_train_iou|calib_dump|enc_cosine):'
+---
+> echo "# start $(date '+%F %T') pid $$ (1 s); cols: time free_MiB used_MiB | pid:label:MiB" >> $L
+> RX='run_name=[A-Za-z0-9_]+|finllm_chat'
+17c16
+<   if [ $END = 0 ] && tail -n +$((N0+1)) $LL | grep -qE "s2q scoring done|s2q NOT scored"; then
+---
+>   if [ $END = 0 ] && tail -n +$((N0+1)) $LL | grep -q "S2C ALL TRAINED"; then
+22c21
+<   if [ -e $GG/FAST ] || echo "$a" | grep -qE "$SC"; then sleep 1; else sleep 10; fi
+---
+>   sleep 1

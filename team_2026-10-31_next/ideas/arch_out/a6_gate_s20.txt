@@ -1,0 +1,143 @@
+a6_gate.py md5 7f789a47  gate score s20  (DESCRIPTIVE; val + _rf only)
+
+## SUPPF_s5-9 (syn_work CPU; val+rf)  (n runs 5)
+  t per run: 0.87 -12.04 -9.82 -12.66 -9.45 | b_rel ungated: +4.5 +3.8 +2.9 +4.0 +4.3 | b_rel gated: +4.5 +3.8 +2.9 +4.0 +4.3  (! = unreachable, max-precision b)
+  val crack-free cells gated out per run: 31/31 18/31 28/31 8/31 28/31
+  [val] cells 54 pos 23 neg 31 GT px 37938 | AUROC s1 0.991 s20 0.988 | pos gated 0.0 (0 GT px) | neg gated 22.6/31
+    b0          relR 0.8461 relP 0.9296 relF1 0.8859 IoU 0.4193 pred/GT 1.016 FApx      6.8 FAcells  0.2 offGT negcells      6.8 offGT poscells   2711.4
+    b0_gate     relR 0.8461 relP 0.9296 relF1 0.8859 IoU 0.4193 pred/GT 1.016 FApx      6.8 FAcells  0.2 offGT negcells      6.8 offGT poscells   2711.4
+    brel        relR 0.8759 relP 0.9004 relF1 0.8880 IoU 0.4267 pred/GT 1.303 FApx     18.4 FAcells  0.2 offGT negcells     18.4 offGT poscells   4904.6
+    brel_gate   relR 0.8759 relP 0.9004 relF1 0.8880 IoU 0.4268 pred/GT 1.303 FApx     17.0 FAcells  0.2 offGT negcells     17.0 offGT poscells   4904.6
+    brelG_gate  relR 0.8759 relP 0.9004 relF1 0.8880 IoU 0.4268 pred/GT 1.303 FApx     17.0 FAcells  0.2 offGT negcells     17.0 offGT poscells   4904.6
+  [F51] cells 51 pos 12 neg 34 GT px 14639 | AUROC s1 0.736 s20 0.678 | pos gated 4.4 (656 GT px) | neg gated 24.0/34
+    b0          relR 0.8180 relP 0.8690 relF1 0.8427 IoU 0.4158 pred/GT 0.900 FApx    113.8 FAcells  2.2 offGT negcells    113.8 offGT poscells   1613.4
+    b0_gate     relR 0.8180 relP 0.8690 relF1 0.8427 IoU 0.4158 pred/GT 0.900 FApx    113.8 FAcells  2.2 offGT negcells    113.8 offGT poscells   1613.4
+    brel        relR 0.8483 relP 0.7942 relF1 0.8200 IoU 0.4126 pred/GT 1.235 FApx   1231.0 FAcells  3.0 offGT negcells   1231.0 offGT poscells   2514.2
+    brel_gate   relR 0.8483 relP 0.8000 relF1 0.8229 IoU 0.4149 pred/GT 1.226 FApx   1108.6 FAcells  2.6 offGT negcells   1108.6 offGT poscells   2514.2
+    brelG_gate  relR 0.8483 relP 0.8000 relF1 0.8229 IoU 0.4149 pred/GT 1.226 FApx   1108.6 FAcells  2.6 offGT negcells   1108.6 offGT poscells   2514.2
+  [H36] cells 36 pos 17 neg 19 GT px 1792 | AUROC s1 0.533 s20 0.496 | pos gated 9.0 (1070 GT px) | neg gated 9.4/19
+    b0          relR 0.0335 relP 0.2729 relF1 0.0591 IoU 0.0166 pred/GT 0.166 FApx    162.6 FAcells  2.0 offGT negcells    162.6 offGT poscells     58.2
+    b0_gate     relR 0.0335 relP 0.2752 relF1 0.0592 IoU 0.0166 pred/GT 0.164 FApx    159.8 FAcells  2.0 offGT negcells    159.8 offGT poscells     57.6
+    brel        relR 0.0360 relP 0.2165 relF1 0.0610 IoU 0.0192 pred/GT 0.290 FApx    277.8 FAcells  3.4 offGT negcells    277.8 offGT poscells    138.8
+    brel_gate   relR 0.0360 relP 0.2216 relF1 0.0613 IoU 0.0194 pred/GT 0.281 FApx    272.2 FAcells  3.2 offGT negcells    272.2 offGT poscells    129.0
+    brelG_gate  relR 0.0360 relP 0.2216 relF1 0.0613 IoU 0.0194 pred/GT 0.281 FApx    272.2 FAcells  3.2 offGT negcells    272.2 offGT poscells    129.0
+  [F19] cells 19 pos 9 neg 9 GT px 6811 | AUROC s1 0.842 s20 0.835 | pos gated 2.8 (497 GT px) | neg gated 6.0/9
+    b0          relR 0.5550 relP 0.7837 relF1 0.6486 IoU 0.2156 pred/GT 1.054 FApx      0.0 FAcells  0.0 offGT negcells      0.0 offGT poscells   1559.2
+    b0_gate     relR 0.5532 relP 0.7835 relF1 0.6474 IoU 0.2152 pred/GT 1.054 FApx      0.0 FAcells  0.0 offGT negcells      0.0 offGT poscells   1559.2
+    brel        relR 0.5998 relP 0.7550 relF1 0.6658 IoU 0.2272 pred/GT 1.348 FApx      2.2 FAcells  0.0 offGT negcells      2.2 offGT poscells   2247.6
+    brel_gate   relR 0.5971 relP 0.7547 relF1 0.6640 IoU 0.2264 pred/GT 1.346 FApx      2.2 FAcells  0.0 offGT negcells      2.2 offGT poscells   2247.6
+    brelG_gate  relR 0.5971 relP 0.7547 relF1 0.6640 IoU 0.2264 pred/GT 1.346 FApx      2.2 FAcells  0.0 offGT negcells      2.2 offGT poscells   2247.6
+
+## HC_s5-9 (syn_work CPU; val+rf)  (n runs 5)
+  t per run: 4.13 -11.49 -10.95 -1.97 2.35 | b_rel ungated: +3.0 +3.9 +3.5 +3.9 +4.3 | b_rel gated: +3.0 +3.9 +3.5 +3.9 +4.4  (! = unreachable, max-precision b)
+  val crack-free cells gated out per run: 31/31 22/31 27/31 29/31 31/31
+  [val] cells 54 pos 23 neg 31 GT px 37938 | AUROC s1 0.991 s20 0.995 | pos gated 0.0 (0 GT px) | neg gated 28.0/31
+    b0          relR 0.8607 relP 0.9316 relF1 0.8947 IoU 0.4305 pred/GT 1.116 FApx     32.6 FAcells  0.8 offGT negcells     32.6 offGT poscells   2863.4
+    b0_gate     relR 0.8607 relP 0.9318 relF1 0.8948 IoU 0.4305 pred/GT 1.116 FApx     27.8 FAcells  0.6 offGT negcells     27.8 offGT poscells   2863.4
+    brel        relR 0.8896 relP 0.9004 relF1 0.8950 IoU 0.4297 pred/GT 1.437 FApx     52.6 FAcells  1.0 offGT negcells     52.6 offGT poscells   5375.6
+    brel_gate   relR 0.8896 relP 0.9006 relF1 0.8951 IoU 0.4298 pred/GT 1.437 FApx     43.0 FAcells  0.8 offGT negcells     43.0 offGT poscells   5375.6
+    brelG_gate  relR 0.8896 relP 0.9004 relF1 0.8950 IoU 0.4298 pred/GT 1.439 FApx     43.0 FAcells  0.8 offGT negcells     43.0 offGT poscells   5391.2
+  [F51] cells 51 pos 12 neg 34 GT px 14639 | AUROC s1 0.740 s20 0.683 | pos gated 6.0 (1054 GT px) | neg gated 29.2/34
+    b0          relR 0.8536 relP 0.8776 relF1 0.8654 IoU 0.4555 pred/GT 1.126 FApx     44.8 FAcells  0.8 offGT negcells     44.8 offGT poscells   1970.0
+    b0_gate     relR 0.8536 relP 0.8779 relF1 0.8655 IoU 0.4556 pred/GT 1.126 FApx     38.8 FAcells  0.6 offGT negcells     38.8 offGT poscells   1970.0
+    brel        relR 0.8770 relP 0.8460 relF1 0.8612 IoU 0.4448 pred/GT 1.443 FApx    122.4 FAcells  1.2 offGT negcells    122.4 offGT poscells   3128.6
+    brel_gate   relR 0.8770 relP 0.8483 relF1 0.8624 IoU 0.4458 pred/GT 1.439 FApx     68.8 FAcells  0.8 offGT negcells     68.8 offGT poscells   3128.2
+    brelG_gate  relR 0.8773 relP 0.8481 relF1 0.8624 IoU 0.4458 pred/GT 1.441 FApx     68.8 FAcells  0.8 offGT negcells     68.8 offGT poscells   3137.0
+  [H36] cells 36 pos 17 neg 19 GT px 1792 | AUROC s1 0.532 s20 0.513 | pos gated 13.2 (1397 GT px) | neg gated 15.0/19
+    b0          relR 0.0118 relP 0.5470 relF1 0.0384 IoU 0.0047 pred/GT 0.032 FApx      4.2 FAcells  0.0 offGT negcells      4.2 offGT poscells     30.8
+    b0_gate     relR 0.0095 relP 0.6485 relF1 0.0463 IoU 0.0041 pred/GT 0.026 FApx      0.0 FAcells  0.0 offGT negcells      0.0 offGT poscells     28.4
+    brel        relR 0.0141 relP 0.3842 relF1 0.0452 IoU 0.0083 pred/GT 0.060 FApx     10.6 FAcells  0.2 offGT negcells     10.6 offGT poscells     63.4
+    brel_gate   relR 0.0106 relP 0.4696 relF1 0.0515 IoU 0.0067 pred/GT 0.047 FApx      0.8 FAcells  0.0 offGT negcells      0.8 offGT poscells     56.2
+    brelG_gate  relR 0.0106 relP 0.4696 relF1 0.0515 IoU 0.0067 pred/GT 0.047 FApx      0.8 FAcells  0.0 offGT negcells      0.8 offGT poscells     56.2
+  [F19] cells 19 pos 9 neg 9 GT px 6811 | AUROC s1 0.816 s20 0.830 | pos gated 4.0 (1791 GT px) | neg gated 7.6/9
+    b0          relR 0.5388 relP 0.7567 relF1 0.6292 IoU 0.2153 pred/GT 1.306 FApx      0.0 FAcells  0.0 offGT negcells      0.0 offGT poscells   2170.8
+    b0_gate     relR 0.5382 relP 0.7568 relF1 0.6288 IoU 0.2152 pred/GT 1.306 FApx      0.0 FAcells  0.0 offGT negcells      0.0 offGT poscells   2170.6
+    brel        relR 0.5593 relP 0.7245 relF1 0.6311 IoU 0.2118 pred/GT 1.652 FApx      0.4 FAcells  0.0 offGT negcells      0.4 offGT poscells   3105.4
+    brel_gate   relR 0.5535 relP 0.7245 relF1 0.6272 IoU 0.2110 pred/GT 1.649 FApx      0.4 FAcells  0.0 offGT negcells      0.4 offGT poscells   3101.4
+    brelG_gate  relR 0.5535 relP 0.7242 relF1 0.6272 IoU 0.2109 pred/GT 1.651 FApx      0.4 FAcells  0.0 offGT negcells      0.4 offGT poscells   3108.0
+
+## SUPPF_s0-4 (calib backfill CPU; val+rf)  (n runs 5)
+  t per run: -1.26 -4.62 3.52 -10.91 3.50 | b_rel ungated: +5.2 +2.9 +4.3 +3.2 +3.3 | b_rel gated: +5.2 +2.9 +4.3 +3.2 +3.3  (! = unreachable, max-precision b)
+  val crack-free cells gated out per run: 30/31 31/31 31/31 23/31 31/31
+  [val] cells 54 pos 23 neg 31 GT px 37938 | AUROC s1 0.996 s20 0.997 | pos gated 0.0 (0 GT px) | neg gated 29.2/31
+    b0          relR 0.8457 relP 0.9295 relF1 0.8855 IoU 0.4212 pred/GT 1.011 FApx     17.2 FAcells  0.4 offGT negcells     17.2 offGT poscells   2692.8
+    b0_gate     relR 0.8457 relP 0.9295 relF1 0.8856 IoU 0.4212 pred/GT 1.011 FApx     14.0 FAcells  0.4 offGT negcells     14.0 offGT poscells   2692.8
+    brel        relR 0.8760 relP 0.9004 relF1 0.8880 IoU 0.4278 pred/GT 1.287 FApx     28.0 FAcells  0.6 offGT negcells     28.0 offGT poscells   4837.4
+    brel_gate   relR 0.8760 relP 0.9005 relF1 0.8881 IoU 0.4278 pred/GT 1.287 FApx     21.4 FAcells  0.4 offGT negcells     21.4 offGT poscells   4837.4
+    brelG_gate  relR 0.8760 relP 0.9005 relF1 0.8881 IoU 0.4278 pred/GT 1.287 FApx     21.4 FAcells  0.4 offGT negcells     21.4 offGT poscells   4837.4
+  [F51] cells 51 pos 12 neg 34 GT px 14639 | AUROC s1 0.722 s20 0.704 | pos gated 6.2 (899 GT px) | neg gated 29.4/34
+    b0          relR 0.8128 relP 0.8595 relF1 0.8354 IoU 0.4009 pred/GT 0.890 FApx    247.6 FAcells  1.6 offGT negcells    247.6 offGT poscells   1586.4
+    b0_gate     relR 0.8128 relP 0.8605 relF1 0.8358 IoU 0.4013 pred/GT 0.889 FApx    234.2 FAcells  1.4 offGT negcells    234.2 offGT poscells   1585.4
+    brel        relR 0.8449 relP 0.7814 relF1 0.8109 IoU 0.3993 pred/GT 1.233 FApx   1617.0 FAcells  2.4 offGT negcells   1617.0 offGT poscells   2425.2
+    brel_gate   relR 0.8449 relP 0.7967 relF1 0.8187 IoU 0.4053 pred/GT 1.212 FApx   1306.8 FAcells  1.6 offGT negcells   1306.8 offGT poscells   2418.2
+    brelG_gate  relR 0.8449 relP 0.7967 relF1 0.8187 IoU 0.4053 pred/GT 1.212 FApx   1306.8 FAcells  1.6 offGT negcells   1306.8 offGT poscells   2418.2
+  [H36] cells 36 pos 17 neg 19 GT px 1792 | AUROC s1 0.578 s20 0.578 | pos gated 12.8 (1362 GT px) | neg gated 15.2/19
+    b0          relR 0.0270 relP 0.3107 relF1 0.0618 IoU 0.0135 pred/GT 0.102 FApx     52.8 FAcells  1.2 offGT negcells     52.8 offGT poscells     67.0
+    b0_gate     relR 0.0270 relP 0.3504 relF1 0.0626 IoU 0.0137 pred/GT 0.086 FApx     44.2 FAcells  0.8 offGT negcells     44.2 offGT poscells     46.6
+    brel        relR 0.0286 relP 0.2303 relF1 0.0632 IoU 0.0168 pred/GT 0.183 FApx     94.6 FAcells  1.4 offGT negcells     94.6 offGT poscells    146.8
+    brel_gate   relR 0.0286 relP 0.2907 relF1 0.0650 IoU 0.0175 pred/GT 0.138 FApx     68.0 FAcells  1.0 offGT negcells     68.0 offGT poscells     91.8
+    brelG_gate  relR 0.0286 relP 0.2907 relF1 0.0650 IoU 0.0175 pred/GT 0.138 FApx     68.0 FAcells  1.0 offGT negcells     68.0 offGT poscells     91.8
+  [F19] cells 19 pos 9 neg 9 GT px 6811 | AUROC s1 0.837 s20 0.832 | pos gated 3.6 (1402 GT px) | neg gated 7.6/9
+    b0          relR 0.5327 relP 0.7606 relF1 0.6263 IoU 0.1988 pred/GT 1.070 FApx      0.0 FAcells  0.0 offGT negcells      0.0 offGT poscells   1743.6
+    b0_gate     relR 0.5327 relP 0.7606 relF1 0.6263 IoU 0.1988 pred/GT 1.070 FApx      0.0 FAcells  0.0 offGT negcells      0.0 offGT poscells   1743.6
+    brel        relR 0.5613 relP 0.7349 relF1 0.6358 IoU 0.2083 pred/GT 1.348 FApx      0.4 FAcells  0.0 offGT negcells      0.4 offGT poscells   2433.8
+    brel_gate   relR 0.5613 relP 0.7351 relF1 0.6359 IoU 0.2084 pred/GT 1.348 FApx      0.0 FAcells  0.0 offGT negcells      0.0 offGT poscells   2431.2
+    brelG_gate  relR 0.5613 relP 0.7351 relF1 0.6359 IoU 0.2084 pred/GT 1.348 FApx      0.0 FAcells  0.0 offGT negcells      0.0 offGT poscells   2431.2
+
+## SUPPF_s5-9 (PF2 b5 bf16; val only)  (n runs 5)
+  t per run: 0.75 -11.81 -9.44 -12.66 -10.06 | b_rel ungated: +4.4 +3.8 +3.0 +4.0 +4.2 | b_rel gated: +4.5 +3.8 +3.0 +4.0 +4.2  (! = unreachable, max-precision b)
+  val crack-free cells gated out per run: 31/31 21/31 28/31 9/31 27/31
+  [val] cells 54 pos 23 neg 31 GT px 37938 | AUROC s1 0.992 s20 0.989 | pos gated 0.0 (0 GT px) | neg gated 23.2/31
+    b0          relR 0.8460 relP 0.9297 relF1 0.8858 IoU 0.4189 pred/GT 1.016 FApx      6.8 FAcells  0.2 offGT negcells      6.8 offGT poscells   2706.8
+    b0_gate     relR 0.8460 relP 0.9297 relF1 0.8858 IoU 0.4189 pred/GT 1.016 FApx      6.8 FAcells  0.2 offGT negcells      6.8 offGT poscells   2706.8
+    brel        relR 0.8757 relP 0.9005 relF1 0.8879 IoU 0.4264 pred/GT 1.302 FApx     20.0 FAcells  0.2 offGT negcells     20.0 offGT poscells   4895.8
+    brel_gate   relR 0.8757 relP 0.9005 relF1 0.8879 IoU 0.4264 pred/GT 1.302 FApx     18.8 FAcells  0.2 offGT negcells     18.8 offGT poscells   4895.8
+    brelG_gate  relR 0.8759 relP 0.9003 relF1 0.8879 IoU 0.4264 pred/GT 1.304 FApx     18.8 FAcells  0.2 offGT negcells     18.8 offGT poscells   4912.4
+
+## SKR_w1_s5-9 (THIN b5 bf16; val only)  (n runs 5)
+  t per run: 8.00 7.53 6.62 7.31 8.12 | b_rel ungated: -4.0! -4.0 -4.0! -4.0! -4.0! | b_rel gated: -4.0! -4.0 -4.0! -4.0! -4.0!  (! = unreachable, max-precision b)
+  val crack-free cells gated out per run: 31/31 31/31 30/31 30/31 30/31
+  [val] cells 54 pos 23 neg 31 GT px 37938 | AUROC s1 0.995 s20 0.998 | pos gated 0.0 (0 GT px) | neg gated 30.4/31
+    b0          relR 0.9027 relP 0.8687 relF1 0.8854 IoU 0.4093 pred/GT 1.706 FApx     75.4 FAcells  1.6 offGT negcells     75.4 offGT poscells   8417.6
+    b0_gate     relR 0.9027 relP 0.8692 relF1 0.8856 IoU 0.4095 pred/GT 1.705 FApx     40.6 FAcells  0.6 offGT negcells     40.6 offGT poscells   8417.6
+    brel        relR 0.8885 relP 0.8942 relF1 0.8913 IoU 0.4252 pred/GT 1.433 FApx     50.8 FAcells  1.2 offGT negcells     50.8 offGT poscells   5697.6
+    brel_gate   relR 0.8885 relP 0.8945 relF1 0.8915 IoU 0.4253 pred/GT 1.432 FApx     31.2 FAcells  0.6 offGT negcells     31.2 offGT poscells   5697.6
+    brelG_gate  relR 0.8885 relP 0.8945 relF1 0.8915 IoU 0.4253 pred/GT 1.432 FApx     31.2 FAcells  0.6 offGT negcells     31.2 offGT poscells   5697.6
+
+## CLD_s5-9 (THIN b5 bf16; val only)  (n runs 5)
+  t per run: -10.74 4.56 7.00 6.22 -8.03 | b_rel ungated: -1.4 -2.0 -0.5 -0.6 -3.0 | b_rel gated: -1.4 -2.0 -0.5 -0.6 -3.0  (! = unreachable, max-precision b)
+  val crack-free cells gated out per run: 27/31 30/31 31/31 29/31 30/31
+  [val] cells 54 pos 23 neg 31 GT px 37938 | AUROC s1 0.993 s20 0.997 | pos gated 0.0 (0 GT px) | neg gated 29.4/31
+    b0          relR 0.8736 relP 0.8911 relF1 0.8822 IoU 0.3989 pred/GT 1.645 FApx    116.8 FAcells  1.2 offGT negcells    116.8 offGT poscells   6685.0
+    b0_gate     relR 0.8736 relP 0.8911 relF1 0.8822 IoU 0.3989 pred/GT 1.645 FApx    116.8 FAcells  1.2 offGT negcells    116.8 offGT poscells   6685.0
+    brel        relR 0.8657 relP 0.9003 relF1 0.8827 IoU 0.4029 pred/GT 1.558 FApx    103.6 FAcells  1.2 offGT negcells    103.6 offGT poscells   5787.2
+    brel_gate   relR 0.8657 relP 0.9003 relF1 0.8827 IoU 0.4029 pred/GT 1.558 FApx    103.6 FAcells  1.2 offGT negcells    103.6 offGT poscells   5787.2
+    brelG_gate  relR 0.8657 relP 0.9003 relF1 0.8827 IoU 0.4029 pred/GT 1.558 FApx    103.6 FAcells  1.2 offGT negcells    103.6 offGT poscells   5787.2
+
+## FINAL ens (calib backfill CPU; val+rf)  (n runs 1)
+  t per run: -0.40 | b_rel ungated: +0.9 | b_rel gated: +0.9  (! = unreachable, max-precision b)
+  val crack-free cells gated out per run: 30/31
+  [val] cells 54 pos 23 neg 31 GT px 37938 | AUROC s1 0.996 s20 0.996 | pos gated 0.0 (0 GT px) | neg gated 30.0/31
+    b0          relR 0.8590 relP 0.9285 relF1 0.8924 IoU 0.4352 pred/GT 1.163 FApx    108.0 FAcells  1.0 offGT negcells    108.0 offGT poscells   3048.0
+    b0_gate     relR 0.8590 relP 0.9285 relF1 0.8924 IoU 0.4352 pred/GT 1.163 FApx    108.0 FAcells  1.0 offGT negcells    108.0 offGT poscells   3048.0
+    brel        relR 0.8916 relP 0.9022 relF1 0.8969 IoU 0.4346 pred/GT 1.365 FApx    186.0 FAcells  1.0 offGT negcells    186.0 offGT poscells   4875.0
+    brel_gate   relR 0.8916 relP 0.9022 relF1 0.8969 IoU 0.4346 pred/GT 1.365 FApx    186.0 FAcells  1.0 offGT negcells    186.0 offGT poscells   4875.0
+    brelG_gate  relR 0.8916 relP 0.9022 relF1 0.8969 IoU 0.4346 pred/GT 1.365 FApx    186.0 FAcells  1.0 offGT negcells    186.0 offGT poscells   4875.0
+  [F51] cells 51 pos 12 neg 34 GT px 14639 | AUROC s1 0.676 s20 0.650 | pos gated 5.0 (389 GT px) | neg gated 31.0/34
+    b0          relR 0.8476 relP 0.8809 relF1 0.8639 IoU 0.4631 pred/GT 1.105 FApx    243.0 FAcells  2.0 offGT negcells    243.0 offGT poscells   1684.0
+    b0_gate     relR 0.8476 relP 0.8809 relF1 0.8639 IoU 0.4631 pred/GT 1.105 FApx    243.0 FAcells  2.0 offGT negcells    243.0 offGT poscells   1684.0
+    brel        relR 0.8703 relP 0.8396 relF1 0.8547 IoU 0.4517 pred/GT 1.307 FApx    680.0 FAcells  7.0 offGT negcells    680.0 offGT poscells   2388.0
+    brel_gate   relR 0.8703 relP 0.8466 relF1 0.8583 IoU 0.4548 pred/GT 1.296 FApx    530.0 FAcells  3.0 offGT negcells    530.0 offGT poscells   2379.0
+    brelG_gate  relR 0.8703 relP 0.8466 relF1 0.8583 IoU 0.4548 pred/GT 1.296 FApx    530.0 FAcells  3.0 offGT negcells    530.0 offGT poscells   2379.0
+  [H36] cells 36 pos 17 neg 19 GT px 1792 | AUROC s1 0.579 s20 0.567 | pos gated 12.0 (1317 GT px) | neg gated 17.0/19
+    b0          relR 0.0296 relP 0.1297 relF1 0.0482 IoU 0.0182 pred/GT 0.344 FApx    185.0 FAcells  1.0 offGT negcells    185.0 offGT poscells    352.0
+    b0_gate     relR 0.0296 relP 0.1297 relF1 0.0482 IoU 0.0182 pred/GT 0.344 FApx    185.0 FAcells  1.0 offGT negcells    185.0 offGT poscells    352.0
+    brel        relR 0.0363 relP 0.0705 relF1 0.0479 IoU 0.0167 pred/GT 0.871 FApx    584.0 FAcells  4.0 offGT negcells    584.0 offGT poscells    866.0
+    brel_gate   relR 0.0363 relP 0.0770 relF1 0.0493 IoU 0.0174 pred/GT 0.797 FApx    518.0 FAcells  2.0 offGT negcells    518.0 offGT poscells    801.0
+    brelG_gate  relR 0.0363 relP 0.0770 relF1 0.0493 IoU 0.0174 pred/GT 0.797 FApx    518.0 FAcells  2.0 offGT negcells    518.0 offGT poscells    801.0
+  [F19] cells 19 pos 9 neg 9 GT px 6811 | AUROC s1 0.938 s20 0.914 | pos gated 2.0 (67 GT px) | neg gated 9.0/9
+    b0          relR 0.8367 relP 0.8330 relF1 0.8349 IoU 0.3305 pred/GT 1.302 FApx      0.0 FAcells  0.0 offGT negcells      0.0 offGT poscells   1481.0
+    b0_gate     relR 0.8367 relP 0.8330 relF1 0.8349 IoU 0.3305 pred/GT 1.302 FApx      0.0 FAcells  0.0 offGT negcells      0.0 offGT poscells   1481.0
+    brel        relR 0.8809 relP 0.8007 relF1 0.8389 IoU 0.3348 pred/GT 1.644 FApx      0.0 FAcells  0.0 offGT negcells      0.0 offGT poscells   2231.0
+    brel_gate   relR 0.8809 relP 0.8013 relF1 0.8392 IoU 0.3350 pred/GT 1.642 FApx      0.0 FAcells  0.0 offGT negcells      0.0 offGT poscells   2223.0
+    brelG_gate  relR 0.8809 relP 0.8013 relF1 0.8392 IoU 0.3350 pred/GT 1.642 FApx      0.0 FAcells  0.0 offGT negcells      0.0 offGT poscells   2223.0

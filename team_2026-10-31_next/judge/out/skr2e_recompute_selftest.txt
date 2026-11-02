@@ -1,0 +1,6 @@
+selftest PF2E test all 50 (E-PF - E-g, b 0): crack IoU +0.0027 [-0.0146, +0.0159] P>0 0.636 | relF1@2 +0.0121 [-0.0048, +0.0309] P>0 0.918 | inact IoU +0.0237 [-0.0310, +0.0971] P>0 0.790
+   expected (verify_pf2e, runner CIs): +0.0027 [-0.0146, +0.0159] | +0.0121 [-0.0048, +0.0309] | +0.0237 [-0.0310, +0.0971]
+selftest PF2E E1 (71 clusters): relF1@2 +0.0355 [-0.0232, +0.0912] P>0 0.879 | inact IoU +0.2141 [+0.0303, +0.3820] P>0 0.995   [any-hit not printed for E-g: not part of SKR2E]
+   expected: relF1@2 +0.0355 [-0.0232, +0.0912] | inact +0.2141 [+0.0303, +0.3820]
+identical arms (E-PF vs E-PF) all 0: True
+E-PF b 0 E1 any-hit (the SKR2E comparator; = coach-disclosed 102/296): 102/296; crack-free cells / px (74, 2528) (verify_pf2e: 74 / 2,528)

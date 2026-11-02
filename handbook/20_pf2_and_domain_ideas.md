@@ -23,9 +23,9 @@ Added 1 Nov 2026 (handbook refresh). **Tags.** E = measured (file), R = literatu
 | PF2 | PASS (E1 inactive replicated; test relF1@2 narrow); RN FAIL | `verify_pf2.md` |
 | PF2E | PASS on E1 inactive (with qualifications); test n.d. | `verify_pf2e.md` |
 | THIN-B3 | opened 1 Nov 19:40-21:13; **no arm passes** (SKR FAIL, CLD FAIL, B3 n.d.: scuff not learned); coach VERIFIED, judge CONFIRMED (added ~21:40) | `verify_thin_b3.md` |
-| HC | locked, smoked, queued; opening trigger armed | `protocol_HC.md` |
-| A8 screen | locked, smoked, queued; scoring armed | `protocol_A8screen.md` |
-| B6 | design locked; cv02 only; build open | `protocol_B6.md` |
+| HC | locked, smoked, queued; opening trigger armed [3 Nov: n.d.; doc 21 §2] | `protocol_HC.md` |
+| A8 screen | locked, smoked, queued; scoring armed [3 Nov: KILL (1 Nov 23:40); doc 21 §1] | `protocol_A8screen.md` |
+| B6 | design locked; cv02 only; build open [3 Nov: n.d., realised power ~6% at +0.017; doc 21 §3] | `protocol_B6.md` |
 
 ## Sources
 - `SESSION_RECORD_2026-10-31_to_11-01.md` (master for this session).
@@ -140,7 +140,7 @@ Where a session record and a verify or idea file disagree, the verify or idea fi
 | **E1 inactive IoU** | 0.0665 | 0.2807 | **+0.2141 [+0.0303, +0.3820]** | **PASS** |
 
 - **judge's qualifications (go with the result everywhere):**
-  1. E1 inactive GT: 9,158 px in 10 cells, 7 source images, n_eff 3.3.
+  1. E1 inactive GT: 9,158 px in 10 cells, 7 source images, n_eff 3.3. [3 Nov: the top 3 images hold 87% of those px; PF2's singles gain +0.189 is +0.023 without them (judge, 1 Nov 23:46; doc 21 §6, doc 13 A18).]
   2. Half the gain is recall (0.304 → 0.627), half fewer false inactive px on module-border / frame-edge px of edge cells (32,654 → 11,315; three consecutive CSIR images).
   3. Leave-one-cluster-out Δ +0.138 to +0.277; family clustering keeps the LB > 0.
   4. Bonferroni 99% LB ≈ 0.000: borderline under correction.
@@ -174,12 +174,15 @@ Where a session record and a verify or idea file disagree, the verify or idea fi
 ### 6.1 HC: synthetic half-cuts (`protocol_HC.md` v1.1)
 - HC − SUP100-PF, seeds 5-9; loader transform at p 0.35 per eligible sample (~26% of views) from 353 train cells with a realistic gap band. Co-primaries: test 3, E1 crack relF1@2, E1 inactive IoU (E1 opening #3). Mechanism kill: SHV1 relR@2 at relP@2 ≥ 0.90 gain < +0.05. Harm guard on F51.
 - Code reviewed independently (found: PASS); smoke H0 identical to SUP100-PF over 2,000 steps. Queued after THIN-B3; opening trigger armed.
+- [3 Nov: opened 2 Nov 02:18-03:10 (E1 #3): **n.d.**; mechanism passed; F51 guard passed; follow-up HC2 FAILED (G1); route kept open by the user. Doc 21 §2, §4.]
 ### 6.2 A8 screen: DINOv3 ConvNeXt-T under PF (`protocol_A8screen.md` v1.1)
 - A8 (DINOv3 weights) vs A8c (IN-1k weights), same wrapper, 2 seeds, complete 4k schedule. GO only if F51 crack AP gains with a module-bootstrap LB > 0, val crack AP not worse by > 0.02, false alarms bounded. No test, no E1 (a per-run data root makes the trainer's end-of-run test pass score val). KILL closes "foundation encoder" for the thesis.
 - DINOv3 weights fetched by the user's route B ("B: I accept, fetch timm"; licence accepted by the user).
+- [3 Nov: **KILL** (F51 AP −0.0243, bootstrap LB −0.0463); "foundation encoder" closed. Doc 21 §1.]
 ### 6.3 B6: module-grouped CV for inactive (`protocol_B6.md`; v1.0.1 = the v1 design locked at judge's sign-off, plus two asserts / notes)
 - PF − house inactive IoU on held-out physical modules: 5 folds over train + val (532 cells), 2 seeds, 20 runs; groups merge CFVS time-series twins (judge found image-id folds leak them and favour PF).
 - **Power, stated before any run:** ~13% at Δ +0.017, 80% at ~+0.055. n.d. is likely. The user: run only on cv02 if ≥ 3 GPUs qualify; never on gaint; reported as low-powered.
+- [3 Nov: trained on cv02, scored on gaint (the user allowed gaint for scoring, 1 Nov 23:54): **n.d.**, Δ −0.0144 [−0.0977, +0.0570]; realised SE 0.038, power ~6% at +0.017; an E1-size in-distribution gain is excluded. Doc 21 §3.]
 
 ## 7. Item 13 closed (`team_2026-10-29_features/pool_large/CLOSED.md`)
 No download of the 159k HF pool. Use A (thesis negative result): the pool has no E1 module family, no new half-cells, 84% of new rows one ARTS mono type, so unlabelled-data methods cannot close the unseen-panel gap through it. Use B (provenance): byte copies under other IDs, test cells in it by ID, no licence; ID rules alone are not a dedupe.

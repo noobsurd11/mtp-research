@@ -1,0 +1,243 @@
+{
+ "n_cells": 532,
+ "B": 2000,
+ "boot_seed": 0,
+ "inact_iou": {
+  "house_s5": 0.4991922941553382,
+  "house_s6": 0.5192739941559901,
+  "PF_s5": 0.499614950502034,
+  "PF_s6": 0.4901252811946585
+ },
+ "delta": -0.014363028307317838,
+ "delta_s5": 0.00042265634669580443,
+ "delta_s6": -0.02914871296133159,
+ "same_sign": false,
+ "ci_two_stage": [
+  -0.09768509724897723,
+  0.056961776369813644
+ ],
+ "ci_one_stage": [
+  -0.07799298168733335,
+  0.04646733475607257
+ ],
+ "boot_sd_two": 0.039197766007108586,
+ "boot_sd_one": 0.03149254623548875,
+ "n_groups": 334,
+ "verdict": "n.d.",
+ "wording": "no in-distribution inactive gain detectable at this power; PF's inactive gain is shown on unseen panels (E1) only",
+ "crack_iou": {
+  "house": 0.37154467231225496,
+  "PF": 0.3611636400965558,
+  "delta": -0.010381032215699137,
+  "delta_s5": -0.0009633588341949051,
+  "delta_s6": -0.019798705597203425
+ },
+ "crack_relF1_2": {
+  "house": 0.8345743492664504,
+  "PF": 0.8388035922763311,
+  "delta": 0.004229243009880701,
+  "delta_s5": 0.01633689870899535,
+  "delta_s6": -0.007878412689234171
+ },
+ "inact_compR": {
+  "house": 0.5171990171990172,
+  "PF": 0.5749385749385749,
+  "delta": 0.057739557739557745,
+  "delta_s5": 0.061425061425061434,
+  "delta_s6": 0.05405405405405406
+ },
+ "inact_compP": {
+  "house": 0.6226340396651837,
+  "PF": 0.7287746825344059,
+  "delta": 0.1061406428692222,
+  "delta_s5": 0.1741573033707865,
+  "delta_s6": 0.03812398236765813
+ },
+ "per_source": {
+  "ARTS": {
+   "cells": 182,
+   "inact_cells": 2,
+   "inact_px": 1150,
+   "house": 0.0,
+   "PF": 0.05347826086956522,
+   "delta": 0.05347826086956522,
+   "delta_s5": 0.10695652173913044,
+   "delta_s6": 0.0
+  },
+  "BMRK": {
+   "cells": 50,
+   "inact_cells": 6,
+   "inact_px": 29704,
+   "house": 0.6130746500240039,
+   "PF": 0.5169474346801484,
+   "delta": -0.09612721534385549,
+   "delta_s5": -0.04645200318077747,
+   "delta_s6": -0.1458024275069335
+  },
+  "CFVS": {
+   "cells": 169,
+   "inact_cells": 29,
+   "inact_px": 222994,
+   "house": 0.5457627087624377,
+   "PF": 0.5464923973320812,
+   "delta": 0.0007296885696435051,
+   "delta_s5": 0.011475840303735274,
+   "delta_s6": -0.010016463164448264
+  },
+  "CSIR": {
+   "cells": 114,
+   "inact_cells": 11,
+   "inact_px": 31172,
+   "house": 0.14572099459631505,
+   "PF": 0.15864993787231782,
+   "delta": 0.012928943276002774,
+   "delta_s5": 0.013549775326654662,
+   "delta_s6": 0.012308111225350887
+  },
+  "SDLE": {
+   "cells": 17,
+   "inact_cells": 0,
+   "inact_px": 0,
+   "house": NaN,
+   "PF": NaN,
+   "delta": NaN,
+   "delta_s5": NaN,
+   "delta_s6": NaN
+  }
+ },
+ "per_fold": {
+  "0": {
+   "cells": 107,
+   "inact_px": 56753,
+   "house_s5": 0.26705497616452173,
+   "house_s6": 0.34342787962642685,
+   "PF_s5": 0.3296395601411892,
+   "PF_s6": 0.2497821464672871,
+   "delta_s5": 0.0625845839766675,
+   "delta_s6": -0.09364573315913974
+  },
+  "1": {
+   "cells": 107,
+   "inact_px": 57565,
+   "house_s5": 0.6084676475850963,
+   "house_s6": 0.5735989522299579,
+   "PF_s5": 0.48341677860544635,
+   "PF_s6": 0.5381151914218046,
+   "delta_s5": -0.12505086897964995,
+   "delta_s6": -0.0354837608081533
+  },
+  "2": {
+   "cells": 106,
+   "inact_px": 57142,
+   "house_s5": 0.441660026344462,
+   "house_s6": 0.5026360639026488,
+   "PF_s5": 0.5082916515455134,
+   "PF_s6": 0.45453433620742373,
+   "delta_s5": 0.06663162520105137,
+   "delta_s6": -0.04810172769522508
+  },
+  "3": {
+   "cells": 106,
+   "inact_px": 56785,
+   "house_s5": 0.5212746041934103,
+   "house_s6": 0.47934939005317484,
+   "PF_s5": 0.5121879075520658,
+   "PF_s6": 0.5270774786516244,
+   "delta_s5": -0.009086696641344538,
+   "delta_s6": 0.047728088598449514
+  },
+  "4": {
+   "cells": 106,
+   "inact_px": 56775,
+   "house_s5": 0.6316298565210382,
+   "house_s6": 0.6800848434546042,
+   "PF_s5": 0.6595289079229122,
+   "PF_s6": 0.6493040184939255,
+   "delta_s5": 0.027899051401873987,
+   "delta_s6": -0.030780824960678688
+  }
+ },
+ "fold_sign_count": "4 / 10",
+ "leave_top3_groups_out": {
+  "groups": [
+   "CFVS_00016",
+   "CFVS_00130",
+   "CFVS_00146"
+  ],
+  "px_share": 0.3877306855659252,
+  "house": 0.5225926942984616,
+  "PF": 0.49360076462204144,
+  "delta": -0.028991929676420114,
+  "delta_s5": -0.02417342547884682,
+  "delta_s6": -0.033810433873993406
+ },
+ "twin_groups": {
+  "n_groups": 13,
+  "cells": 56,
+  "inact_px": 135595,
+  "house": 0.5284458117168837,
+  "PF": 0.5169686824656401,
+  "delta": -0.011477129251243556,
+  "delta_s5": -0.001988881379985208,
+  "delta_s6": -0.020965377122501905
+ },
+ "non_twin": {
+  "cells": 476,
+  "inact_px": 149425,
+  "house": 0.4895566456903001,
+  "PF": 0.47350374164380193,
+  "delta": -0.016052904046498173,
+  "delta_s5": 0.003950914262794758,
+  "delta_s6": -0.03605672235579099
+ },
+ "provenance": {
+  "scorer_md5": "981b5f296e3d39bf11f17fb6b10637ce",
+  "device": "cuda",
+  "code_revision": "e5441339768b9e7ec54fd4de0b50b2a819bfbeab",
+  "runs": {
+   "f0_PF_s5": "b6_SUPPF_f0_s5",
+   "f0_PF_s6": "b6_SUPPF_f0_s6",
+   "f0_house_s5": "b6_SUP_f0_s5",
+   "f0_house_s6": "b6_SUP_f0_s6",
+   "f1_PF_s5": "b6_SUPPF_f1_s5",
+   "f1_PF_s6": "b6_SUPPF_f1_s6",
+   "f1_house_s5": "b6_SUP_f1_s5",
+   "f1_house_s6": "b6_SUP_f1_s6",
+   "f2_PF_s5": "b6_SUPPF_f2_s5",
+   "f2_PF_s6": "b6_SUPPF_f2_s6",
+   "f2_house_s5": "b6_SUP_f2_s5",
+   "f2_house_s6": "b6_SUP_f2_s6",
+   "f3_PF_s5": "b6_SUPPF_f3_s5",
+   "f3_PF_s6": "b6_SUPPF_f3_s6",
+   "f3_house_s5": "b6_SUP_f3_s5",
+   "f3_house_s6": "b6_SUP_f3_s6",
+   "f4_PF_s5": "b6_SUPPF_f4_s5",
+   "f4_PF_s6": "b6_SUPPF_f4_s6",
+   "f4_house_s5": "b6_SUP_f4_s5",
+   "f4_house_s6": "b6_SUP_f4_s6"
+  }
+ },
+ "trainer_test_crosscheck": [
+  "b6_SUP_f0_s5                     fold 0 house s5  scorer 0.2671  trainer 0.2669  diff +0.00015  GT px 56753 / 56753",
+  "b6_SUPPF_f0_s5                   fold 0 PF    s5  scorer 0.3296  trainer 0.3293  diff +0.00038  GT px 56753 / 56753",
+  "b6_SUP_f1_s5                     fold 1 house s5  scorer 0.6085  trainer 0.6085  diff -0.00005  GT px 57565 / 57565",
+  "b6_SUPPF_f1_s5                   fold 1 PF    s5  scorer 0.4834  trainer 0.4835  diff -0.00009  GT px 57565 / 57565",
+  "b6_SUP_f2_s5                     fold 2 house s5  scorer 0.4417  trainer 0.4415  diff +0.00012  GT px 57142 / 57142",
+  "b6_SUPPF_f2_s5                   fold 2 PF    s5  scorer 0.5083  trainer 0.5082  diff +0.00010  GT px 57142 / 57142",
+  "b6_SUP_f3_s5                     fold 3 house s5  scorer 0.5213  trainer 0.5213  diff -0.00005  GT px 56785 / 56785",
+  "b6_SUPPF_f3_s5                   fold 3 PF    s5  scorer 0.5122  trainer 0.5121  diff +0.00006  GT px 56785 / 56785",
+  "b6_SUP_f4_s5                     fold 4 house s5  scorer 0.6316  trainer 0.6320  diff -0.00039  GT px 56775 / 56775",
+  "b6_SUPPF_f4_s5                   fold 4 PF    s5  scorer 0.6595  trainer 0.6600  diff -0.00044  GT px 56775 / 56775",
+  "b6_SUP_f0_s6                     fold 0 house s6  scorer 0.3434  trainer 0.3435  diff -0.00011  GT px 56753 / 56753",
+  "b6_SUPPF_f0_s6                   fold 0 PF    s6  scorer 0.2498  trainer 0.2497  diff +0.00003  GT px 56753 / 56753",
+  "b6_SUP_f1_s6                     fold 1 house s6  scorer 0.5736  trainer 0.5736  diff -0.00003  GT px 57565 / 57565",
+  "b6_SUPPF_f1_s6                   fold 1 PF    s6  scorer 0.5381  trainer 0.5381  diff +0.00003  GT px 57565 / 57565",
+  "b6_SUP_f2_s6                     fold 2 house s6  scorer 0.5026  trainer 0.5025  diff +0.00009  GT px 57142 / 57142",
+  "b6_SUPPF_f2_s6                   fold 2 PF    s6  scorer 0.4545  trainer 0.4548  diff -0.00022  GT px 57142 / 57142",
+  "b6_SUP_f3_s6                     fold 3 house s6  scorer 0.4793  trainer 0.4792  diff +0.00015  GT px 56785 / 56785",
+  "b6_SUPPF_f3_s6                   fold 3 PF    s6  scorer 0.5271  trainer 0.5271  diff -0.00005  GT px 56785 / 56785",
+  "b6_SUP_f4_s6                     fold 4 house s6  scorer 0.6801  trainer 0.6804  diff -0.00034  GT px 56775 / 56775",
+  "b6_SUPPF_f4_s6                   fold 4 PF    s6  scorer 0.6493  trainer 0.6498  diff -0.00046  GT px 56775 / 56775"
+ ],
+ "script_md5": "6d807784ee9b3de6c76c94e6fa942149"
+}

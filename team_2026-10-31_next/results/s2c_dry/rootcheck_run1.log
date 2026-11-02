@@ -1,0 +1,16 @@
+[2026-11-03 02:30:56] start pid 2169486
+train.txt: OK
+val.txt: OK
+test.txt: OK
+root /home/noob/work/s2c_root: train 478, val 54, test = val 54; labeled -> /home/noob/work/el-fault-detection/data/labeled; SPLITS.md5 24568cdb; 0 forbidden, 0 real test
+[2026-11-03 02:30:56] make_root rc=0
+SUPPF PASS: control = pf2_SUPPF_100pct_s5 train.log lines + config_used.yaml (text identical); root: Labelled: 478 (/home/noob/work/s2c_root/splits/train.txt)  unlabelled: 0 (-)  val: 54  test: 54 | CE class weights: none (plain CE) | Zero-pixel classes in labelled subset (weight 0): none; counts = control (262f92a5f185e8de); test stems = val stems (54); config diff = data.root only
+[2026-11-03 02:31:00] databuild SUPPF rc=0
+SKR01 PASS: control = skr2_SKR01_100pct_s5 train.log lines + config_used.yaml (text identical); root: Labelled: 478 (/home/noob/work/s2c_root/splits/train.txt)  unlabelled: 0 (-)  val: 54  test: 54 | CE class weights: none (plain CE) | Zero-pixel classes in labelled subset (weight 0): none; counts = control (262f92a5f185e8de); test stems = val stems (54); config diff = data.root only
+[2026-11-03 02:31:04] databuild SKR01 rc=0
+[2026-11-03 02:32:01] identity SUPPF A (data.root=data) rc=0
+[2026-11-03 02:32:57] identity SUPPF B (data.root=/home/noob/work/s2c_root) rc=0
+Traceback (most recent call last):
+  File "<string>", line 3, in <module>
+AssertionError: ['steps']
+[2026-11-03 02:32:57] identity SUPPF compare rc=1

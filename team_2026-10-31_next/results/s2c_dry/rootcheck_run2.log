@@ -1,0 +1,17 @@
+[2026-11-03 02:33:29] start pid 2181386
+[2026-11-03 02:33:30] existing root verified (SPLITS.md5 24568cdb -c, test = val, labeled link) rc=0
+SUPPF PASS: control = pf2_SUPPF_100pct_s5 train.log lines + config_used.yaml (text identical); root: Labelled: 478 (/home/noob/work/s2c_root/splits/train.txt)  unlabelled: 0 (-)  val: 54  test: 54 | CE class weights: none (plain CE) | Zero-pixel classes in labelled subset (weight 0): none; counts = control (262f92a5f185e8de); test stems = val stems (54); config diff = data.root only
+[2026-11-03 02:33:33] databuild SUPPF rc=0
+SKR01 PASS: control = skr2_SKR01_100pct_s5 train.log lines + config_used.yaml (text identical); root: Labelled: 478 (/home/noob/work/s2c_root/splits/train.txt)  unlabelled: 0 (-)  val: 54  test: 54 | CE class weights: none (plain CE) | Zero-pixel classes in labelled subset (weight 0): none; counts = control (262f92a5f185e8de); test stems = val stems (54); config diff = data.root only
+[2026-11-03 02:33:36] databuild SKR01 rc=0
+[2026-11-03 02:34:32] identity SUPPF A (data.root=data) rc=0
+[2026-11-03 02:35:29] identity SUPPF B (data.root=/home/noob/work/s2c_root) rc=0
+IDENTICAL (all fields but wall sec/step: A [8.18, 8.05, 7.98, 8.0, 7.97], B [8.33, 8.11, 8.15, 8.13, 8.17]) over 5 steps: init 56a9ee7f11ae46d7, counts 262f92a5f185e8de, fixed batch 0ebd1811abe179e2 / f5513068a2bacbb5, step-5 loss 4.154092311859131, state 4a216d9df80dc4c8, logits 429adeefb0241d8f
+[2026-11-03 02:35:29] identity SUPPF compare rc=0
+[2026-11-03 02:36:26] identity SKR01 A (data.root=data) rc=0
+[2026-11-03 02:37:24] identity SKR01 B (data.root=/home/noob/work/s2c_root) rc=0
+IDENTICAL (all fields but wall sec/step: A [8.46, 8.18, 8.27, 8.15, 8.08], B [8.56, 8.29, 8.15, 8.07, 8.11]) over 5 steps: init 56a9ee7f11ae46d7, counts 262f92a5f185e8de, fixed batch 0ebd1811abe179e2 / f5513068a2bacbb5, step-5 loss 4.251284599304199, state 2e44cb4dabfcf951, logits 73c627f1e075678f
+[2026-11-03 02:37:24] identity SKR01 compare rc=0
+[2026-11-03 02:37:24] cfgcheck diff SUPPF vs pf2_SUPPF_100pct_s5 (-> exp_SUPPF): >   root: data|<   root: /home/noob/work/s2c_root| md5 dc9c344a
+[2026-11-03 02:37:24] cfgcheck diff SKR01 vs pf2_SUPPF_100pct_s5 (-> exp_SKR01): >   root: data|<   root: /home/noob/work/s2c_root|<   skel_recall:|<     weight: 0.1| md5 1343cca2
+[2026-11-03 02:37:24] rootcheck end rc=0

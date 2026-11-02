@@ -17,6 +17,8 @@ Read it to answer "why did we do X and not Y?". For the experiments themselves s
 
 **Update 1 Nov 2026, ~21:00 IST (additive).** §4f adds the decisions of 31 Oct to 1 Nov (D62 to D78; D78 = the THIN-B3 verdict, added ~21:40): the new team, the E1 policy, the idea verdicts, the routing pre-check, weights, PF2, THIN-B3, PF2E, HC, the A8 / B6 data roots, B6 on cv02, the never-tail rule. Five rules in §6. Experiments: `20_pf2_and_domain_ideas.md`.
 
+**Update 3 Nov 2026, ~02:40 IST (additive).** §4g adds the decisions of 1 Nov ~21:40 to 3 Nov ~02:40 (D79 to D92): the A8 KILL, B6 scoring on gaint and APPROVED, HC n.d., SKR2 + HC2 and the HC2 design rule, the B2 agent raters, Om's A1 to A6, SKR2 PASS / HC2 FAIL and the HC route kept open, SKR2E's design and FAIL, B6 n.d., SKR2C tonight. Four rules in §6. Experiments: `21_a8_hc_b6_skr2_skr2e.md`.
+
 **Conventions**
 - **Times are IST** (UTC + 5:30).
   - User messages are timestamped in UTC in the transcript extract and converted here.
@@ -822,6 +824,57 @@ Sources: `team_2026-10-31_next/` (`README.md`, `log.md`, `e1_openings.md`, the p
 - **judge's corrected readings (adopted):** SKR's test loss is "precision from wider predictions, concentrated on the largest cracks" (not twins in the comparator); SKR's E1 gain is quoted as relF1@2 +0.059 and any-hit component recall 0.381 → 0.523 with its false-alarm cost, not as pixel recall or IoU; CLD is "no better at matched precision"; B3's E1 crack-on-scuff drop is not scuff-specific.
 - **Open (the user's call):** an SKR follow-up as a new protocol (weight 0.1 or a val OP on a wider grid; a precision guard as a co-primary; a width-insensitive E1 readout).
 
+
+## 4g. 1 to 3 Nov: A8 KILL, HC, B6, SKR2 / HC2, SKR2E, Om's A1 to A6, B2 agent raters (added 3 Nov)
+Sources: `team_2026-10-31_next/log.md` (from 1 Nov 21:30), the protocols and verifications named below, `SESSION_RECORD_2026-11-01_to_11-03.md`, doc 21. Times are IST from `log.md`.
+
+### D79. A8 screen KILL; "foundation encoder" closed (coach 1 Nov 23:35; judge 23:40; relayed 23:39)
+- **What:** F51 crack AP A8 − A8c −0.0243, bootstrap lower bound −0.0463: GO terms 1a and 1b fail (`verify_a8screen.md`). By protocol §5, fixed before the screen: idea 8 closed for the thesis, no larger download, no A8 full arm.
+- **judge's readings (adopted):** "no sign of a gain", not "worse"; F51 is 76% one cell; false alarms pass only via the +200 px floor; metrics.json `test_*` blocks are val numbers under data-root runs (never harvest them).
+
+### D80. B6 scoring on gaint; B6 APPROVED (user 1 Nov 23:54; coach 2 Nov 01:29)
+- **What:** the user allowed gaint for B6's scorer exact check and the 20-run scoring; training stays cv02 only (D75); the cv02-scoring fallback was dropped (a cross-GPU bf16 "exact" match was unlikely). APPROVED after the GPU exact check (54/54 val cells identical); launch waited for ≥ 3 qualifying cv02 GPUs (met 2 Nov 13:30).
+
+### D81. HC verdict: n.d. (coach 2 Nov 03:14; judge 03:18; relay to the user: first ~03:14, corrected version ~11:18, by team-lead's account (message to scribe and log 3 Nov 02:45); its 11:18 log line cites a stale md5)
+- **What:** all five co-primaries n.d.; mechanism passed; F51 guard passed. judge's four corrections adopted: test inactive seed-aware [−0.054, +0.005] (n.d., not "excludes 0"); test crack presented symmetric; E1 half-cut-without-scuff gain = volume on 11 components; F51 AP gain = crack-cell coverage, not fewer false alarms. Any follow-up carries a test-inactive guard.
+
+### D82. Next on gaint: SKR2 and HC2 in one protocol; the user will mark B2 (user 2 Nov 11:18)
+- **What:** SKR2 = Skeleton Recall at w 0.1 on SUPPF; HC2 = synthetic half-cuts with a test-inactive guard; one protocol, one shared comparator (SUPPF s5-9), one opening (E1 #5). B2 sheets and a blank marks file were sent to the user.
+
+### D83. HC2's single change, by a pre-set rule (team-lead 2 Nov 11:22 to 11:42)
+- **Sequence:** half dose p 0.175 (11:22) → judge: a half dose cannot separate dose from cause → **exclude** inactive-bearing sources at p 0.35 (D1 (a), 11:27) → judge W4: those sources hold ~58% of their families' crack px → **pre-set rule before any HC2 number (11:33):** exclude if crack-px retention ≥ 60%, else **ignore** inactive px in synthetic views (if the loss supports an ignore index), else back to team-lead → builder's retention 0.399 / 0.359 → **(a2) ignore variant** (11:42).
+- **Split lock (11:33):** v1 locks SKR2 and the shared rules (SKR2 starts); HC2 locked as v1.1 before any HC2 run (14:33, after a GPU H0 identity check and a clean smoke).
+
+### D84. B2 by agent raters, with judge's rules (team-lead 2 Nov 11:26 and 11:31)
+- **Why:** the user asked why an agent cannot do the B2 marks.
+- **What:** two blind agent raters (marker1, marker2); judge's three fixes approved: the crack gate on house-labelled CSIR train cells (Hanifi crack descriptive only); the marking unit is the whole 512 crop for everyone (correcting team-lead's earlier "centre cell" instruction to the user); name-free random-ID bundles, judge holds the key, PASS / FAIL only. Prereg v2.2 (db787d03) fixed the thresholds before any mark.
+- **Outcome (11:49):** crack gate PASS, scuff gate FAIL → no agent B2 marks; both raters stopped; B2 back with the user (17:58).
+
+### D85. Om's architecture ideas A1 to A6: all DROP, A4 PARK (arch 2 Nov 11:36; judge 11:43)
+- **What:** A1 (two-branch DINOv3 + HR), A2 (IBN), A3 (geometry input), A5 (long-range), A6 (cell gate as an arm) DROP; A4 (structured crack head) PARK behind SKR2. No GPU asked. A6's optional reported gate line was withdrawn by arch; it ran in the S2 opening labelled "unstable threshold".
+
+### D86. Run HC2 as built (user 2 Nov 17:58)
+- **What:** the (a2) ignore variant, as a diagnostic for label vs dilution, rather than an HC replicate on new seeds, a ConvNeXt check or skipping.
+
+### D87. SKR2 PASS, HC2 FAIL; HC route kept open (coach ~21:38; judge ~21:44; user 21:51)
+- **What:** SKR2 PASS on E1 crack relF1@2 (+0.0364 vs 0.0351; label fragile, effect robust); HC2 FAIL by G1 (test inactive −0.0256 / −0.0259), mechanism failed (coach's ruling on the frozen "coach decides" case, judge agrees).
+- **§7 (a2)** ("mechanism failed at full crack dose → the HC route closes") was formally triggered; coach and judge recommended not applying it. **The user did not apply it: the HC route stays OPEN; the (a2) ignore design is closed.** A dilution-targeted variant needs the user's OK and keeps G1.
+
+### D88. Next: SKR2E, the ensemble check of SKR2 (user 2 Nov 21:51; "Confirm SKR2 as deployable" = a go to run SKR2E, not an adoption; team-lead, log 3 Nov 02:45)
+- **Design (coach v0.9 21:54; judge NOT READY 21:57; locked 21:59, cbc3e015):** the verdict uses one shared b 0 for both arms (judge D1: a bias step alone moves an ensemble by about the effect under test); each guard is also checked at the headline pair; G1t added; any-hit and GT component counts asserted (STOP on mismatch).
+
+### D89. B6 verdict: n.d., with the realised power (coach 2 Nov 22:18; judge 22:19; relayed 22:19)
+- **What:** Δ −0.0144, CI [−0.0977, +0.0570]. judge's two fixes adopted: the realised SE (0.038) was ~2x judge's own pre-registered estimate (fold-to-fold model variation plus seeds), so power at +0.017 was ~6%, not 13%; and B6 does exclude an in-distribution gain the size of PF's E1 gain (CI hi +0.06). PF's inactive advantage stays an E1 result; E-PF stays the deployable candidate on E1 grounds.
+
+### D90. SKR2E FAIL; E-PF at argmax stays the recommended deployable candidate (coach 2 Nov 23:37; judge 23:39; relayed 23:41)
+- **What:** G2a (test relP@2 −0.0379) and G2b (E1 crack-free px ×2.12) trip at the headline pair (E-PF b 0 vs E-SKR2 b 1.0). judge's points adopted: the width flag decided FAIL vs PASS by 0.0015; the b 0 passes are not a confirmation; E-SKR2 at b 0 would be an operating point picked after test and E1; any change to the 0.05 width rule is a new pre-registered question. Adopting E-PF is still the user's call (doc 15 §3d row 19).
+
+### D91. SKR2C tonight: training only (team-lead 3 Nov 02:22; judge's auto-stop rules approved 02:25)
+- **What:** the user is offline until 3 Nov ("if theres anything else to do run this night, and close all the agents later"). coach locks `protocol_SKR2C` (SKR2 vs SUPPF, fresh seeds 10-14; verdicts R = rule-1 singles at argmax and D = ensembles at a shared b 0; locked 02:37, md5 91b76abd, judge signed); runner may launch **training only** on APPROVED; the opening (E1 #7, registered) waits for the user's OK. Training reads no test cell (data root with test.txt = val). Unattended rules: MAXC 2 (team-lead's choice between Blender renders and lanes), gate = measured peak + 2 GB, ≥ 120 s apart, 1 s memory log; stop only our newest SKR2C run by its recorded PID if free < 2,048 MiB on 3 consecutive 1 s samples, then HOLD.
+
+### D92. B2 options and the next step go back to the user (team-lead 2 Nov 23:41)
+- **What:** B2 is unmarked: the user marks, a crack-only agent prereg (the crack gate passed on house CSIR cells only; on gate B's Hanifi half-cells the raters found 1 of 14 cracks (speck-level labels; reported, not gated)), or skip. Next step: pause and write up, SKR2 on new seeds, or wait for B2. Open at writing (doc 15 §3e).
+
 ---
 
 ## 5. Housekeeping decisions (how the work is run)
@@ -877,6 +930,10 @@ Each rule exists because a specific mistake produced a fake or misleading result
 | (added 1 Nov) Gate a scoring pass on max(smoke peak, last real peak) + 2 GB; a smoke on one run and one set understates a pass over 15 runs and two sets | PF2's LA pass peaked at 7,758 MiB against a 5,824 smoke peak; min free 2,635 | doc 13 D38 |
 | (added 1 Nov) Under `set -e`, write each integrity check as its own test with an explicit exit; never chain them with `&&` | `[ a ] && [ b ]` does not stop on an early failing term | doc 13 D42 |
 | (added 1 Nov) Any command on gaint: `CUDA_VISIBLE_DEVICES=""`, nice 19, ≤ 8 threads unless it is a gated GPU job | builder's pytest opened a CUDA context beside finllm | doc 13 D34 |
+| (added 3 Nov) Alert early on GPU memory (< 2,560 MiB on 2 polls) and on any outside GPU process when free < 2,300 MiB; unattended queues run at fewer lanes | outside GPU processes (a Blender render and a ~2.6 GB process) took free memory to 2,078 MiB beside three SKR2 lanes; the < 2,048 alert never fired | doc 13 D46 |
+| (added 3 Nov) Record and match the GPU process's own PID (or a recorded PID and its children), never only the launching subshell's | B6's cv02 queue would have counted our runs as another user's > 4 GB processes | doc 13 D53 |
+| (added 3 Nov) A frozen readout must not leave an outcome to a later ruling; pre-register what an undefined value means | HC2's SHV1 matched recall was undefined and the frozen readout said "coach decides" | doc 13 C23 |
+| (added 3 Nov) When guards are read at each arm's own operating point, state before lock how close a val flag can come to deciding the verdict | SKR2E's FAIL was decided by its val width flag, 0.0485 against 0.05 | doc 13 C20 |
 
 ## Related docs
 - `00_START_HERE.md`

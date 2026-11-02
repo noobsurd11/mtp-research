@@ -1,0 +1,33 @@
+## A. E1 co-primaries (106, argmax, pooled per run; rule 1 /3)
+  SUPPF  relF1 0.4202 | anyhit 0.3811 | inact 0.2371 | relP 0.5245 | relR 0.3515 | predGT 0.4659 | crack-free px 3931 | comps 296
+         per seed relF1 0.4432 0.4275 0.4403 0.4140 0.3762 | any-hit 0.3986 0.3547 0.4291 0.3649 0.3581 | inact 0.2465 0.2252 0.2074 0.2787 0.2276
+  SKR01  relF1 0.4567 | anyhit 0.4250 | inact 0.2393 | relP 0.5393 | relR 0.3962 | predGT 0.5463 | crack-free px 3819 | comps 296
+         per seed relF1 0.4653 0.4589 0.4345 0.4691 0.4556 | any-hit 0.4662 0.4291 0.4088 0.4392 0.3818 | inact 0.2822 0.2394 0.1577 0.1818 0.3353
+  HC2    relF1 0.4276 | anyhit 0.3628 | inact 0.1575 | relP 0.5532 | relR 0.3498 | predGT 0.4729 | crack-free px 3125 | comps 296
+         per seed relF1 0.3761 0.4302 0.4578 0.4489 0.4252 | any-hit 0.2669 0.3818 0.3649 0.4122 0.3885 | inact 0.1794 0.1842 0.0431 0.2158 0.1652
+  -> E1 SKR01 - SUPPF relF1: +0.0364 (thr 0.0351) BETTER
+  -> E1 SKR01 - SUPPF anyhit: +0.0439 (thr 0.0521) nd
+  -> E1 HC2 - SUPPF relF1: +0.0074 (thr 0.0483) nd
+  -> E1 HC2 - SUPPF inact: -0.0795 (thr 0.0830) nd
+## C. guards
+  G1 SKR01: test inactive d all +0.0099 / clean +0.0102 -> ok
+  G1 HC2: test inactive d all -0.0256 / clean -0.0259 -> TRIP
+  G2 SKR01: test relP@2 d -0.0121 (trip < -0.03); E1 crack-free px x0.97 (trip > 1.5; SUPPF mean 3931) -> ok
+## B. B5 wide grid
+  SUPPF: grid (-8.0, 12.0, 202) pooled OP b_comp +3.9 b_rel +3.9 reachable True
+  SKR01: grid (-8.0, 12.0, 202) pooled OP b_comp +4.8 b_rel +2.7 reachable True
+  HC2: grid (-8.0, 12.0, 202) pooled OP b_comp +5.1 b_rel +2.6 reachable True
+  -> B5 SKR01-SUPPF compR @ P>=0.90, pooled OP: all +0.0169 (thr 0.0290) nd | clean +0.0171 (thr 0.0293) nd | two-set nd | per-run OP all +0.0053 nd (reported) | E1 (desc) +0.0493
+  -> B5 SKR01-SUPPF relR @ P>=0.90, pooled OP: all +0.0094 (thr 0.0177) nd | clean +0.0094 (thr 0.0177) nd | two-set nd | per-run OP all +0.0091 nd (reported) | E1 (desc) +0.0251
+  -> B5 HC2-SUPPF (reported) compR @ P>=0.90, pooled OP: all +0.0392 (thr 0.0252) BETTER | clean +0.0396 (thr 0.0255) BETTER | two-set BETTER | per-run OP all +0.0392 BETTER (reported) | E1 (desc) +0.0007
+  -> B5 HC2-SUPPF (reported) relR @ P>=0.90, pooled OP: all -0.0036 (thr 0.0147) nd | clean -0.0036 (thr 0.0149) nd | two-set nd | per-run OP all -0.0033 nd (reported) | E1 (desc) -0.0181
+## D. F51 (G3 for HC2; reported for SKR01) + SHV1 mechanism
+  F51 SKR01 - SUPPF crack AP -0.0046 boot [-0.0097, +0.0149] (own RNG) (reported)
+  F51 HC2 - SUPPF crack AP +0.0376 boot [+0.0027, +0.0866] (own RNG) -> G3 ok
+  SUPPF: matched relR@2 V0 / SHV1 / SHV1-p 0.8757 / 0.6959 / 0.7058; oracle b V0 / SHV1 +2.8 / +3.9
+  SKR01: matched relR@2 V0 / SHV1 / SHV1-p 0.8767 / 0.7159 / 0.7324; oracle b V0 / SHV1 +1.9 / +3.2
+  HC2: matched relR@2 V0 / SHV1 / SHV1-p 0.8874 / nan / nan; oracle b V0 / SHV1 +2.2 / +0.7
+  -> mechanism HC2 - SUPPF +nan (kill < +0.05): FAILED; SKR01 (context) +0.0200
+## SUMMARY (test co-primaries from coach_verify files)
+  SKR01: E1 relF1 +0.0364 BETTER | E1 anyhit +0.0439 nd | B5 compR nd | B5 relR nd | G1 ok | G2 ok
+  HC2: E1 relF1 +0.0074 nd | E1 inact -0.0795 nd | G1 TRIP | G3 ok | mechanism +nan

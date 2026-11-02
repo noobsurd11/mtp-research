@@ -1,0 +1,82 @@
+[Sun Nov  1 07:53:26 PM IST 2026] a8_score start: pid 1908697 MODE=wait OUT=/home/noob/work/a8_score/v1; script md5 75a57c9c9c914d1e242952cf3d7bfa6d; CPU fp32, CUDA hidden, nice 19, 8 threads
+/home/noob/work/a8_score/scripts/a8_calib_dump_4k.py: OK
+/home/noob/work/a8_score/scripts/a8_init_dump.py: OK
+/home/noob/work/el_f3/reports/pf2/post_extra/calib/calib_dump.py: OK
+/home/noob/work/el_f3/reports/pf2/post_extra/calib/el_metrics.py: OK
+/home/noob/work/found/p8/a8_screen_score.py: OK
+/home/noob/work/found/t9/rf_sets.tsv: OK
+/home/noob/work/el_f8/reports/enc_cosine_hr.py: OK
+/home/noob/work/el_f8/src/models/hrstem_unetpp.py: OK
+/home/noob/work/el_f8/src/models/model_factory.py: OK
+/home/noob/work/el_f8/data/splits/val.txt: OK
+/home/noob/work/a8_root/SPLITS.md5: OK
+/home/noob/work/calib/data/rf/stems_eval.txt: OK
+/home/noob/work/weights/dinov3_convnext_tiny_lvd1689m_timm.safetensors: OK
+/home/noob/.cache/torch/hub/checkpoints/convnext_tiny-983f1562.pth: OK
+[Sun Nov  1 07:53:26 PM IST 2026] static checks OK (FROZEN.md5, 14 md5s, 4k dumper diff, el_f8 c280e8c2f5cec2fd3ed38eb4ea010da7e6966dde, a8_root)
+[Sun Nov  1 07:53:28 PM IST 2026] env: 3.12.3 2.14.1+cu130 1.0.30 2.5.2 1.18.1
+[Sun Nov  1 10:56:30 PM IST 2026] start condition met: 4/4 'trained rc=0', 4/4 'config OK' in /home/noob/work/nq/launch.log
+/home/noob/work/a8_score/scripts/a8_calib_dump_4k.py: OK
+/home/noob/work/a8_score/scripts/a8_init_dump.py: OK
+/home/noob/work/el_f3/reports/pf2/post_extra/calib/calib_dump.py: OK
+/home/noob/work/el_f3/reports/pf2/post_extra/calib/el_metrics.py: OK
+/home/noob/work/found/p8/a8_screen_score.py: OK
+/home/noob/work/found/t9/rf_sets.tsv: OK
+/home/noob/work/el_f8/reports/enc_cosine_hr.py: OK
+/home/noob/work/el_f8/src/models/hrstem_unetpp.py: OK
+/home/noob/work/el_f8/src/models/model_factory.py: OK
+/home/noob/work/el_f8/data/splits/val.txt: OK
+/home/noob/work/a8_root/SPLITS.md5: OK
+/home/noob/work/calib/data/rf/stems_eval.txt: OK
+/home/noob/work/weights/dinov3_convnext_tiny_lvd1689m_timm.safetensors: OK
+/home/noob/.cache/torch/hub/checkpoints/convnext_tiny-983f1562.pth: OK
+[Sun Nov  1 10:56:33 PM IST 2026] per-run configs OK (data.root /home/noob/work/a8_root, seed, total_steps 4000, arm model keys, drop_path 0.0); latest.pth / config md5s in out/inputs_md5.txt
+SELFTEST OK {'1a_F51_dAP>0': [0.6494, True], '1b_F51_module_boot_lo>0': [0.6189, True], '2_val_dAP>=-0.02': [0.629, True], '3_FA_H36': [(100.0, 100.0), True], '3_FA_F51': [(300.0, 300.0), True]}
+[Sun Nov  1 10:56:33 PM IST 2026] pass 1 a8_screen_score --selftest rc=0
+[1s] group f8_A8_4k_s0: 1 models: ['/home/noob/work/el_f8/experiments/f8_A8_4k_s0']
+[22s] f8_A8_4k_s0 val: 54 cells -> ['f8_A8_4k_s0']
+[65s] f8_A8_4k_s0 rf: 106 cells -> ['f8_A8_4k_s0']
+DONE 65s
+[Sun Nov  1 10:57:40 PM IST 2026] pass 2 dump f8_A8_4k_s0 (val 54 + rf 106, CPU fp32, step 4000 asserted) rc=0
+[1s] group f8_A8_4k_s1: 1 models: ['/home/noob/work/el_f8/experiments/f8_A8_4k_s1']
+[24s] f8_A8_4k_s1 val: 54 cells -> ['f8_A8_4k_s1']
+[67s] f8_A8_4k_s1 rf: 106 cells -> ['f8_A8_4k_s1']
+DONE 67s
+[Sun Nov  1 10:58:49 PM IST 2026] pass 2 dump f8_A8_4k_s1 (val 54 + rf 106, CPU fp32, step 4000 asserted) rc=0
+[1s] group f8_A8c_4k_s0: 1 models: ['/home/noob/work/el_f8/experiments/f8_A8c_4k_s0']
+[23s] f8_A8c_4k_s0 val: 54 cells -> ['f8_A8c_4k_s0']
+[66s] f8_A8c_4k_s0 rf: 106 cells -> ['f8_A8c_4k_s0']
+DONE 66s
+[Sun Nov  1 10:59:57 PM IST 2026] pass 2 dump f8_A8c_4k_s0 (val 54 + rf 106, CPU fp32, step 4000 asserted) rc=0
+[1s] group f8_A8c_4k_s1: 1 models: ['/home/noob/work/el_f8/experiments/f8_A8c_4k_s1']
+[23s] f8_A8c_4k_s1 val: 54 cells -> ['f8_A8c_4k_s1']
+[67s] f8_A8c_4k_s1 rf: 106 cells -> ['f8_A8c_4k_s1']
+DONE 67s
+[Sun Nov  1 11:01:06 PM IST 2026] pass 2 dump f8_A8c_4k_s1 (val 54 + rf 106, CPU fp32, step 4000 asserted) rc=0
+[Sun Nov  1 11:01:08 PM IST 2026] pass 3 records f8_A8_4k_s0 val (el_metrics 6e73ff11, no m0: UNCHECKED) rc=0
+[Sun Nov  1 11:01:22 PM IST 2026] pass 3 records f8_A8_4k_s0 rf (el_metrics 6e73ff11, no m0: UNCHECKED) rc=0
+[Sun Nov  1 11:01:24 PM IST 2026] pass 3 records f8_A8_4k_s1 val (el_metrics 6e73ff11, no m0: UNCHECKED) rc=0
+[Sun Nov  1 11:01:29 PM IST 2026] pass 3 records f8_A8_4k_s1 rf (el_metrics 6e73ff11, no m0: UNCHECKED) rc=0
+[Sun Nov  1 11:01:31 PM IST 2026] pass 3 records f8_A8c_4k_s0 val (el_metrics 6e73ff11, no m0: UNCHECKED) rc=0
+[Sun Nov  1 11:01:35 PM IST 2026] pass 3 records f8_A8c_4k_s0 rf (el_metrics 6e73ff11, no m0: UNCHECKED) rc=0
+[Sun Nov  1 11:01:37 PM IST 2026] pass 3 records f8_A8c_4k_s1 val (el_metrics 6e73ff11, no m0: UNCHECKED) rc=0
+[Sun Nov  1 11:01:42 PM IST 2026] pass 3 records f8_A8c_4k_s1 rf (el_metrics 6e73ff11, no m0: UNCHECKED) rc=0
+[Sun Nov  1 11:01:42 PM IST 2026] pass 3b dump integrity f8_A8_4k_s0 (val b 0 vs metrics.json val_history[-1], tol 0.005) rc=0
+[Sun Nov  1 11:01:42 PM IST 2026] pass 3b dump integrity f8_A8_4k_s1 (val b 0 vs metrics.json val_history[-1], tol 0.005) rc=0
+[Sun Nov  1 11:01:43 PM IST 2026] pass 3b dump integrity f8_A8c_4k_s0 (val b 0 vs metrics.json val_history[-1], tol 0.005) rc=0
+[Sun Nov  1 11:01:43 PM IST 2026] pass 3b dump integrity f8_A8c_4k_s1 (val b 0 vs metrics.json val_history[-1], tol 0.005) rc=0
+init /home/noob/work/el_f8/experiments/f8_A8_4k_s0: backbone convnext_tiny.dinov3_lvd1689m format timm weights /home/noob/work/weights/dinov3_convnext_tiny_lvd1689m_timm.safetensors md5 abf904631bf1ba23642e60c46b20dc5e; encoder tensors 178 (file keys unused: 2); max|d| stem 0.00e+00 other 0.00e+00 -> /home/noob/work/a8_score/v1/work/init/f8_A8_4k_s0.init.pth
+[Sun Nov  1 11:01:46 PM IST 2026] pass 4a init reference f8_A8_4k_s0 rc=0
+init /home/noob/work/el_f8/experiments/f8_A8_4k_s1: backbone convnext_tiny.dinov3_lvd1689m format timm weights /home/noob/work/weights/dinov3_convnext_tiny_lvd1689m_timm.safetensors md5 abf904631bf1ba23642e60c46b20dc5e; encoder tensors 178 (file keys unused: 2); max|d| stem 0.00e+00 other 0.00e+00 -> /home/noob/work/a8_score/v1/work/init/f8_A8_4k_s1.init.pth
+[Sun Nov  1 11:01:49 PM IST 2026] pass 4a init reference f8_A8_4k_s1 rc=0
+init /home/noob/work/el_f8/experiments/f8_A8c_4k_s0: backbone convnext_tiny format torchvision_convnext weights /home/noob/.cache/torch/hub/checkpoints/convnext_tiny-983f1562.pth md5 fcc1480a11e933010f4d7e0ccb7e33b1; encoder tensors 178 (file keys unused: 0); max|d| stem 0.00e+00 other 0.00e+00 -> /home/noob/work/a8_score/v1/work/init/f8_A8c_4k_s0.init.pth
+[Sun Nov  1 11:01:52 PM IST 2026] pass 4a init reference f8_A8c_4k_s0 rc=0
+init /home/noob/work/el_f8/experiments/f8_A8c_4k_s1: backbone convnext_tiny format torchvision_convnext weights /home/noob/.cache/torch/hub/checkpoints/convnext_tiny-983f1562.pth md5 fcc1480a11e933010f4d7e0ccb7e33b1; encoder tensors 178 (file keys unused: 0); max|d| stem 0.00e+00 other 0.00e+00 -> /home/noob/work/a8_score/v1/work/init/f8_A8c_4k_s1.init.pth
+[Sun Nov  1 11:01:55 PM IST 2026] pass 4a init reference f8_A8c_4k_s1 rc=0
+[Sun Nov  1 11:01:58 PM IST 2026] pass 4b enc_cosine_hr A8 (--backbone convnext_tiny.dinov3_lvd1689m) rc=0
+[Sun Nov  1 11:02:01 PM IST 2026] pass 4b enc_cosine_hr A8c (--backbone convnext_tiny) rc=0
+[Sun Nov  1 11:02:01 PM IST 2026] pass 4c validity table rc=0 (ARM A8 VALID ARM A8c VALID )
+[Sun Nov  1 11:02:13 PM IST 2026] pass 5 a8_screen_score (8eba76e5; el_metrics 6e73ff11 imported from /home/noob/work/a8_score/v1/frozen; 2,000 module resamples, seed 0) rc=0
+[Sun Nov  1 11:02:13 PM IST 2026] pass 6 summary rc=0: screen outcome by the rule: KILL
+[Sun Nov  1 11:02:17 PM IST 2026] MANIFEST written (31 files); scoring fails 0
+[Sun Nov  1 11:02:17 PM IST 2026] a8 scoring done: rc=0
