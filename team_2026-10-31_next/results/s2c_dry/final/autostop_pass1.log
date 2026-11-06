@@ -1,0 +1,148 @@
+2026-11-03 02:57:52 guard start pid 2301628 (v2; FAKE /home/noob/work/runner_s2c_dry/g2_final/fake_1.txt; DRY 1; THR 2048 MiB x 3; COOL 30; GAP 30 s; MAXSTOPS 2; jobs 0839f340; lib 4edcae9e; Q /home/noob/work/runner_s2c_dry/g2_final)
+2026-11-03 02:57:53 low sample: free 1900 MiB < 2048 (1/3)
+2026-11-03 02:57:54 low sample: free 1900 MiB < 2048 (2/3)
+2026-11-03 02:57:55 free 2100 MiB >= 2048: count reset (was 2/3)
+2026-11-03 02:57:56 low sample: free 1900 MiB < 2048 (1/3)
+2026-11-03 02:57:57 low sample: free 2047 MiB < 2048 (2/3)
+2026-11-03 02:57:58 sample 7: free read failed ('ERR', 1 in a row); not counted, count reset
+2026-11-03 02:57:59 low sample: free 1900 MiB < 2048 (1/3)
+2026-11-03 02:58:00 low sample: free 1900 MiB < 2048 (2/3)
+2026-11-03 02:58:01 low sample: free 1500 MiB < 2048 (3/3)
+2026-11-03 02:58:01 TRIGGER: free < 2048 on 3 consecutive samples: 02:57:59:1900 02:58:00:1900 02:58:01:1500
+2026-11-03 02:58:01   free trace before (last 10): 02:57:52:12000 02:57:53:1900 02:57:54:1900 02:57:55:2100 02:57:56:1900 02:57:57:2047 02:57:58:ERR 02:57:59:1900 02:58:00:1900 02:58:01:1500
+2026-11-03 02:58:01   compute-apps: 6206,5876 
+2026-11-03 02:58:01   HOLD set (/home/noob/work/runner_s2c_dry/g2_final/HOLD): the queue starts nothing new
+2026-11-03 02:58:01   candidate s2c_SKR01_100pct_s10 pid 2300884: verified, elapsed 17s
+2026-11-03 02:58:01   candidate s2c_SKR01_100pct_s11 pid 2301612: REFUSED (cmdline differs from the one recorded at launch (now: sleep 600 )); never signalled
+2026-11-03 02:58:01   candidate s2c_SKR01_100pct_s12 pid 6206: REFUSED (finllm PID); never signalled
+2026-11-03 02:58:01   candidate s2c_SKR01_100pct_s13 pid 4194000: not alive
+2026-11-03 02:58:01   candidate s2c_SUPPF_100pct_s10 pid 2301181: verified, elapsed 14s
+2026-11-03 02:58:01   candidate s2c_SUPPF_100pct_s11 pid 2301521: REFUSED (cmdline differs from the one recorded at launch (now: /usr/bin/python3 -u scripts/train.py --overwrite --config configs/supervised.yaml --opts seed=11 data.labeled_fraction=1.0 training.total_steps=20000 data.split_seed=0 training.labeled_batch_size=8 data.mask_subdir=labeled/masks_escdd model.name=smp_unetpp data.augmentation=labelsafe loss.supervised=ce_dice training.val_every=20000 training.encoder_pf.freeze=1000 training.encoder_pf.ramp=1000 training.encoder_pf.lr_mult=0.1 training.encoder_pf.wd=0 data.root=/home/noob/work/s2c_root run_name=s2c_SUPPF_100pct_s11 )); never signalled
+2026-11-03 02:58:01   candidate s2c_SUPPF_100pct_s12 pid 1: REFUSED (owner root != noob); never signalled
+2026-11-03 02:58:01   candidate s2c_SUPPF_100pct_s13 pid 2301612: finished (rc 0)
+2026-11-03 02:58:01   candidate stray: ignored (not a jobs-file name)
+2026-11-03 02:58:01   TARGET (newest verified) s2c_SUPPF_100pct_s10 pid 2301181; recorded cmdline: /usr/bin/python3 -u scripts/train.py --overwrite --config configs/supervised.yaml --opts seed=10 data.labeled_fraction=1.0 training.total_steps=20000 data.split_seed=0 training.labeled_batch_size=8 data.mask_subdir=labeled/masks_escdd model.name=smp_unetpp data.augmentation=labelsafe loss.supervised=ce_dice training.val_every=20000 training.encoder_pf.freeze=1000 training.encoder_pf.ramp=1000 training.encoder_pf.lr_mult=0.1 training.encoder_pf.wd=0 data.root=/home/noob/work/s2c_root run_name=s2c_SUPPF_100pct_s10 
+2026-11-03 02:58:01   verified s2c_SUPPF_100pct_s10 pid 2301181 (owner noob, cmdline = recorded):     PID USER                      STARTED COMMAND|2301181 noob     Tue Nov  3 02:57:46 2026 /usr/bin/python3 -u scripts/train.py --overwrite --config configs/supervised.yaml --opts seed=10 data.labeled_fraction=1.0 training.total_steps=20000 data.split_seed=0 training.labeled_batch_size=8 data.mask_subdir=labeled/masks_escdd model.name=smp_unetpp data.augmentation=labelsafe loss.supervised=ce_dice training.val_every=20000 training.encoder_pf.freeze=1000 training.encoder_pf.ramp=1000 training.encoder_pf.lr_mult=0.1 training.encoder_pf.wd=0 data.root=/home/noob/work/s2c_root run_name=s2c_SUPPF_100pct_s10
+2026-11-03 02:58:01   DRY: would send SIGTERM to 2301181, wait <= 30 s, re-verify, then SIGKILL 2301181 only if alive and still verified
+2026-11-03 02:58:01   stop result s2c_SUPPF_100pct_s10 pid 2301181: rc 0 (0 stopped / 2 refused / 3 re-check failed, no SIGKILL / 4 alive after SIGKILL)
+2026-11-03 02:58:01   after the action: compute-apps: 6206,5876 ; ps:     PID USER                      STARTED COMMAND|2301181 noob     Tue Nov  3 02:57:46 2026 /usr/bin/python3 -u scripts/train.py --overwrite --config configs/supervised.yaml --opts seed=10 data.labeled_fraction=1.0 training.total_steps=20000 data.split_seed=0 training.labeled_batch_size=8 data.mask_subdir=labeled/masks_escdd model.name=smp_unetpp data.augmentation=labelsafe loss.supervised=ce_dice training.val_every=20000 training.encoder_pf.freeze=1000 training.encoder_pf.ramp=1000 training.encoder_pf.lr_mult=0.1 training.encoder_pf.wd=0 data.root=/home/noob/work/s2c_root run_name=s2c_SUPPF_100pct_s10
+2026-11-03 02:58:02   post-stop sample: free 12000 MiB (cool-down 29 left)
+2026-11-03 02:58:03   post-stop sample: free 12000 MiB (cool-down 28 left)
+2026-11-03 02:58:04   post-stop sample: free 12000 MiB (cool-down 27 left)
+2026-11-03 02:58:05   post-stop sample: free 12000 MiB (cool-down 26 left)
+2026-11-03 02:58:06   post-stop sample: free 12000 MiB (cool-down 25 left)
+2026-11-03 02:58:07   post-stop sample: free 12000 MiB (cool-down 24 left)
+2026-11-03 02:58:08   post-stop sample: free 12000 MiB (cool-down 23 left)
+2026-11-03 02:58:09   post-stop sample: free 12000 MiB (cool-down 22 left)
+2026-11-03 02:58:10   post-stop sample: free 12000 MiB (cool-down 21 left)
+2026-11-03 02:58:11   post-stop sample: free 12000 MiB (cool-down 20 left)
+2026-11-03 02:58:12   post-stop sample: free 12000 MiB (cool-down 19 left)
+2026-11-03 02:58:13   post-stop sample: free 12000 MiB (cool-down 18 left)
+2026-11-03 02:58:14   post-stop sample: free 12000 MiB (cool-down 17 left)
+2026-11-03 02:58:15   post-stop sample: free 12000 MiB (cool-down 16 left)
+2026-11-03 02:58:16   post-stop sample: free 12000 MiB (cool-down 15 left)
+2026-11-03 02:58:17   post-stop sample: free 12000 MiB (cool-down 14 left)
+2026-11-03 02:58:18   post-stop sample: free 12000 MiB (cool-down 13 left)
+2026-11-03 02:58:19   post-stop sample: free 12000 MiB (cool-down 12 left)
+2026-11-03 02:58:20   post-stop sample: free 12000 MiB (cool-down 11 left)
+2026-11-03 02:58:21   post-stop sample: free 12000 MiB (cool-down 10 left)
+2026-11-03 02:58:22   post-stop sample: free 12000 MiB (cool-down 9 left)
+2026-11-03 02:58:23   post-stop sample: free 12000 MiB (cool-down 8 left)
+2026-11-03 02:58:24   post-stop sample: free 12000 MiB (cool-down 7 left)
+2026-11-03 02:58:25   post-stop sample: free 12000 MiB (cool-down 6 left)
+2026-11-03 02:58:26   post-stop sample: free 12000 MiB (cool-down 5 left)
+2026-11-03 02:58:27   post-stop sample: free 12000 MiB (cool-down 4 left)
+2026-11-03 02:58:28   post-stop sample: free 12000 MiB (cool-down 3 left)
+2026-11-03 02:58:29   post-stop sample: free 12000 MiB (cool-down 2 left)
+2026-11-03 02:58:30   post-stop sample: free 12000 MiB (cool-down 1 left)
+2026-11-03 02:58:31   post-stop sample: free 12000 MiB (cool-down 0 left)
+2026-11-03 02:58:32 low sample: free 1900 MiB < 2048 (1/3)
+2026-11-03 02:58:33 low sample: free 1900 MiB < 2048 (2/3)
+2026-11-03 02:58:34 low sample: free 1900 MiB < 2048 (3/3)
+2026-11-03 02:58:34 TRIGGER: free < 2048 on 3 consecutive samples: 02:58:32:1900 02:58:33:1900 02:58:34:1900
+2026-11-03 02:58:34   free trace before (last 30): 02:58:05:12000 02:58:06:12000 02:58:07:12000 02:58:08:12000 02:58:09:12000 02:58:10:12000 02:58:11:12000 02:58:12:12000 02:58:13:12000 02:58:14:12000 02:58:15:12000 02:58:16:12000 02:58:17:12000 02:58:18:12000 02:58:19:12000 02:58:20:12000 02:58:21:12000 02:58:22:12000 02:58:23:12000 02:58:24:12000 02:58:25:12000 02:58:26:12000 02:58:27:12000 02:58:28:12000 02:58:29:12000 02:58:30:12000 02:58:31:12000 02:58:32:1900 02:58:33:1900 02:58:34:1900
+2026-11-03 02:58:34   compute-apps: 6206,5876 
+2026-11-03 02:58:34   HOLD set (/home/noob/work/runner_s2c_dry/g2_final/HOLD): the queue starts nothing new
+2026-11-03 02:58:34   candidate s2c_SKR01_100pct_s10 pid 2300884: verified, elapsed 51s
+2026-11-03 02:58:34   candidate s2c_SKR01_100pct_s11 pid 2301612: REFUSED (cmdline differs from the one recorded at launch (now: sleep 600 )); never signalled
+2026-11-03 02:58:34   candidate s2c_SKR01_100pct_s12 pid 6206: REFUSED (finllm PID); never signalled
+2026-11-03 02:58:34   candidate s2c_SKR01_100pct_s13 pid 4194000: not alive
+2026-11-03 02:58:34   candidate s2c_SUPPF_100pct_s10 pid 2301181: already stopped in this DRY run (treated as gone)
+2026-11-03 02:58:34   candidate s2c_SUPPF_100pct_s11 pid 2301521: REFUSED (cmdline differs from the one recorded at launch (now: /usr/bin/python3 -u scripts/train.py --overwrite --config configs/supervised.yaml --opts seed=11 data.labeled_fraction=1.0 training.total_steps=20000 data.split_seed=0 training.labeled_batch_size=8 data.mask_subdir=labeled/masks_escdd model.name=smp_unetpp data.augmentation=labelsafe loss.supervised=ce_dice training.val_every=20000 training.encoder_pf.freeze=1000 training.encoder_pf.ramp=1000 training.encoder_pf.lr_mult=0.1 training.encoder_pf.wd=0 data.root=/home/noob/work/s2c_root run_name=s2c_SUPPF_100pct_s11 )); never signalled
+2026-11-03 02:58:34   candidate s2c_SUPPF_100pct_s12 pid 1: REFUSED (owner root != noob); never signalled
+2026-11-03 02:58:34   candidate s2c_SUPPF_100pct_s13 pid 2301612: finished (rc 0)
+2026-11-03 02:58:34   candidate stray: ignored (not a jobs-file name)
+2026-11-03 02:58:34   TARGET (newest verified) s2c_SKR01_100pct_s10 pid 2300884; recorded cmdline: /usr/bin/python3 -u scripts/train.py --overwrite --config configs/supervised.yaml --opts seed=10 data.labeled_fraction=1.0 training.total_steps=20000 data.split_seed=0 training.labeled_batch_size=8 data.mask_subdir=labeled/masks_escdd model.name=smp_unetpp data.augmentation=labelsafe loss.supervised=ce_dice training.val_every=20000 training.encoder_pf.freeze=1000 training.encoder_pf.ramp=1000 training.encoder_pf.lr_mult=0.1 training.encoder_pf.wd=0 loss.skel_recall.weight=0.1 data.root=/home/noob/work/s2c_root run_name=s2c_SKR01_100pct_s10 
+2026-11-03 02:58:34   verified s2c_SKR01_100pct_s10 pid 2300884 (owner noob, cmdline = recorded):     PID USER                      STARTED COMMAND|2300884 noob     Tue Nov  3 02:57:43 2026 /usr/bin/python3 -u scripts/train.py --overwrite --config configs/supervised.yaml --opts seed=10 data.labeled_fraction=1.0 training.total_steps=20000 data.split_seed=0 training.labeled_batch_size=8 data.mask_subdir=labeled/masks_escdd model.name=smp_unetpp data.augmentation=labelsafe loss.supervised=ce_dice training.val_every=20000 training.encoder_pf.freeze=1000 training.encoder_pf.ramp=1000 training.encoder_pf.lr_mult=0.1 training.encoder_pf.wd=0 loss.skel_recall.weight=0.1 data.root=/home/noob/work/s2c_root run_name=s2c_SKR01_100pct_s10
+2026-11-03 02:58:34   DRY: would send SIGTERM to 2300884, wait <= 30 s, re-verify, then SIGKILL 2300884 only if alive and still verified
+2026-11-03 02:58:34   stop result s2c_SKR01_100pct_s10 pid 2300884: rc 0 (0 stopped / 2 refused / 3 re-check failed, no SIGKILL / 4 alive after SIGKILL)
+2026-11-03 02:58:34   after the action: compute-apps: 6206,5876 ; ps:     PID USER                      STARTED COMMAND|2300884 noob     Tue Nov  3 02:57:43 2026 /usr/bin/python3 -u scripts/train.py --overwrite --config configs/supervised.yaml --opts seed=10 data.labeled_fraction=1.0 training.total_steps=20000 data.split_seed=0 training.labeled_batch_size=8 data.mask_subdir=labeled/masks_escdd model.name=smp_unetpp data.augmentation=labelsafe loss.supervised=ce_dice training.val_every=20000 training.encoder_pf.freeze=1000 training.encoder_pf.ramp=1000 training.encoder_pf.lr_mult=0.1 training.encoder_pf.wd=0 loss.skel_recall.weight=0.1 data.root=/home/noob/work/s2c_root run_name=s2c_SKR01_100pct_s10
+2026-11-03 02:58:35   post-stop sample: free 12000 MiB (cool-down 29 left)
+2026-11-03 02:58:36   post-stop sample: free 12000 MiB (cool-down 28 left)
+2026-11-03 02:58:37   post-stop sample: free 12000 MiB (cool-down 27 left)
+2026-11-03 02:58:38   post-stop sample: free 12000 MiB (cool-down 26 left)
+2026-11-03 02:58:39   post-stop sample: free 12000 MiB (cool-down 25 left)
+2026-11-03 02:58:40   post-stop sample: free 12000 MiB (cool-down 24 left)
+2026-11-03 02:58:41   post-stop sample: free 12000 MiB (cool-down 23 left)
+2026-11-03 02:58:43   post-stop sample: free 12000 MiB (cool-down 22 left)
+2026-11-03 02:58:44   post-stop sample: free 12000 MiB (cool-down 21 left)
+2026-11-03 02:58:45   post-stop sample: free 12000 MiB (cool-down 20 left)
+2026-11-03 02:58:46   post-stop sample: free 12000 MiB (cool-down 19 left)
+2026-11-03 02:58:47   post-stop sample: free 12000 MiB (cool-down 18 left)
+2026-11-03 02:58:48   post-stop sample: free 12000 MiB (cool-down 17 left)
+2026-11-03 02:58:49   post-stop sample: free 12000 MiB (cool-down 16 left)
+2026-11-03 02:58:50   post-stop sample: free 12000 MiB (cool-down 15 left)
+2026-11-03 02:58:51   post-stop sample: free 12000 MiB (cool-down 14 left)
+2026-11-03 02:58:52   post-stop sample: free 12000 MiB (cool-down 13 left)
+2026-11-03 02:58:53   post-stop sample: free 12000 MiB (cool-down 12 left)
+2026-11-03 02:58:54   post-stop sample: free 12000 MiB (cool-down 11 left)
+2026-11-03 02:58:55   post-stop sample: free 12000 MiB (cool-down 10 left)
+2026-11-03 02:58:56   post-stop sample: free 12000 MiB (cool-down 9 left)
+2026-11-03 02:58:57   post-stop sample: free 12000 MiB (cool-down 8 left)
+2026-11-03 02:58:58   post-stop sample: free 12000 MiB (cool-down 7 left)
+2026-11-03 02:58:59   post-stop sample: free 12000 MiB (cool-down 6 left)
+2026-11-03 02:59:00   post-stop sample: free 12000 MiB (cool-down 5 left)
+2026-11-03 02:59:01   post-stop sample: free 12000 MiB (cool-down 4 left)
+2026-11-03 02:59:02   post-stop sample: free 12000 MiB (cool-down 3 left)
+2026-11-03 02:59:03   post-stop sample: free 12000 MiB (cool-down 2 left)
+2026-11-03 02:59:04   post-stop sample: free 12000 MiB (cool-down 1 left)
+2026-11-03 02:59:05   post-stop sample: free 12000 MiB (cool-down 0 left)
+2026-11-03 02:59:06 low sample: free 1900 MiB < 2048 (1/3)
+2026-11-03 02:59:07 low sample: free 1900 MiB < 2048 (2/3)
+2026-11-03 02:59:08 low sample: free 1900 MiB < 2048 (3/3)
+2026-11-03 02:59:08 TRIGGER: free < 2048 on 3 consecutive samples: 02:59:06:1900 02:59:07:1900 02:59:08:1900
+2026-11-03 02:59:08   free trace before (last 30): 02:58:38:12000 02:58:39:12000 02:58:40:12000 02:58:41:12000 02:58:43:12000 02:58:44:12000 02:58:45:12000 02:58:46:12000 02:58:47:12000 02:58:48:12000 02:58:49:12000 02:58:50:12000 02:58:51:12000 02:58:52:12000 02:58:53:12000 02:58:54:12000 02:58:55:12000 02:58:56:12000 02:58:57:12000 02:58:58:12000 02:58:59:12000 02:59:00:12000 02:59:01:12000 02:59:02:12000 02:59:03:12000 02:59:04:12000 02:59:05:12000 02:59:06:1900 02:59:07:1900 02:59:08:1900
+2026-11-03 02:59:08   compute-apps: 6206,5876 
+2026-11-03 02:59:08   HOLD set (/home/noob/work/runner_s2c_dry/g2_final/HOLD): the queue starts nothing new
+2026-11-03 02:59:08   cap: 2 of 2 stops done; trigger logged only, no signal
+2026-11-03 02:59:09   post-stop sample: free 12000 MiB (cool-down 29 left)
+2026-11-03 02:59:10   post-stop sample: free 12000 MiB (cool-down 28 left)
+2026-11-03 02:59:11   post-stop sample: free 12000 MiB (cool-down 27 left)
+2026-11-03 02:59:12   post-stop sample: free 12000 MiB (cool-down 26 left)
+2026-11-03 02:59:13   post-stop sample: free 12000 MiB (cool-down 25 left)
+2026-11-03 02:59:14   post-stop sample: free 12000 MiB (cool-down 24 left)
+2026-11-03 02:59:15   post-stop sample: free 12000 MiB (cool-down 23 left)
+2026-11-03 02:59:16   post-stop sample: free 12000 MiB (cool-down 22 left)
+2026-11-03 02:59:17   post-stop sample: free 12000 MiB (cool-down 21 left)
+2026-11-03 02:59:18   post-stop sample: free 12000 MiB (cool-down 20 left)
+2026-11-03 02:59:19   post-stop sample: free 12000 MiB (cool-down 19 left)
+2026-11-03 02:59:20   post-stop sample: free 12000 MiB (cool-down 18 left)
+2026-11-03 02:59:21   post-stop sample: free 12000 MiB (cool-down 17 left)
+2026-11-03 02:59:22   post-stop sample: free 12000 MiB (cool-down 16 left)
+2026-11-03 02:59:23   post-stop sample: free 12000 MiB (cool-down 15 left)
+2026-11-03 02:59:24   post-stop sample: free 12000 MiB (cool-down 14 left)
+2026-11-03 02:59:25   post-stop sample: free 12000 MiB (cool-down 13 left)
+2026-11-03 02:59:26   post-stop sample: free 12000 MiB (cool-down 12 left)
+2026-11-03 02:59:27   post-stop sample: free 12000 MiB (cool-down 11 left)
+2026-11-03 02:59:28   post-stop sample: free 12000 MiB (cool-down 10 left)
+2026-11-03 02:59:29   post-stop sample: free 12000 MiB (cool-down 9 left)
+2026-11-03 02:59:30   post-stop sample: free 12000 MiB (cool-down 8 left)
+2026-11-03 02:59:31   post-stop sample: free 12000 MiB (cool-down 7 left)
+2026-11-03 02:59:32   post-stop sample: free 12000 MiB (cool-down 6 left)
+2026-11-03 02:59:33   post-stop sample: free 12000 MiB (cool-down 5 left)
+2026-11-03 02:59:34   post-stop sample: free 12000 MiB (cool-down 4 left)
+2026-11-03 02:59:35   post-stop sample: free 12000 MiB (cool-down 3 left)
+2026-11-03 02:59:36   post-stop sample: free 12000 MiB (cool-down 2 left)
+2026-11-03 02:59:37   post-stop sample: free 12000 MiB (cool-down 1 left)
+2026-11-03 02:59:38   post-stop sample: free 12000 MiB (cool-down 0 left)
+2026-11-03 02:59:41 end of FAKE trace after 108 samples; stops 2

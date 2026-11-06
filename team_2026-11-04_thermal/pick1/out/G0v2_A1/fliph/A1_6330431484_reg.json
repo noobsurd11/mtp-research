@@ -1,0 +1,210 @@
+{
+ "module": "A1_6330431484",
+ "version": "cellreg 0.4.1 (4 Nov 2026): = 95e0ca3e + this version string only; pitch searched +-2% in iteration 1 only (limits, not prevents, drift); grid-vs-quad QA flag; --orient; --quad full",
+ "grid_expected": [
+  3,
+  12
+ ],
+ "modalities": {
+  "el": {
+   "path": "/home/yugma/mtp/datasets/thermal_public/A1_osf_csr6t/EL/20220128_114453_SHELL_M55_6330431484_1s_3.393A_23.782V.NEF",
+   "meta": {
+    "reader": "nef_jpeg_preview",
+    "shape": [
+     3264,
+     4928
+    ],
+    "note": "8-bit camera-processed preview, tone-mapped, not linear"
+   },
+   "qa": {
+    "rows": 3,
+    "cols": 12,
+    "S": 128,
+    "quad": [
+     [
+      1662.0,
+      1237.0
+     ],
+     [
+      3882.0,
+      1232.0
+     ],
+     [
+      3907.0,
+      1772.0
+     ],
+     [
+      1617.0,
+      1787.0
+     ]
+    ],
+    "grid_corners": [
+     [
+      1629.0015601424143,
+      1236.98228815231
+     ],
+     [
+      3926.841680884145,
+      1226.0543496226355
+     ],
+     [
+      3955.2766406790074,
+      1807.1724673766282
+     ],
+     [
+      1580.186678271718,
+      1817.1625410090014
+     ]
+    ],
+    "cell_side_px": 193.7711763430193,
+    "res_rms_px": 1.3419251806686632,
+    "res_max_px": 2.8145152931168993,
+    "res_rms_pct_cell": 0.6925308531404839,
+    "res_max_pct_cell": 1.452494300872986,
+    "loo_rms_pct_cell": 0.8339822222987905,
+    "lines_fallback": 0,
+    "res_rms_px_by_iter": [
+     1.2701011113479683,
+     1.3558291235583033,
+     1.3419251806686632
+    ],
+    "n_points": 22,
+    "grid_vs_quad_max_pct_cell": 30.825292745962333,
+    "grid": {
+     "x": {
+      "polarity": "dark_gaps",
+      "pitch": 128.0,
+      "offset": 0.0,
+      "lines_fallback": 0,
+      "fit_score": 1.6495936285995134
+     },
+     "y": {
+      "polarity": "dark_gaps",
+      "pitch": 128.0,
+      "offset": 0.0,
+      "lines_fallback": 0,
+      "fit_score": 2.8465585198378878
+     }
+    },
+    "quad_info": {
+     "otsu": 0.32799648804071635,
+     "fg_frac": 0.0834184547351375,
+     "downsample": 5
+    },
+    "quad_mode": "otsu"
+   },
+   "feat_meta": {
+    "el_module_median": 22.781848907470703,
+    "thr": 0.5,
+    "open_radius_px": 3
+   }
+  },
+  "ir": {
+   "path": "/home/yugma/mtp/datasets/thermal_public/A1_osf_csr6t/IR/20220114_151938_SHELL_M55_6330431484_180s_3.393A.txt",
+   "meta": {
+    "reader": "txt_matrix",
+    "shape": [
+     240,
+     320
+    ],
+    "header_lines_skipped": 0,
+    "rows_dropped_len": 0
+   },
+   "qa": {
+    "rows": 3,
+    "cols": 12,
+    "S": 48,
+    "quad": [
+     [
+      86.0,
+      137.0
+     ],
+     [
+      226.0,
+      136.0
+     ],
+     [
+      228.0,
+      170.0
+     ],
+     [
+      83.0,
+      169.0
+     ]
+    ],
+    "grid_corners": [
+     [
+      84.8905263959021,
+      135.25882375793515
+     ],
+     [
+      227.61982512373913,
+      134.46530605564826
+     ],
+     [
+      230.06491561440347,
+      174.77532789872117
+     ],
+     [
+      81.23902582958954,
+      173.80815741811722
+     ]
+    ],
+    "cell_side_px": 12.58697278270856,
+    "res_rms_px": 0.26423391503124,
+    "res_max_px": 0.47573519516403984,
+    "res_rms_pct_cell": 2.099265006707833,
+    "res_max_pct_cell": 3.7795838870612664,
+    "loo_rms_pct_cell": 2.7673987513586225,
+    "lines_fallback": 0,
+    "res_rms_px_by_iter": [
+     0.2858113077542678,
+     0.26707229033715757,
+     0.26423391503124
+    ],
+    "n_points": 22,
+    "grid_vs_quad_max_pct_cell": 41.33365848901787,
+    "grid": {
+     "x": {
+      "polarity": "dark_gaps",
+      "pitch": 48.0,
+      "offset": 0.0,
+      "lines_fallback": 0,
+      "fit_score": 0.6582539171648907
+     },
+     "y": {
+      "polarity": "dark_gaps",
+      "pitch": 48.0,
+      "offset": 0.0,
+      "lines_fallback": 0,
+      "fit_score": 0.06280301036872281
+     }
+    },
+    "quad_info": {
+     "otsu": 0.46666435227591613,
+     "fg_frac": 0.07233072916666666
+    },
+    "quad_mode": "otsu"
+   },
+   "feat_meta": {
+    "ir_module_median": 25.3392276763916
+   },
+   "orient_to_el": "fliph"
+  }
+ },
+ "grid_shapes": {
+  "el": [
+   3,
+   12
+  ],
+  "ir": [
+   3,
+   12
+  ]
+ },
+ "grid_consistent": true,
+ "orient": {
+  "ir": "fliph",
+  "uvf": "fliph"
+ }
+}

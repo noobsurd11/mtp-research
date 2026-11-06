@@ -1,0 +1,28 @@
+2026-11-03 02:54:15 unit start pid 2284272; lib 4edcae9e
+2026-11-03 02:54:15 fake gpumem.pid 2284283, guard.pid 2284284 (sleep dummies); our recorded trainer pid 777001
+2026-11-03 02:54:15 outside() on [6206,5876|777001,7020]: ''
+2026-11-03 02:54:15 outside() on [6206,5876|777001,7020|99999,1500]: '99999:1500MiB '
+2026-11-03 02:54:15 outside() on [6206,5876|99998,900]: ''
+2026-11-03 02:54:15 outside() on [99997,1024]: ''
+2026-11-03 02:54:15 outside() on [99996,1025]: '99996:1025MiB '
+2026-11-03 02:54:15 outside() on [6206,9000]: ''
+2026-11-03 02:54:15 prestart all ok: rc 0 ''; HOLD absent
+2026-11-03 02:54:15 prestart outside 1500 MiB: rc 1 'outside GPU process(es) > 1024 MiB: 99999:1500MiB '; HOLD absent
+2026-11-03 02:54:15 prestart gpumem.pid dead: rc 1 'gpumem logger gone; HOLD set'; HOLD present
+2026-11-03 02:54:15 prestart with HOLD present: rc 1 'HOLD'
+2026-11-03 02:54:15 prestart guard.pid dead: rc 1 'auto-stop watcher gone; HOLD set'; HOLD present
+2026-11-03 02:54:15 startcheck so_ok: rc 0 startup line OK: Labelled: 478 (/home/noob/work/s2c_root/splits/train.txt)  unlabelled: 0 (-)  val: 54  test: 54
+2026-11-03 02:54:15 startcheck so_real: rc 1 startup line MISMATCH: got 'Labelled: 478 (data/splits/train.txt)  unlabelled: 0 (-)  val: 54  test: 50', want 'Labelled: 478 (/home/noob/work/s2c_root/splits/train.txt)  unlabelled: 0 (-)  val: 54  test: 54'
+2026-11-03 02:54:19 startcheck so_none: rc 1 startup line MISMATCH: got 'none within 4 s', want 'Labelled: 478 (/home/noob/work/s2c_root/splits/train.txt)  unlabelled: 0 (-)  val: 54  test: 54'
+2026-11-03 02:54:20 live-check dummy s2c_SUPPF_100pct_s10 pid 2284587 (prints the real-root line):     PID USER                      STARTED COMMAND|2284587 noob     Tue Nov  3 02:54:19 2026 /usr/bin/python3 -u scripts/train.py --overwrite --config configs/supervised.yaml --opts seed=10 data.labeled_fraction=1.0 training.total_steps=20000 data.split_seed=0 training.labeled_batch_size=8 data.mask_subdir=labeled/masks_escdd model.name=smp_unetpp data.augmentation=labelsafe loss.supervised=ce_dice training.val_every=20000 training.encoder_pf.freeze=1000 training.encoder_pf.ramp=1000 training.encoder_pf.lr_mult=0.1 training.encoder_pf.wd=0 data.root=/home/noob/work/s2c_root run_name=s2c_SUPPF_100pct_s10
+2026-11-03 02:54:20 s2c_SUPPF_100pct_s10 startup line MISMATCH: got 'Labelled: 478 (data/splits/train.txt)  unlabelled: 0 (-)  val: 54  test: 50', want 'Labelled: 478 (/home/noob/work/s2c_root/splits/train.txt)  unlabelled: 0 (-)  val: 54  test: 54' (rc 1)
+2026-11-03 02:54:20 live check FAILED: HOLD + stop by verified PID
+2026-11-03 02:54:20   verified s2c_SUPPF_100pct_s10 pid 2284587 (owner noob, cmdline = recorded):     PID USER                      STARTED COMMAND|2284587 noob     Tue Nov  3 02:54:19 2026 /usr/bin/python3 -u scripts/train.py --overwrite --config configs/supervised.yaml --opts seed=10 data.labeled_fraction=1.0 training.total_steps=20000 data.split_seed=0 training.labeled_batch_size=8 data.mask_subdir=labeled/masks_escdd model.name=smp_unetpp data.augmentation=labelsafe loss.supervised=ce_dice training.val_every=20000 training.encoder_pf.freeze=1000 training.encoder_pf.ramp=1000 training.encoder_pf.lr_mult=0.1 training.encoder_pf.wd=0 data.root=/home/noob/work/s2c_root run_name=s2c_SUPPF_100pct_s10
+2026-11-03 02:54:20   SIGTERM 2284587 sent (rc 0)
+2026-11-03 02:54:20   pid 2284587 exited 0s after SIGTERM
+2026-11-03 02:54:20 stop rc 0
+2026-11-03 02:54:22 HOLD present; launch.log: [Tue Nov  3 02:54:20 AM IST 2026] trained s2c_SUPPF_100pct_s10 rc=143|[Tue Nov  3 02:54:20 AM IST 2026] done s2c_SUPPF_100pct_s10: 'step 20000/20000' lines 0, Traceback lines 0|
+2026-11-03 02:54:22 pid 2284283 gone
+2026-11-03 02:54:22 pid 2284284 gone
+2026-11-03 02:54:22 pid 2284587 gone
+2026-11-03 02:54:22 unit end

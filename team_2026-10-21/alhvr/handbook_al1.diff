@@ -1,0 +1,201 @@
+diff --git a/handbook/00_START_HERE.md b/handbook/00_START_HERE.md
+index 568627d..a12b9ac 100644
+--- a/handbook/00_START_HERE.md
++++ b/handbook/00_START_HERE.md
+@@ -88,6 +88,11 @@ For a quick start, read 01, 04 (skim), 11 and 16. Then go back to 02 to 10 as qu
+       - Inactive gains survive either way.
+       - About half of test crack is a confident miss, mainly faint and inactive-edge cracks (doc 13 A12).
+       - Train/test twins and the D7 pool rule: doc 10 SK1, `team_2026-10-21/data/decision.md`.
++    - AL1 (23 Oct, agent team, post hoc addition; D7 pool):
++      - ALHVR adapted to EL, with its loss active from step 4k, is **WORSE** than supervised at 5% on all three primaries: −0.017 / −0.132 / −0.031.
++      - Its routing and prototype modules add nothing (n.d.). Plain cross pseudo-supervision is level with supervised.
++      - Post hoc reading: the ALHVR losses halve inactive recall (doc 13 A13).
++      - The old ALHVR question (doc 13 B3/E11) is closed (doc 10 AL1).
+     - Measurement warning from P16: one very noisy test cell, `CSIR_00070_r8_c4`, makes about 1 run in 6 call 15 to 31% of it crack, cutting that run's crack IoU by up to 0.18. Without it P16's verdict is the same (crack Δ within ±0.003). Read every crack contrast with this in mind (doc 13).
+ 
+ ## 4. The `sources/` folder
+diff --git a/handbook/10_experiments_P13_P16_E1.md b/handbook/10_experiments_P13_P16_E1.md
+index 4613b6d..ef6054b 100644
+--- a/handbook/10_experiments_P13_P16_E1.md
++++ b/handbook/10_experiments_P13_P16_E1.md
+@@ -1020,6 +1020,79 @@ Post hoc addition (22 Oct): this section is new. No earlier text is changed.
+ 
+ ---
+ 
++## AL1 (21–23 Oct 2026, agent team): ALHVR adapted to EL on the P-series base, 5% labels, D7 pool, cv02. Done; ALHVR track answered: no
++
++Post hoc addition (23 Oct): this section is new. No earlier text is changed. Every SSL number here uses the **D7 pool**: the 448-cell unlabelled pool, with the 7 train twins of test cells removed (`team_2026-10-21/data/decision.md`).
++
++**Sources**
++- Protocol, reviews and design: `team_2026-10-21/alhvr/protocol_v2.md`, `review_v1.md`, `review_v2.md` (addenda 1–5), `design.md` (D0 diagnostics).
++- Results: `team_2026-10-21/alhvr/results.md` (trainer 1b) and `results/al1/`.
++- The critic's independent recompute: `team_2026-10-21/alhvr/verify_a2.md`.
++
++**What changed from the old port** (handbook 05 §6.3, doc 13 B3; `design.md` §4). Each change is grounded in a diagnostic fixed before it ran (D0):
++- **Base model.** The P-series L3 base (smp U-Net++, ImageNet ResNet34, CE+Dice, label-safe augmentation, revised masks), replacing the old from-scratch SA-U-Net++ with weighted CE.
++- **λ schedule.** λ = 0 to step 2,000, linear to λ_max by step 4,000, then constant (the P-series schedule). The old port reached full λ only at the last step.
++- **λ_max.** Matched to BsM5's unlabelled gradient share (D0c): 0.1 for full ALHVR (the paper's value), 1.0 for CPS.
++- **Separate BN forward.** At λ = 0 network A is bit-identical to the supervised run (check C1).
++- **Perturbation.** FeatureNoise only. The reference FeatureDropout zeroed 96–99.7% of encoder positions on this base (D0-3).
++- **Prototype feature.** The full-resolution decoder output. At the reference 1/8 resolution the two networks' prototypes are orthogonal (cosine ≈ 0, D0-1), which explains the old 4.6% crack accuracy.
++- **DTCT.** Class-normalised sharpening and a detached target.
++
++**Arms** (5 seeds each, 20,000 steps, network A at the final step):
++
++| Arm | What it is |
++|---|---|
++| A5 | supervised |
++| AL5 | ALHVR-EL |
++| ALd5 | AL5 without CG-CPCL |
++| ALdh5 | ALd5 at λ 0.3 (the user's addition) |
++| CPS5 | the same two-network pipeline with cross pseudo-supervision on all pixels |
++| CPSm5 | CPS5 with ALHVR's Ω1 masked out; the one-change routing test |
++| BsM5 | the P13 recipe, re-run on the D7 pool as a reference |
++
++**Checks**
++- C1: λ = 0 network A equals supervised, tensor for tensor at step 300.
++- C2: the Mean Teacher code path equals P13 to step 2,050.
++- **A5 is bit-identical to the old A5c per seed.**
++- Step-6k activity check: every SSL arm's loss share was 0.14–0.38, inside the [0.03, 3] band, with no routing or co-training collapse (`review_v2.md` addenda 1–3).
++- All 35 runs completed: rc 0, step 20,000.
++
++**Locked verdicts** (rule 1, 5 v 5; Δ (threshold); crack IoU / inactive IoU / crack relF1@2; all 50 test cells)
++
++| Contrast | Role | Δ (threshold) | Verdict |
++|---|---|---|---|
++| **AL5 − A5** | primary | −0.0169 (0.0131) / −0.1324 (0.0761) / −0.0312 (0.0216) | **WORSE on all three** |
++| CPSm5 − CPS5 | S1, routing | −0.0025 / −0.0125 / −0.0026 | n.d. |
++| AL5 − ALd5 | S2, CG-CPCL | −0.0079 / +0.0169 / −0.0167 | n.d. |
++| ALd5 − A5 | S3 | inactive −0.1493 (0.0631) | WORSE |
++| ALdh5 − A5 | S3 | inactive −0.1056 (0.0539) | WORSE |
++| CPS5 − A5 | S3 | +0.0034 / +0.0736 (0.0737) / +0.0068 | n.d. |
++| CPSm5 − A5 | S3 | +0.0010 / +0.0611 / +0.0041 | n.d. |
++| AL5 − CPSm5 | S4, method contrast | −0.0178 / −0.1935 / −0.0354 | WORSE |
++| ALdh5 − ALd5 | S6, λ | +0.0045 / +0.0437 / +0.0044 | n.d. |
++| BsM5 − A5 | descriptive | +0.0274 / +0.1320 / +0.0412 | passes |
++
++- **Robustness.** The primary is WORSE in all four cell sets: all 50, without `CSIR_00070_r8_c4`, without the 7 twin test cells, without both. Paired cell-bootstrap CIs exclude 0 on all three primaries: crack [−0.0287, −0.0065], inactive [−0.1906, −0.0750], relF1@2 [−0.0536, −0.0118].
++- **CPS5 − A5, post hoc.** It passes on inactive only in the two **post hoc** twin-free cell sets, by 0.007–0.008, with the cell CI touching 0. A weak secondary pass, not a finding.
++- **ALdh5 gradient watch.** ALdh5 was *intermittently unlabelled-dominated*: 22 of 165 gradient-share samples were above 3, while the per-seed median was ≤ 1.66. The noisy cell fired once (ALdh5 s0, 7,236 crack FP px).
++- **Not scored:** network B and the A+B ensemble. The scorer reads network A only. This is descriptive and was not done.
++- **Inactive precision and recall, test, POST HOC reading.**
++  - A5 0.771 / 0.276; AL5 0.827 / 0.124; ALd5 0.790 / 0.108; ALdh5 0.799 / 0.154.
++  - CPS5 0.649 / 0.400; BsM5 0.746 / 0.444.
++  - The ALHVR-family losses more than halve inactive recall. DTCT alone (ALd5) is enough to do it. Cross pseudo-labels (CPS) raise recall instead.
++  - Reading: the sharpened-MSE plus entropy targets on Ω2/Ω3 suppress the minority class. This was not tested by a one-change arm.
++- **Predictions written before any AL1 score was opened** (`review_v2.md` addendum 4, critic's H-cm hypothesis):
++  1. crack gain no larger than +0.024;
++  2. crack bin-0 within ±0.03 of A5's;
++  3. S1 n.d. or worse on crack;
++  4. inactive gains larger than crack gains.
++  - **All four held:** −0.0169; +0.027; n.d.; CPS5 and BsM5. They were weak predictions, and the inactive damage was not predicted.
++- **Reading.**
++  - The old-era question "does ALHVR help with a fair schedule?" (doc 13 E11) is answered: no.
++  - On this base its losses are active and they hurt.
++  - Neither of its modules adds anything in a one-change contrast.
++  - Plain two-network cross pseudo-supervision is level with supervised and below BsM5.
++
+ ## Follow-up checks after P17 (13 Oct, descriptive, not in any protocol)
+ 
+ ### EMA teacher vs student (`results/ema_check/README.md`)
+diff --git a/handbook/11_results_synthesis_and_claims.md b/handbook/11_results_synthesis_and_claims.md
+index ae46626..be1b50a 100644
+--- a/handbook/11_results_synthesis_and_claims.md
++++ b/handbook/11_results_synthesis_and_claims.md
+@@ -82,6 +82,7 @@ Where this table deliberately differs from that file:
+ | 14 | Rare-class pseudo-label collapse is real and visible in training logs | P10: seed 2 collapses under both B5 and C5 (crack ≈ 0.13, inactive ≈ 0). Its rare-class PL share stays about 5× lower from step 4,000. P13 (separate BN): no collapse in 8 logged runs, rare_frac 0.0064 to 0.0109 (`results/p10`, `p13`) | supported as a failure mode (one collapse event, seed 2, at 5%) |
+ | 15 | One test cell can decide crack contrasts | `CSIR_00070_r8_c4`, the noisiest of the 582 cells (noise sigma 46.0 vs median 1.48). In 4 of 24 P16 runs (2 supervised, 2 SSL) and in P6 `L0_10pct_s1`, the model calls 15–31% of it crack (39k–80k FP px), cutting that run's crack IoU by 0.11–0.18. Inflates the crack IoU seed sd 10–31× and moved P16's crack Δs by up to ±0.04 (`results/p16/README.md`) | measured. Not in any locked rule; adopting "without this cell" as a standing check is the user's call |
+ | 16 | BsM5's SSL gain needs pseudo-labels to reach the labelled decoder | P17 (5 vs 5, locked): BsD5 − BsM5 −0.006 / +0.011 / −0.008, n.d. (thresholds 0.013 / 0.043 / 0.017, about 40% of BsM5's gain over A5c). BsD5 − A5c passes on all three. Over cells crack leans negative (P(Δ > 0) = 0.06), from CSIR/ARTS. BsD5 crack AP 0.310 vs 0.367 (`results/p17/README.md`) | not supported as a need; a share below about 40% of the gain is not excluded. Added 13 Oct |
++| 17 | ALHVR-style region routing helps rare EL defects (post hoc row, 23 Oct; D7 pool) | AL1 (cv02, 5 v 5, locked; `team_2026-10-21/alhvr/results.md`, critic-verified): AL5 − A5 −0.0169 / −0.1324 / −0.0312, **WORSE** on all three primaries in all four cell sets. Routing (CPSm5 − CPS5) and CG-CPCL (AL5 − ALd5) n.d. DTCT-only arms WORSE on inactive. CPS5 − A5 n.d. (a post hoc twin-free inactive pass by 0.007). BsM5 − A5 +0.027 / +0.132 / +0.041 (descriptive) | **not supported; contradicted.** Post hoc reading: the ALHVR losses halve inactive recall (test 0.276 → 0.124) |
+ 
+ ---
+ 
+@@ -254,6 +255,7 @@ These hold for one split (seed 0), the 50 BenchmarkEL test cells, cv02 and the L
+   - P14 fails recovery.
+   - P13 favours hard PL on crack (by the seed rule on 3 BsM5 seeds; over cells only on 5, Amendment 2).
+   - The full ALHVR-style region routing was never run in the P-series; P5 is an offline probe.
++  - Post hoc (23 Oct): AL1 then ran full ALHVR routing on the P-series base (D7 pool). It was WORSE than supervised (row 17), so the routing half of this method cannot be claimed either.
+ - **That decoder decoupling helps, or that the decoder plays no role** (P17 n.d. both ways; SKCDF's other components were not run).
+ - **That SSL helps above 10% labels, as a confirmed result.** P16 finds no detectable gain at 20%, 50% or 100% with the Cs recipe. P18 (exploratory, BsM recipe picked on test) passes the arithmetic on inactive at 10% and 20% only; crack is n.d. So "SSL cannot help above 10%" cannot be claimed either, and a confirmatory BsM test at 20%+ would need a fresh split or a locked pick.
+ - **That related-data pretraining helps.** P15 says no for UCF-EL encoder transfer with this recipe (equal at 5%, worse at 10%), and the MIM/self-supervised rival was never run.
+diff --git a/handbook/13_problems_pitfalls_open_issues.md b/handbook/13_problems_pitfalls_open_issues.md
+index 953aff2..b30679d 100644
+--- a/handbook/13_problems_pitfalls_open_issues.md
++++ b/handbook/13_problems_pitfalls_open_issues.md
+@@ -272,6 +272,17 @@ Status date: 12 Oct 2026, ~05:30 IST, updated 13 Oct ~16:30 IST for P17 and P13
+ 
+ ---
+ 
++### A13. ALHVR-style losses suppress inactive (post hoc reading; found 23 Oct, AL1, D7 pool)
++- **What:**
++  - In AL1, every arm with ALHVR's DTCT loss (AL5, ALd5, ALdh5) lowers test inactive IoU by 0.11–0.15 against supervised (rule 1 WORSE).
++  - Inactive recall falls from 0.276 to 0.108–0.154 while precision stays about the same (0.77–0.83).
++  - The same two-network pipeline with cross pseudo-labels (CPS5) raises recall to 0.400.
++- **Reading (not tested by a one-change arm):** the sharpened-MSE plus entropy-minimisation targets on uncertain regions push minority-class pixels toward background.
++  - In the ALHVR arms, 56–60% of unlabelled GT inactive sits in Ω1 (no loss) and only 10–17% in Ω3.
++- **Impact:**
++  - A warning for any confidence-routed or entropy-minimising SSL loss on rare EL classes.
++  - No follow-up is proposed (`team_2026-10-21/alhvr/verify_a2.md`).
++
+ ## (b) Past results that are invalid or were misread
+ 
+ None of these may be quoted as a method result. Old-era numbers stay in separate tables from the P-series (standing rule; memory `mtp-el-ssl-project.md`). History: `06_history_phase0_phase1.md`.
+@@ -280,7 +291,7 @@ None of these may be quoted as a method result. Old-era numbers stay in separate
+ |---|---|---|---|
+ | B1 | Every Mean Teacher result with **SemiCE**: BenchmarkEL MT-20, UCF MT 1%/5% on cv02, the held gaint external-pool queue | SemiCE thresholds raw logits. 100% of unlabelled pixels have ≥ 2 "positive" classes (background on 98.9%, crack on 20.3% vs a true 0.19%). The target is incoherent | `results/p2/README.md` |
+ | B2 | "MT beats SL-20" (+0.023, p 0.095 test; +0.028, p 0.004 val+test) | MT with λ = 0 scores the same (paired −0.000 ± 0.024). The EMA adds nothing because the learning rate ends at 0 (teacher − student +0.000 ± 0.002) | handoff 7 Oct §6.1–6.2 |
+-| B3 | "ALHVR beats SL-20" (+0.029, p 0.045) and "ALHVR modules do nothing" | ALHVR equals its loss-off control (+0.005 ± 0.023). But its λ follows a sigmoid over the whole run and reaches 0.1 only at the last step, while our cosine learning rate reaches 0. So the loss was barely applied: neither a gain nor a null is shown. The measured prototype failure (cross-network prototypes 4.6% correct on Ω3 crack) still stands | handoff 7 Oct §6.2, §6.8, §9.1 |
++| B3 | "ALHVR beats SL-20" (+0.029, p 0.045) and "ALHVR modules do nothing" | ALHVR equals its loss-off control (+0.005 ± 0.023). But its λ follows a sigmoid over the whole run and reaches 0.1 only at the last step, while our cosine learning rate reaches 0. So the loss was barely applied: neither a gain nor a null is shown. The measured prototype failure (cross-network prototypes 4.6% correct on Ω3 crack) still stands **Update 23 Oct (AL1, D7 pool):** a fair port, with full λ from step 4k and a loss-off control, is WORSE than supervised on all three primaries (doc 10 AL1); the dead-prototype cause is now known (1/8-resolution prototypes of two networks are orthogonal) | handoff 7 Oct §6.2, §6.8, §9.1 and `team_2026-10-21/alhvr/results.md` |
+ | B4 | An early SSL "+7.4" gain | 8× optimiser-step mismatch between SSL and SL | phase-0 doc |
+ | B5 | "SA SSL raised IoU" (the user's 11 Oct recollection) and best-val numbers | Best-val selection on 54 val cells flips comparison signs. SA-SL-20 seed 0 was 0.338 at the final step and 0.301 at the best-val step. Pooled over 4 seeds, SA shows no effect (0.3399 vs 0.3435) | phase-1 answers item 1; handoff 7 Oct §6.11; session summary 2026-10-11T09:36Z §5 |
+ | B6 | "Reproduction gaps" against papers | Metric-convention mismatches:<br>• Fioresi 57.3 is likely a 5-class mean incl. background;<br>• Pratt uses per-image medians with absent class = 0;<br>• PV-S3 drops background-GT pixels.<br>Under matched conventions Fioresi and Pratt reproduce | phase-1 §5, §7; situation report §4; `analysis/papers_metrics.md` |
+@@ -505,7 +516,7 @@ None of these may be quoted as a method result. Old-era numbers stay in separate
+ | E8 | Can models transfer to unseen modules? | Crack IoU 0.471 → 0.152 (A6) | Pretraining (P15, MIM), more diverse labelled data, a domain-shift-aware evaluation |
+ | E9 | Is the external pool useless, or just mismatched? | Source-specific crack harm (A7) | Re-walk the Dropbox listing; harmonise contrast; a matched pool |
+ | E10 | Would more labelled cells (E-SCDD) change the picture? | Downloaded and audited 12 Oct (doc 17).<br>• 233 labelled real cells new to us: 87 crack, 20 inactive.<br>• 111 of them are in our external pool and 105 are E1's set.<br>• Mostly CSIR from unseen modules.<br>• E-SCDD's train also has 93 synthetic images. | The user decides whether to use them; doing so means a new base recipe, not an extension of the P-series |
+-| E11 | Does ALHVR (or DTCT alone) help with a fair loss schedule? | Never fairly tested (B3); prototypes dead | A port with λ at full strength early, plus a loss-off control |
++| E11 | Does ALHVR (or DTCT alone) help with a fair loss schedule? | Never fairly tested (B3); prototypes dead (**answered 23 Oct by AL1, D7 pool: no**; ALHVR-EL and DTCT-only are WORSE than supervised on inactive, routing and CG-CPCL n.d.) | A port with λ at full strength early, plus a loss-off control |
+ | E12 | Is in-domain self-supervised pretraining (MIM) worth it? | Untested; directions row 3 | Protocol + 1–2 GPU-days |
+ | E13 | Severity grading (Köntges A/B/C) and the per-cell quantities | Post-processing lost in the reset (D1); power loss out of scope (user, 11 Oct) | Rebuild components / skeleton / isolation; grade agreement (κ) on GT vs predicted masks (proposal E6) |
+ | E14 | Admin inputs never confirmed | Mid-term date (assumed ~14 Oct); report template and page limit; whether MoE is required by the advisor; target model size (~2M vs ~4M; "not a constraint" for now) | Ask the user (phase-1 §17 items 9–10; deck outline §17) |
+diff --git a/handbook/15_status_remaining_work.md b/handbook/15_status_remaining_work.md
+index 06e6358..7142167 100644
+--- a/handbook/15_status_remaining_work.md
++++ b/handbook/15_status_remaining_work.md
+@@ -30,6 +30,7 @@
+ | **P19** (cv02, reproduction of Hanifi 2025, IEA/AIE) | **Done**, 8 runs (14 Oct 08:58 to 09:31 IST), all rc = 0. Their code, release split, no augmentation. VGG16-UNet features 0.678 vs 0.663, crack 0.352 vs 0.335; defects 0.246 vs 0.326 (our test lacks dead cell, belt mark) | `results/p19/README.md` |
+ | **P18** (cv02, EXPLORATORY: BsM recipe at 10% and 20%) | **Done**, 8 runs (13 Oct 17:31 to 19:40 IST), all rc = 0; [Note 21 Oct: the launcher logged rc after a `$(date)` substitution, so this rc was always 0 (doc 14 §3.1). Completion is confirmed instead by other evidence: every run's log reaches step 20000/20000 and prints "TEST (final weights, step 20000)", `latest.pth` and `metrics.json` test_final are at step 20,000 (gaint copies and cv02 originals), and every re-score JSON has step 20,000; `results/rc_check/p13_p17_p18_completion.txt`.] analysed about 19:50 IST.<br>• Arithmetic: BsM10 − A10 and BsM20 − A20 pass on inactive only (+0.132, +0.060); crack n.d.<br>• Without the noisy cell: BsM10 passes on all three; BsM20 inactive only (crack +0.013, thr 0.014).<br>• BsM20 s4 fails on the noisy cell (34k FP px).<br>• Post hoc (21 Oct, D6), without the 7 twin test cells: inactive still passes at both fractions (+0.146, +0.076); without twins and the noisy cell, both pass on all three. | `results/p18/README.md`, `results/e1/e1_p18.md` |
+ | **SK1 + S-a** (cv02, agent team 21–22 Oct; post hoc addition) | **Done; SKCDF track closed 22 Oct.** 20 runs (D7 twin-free pool), all at step 20,000, re-score rc logged correctly.<br>• SK1 primary BsDB5 − BsD5 n.d.; AB5 − A5c n.d.; band WORSE on crack.<br>• S-a (inference only): at 5% the SSL crack-IoU gains are n.d. against supervised + τ=1 logit bias; inactive gains survive.<br>• Next (not approved yet): labelling plan and the user's 1-h audit of 40 always-missed crack components (`team_2026-10-21/skcdf/labelling_plan.md`). | `team_2026-10-21/skcdf/results.md`, `null_diagnosis.md`, `results/sk1/la_sa.md` |
++| **AL1 v2** (cv02, agent team 21–23 Oct; post hoc addition; D7 pool) | **Done; ALHVR track answered: no.** 35 runs (7 arms × 5 seeds), all at step 20,000, rc 0; critic recompute exact.<br>• Primary AL5 − A5 **WORSE** on all three primaries in all four cell sets.<br>• Routing (S1) and CG-CPCL (S2) n.d.; DTCT-only WORSE on inactive; CPS5 level with supervised; BsM5 re-run still beats supervised (descriptive).<br>• Pre-registered H-cm predictions held. The inactive damage (post hoc) was not predicted.<br>• Not scored: network B and ensemble. No follow-up proposed. | `team_2026-10-21/alhvr/results.md`, `verify_a2.md`, `results/al1/` |
+ | **P16** (cv02, SSL vs supervised at 20/50/100%) | **Done.** Part A 9 runs (17:28 to 22:06 IST, 11 Oct); Part B 15 runs (21:04 IST to 04:24 IST, 12 Oct); all rc = 0; analysed about 05:00 IST.<br>• **Fails at all three fractions:** S20, S50, Sx100 − supervised n.d. on all three primaries (5 vs 5 seeds). CutMix off by the locked val pick.<br>• One noisy test cell (`CSIR_00070_r8_c4`) wrecked crack in 4 of 24 runs; without it every crack Δ is within ±0.003 (post hoc), so the verdict is unchanged. | `results/p16/README.md`, `results/e1/e1_p16.md` |
+ 
+ ## 1b. Server state at session close (13 Oct, 01:21 IST)
+diff --git a/handbook/16_faq_for_the_guide.md b/handbook/16_faq_for_the_guide.md
+index 8d0f6d6..419f68f 100644
+--- a/handbook/16_faq_for_the_guide.md
++++ b/handbook/16_faq_for_the_guide.md
+@@ -130,6 +130,24 @@ Measured:
+ 
+ Sources: `results/p9`, `p10`, `p11`, `p12`; `proposal_reframe` §1. → `09`
+ 
++**Q11b. Did ALHVR, the method the project started from, work once it was ported properly? (added 23 Oct)**
++
++No. AL1 (cv02, 5 v 5, D7 pool) fixed the old port's problems:
++- full λ from step 4k;
++- the P-series base;
++- noise-only perturbation, because the reference dropout erased the encoder;
++- full-resolution prototypes;
++- a bit-identical loss-off control.
++
++Measured:
++- ALHVR was **worse** than supervised on crack IoU, inactive IoU and crack relF1@2 (−0.017 / −0.132 / −0.031), in every cell set.
++- Its routing (Ω1 mask) and prototype module are n.d. in one-change contrasts.
++- The same two networks with plain cross pseudo-labels are level with supervised.
++- The existing BsM5 recipe still beats supervised.
++- Post hoc reading: ALHVR's losses halve inactive recall.
++
++Sources: `team_2026-10-21/alhvr/results.md`, `verify_a2.md`. → `10` (AL1), `13` (B3, E11, A13)
++
+ ## C. Rules, statistics, and trust
+ 
+ **Q12. What are the "locked rules", and are they too strict?**

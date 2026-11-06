@@ -45,7 +45,7 @@ while :; do
   if [ $END = 0 ] && tail -n +$((N0+1)) $LL | grep -q "S2C ALL TRAINED"; then END=$(date +%s); lg "end line seen; guard stops in 60 s"; fi
   [ $END != 0 ] && [ $(( $(date +%s) - END )) -ge 60 ] && { lg "guard stop (queue ended)"; rm -f $Q/guard.pid; exit 0; }
   sample
-  case "$fr" in ''|*[!0-9]*) fails=$((fails+1)); lg "sample $i: free read failed ('$fr', $fails in a row); not counted, count reset"; low=0
+  case "$fr" in ''|*[!0-9]*) fails=$((fails+1)); lg "sample $i: free read failed ('$fr', $fails in a row); not counted, count reset"; low=0; TRIG=""
     [ $fails = 10 ] && { touch $Q/HOLD; lg "  10 consecutive failed reads: HOLD set ($Q/HOLD)"; }; sleep $SLEEP; continue;; esac
   fails=0
   if [ $cool -gt 0 ]; then cool=$((cool-1)); lg "  post-stop sample: free $fr MiB (cool-down $cool left)"; sleep $SLEEP; continue; fi

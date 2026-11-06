@@ -1,6 +1,6 @@
 #!/bin/bash
 # runner v2 (3 Nov 2026): dry / live-signal tests of s2c_guard.sh v2 + s2c_lib.sh on gaint (judge b0d866a4 G7; coach v1 §2b).
-# Scratch Q only ($D/g2); dummy processes only (a fake worktree whose scripts/train.py sleeps; no GPU, no training). Dummies are
+# Scratch Q only ($D/g2$TAG; TAG env, default empty, for a re-run in fresh dirs); dummy processes only (a fake worktree whose scripts/train.py sleeps; no GPU, no training). Dummies are
 # started with the lib's own launch_run (the queue's launch path): pids/<name>.pid = python, pids/<name>.cmdline recorded after exec.
 # DUMMY_MODE (env, not in the cmdline): normal (exits on SIGTERM), ignterm (ignores SIGTERM), execswap (on SIGTERM exec's into
 # 'sleep 600': same PID, other cmdline). FAKE = free values from a file; DRY=1 = no signal.
@@ -16,7 +16,7 @@
 # pass 3  FAKE + LIVE: C = s2c_SKR01_100pct_s14 (execswap): SIGTERM -> its cmdline changes -> re-check fails -> no SIGKILL; HOLD.
 # pass 4  FAKE+DRY: no verified live run -> no signal.   pass 5  FAKE+DRY: 12 failed reads -> HOLD at the 10th.
 set -u
-D=/home/noob/work/runner_s2c_dry; Q=$D/g2; W=$D/wt2; L=$Q/launch.log; P=/usr/bin/python3; J=${J:?jobs file}; LIB=$D/scripts/s2c_lib.sh
+D=/home/noob/work/runner_s2c_dry; T=${TAG:-}; Q=$D/g2$T; W=$D/wt2$T; L=$Q/launch.log; P=/usr/bin/python3; J=${J:?jobs file}; LIB=$D/scripts/s2c_lib.sh
 H=$Q/harness.log; lg(){ echo "$(date '+%F %T') $*" | tee -a $H; }
 [ ! -e $Q ] && [ ! -e $W ] || { echo "$Q or $W exists"; exit 1; }
 mkdir -p $Q/pids $W/scripts $W/experiments; cp $J $Q/s2c_jobs.txt; touch $L; . $LIB

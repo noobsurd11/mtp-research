@@ -6,7 +6,7 @@
 #   startcheck(): the root line -> OK; the real-root line ('test: 50') -> MISMATCH; no line -> MISMATCH after the wait.
 #   live-check failure path: a dummy trainer (launch_run) printing the real-root line -> MISMATCH -> HOLD + stop_verified -> rc=143.
 set -u
-D=/home/noob/work/runner_s2c_dry; Q=$D/qu; W=$D/wt2; L=$Q/launch.log; P=/usr/bin/python3; J=${J:?jobs file}; LIB=$D/scripts/s2c_lib.sh
+D=/home/noob/work/runner_s2c_dry; T=${TAG:-}; Q=$D/qu$T; W=$D/wt2$T; L=$Q/launch.log; P=/usr/bin/python3; J=${J:?jobs file}; LIB=$D/scripts/s2c_lib.sh
 H=$Q/unit.log; lg(){ echo "$(date '+%F %T') $*" | tee -a $H; }
 [ ! -e $Q ] || { echo "$Q exists"; exit 1; }; [ -s $W/scripts/train.py ] || { echo "run s2c_guard_dry.sh first (fake worktree)"; exit 1; }
 mkdir -p $Q/pids; cp $J $Q/s2c_jobs.txt; touch $L; . $LIB

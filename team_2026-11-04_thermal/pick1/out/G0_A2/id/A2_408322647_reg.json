@@ -1,0 +1,205 @@
+{
+ "module": "A2_408322647",
+ "version": "cellreg 0.2 (4 Nov 2026): --orient for IR / UVF to EL cell mapping",
+ "grid_expected": [
+  6,
+  12
+ ],
+ "modalities": {
+  "el": {
+   "path": "/home/yugma/mtp/datasets/thermal_public/A2_osf_ar76v/EL/20250206_200431_SOLARWORLD_SW-175-MONO_408322647_X_10s_5.289A_48.264V.NEF",
+   "meta": {
+    "reader": "nef_jpeg_preview",
+    "shape": [
+     3264,
+     4928
+    ],
+    "note": "8-bit camera-processed preview, tone-mapped, not linear"
+   },
+   "qa": {
+    "rows": 6,
+    "cols": 12,
+    "S": 128,
+    "quad": [
+     [
+      1109.0,
+      1459.0
+     ],
+     [
+      3872.0,
+      1456.0
+     ],
+     [
+      3911.0,
+      2834.0
+     ],
+     [
+      1074.0,
+      2832.0
+     ]
+    ],
+    "grid_corners": [
+     [
+      1094.8344476442178,
+      1396.3171978246994
+     ],
+     [
+      3882.23242274096,
+      1390.830334478596
+     ],
+     [
+      3938.5515647163515,
+      2816.9896535903786
+     ],
+     [
+      1042.807622109238,
+      2813.0998111524527
+     ]
+    ],
+    "cell_side_px": 236.70683288269916,
+    "res_rms_px": 2.0898782139716605,
+    "res_max_px": 3.6906819891431617,
+    "res_rms_pct_cell": 0.8828972905092716,
+    "res_max_pct_cell": 1.559178475837278,
+    "loo_rms_pct_cell": 0.9673192574744492,
+    "lines_fallback": 0,
+    "res_rms_px_by_iter": [
+     8.48943573773835,
+     8.040726697926168,
+     2.0898782139716605
+    ],
+    "n_points": 55,
+    "grid": {
+     "x": {
+      "polarity": "dark_gaps",
+      "pitch": 128.0,
+      "offset": 0.0,
+      "lines_fallback": 0,
+      "fit_score": 1.7401394036417213
+     },
+     "y": {
+      "polarity": "dark_gaps",
+      "pitch": 121.6,
+      "offset": -15.36,
+      "lines_fallback": 0,
+      "fit_score": 1.2296997008337243
+     }
+    },
+    "quad_info": {
+     "otsu": 0.3713695360108894,
+     "fg_frac": 0.2531179996856697
+    }
+   },
+   "feat_meta": {
+    "el_module_median": 82.04761505126953,
+    "thr": 0.5,
+    "open_radius_px": 3
+   }
+  },
+  "ir": {
+   "path": "/home/yugma/mtp/datasets/thermal_public/A2_osf_ar76v/IR/20250206_200620_SOLARWORLD_SW-175-MONO_408322647_X_60s_5.289A.txt",
+   "meta": {
+    "reader": "txt_matrix",
+    "shape": [
+     240,
+     320
+    ],
+    "header_lines_skipped": 0,
+    "rows_dropped_len": 0
+   },
+   "qa": {
+    "rows": 6,
+    "cols": 12,
+    "S": 48,
+    "quad": [
+     [
+      64.0,
+      83.0
+     ],
+     [
+      234.0,
+      83.0
+     ],
+     [
+      237.0,
+      167.0
+     ],
+     [
+      62.0,
+      166.0
+     ]
+    ],
+    "grid_corners": [
+     [
+      61.26578333141527,
+      80.72853300756056
+     ],
+     [
+      238.1665293980565,
+      80.34684771718496
+     ],
+     [
+      239.60891263120695,
+      171.1554270234032
+     ],
+     [
+      60.89980541596305,
+      169.72459043433176
+     ]
+    ],
+    "cell_side_px": 14.915054742259377,
+    "res_rms_px": 0.3422567356527242,
+    "res_max_px": 0.5823040507282058,
+    "res_rms_pct_cell": 2.29470653354691,
+    "res_max_pct_cell": 3.904136195211823,
+    "loo_rms_pct_cell": 2.525240926948198,
+    "lines_fallback": 0,
+    "res_rms_px_by_iter": [
+     0.4020240336193787,
+     0.3689151465308039,
+     0.3422567356527242
+    ],
+    "n_points": 55,
+    "grid": {
+     "x": {
+      "polarity": "dark_gaps",
+      "pitch": 48.0,
+      "offset": 0.0,
+      "lines_fallback": 0,
+      "fit_score": 0.3184350062506733
+     },
+     "y": {
+      "polarity": "dark_gaps",
+      "pitch": 48.0,
+      "offset": 0.0,
+      "lines_fallback": 0,
+      "fit_score": 0.9844373983246965
+     }
+    },
+    "quad_info": {
+     "otsu": 0.5768499180244542,
+     "fg_frac": 0.20489583333333333
+    }
+   },
+   "feat_meta": {
+    "ir_module_median": 24.90475082397461
+   },
+   "orient_to_el": "id"
+  }
+ },
+ "grid_shapes": {
+  "el": [
+   6,
+   12
+  ],
+  "ir": [
+   6,
+   12
+  ]
+ },
+ "grid_consistent": true,
+ "orient": {
+  "ir": "id",
+  "uvf": "id"
+ }
+}

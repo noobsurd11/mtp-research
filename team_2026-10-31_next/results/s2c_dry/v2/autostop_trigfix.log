@@ -1,0 +1,15 @@
+2026-11-03 02:55:02 guard start pid 2288268 (v2; FAKE /home/noob/work/runner_s2c_dry/g3/fake.txt; DRY 1; THR 2048 MiB x 3; COOL 2; GAP 30 s; MAXSTOPS 2; jobs 0839f340; lib 4edcae9e; Q /home/noob/work/runner_s2c_dry/g3)
+2026-11-03 02:55:03 low sample: free 1900 MiB < 2048 (1/3)
+2026-11-03 02:55:04 low sample: free 1900 MiB < 2048 (2/3)
+2026-11-03 02:55:05 sample 4: free read failed ('ERR', 1 in a row); not counted, count reset
+2026-11-03 02:55:06 low sample: free 1900 MiB < 2048 (1/3)
+2026-11-03 02:55:07 low sample: free 1900 MiB < 2048 (2/3)
+2026-11-03 02:55:08 low sample: free 1900 MiB < 2048 (3/3)
+2026-11-03 02:55:08 TRIGGER: free < 2048 on 3 consecutive samples: 02:55:06:1900 02:55:07:1900 02:55:08:1900
+2026-11-03 02:55:08   free trace before (last 7): 02:55:02:12000 02:55:03:1900 02:55:04:1900 02:55:05:ERR 02:55:06:1900 02:55:07:1900 02:55:08:1900
+2026-11-03 02:55:08   compute-apps: 6206,5876 
+2026-11-03 02:55:08   HOLD set (/home/noob/work/runner_s2c_dry/g3/HOLD): the queue starts nothing new
+2026-11-03 02:55:08   no verified live S2C run to stop; no signal
+2026-11-03 02:55:09   post-stop sample: free 12000 MiB (cool-down 1 left)
+2026-11-03 02:55:10   post-stop sample: free 12000 MiB (cool-down 0 left)
+2026-11-03 02:55:11 end of FAKE trace after 9 samples; stops 0

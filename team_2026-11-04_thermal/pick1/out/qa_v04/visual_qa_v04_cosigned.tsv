@@ -1,0 +1,30 @@
+# G0 v2 QA calls, cellreg 7d9a9fe0 (v0.4.1), rot180 runs, no UVF. Criteria: visual_qa_v04_criteria.md (fae36d53 + addendum): fail if any inner line > ~10% cell off its gap, grid over/short of the module edge by > ~10% cell, a window crossing a gap, wrong count/orientation; numeric edge check (edge_check.py) > 0.25 cell from the set median; residual RMS > 5% cell. Keep only if EL and IR pass all three.
+# Overlays: pick1/out/qa_v04/overlays_A1/, overlays_A2/ (1 px full grid; IR x8 nearest; cyan = Otsu outline). Montages: pick1/out/qa_v04/mont_*.png. Edge: edgecheck_A1_v04.tsv, edgecheck_A2_v04.tsv. Calls made from overlays / reg.json only, before any G0 v2 number.
+# IR visual reference for A2: the dark cell-corner dots (pseudo-square cells) must sit on grid intersections. For A1 IR, gaps are blurred (~12 px/cell): visual calls there rest on the module outline; marked 'num' where the call rests on the edge check.
+# CO-SIGNED by check (factcheck §34) after one flag (409001724 EL, accepted). Borderline (fails within ~0.25-0.4 cell of the bar, or residual within 0.5% of 5%): A1 6320427793 IR, A1 6330431479 IR, A2 408332881 EL, A2 409008047 EL, A2 408330104 EL (residual 5.37), A2 409001724 EL (check flag). Pre-stated sensitivity: G0 v2 on keep (primary); keep + these 5 borderline modules (sensitivity B; no verdict). No kept module is within 0.18 cell of the edge bar, so "keep minus borderline" = keep.
+module	el_res	ir_res	el_edge_dev	ir_edge_dev	el_call	ir_call	keep	borderline	note
+A1_6320427227	1.32	3.14	ok	ok	ok	ok	yes	no	v0.4 EL grid now on the gaps (v0.2 pitch drift fixed)
+A1_6320427398	1.27	5.32	ok	-0.406	ok	FAIL(res, 2, num)	no	no	IR grid top line above the module
+A1_6320427439	1.89	6.20	ok	ok	ok	FAIL(res)	no	no	
+A1_6320427793	0.68	3.26	ok	+0.316	ok	FAIL(2, num)	no	yes	IR grid stops short of the module bottom (~0.3 cell)
+A1_6320427802	0.80	3.06	ok	ok	ok	ok	yes	no	v0.2 IR one-row shift gone
+A1_6330431031	0.50	4.76	ok	+0.424	ok	FAIL(2, num)	no	no	IR grid stops ~0.4 cell short of the module bottom
+A1_6330431038	0.30	2.42	ok	ok	ok	ok	yes	no	
+A1_6330431479	0.89	2.35	ok	+0.333	ok	FAIL(2, num)	no	yes	IR bottom short by ~0.3 cell (num)
+A1_6330431480	1.59	5.27	ok	-0.519	ok	FAIL(res, 2, num)	no	no	IR grid starts above the module top
+A1_6330431484	0.69	2.10	ok	ok	ok	ok	yes	no	v0.2 borderline; v0.4 edge within 0.18
+A2_408181737	0.59	7.29	ok	+0.670	ok	FAIL(res, 1, 2, num)	no	no	IR outline caught the hot cable; grid skewed
+A2_408322647	0.93	2.34	ok	ok	ok	ok	yes	no	IR corner dots on intersections
+A2_408330104	5.37	3.38	+0.218	ok	FAIL(res)	ok	no	yes	EL lines on gaps by eye; residual 5.37
+A2_408330775	3.06	7.91	-0.221	+0.440	FAIL(2)	FAIL(res, 1, num)	no	no	EL top overrun; IR lines between the corner dots
+A2_408332844	5.67	3.83	+0.299	ok	FAIL(res, num)	ok	no	no	
+A2_408332881	4.14	3.74	+0.271	ok	FAIL(num)	ok	no	yes	EL rows drift slightly down (num)
+A2_408380306	0.61	2.77	ok	ok	ok	ok	yes	no	
+A2_409001724	4.47	3.58	ok	ok	FAIL(2; check flag)	ok	no	yes	check §34: top grid line ~0.15-0.2 cell inside the top row (row-profile measure 0.20 cell); I accept; borderline fail
+A2_409008047	3.88	2.79	+0.256	ok	FAIL(num)	ok	no	yes	EL bottom edge (num)
+A2_409049092	0.51	2.06	ok	ok	ok	ok	yes	no	
+A2_409049465	2.09	5.57	ok	-0.333	ok	FAIL(res, num)	no	no	IR left columns ~1 IR px off the dots
+A2_409049991	5.83	6.30	+0.367	+0.685	FAIL(res, num)	FAIL(res, 1, num)	no	no	IR lines drift left of the dots
+A2_409050368	4.19	5.37	+0.274	+0.356	FAIL(1, num)	FAIL(res, 1, num)	no	no	EL row lines inside cells; IR lines ~2.5 px right of the dots
+A2_409050506	0.90	6.27	-0.234	+0.441	FAIL(2)	FAIL(res, num)	no	no	EL top line above the module
+A2_409052375	0.61	2.59	ok	ok	ok	ok	yes	no	

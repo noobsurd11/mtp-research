@@ -1,0 +1,205 @@
+{
+ "module": "A2_409050368",
+ "version": "cellreg 0.2 (4 Nov 2026): --orient for IR / UVF to EL cell mapping",
+ "grid_expected": [
+  6,
+  12
+ ],
+ "modalities": {
+  "el": {
+   "path": "/home/yugma/mtp/datasets/thermal_public/A2_osf_ar76v/EL/20250207_172048_SOLARWORLD_SW-175-MONO_409050368_X_10s_5.289A_49.025V.NEF",
+   "meta": {
+    "reader": "nef_jpeg_preview",
+    "shape": [
+     3264,
+     4928
+    ],
+    "note": "8-bit camera-processed preview, tone-mapped, not linear"
+   },
+   "qa": {
+    "rows": 6,
+    "cols": 12,
+    "S": 128,
+    "quad": [
+     [
+      1115.0,
+      1465.0
+     ],
+     [
+      3880.0,
+      1455.0
+     ],
+     [
+      3915.0,
+      2819.0
+     ],
+     [
+      1085.0,
+      2823.0
+     ]
+    ],
+    "grid_corners": [
+     [
+      1120.339665242944,
+      1439.8612321324026
+     ],
+     [
+      3829.3868858122914,
+      1430.8029123456897
+     ],
+     [
+      3943.697765768436,
+      2919.650321346595
+     ],
+     [
+      1009.5605042204484,
+      2924.3896969623624
+     ]
+    ],
+    "cell_side_px": 238.3673909316301,
+    "res_rms_px": 25.28372548981158,
+    "res_max_px": 48.65322588419611,
+    "res_rms_pct_cell": 10.607040413956456,
+    "res_max_pct_cell": 20.411024215200268,
+    "loo_rms_pct_cell": 11.298790164073091,
+    "lines_fallback": 0,
+    "res_rms_px_by_iter": [
+     8.8658636768592,
+     21.313887435279497,
+     25.28372548981158
+    ],
+    "n_points": 55,
+    "grid": {
+     "x": {
+      "polarity": "bright_gaps",
+      "pitch": 127.36,
+      "offset": -8.959999999999999,
+      "lines_fallback": 0,
+      "fit_score": 1.254240012567756
+     },
+     "y": {
+      "polarity": "dark_gaps",
+      "pitch": 122.24,
+      "offset": 14.080000000000002,
+      "lines_fallback": 0,
+      "fit_score": 0.7137554629699279
+     }
+    },
+    "quad_info": {
+     "otsu": 0.36400581625698575,
+     "fg_frac": 0.2527465354039343
+    }
+   },
+   "feat_meta": {
+    "el_module_median": 86.08943939208984,
+    "thr": 0.5,
+    "open_radius_px": 3
+   }
+  },
+  "ir": {
+   "path": "/home/yugma/mtp/datasets/thermal_public/A2_osf_ar76v/IR/20250207_172239_SOLARWORLD_SW-175-MONO_409050368_X_60s_5.289A.txt",
+   "meta": {
+    "reader": "txt_matrix",
+    "shape": [
+     240,
+     320
+    ],
+    "header_lines_skipped": 0,
+    "rows_dropped_len": 0
+   },
+   "qa": {
+    "rows": 6,
+    "cols": 12,
+    "S": 48,
+    "quad": [
+     [
+      64.0,
+      84.0
+     ],
+     [
+      234.0,
+      84.0
+     ],
+     [
+      237.0,
+      166.0
+     ],
+     [
+      62.0,
+      166.0
+     ]
+    ],
+    "grid_corners": [
+     [
+      69.13312036864156,
+      81.89390057488242
+     ],
+     [
+      255.23912534865553,
+      81.12207096772185
+     ],
+     [
+      257.6532641214096,
+      171.00829710599444
+     ],
+     [
+      68.49578188812129,
+      170.206478449348
+     ]
+    ],
+    "cell_side_px": 15.32441873379797,
+    "res_rms_px": 1.5157266050262286,
+    "res_max_px": 2.564556494419396,
+    "res_rms_pct_cell": 9.890923964922056,
+    "res_max_pct_cell": 16.735098009057094,
+    "loo_rms_pct_cell": 10.906008448014473,
+    "lines_fallback": 1,
+    "res_rms_px_by_iter": [
+     1.3997886795315924,
+     0.9356524804524584,
+     1.5157266050262286
+    ],
+    "n_points": 55,
+    "grid": {
+     "x": {
+      "polarity": "dark_gaps",
+      "pitch": 47.76,
+      "offset": 5.76,
+      "lines_fallback": 1,
+      "fit_score": 0.3343187376487556
+     },
+     "y": {
+      "polarity": "dark_gaps",
+      "pitch": 48.0,
+      "offset": 0.0,
+      "lines_fallback": 0,
+      "fit_score": 0.8782379326228997
+     }
+    },
+    "quad_info": {
+     "otsu": 0.5763686369697605,
+     "fg_frac": 0.20391927083333333
+    }
+   },
+   "feat_meta": {
+    "ir_module_median": 24.751723289489746
+   },
+   "orient_to_el": "id"
+  }
+ },
+ "grid_shapes": {
+  "el": [
+   6,
+   12
+  ],
+  "ir": [
+   6,
+   12
+  ]
+ },
+ "grid_consistent": true,
+ "orient": {
+  "ir": "id",
+  "uvf": "id"
+ }
+}

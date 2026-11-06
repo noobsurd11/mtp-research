@@ -1,0 +1,141 @@
+35c35
+< VERSION = "cellreg 0.3 (4 Nov 2026): --orient; --quad-ir/--quad-uvf full for module-only crops"
+---
+> VERSION = "cellreg 0.5 (4 Nov 2026): pitch searched +-2% in iteration 1 only (limits, does not prevent, drift); grid-vs-quad QA; --grid-ir uniform; transposed modality grids rejected; --orient; --quad full"
+149,150c149,159
+< def find_quad(img, invert=False):
+<     """Four module corners (x, y) ordered TL, TR, BR, BL, from the largest bright component."""
+---
+> def find_quad(img, invert=False, maxdim=1000):
+>     """Four module corners (x, y) ordered TL, TR, BR, BL, from the largest bright component.
+>     Computed on a copy downsampled to <= maxdim px (speed), corners scaled back."""
+>     k = max(1, int(np.ceil(max(img.shape) / maxdim)))
+>     if k > 1:
+>         H, W = (img.shape[0] // k) * k, (img.shape[1] // k) * k
+>         small = img[:H, :W].reshape(H // k, k, W // k, k).mean(axis=(1, 3))
+>         q, info = find_quad(small, invert=invert, maxdim=maxdim)
+>         q = (q + 0.5) * k - 0.5
+>         info["downsample"] = k
+>         return q, info
+157a167,169
+>     # close gaps, inner dark bands and cracks so the module is one blob (radius 3% of the short side)
+>     rc = max(2, int(0.03 * min(a.shape)))
+>     mask = ndi.binary_closing(mask, structure=morphology.disk(rc), iterations=1)
+193c205
+< def _fit_lines(profile, n, S, m):
+---
+> def _fit_lines(profile, n, S, m, pitch_rng=(0.98, 1.02), off_rng=0.06):
+207,208c219,221
+<         for pitch in np.linspace(0.95 * S, 1.05 * S, 21):
+<             for off in np.linspace(-0.12 * S, 0.12 * S, 25):
+---
+>         pitches = [S] if pitch_rng[0] == pitch_rng[1] else np.linspace(pitch_rng[0] * S, pitch_rng[1] * S, 9)
+>         for pitch in pitches:
+>             for off in np.linspace(-off_rng * S, off_rng * S, 13):
+221c234
+<         lo, hi = int(max(0, c - 0.15 * pitch)), int(min(L - 1, c + 0.15 * pitch))
+---
+>         lo, hi = int(max(0, c - 0.10 * pitch)), int(min(L - 1, c + 0.10 * pitch))
+252c265
+< def detect_grid(rect, nr, nc, S, m):
+---
+> def detect_grid(rect, nr, nc, S, m, pitch_rng=(0.98, 1.02), off_rng=0.06):
+257,258c270,271
+<     xs, ix = _fit_lines(colprof, nc, S, m)
+<     ys, iy = _fit_lines(rowprof, nr, S, m)
+---
+>     xs, ix = _fit_lines(colprof, nc, S, m, pitch_rng, off_rng)
+>     ys, iy = _fit_lines(rowprof, nr, S, m, pitch_rng, off_rng)
+262c275
+< def register(img, rows, cols, S=64, invert=False, iters=3, quad_mode="otsu"):
+---
+> def register(img, rows, cols, S=64, invert=False, iters=3, quad_mode="otsu", grid_mode="detect"):
+274a288,301
+>     if grid_mode == "uniform":
+>         # plain uniform grid inside the quad (used for module-only crops); no line detection
+>         P = t(np.array([[j * S, i * S] for i in range(nr + 1) for j in range(nc + 1)], dtype=np.float64))
+>         P = P.reshape(nr + 1, nc + 1, 2)
+>         sides = np.r_[np.linalg.norm(np.diff(P, axis=1), axis=2).ravel(),
+>                       np.linalg.norm(np.diff(P, axis=0), axis=2).ravel()]
+>         cell_side = float(np.median(sides))
+>         qa = {"rows": nr, "cols": nc, "S": S, "quad": quad.tolist(), "grid_mode": "uniform",
+>               "grid_corners": t(can).tolist(), "cell_side_px": cell_side,
+>               "res_rms_px": 0.0, "res_max_px": 0.0, "res_rms_pct_cell": float("nan"),
+>               "res_max_pct_cell": float("nan"), "loo_rms_pct_cell": float("nan"),
+>               "lines_fallback": 0, "grid_vs_quad_max_pct_cell": 0.0,
+>               "note": "uniform grid: residual undefined (no detected lines); judge by visual QA", "quad_info": qinfo}
+>         return t, qa
+280c307,311
+<         xs, ys, ginfo = detect_grid(rect, nr, nc, S, m)
+---
+>         # iteration 0: small global search anchored to the quad; later: fixed pitch, local refinement only
+>         if it == 0:
+>             xs, ys, ginfo = detect_grid(rect, nr, nc, S, m, pitch_rng=(0.98, 1.02), off_rng=0.06)
+>         else:
+>             xs, ys, ginfo = detect_grid(rect, nr, nc, S, m, pitch_rng=(1.0, 1.0), off_rng=0.03)
+311c342,344
+<           "res_rms_px_by_iter": hist, "n_points": int(len(ideal)),
+---
+>           "res_rms_px_by_iter": hist, "n_points": int(len(ideal)), "grid_mode": "detect",
+>           "grid_vs_quad_max_pct_cell": float(100 * np.max(np.linalg.norm(
+>               t1(canonical_corners(nr, nc, S)) - quad, axis=1)) / cell_side),
+334a368
+>                        "el_p99": float(np.nanpercentile(blk, 99)),
+407c441
+<                    quad_modes=None):
+---
+>                    quad_modes=None, grid_modes=None):
+408a443
+>     grid_modes = grid_modes or {}
+418c453,454
+<         t1, qa = register(img, rows, cols, S=S, quad_mode=quad_modes.get(name, "otsu"))
+---
+>         t1, qa = register(img, rows, cols, S=S, quad_mode=quad_modes.get(name, "otsu"),
+>                           grid_mode=grid_modes.get(name, "detect"))
+429a466,469
+>         if name != "el" and "el" in feats and (nr, nc) != (feats["el"][1], feats["el"][2]):
+>             # portrait vs landscape: the rot90 direction is unknown, so the modality is rejected, not guessed
+>             rep["modalities"][name]["rejected"] = f"grid {nr}x{nc} transposed vs EL {feats['el'][1]}x{feats['el'][2]}"
+>             continue
+459c499
+< def _synth_module(nr, nc, S, rng, inactive=None, busbars=2, gap=0.06, bright=1.0):
+---
+> def _synth_module(nr, nc, S, rng, inactive=None, busbars=2, gap=0.06, bright=1.0, band=0.0, band_pos=0.42):
+470a511,514
+>     if band > 0:   # resistive-style dark band in the middle of every cell (A1-like), depth `band`
+>         for j in range(nc):
+>             x0 = int(j * S + band_pos * S)
+>             img[:, x0:x0 + int(0.15 * S)] *= (1 - band)
+571a616,630
+>     # inner-band test (A1-like resistive pattern): 3 x 12, dark band in every cell; the grid must not drift
+>     band_res = []
+>     for depth, pos in ((0.5, 0.42), (0.7, 0.42), (0.5, 0.10), (0.7, 0.10)):
+>         el3 = _synth_module(3, 12, 200, rng, band=depth, band_pos=pos)
+>         el3_c, q3 = _embed(el3, rng, canvas=(900, 2800), angle=1.0)
+>         p_el3 = os.path.join(outdir, f"synband{int(depth*10)}_{int(pos*100)}_el.tif")
+>         Image.fromarray(np.clip(el3_c * 20000, 0, 65535).astype(np.uint16)).save(p_el3)
+>         img3, _ = read_image(p_el3)
+>         t3, qa3 = register(img3, 3, 12, S=128)
+>         err = float(np.max(np.linalg.norm(np.array(qa3["grid_corners"]) - q3, axis=1)) / qa3["cell_side_px"] * 100)
+>         band_res.append({"depth": depth, "band_pos": pos, "corner_err_pct_cell": err, "res_rms_pct_cell": qa3["res_rms_pct_cell"],
+>                          "grid_vs_quad_max_pct_cell": qa3["grid_vs_quad_max_pct_cell"]})
+>     band_ok = all(b["corner_err_pct_cell"] < 5.0 for b in band_res)
+>     crop_res["band_test"] = band_res
+>     crop_ok = crop_ok and band_ok
+573c632
+<     ok = orient_ok and all(r["el_corner_err_pct_cell"] < 3.0 and r["ir_corner_err_pct_cell"] < 10.0 and
+---
+>     ok = orient_ok and all(r["el_corner_err_pct_cell"] < 5.0 and r["ir_corner_err_pct_cell"] < 10.0 and
+596a656,657
+>     ap.add_argument("--grid-ir", default="detect", choices=("detect", "uniform"),
+>                     help="uniform: plain uniform grid inside the IR quad (module-only crops)")
+618,619c679,682
+<                                  quad_modes={"ir": a.quad_ir, "uvf": a.quad_uvf})
+<             row = {"module": mod, "grid_consistent": rep["grid_consistent"], "orient": rep["orient"]}
+---
+>                                  quad_modes={"ir": a.quad_ir, "uvf": a.quad_uvf},
+>                                  grid_modes={"ir": a.grid_ir})
+>             row = {"module": mod, "grid_consistent": rep["grid_consistent"], "orient": rep["orient"],
+>                    "rejected": {m: v["rejected"] for m, v in rep["modalities"].items() if "rejected" in v}}
+620a684
+>                 row[f"{m}_grid_vs_quad_max_pct_cell"] = round(v["qa"].get("grid_vs_quad_max_pct_cell", float("nan")), 2)

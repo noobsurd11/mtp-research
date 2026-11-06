@@ -1,0 +1,205 @@
+{
+ "module": "A2_409050506",
+ "version": "cellreg 0.2 (4 Nov 2026): --orient for IR / UVF to EL cell mapping",
+ "grid_expected": [
+  6,
+  12
+ ],
+ "modalities": {
+  "el": {
+   "path": "/home/yugma/mtp/datasets/thermal_public/A2_osf_ar76v/EL/20250210_102836_SOLARWORLD_SW-175-MONO_409050506_X_10s_5.289A_49.133V.NEF",
+   "meta": {
+    "reader": "nef_jpeg_preview",
+    "shape": [
+     3264,
+     4928
+    ],
+    "note": "8-bit camera-processed preview, tone-mapped, not linear"
+   },
+   "qa": {
+    "rows": 6,
+    "cols": 12,
+    "S": 128,
+    "quad": [
+     [
+      1123.0,
+      1461.0
+     ],
+     [
+      3890.0,
+      1446.0
+     ],
+     [
+      3924.0,
+      2826.0
+     ],
+     [
+      1086.0,
+      2820.0
+     ]
+    ],
+    "grid_corners": [
+     [
+      1131.8397426667343,
+      1415.3103359694564
+     ],
+     [
+      3946.2486113850637,
+      1368.0684540015322
+     ],
+     [
+      3978.4364973310953,
+      2818.125907373503
+     ],
+     [
+      1098.941888362927,
+      2784.5379979612767
+     ]
+    ],
+    "cell_side_px": 235.55376413972334,
+    "res_rms_px": 14.920587300873835,
+    "res_max_px": 24.228730007196496,
+    "res_rms_pct_cell": 6.334259762464843,
+    "res_max_pct_cell": 10.285859831484055,
+    "loo_rms_pct_cell": 6.767333352692383,
+    "lines_fallback": 0,
+    "res_rms_px_by_iter": [
+     29.319928190596283,
+     13.585952036200949,
+     14.920587300873835
+    ],
+    "n_points": 55,
+    "grid": {
+     "x": {
+      "polarity": "bright_gaps",
+      "pitch": 128.64,
+      "offset": 6.400000000000002,
+      "lines_fallback": 0,
+      "fit_score": 0.7327753289888761
+     },
+     "y": {
+      "polarity": "dark_gaps",
+      "pitch": 128.0,
+      "offset": 0.0,
+      "lines_fallback": 0,
+      "fit_score": 0.8487855146862786
+     }
+    },
+    "quad_info": {
+     "otsu": 0.3384615965995525,
+     "fg_frac": 0.25360858121657753
+    }
+   },
+   "feat_meta": {
+    "el_module_median": 86.03970336914062,
+    "thr": 0.5,
+    "open_radius_px": 3
+   }
+  },
+  "ir": {
+   "path": "/home/yugma/mtp/datasets/thermal_public/A2_osf_ar76v/IR/20250210_103025_SOLARWORLD_SW-175-MONO_409050506_X_60s_5.289A.txt",
+   "meta": {
+    "reader": "txt_matrix",
+    "shape": [
+     240,
+     320
+    ],
+    "header_lines_skipped": 0,
+    "rows_dropped_len": 0
+   },
+   "qa": {
+    "rows": 6,
+    "cols": 12,
+    "S": 48,
+    "quad": [
+     [
+      64.0,
+      83.0
+     ],
+     [
+      234.0,
+      83.0
+     ],
+     [
+      237.0,
+      166.0
+     ],
+     [
+      62.0,
+      166.0
+     ]
+    ],
+    "grid_corners": [
+     [
+      66.90996120397502,
+      83.41272968165313
+     ],
+     [
+      228.00414333862824,
+      79.81461859473882
+     ],
+     [
+      234.08222168140173,
+      174.42567883118465
+     ],
+     [
+      62.36795384840428,
+      170.40436224154405
+     ]
+    ],
+    "cell_side_px": 14.502329158991088,
+    "res_rms_px": 1.1394427052850205,
+    "res_max_px": 2.1301037167340144,
+    "res_rms_pct_cell": 7.856963476646742,
+    "res_max_pct_cell": 14.68801110070931,
+    "loo_rms_pct_cell": 8.552374862404456,
+    "lines_fallback": 0,
+    "res_rms_px_by_iter": [
+     1.4150377108492178,
+     1.2691094557397733,
+     1.1394427052850205
+    ],
+    "n_points": 55,
+    "grid": {
+     "x": {
+      "polarity": "dark_gaps",
+      "pitch": 48.480000000000004,
+      "offset": -2.88,
+      "lines_fallback": 0,
+      "fit_score": 0.2736434907026446
+     },
+     "y": {
+      "polarity": "dark_gaps",
+      "pitch": 48.0,
+      "offset": 0.0,
+      "lines_fallback": 0,
+      "fit_score": 0.6617352116092121
+     }
+    },
+    "quad_info": {
+     "otsu": 0.49663995426309027,
+     "fg_frac": 0.20471354166666667
+    }
+   },
+   "feat_meta": {
+    "ir_module_median": 24.248079299926758
+   },
+   "orient_to_el": "flipv"
+  }
+ },
+ "grid_shapes": {
+  "el": [
+   6,
+   12
+  ],
+  "ir": [
+   6,
+   12
+  ]
+ },
+ "grid_consistent": true,
+ "orient": {
+  "ir": "flipv",
+  "uvf": "flipv"
+ }
+}
