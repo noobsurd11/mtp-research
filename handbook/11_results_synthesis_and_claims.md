@@ -21,6 +21,8 @@ The user's rule governs this file: "framing depends on final results, no presump
 - **Update 30 Oct 2026, ~12:30 IST (additive).** Rows 18 to 24, §(b) "Best model and 100% numbers" and "Feature learning at 5%", §(c) items 10 to 14 and new "cannot" lines cover 24 to 30 Oct: Track D, Track M and FINAL (doc 18), MIM5, AM, DDeP5, encoder erasure and the 5%-to-100% rule (doc 19). Tags in the new rows: E = measured (file), R = literature (id), S = judgement. Dated "[Qualified 30 Oct: ...]" notes mark older claims that encoder erasure limits. protocol_100 (100% labels, gaint) launched 12:05 IST 30 Oct; it has no results yet.
 - **Update 1 Nov 2026, ~21:00 IST (additive).** Rows 30 to 39, §(b) "PF2 and PF2E at 100% labels", §(c) items 18 to 23 and new "cannot" lines cover 31 Oct to 1 Nov: PF2, PF2E and Om's 11 unseen-panel ideas (doc 20). Dated "[Qualified 1 Nov: ...]" notes on rows 27 and 28 and on the 31 Oct "cannot" line about PF. THIN-B3 had no verified result at writing; [added ~21:40: rows 40 to 42 and §(c) item 24 after THIN-B3's verification; the THIN line under "cannot" carries a dated qualifier].
 
+- **Update 12 Nov 2026 (additive).** Rows 51 to 55, §(b) "SKR2C training and the thermal study", §(c) items 30 to 32 and new "cannot" lines cover 3 to 4 Nov: SKR2C trained but not opened (doc 21 §10), and the thermal (IR) desk study with pick 1's G0 and pick 3's A1 arm (doc 22). Master record: `SESSION_RECORD_2026-11-03_to_11-04.md`.
+
 ## Sources
 - `to_human/results_2026-10-12.md`: the morning summary draft and its evidence table, section 3.
 - `to_human/proposal_reframe_2026-10-11.md`.
@@ -118,6 +120,11 @@ Where this table deliberately differs from that file:
 | 48 | The SKR2 ensemble is a better deployable model than the PF ensemble (added 3 Nov) | E (`verify_skr2e.md`; SKR2E, gaint CPU; E1 opening #6): at shared b 0 test crack IoU +0.0102, relF1@2 +0.0104, E1 relF1@2 +0.0353, E1 any-hit +0.0676 pass (CIs > 0); at the headline pair (E-PF b 0, E-SKR2 b 1.0) G2a test relP@2 −0.0379 and G2b E1 crack-free px ×2.12 TRIP → FAIL. The val width flag passed E-SKR2 by 0.0015 (drop 0.0485 vs 0.05). E-PF at b 1 equals E-SKR2 at b 0 on test; E1 relF1@2 +0.024 at matched volume | **not supported:** FAIL; E-PF at argmax stays the recommended deployable candidate (the user's adoption is open, doc 15 §3d row 19). The b 0 passes re-measure #5 and are not a confirmation |
 | 49 | Om's architecture ideas A1 to A6 promise unseen-panel gains on non-E1 evidence (added 3 Nov) | E (`ideas/arch_A1.md` to `arch_A6.md`, judge-reproduced): A1 = the killed A8 screen plus fusion; A2's style premise contradicted (idea 2); A3's cut-line false alarms already removed by HC on H36 (123 → 3 px/run); A4 fragments ≤ 5-7% of non-E1 components; A6 a cell gate cannot recover SKR's precision (extra px 99.6% inside crack cells) | **not supported:** A1, A2, A3, A5, A6 DROP; A4 PARK |
 | 50 | Agent raters can replace the user's B2 marks (added 3 Nov) | E (`ideas/b2_agent_marking_prereg.md` v2.2; judge's scorer; log 2 Nov 11:49): crack gate on 40 house-labelled CSIR cells PASS (sens 20/20, spec 17/20); scuff gate on 32 Hanifi half-cells FAIL (sens 1/8, needs ≥ 4/8); two runs of one model agreed on 68 of 72; reported, not gated: on gate B's Hanifi half-cells the raters found 1 of 14 cracks (speck-level labels; reported, not gated) | **not supported for scuff** (the B2 target); crack passed on house CSIR cells only, not tested on Hanifi cracks; no agent marks were made; B2 back with the user |
+| 51 | SKR2's E1 crack gain replicates on fresh seeds (SKR2C) (added 12 Nov) | E (`team_2026-10-31_next/protocol_SKR2C.md` §9; team-lead's 12 Nov retrospective line in `log.md`): 10 runs (seeds 10-14 per arm) trained on gaint 3 Nov 03:06-11:24, all rc 0, no guard trigger; nothing scored; E1 opening #7 registered, not opened | **untested** (waits on the user's OK; stated chances: R PASS ~35-65%, seed-aware replication ~25-45%) |
+| 52 | Public data pairs EL and thermal at cell level for our classes (added 12 Nov) | R (`team_2026-11-04_thermal/datasets/dataset_table.md`, check pass 1): three open CC BY 4.0 sets pair EL and IR of the same modules (A1 157, A2 15, A3 43 modules with IR, ~215), at module level only; none has masks or pixel registration; A1 / A2 full-cell mono, A3's half-cuts not in its crack group; no set shows scuff | **partly:** module-level pairs exist; cell-level pairs must be built by registration; nothing for the E1 scuff + half-cut context |
+| 53 | Dark forward-bias IR flags EL-dark cells at cell level (G0) (added 12 Nov) | E (`pick1/out/G0.md`, `G0v2.md`; check §22, §24, §36 recomputed from raw files): v1 A2 AUROC(cooler) 0.736, ρ −0.550 (between), A1 0.689 / −0.285 (null), pooled 0.708; v2 (post hoc instrument fix) A2 0.732 / −0.515, A1 0.621 / −0.246, pooled 0.687; post hoc: row / column-centred AUROC ~0.5 (A2 0.525) | **not supported at cell level:** not a go, not a kill; the dark-IR signal is row / edge-level (post hoc); sunlit A3 arm not run |
+| 54 | A1's EL-derived per-cell dark I-V gives a usable inactive label (T15) (added 12 Nov) | E (`pick3/out/PICK3_A1_REPORT.md`, `t15_summary.json`; check §20): coverage 5,688 / 5,688; robust SD(d) 3.26 mV vs a 2.57 mV kill line → PASS, narrow; D90 = 569 cells over 144 of 158 modules; no cell ≥ 1 V_t. R (Colvin 2023): A1 losses mainly resistive; cell voltage from "a bright pixel", and bright-spot cells have higher RS | **label exists, not an inactive label:** a diffuse resistive deficit whose direction may be inverted (S); T37 registration FAILED (v2: 4 / 10 excluded), so T02 / T12 never ran |
+| 55 | Thermal sees our crack lines and scuff (added 12 Nov) | R (Dhimish 2021 / 2022: cracks that isolate nothing gave no hot spot; DTU EPJ PV 2025: cracked modules "difficult to distinguish from healthy ones", ≤ ~1 °C; JRC 2017: dark IR gives few local details); scuff: no physical description in our files (E), silent if surface-only (S) | **not supported (R):** thermal sees electrical consequence (inactive / disconnected area, hot spots, shunts), not crack lines; scuff untested |
 
 ---
 
@@ -330,6 +337,19 @@ For crack, the top 3 test cells hold 32% of pixels.
 - E1 inactive is a 3-image readout: the top 3 source images hold 87% of its 9,158 GT px (effective n 3.3). PF2's +0.189 is +0.023 without them.
 - Recommended deployable candidate after these: **E-PF at argmax** (PF2E, row 34; coach and judge); the user's adoption is still open (doc 15 §3d row 19); FINAL is not comparable by rule (other machine and commit).
 
+### SKR2C training and the thermal study (added 12 Nov; `team_2026-10-31_next/protocol_SKR2C.md` §9; `team_2026-11-04_thermal/`; doc 22)
+
+| Contrast / readout | Key numbers | Verdict |
+|---|---|---|
+| SKR2C, SKR2 − SUPPF on fresh seeds 10-14 (E1 #7) | 10 / 10 trained rc 0 (3 Nov 03:06-11:24), no guard trigger; nothing scored | not opened (needs the user's OK) |
+| Pick 1 G0 v1, dark forward-bias IR vs EL-dark cells (laptop CPU) | A2 9 / 15 modules, AUROC(cooler) 0.736, ρ −0.550; A1 7 / 10, 0.689 / −0.285; pooled 0.708 | not a go, not a kill (A2 between, A1 null) |
+| Pick 1 G0 v2 (post hoc instrument fix, co-signed QA) | A2 4 / 15, 0.732 / −0.515 (row/col-centred 0.525, post hoc); A1 4 / 10, 0.621 / −0.246 (centred 0.343, post hoc); pooled 0.687 | same as v1 |
+| Pick 3 T15, A1 dark I-V label | robust SD(d) 3.26 mV vs line 2.57 mV; D90 569 cells | PASS, narrow |
+| Pick 3 T37, A1 EL ↔ IR registration | v1 3 / 10 excluded (30%); v2 4 / 10 (40%) | v1 PASS at the line; v2 FAIL; arm stopped (option A) |
+
+- The dark-IR association vanishes once each module's row and column medians are removed (post hoc, check §22; v2 A2 0.525): row / edge-level, not cell-level. On A1 the centred sign flips (EL-dark cells slightly warmer), the expected sign for series resistance (S; A1 losses mainly resistive, R).
+- Not yet read: the sunlit A3 arm (R3b), the A3 screening table (R1, R2), pick3b on A3, any E-PF readout (E-PF inference held by Om).
+
 ---
 
 ## (c) What can be claimed now, and what cannot
@@ -379,6 +399,12 @@ Added 3 Nov (A8 screen, HC, B6, SKR2 / HC2, SKR2E; gaint, cv02 for B6 training):
 27. **PF's inactive advantage is an unseen-panel effect, not an in-distribution one of the same size** (row 45): B6 excludes an in-distribution gain as large as E1's; it cannot say whether a test-size gain (+0.017) exists.
 28. **Skeleton Recall at w 0.1 raises E1 crack relF1@2 on BEST with no test cost and no false-alarm cost** (row 46), by 0.0013 over its bar; the effect is robust and not a bias shift; its detection gain (any-hit) is n.d.
 29. **The PF ensemble at argmax remains the recommended deployable candidate** (rows 34, 48): the SKR2 ensemble failed its pre-registered guards at its own operating point. Adoption is the user's call (doc 15 §3d row 19).
+
+Added 12 Nov:
+
+30. **Three open CC BY 4.0 datasets pair EL and thermal IR on the same modules, ~215 modules with IR, at module level only** (row 52; R, fact-checked); none has masks, pixel registration, or the E1 scuff + half-cut context.
+31. **Dark forward-bias IR on the public A1 / A2 pairs tracks EL-dark area with the predicted sign but below the pre-registered go bar, and the association is row / edge-level, not cell-level** (row 53; G0 v1 and v2 recomputed independently; the cell-level reading is post hoc).
+32. **Thermal imaging sees the electrical consequence of damage (inactive / disconnected area, hot spots, shunts), not thin crack lines** (row 55; R, several sources). So its realistic roles here are screening, severity, and weak labels or teachers for inactive, not a crack-pixel input.
 
 ### Cannot be claimed (and why)
 - **"SSL improves crack IoU" in general.** The primary arm is n.d. on crack IoU; only the secondary hard-PL arm passes.
@@ -430,6 +456,12 @@ Added 3 Nov:
 - **"The SKR2 ensemble is better than the PF ensemble"** or that it should be deployed at argmax: the b 0 passes are a re-measurement of opened models, and choosing b 0 now would be an operating point picked after test and E1 (row 48).
 - **"PF's inactive gain also holds in-distribution"**, or the reverse: B6 had ~6% power at test's effect size (row 45).
 - **"A broad unseen-panel inactive capability."** E1 inactive is a 3-image readout (top 3 = 87%; +0.023 without them).
+
+Added 12 Nov:
+- **"SKR2's gain replicated on fresh seeds."** SKR2C is trained but not opened (row 51); any result would be a third look at the same test and E1 cells.
+- **"Thermal can flag inactive cells"** from the public dark-IR pairs: G0 is below its go bar and not cell-level (row 53); the sunlit arm is unread.
+- **"A1's dark I-V gives inactive labels."** T15 passed narrowly, but the label is a diffuse resistive deficit and its direction may be inverted (row 54).
+- **"Thermal or a thermal-trained model improves test or E1."** No such model was trained; test and E1 have no thermal.
 
 ---
 

@@ -1,0 +1,23 @@
+2026-11-03 02:53:52 guard start pid 2282024 (v2; FAKE /home/noob/work/runner_s2c_dry/g2/fake_4.txt; DRY 1; THR 2048 MiB x 3; COOL 3; GAP 30 s; MAXSTOPS 2; jobs 0839f340; lib 4edcae9e; Q /home/noob/work/runner_s2c_dry/g2)
+2026-11-03 02:53:53 low sample: free 1900 MiB < 2048 (1/3)
+2026-11-03 02:53:54 low sample: free 1900 MiB < 2048 (2/3)
+2026-11-03 02:53:55 low sample: free 1900 MiB < 2048 (3/3)
+2026-11-03 02:53:55 TRIGGER: free < 2048 on 3 consecutive samples: 02:53:53:1900 02:53:54:1900 02:53:55:1900
+2026-11-03 02:53:55   free trace before (last 4): 02:53:52:12000 02:53:53:1900 02:53:54:1900 02:53:55:1900
+2026-11-03 02:53:55   compute-apps: 6206,5876 
+2026-11-03 02:53:55   HOLD set (/home/noob/work/runner_s2c_dry/g2/HOLD): the queue starts nothing new
+2026-11-03 02:53:55   candidate s2c_SKR01_100pct_s10 pid 2250982: finished (rc 143)
+2026-11-03 02:53:55   candidate s2c_SKR01_100pct_s11 pid 2251677: REFUSED (cmdline differs from the one recorded at launch (now: sleep 600 )); never signalled
+2026-11-03 02:53:55   candidate s2c_SKR01_100pct_s12 pid 6206: REFUSED (finllm PID); never signalled
+2026-11-03 02:53:55   candidate s2c_SKR01_100pct_s13 pid 4194000: not alive
+2026-11-03 02:53:55   candidate s2c_SKR01_100pct_s14 pid 2278455: REFUSED (cmdline differs from the one recorded at launch (now: sleep 600 )); never signalled
+2026-11-03 02:53:55   candidate s2c_SUPPF_100pct_s10 pid 2251274: finished (rc 137)
+2026-11-03 02:53:55   candidate s2c_SUPPF_100pct_s11 pid 2251465: REFUSED (cmdline differs from the one recorded at launch (now: /usr/bin/python3 -u scripts/train.py --overwrite --config configs/supervised.yaml --opts seed=11 data.labeled_fraction=1.0 training.total_steps=20000 data.split_seed=0 training.labeled_batch_size=8 data.mask_subdir=labeled/masks_escdd model.name=smp_unetpp data.augmentation=labelsafe loss.supervised=ce_dice training.val_every=20000 training.encoder_pf.freeze=1000 training.encoder_pf.ramp=1000 training.encoder_pf.lr_mult=0.1 training.encoder_pf.wd=0 data.root=/home/noob/work/s2c_root run_name=s2c_SUPPF_100pct_s11 )); never signalled
+2026-11-03 02:53:55   candidate s2c_SUPPF_100pct_s12 pid 1: REFUSED (owner root != noob); never signalled
+2026-11-03 02:53:55   candidate s2c_SUPPF_100pct_s13 pid 2251677: finished (rc 0)
+2026-11-03 02:53:55   candidate stray: ignored (not a jobs-file name)
+2026-11-03 02:53:55   no verified live S2C run to stop; no signal
+2026-11-03 02:53:56   post-stop sample: free 12000 MiB (cool-down 2 left)
+2026-11-03 02:53:57   post-stop sample: free 12000 MiB (cool-down 1 left)
+2026-11-03 02:53:58   post-stop sample: free 12000 MiB (cool-down 0 left)
+2026-11-03 02:54:00 end of FAKE trace after 8 samples; stops 0

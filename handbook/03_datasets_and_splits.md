@@ -15,6 +15,8 @@ Every dataset the project touches and exactly how it is cut up:
 
 For what the images and classes *mean* physically, read `02_domain_primer_EL_and_defects.md` first.
 
+**Update 12 Nov 2026 (additive):** new §13, the three public EL + thermal sets (A1 OSF csr6t, A2 OSF ar76v, A3 DTU) downloaded on 4 Nov for the thermal study (doc 22): where they live on the laptop, what was taken, sizes, licences and verification.
+
 ## Sources
 - `~/mtp/research/data_analysis/benchmark_el_report.md` and `ucf_el_report.md`: first-hand analyses (8 Oct 2026).
 - `~/mtp/datasets/BenchmarkELimages/README.md`, `dataset_20211104/` (images, old masks, class CSV).
@@ -469,7 +471,22 @@ Details are in `14_code_and_infrastructure.md`.
 8. **"E-SCDD cleaned the crack labels."** The cleaning is BenchmarkEL's own `20221008` correction; E-SCDD redistributes it unchanged for crack and inactive (doc 17 §5.2).
 9. **"E-SCDD's test split is a bigger, better test set."** 48 of its 82 test cells are in our train, and it has inactive in only 9 cells (doc 17 §5.6–5.7).
 
+## 13. Public EL + thermal sets for the thermal study (added 12 Nov 2026)
+Downloaded on 4 Nov 2026 with Om's OK (CPU only, picks 1 and 3 of the thermal team; doc 22). Sources: `team_2026-11-04_thermal/datasets/dataset_table.md`, `download_plan.md`, `download_verified.md`; `check/factcheck.md` §2, §23; session record `SESSION_RECORD_2026-11-03_to_11-04.md` §7. None is used for training any EL model; none has masks. Tags: E = our files, R = source.
+
+| Set | Local path (laptop) | What we hold (E) | Bytes (E) | Licence (R) | Source (R) |
+|---|---|---|---|---|---|
+| **A1** UCF DPV, OSF `csr6t` (Florida rooftop, Shell M55 mono Al-BSF, 36 cells in 3 × 12; paper Colvin et al., IEEE JPV 2023, doi:10.1109/jphotov.2023.3238278) | `~/mtp/datasets/thermal_public/A1_osf_csr6t/` (`darkIV/`, `EL/`, `IR/`, `UVF/`) | all 159 files of `EL-Derived_Cell_Dark_I-V` (158 per-module txt, 7 current rows (6 currents + a zero row) × 36 cells, + `diode_fit_outputs.xls`), and 10 modules (picked by a frozen seeded severity rule, `download_selection_A1.tsv`): one EL NEF at 3.392-3.393 A, the raw IR txt (240 × 320 °C), the authors' `_cropped.jpg / .txt`, one UVF jpg each; 209 files | 286,886,436 | CC BY 4.0 | https://osf.io/csr6t/ |
+| **A2** UCF DPV, OSF `ar76v` (Orange County Convention Center, SolarWorld mono, 72 cells in 6 × 12) | `.../A2_osf_ar76v/` (`IR/`, `EL/`) | the whole `indoor_IR` folder (16 captures of 15 modules at 5.289 A / 60 s, one at 5.089 A; jpg + 240 × 320 °C txt) and one EL NEF per IR module at its IR current; 47 files | 237,009,189 | CC BY 4.0 | https://osf.io/ar76v/ |
+| **A3** DTU drone IR thermography dataset (43 modules: cracks 8, interconnects 8, PID 6, bypass diode 7, glass 2, soiling 6 + 6; EPJ PV 2025, doi:10.1051/epjpv/2025020) | `.../A3_dtu/` (`archive/`, `extracted/`) | `IRT DATASET.7z` + README, fully extracted: 640 IR `.raw` float32 arrays (605 × 363 °C rows × cols, portrait; the README's "363x605" is width × height; 4 altitudes × irradiance bins), 31 EL `.nef` (one per degraded module, 2-6 s), 640 `.png` previews, 33 I-V `.csv` (V, I), 12 `.jpg`, 57 `.db`, 1 `.md`; 1,414 files | 642,610,942 (7z) + 1,161 (README); 1,162,474,935 unpacked | CC BY 4.0 | figshare 10.11583/DTU.29665346 |
+
+- **Verification (E):** A1 and A2 files match OSF's published size, md5 and sha256 (datascout, and check independently); A3's 7z and README match figshare's md5, and every extracted file's size and CRC32 match the archive listing (check). Each set dir holds a `MANIFEST.md5` (A1 5a272616, A2 8a5c7520, A3 23a3c83a by file md5) and A1 / A2 a `*_verify.tsv`. Re-checked 12 Nov after the OS reinstall: `md5sum -c` 0 failures; 1,677 files, 2.2 GB in all.
+- **Safety rules used:** each set in its own new empty dir; nothing inside a data dir is executed; Python with `-I` from the team's `scripts/` dir; A3 extracted with system `7z` only after its md5 matched.
+- **Not downloaded (needs Om's OK):** the 0.55 GB A1 extension (or the 157-module A1 IR folder, 0.26 GB, then ~2 GB of A1 EL); Polenghi et al. EL + NIR + visible (Mendeley pxyzzkbs4b, ~1.38 GB); drone-IR training pools (e.g. Raptor Maps InfraredSolarModules, MIT; an Indian-plant drone thermal set on Hugging Face, ~19 GB); the A1 close-up EL + PL folder (0.11 GB).
+- **Things to know before using them (E / R):** A1 and A2 are old full-cell mono Al-BSF modules (no half-cuts, no scuff); A1's losses are mainly resistive (R, Colvin 2023); A1's `_cropped.txt` is a fixed 134 × 35 window of the raw IR, not the module (E, check §28); A3's IR arrays are filled by the module (no background); A3's release has no module type, and its I-V files give V and I only (E); A3's half-cut modules sit in its diode, glass and soiling groups, none in its crack group (R). BenchmarkEL has no licence file (E), so mixing these CC BY sets with it in a release is an open question for Om (doc 15 §3f).
+
 ## Related docs
+- `22_thermal_desk_study.md`: the thermal study that downloaded the §13 sets (added 12 Nov)
 - `00_START_HERE.md`
 - `01_project_overview_and_scope.md`
 - `02_domain_primer_EL_and_defects.md`: what the classes and images mean

@@ -1,0 +1,205 @@
+{
+ "module": "A2_409049465",
+ "version": "cellreg 0.2 (4 Nov 2026): --orient for IR / UVF to EL cell mapping",
+ "grid_expected": [
+  6,
+  12
+ ],
+ "modalities": {
+  "el": {
+   "path": "/home/yugma/mtp/datasets/thermal_public/A2_osf_ar76v/EL/20250207_162320_SOLARWORLD_SW-175-MONO_409049465_X_10s_5.289A_48.994V.NEF",
+   "meta": {
+    "reader": "nef_jpeg_preview",
+    "shape": [
+     3264,
+     4928
+    ],
+    "note": "8-bit camera-processed preview, tone-mapped, not linear"
+   },
+   "qa": {
+    "rows": 6,
+    "cols": 12,
+    "S": 128,
+    "quad": [
+     [
+      1089.0,
+      1453.0
+     ],
+     [
+      3865.0,
+      1452.0
+     ],
+     [
+      3893.0,
+      2837.0
+     ],
+     [
+      1062.0,
+      2823.0
+     ]
+    ],
+    "grid_corners": [
+     [
+      1036.7383083894895,
+      1420.6367868477846
+     ],
+     [
+      3851.9575158788093,
+      1450.3662161099912
+     ],
+     [
+      3862.823829917827,
+      2871.4866483447518
+     ],
+     [
+      1025.634694266756,
+      2888.8150162663233
+     ]
+    ],
+    "cell_side_px": 238.84028942320106,
+    "res_rms_px": 19.883078825757703,
+    "res_max_px": 34.061802176559624,
+    "res_rms_pct_cell": 8.32484287880211,
+    "res_max_pct_cell": 14.261330137732969,
+    "loo_rms_pct_cell": 8.887937831874478,
+    "lines_fallback": 0,
+    "res_rms_px_by_iter": [
+     15.97310162344063,
+     19.64155142020212,
+     19.883078825757703
+    ],
+    "n_points": 55,
+    "grid": {
+     "x": {
+      "polarity": "bright_gaps",
+      "pitch": 129.28,
+      "offset": -12.799999999999999,
+      "lines_fallback": 0,
+      "fit_score": 1.163334581885321
+     },
+     "y": {
+      "polarity": "dark_gaps",
+      "pitch": 126.08,
+      "offset": 2.5600000000000023,
+      "lines_fallback": 0,
+      "fit_score": 1.2893236809456317
+     }
+    },
+    "quad_info": {
+     "otsu": 0.34870056983286946,
+     "fg_frac": 0.25456823354341734
+    }
+   },
+   "feat_meta": {
+    "el_module_median": 80.71015167236328,
+    "thr": 0.5,
+    "open_radius_px": 3
+   }
+  },
+  "ir": {
+   "path": "/home/yugma/mtp/datasets/thermal_public/A2_osf_ar76v/IR/20250207_162512_SOLARWORLD_SW-175-MONO_409049465_X_60s_5.289A.txt",
+   "meta": {
+    "reader": "txt_matrix",
+    "shape": [
+     240,
+     320
+    ],
+    "header_lines_skipped": 0,
+    "rows_dropped_len": 0
+   },
+   "qa": {
+    "rows": 6,
+    "cols": 12,
+    "S": 48,
+    "quad": [
+     [
+      66.0,
+      83.0
+     ],
+     [
+      236.0,
+      83.0
+     ],
+     [
+      239.0,
+      167.0
+     ],
+     [
+      63.0,
+      166.0
+     ]
+    ],
+    "grid_corners": [
+     [
+      59.44672072117821,
+      80.73302814112412
+     ],
+     [
+      239.45739351971616,
+      81.81890766439724
+     ],
+     [
+      240.91420685203204,
+      170.91108424862233
+     ],
+     [
+      57.85338368910575,
+      170.9572563595739
+     ]
+    ],
+    "cell_side_px": 15.049882294589516,
+    "res_rms_px": 0.8009259200076158,
+    "res_max_px": 1.6430834809803931,
+    "res_rms_pct_cell": 5.321808531987997,
+    "res_max_pct_cell": 10.917583598451712,
+    "loo_rms_pct_cell": 5.962805194972267,
+    "lines_fallback": 1,
+    "res_rms_px_by_iter": [
+     1.0345323913354054,
+     0.8394096140707038,
+     0.8009259200076158
+    ],
+    "n_points": 55,
+    "grid": {
+     "x": {
+      "polarity": "dark_gaps",
+      "pitch": 47.76,
+      "offset": 0.96,
+      "lines_fallback": 1,
+      "fit_score": 0.1908731511959418
+     },
+     "y": {
+      "polarity": "dark_gaps",
+      "pitch": 48.0,
+      "offset": 0.0,
+      "lines_fallback": 0,
+      "fit_score": 0.7640192734469456
+     }
+    },
+    "quad_info": {
+     "otsu": 0.5576077967735447,
+     "fg_frac": 0.20391927083333333
+    }
+   },
+   "feat_meta": {
+    "ir_module_median": 24.29249668121338
+   },
+   "orient_to_el": "rot180"
+  }
+ },
+ "grid_shapes": {
+  "el": [
+   6,
+   12
+  ],
+  "ir": [
+   6,
+   12
+  ]
+ },
+ "grid_consistent": true,
+ "orient": {
+  "ir": "rot180",
+  "uvf": "rot180"
+ }
+}

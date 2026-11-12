@@ -12,6 +12,8 @@
 
 **Update 3 Nov 2026, ~02:40 IST (additive).** New §1j (state at ~02:40 IST 3 Nov), §3e (decisions waiting on the user), §4e (ranked next items); dated "[3 Nov: ...]" notes on §3d rows 19, 20, 22, 23 and §4d rows 2 to 5. Sources: `SESSION_RECORD_2026-11-01_to_11-03.md`, `team_2026-10-31_next/`, doc 21.
 
+**Update 12 Nov 2026 (additive).** New §1k (state on 12 Nov: SKR2C trained, not opened; the thermal team's end state; the laptop after its OS reinstall), §3f (decisions waiting on the user and on Om), §4f (ranked next items); dated "[12 Nov: ...]" notes on §1j and §4e. Sources: `SESSION_RECORD_2026-11-03_to_11-04.md`, `team_2026-10-31_next/log.md`, `team_2026-11-04_thermal/`; docs 21, 22.
+
 **Sources**
 - Server check at session close, 13 Oct 01:21 IST (read-only: `tmux ls`, `nvidia-smi`, `ps`, `du`), for §1b.
 - Launch logs on the servers, read at about 22:15 IST:
@@ -114,6 +116,14 @@
 - **gaint:** GPU = finllm only (free 25,804 MiB at 02:22); `rwatch4` alive; idle tmux sessions listed, none killed; disk 476 GB free. SKR2C (SKR2 vs SUPPF, fresh seeds 10-14, 10 runs, training only, MAXC 2, ~12.3 h wall): protocol v1 locked 02:37 (judge signed), data root verified; judge's stage-1 code review (02:38) found the guard / queue NOT READY (7 must-fixes: outside-process HOLD and live startup check missing; exact command-line check, owner re-check before SIGKILL, ≥ 30 s between stops, nvidia-smi timeout, a dry run with real signals); coach holds APPROVED until judge confirms the fixes; runner launches training only after APPROVED. **The SKR2C opening (E1 #7) waits for the user's OK.**
 - **cv02:** nothing of ours; B6's deploy removed.
 - **Team:** runner, coach, judge active for SKR2C; scribe writing this refresh; builder, arch, marker1, marker2 stopped; all agents to be closed after tonight (the user's line, 3 Nov ~02:20).
+- [12 Nov: SKR2C was launched 3 Nov 03:06 after judge accepted the fixed code (02:58) and finished training 11:24:04 (10 rc 0 of 10, no guard trigger); all agents were closed ~03:10. See §1k.]
+
+## 1k. State on 12 Nov 2026 (added 12 Nov; `SESSION_RECORD_2026-11-03_to_11-04.md` §2, §7-12; no server access since 4 Nov)
+- **SKR2C (doc 21 §10):** launched 3 Nov 03:06 (judge's stage-1 acceptance ddf09a9f, coach APPROVED, arming conditions met); **ALL TRAINED 3 Nov 11:24:04, 10 rc 0 of 10**; the auto-stop guard never fired; no HOLD (team-lead's 4 Nov read-only check, logged 12 Nov). **Nothing scored; stage 2 (the opening build) not started; E1 opening #7 registered, not opened.**
+- **gaint / cv02:** not checked since 4 Nov. As of then: GPU = finllm only after SKR2C; SKR2C run dirs and `/home/noob/work/s2c/` (logs, pids) on gaint; nothing of ours on cv02. ssh keys may need re-setup after the laptop reinstall.
+- **Thermal team (`team_2026-11-04_thermal/`, doc 22), end state 4 Nov ~13:50:** desk study done (SUMMARY final for Om); downloads A1 / A2 / A3 verified; pick 1 G0 v1 and v2 done (not a go, not a kill; recomputed by check); pick 3 A1 arm closed at T37 (option A), report checked; pick3b plan frozen and its discovery done. **Not done:** pick 1 A3 R1 / R2 / R3b; pick3b R1 / R2 / R3 (R4 not run by rule); the ADDENDUM is a DRAFT; **the report to the user and Om was not sent.** The session ended abruptly (doc 13 D55).
+- **Laptop (doc 14 §1.1b):** OS reinstalled; 52 GB free; data, repo and `.venv` intact (thermal MANIFESTs re-verified, 0 failures); no agent or orchestrator tmux session survived.
+- **Team:** none running before this documentation (scribe + verifier, 12 Nov).
 
 ## 2. What ran overnight, 11 to 12 Oct (all done)
 A watcher (`scratchpad/watch.sh`) polled both servers every 2 minutes and fired on each finished set. It exited after P16 Part B; the script lived in a session scratchpad that no longer exists. What it triggered:
@@ -195,6 +205,19 @@ Still open: §3c rows 16 (marks: optional by team-lead's reading of the user's 3
 
 Still open: §3c rows 17 (HF sample), 18 (who rebooted gaint on 30 Oct); §3b rows 10 (40-segment audit, 4 label questions) and 11 (idle cv02 shells); §3d row 21 (half-cut labels for routing).
 
+## 3f. Decisions waiting on the user, and on Om, 12 Nov (added 12 Nov)
+
+| # | Decision | Facts for it | Source |
+|---|---|---|---|
+| 29 | **SKR2C opening (E1 #7):** OK the opening, or not | Training done (10 rc 0 of 10). The opening is a third look at the same test and E1 cells (#5, #6); stated chances R PASS ~35-65%, seed-aware replication ~25-45%; stage 2 must be built and frozen first; needs gaint access | `protocol_SKR2C.md` §3-7; doc 21 §10 |
+| 30 | **Thermal:** resume picks 1 and 3b (CPU only, on the approved data), and send Om the report (SUMMARY final; ADDENDUM needs its datascout confirmation and the A3 results) | Remaining readouts are frozen and cheap (pick 1 R1 / R2 / R3b; pick3b R1 / R2 / R3); a dated pick3b amendment for the IR rule is needed first (plan v1 §5; the attempted v1.1 freeze is empty, content unknown; doc 13 D55) | doc 22 §11 |
+| 31 | **For Om: E-PF inference location** (gaint CPU as PF2E did, or a local copy of the 5 checkpoints) | Held since 4 Nov; T26 / T27 / T39 ran only on EL proxies | `om_2026-11-04_decisions.md` (3) |
+| 32 | **For Om: licences / release** (mixing CC BY 4.0 sets with BenchmarkEL, which has no licence file; a CC BY derivative release of a registered A1 set; terms for WattCycle images) | CC BY 4.0 allows an adapted release with credit and a note of changes (R, check S-26); E-PF predictions in a release carry BenchmarkEL's licence question | `synth/SUMMARY.md` §3 |
+| 33 | **For Om: capture funding and the WattCycle questions** (Pi HQ low-cost EL kit ~₹25k + lens and filter; UV torch; optional ₹62k camera, NISE fees, phone IR; send Q1-Q20) | WattCycle has drone thermal only; EL rig 2-3 months away (4 Nov); pick 2's week plan has slipped (nothing sent) | `capture/replan_pick2.md`; `synth/SUMMARY.md` §4 |
+| 34 | **For Om: the A1 extension** (0.55 GB; or all 157 A1 IR 0.26 GB, then ~2 GB EL) and other optional downloads | Dark IR on A1 / A2 is row / edge-level (G0); A1's IR crop is not the module (doc 13 A19); disk is no longer tight (52 GB) | `synth/SUMMARY.md` "Later asks" |
+
+Still open: §3e rows 24 to 28; §3d row 19 (adopting E-PF); §3c rows 17, 18; §3b rows 10, 11; §3d row 21.
+
 ## 4. Remaining work for part 1 (training methodology)
 Ordered roughly by information per cost. None of these is started; each would need its own locked protocol and the user's go-ahead.
 
@@ -255,12 +278,24 @@ Coach's order by expected test gain per cost. None beyond protocol_100 and B1/B2
 
 | Rank | Item | Condition | ETA | Source |
 |---|---|---|---|---|
-| 1 | SKR2C training (10 runs, seeds 10-14, MAXC 2) | judge confirms the guard / queue fixes (stage-1 review b0d866a4, G1-G8) and dry passes 1-3; then coach's APPROVED (protocol locked 02:37) | ~12.3 h wall from launch (runner's estimate) | log 3 Nov 02:23 |
+| 1 | SKR2C training (10 runs, seeds 10-14, MAXC 2) | judge confirms the guard / queue fixes (stage-1 review b0d866a4, G1-G8) and dry passes 1-3; then coach's APPROVED (protocol locked 02:37) | ~12.3 h wall from launch (runner's estimate) | log 3 Nov 02:23 [12 Nov: done 3 Nov 11:24:04, 10 rc 0 of 10; §1k] |
 | 2 | SKR2C opening (E1 #7) | the user's OK (§3e row 24) | ~1.5 h after the last run (S; the S2 opening took 1 h 22 min) | `protocol_SKR2C.md` v1 (locked 02:37) |
 | 3 | B2 marks or a crack-only agent prereg | the user (row 25) | user marks ~15 min (Om B4's estimate) | `ideas/b2_agent_marking_prereg.md` |
 | 4 | Write-up of the session's negative and narrow results (A8 KILL, HC n.d., B6 n.d., SKR2 PASS narrow, HC2 / SKR2E FAIL) | the user (row 24a) | | doc 21, doc 11 rows 43 to 50 |
 
 **Closed (E):** foundation encoder (A8 KILL); the HC2 (a2) ignore design; Om's A1, A2, A3, A5, A6. **Parked:** A4 (structured crack head) behind SKR2; half-cut routing; the structure channel (ideas 3 + 4). **Open:** the HC route (user, 2 Nov 21:51).
+
+## 4f. Ranked next items, 12 Nov (added 12 Nov; S unless tagged)
+
+| Rank | Item | Condition | ETA | Source |
+|---|---|---|---|---|
+| 1 | Re-establish read-only gaint access and re-check SKR2C's `launch.log`, `autostop.log` and run dirs | the user (ssh after the reinstall) | minutes | doc 14 §1.2f |
+| 2 | SKR2C stage 2 (opening build, frozen md5s) and the opening (E1 #7) | the user's OK (§3f row 29) | stage 2 ~1-2 h (S); the S2 opening took 1 h 22 min | `protocol_SKR2C.md` §6 |
+| 3 | Thermal pick 1 A3 R1 / R2 (module IR screen by defect class; screening recall of the EL dark area) | the user (§3f row 30); CPU, approved data | ~0.5-1 day (S) | `pick1/plan_pick1.md` Amendment 6 |
+| 4 | pick3b amendment (IR rule), then 3b-R1 / R2 (FF loss vs EL dark proxy and drone IR) | after rank 3 (needs pick 1's A3 module table) | ~0.5 day (S) | `pick3/plan_pick3b_v1_FROZEN_eaec6f26.md` |
+| 5 | pick 1 R3b + pick3b 3b-R3 (sunlit cell-level G0 by induced cause) | registration QA co-signed by a second agent before any number | ~1 day (S) | same |
+| 6 | Finalise the thermal ADDENDUM and send the report to the user and Om | after ranks 3-5, or now as an interim | hours | `synth/ADDENDUM_2026-11-04.md` |
+| 7 | Carried: B2 marks, write-up of the 1 to 3 Nov results, the D2 width-flag rule | the user (§3e) | | doc 15 §3e, §4e |
 
 ## 5. Parts 2 and 3 (after part 1)
 - **Part 2, architecture.** Phase 0 ideas:

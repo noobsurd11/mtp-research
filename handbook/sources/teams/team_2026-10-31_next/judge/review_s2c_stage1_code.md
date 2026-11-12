@@ -61,3 +61,34 @@ The new md5s of guard / queue / harness, plus the dry-run harness.log and guard.
 - (f) 2-stop cap, gap ≥ 30 s;
 - (g) outside-process / logger / guard HOLD lines from G8;
 - (h) log fields.
+
+## Re-review: v3 (build_s2c.md dc0e7d3e), 2026-11-03 02:58 IST
+**Verdict: ACCEPTED for APPROVED (judge side), with 2 arming conditions.**
+
+Files: lib s2c_lib.sh 4edcae9e, guard s2c_guard.sh 334742d6, queue s2c_queue.sh de31c533, gpumem 06791cdd, dry f0782bbe, unit 40dc50fa. Logs: results/s2c_dry/v2 (md5 list -c OK).
+
+**G1-G8 checked in the code and the logs (E):**
+- **G1:** launch_run writes pids/NAME.cmdline from /proc after the exec. verify requires live cmdline = recorded + tokens + owner + not 6206.
+  - pass 2: a decoy python with a different cmdline (s11) was REFUSED; the sleep decoy, 6206 and PID 1 were refused.
+- **G2:** stop_verified re-runs verify right before SIGKILL.
+  - pass 2: the SIGTERM-ignoring dummy (SUPPF s10) got "alive 30 s after SIGTERM; re-check passed" and then SIGKILL, gone.
+  - pass 3: a dummy that exec'd into sleep gave "re-check FAILED ... no SIGKILL", rc 3.
+- **G3:** COOL 30 + GAP 30 s since the first signal.
+  - pass 1b (COOL 5 to exercise GAP): a trigger 8 s after stop 1 gave "no signal".
+  - pass 2 at defaults: the 2nd stop came 63 s after the 1st; the normal dummy exited on SIGTERM; the 3rd trigger was "cap: 2 of 2 ... no signal".
+- **G4:** every nvidia-smi call in lib / guard / gpumem is under timeout 5. pass 5: 10 consecutive failed reads set HOLD.
+- **G5:** outside() (unit): 1500 and 1025 flagged; 900, 1024, 6206 and ours not. prestart waits on an outside process. A dead logger or guard sets HOLD.
+- **G6:** live check before the next start: cfgcheck plus startcheck (grep -m1 'Labelled:' = the exact root line).
+  - unit: a real-test stdout ('test: 50') gave MISMATCH, then HOLD, then stop_verified, rc 143.
+- **G7:** FAKE is split from DRY. Passes 2 and 3 are live signals on scratch dummies only. Decoys were never signalled.
+- **G8:** queue_unit.log covers the gates.
+- **Rootcheck run 2:** the compared fields are a superset of §2a, all but wall sec. IDENTICAL both arms; SKR01's A = el_thin's own data.
+
+**Non-blocking notes (S):**
+- (a) The passes ran with guard d8a8eb75. The final 334742d6 adds only `TRIG=""` on a failed read (display; runner's build note), and that fix is re-shown in autostop_trigfix.log.
+- (b) If launch_run sees no train.py cmdline within 20 s, the queue HOLDs, but that one run would be unprotected: the watcher cannot verify it, and the live-check stop is refused. This is a low-probability case, logged; check it in the morning if it occurs.
+- (c) gate_try (shared gpu_gate.sh 00fabfdd) calls nvidia-smi without a timeout inside the flock. A hang there blocks new starts (safe side), and the independent guard still protects running runs.
+
+**Arming conditions (runner; coach checks before launch):**
+1. Deploy exactly lib 4edcae9e, guard 334742d6, queue de31c533 and gpumem 06791cdd (md5 at both ends). Start order: gpumem, then guard, then queue. No env overrides: the guard's start line in autostop.log must read "FAKE none; DRY 0; THR 2048 MiB x 3; COOL 30; GAP 30 s; MAXSTOPS 2".
+2. The queue's armed line must show lib 4edcae9e, the root check passed (SPLITS 24568cdb), and the live gpumem and guard PIDs. The first run's "config OK" and "startup line OK" must appear before the second start.

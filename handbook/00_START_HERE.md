@@ -15,6 +15,8 @@ Where a new finding limits an older claim, a dated "[Qualified 30 Oct: ...]" not
 
 **Update 3 Nov 2026, ~02:40 IST (additive).** New **doc 21** (`21_a8_hc_b6_skr2_skr2e.md`): the A8 screen (DINOv3 under PF: KILL, foundation encoder closed), HC (synthetic half-cuts: n.d.), B6 (PF's inactive gain in-distribution: n.d., realised power ~6%), SKR2 (Skeleton Recall at w 0.1: PASS, narrow, on E1 crack relF1@2) and HC2 (inactive ignored in synthetic views: FAIL), SKR2E (the SKR2 ensemble: FAIL; **E-PF at argmax stays the recommended deployable candidate**; the user's adoption is still open), PF2's E1 inactive gain sitting in 3 images, Om's architecture ideas A1 to A6 (all DROP, A4 PARK), the B2 agent raters (calibration FAIL on scuff), and SKR2C (fresh seeds, being locked). New rows and items: `11` rows 43 to 50; `12` D79 to D92; `13` A18, C20 to C23, D46 to D54, E31 to E34; `14` §1.2e, §5d; `15` §1j, §3e, §4e; `16` section J. Dated "[Qualified 3 Nov: ...]" / "[3 Nov: ...]" notes in 11, 13, 15, 16 and 20. Master record: `SESSION_RECORD_2026-11-01_to_11-03.md`.
 
+**Update 12 Nov 2026 (additive).** New **doc 22** (`22_thermal_desk_study.md`): the thermal (IR) team of 4 Nov on Om's brief: why thermal, the physics of thermal vs EL for our classes (thermal sees inactive / disconnected area and hot spots, not thin cracks), the three public EL + IR sets (A1 OSF csr6t, A2 OSF ar76v, A3 DTU; downloaded to `~/mtp/datasets/thermal_public/`, doc 03 §13), 40 + 14 ideas and the top 3, Om's decisions, pick 1's G0 (dark IR: not a go, not a kill; row / edge-level, not cell-level) and pick 3's A1 arm (T15 PASS narrow, T37 FAIL, stopped). Also: **SKR2C finished training on 3 Nov (10 rc 0 of 10) and is not opened** (doc 21 §10 note). The 4 Nov session ended abruptly before the A3 readouts and before the report to Om; the laptop OS was reinstalled before 12 Nov (data and code intact). New rows and items: `11` rows 51 to 55; `12` D93 to D101; `13` A19, A20, C24, C25, D55 to D60, E35 to E38; `14` §1.1b, §1.2f, §5e; `15` §1k, §3f, §4f; `16` section K; `03` §13. Master record: `SESSION_RECORD_2026-11-03_to_11-04.md`.
+
 ---
 
 ## 1. Your role as the guide
@@ -64,6 +66,7 @@ Where a new finding limits an older claim, a dated "[Qualified 30 Oct: ...]" not
 | 19 | `19_feature_learning_and_100pct_plan.md` (added 30 Oct) | 28 to 30 Oct: pool feature learning at 5%, encoder erasure, the 5% lesson, protocol_100, label audit and scuff |
 | 20 | `20_pf2_and_domain_ideas.md` (added 1 Nov) | 31 Oct to 1 Nov: Om's 11 ideas validated, PF2 and the PF ensemble, the E1 policy, THIN-B3 / HC / A8 / B6 |
 | 21 | `21_a8_hc_b6_skr2_skr2e.md` (added 3 Nov) | 1 to 3 Nov: A8 KILL, HC and B6 n.d., SKR2 PASS / HC2 FAIL, SKR2E FAIL (E-PF stays), Om's A1 to A6, B2 agent raters, SKR2C |
+| 22 | `22_thermal_desk_study.md` (added 12 Nov) | 3 to 4 Nov: SKR2C trained (not opened); thermal (IR) imaging: physics vs EL, the public EL + IR pairs, the ideas and top 3, pick 1 G0, pick 3 A1 arm |
 
 For a quick start, read 01, 04 (skim), 11 and 16. Then go back to 02 to 10 as questions come up.
 
@@ -131,6 +134,12 @@ For a quick start, read 01, 04 (skim), 11 and 16. Then go back to 02 to 10 as qu
       - **B6:** PF's inactive gain is not shown in-distribution (n.d., power ~6% at +0.017), but a gain as large as E1's is excluded there.
       - **E1 inactive is a 3-image readout:** the top 3 source images hold 87% of its pixels; PF2's +0.189 is +0.023 without them.
       - **B2:** agent raters failed the scuff calibration gate; B2 is unmarked and back with the user.
+    - **Added 12 Nov: 3 to 4 Nov** (doc 22; thermal numbers recomputed independently by the team's check agent):
+      - **SKR2C** (SKR2 vs SUP100-PF, fresh seeds 10-14): trained 3 Nov 03:06-11:24, 10 rc 0 of 10, the auto-stop never fired. **Not scored; E1 opening #7 needs the user's OK.**
+      - **Thermal (IR) study:** thermal sees electrical consequence (inactive / disconnected area, hot spots), not thin cracks (literature). Three open CC BY 4.0 sets pair EL and IR on the same modules (~215 modules with IR), at module level only, no masks, nothing E1-like.
+      - **Pick 1 G0** (dark forward-bias IR vs EL-dark cells, A1 + A2): A2 AUROC 0.736 / 0.732 (v1 / v2), A1 null, pooled ~0.7: not a go, not a kill; the association vanishes once row and column structure is removed (row / edge-level, not cell-level; post hoc).
+      - **Pick 3 A1 arm:** T15 (per-cell dark I-V label) PASS narrow; T37 (EL ↔ IR registration) FAIL (likely cause: the authors' IR crop is a fixed window, not the module); stopped. pick3b on A3 is frozen but unread.
+      - **Open:** the A3 readouts; the report to Om (never sent); Om's items (E-PF inference location, licences, capture funding).
 
 ## 4. The `sources/` folder
 Verbatim copies of the primary documents: protocols, results READMEs and rules outputs, reports to the user, literature notes, data reports, and old-era reports from the servers. It also holds three files that exist only in the chat:
@@ -152,6 +161,8 @@ If you can run commands (the user may give you exec access), the primary places 
 | cv02: `cv02@10.8.1.106`, `/tmp/noob_el/` | Deployed code per experiment (`el_p6`, `el_p7`, `el_p11`, `el_p13`, `el_p14`, `el_p16`, `el_p17`), run dirs, logs, E1 in `diag/`. **Wiped on reboot**; copied to gaint `cv02_noob_el`. A shared lab login: never forward an ssh agent or put keys there. |
 
 (Added 30 Oct) Newer places: gaint worktrees `el_f1` (603e0d5), `el_f2` (2751aa8), `el_f3` (e544133, protocol_100), with the gaint memory rule (≥ 2 GB free for root's `finllm_chat.py`); cv02 Track M deployments `el_mt`, `el_mt4`, `el_mt5`; team folders `team_2026-10-21/`, `team_2026-10-24_go/`, `team_2026-10-24_why/`, `team_2026-10-27_unlabelled/`, `team_2026-10-29_features/` in `~/mtp/research`. Details in doc 14 §1.2b, §1.3b, §5b.
+
+(Added 12 Nov) The public thermal sets live on the laptop in `~/mtp/datasets/thermal_public/` (A1, A2, A3; doc 03 §13); the thermal team folder is `team_2026-11-04_thermal/`; the SKR2C queue and logs are on gaint in `/home/noob/work/s2c/` (doc 14 §1.2f). After the 12 Nov OS reinstall, server access (ssh) was not tested; `sync_sources.sh` can skip its server copies with `SKIP_SERVERS=1`.
 
 Earlier sessions reached the servers through "Herald" exec connectors (`Gaint_Herald` on gaint, `Yugma_Herald` or `noob_herald` for ssh to cv02). Each has an allowlist; limits are in `sources/MTP_session_handoff_2026-10-07.md` §2.3.
 

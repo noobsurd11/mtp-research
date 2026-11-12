@@ -238,4 +238,47 @@ coach, 3 Nov 2026. **v1 LOCKED 2026-11-03 02:37 IST.** judge SIGNED the v1 candi
 2. **Lock v1** → runner stage 1 (root, identity, data-build lines, jobs, queue, watcher + faked-free dry run) → coach reviews; judge checks the watcher code and dry run → **APPROVED** → launch.
 
 ## 9. Launch record
-(empty)
+- **Stage-1 review (coach, 2026-11-03 02:58 IST; build_s2c.md dc0e7d3e; no protocol change).** Read by coach: s2c_lib.sh 4edcae9e, s2c_guard.sh 334742d6, s2c_queue.sh de31c533, s2c_gpumem.sh 06791cdd, and the logs in `results/s2c_dry/v2/` (unit test s2c_queue_unit.sh 5c12b297, harness s2c_guard_dry.sh f0782bbe).
+  - **Root (E, rootcheck run 2, log 229b731d):**
+    - s2c_root SPLITS.md5 24568cdb, test = val;
+    - databuild 'Labelled: 478 (/home/noob/work/s2c_root/splits/train.txt)  unlabelled: 0 (-)  val: 54  test: 54' for both arms;
+    - CPU identity IDENTICAL on all fields except wall sec: SUPPF step-5 loss 4.154092311859131 / state 4a216d9d; SKR01 (--code el_thin, A = its own data) 4.251284599304199 / 2e44cb4d.
+  - **Jobs** 0839f340: coach's parse vs pf2_SUPPF s5 = seed + run_name + data.root (+ loss.skel_recall.weight=0.1 on SKR01) for all 10 lines. exp dc9c344a / 1343cca2; gates SKR01 9,100 / SUPPF 9,000; MAXC 2.
+  - **Guard / queue vs §2b (judge's G1-G8):**
+    - pid file = the python PID, with the /proc cmdline recorded after exec;
+    - verify = alive + not 6206 + owner noob + exact cmdline equality + tokens;
+    - SIGTERM → ≤ 30 s → re-verify owner + cmdline → SIGKILL;
+    - a second stop only on a fresh trigger ≥ 30 s after the first, cap 2;
+    - HOLD on every trigger;
+    - 10 failed reads → HOLD; nvidia-smi always under timeout 5;
+    - an outside process > 1,024 MiB → new starts wait;
+    - logger or guard gone → HOLD;
+    - live cfgcheck + startup-line check before the next start, with a mismatch → HOLD + stop_verified;
+    - autostop.log fields as (d).
+  - **Tests** (dummies only, no GPU):
+    - pass 2: a SIGTERM-ignoring dummy got SIGKILL only after the re-check passed; stop 2 was 63 s after stop 1 on the newest remaining run; the 3rd trigger was cap-only;
+    - pass 3: an exec-swapped dummy failed the re-check, so no SIGKILL;
+    - pass 1b: a trigger 8 s after the first stop gave no signal;
+    - pass 5: 10 failed reads gave HOLD;
+    - decoys (altered cmdline, 6206, PID 1, dead, stray) were refused every time;
+    - unit: outside() flags 1,025 / 1,500 and not 1,024 / 900 / 6206 / ours; a startup line with 'test: 50' gives MISMATCH → HOLD → SIGTERM → rc 143.
+  - **Residual (S, non-blocking):**
+    - If a run's cmdline cannot be recorded within 20 s, the queue HOLDs, but the guard will refuse that run. Its startup-line stop would also be refused. Both together are very unlikely. The HOLD line is in launch.log for the morning.
+    - The shared gpu_gate's own nvidia-smi has no timeout. A hang there blocks starts only, which fails safe.
+- **APPROVED (coach, 2026-11-03 02:58 IST), effective on judge's sign-off of the v3 code** (G1-G8 against the files above). Then runner launches as in build_s2c §8: tmux s2c (gm / guard / q).
+  - Runner logs the PIDs and the first two runs' 'config OK' and 'startup line OK' lines.
+  - E1 #7 stays NOT OPENED.
+- **judge ACCEPTED stage-1 v3 (2026-11-03 02:59 IST; `judge/review_s2c_stage1_code.md` ddf09a9f); coach's APPROVED is now effective.**
+  - Arming conditions (judge; coach checks the launch lines):
+    1. Deploy exactly lib 4edcae9e / guard 334742d6 / queue de31c533 / gpumem 06791cdd, md5 at both ends. Start order gpumem → guard → queue, with no env overrides. The guard's start line must read "FAKE none; DRY 0; THR 2048 MiB x 3; COOL 30; GAP 30 s; MAXSTOPS 2".
+    2. The queue's armed line must show lib 4edcae9e, the root check (SPLITS 24568cdb), and the live gpumem and guard PIDs. The first run's "config OK" and "startup line OK" must appear before the 2nd start.
+  - Runner's re-run of the dry suite on the exact final md5s (the passes ran on guard d8a8eb75, which differs only by a one-token display fix) must show the same results before arming.
+- **Residual ruling (team-lead, 2026-11-03 02:59 IST; judge closed for the night):** residual 1 (cmdline not recorded within 20 s, and so unprotected) is accepted as is. It needs two faults at once, and the root is fixed in every job line with the identity IDENTICAL. Runner checks launch.log for that HOLD line first thing in the morning. team-lead: launch under judge's 2 arming conditions.
+- **Launched (runner 03:05-03:08; launch lines verified by coach on gaint, read-only, 2026-11-03 03:09 IST).**
+  - Deployed md5s lib 4edcae9e / guard 334742d6 / queue de31c533 / gpumem 06791cdd / jobs 0839f340.
+  - Started gpumem 2343574, then guard 2343958, then queue 2345125, all alive. The guard start line reads 'FAKE none; DRY 0; THR 2048 MiB x 3; COOL 30; GAP 30 s; MAXSTOPS 2'.
+  - Armed line: lib 4edcae9e, SPLITS 24568cdb, gpumem / guard PIDs.
+  - Run 1 s2c_SKR01_100pct_s10 (python 2345199): config OK and startup line OK (test: 54) at 03:06:16, before the 2nd start at 03:08:17.
+  - Run 2 s2c_SUPPF_100pct_s10 (python 2359341): config OK and startup line OK at 03:08:22.
+  - Both /proc cmdlines equal the recorded ones; owner noob. GPU: finllm 5,876 + 7,018 + 6,826 MiB; free 11,947.
+  - No HOLD. **Judge's arming conditions 1-2 met.** ETA ALL TRAINED ~15:25-15:40 IST. E1 #7 NOT OPENED.

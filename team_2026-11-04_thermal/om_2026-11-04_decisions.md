@@ -1,0 +1,5 @@
+# Om's decisions on the thermal team (4 Nov 2026)
+
+Pasted by the user on 4 Nov 2026. Verbatim below.
+
+Om's decisions on the thermal team (4 Nov): (1) DOWNLOAD APPROVED: the public sets for picks 1 and 3 (A3, the A2 subset, the A1 subset with dark I-V; about 1.2 GB, CPU only, check disk space first; the later 0.55 GB A1 extension still needs Om's OK). Start picks 1 and 3. (2) WattCycle is confirmed as WattCycle Sustainable Solutions, but they have ONLY a drone thermal setup right now; their EL rig is 2-3 months away. So re-plan pick 2: P0 paired capture is not possible soon. Ask the team, optimistically: what can we do now with WattCycle drone thermal alone (plant screening data, repeat flights, linking drone IR to our model or to the public sets), and is there a realistic low-cost way to get EL sooner (borrowed or modified camera, other labs or institutes nearby, the fallback supply)? Update the WattCycle question list to match. (3) Still open for Om: E-PF inference location (gaint CPU vs local), licences / release, capture funding. Report back when the downloads are verified and the re-plan is written.

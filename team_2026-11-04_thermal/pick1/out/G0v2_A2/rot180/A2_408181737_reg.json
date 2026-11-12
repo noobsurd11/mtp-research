@@ -1,0 +1,210 @@
+{
+ "module": "A2_408181737",
+ "version": "cellreg 0.4.1 (4 Nov 2026): = 95e0ca3e + this version string only; pitch searched +-2% in iteration 1 only (limits, not prevents, drift); grid-vs-quad QA flag; --orient; --quad full",
+ "grid_expected": [
+  6,
+  12
+ ],
+ "modalities": {
+  "el": {
+   "path": "/home/yugma/mtp/datasets/thermal_public/A2_osf_ar76v/EL/20240527_125305_SOLARWORLD_SW165-MONO_408181737_X_10s_5.089A_48.066V.NEF",
+   "meta": {
+    "reader": "nef_jpeg_preview",
+    "shape": [
+     3264,
+     4928
+    ],
+    "note": "8-bit camera-processed preview, tone-mapped, not linear"
+   },
+   "qa": {
+    "rows": 6,
+    "cols": 12,
+    "S": 128,
+    "quad": [
+     [
+      947.0,
+      1112.0
+     ],
+     [
+      3637.0,
+      1102.0
+     ],
+     [
+      3692.0,
+      2457.0
+     ],
+     [
+      887.0,
+      2447.0
+     ]
+    ],
+    "grid_corners": [
+     [
+      910.992350581621,
+      1100.7199907600486
+     ],
+     [
+      3668.1717389886207,
+      1099.0996844754052
+     ],
+     [
+      3719.193084918968,
+      2503.6200608279446
+     ],
+     [
+      853.9663234730697,
+      2501.9642900328813
+     ]
+    ],
+    "cell_side_px": 234.1800968439834,
+    "res_rms_px": 1.3809251865748389,
+    "res_max_px": 2.654298245706099,
+    "res_rms_pct_cell": 0.5896851206338195,
+    "res_max_pct_cell": 1.1334431411882362,
+    "loo_rms_pct_cell": 0.6536149105951061,
+    "lines_fallback": 0,
+    "res_rms_px_by_iter": [
+     1.8533255453871877,
+     1.4569061501757938,
+     1.3809251865748389
+    ],
+    "n_points": 55,
+    "grid_vs_quad_max_pct_cell": 27.383707881593363,
+    "grid": {
+     "x": {
+      "polarity": "dark_gaps",
+      "pitch": 128.0,
+      "offset": 0.0,
+      "lines_fallback": 0,
+      "fit_score": 2.949008856954263
+     },
+     "y": {
+      "polarity": "dark_gaps",
+      "pitch": 128.0,
+      "offset": 0.0,
+      "lines_fallback": 0,
+      "fit_score": 2.8814488772085434
+     }
+    },
+    "quad_info": {
+     "otsu": 0.4169870938028142,
+     "fg_frac": 0.2442402914888979,
+     "downsample": 5
+    },
+    "quad_mode": "otsu"
+   },
+   "feat_meta": {
+    "el_module_median": 106.67140197753906,
+    "thr": 0.5,
+    "open_radius_px": 3
+   }
+  },
+  "ir": {
+   "path": "/home/yugma/mtp/datasets/thermal_public/A2_osf_ar76v/IR/20240527_125443_SOLARWORLD_SW165-MONO_408181737_X_60s_5.089A.txt",
+   "meta": {
+    "reader": "txt_matrix",
+    "shape": [
+     240,
+     320
+    ],
+    "header_lines_skipped": 0,
+    "rows_dropped_len": 0
+   },
+   "qa": {
+    "rows": 6,
+    "cols": 12,
+    "S": 48,
+    "quad": [
+     [
+      102.0,
+      77.0
+     ],
+     [
+      243.0,
+      105.0
+     ],
+     [
+      245.0,
+      188.0
+     ],
+     [
+      73.0,
+      186.0
+     ]
+    ],
+    "grid_corners": [
+     [
+      101.4707091674709,
+      71.13130131788094
+     ],
+     [
+      241.50864914226997,
+      97.92189972804896
+     ],
+     [
+      242.48826518834414,
+      184.69512713353717
+     ],
+     [
+      73.79783065620671,
+      177.52814729705145
+     ]
+    ],
+    "cell_side_px": 14.43184207509604,
+    "res_rms_px": 1.0519811752252282,
+    "res_max_px": 1.9328993608198346,
+    "res_rms_pct_cell": 7.289306311358231,
+    "res_max_pct_cell": 13.393296231776924,
+    "loo_rms_pct_cell": 7.779510516934963,
+    "lines_fallback": 3,
+    "res_rms_px_by_iter": [
+     0.9254975241679616,
+     1.0115067481649838,
+     1.0519811752252282
+    ],
+    "n_points": 55,
+    "grid_vs_quad_max_pct_cell": 58.962239860580056,
+    "grid": {
+     "x": {
+      "polarity": "dark_gaps",
+      "pitch": 48.0,
+      "offset": 0.0,
+      "lines_fallback": 3,
+      "fit_score": 0.2626793950117536
+     },
+     "y": {
+      "polarity": "dark_gaps",
+      "pitch": 48.0,
+      "offset": -1.44,
+      "lines_fallback": 0,
+      "fit_score": 0.36600834910793134
+     }
+    },
+    "quad_info": {
+     "otsu": 0.5030428980577699,
+     "fg_frac": 0.20111979166666666
+    },
+    "quad_mode": "otsu"
+   },
+   "feat_meta": {
+    "ir_module_median": 25.333553314208984
+   },
+   "orient_to_el": "rot180"
+  }
+ },
+ "grid_shapes": {
+  "el": [
+   6,
+   12
+  ],
+  "ir": [
+   6,
+   12
+  ]
+ },
+ "grid_consistent": true,
+ "orient": {
+  "ir": "rot180",
+  "uvf": "rot180"
+ }
+}

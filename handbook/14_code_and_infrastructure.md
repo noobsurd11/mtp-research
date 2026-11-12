@@ -17,6 +17,8 @@ Read 07_methodology_rules_and_statistics.md for *why* runs are set up this way (
 
 **Update 3 Nov 2026, ~02:40 IST (additive):** §1.2e (worktree `el_hc2`; the s2q queues and the S2 opening; the B6 cv02 deploy, queue, relay and gaint scoring; SKR2E on gaint CPU; measured GPU peaks and gates of 1 to 3 Nov; the near-miss and the v4 watcher) and §5d (experiments of 1 to 3 Nov). Sources: `team_2026-10-31_next/`, doc 21.
 
+**Update 12 Nov 2026 (additive):** §1.1b (the laptop after the 12 Nov OS reinstall; the thermal data and tools), §1.2f (SKR2C as launched and as finished on gaint, 3 Nov) and §5e (experiments of 3 to 4 Nov). Sources: `team_2026-10-31_next/` (`protocol_SKR2C.md` §9, `build_s2c.md`, log), `team_2026-11-04_thermal/`, `SESSION_RECORD_2026-11-03_to_11-04.md`, doc 22.
+
 Everything below was checked on 11 Oct 2026, about 22:00 IST, by listing files, reading code and running `git log` / `nvidia-smi`. Status then: P13 and P14 done; P15 (gaint) running, 5 of 6 runs re-scored; P16 SSL arms running on cv02 (ETA about 03:00 to 04:30 IST on 12 Oct). Later: both finished and were analysed by 12 Oct 05:30 IST; server state at the 13 Oct close is in doc 15 §1b. Updated 13 Oct ~16:30 IST for P17 and P13 Amendment 2 (worktree `el_p17`, deployment, `ssl.decouple_decoder`, scripts) and the cv02 backup on gaint; state after P17 is in doc 15 §1c.
 
 ## Sources
@@ -49,6 +51,18 @@ Everything below was checked on 11 Oct 2026, about 22:00 IST, by listing files, 
 | `~/mtp/research/.venv/` | Python env used for the local analysis scripts (`.venv/bin/python scripts/...`). |
 | `~/mtp/datasets/` | Local dataset copies:<br>• `BenchmarkELimages/dataset_20211104/` (images/masks per split, class list CSV);<br>• `UCF-EL-Defect/`;<br>• `splits_benchmark/` (train/val/test, seed folders, external pool manifest);<br>• `splits_ucf_cv02/`.<br>Added 12 Oct (doc 17), all hash-verified:<br>• `escdd_full/` (HF `snt-ubix/escdd`, 903 image/mask pairs + CSV, JSON, README);<br>• `escdd_mirror_shivahanifi/` (HF mirror with no-padding variants);<br>• `BenchmarkEL_releases/dataset_{20221008,20220723}/` (originals only, GitHub tree `768b5e7`);<br>• the HF API listings `escdd_full_hf_api.json` and `escdd_mirror_shivahanifi_hf_api.json`. |
 | `~/mtp/MTP_session_handoff_2026-10-07.md` | The handoff document from before this work started (old-era context). |
+
+### 1.1b Local machine after the 12 Nov OS reinstall; thermal data and tools (added 12 Nov)
+Checked 12 Nov 2026 by scribe, read-only (E):
+- The laptop OS was reinstalled before 12 Nov; `/home` (and so `~/mtp/research`, its git history, `~/mtp/datasets` and `.venv`) survived. Free disk on `/home`: **52 GB** (`df -h`; it was ~4-7 GB on 4 Nov, when a 4.0 GB floor was set for downloads).
+- `~/mtp/research/.venv/bin/python -I` still runs: Python 3.12.16, numpy 2.5.3, scipy 1.18.1, scikit-image 0.26.0 (no cv2 / sklearn; no installs). System `python3` is 3.14.8 (no numpy); system `7z` is present.
+- No agent or tmux session from before survived; `tmux ls` shows only `claude-swarm` (created 12 Nov). The orchestrator's earlier tmux session `orch-mtp` (used so the user could drive it by voice through Herald) is gone.
+- **ssh to gaint / cv02 was not tested** (not needed for documentation); keys may need re-setup after the reinstall. `handbook/sync_sources.sh` now has `SKIP_SERVERS=1` to skip its read-only scp copies.
+- **Thermal public data** (doc 03 §13; doc 22): `~/mtp/datasets/thermal_public/{A1_osf_csr6t,A2_osf_ar76v,A3_dtu}/`, 1,677 files, 2.2 GB; `md5sum -c` of each set's `MANIFEST.md5` on 12 Nov: 0 failures.
+- **Crash traces (4 Nov):** `team_2026-11-04_thermal/log.md` (line 149) and `pick3/plan_pick3b.md` contain NUL bytes (use `grep -a`); `sync_sources.sh` copies both into `sources/teams/` as they are (doc 13 D55).
+- **Thermal tools** (`team_2026-11-04_thermal/scripts/`; run with the venv, `-I`, from `scripts/`, never from inside a data dir):
+  - `frozen/cellreg_7d9a9fe0.py` (cellreg v0.4.1, the reviewed EL ↔ IR / UVF cell registration; `cellreg.py` is the same file): module outline (Otsu, on a ≤ 1000 px copy), cell-grid detection, `--orient {id,fliph,flipv,rot180}`, `--quad-ir {otsu,full}`, residual QA as % of a cell; NEF read through the largest embedded JPEG preview (no raw decoder installed). Earlier versions: v0.2 c8b4343a (G0 v1), v0.3 cb9ad392 (T37 v1), v0.4 04fac77a / 95e0ca3e; v0.5 91c3c81e withdrawn (archived, never reviewed).
+  - `frozen/g0_stats_27f7bff1.py` (G0 v1) and `frozen/g0_stats_0190cba5.py` (G0 v2; = `g0_stats.py`); `edge_check.py`, `qa_overlay.py` (pick 1 QA); `pick3_t15.py` ac51ecd6 (T15); `pick3b_r12.py` dac5842b (pick3b R1 / R2; smoke-tested on synthetic data only); `a3_frames.py` d94b7a89 (A3 frame discovery); `osf_list.py`, `osf_fetch.py`, `select_a1.py`, `select_a2.py`, `write_manifest.sh` (downloads); `listings/` (OSF / figshare file listings).
 
 ### 1.2 gaint (`ssh noob@172.18.22.20`)
 - **GPU:** 1x NVIDIA RTX PRO 4500 Blackwell, 32,623 MiB (`nvidia-smi`, 11 Oct).
@@ -153,6 +167,15 @@ Sources: `team_2026-10-31_next/log.md` (1 Nov 21:30 to 3 Nov 02:25), `build_b6.m
 - **Watchers:** gaint `rwatch_v3.sh` 97f59477 (2 Nov 11:35, adds s2q logs) → **`rwatch_v4.sh` f839d6f4** (17:59): ALERT at free < 2,560 MiB on 2 polls (early), the < 2,048 hard alert, and OUTSIDE-LOW at free < 2,300 while a non-runner GPU process is present (not a `run_name=` trainer, finllm or one of our scorers). Laptop waiter `lwait_v4.sh` 4d3ac189 (gaint events every 60 s, cv02 every 15 min; B6 launch-log watch). Watchers are stopped via their STOP files or by recorded PID.
 - **Unattended rule for SKR2C (3 Nov, team-lead / judge; `protocol_SKR2C.md` v1):** MAXC 2; one data root `/home/noob/work/s2c_root` (test.txt = val; SPLITS.md5 24568cdb); new starts HOLD while an outside GPU process holds > 1 GB; an own guard (`s2c_guard.sh`) stops only the newest running SKR2C run, by its verified python PID, if free < 2,048 MiB on 3 consecutive 1 s samples (SIGTERM; SIGKILL after 30 s only after re-verifying owner and command line; at most 2 stops), then HOLD. Never finllm or another account's process. The s2q queue's pid files held the bash subshell PID, not the trainer (found 3 Nov 02:33); the SKR2C queue starts the trainer directly so the recorded PID is the python.
 - **Recompute locations:** coach `/home/noob/work/coach_v/` (gaint CPU, reads an opening in place after `md5sum -c`); judge on the laptop (`team_2026-10-31_next/judge/`, numpy from `research/.venv`) and gaint CPU for dump-based checks (`/home/noob/work/judge_a8/`, `judge_s2/`).
+
+### 1.2f gaint, 3 Nov: SKR2C as launched and as finished (added 12 Nov)
+Sources: `team_2026-10-31_next/protocol_SKR2C.md` §2b, §9; `build_s2c.md` (v3, c6424c0f); `judge/review_s2c_stage1_code.md` ddf09a9f; log 3 Nov 02:21-03:10 and team-lead's 12 Nov retrospective line (from its own 4 Nov read-only check). No server access since 4 Nov.
+- **Folders:** queue dir `/home/noob/work/s2c/` (`scripts/`, `pids/`, `launch.log`, `autostop.log`, `s2c_jobs.txt` 0839f340); data root `/home/noob/work/s2c_root` (SPLITS.md5 24568cdb: train 842f27c4, val = test = 9dcccf00; `labeled` → `el-fault-detection/data/labeled`); checks `/home/noob/work/s2c_check/`; test scratch `runner_s2c_dry/`. Run dirs: `el_thin/experiments/s2c_SKR01_100pct_s10..14` (c9bbb02), `el_f3/experiments/s2c_SUPPF_100pct_s10..14` (e544133).
+- **Code (deployed md5s, local copies in `team_2026-10-31_next/scripts/s2c/`):** `s2c_lib.sh` 4edcae9e (`SMI` = `timeout 5 nvidia-smi`; `verify` = alive + not 6206 + owner noob + live cmdline exactly = the cmdline recorded at launch + tokens; `stop_verified` = SIGTERM, ≤ 30 s, re-verify, SIGKILL; `outside` = a compute app not ours and not 6206 holding > 1,024 MiB; `prestart`; `startcheck`; `launch_run`, which starts python as a plain background command so the pid file holds the python PID, the fix for the s2q subshell-PID defect), guard `s2c_guard.sh` 334742d6 (own tmux window, 1 s samples, trigger free < 2,048 MiB on 3 consecutive samples, HOLD first, stop only the newest verified S2C run, second stop only on a fresh trigger ≥ 30 s later, cap 2, 10 failed reads → HOLD, `autostop.log`), queue `s2c_queue.sh` de31c533 (MAXC 2; gates SKR01 9,100 / SUPPF 9,000 MiB; ≥ 120 s apart; live cfgcheck + "Labelled ... val: 54  test: 54" check before the next start, with a verified stop on mismatch), logger `s2c_gpumem.sh` 06791cdd.
+- **Tests (dummies only):** `results/s2c_dry/v2/` and `results/s2c_dry/final/` (md5 lists `results/s2c_dry_v2_md5.txt`, `s2c_dry_final_md5.txt`): SIGKILL only after the re-check, exec-swap refused, gap and cap held, 10 failed reads → HOLD, decoys never signalled, a "test: 50" startup line → HOLD + stop.
+- **Launch (3 Nov):** tmux `s2c` with windows `gm` (gpumem PID 2343574, 03:05:56), `guard` (2343958, 03:05:59), `q` (queue 2345125, armed 03:06:11). First runs: SKR01 s10 python 2345199 (03:06:11), SUPPF s10 python 2359341 (03:08:17).
+- **Outcome (team-lead's 4 Nov check, logged 12 Nov):** waves done 04:45 / 06:25 / 08:04 / 09:44 / 11:24; "S2C ALL TRAINED (10 rc 0 of 10)" at 11:24:04; `autostop.log` = start line, "end line seen" 11:24:05, "guard stop (queue ended)" 11:25:05 (no trigger, no HOLD); GPU after: finllm only. Throughput: ~1 h 40 per wave of 2 runs (the protocol estimated ~2 h 28).
+- **Remember:** under the data root, each run's stdout end block and `metrics.json` "test" entries hold **val** numbers (doc 13 C21). Never harvest them; the opening's scorers read the real splits.
 
 ### 1.3 cv02 (`ssh cv02@10.8.1.106`)
 - **GPUs:** 8x NVIDIA RTX A6000, 49,140 MiB each (`nvidia-smi`, 11 Oct). Shared with other users.
@@ -438,7 +461,18 @@ Per-cell raw pulls (`results/*/raw`, `coach_raw`), the protocol_100 per-cell cop
 | SKR2E | `el_f3` e544133 + `reports/skr2e/` (infer 5ba3c597), CPU fp32 | gaint | `protocol_SKR2E.md`, `build_skr2e.md`, `verify_skr2e.md` | `results/skr2e/` (raw MANIFEST 9b43e636) |
 | Om's A1-A6 checks | `scripts/arch/` (team folder) | laptop and gaint CPU | `ideas/arch_A1.md` to `arch_A6.md` | `ideas/arch_out/` |
 | B2 agent raters | judge's bundles `b2_bundle/` (gitignored), scorer `judge/b2_cal_score.py` 8f7106e8 | laptop | `ideas/b2_agent_marking_prereg.md`, `ideas/marker1/`, `ideas/marker2/` | (marks only; key and scores with judge) |
-| SKR2C (locked 3 Nov 02:37) | `el_thin` c9bbb02 (SKR2), `el_f3` e544133 (SUPPF), seeds 10-14, data root `s2c_root` | gaint (training only) | `protocol_SKR2C.md`, `build_s2c.md`, `judge/review_SKR2C_v09.md` | (none yet) |
+| SKR2C (locked 3 Nov 02:37) | `el_thin` c9bbb02 (SKR2), `el_f3` e544133 (SUPPF), seeds 10-14, data root `s2c_root` | gaint (training only) | `protocol_SKR2C.md`, `build_s2c.md`, `judge/review_SKR2C_v09.md` | (none yet) [12 Nov: trained 3 Nov, 10 rc 0 of 10; not scored; §1.2f, §5e] |
+
+### 5e. Experiments of 3 to 4 Nov (added 12 Nov)
+
+| Exp | Code | Machine | Team folder (protocols, results, verification) | Local outputs |
+|---|---|---|---|---|
+| SKR2C training (fresh seeds 10-14) | `el_thin` c9bbb02 / `el_f3` e544133; queue `scripts/s2c/` (lib 4edcae9e, guard 334742d6, queue de31c533) | gaint GPU, MAXC 2 | `team_2026-10-31_next/protocol_SKR2C.md` (§9 launch record), `build_s2c.md`, `judge/review_s2c_stage1_code.md` | `results/s2c_dry/` (dry-run logs only); runs on gaint; **not scored, E1 #7 not opened** |
+| Thermal desk study | none (web / API metadata, Research MCP) | laptop | `team_2026-11-04_thermal/datasets/`, `ideas/`, `capture/`, `synth/`, `check/` | (text only) |
+| Thermal downloads | `scripts/osf_list.py`, `osf_fetch.py`, `select_a1.py`, `select_a2.py`, `write_manifest.sh`; system `7z` | laptop | `datasets/download_plan.md`, `download_selection_A1.tsv`, `download_verified.md` | `~/mtp/datasets/thermal_public/` (MANIFEST.md5 per set) |
+| Pick 1 G0 v1 / v2 (dark IR vs EL-dark cells, A1 + A2) | cellreg v0.2 c8b4343a / v0.4.1 7d9a9fe0; `g0_stats` 27f7bff1 / 0190cba5 | laptop CPU | `pick1/plan_pick1.md`, `pick1/out/G0.md`, `G0v2.md`; check §22, §24, §36 | `pick1/out/` (cell tables, JSONs; overlays local only) |
+| Pick 3 T15 / T37 (A1) | `pick3_t15.py` ac51ecd6; cellreg v0.3 cb9ad392 / v0.4 95e0ca3e | laptop CPU | `pick3/plan_pick3.md` v1.2, notes, `pick3/out/PICK3_A1_REPORT.md`; check §20, §28 | `pick3/out/` |
+| Pick 1 A3 / pick3b (A3) | cellreg 7d9a9fe0; `a3_frames.py`, `pick3b_r12.py` | laptop CPU | `pick1/plan_pick1.md` Amendments 5-6; `pick3/plan_pick3b_v1_FROZEN_eaec6f26.md` | discovery only; no readout computed |
 
 ---
 

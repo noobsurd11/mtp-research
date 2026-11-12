@@ -1,0 +1,205 @@
+{
+ "module": "A2_409008047",
+ "version": "cellreg 0.2 (4 Nov 2026): --orient for IR / UVF to EL cell mapping",
+ "grid_expected": [
+  6,
+  12
+ ],
+ "modalities": {
+  "el": {
+   "path": "/home/yugma/mtp/datasets/thermal_public/A2_osf_ar76v/EL/20250206_193011_SOLARWORLD_SW-175-MONO_409008047_X_10s_5.289A_48.359V.NEF",
+   "meta": {
+    "reader": "nef_jpeg_preview",
+    "shape": [
+     3264,
+     4928
+    ],
+    "note": "8-bit camera-processed preview, tone-mapped, not linear"
+   },
+   "qa": {
+    "rows": 6,
+    "cols": 12,
+    "S": 128,
+    "quad": [
+     [
+      1106.0,
+      1473.0
+     ],
+     [
+      3864.0,
+      1457.0
+     ],
+     [
+      3899.0,
+      2828.0
+     ],
+     [
+      1072.0,
+      2823.0
+     ]
+    ],
+    "grid_corners": [
+     [
+      1095.0070906908527,
+      1462.0399018403816
+     ],
+     [
+      3871.4526120903092,
+      1451.4625136148902
+     ],
+     [
+      3942.9286452038923,
+      2853.3558684775567
+     ],
+     [
+      1024.7169573174376,
+      2853.957486816783
+     ]
+    ],
+    "cell_side_px": 235.4269440565434,
+    "res_rms_px": 13.67535150494139,
+    "res_max_px": 25.764639793213654,
+    "res_rms_pct_cell": 5.808745281787681,
+    "res_max_pct_cell": 10.943794006443742,
+    "loo_rms_pct_cell": 6.148319685660555,
+    "lines_fallback": 0,
+    "res_rms_px_by_iter": [
+     13.429081328856517,
+     13.580777557831746,
+     13.67535150494139
+    ],
+    "n_points": 55,
+    "grid": {
+     "x": {
+      "polarity": "dark_gaps",
+      "pitch": 128.0,
+      "offset": 0.0,
+      "lines_fallback": 0,
+      "fit_score": 1.988474871658868
+     },
+     "y": {
+      "polarity": "dark_gaps",
+      "pitch": 129.92000000000002,
+      "offset": -1.2799999999999994,
+      "lines_fallback": 0,
+      "fit_score": 1.4863266123129422
+     }
+    },
+    "quad_info": {
+     "otsu": 0.38293021738183686,
+     "fg_frac": 0.25104768469887956
+    }
+   },
+   "feat_meta": {
+    "el_module_median": 94.97700500488281,
+    "thr": 0.5,
+    "open_radius_px": 3
+   }
+  },
+  "ir": {
+   "path": "/home/yugma/mtp/datasets/thermal_public/A2_osf_ar76v/IR/20250206_193203_SOLARWORLD_SW-175-MONO_409008047_X_60s_5.289A.txt",
+   "meta": {
+    "reader": "txt_matrix",
+    "shape": [
+     240,
+     320
+    ],
+    "header_lines_skipped": 0,
+    "rows_dropped_len": 0
+   },
+   "qa": {
+    "rows": 6,
+    "cols": 12,
+    "S": 48,
+    "quad": [
+     [
+      64.0,
+      83.0
+     ],
+     [
+      234.0,
+      83.0
+     ],
+     [
+      238.0,
+      166.0
+     ],
+     [
+      62.0,
+      166.0
+     ]
+    ],
+    "grid_corners": [
+     [
+      58.422552375886625,
+      80.6200321049862
+     ],
+     [
+      237.39117568669576,
+      81.60134913100138
+     ],
+     [
+      240.12537896603658,
+      169.80026446398983
+     ],
+     [
+      57.76151813608597,
+      170.8132456249012
+     ]
+    ],
+    "cell_side_px": 14.952933616529428,
+    "res_rms_px": 0.611388124404534,
+    "res_max_px": 1.4050394485613276,
+    "res_rms_pct_cell": 4.08875034213144,
+    "res_max_pct_cell": 9.396413336632179,
+    "loo_rms_pct_cell": 4.617142205014242,
+    "lines_fallback": 0,
+    "res_rms_px_by_iter": [
+     0.4848962720339972,
+     0.4962360909664472,
+     0.611388124404534
+    ],
+    "n_points": 55,
+    "grid": {
+     "x": {
+      "polarity": "dark_gaps",
+      "pitch": 47.76,
+      "offset": 1.4399999999999995,
+      "lines_fallback": 0,
+      "fit_score": 0.2951188448939169
+     },
+     "y": {
+      "polarity": "dark_gaps",
+      "pitch": 48.0,
+      "offset": 0.0,
+      "lines_fallback": 0,
+      "fit_score": 0.9314737607429852
+     }
+    },
+    "quad_info": {
+     "otsu": 0.5769159839784864,
+     "fg_frac": 0.2051171875
+    }
+   },
+   "feat_meta": {
+    "ir_module_median": 24.903096199035645
+   },
+   "orient_to_el": "id"
+  }
+ },
+ "grid_shapes": {
+  "el": [
+   6,
+   12
+  ],
+  "ir": [
+   6,
+   12
+  ]
+ },
+ "grid_consistent": true,
+ "orient": {
+  "ir": "id",
+  "uvf": "id"
+ }
+}

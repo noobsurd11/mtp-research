@@ -19,6 +19,8 @@ Read it to answer "why did we do X and not Y?". For the experiments themselves s
 
 **Update 3 Nov 2026, ~02:40 IST (additive).** §4g adds the decisions of 1 Nov ~21:40 to 3 Nov ~02:40 (D79 to D92): the A8 KILL, B6 scoring on gaint and APPROVED, HC n.d., SKR2 + HC2 and the HC2 design rule, the B2 agent raters, Om's A1 to A6, SKR2 PASS / HC2 FAIL and the HC route kept open, SKR2E's design and FAIL, B6 n.d., SKR2C tonight. Four rules in §6. Experiments: `21_a8_hc_b6_skr2_skr2e.md`.
 
+**Update 12 Nov 2026 (additive).** §4h adds the decisions of 3 Nov ~02:45 to 4 Nov ~13:50 (D93 to D101): SKR2C stage-1 acceptance and launch, the agents closed, the thermal team, Om's thermal decisions, the download scope and disk floor, the pick 3 decision (A), the pick 1 G0 v2 re-run, and the abrupt end of the 4 Nov session. Three rules in §6. Experiments: `22_thermal_desk_study.md`; SKR2C: doc 21 §10.
+
 **Conventions**
 - **Times are IST** (UTC + 5:30).
   - User messages are timestamped in UTC in the transcript extract and converted here.
@@ -875,6 +877,38 @@ Sources: `team_2026-10-31_next/log.md` (from 1 Nov 21:30), the protocols and ver
 ### D92. B2 options and the next step go back to the user (team-lead 2 Nov 23:41)
 - **What:** B2 is unmarked: the user marks, a crack-only agent prereg (the crack gate passed on house CSIR cells only; on gate B's Hanifi half-cells the raters found 1 of 14 cracks (speck-level labels; reported, not gated)), or skip. Next step: pause and write up, SKR2 on new seeds, or wait for B2. Open at writing (doc 15 §3e).
 
+## 4h. 3 to 4 Nov: SKR2C launched and trained; the thermal (IR) team (added 12 Nov)
+Sources: `team_2026-10-31_next/log.md` (3 Nov 02:45 to 03:10, and team-lead's 12 Nov retrospective line), `protocol_SKR2C.md` §9; `team_2026-11-04_thermal/log.md` (4 Nov 11:56 to 13:50, and team-lead's 12 Nov retrospective lines), `om_2026-11-04_thermal.md`, `om_2026-11-04_decisions.md`; `SESSION_RECORD_2026-11-03_to_11-04.md`.
+
+### D93. SKR2C stage-1 code accepted; launch under two arming conditions (judge 3 Nov 02:58; coach APPROVED 02:58-02:59; team-lead 02:59)
+- **What:** judge's stage-1 review (02:38) had found the guard / queue NOT READY (7 must-fixes G1-G7, 1 should-fix G8: exact cmdline match, owner re-check before SIGKILL, ≥ 30 s between stops, nvidia-smi timeouts, the outside-process HOLD, a live startup check with a verified stop, a dry run with real signals). runner's v3 code and tests showed all eight; judge ACCEPTED (`judge/review_s2c_stage1_code.md` ddf09a9f) with 2 arming conditions (exact md5s at both ends and start order gpumem → guard → queue with no env overrides; the armed line and the first run's config / startup lines before the 2nd start). team-lead accepted residual 1 (a run whose cmdline is not recorded within 20 s would be unprotected). Launched 03:06 after a re-run of the tests on the final md5s; coach verified the launch lines (03:09).
+- **Why:** an unattended night must protect finllm's 2 GB floor without a person reading alerts, and must not let a wrong-root run evaluate the real test set.
+
+### D94. All agents closed; SKR2C left to run alone (team-lead 3 Nov 03:10)
+- **What:** per the user's line ("close all the agents later"), team-lead closed scribe, judge, coach and runner after the launch and the docs commit 3604dc7. Training finished 3 Nov 11:24:04 (10 rc 0 of 10, no guard trigger; team-lead's 4 Nov read-only check, logged 12 Nov). **The opening (E1 #7) stays closed until the user's explicit OK** (`protocol_SKR2C.md` §3; `e1_openings.md` #7).
+
+### D95. Move the orchestrator into laptop tmux `orch-mtp` (the user, between 3 Nov ~03:10 and 4 Nov 11:56)
+- **What:** so the user can drive the session by voice through Herald. The permission classifier blocked team-lead's own tmux launch as a persistence action, so the user ran the command. Source: team-lead's account (message to scribe, 12 Nov); no file records it. The session did not survive the 12 Nov OS reinstall.
+
+### D96. Start a thermal (IR) team on Om's brief (Om 3 Nov, pasted by the user 4 Nov; team-lead 11:56)
+- **What:** an optimistic, generative desk study of Om's three questions (public paired EL + thermal data; every way thermal could help; WattCycle / IIT Mandi capture). Agents datascout, ideas, capture (parallel, 11:57), then synth and check (12:15; check fact-checks inputs in parallel and corrects facts and tags, never kills ideas). Rules: no downloads, no GPU, no server ssh, no outside contact, no test / E1 reads, E / R / S tags (`team_2026-11-04_thermal/README.md`).
+
+### D97. Om's thermal decisions (Om 4 Nov; logged by team-lead 12:39)
+- **What:** (1) downloads approved for picks 1 and 3 (A3, the A2 subset, the A1 subset with dark I-V; ~1.2 GB; CPU only; the 0.55 GB A1 extension needs a separate OK); (2) WattCycle = WattCycle Sustainable Solutions, drone thermal only, EL rig 2-3 months away: re-plan pick 2; (3) still open: E-PF inference location, licences / release, capture funding (`om_2026-11-04_decisions.md`, verbatim).
+- **team-lead's implementation (12:39-12:40):** datascout downloads and verifies, then runs pick 1; ideas writes `drone_only.md`, then runs pick 3; capture re-plans pick 2; synth integrates; check reviews plans and verifies downloads. Download scope = exactly `synth/top3.md` l.29-42 (ideas' 157-module A1 IR step is a proposal for Om only). Disk floor 4.0 GB free after downloads. E-PF inference HELD, so picks 1 and 3 use the EL dark-fraction proxy. Later (13:40): A3 fully extracted only if ≥ 4.0 GB stays free; scratch pruned by explicit path only; no archive deletion without asking.
+
+### D98. Pick 3: stop the A1 arm at T37 (option A); redirect to pick3b on A3 (team-lead 4 Nov 13:28)
+- **What:** after T37 v2 failed (4 / 10 modules excluded by the frozen rule), team-lead chose (A): stop at T37 as pre-registered; T02 / T12 not run; a new plan for A3 frozen before extraction (pick3b, eaec6f26). Not (B), a third post hoc registration on the authors' crop: check showed the crop is a fixed window, not the module, and a third look would add a forking path for a likely null. The report must carry the crop root cause, the Colvin label-direction caveat and the disclosures (`pick3/out/PICK3_A1_REPORT.md` 55fcf923). The report's own text says "~13:3x"; 13:28 is from team-lead's message timestamps.
+
+### D99. Pick 1: re-run G0 as "G0 v2, post hoc instrument fix"; keep v1 as frozen (team-lead 4 Nov 13:13-13:20)
+- **What:** after ideas found the registration grid could drift while its residual passed, G0 was re-run with the reviewed tool (cellreg v0.4.1), written visual QA criteria and per-module calls co-signed blind by check before any number. The interim numbers computed before the co-sign were labelled "interim, QA not co-signed" and not counted; the frozen v1 output was restored read-only (1da5ae53); new outputs go to new files only. The row / column finding was labelled post hoc for the dark arm. Result: same verdict as v1 (doc 22 §8).
+
+### D100. Tool freezes: only the frozen reviewed cellreg is used (team-lead 4 Nov 13:27-13:34)
+- **What:** cellreg changed after check's review (04fac77a → 95e0ca3e); team-lead required a freeze, an announcement and a check diff, and accepted only a version-string change for the release: v0.4.1 = reviewed 95e0ca3e + its version string (7d9a9fe0). v0.5 (91c3c81e, functional additions) needed review and was withdrawn.
+
+### D101. The 4 Nov session ended before the report (no decision; recorded 12 Nov)
+- **What:** at ~13:50 the A3 readouts of picks 1 and 3b had not run, the ADDENDUM was a DRAFT, and the report to the user and Om had not been sent. The session ended abruptly (~13:51, cause unknown; crash traces in four files; an attempted pick3b v1.1 freeze is empty, so pick3b's governing plan stays v1 eaec6f26; doc 13 D55). No agent survived the 12 Nov OS reinstall. What to resume, and whether, is the user's call (doc 15 §3f).
+
 ---
 
 ## 5. Housekeeping decisions (how the work is run)
@@ -934,6 +968,9 @@ Each rule exists because a specific mistake produced a fake or misleading result
 | (added 3 Nov) Record and match the GPU process's own PID (or a recorded PID and its children), never only the launching subshell's | B6's cv02 queue would have counted our runs as another user's > 4 GB processes | doc 13 D53 |
 | (added 3 Nov) A frozen readout must not leave an outcome to a later ruling; pre-register what an undefined value means | HC2's SHV1 matched recall was undefined and the frozen readout said "coach decides" | doc 13 C23 |
 | (added 3 Nov) When guards are read at each arm's own operating point, state before lock how close a val flag can come to deciding the verdict | SKR2E's FAIL was decided by its val width flag, 0.0485 against 0.05 | doc 13 C20 |
+| (added 12 Nov) A registration QA needs a visual check with written fail criteria, co-signed before outcomes; a residual alone can pass a drifted grid | cellreg v0.3 passed 6320427227 at 4.49% with its grid stretched past the module edge | doc 13 C25 |
+| (added 12 Nov) Never assume an author-made crop is the object; check its bounds against the raw frame | A1's `_cropped.txt` is a fixed 134 × 35 window that trims ~0.9 cell; the likely cause of T37 v2's IR residual rise | doc 13 A19 |
+| (added 12 Nov) A freeze copy is made and its md5 logged in the same step, and a long-running session's state is committed or at least logged before work continues | the 4 Nov session ended with an empty freeze file, a NUL-padded plan and NULs in the log | doc 13 D55 |
 
 ## Related docs
 - `00_START_HERE.md`

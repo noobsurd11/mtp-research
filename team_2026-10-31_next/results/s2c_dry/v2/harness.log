@@ -1,0 +1,51 @@
+2026-11-03 02:48:00 harness start pid 2250956; jobs 0839f340; guard d8a8eb75; lib 4edcae9e
+2026-11-03 02:48:00 launched s2c_SKR01_100pct_s10 (normal): pid file 2250982, LPID 2250982, parent 2250980 (bash /home/noob/work/runner_s2c_dry/scripts/s2c_guard_dry.sh); ps:     PID USER                      STARTED COMMAND|2250982 noob     Tue Nov  3 02:48:00 2026 /usr/bin/python3 -u scripts/train.py --overwrite --config configs/supervised.yaml --opts seed=10 data.labeled_fraction=1.0 training.total_steps=20000 data.split_seed=0 training.labeled_batch_size=8 data.mask_subdir=labeled/masks_escdd model.name=smp_unetpp data.augmentation=labelsafe loss.supervised=ce_dice training.val_every=20000 training.encoder_pf.freeze=1000 training.encoder_pf.ramp=1000 training.encoder_pf.lr_mult=0.1 training.encoder_pf.wd=0 loss.skel_recall.weight=0.1 data.root=/home/noob/work/s2c_root run_name=s2c_SKR01_100pct_s10
+2026-11-03 02:48:00   recorded cmdline (ad3498bc) = live: yes
+2026-11-03 02:48:04 launched s2c_SUPPF_100pct_s10 (ignterm): pid file 2251274, LPID 2251274, parent 2251271 (bash /home/noob/work/runner_s2c_dry/scripts/s2c_guard_dry.sh); ps:     PID USER                      STARTED COMMAND|2251274 noob     Tue Nov  3 02:48:03 2026 /usr/bin/python3 -u scripts/train.py --overwrite --config configs/supervised.yaml --opts seed=10 data.labeled_fraction=1.0 training.total_steps=20000 data.split_seed=0 training.labeled_batch_size=8 data.mask_subdir=labeled/masks_escdd model.name=smp_unetpp data.augmentation=labelsafe loss.supervised=ce_dice training.val_every=20000 training.encoder_pf.freeze=1000 training.encoder_pf.ramp=1000 training.encoder_pf.lr_mult=0.1 training.encoder_pf.wd=0 data.root=/home/noob/work/s2c_root run_name=s2c_SUPPF_100pct_s10
+2026-11-03 02:48:04   recorded cmdline (00a7dbd7) = live: yes
+2026-11-03 02:48:07 launched s2c_SUPPF_100pct_s11 (normal): pid file 2251465, LPID 2251465, parent 2251464 (bash /home/noob/work/runner_s2c_dry/scripts/s2c_guard_dry.sh); ps:     PID USER                      STARTED COMMAND|2251465 noob     Tue Nov  3 02:48:06 2026 /usr/bin/python3 -u scripts/train.py --overwrite --config configs/supervised.yaml --opts seed=11 data.labeled_fraction=1.0 training.total_steps=20000 data.split_seed=0 training.labeled_batch_size=8 data.mask_subdir=labeled/masks_escdd model.name=smp_unetpp data.augmentation=labelsafe loss.supervised=ce_dice training.val_every=20000 training.encoder_pf.freeze=1000 training.encoder_pf.ramp=1000 training.encoder_pf.lr_mult=0.1 training.encoder_pf.wd=0 data.root=/home/noob/work/s2c_root run_name=s2c_SUPPF_100pct_s11
+2026-11-03 02:48:07   recorded cmdline (3eadb1a8) = live: yes
+2026-11-03 02:48:07 decoy s2c_SUPPF_100pct_s11 pid 2251465: recorded cmdline replaced (seed=11 -> seed=99), live cmdline unchanged
+2026-11-03 02:48:09 decoys: SKR01_s11 -> sleep 2251677 (newest; fake recorded cmdline), SKR01_s12 -> 6206, SUPPF_s12 -> 1, SKR01_s13 -> 4194000 (dead), SUPPF_s13 -> 2251677 with .rc (finished), stray -> 2251677
+2026-11-03 02:48:09 pass 1: DRY=1 COOL=30 (108 samples)
+2026-11-03 02:49:58 pass 1 guard rc=0; HOLD file: present
+2026-11-03 02:49:58 after pass 1 (DRY):
+2026-11-03 02:49:58   pid 2250982 ALIVE: /usr/bin/python3 -u scripts/train.py --overwrite --config configs/supervised.yam
+2026-11-03 02:49:58   pid 2251274 ALIVE: /usr/bin/python3 -u scripts/train.py --overwrite --config configs/supervised.yam
+2026-11-03 02:49:58   pid 2251465 ALIVE: /usr/bin/python3 -u scripts/train.py --overwrite --config configs/supervised.yam
+2026-11-03 02:49:58   pid 2251677 ALIVE: sleep 600 
+2026-11-03 02:49:58 pass 1b: DRY=1 COOL=5 (46 samples)
+2026-11-03 02:50:45 pass 1b guard rc=0; HOLD file: present
+2026-11-03 02:50:45 pass 2: COOL=30 (141 samples)
+2026-11-03 02:53:08 pass 2 guard rc=0; HOLD file: present
+2026-11-03 02:53:08 after pass 2 (LIVE): A 2250982 and B 2251274 must be gone; decoys alive:
+2026-11-03 02:53:08   pid 2250982 gone
+2026-11-03 02:53:08   pid 2251274 gone
+2026-11-03 02:53:08   pid 2251465 ALIVE: /usr/bin/python3 -u scripts/train.py --overwrite --config configs/supervised.yam
+2026-11-03 02:53:08   pid 2251677 ALIVE: sleep 600 
+2026-11-03 02:53:10   launch.log: [Tue Nov  3 02:51:22 AM IST 2026] trained s2c_SUPPF_100pct_s10 rc=137|[Tue Nov  3 02:51:22 AM IST 2026] done s2c_SUPPF_100pct_s10: 'step 20000/20000' lines 0, Traceback lines 0|[Tue Nov  3 02:51:55 AM IST 2026] trained s2c_SKR01_100pct_s10 rc=143|[Tue Nov  3 02:51:55 AM IST 2026] done s2c_SKR01_100pct_s10: 'step 20000/20000' lines 0, Traceback lines 0|
+2026-11-03 02:53:10 launched s2c_SKR01_100pct_s14 (execswap): pid file 2278455, LPID 2278455, parent 2278454 (bash /home/noob/work/runner_s2c_dry/scripts/s2c_guard_dry.sh); ps:     PID USER                      STARTED COMMAND|2278455 noob     Tue Nov  3 02:53:10 2026 /usr/bin/python3 -u scripts/train.py --overwrite --config configs/supervised.yaml --opts seed=14 data.labeled_fraction=1.0 training.total_steps=20000 data.split_seed=0 training.labeled_batch_size=8 data.mask_subdir=labeled/masks_escdd model.name=smp_unetpp data.augmentation=labelsafe loss.supervised=ce_dice training.val_every=20000 training.encoder_pf.freeze=1000 training.encoder_pf.ramp=1000 training.encoder_pf.lr_mult=0.1 training.encoder_pf.wd=0 loss.skel_recall.weight=0.1 data.root=/home/noob/work/s2c_root run_name=s2c_SKR01_100pct_s14
+2026-11-03 02:53:10   recorded cmdline (e3b1b87b) = live: yes
+2026-11-03 02:53:12 pass 3: COOL=3 (39 samples)
+2026-11-03 02:53:52 pass 3 guard rc=0; HOLD file: present
+2026-11-03 02:53:52 after pass 3 (LIVE): C 2278455 must be alive as 'sleep 600' (no SIGKILL):
+2026-11-03 02:53:52   pid 2278455 ALIVE: sleep 600 
+2026-11-03 02:53:52   pid 2251465 ALIVE: /usr/bin/python3 -u scripts/train.py --overwrite --config configs/supervised.yam
+2026-11-03 02:53:52   pid 2251677 ALIVE: sleep 600 
+2026-11-03 02:53:52 pass 4 setup: C 2278455 now runs 'sleep 600' (cmdline differs from its record) -> must be REFUSED
+2026-11-03 02:53:52 pass 4: DRY=1 COOL=3 (8 samples)
+2026-11-03 02:54:00 pass 4 guard rc=0; HOLD file: present
+2026-11-03 02:54:00 pass 5: DRY=1 (14 samples)
+2026-11-03 02:54:14 pass 5 guard rc=0; HOLD file: present
+2026-11-03 02:54:14 cleanup: harness stops its own dummies / decoys by recorded PID (cmdline printed first)
+2026-11-03 02:54:14   stop 2278455:     PID USER                      STARTED COMMAND|2278455 noob     Tue Nov  3 02:53:10 2026 sleep 600
+2026-11-03 02:54:14   stop 2251465:     PID USER                      STARTED COMMAND|2251465 noob     Tue Nov  3 02:48:06 2026 /usr/bin/python3 -u scripts/train.py --overwrite --config configs/supervised.yaml --opts seed=11 data.labeled_fraction=1.0 training.total_steps=20000 data.split_seed=0 training.labeled_batch_size=8 data.mask_subdir=labeled/masks_escdd model.name=smp_unetpp data.augmentation=labelsafe loss.supervised=ce_dice training.val_every=20000 training.encoder_pf.freeze=1000 training.encoder_pf.ramp=1000 training.encoder_pf.lr_mult=0.1 training.encoder_pf.wd=0 data.root=/home/noob/work/s2c_root run_name=s2c_SUPPF_100pct_s11
+2026-11-03 02:54:14   stop 2251677:     PID USER                      STARTED COMMAND|2251677 noob     Tue Nov  3 02:48:08 2026 sleep 600
+2026-11-03 02:54:15 left alive check:
+2026-11-03 02:54:15   pid 2250982 gone
+2026-11-03 02:54:15   pid 2251274 gone
+2026-11-03 02:54:15   pid 2278455 gone
+2026-11-03 02:54:15   pid 2251465 gone
+2026-11-03 02:54:15   pid 2251677 gone
+2026-11-03 02:54:15 launch.log: [Tue Nov  3 02:51:22 AM IST 2026] trained s2c_SUPPF_100pct_s10 rc=137|[Tue Nov  3 02:51:22 AM IST 2026] done s2c_SUPPF_100pct_s10: 'step 20000/20000' lines 0, Traceback lines 0|[Tue Nov  3 02:51:55 AM IST 2026] trained s2c_SKR01_100pct_s10 rc=143|[Tue Nov  3 02:51:55 AM IST 2026] done s2c_SKR01_100pct_s10: 'step 20000/20000' lines 0, Traceback lines 0|[Tue Nov  3 02:54:14 AM IST 2026] trained s2c_SKR01_100pct_s14 rc=143|[Tue Nov  3 02:54:14 AM IST 2026] done s2c_SKR01_100pct_s14: 'step 20000/20000' lines 0, Traceback lines 0|[Tue Nov  3 02:54:14 AM IST 2026] trained s2c_SUPPF_100pct_s11 rc=143|[Tue Nov  3 02:54:14 AM IST 2026] done s2c_SUPPF_100pct_s11: 'step 20000/20000' lines 0, Traceback lines 0|
+2026-11-03 02:54:15 harness end

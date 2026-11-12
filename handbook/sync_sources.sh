@@ -20,19 +20,27 @@ cp ~/mtp/MTP_session_handoff_2026-10-07.md $S/
 # layout, plus the small text outputs the handbook cites. Not copied: scripts, raw JSONs, images, logs of runs.
 mkdir -p $S/teams $S/session_records
 cp $R/SESSION_RECORD_*.md $S/session_records/
-for t in $R/team_2026-10-*/; do
+for t in $R/team_2026-10-*/ $R/team_2026-11-*/; do
   n=$(basename $t)
   (cd $t && find . -name '*.md' -not -path '*/scripts/*' -not -path '*_scripts/*' | while read -r f; do
-     mkdir -p "$S/teams/$n/$(dirname "$f")"; cp "$f" "$S/teams/$n/$f"; done)
+     mkdir -p "$S/teams/$n/$(dirname "$f")"; cp -f "$f" "$S/teams/$n/$f"; done)  # -f: frozen read-only copies can be refreshed (12 Nov)
 done
 mkdir -p $S/teams/team_2026-10-29_features/b1_audit
 cp $R/team_2026-10-29_features/b1_audit/b1_coverage.txt $S/teams/team_2026-10-29_features/b1_audit/
 cp $R/team_2026-10-29_features/identity_f1.txt $S/teams/team_2026-10-29_features/
+# Thermal team (added 12 Nov; every .md is copied by the loop above): the small text results the handbook cites
+mkdir -p $S/teams/team_2026-11-04_thermal/pick1/out $S/teams/team_2026-11-04_thermal/pick3/out
+for f in G0_v1_frozen.json G0v2_primary.json G0v2_sensB.json; do cp -f $R/team_2026-11-04_thermal/pick1/out/$f $S/teams/team_2026-11-04_thermal/pick1/out/; done
+for f in t15_summary.json t15_descriptive.json t37_v03_summary.json t37_v04_summary.json; do cp -f $R/team_2026-11-04_thermal/pick3/out/$f $S/teams/team_2026-11-04_thermal/pick3/out/; done
 cp ~/mtp/datasets/BenchmarkELimages/README.md $S/data_analysis/BenchmarkELimages_README.md 2>/dev/null || true
 # E-SCDD dataset card and class definitions (MIT), plus the masks_escdd build note (gaint, read-only)
 cp ~/mtp/datasets/escdd_full/README.md $S/data_analysis/escdd_dataset_card_README.md 2>/dev/null || true
 cp ~/mtp/datasets/escdd_full/class_explanation.json $S/data_analysis/escdd_class_explanation.json 2>/dev/null || true
 cp ~/mtp/datasets/escdd_full/ListOfClassesAndColorCodes_20221008.csv $S/data_analysis/escdd_ListOfClassesAndColorCodes.csv 2>/dev/null || true
+# Server copies (read-only scp). SKIP_SERVERS=1 skips them and keeps the copies already in sources/ (added 12 Nov:
+# after the laptop OS reinstall, server access had not been re-checked).
+SKIP_SERVERS=${SKIP_SERVERS:-0}
+if [ "$SKIP_SERVERS" != 1 ]; then
 scp -q -o BatchMode=yes noob@172.18.22.20:/home/noob/work/el-fault-detection/data/labeled/masks_escdd/README.txt $S/data_analysis/masks_escdd_README.txt 2>/dev/null || true
 # Old-era (phase 1) reports from gaint and cv02, read-only copies
 for f in summary.md results_consolidated.md day1.md arm_differences.md bn_recalibration.md precision_diagnostic.md \
@@ -42,6 +50,7 @@ done
 scp -q -o BatchMode=yes noob@172.18.22.20:/home/noob/work/el-fault-detection/docs/alhvr_port_notes.md $S/old_era_reports/gaint__alhvr_port_notes.md 2>/dev/null || true
 scp -q -o BatchMode=yes noob@172.18.22.20:/home/noob/work/el-fault-detection/README.md $S/old_era_reports/gaint__repo_README.md 2>/dev/null || true
 scp -q -o BatchMode=yes cv02@10.8.1.106:noob/el_results/cv02.md $S/old_era_reports/cv02__el_results_cv02.md 2>/dev/null || true
+fi
 # B2 blinding (coach fix 5, accepted by Om 31 Oct): the 3 Hanifi cells among the 100 B2 panels stay unnamed in these
 # copies until the user has marked B2. Stems and panel numbers are read at run time from b2v2_hanifi_panels.txt (that
 # file is never copied here, and this script does not contain them). Every copied file that names one is redacted, then

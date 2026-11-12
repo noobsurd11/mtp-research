@@ -6,6 +6,8 @@
 
 **Update 3 Nov 2026, ~02:40 IST (additive):** section J (Q52 to Q60) covers 1 to 3 Nov: the A8 screen, HC, B6, SKR2 / HC2, SKR2E, Om's A1 to A6, the B2 agent raters and what is waiting on the user. Dated "[Qualified 3 Nov: ...]" notes on Q43, Q44 and Q50.
 
+**Update 12 Nov 2026 (additive):** section K (Q61 to Q68) covers 3 to 4 Nov: SKR2C trained but not opened, and the thermal (IR) study (doc 22): why thermal, the public pairs, what thermal can and cannot see, the top 3, pick 1's G0 and pick 3's A1 arm, and what is left. A dated note on Q60.
+
 **What this covers.** Short answers to the questions a newcomer to this project tends to ask, each with its numbers and the doc or file to read next. The answers are as of 12 Oct 2026, about 05:30 IST, updated 13 Oct ~08:15 IST for P17 and P13 Amendment 2 (Q8, Q10, Q20b). All experiments, P17 included, are finished. Do not give a stronger answer than the one here without new evidence.
 
 **Sources:** every answer names its own source. The main ones:
@@ -528,6 +530,36 @@ Not for scuff. Two agent raters passed the crack calibration gate (sensitivity 2
 - Tonight: SKR2C, Skeleton Recall (w 0.1) vs SUPPF on fresh seeds 10 to 14, training only on gaint at 2 lanes, with an auto-stop on low GPU memory (protocol locked 02:37; judge's code review at 02:38 found the guard and queue not ready, so launch waits for the fixes and coach's APPROVED). Its opening (E1 #7) waits for the user's OK.
 - Waiting on the user: adopting E-PF as the deployable model (still open); the next step (pause and write up, SKR2 on new seeds, or wait for B2); B2 (mark, crack-only agent prereg, or skip); a standing rule for outside Blender renders vs gaint lanes (a render took free memory to 2,078 MiB on 2 Nov); the D2 width-flag rule; whether to try a dilution-targeted HC variant.
 → `15` §1j, §3e, §4e
+[12 Nov: SKR2C launched 3 Nov 03:06 after the guard and queue fixes were accepted, and finished training at 11:24 (10 runs, all clean, the auto-stop never fired). It is not opened. See Q61.]
+
+## K. 3 to 4 Nov: SKR2C trained; the thermal (IR) study (added 12 Nov)
+
+**Q61. Did SKR2C confirm Skeleton Recall?**
+Not yet. All 10 runs (SKR2 and SUP100-PF, seeds 10 to 14) finished training on 3 Nov by 11:24 with no errors and no auto-stop, but nothing has been scored. The opening (E1 opening #7) needs the user's explicit OK, and it would be a third look at the same test and E1 cells, so a pass would show the result survives new seeds, not new panels. Stated chances before the runs: about 35 to 65% for a rule-1 pass, 25 to 45% for the seed-aware "replicated" claim. → `21` §10, `22` §13, `15` §3f row 29
+
+**Q62. Why look at thermal (IR) images at all?**
+Om asked (3 Nov) whether thermal could help, partly because WattCycle flies drone thermal inspections. The open problem is unseen panels: crack recall ~0.2 on E1, with 75% of the misses on half-cut cells with scuff streaks. Thermal shows where power turns into heat, a different physics from EL, so it could add labels or a screening stage. → `22` §1
+
+**Q63. Can thermal see our cracks and scuff?**
+Mostly no. Thin cracks that cut nothing off gave no hot spot in the studies found, and drone IR could not tell cracked modules from healthy ones (≤ ~1 °C). Thermal sees the electrical consequence: inactive or disconnected areas, hot spots, shunts. Scuff is probably thermally silent if it is only a surface mark (untested). So thermal is for screening, severity and inactive labels, not crack pixels. → `22` §2, `11` row 55
+
+**Q64. Is there public data with EL and thermal of the same modules?**
+Yes, three open CC BY 4.0 sets, about 215 modules with IR in all: A1 (OSF csr6t, 157 modules, dark forward-bias IR + EL + UVF + per-cell dark I-V), A2 (OSF ar76v, 15 modules), A3 (DTU, 43 modules with induced cracks, disconnections and other defects, drone IR + EL + I-V). None has masks or pixel registration, and none shows the E1 scuff + half-cut context. Subsets of all three are on the laptop in `~/mtp/datasets/thermal_public/`. → `22` §3, `03` §13
+
+**Q65. What were the top 3 ideas?**
+(1) Measure what IR screening catches vs EL on the public pairs (for the deployment chapter); (2) with WattCycle's drone thermal now, map modules and pre-register which ones a first EL session will image, plus a low-cost EL camera (~₹25k) to get EL sooner; (3) physics labels for inactive from A1's per-cell EL-derived voltages and IR. 40 + 14 ideas were ranked (58 rows, scores are judgement). → `22` §4-6
+
+**Q66. What did pick 1 find?**
+Dark forward-bias IR on A1 / A2 tracks EL-dark cells with the predicted sign (cooler), but below the go bar: A2 AUROC 0.736 (v1) / 0.732 (v2), A1 null, pooled ~0.7. Not a go, not a kill. On A2, once each module's row and column structure is removed, the association disappears (AUROC ~0.5; on A1 v2 the sign even flips, EL-dark cells slightly warmer), so it is a row / edge-level signal, not a cell-level inactive flag (a post hoc finding, recomputed independently). The sunlit drone arm (A3) has not been read. → `22` §8, `11` row 53
+
+**Q67. Why did pick 3 stop?**
+Its label check (T15) passed narrowly, but registering A1's IR cells to EL cells failed (4 of 10 modules excluded in v2); the likely cause is that the authors' IR crop turned out to be a fixed window, not the module. The label is also a diffuse resistive deficit whose direction may be inverted (the paper uses a bright pixel per cell). team-lead stopped the A1 arm as pre-registered and redirected to A3 (pick3b), whose plan is frozen but unread. → `22` §9, `11` row 54
+
+**Q68. What is left, and what waits on whom?** (12 Nov)
+- The user: the SKR2C opening; whether to resume the thermal readouts (pick 1's A3 screen, pick3b) and send Om the report, which was never sent; the carried items (E-PF adoption, B2, write-up, D2 width flag, HC route).
+- Om: E-PF inference location, licences / release, capture funding and the WattCycle questions, the A1 extension.
+- Note: the 4 Nov session ended abruptly (cause unknown); an attempted pick3b v1.1 freeze is empty (content unknown), so pick3b stays on plan v1 and needs a dated amendment before its cell-level readout. The laptop was reinstalled; data and code survived.
+→ `15` §1k, §3f, §4f; `22` §11
 
 ## Related docs
 All of them; start from `00_START_HERE.md`.
