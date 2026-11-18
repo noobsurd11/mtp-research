@@ -14,6 +14,8 @@
 
 **Update 12 Nov 2026 (additive).** New §1k (state on 12 Nov: SKR2C trained, not opened; the thermal team's end state; the laptop after its OS reinstall), §3f (decisions waiting on the user and on Om), §4f (ranked next items); dated "[12 Nov: ...]" notes on §1j and §4e. Sources: `SESSION_RECORD_2026-11-03_to_11-04.md`, `team_2026-10-31_next/log.md`, `team_2026-11-04_thermal/`; docs 21, 22.
 
+**Update 18 Nov 2026, 07:00 IST (additive).** New §1l (state on 18 Nov about 07:00: what runs on gaint and cv02), §3g (decisions waiting on the user, 18 Nov), §4g (owed items, 18 Nov); dated "[18 Nov: ...]" notes on §3f row 29 and §4f ranks 1 and 2. The work of 12 to 15 Nov is in doc 23, that of 16 to 18 Nov in doc 24. Sources: `team_2026-11-12_frontier/log.md` (16 to 18 Nov), the result files named in doc 24.
+
 **Sources**
 - Server check at session close, 13 Oct 01:21 IST (read-only: `tmux ls`, `nvidia-smi`, `ps`, `du`), for §1b.
 - Launch logs on the servers, read at about 22:15 IST:
@@ -125,6 +127,12 @@
 - **Laptop (doc 14 §1.1b):** OS reinstalled; 52 GB free; data, repo and `.venv` intact (thermal MANIFESTs re-verified, 0 failures); no agent or orchestrator tmux session survived.
 - **Team:** none running before this documentation (scribe + verifier, 12 Nov).
 
+## 1l. State on 18 Nov 2026, about 07:00 IST (added 18 Nov; `team_2026-11-12_frontier/log.md` 18 Nov 05:04 to 06:56; doc 24 §8)
+- **Orchestrator:** on gaint (doc 23 §8); the frontier team's record is `team_2026-11-12_frontier/log.md`.
+- **gaint (one GPU, two lanes):** the **layered_ci screen** (wave 2b, 10 runs `w2b_lci_f[0-4]_s[56]`, cv5v2) started 05:27; at 06:56 the first two runs were at steps 18,000 and 17,100 of 20,000, no error; disk 68 GB free. Queued after it: the TTA block (`bq/udev_tta_path`, `bq/udev_tta`, `bq/udev_tta_f51`), then udev_infer when disk allows.
+- **cv02 (eight A6000, shared lab machine):** **c3x** (HRNet-W18 + swad_const, 25 runs on cv5v3) armed 05:01; at 06:56 8 runs training, one per GPU (4 beside other users under lane rule v2), none finished; cv02 disk 29 GB free; a disk guard puts c3x on HOLD below 20 GB free. All earlier cv02 queues are complete or frozen (c3all3: 59 trained, all rc 0).
+- **Read since 16 Nov (doc 24):** rows tranche 2; wave 2a incl. soft_band_jml; the leakage read; U1; the swad_const and HRNet-W18 5-seed confirmations (both NOT CONFIRMED); la_ce (DROP).
+
 ## 2. What ran overnight, 11 to 12 Oct (all done)
 A watcher (`scratchpad/watch.sh`) polled both servers every 2 minutes and fired on each finished set. It exited after P16 Part B; the script lived in a session scratchpad that no longer exists. What it triggered:
 1. **P15 (done 11 Oct ~22:40 IST):** `bash scripts/post_p15.sh <cv02 gpu>`.
@@ -209,7 +217,7 @@ Still open: §3c rows 17 (HF sample), 18 (who rebooted gaint on 30 Oct); §3b ro
 
 | # | Decision | Facts for it | Source |
 |---|---|---|---|
-| 29 | **SKR2C opening (E1 #7):** OK the opening, or not | Training done (10 rc 0 of 10). The opening is a third look at the same test and E1 cells (#5, #6); stated chances R PASS ~35-65%, seed-aware replication ~25-45%; stage 2 must be built and frozen first; needs gaint access | `protocol_SKR2C.md` §3-7; doc 21 §10 |
+| 29 | **SKR2C opening (E1 #7):** OK the opening, or not | Training done (10 rc 0 of 10). The opening is a third look at the same test and E1 cells (#5, #6); stated chances R PASS ~35-65%, seed-aware replication ~25-45%; stage 2 must be built and frozen first; needs gaint access | `protocol_SKR2C.md` §3-7; doc 21 §10 [18 Nov: answered 12 Nov (open it); opened 14 Nov; R FAIL, D FAIL, the SUP100-PF ensemble stays (doc 23 §5)] |
 | 30 | **Thermal:** resume picks 1 and 3b (CPU only, on the approved data), and send Om the report (SUMMARY final; ADDENDUM needs its datascout confirmation and the A3 results) | Remaining readouts are frozen and cheap (pick 1 R1 / R2 / R3b; pick3b R1 / R2 / R3); a dated pick3b amendment for the IR rule is needed first (plan v1 §5; the attempted v1.1 freeze is empty, content unknown; doc 13 D55) | doc 22 §11 |
 | 31 | **For Om: E-PF inference location** (gaint CPU as PF2E did, or a local copy of the 5 checkpoints) | Held since 4 Nov; T26 / T27 / T39 ran only on EL proxies | `om_2026-11-04_decisions.md` (3) |
 | 32 | **For Om: licences / release** (mixing CC BY 4.0 sets with BenchmarkEL, which has no licence file; a CC BY derivative release of a registered A1 set; terms for WattCycle images) | CC BY 4.0 allows an adapted release with credit and a note of changes (R, check S-26); E-PF predictions in a release carry BenchmarkEL's licence question | `synth/SUMMARY.md` §3 |
@@ -217,6 +225,16 @@ Still open: §3c rows 17 (HF sample), 18 (who rebooted gaint on 30 Oct); §3b ro
 | 34 | **For Om: the A1 extension** (0.55 GB; or all 157 A1 IR 0.26 GB, then ~2 GB EL) and other optional downloads | Dark IR on A1 / A2 is row / edge-level (G0); A1's IR crop is not the module (doc 13 A19); disk is no longer tight (52 GB) | `synth/SUMMARY.md` "Later asks" |
 
 Still open: §3e rows 24 to 28; §3d row 19 (adopting E-PF); §3c rows 17, 18; §3b rows 10, 11; §3d row 21.
+
+## 3g. Decisions waiting on the user, 18 Nov (added 18 Nov; doc 24 §9)
+
+| # | Decision | Facts for it | Source |
+|---|---|---|---|
+| 35 | **How to pick the final model when no arm is confirmed** | HRNet-W18: headline passes at 5 seeds on cv5v3, two guards fail (false crack px 2.90 to 4.15 x PF; ARTS width 1.162 at one value); swad_const: headline below M, strict crack IoU +0.013 to +0.021 (descriptive). c3x's rule falls back to "the best confirmed single arm", and there is none. c3x (HRNet + swad_const) is running | `results/C3HRNET_READ.md` §4, `C3SWAD_READ.md`, `harness/LAUNCH_REQUEST_c3x.md` §6 |
+| 36 | **The false-crack-pixel guard: keep 1.5 x PF as the reference** (later arms only; the verdicts of 17 and 18 Nov stand), or use an absolute bound, or HOUSE as the reference | PF predicts 212 crack px in total on the 303 crack-free cells (cv5v3; under 1 px per cell); HOUSE 774, HRNet 767; PF's own value differs between reads (212, 301, 357) | `results/C3HRNET_READ.md` §3, §4; doc 24 §9 |
+| 37 | **cv02 disk:** which full checkpoints of finished, relayed runs may be deleted: C1 rows 1 (50 files, 19.8 GiB), C2 rows 2 (30 files, 10.7 GiB), C3 W1-C (45 files, 17.5 GiB); the lead recommends C1 | Asked 17 Nov 18:08, no answer by 18 Nov 05:00; c3x was armed anyway and HOLDs below 20 GB free (nothing lost, it waits); c3x needs about 51 to 54 GB, cv02 had 29 GB free at 06:56; slim checkpoints stay on both machines | `log.md` 17 Nov 18:08, 18 Nov 05:00 |
+
+Parked by the user: the labelling pack (17 Nov: "later"; no reminders until the user raises it or a week has passed). gaint old-era folders ("D3") only after asking again. Still open from earlier: §3f rows 30 to 34, §3e rows 24 to 28, §3d rows 19, 21, §3c rows 17, 18, §3b rows 10, 11.
 
 ## 4. Remaining work for part 1 (training methodology)
 Ordered roughly by information per cost. None of these is started; each would need its own locked protocol and the user's go-ahead.
@@ -289,13 +307,23 @@ Coach's order by expected test gain per cost. None beyond protocol_100 and B1/B2
 
 | Rank | Item | Condition | ETA | Source |
 |---|---|---|---|---|
-| 1 | Re-establish read-only gaint access and re-check SKR2C's `launch.log`, `autostop.log` and run dirs | the user (ssh after the reinstall) | minutes | doc 14 §1.2f |
-| 2 | SKR2C stage 2 (opening build, frozen md5s) and the opening (E1 #7) | the user's OK (§3f row 29) | stage 2 ~1-2 h (S); the S2 opening took 1 h 22 min | `protocol_SKR2C.md` §6 |
+| 1 | Re-establish read-only gaint access and re-check SKR2C's `launch.log`, `autostop.log` and run dirs | the user (ssh after the reinstall) | minutes | doc 14 §1.2f [18 Nov: done; gaint now also runs the orchestrator (doc 23 §8)] |
+| 2 | SKR2C stage 2 (opening build, frozen md5s) and the opening (E1 #7) | the user's OK (§3f row 29) | stage 2 ~1-2 h (S); the S2 opening took 1 h 22 min | `protocol_SKR2C.md` §6 [18 Nov: done 14 Nov; R FAIL, D FAIL (doc 23 §5)] |
 | 3 | Thermal pick 1 A3 R1 / R2 (module IR screen by defect class; screening recall of the EL dark area) | the user (§3f row 30); CPU, approved data | ~0.5-1 day (S) | `pick1/plan_pick1.md` Amendment 6 |
 | 4 | pick3b amendment (IR rule), then 3b-R1 / R2 (FF loss vs EL dark proxy and drone IR) | after rank 3 (needs pick 1's A3 module table) | ~0.5 day (S) | `pick3/plan_pick3b_v1_FROZEN_eaec6f26.md` |
 | 5 | pick 1 R3b + pick3b 3b-R3 (sunlit cell-level G0 by induced cause) | registration QA co-signed by a second agent before any number | ~1 day (S) | same |
 | 6 | Finalise the thermal ADDENDUM and send the report to the user and Om | after ranks 3-5, or now as an interim | hours | `synth/ADDENDUM_2026-11-04.md` |
 | 7 | Carried: B2 marks, write-up of the 1 to 3 Nov results, the D2 width-flag rule | the user (§3e) | | doc 15 §3e, §4e |
+
+## 4g. Owed items, 18 Nov (added 18 Nov; order from the lead's rulings in `log.md` 17 Nov 17:57 to 18 Nov 06:00; S unless tagged)
+
+| Rank | Item | Condition | Source |
+|---|---|---|---|
+| 1 | layered_ci read (2 seeds, cv5v2, against PF with the post-hoc inactive layer; promote / drop / park) | its 10 runs and dumps on gaint | `harness/w2b/READ_PLAN_w2b.md` §2 |
+| 2 | c3x read (one read of all 25 runs, no earlier look) | all 25 relayed; may wait on cv02 disk (§3g row 37) | `harness/LAUNCH_REQUEST_c3x.md` §6 |
+| 3 | TTA block on gaint (D4 and D4 x 3 scales against a 3-seed D4 ensemble at equal cost) | after the last w2b chain | `results/stageB/B5_tta_module.md` §1 |
+| 4 | la_ce_full (offset on the CE and the Dice term), screened like la_ce | built and reviewed first; low priority | `results/W2B_LACE_READ.md` |
+| 5 | Carried: encoder_spd re-run at lambda 2.2; udev_infer; the benchmark protocol text; one registered E1 opening in the last week (at most 3 candidates) | disk for udev_infer; the final-model question (§3g row 35) for E1 | `W2A_READ.md` §7, §9; `benchmark/PROTOCOL_v0.2.md` |
 
 ## 5. Parts 2 and 3 (after part 1)
 - **Part 2, architecture.** Phase 0 ideas:

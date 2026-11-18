@@ -22,6 +22,7 @@ The user's rule governs this file: "framing depends on final results, no presump
 - **Update 1 Nov 2026, ~21:00 IST (additive).** Rows 30 to 39, §(b) "PF2 and PF2E at 100% labels", §(c) items 18 to 23 and new "cannot" lines cover 31 Oct to 1 Nov: PF2, PF2E and Om's 11 unseen-panel ideas (doc 20). Dated "[Qualified 1 Nov: ...]" notes on rows 27 and 28 and on the 31 Oct "cannot" line about PF. THIN-B3 had no verified result at writing; [added ~21:40: rows 40 to 42 and §(c) item 24 after THIN-B3's verification; the THIN line under "cannot" carries a dated qualifier].
 
 - **Update 12 Nov 2026 (additive).** Rows 51 to 55, §(b) "SKR2C training and the thermal study", §(c) items 30 to 32 and new "cannot" lines cover 3 to 4 Nov: SKR2C trained but not opened (doc 21 §10), and the thermal (IR) desk study with pick 1's G0 and pick 3's A1 arm (doc 22). Master record: `SESSION_RECORD_2026-11-03_to_11-04.md`.
+- **Update 18 Nov 2026, 07:00 IST (additive).** Rows 56 to 64, §(b) "Frontier benchmark on the corrected split cv5v3", §(c) items 33 to 37 and new "cannot" lines cover 16 to 18 Nov under the new benchmark protocol (doc 24): the leakage read, the HRNet-W18 and swad_const 5-seed confirmations (both NOT CONFIRMED), the closed screens, U1 and la_ce. Dated "[Qualified 18 Nov: ...]" notes on row 51 and the 12 Nov SKR2C "cannot" line (SKR2C was opened 14 Nov, doc 23 §5).
 
 ## Sources
 - `to_human/results_2026-10-12.md`: the morning summary draft and its evidence table, section 3.
@@ -120,11 +121,23 @@ Where this table deliberately differs from that file:
 | 48 | The SKR2 ensemble is a better deployable model than the PF ensemble (added 3 Nov) | E (`verify_skr2e.md`; SKR2E, gaint CPU; E1 opening #6): at shared b 0 test crack IoU +0.0102, relF1@2 +0.0104, E1 relF1@2 +0.0353, E1 any-hit +0.0676 pass (CIs > 0); at the headline pair (E-PF b 0, E-SKR2 b 1.0) G2a test relP@2 −0.0379 and G2b E1 crack-free px ×2.12 TRIP → FAIL. The val width flag passed E-SKR2 by 0.0015 (drop 0.0485 vs 0.05). E-PF at b 1 equals E-SKR2 at b 0 on test; E1 relF1@2 +0.024 at matched volume | **not supported:** FAIL; E-PF at argmax stays the recommended deployable candidate (the user's adoption is open, doc 15 §3d row 19). The b 0 passes re-measure #5 and are not a confirmation |
 | 49 | Om's architecture ideas A1 to A6 promise unseen-panel gains on non-E1 evidence (added 3 Nov) | E (`ideas/arch_A1.md` to `arch_A6.md`, judge-reproduced): A1 = the killed A8 screen plus fusion; A2's style premise contradicted (idea 2); A3's cut-line false alarms already removed by HC on H36 (123 → 3 px/run); A4 fragments ≤ 5-7% of non-E1 components; A6 a cell gate cannot recover SKR's precision (extra px 99.6% inside crack cells) | **not supported:** A1, A2, A3, A5, A6 DROP; A4 PARK |
 | 50 | Agent raters can replace the user's B2 marks (added 3 Nov) | E (`ideas/b2_agent_marking_prereg.md` v2.2; judge's scorer; log 2 Nov 11:49): crack gate on 40 house-labelled CSIR cells PASS (sens 20/20, spec 17/20); scuff gate on 32 Hanifi half-cells FAIL (sens 1/8, needs ≥ 4/8); two runs of one model agreed on 68 of 72; reported, not gated: on gate B's Hanifi half-cells the raters found 1 of 14 cracks (speck-level labels; reported, not gated) | **not supported for scuff** (the B2 target); crack passed on house CSIR cells only, not tested on Hanifi cracks; no agent marks were made; B2 back with the user |
-| 51 | SKR2's E1 crack gain replicates on fresh seeds (SKR2C) (added 12 Nov) | E (`team_2026-10-31_next/protocol_SKR2C.md` §9; team-lead's 12 Nov retrospective line in `log.md`): 10 runs (seeds 10-14 per arm) trained on gaint 3 Nov 03:06-11:24, all rc 0, no guard trigger; nothing scored; E1 opening #7 registered, not opened | **untested** (waits on the user's OK; stated chances: R PASS ~35-65%, seed-aware replication ~25-45%) |
+| 51 | SKR2's E1 crack gain replicates on fresh seeds (SKR2C) (added 12 Nov) | E (`team_2026-10-31_next/protocol_SKR2C.md` §9; team-lead's 12 Nov retrospective line in `log.md`): 10 runs (seeds 10-14 per arm) trained on gaint 3 Nov 03:06-11:24, all rc 0, no guard trigger; nothing scored; E1 opening #7 registered, not opened | **untested** (waits on the user's OK; stated chances: R PASS ~35-65%, seed-aware replication ~25-45%) [Qualified 18 Nov: opened 14 Nov on the user's OK; R FAIL, D FAIL; the E1 difference appeared again but replication at recipe level was not shown (doc 23 §5; `team_2026-10-31_next/verify_skr2c.md`)] |
 | 52 | Public data pairs EL and thermal at cell level for our classes (added 12 Nov) | R (`team_2026-11-04_thermal/datasets/dataset_table.md`, check pass 1): three open CC BY 4.0 sets pair EL and IR of the same modules (A1 157, A2 15, A3 43 modules with IR, ~215), at module level only; none has masks or pixel registration; A1 / A2 full-cell mono, A3's half-cuts not in its crack group; no set shows scuff | **partly:** module-level pairs exist; cell-level pairs must be built by registration; nothing for the E1 scuff + half-cut context |
 | 53 | Dark forward-bias IR flags EL-dark cells at cell level (G0) (added 12 Nov) | E (`pick1/out/G0.md`, `G0v2.md`; check §22, §24, §36 recomputed from raw files): v1 A2 AUROC(cooler) 0.736, ρ −0.550 (between), A1 0.689 / −0.285 (null), pooled 0.708; v2 (post hoc instrument fix) A2 0.732 / −0.515, A1 0.621 / −0.246, pooled 0.687; post hoc: row / column-centred AUROC ~0.5 (A2 0.525) | **not supported at cell level:** not a go, not a kill; the dark-IR signal is row / edge-level (post hoc); sunlit A3 arm not run |
 | 54 | A1's EL-derived per-cell dark I-V gives a usable inactive label (T15) (added 12 Nov) | E (`pick3/out/PICK3_A1_REPORT.md`, `t15_summary.json`; check §20): coverage 5,688 / 5,688; robust SD(d) 3.26 mV vs a 2.57 mV kill line → PASS, narrow; D90 = 569 cells over 144 of 158 modules; no cell ≥ 1 V_t. R (Colvin 2023): A1 losses mainly resistive; cell voltage from "a bright pixel", and bright-spot cells have higher RS | **label exists, not an inactive label:** a diffuse resistive deficit whose direction may be inverted (S); T37 registration FAILED (v2: 4 / 10 excluded), so T02 / T12 never ran |
 | 55 | Thermal sees our crack lines and scuff (added 12 Nov) | R (Dhimish 2021 / 2022: cracks that isolate nothing gave no hot spot; DTU EPJ PV 2025: cracked modules "difficult to distinguish from healthy ones", ≤ ~1 °C; JRC 2017: dark IR gives few local details); scuff: no physical description in our files (E), silent if surface-only (S) | **not supported (R):** thermal sees electrical consequence (inactive / disconnected area, hot spots, shunts), not crack lines; scuff untested |
+
+Rows 56 to 64 (added 18 Nov) come from the new benchmark protocol of 12 Nov (doc 23 §2): module-grouped 5-fold CV on the 532 pool cells, out of fold, label set v1.1, headline crack relF1@2, margin M 0.010; no sealed cell is in any number. Files under `team_2026-11-12_frontier/results/`. The 12 to 15 Nov numbers (baselines, house recipe against PF, rows tranche 1) are in doc 23 §4 and not repeated here.
+
+| 56 | The module leak of split cv5v2 inflated scores (added 18 Nov) | E (`C3_LEAK_READ.md`; rule `harness/LAUNCH_REQUEST_c3base.md` §7, pre-registered 16 Nov): difference-in-differences cv5v3 against cv5v2, affected against clean cells; PF 5 seeds, primary stratum (69 cells): strict crack IoU -0.0041 [-0.0136, +0.0069], relF1@2 +0.0026 [-0.0092, +0.0174]; every interval of both arms and both strata holds 0 | **not separated** (no measurable effect; one machine, argmax, 69 and 47 cells); the final table uses the corrected split cv5v3 anyway (doc 24 §1, §2) |
+| 57 | HRNet-W18 U-Net++ beats PF on crack relF1@2 (added 18 Nov) | E (`ROWS2_READ.md` §2: screen, cv5v2, 2 seeds: +0.0114 [+0.0032, +0.0203] OP-A, +0.0128 OP-W, PASS; `C3HRNET_READ.md`: 5 seeds on cv5v3: +0.0104 [+0.0012, +0.0203], +0.0117, +0.0115 [+0.00001, +0.0259], +0.0126, all four pass; guards: false crack px on crack-free cells 2.90 to 4.15 x PF (limit 1.5 x), ARTS width 1.162 at OP-W on 416 cells (limit 1.15)) | **NOT CONFIRMED, reported as a gain with failing guards** (rule `log.md` 18 Nov 00:22); recall at equal precision; strict crack IoU unchanged |
+| 58 | Weight averaging (swad_const) beats PF on crack relF1@2 (added 18 Nov) | E (`W2A_READ.md` §3: screen, cv5v2, gaint, 2 seeds: +0.0135 [+0.0051, +0.0221] OP-A, PASS with an ARTS width flag; `C3SWAD_READ.md`: 5 seeds on cv5v3, cv02: +0.0070 [-0.0007, +0.0156], +0.0048, +0.0098, +0.0071, none reaches M; strict crack IoU +0.0180 [+0.0108, +0.0262] at OP-A, every value and seed positive, descriptive) | **NOT CONFIRMED (no confirmed gain)** on the headline (rule `harness/LAUNCH_REQUEST_c3swad.md` §7); the strict-IoU gain is reported, not claimed |
+| 59 | Skeleton Recall loss beats PF under the CV5 protocol (added 18 Nov) | E (`ROWS2_READ.md` §3: skr01, 2 seeds: relF1@2 +0.0039 [-0.0027, +0.0115] OP-A, +0.0022 OP-W; width 1.13 at argmax; `U1_READ.md`: held-out sources, frontier +0.0206 [-0.0518, +0.0744]) | **screen FAIL, closed** (moves the operating point, not the frontier); U1 cannot decide (margins 0.044 to 0.064) |
+| 60 | SegFormer MiT-B2 matches PF (added 18 Nov) | E (`ROWS2_READ.md` §4: relF1@2 -0.0026 OP-A, -0.0135 [-0.0259, -0.0005] OP-W; strict crack IoU -0.031 OP-W; width 1.20, outside the band) | **screen FAIL, closed** |
+| 61 | Rare-class sampling, EMA, soft-band JML or SPD help (added 18 Nov) | E (`W2A_READ.md` §4 to §7 and addendum: rcs strict crack IoU -0.018, false crack px 1.68 x PF; ema_9998 +0.0018; jml_hard -0.0004 (control); soft_band_jml minus jml_hard +0.0046 [-0.0033, +0.0127]; encoder_spd mechanism gate FAIL (layer3/4 cosine 0.53 to 0.60 against 0.8)) | **rcs FAIL, ema null, soft_band_jml FAIL (label_jitter_crack not opened), encoder_spd not tested as designed** (re-run at lambda 2.2 owed) |
+| 62 | Methods can be ranked on unseen sources without E1 (U1, LOSO-2) (added 18 Nov) | E (`U1_READ.md`: 164 held-out cells (CSIR, BMRK), effective n 17.7; A/A margins relF1@2 0.044, frontier 0.064; PF relF1@2 0.733 against 0.844 in CV5, width ratio 0.61, false crack px 1,726 against about 357) | **no:** U1 is "a guard, not a primary"; the unseen-source gap is large; gin_ipa parked |
+| 63 | Training with logit offsets (la_ce) beats the free post-hoc class-bias layer (added 18 Nov) | E (`W2B_LACE_READ.md`: la_ce minus PF at OP-C, mIoU-R13 -0.0022 [-0.0112, +0.0060] (532), -0.0018 (416); la_ce minus PF at argmax +0.0112) | **DROP for this offset vector**; la_ce_full (offset also on the Dice term) owed before the idea is closed |
+| 64 | The HRNet-W18 + swad_const combination (c3x) is the final model (added 18 Nov) | E (`harness/LAUNCH_REQUEST_c3x.md` §6: rule fixed 17 Nov; 25 runs started on cv02 18 Nov 05:01) | **untested** (running); its fallback "best confirmed single arm" has no confirmed arm to name (doc 24 §6.3) |
 
 ---
 
@@ -350,6 +363,18 @@ For crack, the top 3 test cells hold 32% of pixels.
 - The dark-IR association vanishes once each module's row and column medians are removed (post hoc, check §22; v2 A2 0.525): row / edge-level, not cell-level. On A1 the centred sign flips (EL-dark cells slightly warmer), the expected sign for series resistance (S; A1 losses mainly resistive, R).
 - Not yet read: the sunlit A3 arm (R3b), the A3 screening table (R1, R2), pick3b on A3, any E-PF readout (E-PF inference held by Om).
 
+### Frontier benchmark on the corrected split cv5v3 (added 18 Nov; cv02, 5 seeds, argmax, 532 pool cells out of fold, label set v1.1; `team_2026-11-12_frontier/results/C3HRNET_READ.md` §3, `C3SWAD_READ.md` §3; doc 24 §6)
+
+| Row | Strict crack IoU | Crack relF1@2 | Inactive IoU | mIoU-R13 | False crack px on 303 crack-free cells | Verdict against PF |
+|---|---|---|---|---|---|---|
+| PF (comparator) | 0.365 | 0.846 | 0.504 | 0.612 | 212 | |
+| HOUSE (plain fine-tune) | 0.383 | 0.852 | 0.514 | 0.607 | 774 | not judged (secondary row) |
+| HRNet-W18 U-Net++ (PF recipe) | 0.366 | 0.857 | 0.514 | 0.614 | 767 | NOT CONFIRMED, gain with failing guards |
+| swad_const (swad_bn readout) | 0.383 | 0.853 | 0.520 | 0.619 | 339 | NOT CONFIRMED (no confirmed gain) |
+
+- These are pool cells from known modules. On held-out sources (U1, gaint, 4 PF seeds) PF reaches relF1@2 0.733 and strict crack IoU 0.293 (`U1_READ.md`).
+- The 2-seed cv5v2 screens of rows tranche 2, wave 2a and la_ce are in doc 24 §3, §4, §7.
+
 ---
 
 ## (c) What can be claimed now, and what cannot
@@ -406,6 +431,14 @@ Added 12 Nov:
 31. **Dark forward-bias IR on the public A1 / A2 pairs tracks EL-dark area with the predicted sign but below the pre-registered go bar, and the association is row / edge-level, not cell-level** (row 53; G0 v1 and v2 recomputed independently; the cell-level reading is post hoc).
 32. **Thermal imaging sees the electrical consequence of damage (inactive / disconnected area, hot spots, shunts), not thin crack lines** (row 55; R, several sources). So its realistic roles here are screening, severity, and weak labels or teachers for inactive, not a crack-pixel input.
 
+Added 18 Nov (new benchmark protocol: 532 pool cells, module-grouped 5-fold CV, label set v1.1; doc 24). State the conditions every time: pool cells from known modules, one machine per read, no sealed cell.
+
+33. **HRNet-W18 U-Net++ under the PF recipe raises crack relF1@2 over PF by about +0.010 to +0.013 at 5 seeds on cv5v3, at both operating points on all and on clean cells** (row 57), with its failing guards named every time: false crack pixels on crack-free cells 2.90 to 4.15 x PF, and one ARTS width value. Say "reported as a gain with failing guards", not "confirmed".
+34. **Weight averaging (swad_const) raises strict crack IoU over PF by +0.013 to +0.021 at every value on cv5v3** (row 58, descriptive): reported beside a NOT CONFIRMED headline, never as a confirmed gain.
+35. **The module leak of cv5v2 had no measurable effect on scores** (row 56): "not separated"; its intervals exclude a leak as large as the audit's upper bound (+0.07 crack IoU on affected cells).
+36. **Models lose much of their crack quality on sources they never saw** (row 62): PF relF1@2 0.733 on held-out CSIR and BMRK against 0.844 in CV5.
+37. **At 2 seeds on cv5v2, none of the Skeleton Recall loss, the soft-band JML loss, rare-class sampling (rcs), EMA or the SegFormer row passed its screen** (rows 59 to 61).
+
 ### Cannot be claimed (and why)
 - **"SSL improves crack IoU" in general.** The primary arm is n.d. on crack IoU; only the secondary hard-PL arm passes.
 - **"Tolerant pseudo-labels beat hard ones."** They are n.d. on L3 at 10% and 5%. Under CutMix they were worse on crack on 3 BsM5 seeds; on 5 vs 5 that is n.d., still lower over cells (P13 Amendment 2). The only win is on the old L0 base (P7, pilot).
@@ -430,7 +463,7 @@ Added 12 Nov:
   - The machines disagreed on P12's SSL-vs-supervised verdict (cv02 fail, gaint pass).
   - P13 has no gaint replication.
 - **Generality beyond one split and BenchmarkEL.** UCF-EL was not used in the P-series except as P15's pretraining data.
-- **Anything about severity or power loss.** Not measured. The user: "not part of this project unless we get some valid data" (11 Oct).
+- **Anything about severity or power loss.** Not measured. The user: "not part of this project unless we get some valid data" (11 Oct). *Update 16 Nov:* a severity side track on three public power-linked sets ran on 15 to 16 Nov; it gives a per-cell inactive-area output and no supported power claim (doc 23 section 7b; `team_2026-11-12_frontier/results/severity/SEVERITY_SUMMARY.md`).
 - **Old-era SSL results** (SemiCE Mean Teacher; ALHVR-20 over SL-20) are invalid.
   - SemiCE's target is incoherent (P2).
   - ALHVR-20 equals its λ = 0 control, so its gain did not come from the ALHVR losses. BatchNorm batch composition was the leading explanation but was "not yet shown" (phase 1 handoff, `sources/chat/phase0_phase1_handoffs_pasted_2026-10-11.md`).
@@ -458,10 +491,17 @@ Added 3 Nov:
 - **"A broad unseen-panel inactive capability."** E1 inactive is a 3-image readout (top 3 = 87%; +0.023 without them).
 
 Added 12 Nov:
-- **"SKR2's gain replicated on fresh seeds."** SKR2C is trained but not opened (row 51); any result would be a third look at the same test and E1 cells.
+- **"SKR2's gain replicated on fresh seeds."** SKR2C is trained but not opened (row 51); any result would be a third look at the same test and E1 cells. [Qualified 18 Nov: opened 14 Nov; R FAIL, D FAIL; replication at recipe level not shown (doc 23 §5). Still not claimable.]
 - **"Thermal can flag inactive cells"** from the public dark-IR pairs: G0 is below its go bar and not cell-level (row 53); the sunlit arm is unread.
 - **"A1's dark I-V gives inactive labels."** T15 passed narrowly, but the label is a diffuse resistive deficit and its direction may be inverted (row 54).
 - **"Thermal or a thermal-trained model improves test or E1."** No such model was trained; test and E1 have no thermal.
+
+Added 18 Nov:
+- **"HRNet-W18 is confirmed"** or **"swad_const is confirmed".** Both 5-seed reads on cv5v3 are NOT CONFIRMED under rules written before the reads (rows 57, 58). HRNet's headline passes but its false-pixel guard fails at all four values; swad_const's headline stays below M.
+- **"HRNet-W18 is better than the plain house fine-tune."** HRNet minus HOUSE relF1@2 +0.0045 [-0.0069, +0.0157] (OP-A); strict crack IoU is lower (-0.0171) (`C3HRNET_READ.md` §3).
+- **"The final model is chosen."** c3x is running and no single arm is confirmed (row 64); the choice is a question for the user (doc 24 §9).
+- **Any statement about unseen modules from the CV5 reads.** They use pool cells from known modules; U1 can see only effects of about +0.05 or more (row 62); E1 is sealed until one registered opening in the last week.
+- **"Train-time logit offsets do not help."** Only the CE-only vector was dropped (row 63); la_ce_full is owed.
 
 ---
 

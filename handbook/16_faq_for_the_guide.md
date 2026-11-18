@@ -8,6 +8,8 @@
 
 **Update 12 Nov 2026 (additive):** section K (Q61 to Q68) covers 3 to 4 Nov: SKR2C trained but not opened, and the thermal (IR) study (doc 22): why thermal, the public pairs, what thermal can and cannot see, the top 3, pick 1's G0 and pick 3's A1 arm, and what is left. A dated note on Q60.
 
+**Update 18 Nov 2026, 07:00 IST (additive):** section L (Q69 to Q77) covers 12 to 18 Nov under the new benchmark protocol (docs 23, 24): why the split was corrected, whether the leak mattered, what "not confirmed" means, why HRNet's gain is reported but not confirmed, what the false-pixel guard measures, swad_const, unseen sources, la_ce, and what runs and waits on the user. A dated note on Q68.
+
 **What this covers.** Short answers to the questions a newcomer to this project tends to ask, each with its numbers and the doc or file to read next. The answers are as of 12 Oct 2026, about 05:30 IST, updated 13 Oct ~08:15 IST for P17 and P13 Amendment 2 (Q8, Q10, Q20b). All experiments, P17 included, are finished. Do not give a stronger answer than the one here without new evidence.
 
 **Sources:** every answer names its own source. The main ones:
@@ -535,7 +537,7 @@ Not for scuff. Two agent raters passed the crack calibration gate (sensitivity 2
 ## K. 3 to 4 Nov: SKR2C trained; the thermal (IR) study (added 12 Nov)
 
 **Q61. Did SKR2C confirm Skeleton Recall?**
-Not yet. All 10 runs (SKR2 and SUP100-PF, seeds 10 to 14) finished training on 3 Nov by 11:24 with no errors and no auto-stop, but nothing has been scored. The opening (E1 opening #7) needs the user's explicit OK, and it would be a third look at the same test and E1 cells, so a pass would show the result survives new seeds, not new panels. Stated chances before the runs: about 35 to 65% for a rule-1 pass, 25 to 45% for the seed-aware "replicated" claim. → `21` §10, `22` §13, `15` §3f row 29
+Not yet. All 10 runs (SKR2 and SUP100-PF, seeds 10 to 14) finished training on 3 Nov by 11:24 with no errors and no auto-stop, but nothing has been scored. The opening (E1 opening #7) needs the user's explicit OK, and it would be a third look at the same test and E1 cells, so a pass would show the result survives new seeds, not new panels. Stated chances before the runs: about 35 to 65% for a rule-1 pass, 25 to 45% for the seed-aware "replicated" claim. → `21` §10, `22` §13, `15` §3f row 29 [14 Nov 2026: **No.** Opened 14 Nov on the user's OK. R (single models) FAIL by the test inactive guard (−0.020) and the test relP@2 guard (−0.078, one run on one noisy cell); D (ensembles) FAIL by the test inactive guard alone (−0.027). The E1 relF1@2 difference appeared again in the ensemble pair (+0.034, fixed-model CI above 0) but replication at recipe level was not shown (seed-aware CI [−0.0015, +0.0590]). The SUP100-PF ensemble stays. → `team_2026-10-31_next/verify_skr2c.md`, `00` update of 14 Nov]
 
 **Q62. Why look at thermal (IR) images at all?**
 Om asked (3 Nov) whether thermal could help, partly because WattCycle flies drone thermal inspections. The open problem is unseen panels: crack recall ~0.2 on E1, with 75% of the misses on half-cut cells with scuff streaks. Thermal shows where power turns into heat, a different physics from EL, so it could add labels or a screening stage. → `22` §1
@@ -559,7 +561,39 @@ Its label check (T15) passed narrowly, but registering A1's IR cells to EL cells
 - The user: the SKR2C opening; whether to resume the thermal readouts (pick 1's A3 screen, pick3b) and send Om the report, which was never sent; the carried items (E-PF adoption, B2, write-up, D2 width flag, HC route).
 - Om: E-PF inference location, licences / release, capture funding and the WattCycle questions, the A1 extension.
 - Note: the 4 Nov session ended abruptly (cause unknown); an attempted pick3b v1.1 freeze is empty (content unknown), so pick3b stays on plan v1 and needs a dated amendment before its cell-level readout. The laptop was reinstalled; data and code survived.
-→ `15` §1k, §3f, §4f; `22` §11
+→ `15` §1k, §3f, §4f; `22` §11 [18 Nov: the SKR2C opening was answered and done (opened 14 Nov; R FAIL, D FAIL; doc 23 §5). For the current list see Q77.]
+
+## L. 12 to 18 Nov: the frontier benchmark, the corrected split and the 5-seed confirmations (added 18 Nov)
+
+**Q69. Why was the split changed from cv5v2 to cv5v3?**
+cv5v2 kept cells of one image id in one fold, but one physical module can carry several image ids. The audit found 24 physical modules in two folds, and on 16 Nov three SDLE modules whose cells sat in all five folds, so 116 of the 532 cells could be scored by a model that had seen another cell of their module. cv5v3 groups by physical module (285 groups, none in two folds; 47 cells moved). The final 5-seed table is trained and scored on cv5v3; every read also prints the 416 clean cells. → `24` §1, `team_2026-11-12_frontier/benchmark/PROTOCOL_v0.2.md` §11 item 11
+
+**Q70. Did the leak inflate the old scores?**
+Not measurably. A difference-in-differences read, written before any cv5v3 run, compared the affected cells with the clean cells across the two splits: every interval holds 0 ("not separated"), for PF and HOUSE, both strata, both crack metrics. A leak as large as the audit's upper bound (+0.07 crack IoU on affected cells) lies outside the PF intervals. → `24` §2, `results/C3_LEAK_READ.md`
+
+**Q71. What does "not confirmed" mean here?**
+A 5-seed confirmation on cv5v3 has one rule, written before the read. The headline (crack relF1@2, arm minus PF) must gain at least the margin M (0.010) with the interval's low end above 0 at four values: argmax and width-matched, on all 532 cells and on the 416 clean cells. Then guards must pass: crack width within 0.85 to 1.15 of PF (pooled and per source), false crack pixels on crack-free cells at most 1.5 x PF, inactive IoU and mIoU-R13 not worse by more than their margins. Three outcomes: CONFIRMED (all pass); NOT CONFIRMED, reported as a gain with the failing guards named (headline passes, a guard fails); NOT CONFIRMED, no confirmed gain (headline fails). "Not confirmed" is not "worse than PF": it means the rule does not let the thesis call it a confirmed improvement. A screen pass (2 seeds) was only ever a promotion to this test, never a result. → `24` §6, `results/C3HRNET_READ.md`, `C3SWAD_READ.md`
+
+**Q72. Why is HRNet's gain reported but not confirmed?**
+Its headline passes at all four values: relF1@2 +0.0104, +0.0117, +0.0115, +0.0126 over PF, every seed positive, mostly from finding more crack length at the same precision. But two guards fail: it predicts 2.90 to 4.15 times PF's false crack pixels on crack-free cells (limit 1.5 x), and one ARTS width value is 1.162 against a bound of 1.15. By the rule this is "NOT CONFIRMED, reported as a gain with the failing guard items named". So say "HRNet-W18 gave +0.010 to +0.013 relF1@2 at 5 seeds, with more false crack pixels than PF", never "HRNet is confirmed". It is also not shown better than the plain house fine-tune (+0.0045, interval holds 0). → `24` §6.2
+
+**Q73. What does the false-crack-pixel guard measure, and why is it under question?**
+It counts the pixels a model labels crack on the cells whose label has no crack (303 of the 532 pool cells), summed over those cells, and compares the arm with PF; the arm fails if it has more than 1.5 times PF's count. It stops a model from buying crack recall with false alarms on clean cells. The question: PF is unusually clean there (212 px in total on cv5v3, under 1 px per cell, likely because PF partly freezes its encoder), so 1.5 x PF is a tight bound. HRNet's excess is about 1.8 px per crack-free cell, and the plain house fine-tune sits at 3.7 x PF too. PF's own count also varies between reads (212, 301, 357). The lead asks the user whether later arms should keep 1.5 x PF, use an absolute bound, or use HOUSE as the reference. The verdicts already read stand. → `24` §6.2, §9; `results/C3HRNET_READ.md` §3, §4
+
+**Q74. What happened to weight averaging (swad_const)?**
+It passed its 2-seed screen (+0.0135 relF1@2) but at 5 seeds on cv5v3 the gain was about half (+0.0048 to +0.0098), below M at every value: NOT CONFIRMED (no confirmed gain). Strict crack IoU still rose by +0.013 to +0.021 at every value with every seed positive, from fewer wrong crack pixels inside crack regions. The file reads the shrink as the usual winner's curse of an arm picked on a screen (S), and the IoU gain as a finding about the choice of headline metric, reported but not claimed. → `24` §4, §6.1
+
+**Q75. How do the models do on panels from sources they never saw?**
+Worse. On the LOSO-2 read (train on all sources but one; score the held-out CSIR and BMRK cells, 164 in all) PF's relF1@2 is 0.733 against 0.844 in CV5, cracks are drawn thinner than labelled, and false crack pixels rise. But this set is small (effective n about 18 crack cells), so its margins are 0.044 to 0.064 and only effects of about +0.05 can be seen: it is "a guard, not a primary". The unseen-module arm gin_ipa was parked for this reason. E1 stays sealed until one registered opening in the last week. → `24` §5, `results/U1_READ.md`
+
+**Q76. Which screens closed between 16 and 18 Nov?**
+At 2 seeds on cv5v2: Skeleton Recall anchor (moves the operating point, not the frontier), SegFormer MiT-B2 (cracks 20% too wide, worse width-matched), rare-class sampling (worse crack, more false alarms), EMA over PF (null), soft-band JML (FAIL against its control; label_jitter_crack therefore not opened). encoder_spd failed its mechanism gate and owes one re-run at a stronger setting. la_ce (training with class logit offsets) was dropped for its offset vector because applying the offsets after training is free and as good; la_ce_full is owed. → `24` §3, §4, §7
+
+**Q77. What is running, and what waits on the user?** (18 Nov, about 07:00 IST)
+- Running: the layered_ci screen (a separate inactive-region layer) on gaint; c3x, HRNet-W18 + swad_const at 5 seeds on cv5v3, on cv02.
+- Owed: the layered_ci read, the c3x read, the TTA block, la_ce_full; carried: the encoder_spd re-run, udev_infer, the protocol text, one E1 opening in the last week.
+- The user: (1) how to pick the final model when no arm is confirmed; (2) whether the false-pixel guard keeps 1.5 x PF as its reference; (3) which cv02 checkpoints may be deleted (c3x will wait on disk otherwise). The labelling pack is parked until the user raises it.
+- cv02 now shares GPUs with other users under the user's floors of 17 Nov (10 GB free for a dump, 20 GB free for one training run of ours, one of ours per GPU). → `24` §8 to §10, `15` §1l, §3g, §4g
 
 ## Related docs
 All of them; start from `00_START_HERE.md`.
