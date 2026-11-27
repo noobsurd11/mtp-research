@@ -1,0 +1,35 @@
+{
+ "paper_id": "arxiv:2604.05433",
+ "title": "Few-Shot Semantic Segmentation Meets SAM3",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2604.05433",
+ "code_url": "https://github.com/WongKinYiu/FSS-SAM3",
+ "mechanism": "Frozen SAM3 promptable concept segmentation with support and query placed side by side on one canvas and the support mask as exemplar; no training.",
+ "evidence": "R: SOTA on PASCAL-5i and COCO-20i training-free; negative prompts often cause prediction collapse.",
+ "adaptation": "Two 512 px cells on SAM3's 1008 px canvas (near native size); positive exemplars only; inactive and structural classes as main target; needs the user's OK for gated SAM3 weights.",
+ "min_experiment": "In G0 after weights OK: FSS-SAM3 canvas vs house PF ensemble on val54+F51+H36, inactive IoU and crack relF1@2; kill if below house PF on both and below GFDS SAM2 mode.",
+ "prior_overlap": "none; SAM3 never run here (D14 proposes a zero-shot text-prompt probe, different mechanism).",
+ "score": 30,
+ "bench_score": 60,
+ "bet": "medium",
+ "targets": [
+  "inactive",
+  "e1_unseen",
+  "benchmark"
+ ],
+ "gpu_hours": 6,
+ "directions": [
+  "D38"
+ ],
+ "scout_scores": [
+  30
+ ],
+ "final": 30,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 503,
+ "pid": "P503"
+}

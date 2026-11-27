@@ -1,0 +1,35 @@
+{
+ "paper_id": "doi:10.1016/j.solcom.2026.100196",
+ "title": "An Industry-Ready Deep Learning Framework for Power Loss Prediction in Half-Cut Photovoltaic Modules",
+ "year": 2026,
+ "venue": "Solar Compass",
+ "url": "https://doi.org/10.1016/j.solcom.2026.100196",
+ "code_url": "",
+ "mechanism": "Two stages: segment cracks and low-luminescence regions, map the spatial defect features to module power loss, then rebuild I-V with a single-diode model.",
+ "adaptation": "Template for a half-cut-specific severity stage for E1 (58 half-cut cells, 0 in training). Its point that half-cut current redistribution decouples defect shape from severity argues for a separate half-cut severity rule in the benchmark.",
+ "min_experiment": "Benchmark-only. Compute the severity track separately for half-cut vs full E1 cells and report whether rankings differ (Kendall tau). No GPU.",
+ "evidence": "R: 500 half-cut modules; segmentation Dice 0.86; power-loss R2 0.93, MAE 0.0183; reconstructed MPP deviation < 5.5%.",
+ "prior_overlap": "none",
+ "score": 22,
+ "bench_score": 75,
+ "bet": "safe",
+ "targets": [
+  "e1_unseen",
+  "severity",
+  "benchmark"
+ ],
+ "gpu_hours": 0,
+ "directions": [
+  "D44"
+ ],
+ "scout_scores": [
+  22
+ ],
+ "final": 22,
+ "bench": 75,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 572,
+ "pid": "P572"
+}

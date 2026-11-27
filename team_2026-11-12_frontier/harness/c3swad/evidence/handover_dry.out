@@ -1,0 +1,70 @@
+# dry tests against the real cv02 (builder, 17 Nov, fix round 1; READ ONLY on cv02; DRY=1 wherever a step would write, start, stop or remove)
+== c3swad_handover.sh DRY=1 freeze
+CAN_START c3all
+ok c3base MAXC 0
+ok c3hrnet MAXC 0
+ok rows2 all dispatched
+DRY, not run on cv02: echo 0 > /tmp/noob_el/bench_q/c3all/MAXC.new && mv /tmp/noob_el/bench_q/c3all/MAXC.new /tmp/noob_el/bench_q/c3all/MAXC && cat /tmp/noob_el/bench_q/c3all/MAXC
+== c3swad_handover.sh DRY=1 build
+DRY: PREVIEW only (c3all is not required to be frozen; MAXC of c3all, c3base, c3hrnet reads '8 0 0 ')
+previous list: 70 lines (md5 c58f610b726bec9bae9b302606c7bc03), started 33, carried over 37
+new swad lines: 25; output: 62 lines = pf 10, swad 25, hrnet 12, house 15
+order: pf s8 (5), pf s9 (5), swad s5 (5), swad s6 (5), swad s7 (5), swad s8 (5), swad s9 (5), hrnet s7 (2), hrnet s8 (5), hrnet s9 (5), house s7 (5), house s8 (5), house s9 (5)
+carried lines byte-identical to the previous list: True
+wrote SCRATCH/ioA/preview_jobs.txt md5 29388346e2176ce1f2f77a1136b0ab84
+[2026-11-17 10:25:51] build: built SCRATCH/ioA/preview_jobs.txt: 62 lines, md5 29388346e2176ce1f2f77a1136b0ab84; started in c3all: 33; no name in use on cv02 or in a gaint relay
+== c3swad_handover.sh DRY=1 status
+cv02 2026-11-17 04:55:51 UTC; free 83 GB; HOLD files: 
+c3all: MAXC 8 started 33 ended 30 of 70
+  open: c3h_hrnet_w18_unetpp_pf_f1_s7 GPU 7 training rc 0
+  open: c3h_hrnet_w18_unetpp_pf_f2_s7 GPU 5 training rc running
+  open: c3_pf_v11_f3_s7 GPU 0 training rc 0
+c3all2: no dir
+== build without a freeze (must refuse)
+REFUSED (build): no freeze recorded in SCRATCH/ioA (run 'freeze' first)
+== DRY=1 BUILD_OPTS=--alternate build (order line)
+order: pf s8 (5), pf s9 (5), swad s5 (5), hrnet s7 (2), swad s6 (5), hrnet s8 (5), swad s7 (5), hrnet s9 (5), swad s8 (5), swad s9 (5), house s7 (5), house s8 (5), house s9 (5)
+== DRY=1 MODE=reorder build (order line)
+new swad lines: 0; output: 37 lines = pf 10, swad 0, hrnet 12, house 15
+order: pf s8 (5), pf s9 (5), hrnet s7 (2), hrnet s8 (5), hrnet s9 (5), house s7 (5), house s8 (5), house s9 (5)
+== DRY=1 place
+DRY, not run on cv02: mkdir /tmp/noob_el/bench_q/c3all2; jobs.txt (md5 29388346e2176ce1f2f77a1136b0ab84, 62 lines, r--r--r--); LPG 1; MAXC 8
+== DRY=1 guard
+DRY, not run on cv02: place /tmp/noob_el/bench_q/diskguard3.sh (md5 92794405dc207e4ecae8e47a620b52fb), tmux new-session -d -s bench_diskguard3 'bash /tmp/noob_el/bench_q/diskguard3.sh'
+== DRY=1 render, QC = old smoke deploy (pins must fail)
+REFUSED (render): QC files do not match the pinned md5s of the reviewed patch
+== DRY=1 render, QC = B
+REFUSED (render): QC = B
+== DRY=1 arm while c3all can still start (must refuse)
+CAN_START c3all
+ok c3base MAXC 0
+ok c3hrnet MAXC 0
+ok rows2 all dispatched
+REFUSED (arm): another queue can still start training (freeze it first)
+== DRY=1 NEWQ=c3all9 guard (not named in diskguard3.sh)
+REFUSED (guard): diskguard3.sh does not name c3all9
+== c3swad_dumptest.sh: QC = live deploy (must refuse)
+REFUSED: QC must be the new deploy dir
+== c3swad_dumptest.sh DRY=1 place (stand-in QC: an existing other deploy dir)
+DRY, not run on cv02: tar stream of config_used.yaml (root line -> /tmp/noob_el/bench_data/roots/cv5v2_v11_f0), enc_probe.jsonl, checkpoints/latest.pth to /tmp/noob_el/bench_a3cf85a/experiments/dumptest_c3s_swad_f0; mkdir /tmp/noob_el/bench_q/c3swad_smoke with jobs.txt (dumptest_c3s_swad_f0|bench/methods/swad_const_pf_v11.yaml|5|/tmp/noob_el/bench_data/roots/cv5v2_v11_f0|0|11000|5262|0|--fixture|s
+== c3swad_dumptest.sh DRY=1 arm (stand-in QC: an existing other deploy dir)
+open lane: GPU 7 c3h_hrnet_w18_unetpp_pf_f1_s7
+open lane: GPU 5 c3h_hrnet_w18_unetpp_pf_f2_s7
+open lane: GPU 0 c3_pf_v11_f3_s7
+open lane: GPU 2 r2_segformer_mitb2_pf_f4_s6
+GPUs without an open lane of our queues (the test may use only these, and only under the lane rule): 1 3 4 6
+DRY, not run on cv02: B=/tmp/noob_el/bench_a3cf85a Q=/tmp/noob_el/bench_q/c3swad_smoke SES=bench_q_c3swad_smoke GPUS='1 3 4 6' DEPLOY=$(cat /tmp/noob_el/bench_a3cf85a/REVISION) JOBS_MD5=8f4d15c729732b3c1b9ec14f3063e8a0 DATA_MD5=d6063fd83d20e656612540edda702cbe bash /tmp/noob_el/bench_a3cf85a/bench/q/cv02/cq_setup.sh
+== c3swad_dumptest.sh DRY=1 stop (stand-in QC: an existing other deploy dir)
+SES_GONE
+lane  gpu 0 hold 0
+REFUSED (stop): tmux session bench_q_c3swad_smoke is not alive on cv02 (nothing to stop)
+== c3swad_dumptest.sh DRY=1 clean (stand-in QC: an existing other deploy dir)
+listed 0
+nothing of the test exists on cv02; nothing to remove
+== maxc_window_c3all2.sh: no argument; a path that is not a RUN.md5; DRY=1 (c3all2 does not exist yet)
+usage: maxc_window_c3all2.sh <cv02 path of an awaited RUN.md5> [more]
+REFUSED: not a cv02 RUN.md5 path: /tmp/noob_el/bench_q/c3all/MAXC
+cat: /tmp/noob_el/bench_q/c3all2/MAXC: No such file or directory
+[2026-11-17 10:27:03] c3all2/MAXC is not 8; nothing changed
+== c3swad_relay.sh SHOW=1
+tmux new-session -d -s bench_relay_c3swad "B=/tmp/noob_el/bench_89b9ea5 Q=/tmp/noob_el/bench_q/c3all2 RD=/home/noob/work/bench_relay/c3swad N=25 NAMES_RX=^c3s_ POLL=300 bash /home/noob/work/bench_c3_io/stage/bench_89b9ea5/bench/q/cv02/relay_w1c.sh"

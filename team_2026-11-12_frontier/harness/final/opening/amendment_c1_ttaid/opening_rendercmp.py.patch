@@ -1,0 +1,19 @@
+--- a/opening_rendercmp.py
++++ b/opening_rendercmp.py
+@@ -45,11 +45,13 @@
+     if not run.endswith(f"_s{seed}"):
+         bad.append("seed")
+     kind = ("C2" if run[len(EXP):].startswith("fin_hrnet_swad_v11_pool_") else
+-            "C1D4" if mode == "d4" else "C1")
+-    want = {"C2": ("swad", "d4"), "C1": ("model", "none"), "C1D4": ("model", "d4")}[kind]
++            "C1D4" if mode == "d4" else "C1ID" if mode == "id" else "C1")   # C1ID: AMENDMENT C1 ttaid only
++    want = {"C2": ("swad", "d4"), "C1": ("model", "none"), "C1D4": ("model", "d4"), "C1ID": ("model", "id")}[kind]
++    if kind == "C1ID" and ".ttaid." not in name:
++        bad.append("a C1 --tta id line must be named <run>.ttaid.<set> (amendment)")
+     if (key, mode) != want:
+         bad.append(f"{kind} key / mode {key} {mode}")
+-    if (logp == "1") != (st == "e1_106" and kind in ("C1", "C2")):
++    if (logp == "1") != (st == "e1_106" and kind in ("C1", "C2", "C1ID")):
+         bad.append("logp")
+     if not name.endswith("." + st):
+         bad.append("name / set")

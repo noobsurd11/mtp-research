@@ -1,0 +1,89 @@
+--- a/run_opening_read.sh
++++ b/run_opening_read.sh
+@@ -83,6 +83,16 @@
+ [ -e $O ] && no "output folder exists: $O"
+ [ "$CELLS_TSV" != /home/noob/work/bench_data/meta/cells.tsv ] || [ "$(md5sum < $CELLS_TSV | cut -c1-8)" = a50521b4 ] || no "cells.tsv is not a50521b4"
+ C1D4=$(awk '/^c1d4 /{print $2}' $IO/REGISTERED.txt)
++JOBS_FILE=$IO/jobs.txt; AMEND_LINE=""
++if [ -e $IO/amend/AMEND.txt ]; then   # AMENDMENT C1 ttaid (AMENDMENT_C1_TTAID.md): failed C1 plain lines replaced by --tta id lines
++  [ "$(md5sum < $IO/amend/AMEND.txt | cut -c1-32)" = "${AMEND_MD5:-none}" ] || no "IO/amend/AMEND.txt exists: AMEND_MD5 (logged in the ledgers) must be its md5"
++  grep -q "^registered_base $REG_MD5\$" $IO/amend/AMEND.txt || no "the amendment names another registration"
++  grep -q "^amend_jobs $(md5sum < $IO/amend/jobs.txt | cut -c1-32) " $IO/amend/AMEND.txt || no "IO/amend/jobs.txt is not the amendment's list"
++  FAILED=$(awk '/^failed /{print $2}' $IO/amend/AMEND.txt)
++  JOBS_FILE=$(mktemp); { grep -v -F "$(printf '%s|\n' $FAILED)" $IO/jobs.txt; cat $IO/amend/jobs.txt; } > $JOBS_FILE
++  [ "$(grep -c . $JOBS_FILE)" = "$(grep -c . $IO/jobs.txt)" ] || no "amended job list has another length than the registered one"
++  AMEND_LINE="amendment C1 ttaid $AMEND_MD5: $(echo $FAILED) replaced by --tta id dumps"
++fi
+ # ---- sealed label files still as registered (file hashes only)
+ (cd $BENCH_EXT && md5sum -c --quiet $IO/reg/e1_masks.md5 > /dev/null 2>&1) || no "E1 mask / ignore files differ from the registration"
+ (cd $BENCH_LABELED/masks_coded && md5sum -c --quiet $IO/reg/masks_v0_test50.md5 > /dev/null 2>&1) || no "v0 test50 masks differ from the registration"
+@@ -100,15 +110,16 @@
+   if [ -e $RD/.ok/$name ] && grep -q "relayed $name:" $RD/relay.log 2>/dev/null && [ -f $d/manifest.json ]; then
+     ROWS="$ROWS$name|$st|$d|$seed|$key|$tta|$logp|$run|$meth
+ "; else MISS="$MISS $name"; fi
+-done < $IO/jobs.txt
++done < $JOBS_FILE
+ [ -z "$MISS" ] || no "$(echo $MISS | wc -w) dumps not relayed:$MISS"
+-NJ=$(grep -c . $IO/jobs.txt); [ "$(printf '%s' "$ROWS" | grep -c .)" = "$NJ" ] || no "expected $NJ dumps"
++NJ=$(grep -c . $JOBS_FILE); [ "$(printf '%s' "$ROWS" | grep -c .)" = "$NJ" ] || no "expected $NJ dumps"
+ MC=$($P - /dev/fd/3 "$RF" "$W_G" "$F2" "${DEVICE_OK:-}" 3< <(printf '%s' "$ROWS") <<'EOF'
+ import json, sys
+ from pathlib import Path
+ rows = [l.rstrip("\n").split("|") for l in open(sys.argv[1]) if l.strip()]
+ RF, WG, F2, devok = sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5]   # F2: train_code_revision of the full-pool runs
+ D4 = {"mode": "d4", "scales": [1.0], "d4": True, "views": 8}
++ID = {"mode": "id", "scales": [1.0], "d4": False, "views": 1}     # AMENDMENT C1 ttaid
+ OPEN = {"e1_106": "e1_open8_final", "test50": "t50_open19_final"}
+ LIST = {"e1_106": ("5266806b559f74bcf9eae167bb076b95", 106), "test50": ("a31fad14fa27ee28e2a2319b8976aba3", 50)}
+ bad, dev = [], set()
+@@ -117,11 +128,11 @@
+     lm = (Path(RF) / run / "runs" / run / "LATEST.md5")
+     latest = lm.read_text().split()[0] if lm.exists() else "NO LATEST.md5"
+     want = {"run_id": name, "set": st, "set_kind": "sealed", "opening": OPEN[st], "seed": int(seed), "weights_key": key,
+-            "step": 20000, "precision": "fp32", "tta": D4 if tta == "d4" else False, "writer": WG,
++            "step": 20000, "precision": "fp32", "tta": D4 if tta == "d4" else ID if tta == "id" else False, "writer": WG,
+             "train_code_revision": F2, "checkpoint_md5": latest, "list_md5": LIST[st][0], "n_cells": LIST[st][1],
+             "method": meth}
+     bad += [f"{name}: {k} = {m.get(k)!r}, expected {v!r}" for k, v in want.items()
+-            if m.get(k) != v or (k == "tta" and tta != "d4" and m.get(k) is not False)]
++            if m.get(k) != v or (k == "tta" and tta == "none" and m.get(k) is not False)]
+     if (logp == "1") != (m.get("ens_member") is True) or (logp != "1" and "ens_member" in m):
+         bad.append(f"{name}: ens_member {m.get('ens_member')!r} with logp {logp}")
+     dev.add(str(m.get("device")))
+@@ -145,6 +156,7 @@
+   echo "[$(date '+%F %T')] final opening read start (out $O; $NJ dumps; REGISTERED $REG_MD5; script $(md5sum < $ME | cut -c1-8); rule $(md5sum < $HERE/OPENING_RULE.md | cut -c1-8); R $R; C1-D4 $C1D4; relay $RD)"
+   [ "${TEST_MODE:-0}" = 1 ] && echo "TEST MODE (dry run; overrides:${OV:- none}): NOT the registered read"
+   echo "$V11C"
++  [ -n "$AMEND_LINE" ] && echo "$AMEND_LINE"
+   echo "$MC"
+   declare -A OPN=([e1_106]=e1_open8_final [test50]=t50_open19_final)
+   JOBS=()
+@@ -157,16 +169,16 @@
+   [ -s $O/records_fail.txt ] && { echo "records failed"; exit 1; }
+   echo "[$(date '+%F %T')] records: $(ls $O/records/set | wc -l) E1, $(ls $O/records/v0 | wc -l) test50 v0, $(ls $O/records/v11 | wc -l) test50 v11"
+   nice -n 19 $P scripts/bench_ens_dump.py --arm "C3=$O/links/elbench1/$MX:fin_hrnet_swad_v11_pool_s[5-9]\.swad\.tta_d4\.e1_106" --seeds 5,6,7,8,9 --seed-id 56789 --method $MX --run-prefix C3_fin_hrnet_swad_v11_pool_s56789.swad.tta_d4.e1_106 --dumps $O/ens --workers 8 --opening e1_open8_final || { echo "C3 ensemble failed"; exit 1; }
+-  nice -n 19 $P scripts/bench_ens_dump.py --arm "EPF=$O/links/elbench1/$MP:fin_pf_v11_pool_s[5-9]\.e1_106" --seeds 5,6,7,8,9 --seed-id 56789 --method $MP --run-prefix EPF_fin_pf_v11_pool_s56789.e1_106 --dumps $O/ens --workers 8 --opening e1_open8_final || { echo "E-PF ensemble failed"; exit 1; }
++  nice -n 19 $P scripts/bench_ens_dump.py --arm "EPF=$O/links/elbench1/$MP:fin_pf_v11_pool_s[5-9](\.ttaid)?\.e1_106" --seeds 5,6,7,8,9 --seed-id 56789 --method $MP --run-prefix EPF_fin_pf_v11_pool_s56789.e1_106 --dumps $O/ens --workers 8 --opening e1_open8_final || { echo "E-PF ensemble failed"; exit 1; }
+   recs set set C3 e1_106 $O/ens/elbench1/$MX/C3_fin_hrnet_swad_v11_pool_s56789.swad.tta_d4.e1_106/e1_106 e1_open8_final
+   recs set set EPF e1_106 $O/ens/elbench1/$MP/EPF_fin_pf_v11_pool_s56789.e1_106/e1_106 e1_open8_final
+   [ -s $O/records/set/C3.json ] && [ -s $O/records/set/EPF.json ] || { echo "ensemble records missing"; exit 1; }
+   set +f
+-  fl(){ ls $O/records/$1/$2 2>/dev/null | LC_ALL=C sort | paste -sd, ; }   # comma list of absolute record paths
+-  C1E=$(fl set 'fin_pf_v11_pool_s[5-9].e1_106.json'); C2E=$(fl set 'fin_hrnet_swad_v11_pool_s[5-9].swad.tta_d4.e1_106.json')
++  fl(){ local d=$O/records/$1 g x; for g in $2; do for x in $d/$g; do [ -e "$x" ] && echo "$x"; done; done | LC_ALL=C sort | paste -sd, ; }   # comma list of absolute record paths (AMENDMENT: several globs)
++  C1E=$(fl set 'fin_pf_v11_pool_s[5-9].e1_106.json fin_pf_v11_pool_s[5-9].ttaid.e1_106.json'); C2E=$(fl set 'fin_hrnet_swad_v11_pool_s[5-9].swad.tta_d4.e1_106.json')
+   C1DE=$(fl set 'fin_pf_v11_pool_s[5-9].tta_d4.e1_106.json')
+   for lb in v11 v0; do
+-    eval "C1T_$lb=\$(fl $lb 'fin_pf_v11_pool_s[5-9].test50.json'); C2T_$lb=\$(fl $lb 'fin_hrnet_swad_v11_pool_s[5-9].swad.tta_d4.test50.json'); C1DT_$lb=\$(fl $lb 'fin_pf_v11_pool_s[5-9].tta_d4.test50.json')"
++    eval "C1T_$lb=\$(fl $lb 'fin_pf_v11_pool_s[5-9].test50.json fin_pf_v11_pool_s[5-9].ttaid.test50.json'); C2T_$lb=\$(fl $lb 'fin_hrnet_swad_v11_pool_s[5-9].swad.tta_d4.test50.json'); C1DT_$lb=\$(fl $lb 'fin_pf_v11_pool_s[5-9].tta_d4.test50.json')"
+   done
+   set -f
+   A_E1=(--arm "C1=$C1E" --arm "C2=$C2E" --arm "C3=$O/records/set/C3.json" --arm "EPF=$O/records/set/EPF.json" --arm "C2S5=$O/records/set/fin_hrnet_swad_v11_pool_s5.swad.tta_d4.e1_106.json")
+@@ -182,6 +194,7 @@
+     else nice -n 19 $P scripts/bench_open_read.py --set test50 $args --pair C1=C2 --public --boot 2000 --out $O/read_t50_v0 || { echo "t50 v0 read failed"; exit 1; }; fi
+   done
+   nice -n 19 $P $HERE/opening_verdict.py --e1 $O/read_e1/read.json --t50 $O/read_t50_v11/read.json --t50v0 $O/read_t50_v0/read.json --reg $IO/REGISTERED.txt --fin-verdict $FIN_VERDICT --out $O/verdict.txt; rc=$?
++  [ -n "$AMEND_LINE" ] && [ -s $O/verdict.txt ] && { chmod u+w $O/verdict.txt; echo "# $AMEND_LINE (OPENING_RULE section 2 contingency, registered as an amendment)" >> $O/verdict.txt; }
+   set +f; ( cd $O && md5sum read_*/read.json read_*/read.txt verdict.txt verdict.json 2>/dev/null > MD5.txt; md5sum ens/elbench1/*/*/e1_106/manifest.json >> MD5.txt ); set -f
+   md5sum $ME $HERE/opening_verdict.py $HERE/OPENING_RULE.md $RT/scripts/bench_open_read.py $RT/scripts/bench_score.py $RT/scripts/bench_ens_dump.py $RT/bench/public_metrics.py $IO/REGISTERED.txt $FIN_VERDICT $HERE/v11_filecheck.sh | sed 's/  /  input: /' >> $O/MD5.txt
+   echo "[$(date '+%F %T')] FINAL OPENING READ ALL DONE (verdict rc $rc); tracked changes in $RT: $(git status --porcelain -uno | wc -l)"

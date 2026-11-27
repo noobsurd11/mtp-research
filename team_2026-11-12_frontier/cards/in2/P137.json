@@ -1,0 +1,36 @@
+{
+ "paper_id": "arxiv:2606.19824",
+ "title": "CSWinUNETR: Segmentation of Thin Anatomical Structures in Medical Images",
+ "year": 2026,
+ "venue": "MICCAI 2026",
+ "url": "https://arxiv.org/abs/2606.19824",
+ "code_url": "https://github.com/labhai/CSWinUNETR",
+ "mechanism": "Thin-structure backbone with cross-shaped stripe self-attention and cyclic shift for long principal-axis context, detail-enhanced multi-scale attention, and sparse-control dynamic snake convolution.",
+ "adaptation": "2D variant, 1-channel input, 512 px, house CE+Dice loss and schedule, trained from scratch on 478 cells. Stripe attention suits busbar-aligned and diagonal cracks and long scuff streaks on E1.",
+ "min_experiment": "Arm: 2D CSWinUNETR, 20k and 40k steps, 5 seeds. Baseline: house U-Net++ R34. Metrics: test crack IoU, relF1@2, mIoU_rob, gridline IoU, E1 relF1@2. Kill: 2-seed mean crack IoU or mIoU_rob more than 0.02 below house.",
+ "evidence": "R: FIVES (500 train) Dice 90.71 vs nnUNetv2 89.26; FFHQ-Wrinkle (800 train, thin low-contrast lines) Dice 64.75 vs 63.27; TopCoW 3D clDice gains; 31M params (2D); Dice+CE only, no topology loss; paired t-test with BH correction.",
+ "prior_overlap": "none. BRIEF section 5 lists transformer segmenters as never tried.",
+ "score": 55,
+ "bench_score": 62,
+ "bet": "medium",
+ "gpu_hours": 15,
+ "targets": [
+  "crack",
+  "other_classes",
+  "e1_unseen",
+  "benchmark"
+ ],
+ "directions": [
+  "D42"
+ ],
+ "scout_scores": [
+  55
+ ],
+ "final": 55,
+ "bench": 62,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 137,
+ "pid": "P137"
+}

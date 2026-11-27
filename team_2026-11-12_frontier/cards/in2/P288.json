@@ -1,0 +1,36 @@
+{
+ "paper_id": "doi:10.1038/s41524-025-01802-3",
+ "title": "Leveraging unlabeled SEM datasets with self-supervised learning for enhanced particle segmentation",
+ "year": 2025,
+ "venue": "npj Computational Materials",
+ "url": "https://doi.org/10.1038/s41524-025-01802-3",
+ "code_url": "https://github.com/lrettenberger/ConvNeXt-V2",
+ "mechanism": "In-domain from-scratch ConvNeXt V2 FCMAE on 25k unlabelled greyscale SEM images, crops without rescaling to keep small details, beats ImageNet ConvNeXt V2 weights; DenseCL falls below ImageNet.",
+ "adaptation": "Use their modified repo and settings (640 px crop without rescale -> 512 px for us, 32 px mask patches, 50% mask, checkpoint by val reconstruction loss) for the from-scratch arm on the EL pool; cut the 15,000-epoch schedule about 20x; Pico/Nano sizes only; 1-ch input.",
+ "min_experiment": "Pico/Nano FCMAE from scratch on 11.9k (then 50k curated) vs ImageNet FCMAE weights of the same size in U-Net++ PF; out-of-fold relF1@2 and E1 crack recall, 2 seeds; kill if both < +0.01.",
+ "evidence": "R (full text): +0.8 to +1.5 AJI+ low magnification, +1.9 to +5.9 high magnification over ImageNet at all 8 sizes, 10 repeats; best at Pico 8.6M; beat ImageNet with ~1,000 pretraining images on the easy task; 33 to 188 h on 80 A100s.",
+ "prior_overlap": "none for this backbone/recipe; our closed run was continued MIM on ImageNet R34.",
+ "targets": [
+  "crack",
+  "inactive",
+  "e1_unseen",
+  "benchmark"
+ ],
+ "bet": "medium",
+ "gpu_hours": 200,
+ "score": 45,
+ "bench_score": 45,
+ "directions": [
+  "D32"
+ ],
+ "scout_scores": [
+  45
+ ],
+ "final": 45,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 288,
+ "pid": "P288"
+}

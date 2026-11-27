@@ -1,0 +1,18 @@
+% Abstract (lead, 23 Nov 2026). Every number is copied from ch01_intro.tex (traced in ch01_intro_NOTES.md) or RELATED_WORK.md l88 / l92.
+Electroluminescence (EL) images show cracks and inactive regions in solar cells that the eye cannot see, and many papers report
+segmentation scores for them. Those scores do not compare: of 22 papers with pixel-level EL numbers read in full, none states a
+module-disjoint split and 18 give no interval, seed count or repeat. This thesis builds a benchmark for 24-class pixel segmentation
+of EL cells and uses it to test what actually improves crack segmentation.
+
+A dataset audit shows that strict crack IoU measures the annotators' line-width convention: the label release alone moves the
+baseline's strict crack IoU by +0.045, more than any method gain over it on the pool. The protocol therefore splits the 532 pool
+cells by physical module, decides on crack relF1@2 with a 2~px tolerance and a margin of 0.010, reports seed-aware intervals, and
+reads each sealed set once under a rule registered before any prediction. Under this protocol, two models from the EL literature
+fall below a U-Net++ baseline, and no trained arm read at five seeds was confirmed under its registered rule.
+
+On the sealed set E1, the final recipe (HRNet-W18 U-Net++ with SWAD weight averaging and D4 test-time augmentation) beats the
+baseline on crack relF1@2 by +0.0430 [+0.0013, +0.1043], confirmed with all guards passing; the recipe is averaged over seeds 5 to 9,
+and 101 of the 106 cells come from one source. A registered few-shot test inside E1 shows that labelled cells of the target layouts
+help: the recipe trained with them beats its zero-shot use by +0.2213 [+0.0977, +0.3504], carried by the half-cut cells. The recipe costs about
+0.17~s of network time per cell on one GPU. The benchmark protocol, split lists and scoring code are prepared for release; images, masks and
+weights are not included.

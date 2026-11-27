@@ -1,0 +1,61 @@
+{
+ "paper_id": "arxiv:2602.20689",
+ "title": "MatchED: Crisp Edge Detection Using End-to-End, Matching-based Supervision",
+ "year": 2026,
+ "venue": "CVPR 2026",
+ "url": "https://arxiv.org/abs/2602.20689",
+ "code_url": "https://cvpr26-matched.github.io",
+ "mechanism": "A plug-in head of about 21K params. At each step it does one-to-one Hungarian matching, within distance tau_d, between confident predicted pixels and GT pixels. Matched GT moves to the matched prediction, unmatched GT is kept, and the crisp head is trained with BCE on this target.",
+ "adaptation": "Crack and gridline only, tau_d = 2 px to match relF1@2. Candidate predictions are pixels with p > tau_c inside a 3 px dilation of GT, which keeps the cost matrix to a few thousand by a few hundred per cell, so scipy assignment on CPU is cheap. The head sits on top of the U-Net++ logits. Its 1 px output is dilated to the source's label width for strict IoU.",
+ "min_experiment": "Arm: house + MatchED head (tau_d 2, tau_c 0.05), 5 seeds. Baseline: house at 100% labels. Metrics: relF1@2, relP@2/relR@2, recall of components >= 20 px, crack IoU, E1 relF1@2. Kill if relF1@2 and component recall are both within noise (< 0.01) or crack IoU drops by more than 0.012.",
+ "score": 72,
+ "bench_score": 70,
+ "bet": "medium",
+ "evidence": "R: Average Crispness up 2 to 4x and ODS up 20 to 35% under crispness-emphasized evaluation on BSDS, NYUD, BIPED and Multi-cue, applied to PiDiNet, RankED, DiffusionEdge and SAUGE. Robust to tau_c (0.01 to 0.1) and tau_d (2 to 8). GPU memory reaches 28 GB at 320 px when tau_c = 0.01.",
+ "gpu_hours": 15,
+ "prior_overlap": "Partly overlaps offset-tolerant CE (n.d.), which also tolerates shifts but allows many-to-one matches and so rewards thick output. One-to-one matching with a separate crisp head was not tested. Open.",
+ "targets": [
+  "crack",
+  "other_classes",
+  "benchmark"
+ ],
+ "directions": [
+  "D11",
+  "D13"
+ ],
+ "scout_scores": [
+  55,
+  52,
+  72,
+  62
+ ],
+ "alt_notes": [
+  {
+   "from": "D11",
+   "adaptation": "tau_d = 2 px on the crack class only, on top of PF; one fixed jittered label per cell; tau_d = 0 control to separate the matching from the new sigmoid decision rule.",
+   "min_experiment": "As T3 matched_crack_head after the corrected P-M4 pre-check: arm vs tau_d=0 control and PF; metric relF1@1 and strict IoU vs jittered CV labels, width 0.8-1.2; kill if arm minus control <0.01.",
+   "score": 52
+  },
+  {
+   "from": "D11",
+   "adaptation": "tau_d = 2 px, crack only, appended to the PF house decoder. One-to-one constraint stops the width blow-up seen with Skeleton Recall w 1.0.",
+   "min_experiment": "Arm = PF + MatchED crack head; baseline = PF; 5 seeds + CV; metrics relF1@2, crack IoU, mean predicted width. Kill if relF1@2 gain < 0.01.",
+   "score": 55
+  },
+  {
+   "from": "D13",
+   "adaptation": "Crack and gridline only; tau_d = 2 px to equal relF1@2; restrict candidates to a 3 px dilation of GT plus confident pixels so per-cell scipy assignment is cheap (crack is 0.19% of pixels); re-dilate the crisp output to source width for strict IoU.",
+   "min_experiment": "Arm: house + MatchED head (tau_d 2, tau_c 0.05), 5 seeds; baseline house 5 seeds. Metrics relF1@2, components>=20px found, strict crack IoU. Kill if relF1@2 and component recall both n.d. and strict IoU drops. About 15 GPU-h.",
+   "score": 62
+  }
+ ],
+ "final": 72,
+ "bench": 70,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 8,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P008"
+}

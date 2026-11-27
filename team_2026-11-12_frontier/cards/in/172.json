@@ -1,0 +1,35 @@
+{
+ "paper_id": "arxiv:2312.04233",
+ "title": "Fine-tuning vision foundation model for crack segmentation in civil infrastructures (CrackSAM)",
+ "year": 2024,
+ "venue": "Construction and Building Materials",
+ "url": "https://arxiv.org/abs/2312.04233",
+ "code_url": "",
+ "mechanism": "SAM fine-tuned with adapter or LoRA for prompt-free crack semantic segmentation; strong under noise and on unseen crack sets.",
+ "adaptation": "Benchmark baseline: SAM ViT-B/L adapter at 1024, 24 classes, house loss; report clean-49, E1 and per-source.",
+ "min_experiment": "Adapter variant inside the TopoLoRA harness vs house PF, 5-fold CV; default kill line.",
+ "evidence": "R: beat 12 segmentation models on noisy and previously unseen sets; 810 open images (road, wall); 98 citations.",
+ "prior_overlap": "none",
+ "score": 45,
+ "bench_score": 75,
+ "bet": "medium",
+ "gpu_hours": 40,
+ "targets": [
+  "crack",
+  "benchmark"
+ ],
+ "directions": [
+  "D14"
+ ],
+ "scout_scores": [
+  45
+ ],
+ "final": 45,
+ "bench": 75,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 172,
+ "pub_allowed": 0,
+ "selected_for": "bench"
+}

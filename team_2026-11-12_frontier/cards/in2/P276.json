@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2508.17930",
+ "title": "Learning to Detect Label Errors by Making Them: A Method for Segmentation and Object Detection Datasets",
+ "year": 2025,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2508.17930",
+ "code_url": "",
+ "mechanism": "Inject typed label errors into ground truth, train an instance-segmentation network on a composite (image, label, prediction) input to find error regions.",
+ "adaptation": "Inject the audit's error types (dropped crack segments, spurious lines, shifted tracing, crack/inactive swaps) into train cells; detector input = EL image + given label + OOF prediction; apply to all 532 cells.",
+ "min_experiment": "Arm: learned error detector. Baseline: ensemble ranking arm. Metric: precision on held-out injected errors and at 24 audit cells. Kill: not better than ensemble ranking at 24.",
+ "score": 45,
+ "bench_score": 55,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "benchmark"
+ ],
+ "evidence": "R: beats task-specific baselines on simulated errors across tasks; releases 459 real Cityscapes label errors.",
+ "gpu_hours": 10,
+ "prior_overlap": "none.",
+ "directions": [
+  "D37"
+ ],
+ "scout_scores": [
+  45
+ ],
+ "final": 45,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 276,
+ "pid": "P276"
+}

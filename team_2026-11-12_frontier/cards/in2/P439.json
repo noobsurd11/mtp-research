@@ -1,0 +1,46 @@
+{
+ "paper_id": "doi:10.1038/s41592-023-02151-z",
+ "title": "Metrics reloaded: recommendations for image analysis validation",
+ "year": 2024,
+ "venue": "Nature Methods",
+ "url": "https://arxiv.org/abs/2206.01653",
+ "code_url": "https://github.com/Project-MONAI/MetricsReloaded",
+ "mechanism": "Problem fingerprint (target size and shape, reference quality, imbalance) drives metric choice; companion pitfalls paper doi:10.1038/s41592-023-02150-0.",
+ "adaptation": "Write EL fingerprints: crack thin and noisy, inactive blob and rare, 24 classes with many absent in test; map to overlap + tolerance + per-component detection metrics; use as benchmark justification.",
+ "min_experiment": "Arm: fill fingerprint for crack, inactive, structural classes. Kill: adopt only metrics it selects that we do not already report.",
+ "score": 35,
+ "bench_score": 92,
+ "bet": "safe",
+ "targets": [
+  "benchmark",
+  "measurement"
+ ],
+ "evidence": "R: Delphi consensus framework; no empirical score gains.",
+ "gpu_hours": 0,
+ "prior_overlap": "none",
+ "directions": [
+  "D41",
+  "D43"
+ ],
+ "scout_scores": [
+  35,
+  25
+ ],
+ "alt_notes": [
+  {
+   "from": "D43",
+   "adaptation": "Write the EL fingerprint into the spec. Crack = tubular, 1-2 px, imprecise labels, so headline tolerance F1 / clDice / component recall and keep strict IoU secondary. Inactive = blobby and reliable, so IoU plus per-cell detection. Other classes = mIoU_rob with a fixed class list.",
+   "min_experiment": "Re-score the existing 5 house seeds and the PF ensemble with the fingerprint metrics on clean-49. Decision: keep a metric in the headline only if its seed-to-seed SD is smaller than the gap between house and ensemble.",
+   "score": 25
+  }
+ ],
+ "final": 35,
+ "bench": 92,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 439,
+ "pub_allowed": 0,
+ "selected_for": "bench",
+ "pid": "P439"
+}

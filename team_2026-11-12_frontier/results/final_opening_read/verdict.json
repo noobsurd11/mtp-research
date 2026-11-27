@@ -1,0 +1,57 @@
+{
+ "outcome": "CONFIRMED",
+ "headline": true,
+ "delta": 0.04300408635908115,
+ "lo": 0.0012853079879820391,
+ "hi": 0.1043251732752463,
+ "se": 0.02645033416183513,
+ "fails": [],
+ "inactive_lower": false,
+ "inactive": {
+  "delta": 0.09961772687244702,
+  "lo": -0.030957449386775655,
+  "hi": 0.2161833672753197,
+  "se": 0.06340752237654874
+ },
+ "inactive_fixed": {
+  "delta": 0.09961772687244702,
+  "lo": -3.440554625627561e-06,
+  "hi": 0.20065856420380113,
+  "se": 0.053352763085782934
+ },
+ "strict_iou": {
+  "delta": 0.02633657987959881,
+  "lo": 0.0022360508239468546,
+  "hi": 0.06506840734727609,
+  "se": 0.0163285102729586
+ },
+ "strict_band": "outside the convention band",
+ "fixed": {
+  "delta": 0.04300408635908115,
+  "lo": 0.0066764011474943165,
+  "hi": 0.10065628780563708,
+  "se": 0.023905187852769266
+ },
+ "guards": [
+  {
+   "pass": true,
+   "item": "G1 width pooled",
+   "text": "G1 width ratio C2 / C1 pooled 1.013 (band 0.85 to 1.15; C2 0.463, C1 0.458)"
+  },
+  {
+   "pass": true,
+   "item": "G2 width CSIR",
+   "text": "G2 width ratio C2 / C1 on CSIR (101 cells) 1.013 (band 0.85 to 1.15)"
+  },
+  {
+   "pass": true,
+   "item": "G3 false crack px",
+   "text": "G3 false crack px on the 74 crack-free cells: C2 2421 <= 1.5 x C1 3218 (ratio 0.752)"
+  },
+  {
+   "pass": true,
+   "item": "G4 mIoU-R13",
+   "text": "G4 mIoU-R13 delta +0.0249 >= -0.01"
+  }
+ ]
+}

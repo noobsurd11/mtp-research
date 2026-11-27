@@ -1,0 +1,52 @@
+{
+ "paper_id": "doi:10.1016/j.engappai.2025.111790",
+ "title": "Advancing automatic photovoltaic defect detection using semi-supervised semantic segmentation of electroluminescence images (PV-S3)",
+ "year": 2025,
+ "venue": "Engineering Applications of Artificial Intelligence",
+ "url": "https://arxiv.org/abs/2404.13693",
+ "code_url": "https://github.com/abj247/PV-S3",
+ "mechanism": "Semi-supervised segmentation with a Semi Cross-Entropy loss for class imbalance.",
+ "adaptation": "Run official code under our split and protocol as a benchmark baseline; test the Semi-CE loss alone inside the house model.",
+ "min_experiment": "Arm: house + Semi-CE loss. Baseline: house, 5 seeds. Metric: crack and inactive IoU. Kill if both < +0.012. Separately run PV-S3 as a benchmark entry.",
+ "evidence": "R: with 20% labels, +9.7 mIoU, +13.5 precision, +29.15 recall over a fully supervised SOTA on UCF-EL.",
+ "prior_overlap": "SSL at 100% labels closed (n.d.); Semi-CE loss alone untested.",
+ "score": 30,
+ "bench_score": 85,
+ "bet": "safe",
+ "gpu_hours": 15,
+ "targets": [
+  "benchmark"
+ ],
+ "directions": [
+  "D01",
+  "D03",
+  "D29"
+ ],
+ "scout_scores": [
+  15,
+  30,
+  15
+ ],
+ "alt_notes": [
+  {
+   "from": "D01",
+   "adaptation": "Run only as a benchmark baseline under the fixed protocol; mean teacher at 100% labels is closed for raising scores.",
+   "min_experiment": "Benchmark run: PV-S3 code on our splits, 3 seeds, all benchmark metrics; no kill line (reference baseline).",
+   "score": 15
+  },
+  {
+   "from": "D29",
+   "adaptation": "For scores, nothing new: it is the SemiCE Mean Teacher line already run here. For the benchmark, run it under our protocol (clean splits, relF1@2, E1) as the only published EL SSL baseline.",
+   "min_experiment": "Benchmark entry only: PV-S3 code on our 478-cell split + pool, 3 seeds, reported with house and PF.",
+   "score": 15
+  }
+ ],
+ "final": 30,
+ "bench": 85,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 493,
+ "pub_allowed": 0,
+ "selected_for": "bench"
+}

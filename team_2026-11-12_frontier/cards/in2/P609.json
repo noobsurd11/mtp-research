@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1038/s41598-021-03498-z",
+ "title": "An empirical investigation on the correlation between solar cell cracks and hotspots",
+ "year": 2021,
+ "venue": "Scientific Reports",
+ "url": "https://www.nature.com/articles/s41598-021-03498-z",
+ "code_url": "",
+ "mechanism": "Classifies cracks into four modes (free, micro-crack, shaded / isolated area, breakdown) and measures which produce hot spots.",
+ "evidence": "R: 12 cells; modes 1-2 no hot spot; modes 3-4 heat from 25 C to 100 C; worst at 40 to 60 % shading ratio (105 C).",
+ "adaptation": "Gives a severity label computable from our masks (crack mode from predicted inactive fraction) and the EL-to-thermal mapping for the deliverable; explains why thermal cannot help strict crack IoU.",
+ "min_experiment": "With E-PF masks on A3 crack modules (needs Om's open decision on inference location), Spearman between predicted inactive fraction per cell and sunlit IR cell delta T; kill the mapping claim if rho < 0.3.",
+ "gpu_hours": 0.5,
+ "prior_overlap": "Desk study (doc 22) cited the abstract; no experiment run.",
+ "targets": [
+  "severity",
+  "deployment"
+ ],
+ "bet": "safe",
+ "score": 15,
+ "bench_score": 50,
+ "directions": [
+  "D05"
+ ],
+ "scout_scores": [
+  15
+ ],
+ "final": 15,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 609,
+ "pid": "P609"
+}

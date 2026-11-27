@@ -1,0 +1,35 @@
+{
+ "paper_id": "arxiv:2103.03098",
+ "title": "Accounting for Variance in Machine Learning Benchmarks",
+ "year": 2021,
+ "venue": "arXiv (MLSys 2021, unverified)",
+ "url": "https://arxiv.org/abs/2103.03098",
+ "code_url": "",
+ "mechanism": "Randomise all sources of variation (data split, init, order, augmentation, hyperparameters) in every run; this cheap estimator approaches the ideal one (51x less compute) and comparisons use P(A>B).",
+ "adaptation": "Each benchmark run draws a fresh grouped split and seed; methods compared by P(A>B) over paired runs instead of mean of 5 seeds on one fixed split.",
+ "min_experiment": "Arm: 10 runs per method with new split+seed. Baseline: 10 seed-only runs on fixed split. Metric: share of delta variance from data split vs seed. Kill: split variance < 25% of seed variance means seed-only protocol is enough.",
+ "score": 55,
+ "bench_score": 85,
+ "bet": "safe",
+ "targets": [
+  "measurement",
+  "benchmark"
+ ],
+ "evidence": "R: data sampling, init and hyperparameter choice all mark results; error rates of detecting improvements studied on five deep-learning tasks.",
+ "gpu_hours": 11,
+ "prior_overlap": "none; current protocol is seed-only on a fixed split.",
+ "directions": [
+  "D41"
+ ],
+ "scout_scores": [
+  55
+ ],
+ "final": 55,
+ "bench": 85,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 133,
+ "pub_allowed": 0,
+ "selected_for": "bench"
+}

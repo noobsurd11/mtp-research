@@ -1,0 +1,44 @@
+{
+ "paper_id": "doi:10.1007/978-3-031-72114-4_59",
+ "title": "Swin-UMamba: Mamba-Based UNet with ImageNet-Based Pretraining",
+ "year": 2024,
+ "venue": "MICCAI (LNCS)",
+ "url": "https://arxiv.org/abs/2402.03302",
+ "code_url": "https://github.com/JiarunLiu/Swin-UMamba",
+ "mechanism": "An ImageNet-pretrained VMamba (visual state space) encoder with a U-Net decoder inside the nnU-Net pipeline. Pretraining is what makes the Mamba U-Net beat CNN, ViT and from-scratch Mamba models.",
+ "adaptation": "Average the 3-channel stem weights to 1 channel; 512 px (16 x 16 at the deepest stage). Use the PF fine-tune (frozen encoder 1k steps, then 0.1x lr), because the house fine-tune erases pretrained layers. Aim at E1, where half-cut layout and scuff streaks need cell-scale context. Needs the mamba-ssm CUDA build on cv02.",
+ "min_experiment": "Swin-UMamba PF against house PF, 3 seeds each, 20k steps; metric E1 crack relF1@2 and E1 inactive IoU, with test-49 crack IoU as a guard. Kill: under +0.03 E1 relF1@2, or test crack IoU worse by more than 0.01.",
+ "evidence": "R: beats U-Mamba_Enc by 2.72% on average over AbdomenMRI, Endoscopy and Microscopy (2D). In U-Bench it ranks #3 zero-shot and #5 in-domain IoU over 28 2D datasets. In GP-VMxSMA it is on par with general-purpose models.",
+ "prior_overlap": "The foundation-encoder screens (DINOv3/ConvNeXt linear probes, one 4k-step ConvNeXt-T PF fine-tune) did not test a pretrained SSM encoder under a full schedule, so this is open.",
+ "score": 55,
+ "bench_score": 80,
+ "bet": "medium",
+ "targets": [
+  "e1_unseen",
+  "crack",
+  "benchmark"
+ ],
+ "gpu_hours": 15,
+ "directions": [
+  "D25"
+ ],
+ "scout_scores": [
+  40,
+  55
+ ],
+ "alt_notes": [
+  {
+   "from": "D25",
+   "adaptation": "Gray replicated to 3 channels, 512 px, 24 classes, label-safe aug, PF-style schedule (frozen encoder 1k steps, 0.1x lr) so the pretraining is not erased as in the house fine-tune.",
+   "min_experiment": "Swin-UMamba (PF) v its scratch trainer v house PF, 5 folds. Metric: E1 relF1@2 and inactive IoU, CV crack relF1@2. Kill if E1 relF1@2 < +0.03 over house PF.",
+   "score": 40
+  }
+ ],
+ "final": 55,
+ "bench": 80,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 135,
+ "pid": "P135"
+}

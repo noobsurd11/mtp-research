@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.1002/pip.3448",
+ "title": "Computer vision tool for detection, mapping, and fault classification of photovoltaics modules in aerial IR videos",
+ "year": 2021,
+ "venue": "Progress in Photovoltaics",
+ "url": "https://arxiv.org/abs/2106.07314",
+ "code_url": "https://github.com/LukasBommes/PV-Hawk",
+ "mechanism": "Detects, tracks and georeferences PV modules in drone IR video and extracts per-module image stacks for classification.",
+ "evidence": "R: ResNet-50 > 90 % test accuracy on 10 anomaly classes; follow-up SfM version mapped 99.3 % of 35,084 modules and extracted > 2.2 M module images (per web summary of arXiv 2204.02733).",
+ "adaptation": "Module-ID map and per-module crops for WattCycle flights; lets a later EL session be matched module by module for a pre-registered EL queue.",
+ "min_experiment": "Run on a public sample video, then on the first WattCycle flight; report share of modules mapped. Tooling, no kill line.",
+ "gpu_hours": 1,
+ "prior_overlap": "Desk study idea W02 (module ID map) planned, not run.",
+ "targets": [
+  "deployment"
+ ],
+ "bet": "safe",
+ "score": 10,
+ "bench_score": 15,
+ "directions": [
+  "D05"
+ ],
+ "scout_scores": [
+  10
+ ],
+ "final": 10,
+ "bench": 15,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 634,
+ "pid": "P634"
+}

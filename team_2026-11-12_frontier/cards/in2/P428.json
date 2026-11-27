@@ -1,0 +1,42 @@
+{
+ "paper_id": "arxiv:2508.10794",
+ "title": "VasoMIM: Vascular Anatomy-Aware Masked Image Modeling for Vessel Segmentation",
+ "year": 2025,
+ "venue": "AAAI 2026",
+ "url": "https://arxiv.org/abs/2508.10794",
+ "code_url": "",
+ "mechanism": "MIM where an unsupervised Frangi map steers masking onto thin-structure patches (ramp 0 to 0.5, ratio 0.5) and a frozen small segmentor enforces that the reconstruction keeps the same vessels.",
+ "adaptation": "Dark-ridge filter (Frangi on inverted EL, sigma 1-2 px, or black top-hat) for crack-guided masking; consistency through the frozen house U-Net++ crack / inactive logits instead of their UNeXt; on top of the Frepa or FCMAE ConvNeXt arm.",
+ "min_experiment": "Arm: best ConvNeXt MIM arm + crack-guided masking + house-model consistency. Baseline: same arm with random masking. Kill if out-of-fold crack relF1@2 < +0.005 and E1 crack recall < +0.01.",
+ "evidence": "R: 20,650 unlabelled angiograms, ViT-B/16 + U-Net; MAE vs scratch +18.5 Dice at 25% labels; VasoMIM over MAE only +0.35 to +1.1 Dice.",
+ "prior_overlap": "None for structure-guided masking; plain MIM on R34 closed.",
+ "score": 38,
+ "bench_score": 30,
+ "bet": "medium",
+ "gpu_hours": 50,
+ "targets": [
+  "crack"
+ ],
+ "directions": [
+  "D32"
+ ],
+ "scout_scores": [
+  38,
+  38
+ ],
+ "alt_notes": [
+  {
+   "from": "D32",
+   "adaptation": "Ridge-filter-guided masking at ratio 0.5 and consistency through frozen house crack/inactive logits, added on top of the best FCMAE/Frepa arm.",
+   "min_experiment": "Winner of FCMAE/Frepa + guided masking vs the same without; kill if out-of-fold relF1@2 < +0.005 and E1 recall < +0.01.",
+   "score": 38
+  }
+ ],
+ "final": 38,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 428,
+ "pid": "P428"
+}

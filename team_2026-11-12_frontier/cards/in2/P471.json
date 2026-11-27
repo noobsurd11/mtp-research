@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2512.06981",
+ "title": "Selective Masking based Self-Supervised Learning for Image Semantic Segmentation",
+ "year": 2025,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2512.06981",
+ "code_url": "",
+ "mechanism": "Iterative masked reconstruction that masks the patches with highest reconstruction loss instead of random patches; helps the weakest classes most.",
+ "adaptation": "Apply to the FCMAE or ridge-target arm: mask hardest-to-reconstruct EL patches (cracks, splices, gridline breaks, edges); targets weak classes gridline, splice, edge_dark as well as crack.",
+ "min_experiment": "Winner arm with selective vs random masking; kill if out-of-fold relF1@2 < +0.005 and gridline/splice fold IoU < +0.02.",
+ "evidence": "R: +2.9% (VOC, Cityscapes) and +2.5% (2 weed sets) over random masking and ImageNet; largest gains on lowest classes.",
+ "prior_overlap": "none: our MIM used random masking.",
+ "targets": [
+  "other_classes",
+  "crack"
+ ],
+ "bet": "medium",
+ "gpu_hours": 50,
+ "score": 35,
+ "bench_score": 25,
+ "directions": [
+  "D32"
+ ],
+ "scout_scores": [
+  35
+ ],
+ "final": 35,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 471,
+ "pid": "P471"
+}

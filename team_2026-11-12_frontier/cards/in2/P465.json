@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.1109/tim.2023.3268658",
+ "title": "Normal Reference Attention and Defective Feature Perception Network for Surface Defect Detection (NDP-Net)",
+ "year": 2023,
+ "venue": "IEEE TIM",
+ "url": "https://arxiv.org/abs/2211.10060",
+ "code_url": "",
+ "mechanism": "Reference-based attention: features of a normal reference image repair the query's defective features; a multi-scale head segments the difference; built for textured surfaces.",
+ "adaptation": "Reference-conditioned U-Net++: second input = a clean cell of the same source and layout (train) or same module (E1, if pool has it). Shared encoder, cross-attention at 1/8 and 1/16 from query to reference; decoder sees query and repaired features. Explicit 'normal here' for half-cut and scuff.",
+ "evidence": "R: MVTec AD and DAGM textured defects, deployed in an industrial line; no thin-label evidence.",
+ "min_experiment": "First verify E1 modules have pool cells. Arm: PF with reference branch; baseline: PF. Metric: E1 crack relF1@2, CV crack IoU. Kill: E1 gain < +0.03 or CV crack IoU drop > 0.012.",
+ "gpu_hours": 40,
+ "prior_overlap": "none",
+ "score": 35,
+ "bench_score": 30,
+ "bet": "moonshot",
+ "targets": [
+  "e1_unseen"
+ ],
+ "directions": [
+  "D39"
+ ],
+ "scout_scores": [
+  35
+ ],
+ "final": 35,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 465,
+ "pid": "P465"
+}

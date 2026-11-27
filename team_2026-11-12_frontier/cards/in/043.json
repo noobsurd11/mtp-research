@@ -1,0 +1,70 @@
+{
+ "paper_id": "arxiv:2508.20909",
+ "title": "Dino U-Net: Exploiting High-Fidelity Dense Features from Foundation Models for Medical Image Segmentation",
+ "year": 2025,
+ "venue": "LNCS (2026)",
+ "url": "https://arxiv.org/abs/2508.20909",
+ "code_url": "https://github.com/yifangao112/DinoUNet",
+ "mechanism": "Frozen DINOv3 ViT with an adapter that fuses ViT semantics with a conv low-level spatial branch, plus a fidelity-aware projection into a U-Net decoder; accuracy rises with backbone size up to 7B.",
+ "adaptation": "DINOv3 ViT-L/16 at 1024 input (and one frozen ViT-7B run on 48 GB A6000), 24-class head, house loss; the conv spatial branch is what must carry the 1-2 px cracks; 1-ch to 3-ch.",
+ "evidence": "R: SOTA on 7 public medical segmentation datasets; scaling gains to 7B (abstract).",
+ "min_experiment": "Dino U-Net ViT-L @1024, 3 seeds vs house U-Net++ and PF; same read-outs as SAM2-UNet; kill if crack IoU < 0.465, relF1@2 < 0.875 and E1 relF1@2 < 0.43.",
+ "gpu_hours": 50,
+ "score": 66,
+ "bench_score": 70,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "inactive",
+  "other_classes",
+  "e1_unseen",
+  "benchmark"
+ ],
+ "prior_overlap": "Frozen DINOv3 ViT-S linear probe and DINOv3 ConvNeXt-T PF screen (4k steps, judged on F51 crack AP) showed no gain. Large ViT, adapter with spatial branch, 1024 input not tested; open.",
+ "directions": [
+  "D07",
+  "D14",
+  "D24"
+ ],
+ "scout_scores": [
+  50,
+  50,
+  60,
+  66,
+  58
+ ],
+ "alt_notes": [
+  {
+   "from": "D07",
+   "adaptation": "Repeat 1-ch EL to 3 ch; DINOv3 ViT-L/16 at 512 px gives 32x32 tokens, so a conv-stem skip path at 1/2 and 1/4 resolution must carry the 1-2 px cracks; keep CE + soft Dice on crack/inactive, 24 classes, label-safe augmentation.",
+   "min_experiment": "Arm Dino U-Net (ViT-L) vs baseline PF, 5 seeds; metrics CV crack IoU / relF1@2 then E1 relF1@2; kill if below PF by > 0.01 crack IoU and < +0.03 E1 relF1@2. About 30 GPU-h.",
+   "score": 50
+  },
+  {
+   "from": "D07",
+   "adaptation": "Repeat 1-ch EL to 3 ch; DINOv3 ViT-L/16 at 512 gives 32x32 tokens, so the conv skip path at 1/2 and 1/4 resolution must carry 1-2 px cracks; keep CE + soft Dice on crack/inactive and the 24-class head; compare ViT-S/B/L to test scaling.",
+   "min_experiment": "Arm Dino U-Net (frozen DINOv3 ViT-L) vs PF baseline, 5 seeds; metrics test crack IoU and relF1@2, E1 crack relF1@2, mIoU_rob; kill if test crack IoU is > 0.01 below PF and E1 relF1@2 gain < +0.03.",
+   "score": 50
+  },
+  {
+   "from": "D07",
+   "adaptation": "DINOv3 ViT-L/16 or H+ frozen at 1024 input; spatial branch at stride 2 and 4 from raw EL; 24 classes; house loss. DINOv3 weights are gated (user OK needed).",
+   "min_experiment": "Dino U-Net ViT-L vs house PF, 5-fold CV then 3 seeds clean-49 + E1; default kill line.",
+   "score": 60
+  },
+  {
+   "from": "D24",
+   "adaptation": "Run as a stand-alone benchmark arm (1-channel replicated, 512 and 1024 px, 24 classes) and borrow its projection module for VFM-H.",
+   "min_experiment": "Dino U-Net (ViT-L) vs house PF and vs VFM-H; CV crack relF1@2, inactive IoU, E1 relF1@2; kill if more than 0.01 CV relF1@2 below VFM-H and no E1 gain.",
+   "score": 58
+  }
+ ],
+ "final": 66,
+ "bench": 70,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 43,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

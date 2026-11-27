@@ -1,0 +1,377 @@
+#!/bin/bash
+# T3b queues on cv02 (T3B_RULE.md section 10; LAUNCH_REQUEST_t3b.md section 6). Run by the LEAD on gaint AFTER the review, the
+# registration (t3b_register.sh; ledger row #9 written) and the deploy of K. Pattern: harness/final/opening/opening_queue.sh.
+# Two NEW queues, one after the other (never two of ours that can train):
+#   t3b      Q1 = /tmp/noob_el/bench_q/t3b: the 33 trainings of IO/jobs_train.txt on the T3b roots (DT), open mode, no dump in
+#            the chain (in-sample monitor); LPG 1 (one training of ours per GPU), MAXC = the GPUs free at arm time (or MAXC
+#            env, lower), SHARE_TRAIN 20480 (the user's floor, as fin / fin2), no SHARE_DUMP, GAPSEC >= 30.
+#   t3bopen  Q2 = /tmp/noob_el/bench_q/t3bopen: the 30 sealed dump-only lines of IO/jobs_dump.txt (Q2/SEALED: e1t3b_f0..4 at
+#            opening e1_open9_t3b + the staged images' MANIFEST md5), placed and armed only after t3b's ALL DONE with 33
+#            'trained rc=0'; strict lanes (no SHARE file), LPG 1.
+# One step per call, in this order; each refuses rather than guess, and prints what it did:
+#   build   gaint: K's scripts/bench_make_t3b_roots.py (REPO_K at K, clean) decodes the E1 masks and ignore maps (the files of
+#           reg/e1_files.md5 only) into IO/data (the 11 roots, pool files, E1 training labels), then --check; IO/BUILD.txt.
+#   check   cv02 READ ONLY: KB = deploy of K (REVISION, CODE.md5, pins; its CODE.md5 differs from F2B's only in K's paths);
+#           bench_data DEPLOY.md5; DT / DS / Q1 / Q2 absent or as staged; job names unused on cv02 and in the relay dirs.
+#   stage   cv02 WRITE: DT = /tmp/noob_el/bench_data_t3b <- IO/data and DS = /tmp/noob_el/bench_data_sealed <- IO/stage (tar
+#           streams); md5sum -c of MANIFEST.md5 / ROOTS_t3b.md5, the link list = LINKS.tsv, DS without any mask dir; read-only.
+#   render  cv02 WRITE (scratch queue dir): render-only run of KB's cq.sh on jobs_train.txt; t3b_rendercmp.py --kind train 0 FAIL.
+#   place   cv02 WRITE: Q1 with jobs_train.txt (read-only), LPG 1, SHARE_TRAIN 20480, MAXC (rewritten at arm). Not armed.
+#   guard   cv02 WRITE + START: disk guard 8 (diskguard8.sh; HOLD in t3b / t3bopen below 20 GB free; tmux bench_diskguard8).
+#   arm     cv02 START: pre-checks (render passed, Q1 placed and unused, check again, DT staged, guard 8 running, free >= 55
+#           GB), MAXC = GPUs with < 4096 MiB used now (or MAXC env if lower), then KB's cq_setup.sh (session bench_q_t3b).
+#   status  cv02 READ ONLY (both queues).
+#   render2 cv02 WRITE (scratch): only after t3b's ALL DONE with 33 'trained rc=0' and 33 RUN.md5; render-only of KB's cq.sh on
+#           jobs_dump.txt with the SEALED file; t3b_rendercmp.py --kind dump 0 FAIL.
+#   place2  cv02 WRITE: Q2 with jobs_dump.txt and SEALED (read-only), LPG 1, MAXC, no SHARE file.
+#   arm2    cv02 START: pre-checks (render2 passed, Q2 placed and unused, t3b ended, DS staged, guard 8 running, free >= 25 GB),
+#           then cq_setup.sh (session bench_q_t3bopen).
+#   unstage cv02 WRITE, after the registered read (its run.log 'T3B READ ALL DONE'): (1) the 30 sealed dump dirs in KB/dumps,
+#           each only after gaint's md5sum -c of its relayed copy (RD2) and cv02's md5sum -c of every listed file against the
+#           same RUN.md5 (pattern of opening_queue.sh unstage); (2) DS (only if it holds exactly its MANIFEST's files); (3) DT
+#           (only if md5sum -c of its MANIFEST passes and both queues have ended). No E1 image, mask or prediction then stays
+#           on cv02; runs/<job>/RUN.md5 and the 33 run dirs (models) stay.
+#   gate    READ ONLY (cv02 + gaint): the condition of render2 / place2 / arm2 alone (q1_done, below); prints it or refuses.
+#   repair steps (review round 1 N1; T3B_RULE.md section 10), for trainings that ended rc != 0, before t3bopen:
+#   repair_register  gaint: RN (1..9), NAMES_R (failed training names), KIND (fresh | resume) -> IO/repair<RN>/jobs.txt (the
+#           same lines; resume adds '--resume', cq.sh's F2 resume kind) and REPAIR.txt / REPAIR.md5; prints the ledger
+#           amendment line. A repair counts only once e1_openings.md holds its REPAIR.txt md5 (registered repair).
+#   repair_aside cv02 WRITE: for a registered repair: fresh = experiments/<n> and <n>.stdout renamed to *.failed<RN> (so the
+#           same line runs from step 0 in a fresh dir); resume = only <n>.stdout renamed (latest.pth must exist).
+#   render_r / place_r / arm_r: as render / place / arm for the repair queue bench_q/t3brep<RN> (t3b_rendercmp.py --kind
+#           repair; LPG 1, SHARE_TRAIN 20480, MAXC); arm_r only when t3b and every other repair queue have ended.
+# q1_done (gate, render2, place2, arm2): every training name has 'trained <n> rc=0' in t3b's launch.log or in the launch.log
+#   of a registered repair queue that lists it, and KB/runs/<n>/RUN.md5; t3b and every registered repair queue ended (ALL
+#   DONE, queue process gone); no unregistered bench_q/t3brep* dir; RD1/relay.log 'RELAY ALL DONE: 33 of 33' (round 1 B1);
+#   t3b_deploy_s5..7: RD1/.ok, gaint md5sum -c of the relayed RUN.md5, latest.pth relayed and = LATEST.md5 ('DEPLOY LATEST
+#   DONE: 3 of 3'; N10).
+# Round 1: B2 every step refuses unless this script, t3b_rendercmp.py, diskguard8.sh and t3b_label_precheck.py are the
+#   md5s of the registration's 'scripts' line; N6 build and stage refuse unless the ledger (e1_openings.md) holds a '| 9 |'
+#   row with REG_MD5; N8 build first runs t3b_label_precheck.py (all 106 labels decoded and checked in memory) and only then
+#   K's builder, which writes IO/data.
+# DRY=1: every cv02 write or start is printed, not run; read-only checks run.
+# Env: REG_MD5 (required: the md5 of REGISTERED.txt logged in the ledger), K (full commit, for the cv02 steps), MAXC, GAPSEC
+#   (>= 30), RD1 / RD2 (relay dirs; default the NAS dirs bench_relay/t3b and bench_relay/t3bopen, as t3b_relay.sh).
+#   Test-only overrides: IO, EXT_DIR, REPO_K, RD1, RD2, READ_OUT, LEDGER. If any is set the script refuses unless TEST_MODE=1;
+#   with TEST_MODE=1 IO, EXT_DIR, RD1, RD2, READ_OUT and LEDGER must be set, absolute and resolve under /home/noob/work/bench_int_io, the
+#   registration must be a TEST MODE one, and every cv02 step needs `ssh` to be a stub under that dir (checked before any
+#   read, hash, mkdir or ssh). A real registration refuses TEST_MODE.
+set -u
+STEP=${1:?step: build | check | stage | render | place | guard | arm | status | gate | render2 | place2 | arm2 | unstage | repair_register | repair_aside | render_r | place_r | arm_r}
+OV=""; for v in IO EXT_DIR REPO_K RD1 RD2 READ_OUT LEDGER; do [ -n "${!v+x}" ] && OV="$OV $v=${!v}"; done
+if [ -n "$OV" ] && [ "${TEST_MODE:-0}" != 1 ]; then echo "REFUSED ($STEP): test-only overrides set:$OV (TEST_MODE=1 only for dry runs)"; exit 1; fi
+SCR_ROOT=/home/noob/work/bench_int_io
+tm_no(){ echo "REFUSED (TEST_MODE guard): $*"; exit 1; }
+tm_in(){ local r; case "$1" in /*) ;; *) tm_no "$1 is not an absolute path";; esac; r=$(readlink -m -- "$1"); case "$r/" in "$SCR_ROOT"/*/*) ;; *) tm_no "$1 resolves to $r, outside $SCR_ROOT";; esac; }
+if [ "${TEST_MODE:-0}" = 1 ]; then
+  for v in IO EXT_DIR RD1 RD2 READ_OUT LEDGER; do [ -n "${!v+x}" ] && [ -n "${!v}" ] || tm_no "$v must be set explicitly to a path under $SCR_ROOT (its default is a production path)"; done
+  for p in "$IO" "$EXT_DIR" "$EXT_DIR/stems_eval.txt" "$EXT_DIR/images" "$EXT_DIR/masks" "$EXT_DIR/ignore" "$RD1" "$RD2" "$READ_OUT" "$LEDGER"; do tm_in "$p"; done
+  for d in "$IO" "$EXT_DIR" "$RD1" "$RD2"; do [ -d "$d" ] || continue; for l in $(find "$d" -type l 2>/dev/null); do tm_in "$l"; done; done
+  case "$STEP" in build|repair_register) ;; *) s=$(command -v ssh); tm_in "${s:-/nonexistent}";; esac
+fi
+IO=${IO:-/home/noob/work/bench_t3b_io}; EXT_DIR=${EXT_DIR:-/home/noob/work/el_f1/reports/f1/ext117}
+REPO_K=${REPO_K:-/home/noob/work/bench_wt_t3b}; READ_OUT=${READ_OUT:-/home/noob/work/bench_reads/t3b_open9}
+RD1=${RD1:-/mnt/nas/noob_el_archive/bench_relay/t3b}; RD2=${RD2:-/mnt/nas/noob_el_archive/bench_relay/t3bopen}
+LEDGER=${LEDGER:-/home/yugma/mtp/research/team_2026-10-31_next/e1_openings.md}
+DRY=${DRY:-0}; K=${K:-}; GAPSEC=${GAPSEC:-30}
+KC=cba7fbdf5df1579d6efb1168eb292e637bc9fad6; F2C=9967d59abaab03cef83c1e3014840b2359ef45d7
+KB=/tmp/noob_el/bench_${KC:0:7}; F2B=/tmp/noob_el/bench_9967d59; BQ=/tmp/noob_el/bench_q; Q1=$BQ/t3b; Q2=$BQ/t3bopen
+DT=/tmp/noob_el/bench_data_t3b; DS=/tmp/noob_el/bench_data_sealed; DATA_MD5=d6063fd83d20e656612540edda702cbe
+OPENING=e1_open9_t3b; SHARE_TRAIN=20480; FLOOR_ARM=55; FLOOR_ARM2=25
+HERE=$(cd "$(dirname "$(readlink -f "$0")")" && pwd); ME=$(readlink -f "$0")
+GUARD8_MD5=$(md5sum < $HERE/diskguard8.sh | cut -c1-32); [ "$GUARD8_MD5" = 0fe96ad9b0208bf6381f2bc5ee7b60b4 ] || { echo "REFUSED: diskguard8.sh is not the pinned md5"; exit 1; }
+[ "$(md5sum < $HERE/t3b_rendercmp.py | cut -c1-32)" = d6eec93f53818d3dbb0151845dac1ef4 ] || { echo "REFUSED: t3b_rendercmp.py is not the pinned md5"; exit 1; }
+P=/home/noob/work/el-fault-detection/.venv/bin/python
+PINS="227ce66853327e5393e7fa1548235381  bench/q/cv02/cq.sh
+9684c116ea35e8748fe861d15fdda8a7  bench/q/cv02/cq_setup.sh
+2a5f688160eb100eb0bc9784ffe06e7e  bench/q/cv02/cq_gpumem.sh
+f3affc80b21406644cedbc80d6e250ba  bench/q/cv02/cvcard.py
+20712dd3af1e6b86720a9633b419de00  bench/q/cv02/slim_ckpt.py
+1af2ed69babf72e9d0d0aa789eb71121  bench/q/bench_lib.sh
+6dc3a22ae3f419df077d4b511f971dda  scripts/train.py
+149e2a633094e94343cb729dbd570557  scripts/bench_infer.py
+801ff5228c14476968627bbdbff3253e  bench/tta.py
+92ef7db3cbe1fe74fe1823cc71844db1  bench/sets.py
+d2d0fe8b67be9a7cf33367eba97295e3  bench/dumpfmt.py
+380bab1e117bd1ef5031449f4a90d4ab  bench/cards.py
+7fe1004f5d2f0c6aa57c4945377c694d  src/trainers/weight_avg.py
+46cda66c647dc2c078758f82112a8136  src/data/benchmark_el.py
+5266806b559f74bcf9eae167bb076b95  bench/sets/e1_106_stems.txt
+9581b3e2bfe2eb0b784d4eb62469e2a0  bench/sets/e1t3b_f0.txt
+c1e8bcf53a38c226fe70c44c624ad713  bench/sets/e1t3b_f1.txt
+5067b76be191afddcbf0daeed6947d13  bench/sets/e1t3b_f2.txt
+92f8e87da504e18e8b735a2ed50290b6  bench/sets/e1t3b_f3.txt
+60aa7c33e0a1a173e529873ab51797d0  bench/sets/e1t3b_f4.txt
+98f152de3ea7f8c88e892162e07b4450  bench/methods/hrnet_w18_unetpp_swad_const_pf_v11.yaml
+d7b207089f6cfeb484ca9ef96f734786  bench/methods_cv02/hrnet_w18_unetpp_swad_const_pf_v11.yaml"
+DW="<bench/cellmeta.py <bench/derived.py <bench/dumpfmt.py <bench/q/cv02/cq.sh <bench/sets.py <scripts/bench_ens_dump.py <scripts/bench_infer.py <scripts/bench_score.py >bench/cellmeta.py >bench/derived.py >bench/dumpfmt.py >bench/public_metrics.py >bench/q/cv02/cq.sh >bench/sets.py >bench/sets/e1_106_stems.txt >bench/sets/e1t3b_f0.txt >bench/sets/e1t3b_f1.txt >bench/sets/e1t3b_f2.txt >bench/sets/e1t3b_f3.txt >bench/sets/e1t3b_f4.txt >bench/sets/masks_v0_pool532.md5 >bench/t3b_labels.py >scripts/bench_ens_dump.py >scripts/bench_infer.py >scripts/bench_make_t3b_roots.py >scripts/bench_open_read.py >scripts/bench_score.py >scripts/bench_t3b_oof.py >tests/test_bench_cq_sealed.py >tests/test_bench_infer_sealed.py >tests/test_bench_opening_read.py >tests/test_bench_public_metrics.py >tests/test_bench_t3b.py "
+C=cv02@10.8.1.106
+R(){ ssh -n -a -o BatchMode=yes -o ConnectTimeout=20 $C "$1"; }
+Wr(){ if [ $DRY = 1 ]; then echo "DRY, not run on cv02: $1"; else ssh -n -a -o BatchMode=yes -o ConnectTimeout=20 $C "$1"; fi; }
+no(){ echo "REFUSED ($STEP): $*"; exit 1; }
+say(){ echo "[$(date '+%F %T')] $STEP: $*" | tee -a $IO/queue.log; }
+# ---- the registration (every step)
+REG_MD5=${REG_MD5:?REG_MD5: the md5 of REGISTERED.txt logged in the ledger}
+[ -s $IO/REGISTERED.txt ] || no "no registration in $IO (run t3b_register.sh first)"
+[ "$(md5sum < $IO/REGISTERED.txt | cut -c1-32)" = "$REG_MD5" ] && [ "$(cat $IO/REGISTERED.md5)" = "$REG_MD5" ] || no "REGISTERED.txt md5 != REG_MD5"
+if head -1 $IO/REGISTERED.txt | grep -q '^TEST MODE'; then [ "${TEST_MODE:-0}" = 1 ] || no "the registration is a TEST MODE dry run"
+else [ "${TEST_MODE:-0}" != 1 ] || no "TEST_MODE=1 against a real registration"; fi
+grep -q "^opening_e1 E1 opening #9 $OPENING " $IO/REGISTERED.txt || no "the registration names another opening"
+grep -q "^commits K $KC " $IO/REGISTERED.txt || no "the registration names another K"
+JT=$(cat $IO/jobs_train.md5); JD=$(cat $IO/jobs_dump.md5)
+[ "$(md5sum < $IO/jobs_train.txt | cut -c1-32)" = "$JT" ] && grep -q "^jobs_train $JT 33 lines" $IO/REGISTERED.txt || no "jobs_train.txt is not the registered list"
+[ "$(md5sum < $IO/jobs_dump.txt | cut -c1-32)" = "$JD" ] && grep -q "^jobs_dump $JD 30 lines" $IO/REGISTERED.txt || no "jobs_dump.txt is not the registered list"
+SMAN=$(awk '/^stage_manifest /{print $2}' $IO/REGISTERED.txt)
+for f in t3b_queue.sh:$ME t3b_rendercmp.py:$HERE/t3b_rendercmp.py diskguard8.sh:$HERE/diskguard8.sh t3b_label_precheck.py:$HERE/t3b_label_precheck.py; do
+  grep "^scripts " $IO/REGISTERED.txt | grep -qF " ${f%%:*}=$(md5sum < ${f#*:} | cut -c1-32) " || no "${f%%:*} is not the registered script (REGISTERED.txt scripts line)"; done
+NAMES=$(cut -d'|' -f1 $IO/jobs_train.txt | tr '\n' ' ')
+ledger_row(){ grep -E '^\| 9 \|' "$LEDGER" 2>/dev/null | grep -qF "$REG_MD5" || no "the ledger $LEDGER holds no '| 9 |' row with REGISTERED.txt $REG_MD5 (procedure step 2 first)"; }
+rep_regs(){ # REPS = 'R:n1,n2 ...' of the registered repairs (REPAIR.md5 = md5 of REPAIR.txt and that md5 in the ledger)
+  local d r m; REPS=""
+  for d in $IO/repair[1-9]; do [ -e $d ] || continue; r=${d##*repair}; m=$(md5sum < $d/REPAIR.txt 2>/dev/null | cut -c1-32)
+    [ -s $d/REPAIR.txt ] && [ "$(cat $d/REPAIR.md5 2>/dev/null)" = "$m" ] && grep -q "^repair $r of REGISTERED $REG_MD5 " $d/REPAIR.txt || no "$d is not a complete repair record"
+    grep -qF "$m" "$LEDGER" 2>/dev/null || no "repair $r (REPAIR.txt $m) is not in the ledger $LEDGER: not registered"
+    REPS="$REPS$r:$(awk '/^names /{$1=""; print}' $d/REPAIR.txt | xargs | tr ' ' ',') "; done; }
+need_k(){ [ "$K" = $KC ] || no "K must be the full commit $KC"; }
+kb_check(){ local out d; out=$(R "cd $KB && echo \"rev \$(cat REVISION)\"; md5sum -c --quiet CODE.md5 > /dev/null 2>&1 && echo CODE_OK; echo \"$PINS\" | md5sum -c --quiet - > /dev/null 2>&1 && echo PINS_OK; (cd $F2B && md5sum -c --quiet CODE.md5 > /dev/null 2>&1) && echo F2B_OK; diff <(grep -v '  REVISION\$' $F2B/CODE.md5) <(grep -v '  REVISION\$' CODE.md5) | grep '^[<>]' | awk '{print \$1 \$3}' | LC_ALL=C sort | tr '\n' ' '") || no "ssh failed"
+  case "$out" in "rev $KC"*) ;; *) no "KB $KB REVISION is not K";; esac
+  case "$out" in *CODE_OK*) ;; *) no "KB CODE.md5 check failed";; esac
+  case "$out" in *PINS_OK*) ;; *) no "KB files do not match the pinned md5s";; esac
+  case "$out" in *F2B_OK*) ;; *) no "F2B (deploy of F2) CODE.md5 check failed";; esac
+  d=$(echo "$out" | tail -1); [ "$d" = "$DW" ] || no "KB differs from F2B in other paths than K's: $d"
+  echo "KB $KB: REVISION K, CODE.md5 OK, pins OK; differs from F2B only in K's paths (+ REVISION)"; }
+data_check(){ local o; o=$(R "md5sum < /tmp/noob_el/bench_data/DEPLOY.md5 | cut -c1-32") || no "ssh failed"; [ "$o" = $DATA_MD5 ] || no "bench_data DEPLOY.md5 is not $DATA_MD5"; }
+dt_check(){ local o w; w="OK $(md5sum < $IO/data/MANIFEST.md5 | cut -c1-32) $(md5sum < $IO/data/roots/ROOTS_t3b.md5 | cut -c1-32) $(md5sum < $IO/data/LINKS.tsv | cut -c1-32)"
+  o=$(R "cd $DT 2>/dev/null && md5sum -c --quiet MANIFEST.md5 > /dev/null 2>&1 && (cd roots && md5sum -c --quiet ROOTS_t3b.md5 > /dev/null 2>&1) && echo \"OK \$(md5sum < MANIFEST.md5 | cut -c1-32) \$(md5sum < roots/ROOTS_t3b.md5 | cut -c1-32) \$(find . -type l -printf '%P\t%l\n' | LC_ALL=C sort | md5sum | cut -c1-32)\"") || no "ssh failed"
+  [ "$o" = "$w" ] || no "cv02 $DT: manifests, roots or links differ from IO/data (want '$w', got '$o')"
+  echo "DT $DT: MANIFEST.md5, ROOTS_t3b.md5 and the link list = IO/data (BUILD.txt)"; }
+ds_check(){ local o; o=$(R "cd $DS 2>/dev/null && md5sum -c --quiet MANIFEST.md5 > /dev/null 2>&1 && echo \"OK \$(md5sum < MANIFEST.md5 | cut -c1-32) \$(find . -type f | wc -l) \$(find . \\( -name masks -o -name ignore -o -name 'masks_*' \\) | wc -l)\"") || no "ssh failed"
+  [ "$o" = "OK $SMAN 108 0" ] || no "cv02 $DS: manifest check, md5 (want $SMAN), 108 files and no mask dir expected; got '$o'"
+  echo "DS $DS: 107 files + MANIFEST.md5 ($SMAN), md5sum -c OK, no mask or ignore dir"; }
+names_check(){ local hit n; cut -d'|' -f1 $IO/jobs_train.txt $IO/jobs_dump.txt > $IO/names.txt
+  hit=$(R "for n in $(tr '\n' ' ' < $IO/names.txt); do ls -d /tmp/noob_el/bench_*/experiments/\$n /tmp/noob_el/bench_*/experiments/\$n.stdout /tmp/noob_el/bench_*/dumps/elbench1/*/\$n /tmp/noob_el/bench_*/runs/\$n $BQ/*/pids/\$n.gpu 2>/dev/null; done; true") || no "ssh failed"
+  [ -z "$hit" ] || no "names already used on cv02: $(echo "$hit" | head -3 | tr '\n' ' ')"
+  for n in $(cat $IO/names.txt); do ls -d /home/noob/work/bench_relay/*/$n /mnt/nas/noob_el_archive/bench_relay/*/$n 2>/dev/null; done > $IO/relay_hits.txt
+  [ ! -s $IO/relay_hits.txt ] || no "names already in a relay dir: $(head -3 $IO/relay_hits.txt | tr '\n' ' ')"
+  echo "names: 63, none in use on cv02 or in a relay dir"; }
+sealed_file(){ for k in 0 1 2 3 4; do echo "e1t3b_f$k $OPENING"; done; echo "manifest $SMAN"; }
+q1_done(){ local o QL="$Q1" RL="" x n l bad="" k ok
+  rep_regs
+  for x in $REPS; do QL="$QL $BQ/t3brep${x%%:*}"; RL="$RL $BQ/t3brep${x%%:*}/launch.log"; done
+  o=$(R "for q in $QL; do echo \"Q \$q \$(cat \$q/launch.log 2>/dev/null | grep -c 'BENCH CV02 Q ALL DONE') \$(kill -0 \$(cat \$q/queue.pid 2>/dev/null) 2>/dev/null && echo alive || echo ended)\"; done
+    for n in $NAMES; do echo \"N \$n \$(cat $Q1/launch.log 2>/dev/null | grep -c \"trained \$n rc=0 \") \$(cat $RL /dev/null 2>/dev/null | grep -c \"trained \$n rc=0 \") \$(test -s $KB/runs/\$n/RUN.md5 && echo R || echo -)\"; done
+    echo \"D \$(cd $BQ 2>/dev/null && ls -d t3brep[1-9] 2>/dev/null | tr '\n' ' ')\"") || no "ssh failed"
+  while read -r k q c st; do [ "$k" = Q ] || continue; [ "${c:-0}" -ge 1 ] && [ "$st" = ended ] || bad="$bad queue $q not ended (ALL DONE $c, $st);"; done <<< "$o"
+  for d in $(echo "$o" | awk '$1 == "D" {$1=""; print}'); do case " $REPS" in *" ${d#t3brep}:"*) ;; *) bad="$bad unregistered repair queue $BQ/$d;";; esac; done
+  k=0; ok=0
+  while read -r x n a b r; do [ "$x" = N ] || continue; k=$((k+1))
+    if [ "$r" = R ] && { [ "${a:-0}" -ge 1 ] || { [ "${b:-0}" -ge 1 ] && echo " $REPS" | grep -qE "[:,]$n( |,)"; }; }; then ok=$((ok+1)); else bad="$bad $n (t3b $a, repair $b, RUN.md5 $r);"; fi
+  done <<< "$o"
+  [ $k = 33 ] || bad="$bad $k names reported;"
+  grep -q "RELAY ALL DONE: 33 of 33" $RD1/relay.log 2>/dev/null || bad="$bad no 'RELAY ALL DONE: 33 of 33' in $RD1/relay.log;"
+  for n in t3b_deploy_s5 t3b_deploy_s6 t3b_deploy_s7; do
+    [ -e $RD1/.ok/$n ] && (cd $RD1/$n 2>/dev/null && md5sum -c --quiet runs/$n/RUN.md5 > /dev/null 2>&1) || bad="$bad $n not relayed or md5sum -c failed;"
+    (cd $RD1/$n 2>/dev/null && test -f experiments/$n/checkpoints/latest.pth && md5sum -c --quiet runs/$n/LATEST.md5 > /dev/null 2>&1) || bad="$bad $n latest.pth not relayed (t3b_relay.sh deploy);"
+  done
+  grep -q "DEPLOY LATEST DONE: 3 of 3" $RD1/relay.log 2>/dev/null || bad="$bad no 'DEPLOY LATEST DONE: 3 of 3';"
+  [ -z "$bad" ] || no "t3b is not complete:$bad"
+  echo "t3b complete: $ok of 33 trained rc=0 with RUN.md5 (registered repairs: ${REPS:-none}); queues ended; relay 33 of 33; the 3 deployable units and their latest.pth verified on gaint"; }
+render_q(){ # list kind sealed(0|1) [tag]
+  local W=/tmp/noob_el/bench_t3b_render/$(date +%Y%m%d_%H%M%S) J tg=${4:-$2}; J=$(md5sum < $1 | cut -c1-32)
+  if [ $DRY = 1 ]; then echo "DRY, not run on cv02: mkdir $W/q; jobs.txt ($J); LPG 1$([ $3 = 1 ] && echo '; SEALED'); B=$KB Q=$W/q JOBS_MD5=$J DEPLOY=$KC DATA_MD5=$DATA_MD5 nice -n 19 bash $KB/bench/q/cv02/cq.sh"; exit 0; fi
+  ssh -a -o BatchMode=yes -o ConnectTimeout=20 $C "test ! -e $W && mkdir -p $W/q && cat > $W/q/jobs.txt && echo 1 > $W/q/LPG && md5sum < $W/q/jobs.txt | cut -c1-32" < $1 > $IO/render_${tg}_md5.txt || no "placing the scratch list failed"
+  [ "$(cat $IO/render_${tg}_md5.txt)" = "$J" ] || no "scratch jobs.txt md5 differs"
+  if [ $3 = 1 ]; then sealed_file | ssh -a -o BatchMode=yes -o ConnectTimeout=20 $C "cat > $W/q/SEALED" || no "SEALED"; fi
+  R "B=$KB Q=$W/q JOBS_MD5=$J DEPLOY=$KC DATA_MD5=$DATA_MD5 nice -n 19 bash $KB/bench/q/cv02/cq.sh; echo \"rc \$?; last line: \$(tail -1 $W/q/launch.log | cut -c23-)\"" | tee $IO/render_${tg}.out
+  grep -q "gpumem logger (cq_gpumem.sh) not running; not starting" $IO/render_${tg}.out || no "render did not reach the logger check (see $IO/render_${tg}.out)"
+  R "cat $W/q/jobs_rendered.txt" > $IO/rendered_${tg}.txt || no "ssh failed"
+  PYTHONDONTWRITEBYTECODE=1 $P $HERE/t3b_rendercmp.py --kind $2 --jobs $1 --rendered $IO/rendered_${tg}.txt --b $KB --repo $REPO_K | tee $IO/render_cmp_${tg}.out
+  [ ${PIPESTATUS[0]} = 0 ] || no "rendered lines do not match (see $IO/render_cmp_${tg}.out)"
+  say "render $tg OK in cv02 $W: templates and semantics 0 FAIL (scratch dir may be removed: rm -r $W)"; }
+free_gpus(){ R "nvidia-smi --query-gpu=memory.used --format=csv,noheader,nounits" | awk '$1 < 4096' | wc -l; }
+arm_q(){ # Q SES jobs_md5 floor share(0|1)
+  local Q=$1 SES=$2 J=$3 fl=$4 sh=$5 o a f m A t=0 x=""
+  case "$GAPSEC" in ''|*[!0-9]*) no "GAPSEC must be a whole number";; esac; [ "$GAPSEC" -ge 30 ] || no "GAPSEC below 30"
+  o=$(R "cd $Q && echo \"jobs \$(md5sum < jobs.txt | cut -c1-32) LPG \$(cat LPG) share \$(cat SHARE_TRAIN 2>/dev/null || echo -) \$(ls SHARE_DUMP 2>/dev/null | wc -l) sealed \$(ls SEALED 2>/dev/null | wc -l) used \$(ls -d queue.pid gpumem.pid pids HOLD 2>/dev/null | wc -l)\$(test -s launch.log && echo +log) ses \$(tmux has-session -t '=$SES' 2>/dev/null && echo yes || echo no)\"") || no "ssh failed"
+  [ "$o" = "jobs $J LPG 1 share $([ $sh = 1 ] && echo $SHARE_TRAIN || echo -) 0 sealed $([ $Q = $Q2 ] && echo 1 || echo 0) used 0 ses no" ] || no "queue dir check: $o"
+  kb_check; data_check
+  g=$(R "tmux has-session -t '=bench_diskguard8' 2>/dev/null && echo yes || echo no; md5sum < $BQ/diskguard8.sh 2>/dev/null | cut -c1-32; test -e $Q/HOLD && echo HOLD || echo nohold") || no "ssh failed"
+  [ "$(echo $g)" = "yes $GUARD8_MD5 nohold" ] || no "disk guard 8 not running with the reviewed script, or $Q/HOLD exists (run 'guard'): $(echo $g)"
+  a=$(R "df --output=avail -BG /tmp | tail -1 | tr -dc 0-9") || no "ssh failed"
+  [ "${a:-0}" -ge "$fl" ] || no "cv02 /tmp free ${a:-?} GB < $fl GB"
+  f=$(free_gpus); m=${MAXC:-$f}; case "$m" in ''|*[!0-9]*) no "MAXC must be a whole number";; esac
+  [ "$m" -le "$f" ] && [ "$m" -ge 1 ] && [ "$m" -le 8 ] || no "MAXC $m: must be 1 to 8 and at most the $f GPUs free now (< 4096 MiB used)"
+  echo "free GPUs now: $f; MAXC $m; free disk $a GB (need >= $fl)"
+  A="B=$KB Q=$Q SES=$SES DEPLOY=$KC JOBS_MD5=$J DATA_MD5=$DATA_MD5 GAPSEC=$GAPSEC bash $KB/bench/q/cv02/cq_setup.sh"
+  if [ $DRY = 1 ]; then echo "DRY, pre-checks passed; not run on cv02: echo $m > $Q/MAXC; $A"; exit 0; fi
+  R "echo $m > $Q/MAXC" || no "MAXC"
+  R "$A" | tee $IO/arm_${SES}.out
+  grep -q "cq_setup: $SES armed: gpumem [0-9]* queue [0-9]*" $IO/arm_${SES}.out || no "arming not confirmed (see $IO/arm_${SES}.out)"
+  while [ $t -lt ${ARMWAIT:-300} ]; do x=$(R "grep -m1 -E 'cv02 q armed:|; not starting' $Q/launch.log" 2>/dev/null); [ -n "$x" ] && break; sleep 10; t=$((t+10)); done
+  echo "$x" | cut -c1-400
+  case "$x" in *"cv02 q armed:"*) ;; *"; not starting"*) no "cq.sh did NOT arm: '${x#*] }'";; *) no "no 'cv02 q armed:' line after $t s";; esac
+  echo "$x" | grep -q "SHARE_TRAIN $([ $sh = 1 ] && echo $SHARE_TRAIN || echo 0) MiB, SHARE_DUMP 0 MiB" || echo "WARNING: the armed line does not show the expected sharing"
+  say "armed $SES ($Q; jobs $J; B = $KB; MAXC $m; LPG 1; SHARE_TRAIN $([ $sh = 1 ] && echo $SHARE_TRAIN || echo off), SHARE_DUMP off)"; }
+
+case $STEP in
+build)
+  [ ! -e $IO/data ] || no "$IO/data exists (built once)"
+  grep -q "^e1_files $(md5sum < $IO/reg/e1_files.md5 | cut -c1-32)\$" $IO/REGISTERED.txt || no "reg/e1_files.md5 is not the registered file"
+  [ "$(git -C $REPO_K rev-parse HEAD)" = $KC ] && [ "$(git -C $REPO_K status --porcelain -uno | wc -l)" = 0 ] || no "$REPO_K is not at K or has tracked changes"
+  ledger_row
+  A=(scripts/bench_make_t3b_roots.py --split /home/noob/work/bench_data_v3b/meta/cv5v3.json --forbidden /home/noob/work/bench_data_v3b/meta/forbidden_v1.txt
+     --legacy-splits $REPO_K/data/splits --labeled /home/noob/work/el-fault-detection/data/labeled --train-masks /home/noob/work/bench_data/masks_v11/masks
+     --e1 $EXT_DIR --e1-manifest $IO/reg/e1_files.md5 --lists $IO/reg/lists --out $IO/data)
+  if [ $DRY = 1 ]; then echo "DRY, not run: (cd $REPO_K && $P ${A[*]}) and the same with --check"; exit 0; fi
+  CUDA_VISIBLE_DEVICES= PYTHONDONTWRITEBYTECODE=1 nice -n 19 $P $HERE/t3b_label_precheck.py $REPO_K $EXT_DIR $IO/reg/e1_files.md5 $IO/reg/lists/e1_106_stems.txt > $IO/precheck.out 2>&1 || { tail -1 $IO/precheck.out; no "label precheck failed: nothing written to $IO/data"; }
+  cat $IO/precheck.out
+  (cd $REPO_K && CUDA_VISIBLE_DEVICES= PYTHONDONTWRITEBYTECODE=1 nice -n 19 $P "${A[@]}" && nice -n 19 $P "${A[@]}" --check) > $IO/build.out 2>&1 || { tail -3 $IO/build.out; no "build failed (see $IO/build.out)"; }
+  m(){ md5sum < $1 | cut -c1-32; }
+  { echo "build $(date '+%F %T %Z') K $KC REGISTERED $REG_MD5"; echo "data_manifest $(m $IO/data/MANIFEST.md5)"; echo "roots $(m $IO/data/roots/ROOTS_t3b.md5)"
+    echo "links $(m $IO/data/LINKS.tsv)"; echo "e1_labels $(m $IO/data/E1_LABELS.tsv)"; echo "build_json $(m $IO/data/BUILD.json)"; } > $IO/BUILD.txt
+  find $IO/data -type f -exec chmod a-w {} +; chmod a-w $IO/BUILD.txt
+  grep -E "^t3b_|^ROOTS|^asserts|^CHECK" $IO/build.out
+  say "built $IO/data (11 roots; $(cat $IO/BUILD.txt | tr '\n' ' '))";;
+check)
+  need_k; kb_check; data_check; names_check
+  o=$(R "ls -d $DT $DS $Q1 $Q2 2>/dev/null | tr '\n' ' '") || no "ssh failed"
+  echo "cv02 dirs present now: ${o:-none} (before 'stage' none is expected; afterwards DT and DS)"
+  say "check OK: KB, bench_data, 63 names free";;
+stage)
+  need_k; ledger_row; [ -s $IO/BUILD.txt ] || no "no build (run 'build')"
+  grep -q "^data_manifest $(md5sum < $IO/data/MANIFEST.md5 | cut -c1-32)\$" $IO/BUILD.txt && (cd $IO/data && md5sum -c --quiet MANIFEST.md5) || no "IO/data differs from BUILD.txt"
+  [ "$(md5sum < $IO/stage/MANIFEST.md5 | cut -c1-32)" = "$SMAN" ] && (cd $IO/stage && md5sum -c --quiet MANIFEST.md5) || no "IO/stage is not the registered $SMAN"
+  [ -z "$(find $IO/stage \( -name masks -o -name ignore -o -name 'masks_*' \) -print -quit)" ] || no "IO/stage holds a mask dir"
+  R "test ! -e $DS && test ! -e $DT && echo FREE" | grep -qx FREE || no "$DS or $DT exists on cv02"
+  if [ $DRY = 1 ]; then echo "DRY, not run on cv02: tar of $IO/data into $DT and of $IO/stage into $DS, md5sum -c, chmod a-w"; exit 0; fi
+  tar -C $IO/data -cf - . | ssh -a -o BatchMode=yes -o ConnectTimeout=20 $C "test ! -e $DT && mkdir $DT && tar -x -C $DT && find $DT -type f -exec chmod a-w {} +"; rc=${PIPESTATUS[0]}${PIPESTATUS[1]}
+  [ "$rc" = 00 ] || no "DT stream rc $rc"
+  tar -C $IO/stage -cf - . | ssh -a -o BatchMode=yes -o ConnectTimeout=20 $C "test ! -e $DS && mkdir $DS && tar -x -C $DS && find $DS -type f -exec chmod a-w {} +"; rc=${PIPESTATUS[0]}${PIPESTATUS[1]}
+  [ "$rc" = 00 ] || no "DS stream rc $rc"
+  dt_check; ds_check; say "staged DT $DT (the T3b roots; E1 training labels) and DS $DS (E1 images and list only; manifest $SMAN)";;
+render)
+  need_k; kb_check; dt_check; render_q $IO/jobs_train.txt train 0;;
+place)
+  case "${MAXC:-1}" in ''|*[!0-9]*) no "MAXC must be a whole number";; esac
+  R "test ! -e $Q1 && echo FREE" | grep -qx FREE || no "$Q1 exists on cv02"
+  if [ $DRY = 1 ]; then echo "DRY, not run on cv02: mkdir $Q1; jobs.txt ($JT, 33 lines, r--r--r--); LPG 1; SHARE_TRAIN $SHARE_TRAIN; MAXC ${MAXC:-1} (rewritten at arm); no SHARE_DUMP"; exit 0; fi
+  ssh -a -o BatchMode=yes -o ConnectTimeout=20 $C "test ! -e $Q1 && mkdir $Q1 && cat > $Q1/jobs.txt && chmod a-w $Q1/jobs.txt && echo 1 > $Q1/LPG && echo $SHARE_TRAIN > $Q1/SHARE_TRAIN && echo ${MAXC:-1} > $Q1/MAXC && md5sum < $Q1/jobs.txt | cut -c1-32" < $IO/jobs_train.txt > $IO/place_md5.txt || no "placing failed"
+  [ "$(cat $IO/place_md5.txt)" = "$JT" ] || no "placed jobs.txt md5 differs"
+  say "placed $Q1: jobs.txt $JT, LPG 1, SHARE_TRAIN $SHARE_TRAIN, no SHARE_DUMP; not armed";;
+guard)
+  s=$(R "tmux has-session -t '=bench_diskguard8' 2>/dev/null && echo RUNNING; test -e $BQ/diskguard8.sh && md5sum < $BQ/diskguard8.sh | cut -c1-32")
+  case "$s" in *RUNNING*) no "tmux bench_diskguard8 already runs on cv02";; esac
+  [ -z "$s" ] || [ "$s" = "$GUARD8_MD5" ] || no "cv02 $BQ/diskguard8.sh exists with another md5 ($s)"
+  if [ $DRY = 1 ]; then echo "DRY, not run on cv02: place $BQ/diskguard8.sh ($GUARD8_MD5), tmux new-session -d -s bench_diskguard8 'bash $BQ/diskguard8.sh'"; exit 0; fi
+  if [ -z "$s" ]; then ssh -a -o BatchMode=yes -o ConnectTimeout=20 $C "test ! -e $BQ/diskguard8.sh && cat > $BQ/diskguard8.sh" < $HERE/diskguard8.sh || no "placing diskguard8.sh failed"; fi
+  [ "$(R "md5sum < $BQ/diskguard8.sh | cut -c1-32")" = "$GUARD8_MD5" ] || no "cv02 diskguard8.sh md5 differs"
+  Wr "tmux new-session -d -s bench_diskguard8 'bash $BQ/diskguard8.sh' && sleep 2 && tail -1 $BQ/diskguard8.log"
+  say "disk guard 8 started (covers t3b and t3bopen; stop file $BQ/DISKGUARD8_STOP)";;
+arm)
+  need_k; [ -s $IO/render_cmp_train.out ] && grep -q "render compare: 0 FAIL" $IO/render_cmp_train.out || no "no passed 'render' in $IO"
+  dt_check; names_check; arm_q $Q1 bench_q_t3b $JT $FLOOR_ARM 1
+  echo "owed: 33 x 'start t3b_...', 'config OK (= card)', 'startup line OK: Labelled: 616 / 574 / 575 / 638 ...  val: 107  test: 107'; relay: G= bash $HERE/t3b_relay.sh train";;
+status)
+  R "echo \"cv02 \$(date -u '+%F %T') UTC; free \$(df --output=avail -BG /tmp | tail -1 | tr -dc 0-9) GB\"; for d in $Q1 $Q2; do [ -d \$d ] || { echo \"\$(basename \$d): no dir\"; continue; }; echo \"\$(basename \$d): HOLD \$(test -e \$d/HOLD && echo yes || echo no) MAXC \$(cat \$d/MAXC 2>/dev/null) started \$(ls \$d/pids/*.gpu 2>/dev/null | wc -l) ended \$(ls \$d/pids/*.end 2>/dev/null | wc -l) of \$(grep -c . \$d/jobs.txt) trained-rc0 \$(grep -c 'trained t3b_.* rc=0 ' \$d/launch.log 2>/dev/null) dumped-rc0 \$(grep -c 'dumped dump_.* rc=0:' \$d/launch.log 2>/dev/null) SHARED \$(grep -c SHARED \$d/launch.log 2>/dev/null)\"; grep -E 'FAIL|HOLD|not starting|Traceback lines [1-9]|rc=[1-9]' \$d/launch.log 2>/dev/null | tail -3; done; echo \"RUN.md5 \$(ls $KB/runs/*/RUN.md5 2>/dev/null | wc -l)\"; true";;
+render2)
+  need_k; q1_done; kb_check; ds_check; render_q $IO/jobs_dump.txt dump 1;;
+place2)
+  case "${MAXC:-1}" in ''|*[!0-9]*) no "MAXC must be a whole number";; esac
+  q1_done; R "test ! -e $Q2 && echo FREE" | grep -qx FREE || no "$Q2 exists on cv02"
+  if [ $DRY = 1 ]; then echo "DRY, not run on cv02: mkdir $Q2; jobs.txt ($JD, 30 lines, r--r--r--); SEALED (r--r--r--: $(sealed_file | tr '\n' ' ')); LPG 1; MAXC ${MAXC:-1}; no SHARE file"; exit 0; fi
+  ssh -a -o BatchMode=yes -o ConnectTimeout=20 $C "test ! -e $Q2 && mkdir $Q2 && cat > $Q2/jobs.txt && chmod a-w $Q2/jobs.txt && echo 1 > $Q2/LPG && echo ${MAXC:-1} > $Q2/MAXC && md5sum < $Q2/jobs.txt | cut -c1-32" < $IO/jobs_dump.txt > $IO/place2_md5.txt || no "placing failed"
+  [ "$(cat $IO/place2_md5.txt)" = "$JD" ] || no "placed jobs.txt md5 differs"
+  sealed_file | ssh -a -o BatchMode=yes -o ConnectTimeout=20 $C "cat > $Q2/SEALED && chmod a-w $Q2/SEALED" || no "SEALED"
+  say "placed $Q2: jobs.txt $JD, SEALED (e1t3b_f0..4 $OPENING, manifest $SMAN), LPG 1, strict lanes (no SHARE file); not armed";;
+arm2)
+  need_k; [ -s $IO/render_cmp_dump.out ] && grep -q "render compare: 0 FAIL" $IO/render_cmp_dump.out || no "no passed 'render2' in $IO"
+  q1_done; ds_check; arm_q $Q2 bench_q_t3bopen $JD $FLOOR_ARM2 0
+  echo "owed: 30 x 'dump-only t3b_..._s<s>.swad.tta_d4.e1t3b_f<k> on GPU g', 'dumped dump_... rc=0', 'RUN.md5 ... (dump-only)'; relay: bash $HERE/t3b_relay.sh dump";;
+gate)
+  q1_done;;
+repair_register)
+  RN=${RN:-}; KIND=${KIND:-}; case "$RN" in [1-9]) ;; *) no "RN must be 1 to 9";; esac
+  case "$KIND" in fresh|resume) ;; *) no "KIND must be fresh or resume";; esac
+  [ ! -e $IO/repair$RN ] || no "$IO/repair$RN exists"
+  [ -n "${NAMES_R:-}" ] || no "NAMES_R (the failed training names) is empty"
+  rep_regs
+  o=$(R "cat $Q1/launch.log 2>/dev/null | grep -c 'BENCH CV02 Q ALL DONE'; kill -0 \$(cat $Q1/queue.pid 2>/dev/null) 2>/dev/null && echo alive || echo ended; for n in $NAMES_R; do echo \"\$n \$(cat $Q1/launch.log $(for x in $REPS; do printf '%s ' $BQ/t3brep${x%%:*}/launch.log; done) /dev/null 2>/dev/null | grep -c \"trained \$n rc=0 \") \$(test -e $KB/runs/\$n/RUN.md5 && echo R || echo -)\"; done") || no "ssh failed"
+  [ "$(echo "$o" | sed -n 1p)" -ge 1 ] && [ "$(echo "$o" | sed -n 2p)" = ended ] || no "t3b has not ended (repairs come after its ALL DONE)"
+  L=""
+  for n in $NAMES_R; do l=$(grep "^$n|" $IO/jobs_train.txt); [ -n "$l" ] || no "$n is not a T3b training line"
+    [ "$(echo "$o" | awk -v n=$n '$1 == n {print $2 $3}')" = "0-" ] || no "$n has a 'trained rc=0' line or a RUN.md5: nothing to repair"
+    [ $KIND = resume ] && l=$(echo "$l" | awk -F'|' 'BEGIN{OFS="|"} {$9="--resume"; print}')
+    L="$L$l
+"; done
+  mkdir -p $IO/repair$RN && printf '%s' "$L" > $IO/repair$RN/jobs.txt || no "write"
+  m=$(md5sum < $IO/repair$RN/jobs.txt | cut -c1-32)
+  { echo "repair $RN of REGISTERED $REG_MD5 (E1 opening #9 $OPENING; T3B_RULE.md section 10)"; echo "names $NAMES_R"; echo "kind $KIND"
+    echo "jobs $m $(grep -c . $IO/repair$RN/jobs.txt) lines"; echo "queue $BQ/t3brep$RN"; echo "made $(date '+%F %T %Z') by $(whoami)@$(hostname)"; } > $IO/repair$RN/REPAIR.txt
+  md5sum < $IO/repair$RN/REPAIR.txt | cut -c1-32 > $IO/repair$RN/REPAIR.md5; chmod a-w $IO/repair$RN/*
+  cat $IO/repair$RN/REPAIR.txt
+  echo "ledger line (e1_openings.md, after the #9 bullet), BEFORE repair_aside:"
+  echo "- **#9 amendment, repair $RN** (lead, $(date '+%-d %b %Y %H:%M') IST): REPAIR.txt **$(cat $IO/repair$RN/REPAIR.md5)**; $KIND re-run of $NAMES_R after rc != 0 in t3b (same card, seed and root$([ $KIND = resume ] && echo '; resumed from its latest.pth')); T3B_RULE.md section 10; registration $REG_MD5 unchanged."
+  say "repair $RN registered in $IO/repair$RN (REPAIR.txt $(cat $IO/repair$RN/REPAIR.md5)); counts once the ledger holds it";;
+repair_aside)
+  need_k; RN=${RN:-}; case "$RN" in [1-9]) ;; *) no "RN must be 1 to 9";; esac
+  rep_regs; case " $REPS" in *" $RN:"*) ;; *) no "repair $RN is not registered";; esac
+  KIND=$(awk '/^kind /{print $2}' $IO/repair$RN/REPAIR.txt); NR=$(awk '/^names /{$1=""; print}' $IO/repair$RN/REPAIR.txt)
+  SC="for n in $NR; do p=\$(cat $Q1/pids/\$n.pid 2>/dev/null); [ -n \"\$p\" ] && kill -0 \$p 2>/dev/null && { echo \"ALIVE \$n\"; exit 1; }; test -e $KB/runs/\$n/RUN.md5 && { echo \"HAS_RUN \$n\"; exit 1; }
+    e=$KB/experiments/\$n; for t in \$e.failed$RN \$e.stdout.failed$RN; do test -e \$t && { echo \"EXISTS \$t\"; exit 1; }; done
+    if [ $KIND = resume ]; then test -s \$e/config_used.yaml && test -s \$e/checkpoints/latest.pth || { echo \"NO_LATEST \$n\"; exit 1; }
+    else test -e \$e && mv \$e \$e.failed$RN && echo \"moved \$e -> \$e.failed$RN\"; fi
+    test -e \$e.stdout && mv \$e.stdout \$e.stdout.failed$RN && echo \"moved \$e.stdout -> \$e.stdout.failed$RN\"; done; echo ASIDE_OK"
+  if [ $DRY = 1 ]; then echo "DRY, not run on cv02: $SC"; exit 0; fi
+  o=$(R "$SC") || { echo "$o"; no "repair_aside refused on cv02 (nothing further moved)"; }
+  echo "$o"; echo "$o" | grep -qx ASIDE_OK || no "aside not confirmed"
+  say "repair $RN ($KIND): failed run files set aside for $NR";;
+render_r)
+  need_k; RN=${RN:-}; rep_regs; case " $REPS" in *" $RN:"*) ;; *) no "repair ${RN:-?} is not registered";; esac
+  kb_check; dt_check; render_q $IO/repair$RN/jobs.txt repair 0 repair$RN;;
+place_r)
+  RN=${RN:-}; rep_regs; case " $REPS" in *" $RN:"*) ;; *) no "repair ${RN:-?} is not registered";; esac
+  QR=$BQ/t3brep$RN; JR=$(md5sum < $IO/repair$RN/jobs.txt | cut -c1-32)
+  R "test ! -e $QR && echo FREE" | grep -qx FREE || no "$QR exists on cv02"
+  if [ $DRY = 1 ]; then echo "DRY, not run on cv02: mkdir $QR; jobs.txt ($JR); LPG 1; SHARE_TRAIN $SHARE_TRAIN; MAXC ${MAXC:-1}"; exit 0; fi
+  ssh -a -o BatchMode=yes -o ConnectTimeout=20 $C "test ! -e $QR && mkdir $QR && cat > $QR/jobs.txt && chmod a-w $QR/jobs.txt && echo 1 > $QR/LPG && echo $SHARE_TRAIN > $QR/SHARE_TRAIN && echo ${MAXC:-1} > $QR/MAXC && md5sum < $QR/jobs.txt | cut -c1-32" < $IO/repair$RN/jobs.txt > $IO/place_r$RN.txt || no "placing failed"
+  [ "$(cat $IO/place_r$RN.txt)" = "$JR" ] || no "placed jobs.txt md5 differs"
+  say "placed $QR (repair $RN): jobs.txt $JR, LPG 1, SHARE_TRAIN $SHARE_TRAIN; not armed";;
+arm_r)
+  need_k; RN=${RN:-}; rep_regs; case " $REPS" in *" $RN:"*) ;; *) no "repair ${RN:-?} is not registered";; esac
+  [ -s $IO/render_cmp_repair$RN.out ] && grep -q "render compare: 0 FAIL" $IO/render_cmp_repair$RN.out || no "no passed 'render_r' for repair $RN"
+  o=$(R "for q in $Q1 $BQ/t3brep[1-9]; do [ \$q = $BQ/t3brep$RN ] && continue; [ -d \$q ] || continue; kill -0 \$(cat \$q/queue.pid 2>/dev/null) 2>/dev/null && echo \"alive \$q\"; done; true") || no "ssh failed"
+  [ -z "$o" ] || no "another T3b queue is alive: $o"
+  dt_check; arm_q $BQ/t3brep$RN bench_q_t3brep$RN $(md5sum < $IO/repair$RN/jobs.txt | cut -c1-32) $FLOOR_ARM2 1
+  echo "then: REG_MD5=... bash $HERE/t3b_relay.sh trainrep $RN (after the repair queue's ALL DONE), t3b_relay.sh deploy if a deploy run was repaired, then gate";;
+unstage)
+  grep -q "T3B READ ALL DONE" $READ_OUT/run.log 2>/dev/null || no "the registered read has not ended ($READ_OUT/run.log)"
+  grep -q "RELAY ALL DONE: 30 of 30" $RD2/relay.log 2>/dev/null || no "the relay in $RD2 has not relayed all 30 dumps"
+  ds_check; dt_check
+  LIST=""
+  for n in $(cut -d'|' -f1 $IO/jobs_dump.txt); do
+    m=$(awk '{print $4}' $RD2/.ok/$n 2>/dev/null)
+    [ -n "$m" ] && [ "$(md5sum < $RD2/$n/runs/$n/RUN.md5 | cut -c1-32)" = "$m" ] || no "$n: relayed RUN.md5 missing or not the .ok md5"
+    (cd $RD2/$n && md5sum -c --quiet runs/$n/RUN.md5 > /dev/null 2>&1) || no "$n: gaint md5sum -c of the relayed copy failed"
+    k=$(grep -cE "  dumps/elbench1/[A-Za-z0-9_]+/$n/" $RD2/$n/runs/$n/RUN.md5)
+    [ "$k" -gt 0 ] && [ "$k" = "$(grep -c . $RD2/$n/runs/$n/RUN.md5)" ] || no "$n: RUN.md5 lists other files than its one dump dir"
+    LIST="$LIST$n $m $k
+"
+  done
+  echo "relayed copies verified on gaint: $(printf '%s' "$LIST" | grep -c .) of 30"
+  SCR="B=$KB; n0=0; while read n m k; do f=\$B/runs/\$n/RUN.md5
+  [ -f \$f ] && [ \"\$(md5sum < \$f | cut -c1-32)\" = \$m ] || { echo \"SKIP RUN.md5 \$n\"; continue; }
+  (cd \$B && md5sum -c --quiet runs/\$n/RUN.md5 > /dev/null 2>&1) || { echo \"SKIP md5sum -c \$n\"; continue; }
+  d=\$(ls -d \$B/dumps/elbench1/*/\$n 2>/dev/null); [ -n \"\$d\" ] && [ \"\$(echo \"\$d\" | wc -l)\" = 1 ] || { echo \"SKIP nodir \$n\"; continue; }
+  [ \"\$(find \"\$d\" -type f | wc -l)\" = \$k ] || { echo \"SKIP count \$n\"; continue; }
+  rm -rf -- \"\$d\" && n0=\$((n0+1)) && echo \"\$(date -u +%FT%T) removed \$d (\$k files = the verified relayed copy, RUN.md5 \$m)\" >> /tmp/noob_el/removed_relayed_dumps_t3b.log
+  done; echo REMOVED_DUMPS \$n0"
+  if [ $DRY = 1 ]; then echo "DRY, not run on cv02: the 30 dump dirs (each after the md5 checks), then rm -rf $DS and $DT"; exit 0; fi
+  o=$(printf '%s' "$LIST" | ssh -a -o BatchMode=yes -o ConnectTimeout=20 $C "bash -c '$SCR'") || no "ssh failed"
+  echo "$o" | tail -5
+  echo "$o" | grep -qx "REMOVED_DUMPS 30" || no "not every sealed dump dir was removed from $KB/dumps (see above; nothing else was touched)"
+  Wr "cd $DS && [ \"\$(find . -type f | wc -l)\" = 108 ] && cd /tmp && chmod -R u+w $DS && rm -rf $DS && echo REMOVED $DS"
+  Wr "for q in $Q1 $Q2; do p=\$(cat \$q/queue.pid 2>/dev/null); [ -n \"\$p\" ] && kill -0 \$p 2>/dev/null && { echo \"queue \$q alive\"; exit 1; }; done; cd $DT && md5sum -c --quiet MANIFEST.md5 > /dev/null 2>&1 && cd /tmp && chmod -R u+w $DT && rm -rf $DT && echo REMOVED $DT"
+  o=$(R "ls -d $DS $DT 2>/dev/null | wc -l"); [ "$o" = 0 ] || no "DS or DT still on cv02"
+  say "removed the 30 sealed dump dirs from $KB/dumps (each = its verified relayed copy in $RD2), DS (E1 images) and DT (E1 images, E1 training labels, roots) from cv02";;
+*) no "unknown step";;
+esac

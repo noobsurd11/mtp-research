@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.1038/s41598-025-31492-2",
+ "title": "Enhancing recall in asphalt pavement crack segmentation using a HoughNet-extended U-Net architecture with reconstruction head",
+ "year": 2025,
+ "venue": "Scientific Reports",
+ "url": "https://doi.org/10.1038/s41598-025-31492-2",
+ "code_url": "",
+ "mechanism": "Voting-based (HoughNet) segmentation head plus a reconstruction head to raise crack recall at similar precision.",
+ "adaptation": "Swap the crack logit for a log-polar voting head; aimed at relR@2 toward the 0.90 target.",
+ "min_experiment": "Arm = PF + voting crack head; baseline = PF; 5 seeds; relR@2 at relP@2 >= 0.90. Kill if relR@2 gain < 0.01.",
+ "score": 40,
+ "bench_score": 20,
+ "bet": "moonshot",
+ "targets": [
+  "crack"
+ ],
+ "evidence": "R: Crack500 higher recall at similar precision; GAPS384 thin cracks best F1.",
+ "gpu_hours": 20,
+ "prior_overlap": "None.",
+ "directions": [
+  "D11"
+ ],
+ "scout_scores": [
+  40
+ ],
+ "final": 40,
+ "bench": 20,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 401,
+ "pid": "P401"
+}

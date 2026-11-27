@@ -1,0 +1,46 @@
+{
+ "paper_id": "arxiv:2510.12764",
+ "title": "AnyUp: Universal Feature Upsampling",
+ "year": 2025,
+ "venue": "ICLR 2026",
+ "url": "https://arxiv.org/abs/2510.12764",
+ "code_url": "https://github.com/wimmerth/anyup",
+ "mechanism": "Encoder-agnostic, image-guided local-window attention upsampler that lifts any feature map to any resolution without retraining per encoder.",
+ "adaptation": "Upsample frozen or LoRA DINOv3 ViT-S/L patch-16 tokens (32x32 at 512 px) to 512x512 using the 1-channel EL cell (replicated to 3) as guidance, then a light conv head plus a full-res conv stem; no upsampler training, so a probe costs hours. Targets the E1 context gap by making ViTs usable for 1-2 px cracks and gridline.",
+ "min_experiment": "Frozen DINOv3 ViT-S/16 and ViT-L/16 1x1 probe over 24 classes: bilinear-512 vs bilinear-1024-input (existing ViT-S crack AP 0.212) vs AnyUp-512; metric F51 + module-grouped CV crack AP and gridline AP. Kill if AnyUp at 512 does not beat bilinear at 1024 input on crack AP. Pass leads to a fine-tuned ViT-L + AnyUp arm vs house PF, kill if E1 crack relF1@2 gain < +0.03.",
+ "evidence": "R: linear probe on DINOv2 ViT-S, 448 px: ADE20k mIoU 40.54 bilinear -> 42.43; COCO 59.48 -> 62.16; VOC 81.43 -> 84.00; best feature-space preservation (ADE20k 40.83 with pre-trained probes vs LoftUp 4.27). E: our DINOv3 ViT-S/16 probe crack AP 0.147 at 512 vs 0.212 at 1024 px, so token resolution limits ViTs here.",
+ "gpu_hours": 6,
+ "bet": "medium",
+ "prior_overlap": "Foundation-encoder row tested frozen linear probes with bilinear upsampling only and no ViT fine-tune; upsamplers untested. Open.",
+ "score": 60,
+ "bench_score": 45,
+ "targets": [
+  "crack",
+  "e1_unseen",
+  "other_classes"
+ ],
+ "directions": [
+  "D22"
+ ],
+ "scout_scores": [
+  60,
+  58
+ ],
+ "alt_notes": [
+  {
+   "from": "D22",
+   "adaptation": "Second zero-shot arm beside NAF on frozen DINOv3 features of 512 px EL cells (1-ch replicated); output feeds a conv head plus a full-resolution conv stem for 1 to 2 px cracks and gridline.",
+   "min_experiment": "Same probe as NAF: AnyUp 512 vs bilinear 512 / 1024 on frozen DINOv3 ViT-S and ViT-L; metric F51 + CV crack AP and gridline AP; kill if not above bilinear-1024 crack AP. About 2 GPU-h.",
+   "score": 58
+  }
+ ],
+ "final": 60,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 93,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P093"
+}

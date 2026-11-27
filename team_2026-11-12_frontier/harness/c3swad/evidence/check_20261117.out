@@ -1,0 +1,58 @@
+[2026-11-17 10:27:03] c3swad check (QC 'none', IO /tmp/claude-1003/-home-yugma-mtp/580c6627-c3a2-4289-90a4-aa6292c67e0d/scratchpad/io3)
+--- 1 card and code
+OK   gaint read and deploy tree /home/noob/work/bench_wt_final at 89b9ea5, no tracked change
+OK   card md5 46fb5b02be9d59b4dc00a21dc216e86f in bench_wt_final (89b9ea5) and in bench_wt_w2 (c57508e, the screen's tree)
+OK   card md5 on cv02 /tmp/noob_el/bench_89b9ea5 equal; REVISION 89b9ea5a; CODE.md5 OK
+OK   swad code paths byte-equal c57508e..89b9ea5 (scheduler, weight_avg, bn_recal, enc_probe, card, cards.py, train.py)
+OK   training code changed c57508e..89b9ea5 only in src/models/bench_models.py (deeplab pooling of bench_smp; not smp_unetpp)
+OK   card renders the same options at c57508e and 89b9ea5 for the 25 swad jobs (25 of 25)
+--- 2 queue code (QC) and the cv02 card variant
+SKIP no QC given: patched queue code not deployed yet (pins, CODE.md5, variant, weights)
+--- 3 data roots on cv02 (all five folds)
+OK   cv02 roots: ROOTS_cv5v3_v11.md5 OK; per fold SPLITS + DATA_MANIFEST OK, test = val, train/held-out 425/107 422/110 429/103 431/101 421/111
+OK   cv02 root lists = gaint bench_data_v3b lists (ROOTS file without the MASKLINKS lines)
+--- 4 rendered jobs against the card
+OK   cv02 render: train line = the card as rendered on gaint 89b9ea5, dump lines for <name> and <name>.swad on the run's own fold (25 of 25)
+OK   cv02 render: no swad dump line carries --logp
+--- 5 names
+OK   no swad run name and no c3s_* run exists on cv02 (experiments, runs of every deploy dir; queue dirs), no swad_const dump folder in the live deploy B
+OK   no c3s_* run in a gaint relay dir; relay dir c3swad not yet there or holding only c3s_ runs
+OK   the running relays cannot pick the swad names up (^c3_ and ^c3h_ do not match c3s_)
+--- 6 queues on cv02 (one training queue; LPG 1)
+     c3all MAXC 8 LPG 1 dispatched 0 HOLD 0 fixture_only 0
+     c3base MAXC 0 LPG 1 dispatched 0 HOLD 0 fixture_only 0
+     c3hrnet MAXC 0 LPG 1 dispatched 0 HOLD 0 fixture_only 0
+     rows2 MAXC 8 LPG 1 dispatched 1 HOLD 0 fixture_only 0
+     ---
+     GPU 5 c3h_hrnet_w18_unetpp_pf_f2_s7
+OK   live queues that can still start training: 'c3all ' (at most one; not counted: MAXC 0, all jobs dispatched, only --fixture jobs)
+OK   LPG is 1 in every live queue
+OK   no GPU carries two of our training runs now
+--- 7 disk and guards
+     cv02 /tmp free 83 GB; gaint free 67 GB; guards: bench_diskguard up;bench_diskguard2 up;bench_diskguard3 down;
+OK   cv02 /tmp free >= 45 GB (arm floor)
+OK   gaint free >= 25 GB (relay start floor)
+OK   cv02 disk guards 1 and 2 alive
+SKIP cv02 disk guard 3 not started yet ('c3swad_handover.sh guard'; 'arm' refuses without it)
+OK   relays c3base and c3hrnet alive on gaint
+--- 8 harness files
+OK   patch applies to 89b9ea5 (git apply --check on a fresh archive)
+OK   read script prints its command (SHOW=1) with the three arms, two pairs, --aa PF:5,6:7,8, cv5v3 groups and the exclude list
+OK   no read folder bench_reads/c3swad yet
+     524a70e64d2f8950ba98398f2f1423c6  cq_c3swad.patch
+     c8748ae68dc91e3fa9572d761fe63dc5  c3swad_make_jobs.py
+     0bb63159b26b1cdf0c2f5fc4cb69798d  c3swad_handover.sh
+     92794405dc207e4ecae8e47a620b52fb  diskguard3.sh
+     535a62a239dbe3f47c863b9d6540a459  c3swad_relay.sh
+     65b63ea7df6e06ece4ecaa9291f12e77  c3swad_relayguard.sh
+     34f9d507980c1563ec0d74b591b328cd  maxc_window_c3all2.sh
+     10ed79a6d536135f4fbdde6a0d02c276  run_read_c3swad.sh
+     61ce4ba0bb7cfa1e01922f281a3b67b2  c3swad_verdict.py
+     26db76b4380b3812f11a63e1e0ddb7d5  c3swad_verdict_test.py
+     c9022bcc9ddb964298bcd38bf01ab375  c3swad_class_guard.py
+     f70ded517ac7aa85e0720d551ac51d0d  c3swad_commit.sh
+     242810922385e4ef0f45fb5205ea4944  c3swad_dumptest.sh
+     cdb661c96f88a05bf52d7319269f00d6  c3swad_chain_test.sh
+     355d26fef3300739d4c27894ed927a84  c3swad_fix1_test.sh
+     ecf56c5cec6c8d9272f65a162eddd9fe  c3swad_check.sh
+[2026-11-17 10:27:09] C3SWAD CHECK: 23 OK, 0 FAIL, 2 SKIP

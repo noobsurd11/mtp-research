@@ -1,0 +1,42 @@
+{
+ "paper_id": "doi:10.1109/iccv51070.2023.01929",
+ "title": "Probabilistic Modeling of Inter- and Intra-observer Variability in Medical Image Segmentation (Pionono)",
+ "year": 2023,
+ "venue": "ICCV",
+ "url": "https://arxiv.org/abs/2307.11397",
+ "code_url": "",
+ "mechanism": "Each rater gets a learned Gaussian in latent space. A sample is fused with image features to give that rater's segmentation, trained end to end by variational inference, so it models both inter-rater style and intra-rater variability.",
+ "adaptation": "Rater = source (5 Gaussians); the latent variance captures within-source jitter. Small head on top of the house decoder; use the rater mean at test.",
+ "min_experiment": "Arm = house PF + Pionono head (5 seeds) versus house PF and versus the FiLM arm. Metric: crack IoU clean-49. Kill if < +0.012 or not better than the FiLM arm.",
+ "score": 50,
+ "bench_score": 35,
+ "bet": "medium",
+ "targets": [
+  "crack"
+ ],
+ "evidence": "R: prostate cancer histopathology with multiple pathologists; beats STAPLE, Probabilistic U-Net and confusion-matrix models.",
+ "gpu_hours": 8,
+ "prior_overlap": "none",
+ "directions": [
+  "D17"
+ ],
+ "scout_scores": [
+  50,
+  42
+ ],
+ "alt_notes": [
+  {
+   "from": "D17",
+   "adaptation": "Rater = source (5 Gaussians); latent sampling models within-source jitter. Small head on the house decoder; use the rater mean at test.",
+   "min_experiment": "Arm: Pionono head on house PF, 5 seeds vs house PF; metric clean-49 crack IoU; kill if < +0.012 or if not better than the source-FiLM arm.",
+   "score": 42
+  }
+ ],
+ "final": 50,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 216,
+ "pid": "P216"
+}

@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2606.21608",
+ "title": "CurvSegFlow: Time-Conditioned Flow Matching for Robust Segmentation of Curvilinear Structures in Noisy Biomedical Images",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2606.21608",
+ "code_url": "",
+ "mechanism": "Segmentation as time-conditioned flow matching: a U-Net with temporal embeddings integrates a learned velocity field from a noisy start to the mask, giving gradual error correction and better continuity at low SNR.",
+ "adaptation": "Use as a refinement head: start the flow from house-model crack probabilities instead of noise, condition on 1-channel EL, few Euler steps; target the 7% of crack components that are < 2% darker than surroundings.",
+ "min_experiment": "Arm: flow-matching refiner from house probabilities, 5 seeds. Baseline: house ensemble. Metrics: relF1@2, components found, crack IoU on 5-fold CV. Kill: relF1@2 < +0.005 after 2 days of tuning.",
+ "evidence": "R: competitive or better than standard segmenters on synthetic and real microtubules, retinal vessels, corneal nerves, coronary arteries; largest gains in precision and continuity at low SNR (numbers not read).",
+ "prior_overlap": "none; diffusion / flow segmenters never tried.",
+ "score": 42,
+ "bench_score": 35,
+ "bet": "moonshot",
+ "gpu_hours": 30,
+ "targets": [
+  "crack"
+ ],
+ "directions": [
+  "D26"
+ ],
+ "scout_scores": [
+  42
+ ],
+ "final": 42,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 337,
+ "pid": "P337"
+}

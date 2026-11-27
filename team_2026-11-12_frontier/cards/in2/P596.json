@@ -1,0 +1,51 @@
+{
+ "paper_id": "doi:10.1007/978-3-031-96628-6_20",
+ "title": "Pitfalls of Topology-Aware Image Segmentation",
+ "year": 2025,
+ "venue": "IPMI 2025",
+ "url": "https://arxiv.org/abs/2412.14619",
+ "code_url": "https://github.com/AlexanderHBerger/topo-pitfalls",
+ "mechanism": "Shows that the connectivity choice, topological artefacts in the ground truth and metric misuse change the rankings of topology methods, and gives recommendations.",
+ "adaptation": "Benchmark rules: fix 8-connectivity for crack components, audit tiny label fragments, report Betti / component metrics only next to overlap and relF1@2.",
+ "min_experiment": "No training. Recompute component metrics for existing PF predictions under 4- and 8-connectivity, with and without fragments < 20 px. Check whether method rankings flip.",
+ "score": 15,
+ "bench_score": 80,
+ "bet": "safe",
+ "targets": [
+  "benchmark",
+  "measurement"
+ ],
+ "evidence": "R (abstract): the three pitfalls measurably change evaluation and ranking.",
+ "gpu_hours": 0,
+ "prior_overlap": "none",
+ "directions": [
+  "D10",
+  "D12"
+ ],
+ "scout_scores": [
+  15,
+  15,
+  12
+ ],
+ "alt_notes": [
+  {
+   "from": "D10",
+   "adaptation": "Benchmark design: fix 8-connectivity for crack components, audit tiny label fragments, report Betti / component metrics only together with IoU and relF1@2.",
+   "min_experiment": "No training: recompute component and Betti metrics for the existing 5-seed PF ensemble under 4- and 8-connectivity and with / without sub-20 px label fragments; if rankings of existing arms change, adopt the stricter protocol.",
+   "score": 15
+  },
+  {
+   "from": "D12",
+   "adaptation": "Benchmark protocol: fix 8-connectivity for component metrics, report components found on cleaned GT, avoid Betti metrics on 1-2 px jittered crack labels, report tolerant metrics.",
+   "min_experiment": "No training. Re-score saved house/PF predictions under 4- vs 8-connectivity and with/without GT cleaning; kill the extra metric if rankings do not change.",
+   "score": 12
+  }
+ ],
+ "final": 15,
+ "bench": 80,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 596,
+ "pid": "P596"
+}

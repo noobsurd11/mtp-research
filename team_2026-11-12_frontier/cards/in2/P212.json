@@ -1,0 +1,43 @@
+{
+ "paper_id": "arxiv:2501.18855",
+ "title": "FlexiCrackNet: A Flexible Pipeline for Enhanced Crack Segmentation with General Features Transfered from SAM",
+ "year": 2025,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2501.18855",
+ "code_url": "",
+ "mechanism": "Task-specific encoder-decoder plus a frozen EdgeSAM CNN encoder used only as a generic feature extractor, fused by gated attention (IGAM); better zero-shot and robustness.",
+ "adaptation": "Keep house ResNet-34 U-Net++; add a frozen side encoder (EdgeSAM or the DINOv3 ConvNeXt-T already used in the probe study) fused at each skip by a learned gate. Frozen features cannot be erased by fine-tuning, making the PF finding structural.",
+ "min_experiment": "Arm: dual encoder with gated fusion; baseline: PF; 3 seeds. Metric: E1 crack relF1@2, E1 inactive IoU, CV crack IoU. Kill if E1 relF1@2 gain < +0.03 and E1 inactive gain < +0.05 with CV crack IoU within 0.01.",
+ "score": 50,
+ "bench_score": 35,
+ "bet": "medium",
+ "targets": [
+  "e1_unseen",
+  "inactive"
+ ],
+ "evidence": "R: claims SOTA, better zero-shot generalization and robustness on blurry inputs and complex backgrounds (numbers not in abstract).",
+ "gpu_hours": 12,
+ "prior_overlap": "Section 5 fine-tuned DINOv3 ConvNeXt-T as the only encoder (2 seeds, 4k steps, F51 judged); a frozen side branch fused with the ImageNet ResNet-34 is untested.",
+ "directions": [
+  "D09"
+ ],
+ "scout_scores": [
+  50,
+  50
+ ],
+ "alt_notes": [
+  {
+   "from": "D09",
+   "adaptation": "House ResNet-34 U-Net++ plus a frozen side encoder (EdgeSAM or the DINOv3 ConvNeXt-T on disk) fused at each skip through a learned gate; the frozen branch cannot be erased by fine-tuning.",
+   "min_experiment": "Arm: house + frozen side encoder with gated fusion; baseline PF; 3 seeds. Metric: E1 crack relF1@2, E1 inactive IoU, CV crack IoU. Kill if E1 relF1@2 gain < +0.03 and E1 inactive gain < +0.05.",
+   "score": 50
+  }
+ ],
+ "final": 50,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 212,
+ "pid": "P212"
+}

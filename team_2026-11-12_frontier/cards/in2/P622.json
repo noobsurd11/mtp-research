@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2305.13310",
+ "title": "Matcher: Segment Anything with One Shot Using All-Purpose Feature Matching",
+ "year": 2023,
+ "venue": "arXiv (ICLR 2024 per web)",
+ "url": "https://arxiv.org/abs/2305.13310",
+ "code_url": "https://github.com/aim-uofa/Matcher",
+ "mechanism": "DINOv2 patch matching gives point prompts; SAM generates and filters masks; training-free one-shot.",
+ "evidence": "R: 52.7 mIoU COCO-20i 1-shot; GFDS measured only 5.0 mIoU on industrial defects.",
+ "adaptation": "Benchmark row only (K-shot track), 3-channel replicated EL, 1024 px.",
+ "min_experiment": "K-shot track row vs SAM2 video mode; no labeller run unless it beats 0.2 inactive IoU on H36.",
+ "prior_overlap": "none",
+ "score": 12,
+ "bench_score": 40,
+ "bet": "safe",
+ "targets": [
+  "benchmark"
+ ],
+ "gpu_hours": 2,
+ "directions": [
+  "D38"
+ ],
+ "scout_scores": [
+  12
+ ],
+ "final": 12,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 622,
+ "pid": "P622"
+}

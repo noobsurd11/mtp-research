@@ -1,0 +1,36 @@
+{
+ "paper_id": "doi:10.1007/978-3-031-43901-8_39",
+ "title": "MedNeXt: Transformer-Driven Scaling of ConvNets for Medical Image Segmentation",
+ "year": 2023,
+ "venue": "MICCAI (LNCS)",
+ "url": "https://arxiv.org/abs/2303.09975",
+ "code_url": "https://github.com/MIC-DKFZ/MedNeXt",
+ "mechanism": "ConvNeXt blocks throughout encoder and decoder with compound scaling, and UpKern: initialise a large-kernel network by upsampling the kernels of a trained 3x3 network.",
+ "adaptation": "2D MedNeXt-B/L k3 at 512 px, 1 channel, label-safe aug, then UpKern to k5. Large kernels give context for E1 (scuff v crack) without attention. 2D support in repo unverified; a 2D port of the block is small.",
+ "min_experiment": "MedNeXt-B k3 and k5 (UpKern) 2D, 5 folds v nnU-Net arm A. Metric: CV crack relF1@2, inactive IoU, E1 relF1@2. Kill if no metric improves by >=0.01 (CV) or 0.03 (E1).",
+ "evidence": "R (nnU-Net Revisited Table 1): MedNeXt L best on 5 of 6 3D sets (e.g. LiTS 82.34 v 80.09, ACDC 92.65 v 91.54) at 68-233 GPU-h; part of the gain attributed to target spacing.",
+ "gpu_hours": 150,
+ "bet": "medium",
+ "prior_overlap": "ConvNeXt-T encoder screen under PF (DINOv3 v ImageNet, 4k steps, F51) showed no sign of gain, but that compared pretraining, not a ConvNeXt U-Net with UpKern and long schedule. Open.",
+ "score": 50,
+ "bench_score": 80,
+ "targets": [
+  "crack",
+  "e1_unseen",
+  "benchmark"
+ ],
+ "directions": [
+  "D25"
+ ],
+ "scout_scores": [
+  50
+ ],
+ "final": 50,
+ "bench": 80,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 121,
+ "pub_allowed": 0,
+ "selected_for": "bench"
+}

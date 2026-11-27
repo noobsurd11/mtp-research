@@ -1,0 +1,141 @@
+final2_smoke 2026-11-21 07:18:05: F 821dfadf49116cc6d5fdbd6697e263dd7cf0f834, F2 9330f8bd021d552bc2b633fb58a63f70c657be8b (trees F2), cards 'combo pf', R5 1, script 6659f7b2, ckcmp 24392110
+ROOTS_pool532_v11.md5 6c6e1bd8b051a9ad20077de41e5f6b0f
+asserts: OK (0 forbidden of 167 in any list; legacy test 50 inside the forbidden list; pool = cv5v3.json pool; monitor list = fold 0 held-out)
+== R1 (training.checkpoint_every=4, hrnet_w18_unetpp_swad_const_pf_v11, flags ''): rc 1 in 10 s
+   Labelled: 532 (...)  val: 107  test: 107
+   step 4/8  loss=4.243  loss_sup=4.243  loss_con=0  lambda=0  lr=2.5e-05  steps_per_sec=1.965
+   PF encoder lr=2.5e-06 at step 4
+   saved latest.pth at step 4
+   step 8/8  loss=4.17  loss_sup=4.17  loss_con=0  lambda=0  lr=4.5e-05  steps_per_sec=2.147
+   PF encoder lr=4.5e-06 at step 8
+   Original Traceback (most recent call last):
+   ValueError: /tmp/claude-1003/-home-noob/72e5944a-6b2b-4807-a45d-84138b3413e5/scratchpad/f2smoke_p0/roots/pool532_v11/masks_v11/ARTS_00048_r2_c5.png: mask values must be in 0..23, found [0, 2, 4, 13, 14, 15, 255]
+   latest.pth step 4 models ['ema_9998', 'model', 'swad'] averager n {'ema_9998': 4, 'swad': 3} lr [2.5e-05, 2.5e-06]
+== R2 (training.checkpoint_every=4, hrnet_w18_unetpp_swad_const_pf_v11, flags ''): rc 1 in 14 s
+   Labelled: 532 (...)  val: 107  test: 107
+   step 4/8  loss=4.243  loss_sup=4.243  loss_con=0  lambda=0  lr=2.5e-05  steps_per_sec=1.846
+   PF encoder lr=2.5e-06 at step 4
+   saved latest.pth at step 4
+   step 8/8  loss=4.17  loss_sup=4.17  loss_con=0  lambda=0  lr=4.5e-05  steps_per_sec=2.054
+   PF encoder lr=4.5e-06 at step 8
+   Traceback (most recent call last):
+   ValueError: training.bn_recal: train.txt overlaps val / test
+   latest.pth step 4 models ['ema_9998', 'model', 'swad'] averager n {'ema_9998': 4, 'swad': 3} lr [2.5e-05, 2.5e-06]
+   R2 metrics.json: absent
+   R3: copied R1's crashed run dir (latest.pth md5 1c02eeca)
+== R3 (training.checkpoint_every=4, hrnet_w18_unetpp_swad_const_pf_v11, flags '--resume'): rc 1 in 12 s
+   Labelled: 532 (...)  val: 107  test: 107
+   RESUMED from experiments/fin_smoke_pool_s5/checkpoints/latest.pth at step 4/8
+   step 8/8  loss=4.17  loss_sup=4.17  loss_con=0  lambda=0  lr=4.5e-05  steps_per_sec=2.02
+   PF encoder lr=4.5e-06 at step 8
+   Traceback (most recent call last):
+   ValueError: training.bn_recal: train.txt overlaps val / test
+   latest.pth step 4 models ['ema_9998', 'model', 'swad'] averager n {'ema_9998': 4, 'swad': 3} lr [2.5e-05, 2.5e-06]
+== R4 (training.checkpoint_every=4, hrnet_w18_unetpp_swad_const_pf_v11, flags '--exit_after_step 4'): rc 3 in 7 s
+   Labelled: 532 (...)  val: 107  test: 107
+   step 4/8  loss=4.243  loss_sup=4.243  loss_con=0  lambda=0  lr=2.5e-05  steps_per_sec=1.893
+   PF encoder lr=2.5e-06 at step 4
+   saved latest.pth at step 4
+   exit_after_step=4 reached: hard exit (simulated crash)
+-- compare R3 (F crash + F2 resume) with R2 (F2 uninterrupted), latest.pth:
+step A 4 B 4; models keys A ['ema_9998', 'model', 'swad'] B ['ema_9998', 'model', 'swad']
+tensors compared per top-level key: consistency 2, models 6180, optimizers 3093, rng 1
+differing paths: 2 (2 allowed, 0 not allowed)
+  allowed: /trainer/train_curve[0]/steps_per_sec
+  allowed: /trainer/train_time
+   rc 0
+-- compare R3 with R2, metrics.json (paths only):
+Traceback (most recent call last):
+  File "/home/yugma/mtp/research/team_2026-11-12_frontier/harness/final2/ckcmp.py", line 69, in <module>
+    main()
+  File "/home/yugma/mtp/research/team_2026-11-12_frontier/harness/final2/ckcmp.py", line 52, in main
+    a, b = json.load(open(A)), json.load(open(B))
+                     ^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/claude-1003/-home-noob/72e5944a-6b2b-4807-a45d-84138b3413e5/scratchpad/f2smoke_p0/F2_R2_combo/experiments/fin_smoke_pool_s5/metrics.json'
+   rc 1
+-- compare R4 (F2, step 4) with R1 (F, step 4), latest.pth:
+step A 4 B 4; models keys A ['ema_9998', 'model', 'swad'] B ['ema_9998', 'model', 'swad']
+tensors compared per top-level key: consistency 2, models 6180, optimizers 3093, rng 1
+differing paths: 2 (2 allowed, 0 not allowed)
+  allowed: /trainer/train_curve[0]/steps_per_sec
+  allowed: /trainer/train_time
+   rc 0
+== R1 (training.checkpoint_every=4, house_r34_unetpp_pf_v11, flags ''): rc 1 in 6 s
+   Labelled: 532 (...)  val: 107  test: 107
+   step 4/8  loss=4.17  loss_sup=4.17  loss_con=0  lambda=0  lr=2.5e-05  steps_per_sec=4.78
+   PF encoder lr=2.5e-06 at step 4
+   saved latest.pth at step 4
+   step 8/8  loss=4.145  loss_sup=4.145  loss_con=0  lambda=0  lr=4.5e-05  steps_per_sec=5.116
+   PF encoder lr=4.5e-06 at step 8
+   Original Traceback (most recent call last):
+   ValueError: /tmp/claude-1003/-home-noob/72e5944a-6b2b-4807-a45d-84138b3413e5/scratchpad/f2smoke_p0/roots/pool532_v11/masks_v11/ARTS_00048_r2_c5.png: mask values must be in 0..23, found [0, 2, 4, 13, 14, 15, 255]
+   latest.pth step 4 models ['model'] averager n {} lr [2.5e-05, 2.5e-06]
+== R2 (training.checkpoint_every=4, house_r34_unetpp_pf_v11, flags ''): rc 0 in 14 s
+   Labelled: 532 (...)  val: 107  test: 107
+   step 4/8  loss=4.17  loss_sup=4.17  loss_con=0  lambda=0  lr=2.5e-05  steps_per_sec=4.832
+   PF encoder lr=2.5e-06 at step 4
+   saved latest.pth at step 4
+   step 8/8  loss=4.145  loss_sup=4.145  loss_con=0  lambda=0  lr=4.5e-05  steps_per_sec=5.241
+   PF encoder lr=4.5e-06 at step 8
+   saved latest.pth at step 8
+   latest.pth step 8 models ['model'] averager n {} lr [4.4999999999999996e-05, 4.5e-06]
+   R2 metrics.json: present; keys test_final True test_best True val_history 1
+   R3: copied R1's crashed run dir (latest.pth md5 698bc4b0)
+== R3 (training.checkpoint_every=4, house_r34_unetpp_pf_v11, flags '--resume'): rc 0 in 14 s
+   Labelled: 532 (...)  val: 107  test: 107
+   RESUMED from experiments/fin_smoke_pool_s5/checkpoints/latest.pth at step 4/8
+   step 8/8  loss=4.145  loss_sup=4.145  loss_con=0  lambda=0  lr=4.5e-05  steps_per_sec=4.74
+   PF encoder lr=4.5e-06 at step 8
+   saved latest.pth at step 8
+   latest.pth step 8 models ['model'] averager n {} lr [4.4999999999999996e-05, 4.5e-06]
+== R4 (training.checkpoint_every=4, house_r34_unetpp_pf_v11, flags '--exit_after_step 4'): rc 3 in 4 s
+   Labelled: 532 (...)  val: 107  test: 107
+   step 4/8  loss=4.17  loss_sup=4.17  loss_con=0  lambda=0  lr=2.5e-05  steps_per_sec=4.832
+   PF encoder lr=2.5e-06 at step 4
+   saved latest.pth at step 4
+   exit_after_step=4 reached: hard exit (simulated crash)
+-- compare R3 (F crash + F2 resume) with R2 (F2 uninterrupted), latest.pth:
+step A 8 B 8; models keys A ['model'] B ['model']
+tensors compared per top-level key: best_payload 350, consistency 2, models 350, optimizers 528, rng 1
+differing paths: 4 (4 allowed, 0 not allowed)
+  allowed: /trainer/resumes(len 0 vs 1)
+  allowed: /trainer/train_curve[0]/steps_per_sec
+  allowed: /trainer/train_curve[1]/steps_per_sec
+  allowed: /trainer/train_time
+   rc 0
+-- compare R3 with R2, metrics.json (paths only):
+differing paths: 5 (5 allowed, 0 not allowed)
+  allowed: /resumes(len 0 vs 1)
+  allowed: /timing/steps_per_sec
+  allowed: /timing/train_seconds
+  allowed: /train_curve[0]/steps_per_sec
+  allowed: /train_curve[1]/steps_per_sec
+   rc 0
+-- compare R4 (F2, step 4) with R1 (F, step 4), latest.pth:
+step A 4 B 4; models keys A ['model'] B ['model']
+tensors compared per top-level key: consistency 2, models 350, optimizers 528, rng 1
+differing paths: 2 (2 allowed, 0 not allowed)
+  allowed: /trainer/train_curve[0]/steps_per_sec
+  allowed: /trainer/train_time
+   rc 0
+== R5F (training.checkpoint_every=4, house_r34_unetpp_pf_v11, flags ''): rc 0 in 13 s
+   Labelled: 425 (...)  val: 107  test: 107
+   PF encoder lr=2.5e-06 at step 4
+   saved latest.pth at step 4
+== R5F2 (training.checkpoint_every=4, house_r34_unetpp_pf_v11, flags ''): rc 0 in 13 s
+   Labelled: 425 (...)  val: 107  test: 107
+   PF encoder lr=2.5e-06 at step 4
+   saved latest.pth at step 4
+-- compare R5 F2 with F (held-out root), latest.pth and metrics.json:
+step A 4 B 4; models keys A ['model'] B ['model']
+tensors compared per top-level key: best_payload 350, consistency 2, models 350, optimizers 528, rng 1
+differing paths: 2 (2 allowed, 0 not allowed)
+  allowed: /trainer/train_curve[0]/steps_per_sec
+  allowed: /trainer/train_time
+   rc 0
+differing paths: 3 (3 allowed, 0 not allowed)
+  allowed: /timing/steps_per_sec
+  allowed: /timing/train_seconds
+  allowed: /train_curve[0]/steps_per_sec
+   rc 0
+final2_smoke end 2026-11-21 07:20:12

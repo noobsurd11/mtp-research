@@ -1,0 +1,43 @@
+{
+ "paper_id": "arxiv:2603.25398",
+ "title": "PMT: Plain Mask Transformer for Image and Video Segmentation with Frozen Vision Encoders",
+ "year": 2026,
+ "venue": "CVPR 2026 workshop (per README)",
+ "url": "https://arxiv.org/abs/2603.25398",
+ "code_url": "https://github.com/tue-mps/pmt",
+ "mechanism": "Lightweight Plain Mask Decoder mimicking EoMT's last blocks runs on a frozen vision foundation model.",
+ "evidence": "R: matches frozen-encoder SOTA on image benchmarks, up to 3x faster; video on par with fine-tuned methods. No small-data evidence.",
+ "adaptation": "Frozen DINOv3 ViT-L (or DINOv2) at 1024 px + PMD + full-res refinement head; aimed at E1: a frozen encoder cannot overfit 478 cells from 5 sources, so half-cut/scuff cells stay nearer the pretraining distribution.",
+ "min_experiment": "Arm frozen ViT-L + PMD + refinement; baseline house PF; metric E1 crack relF1@2 and E1 inactive IoU; kill if E1 relF1@2 < 0.45 and E1 inactive < 0.24.",
+ "score": 40,
+ "bench_score": 45,
+ "bet": "moonshot",
+ "gpu_hours": 30,
+ "targets": [
+  "e1_unseen",
+  "inactive"
+ ],
+ "prior_overlap": "Partial: frozen linear probes of small DINOv3/DINOv2 encoders showed no gain. A mask decoder on frozen ViT-L at 1024 is not the same mechanism; open but scored lower for that reason.",
+ "directions": [
+  "D23"
+ ],
+ "scout_scores": [
+  40,
+  40
+ ],
+ "alt_notes": [
+  {
+   "from": "D23",
+   "adaptation": "Frozen DINOv2 (DINOv3 if OK) ViT-L + PMD + full-res head at 1024; aimed at E1, since a frozen encoder cannot overfit 478 cells from 5 sources.",
+   "min_experiment": "PMT frozen ViT-L vs house PF; metrics E1 crack relF1@2 and E1 inactive IoU only; kill if E1 relF1@2 < 0.45 and E1 inactive < 0.24.",
+   "score": 40
+  }
+ ],
+ "final": 40,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 378,
+ "pid": "P378"
+}

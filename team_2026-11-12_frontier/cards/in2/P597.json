@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2512.02497",
+ "title": "A Large Scale Benchmark for Test Time Adaptation Methods in Medical Image Segmentation (MedSeg-TTA)",
+ "year": 2025,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2512.02497",
+ "code_url": "",
+ "mechanism": "Benchmarks 20 TTA methods across 7 modalities under one backbone, one preprocessing and one protocol, in four families: input, feature, output and prior.",
+ "adaptation": "Template for the benchmark's TTA track: fixed backbone, a no-TTA primary number, region plus boundary metrics, and explicit reporting of degradations. Reuse its implementations to port Tent, SAR, CoTTA and VPTTA to U-Net++.",
+ "min_experiment": "Not a training run. Copy the table layout and metric pair into the benchmark protocol, and reuse its implementations for rows 10, 12, 14 and 15.",
+ "score": 15,
+ "bench_score": 75,
+ "bet": "safe",
+ "targets": [
+  "benchmark"
+ ],
+ "evidence": "R: no paradigm wins everywhere. Input-level methods are most stable under mild shift; feature- and output-level methods help boundary metrics; several methods degrade under large inter-center shifts.",
+ "gpu_hours": 0,
+ "prior_overlap": "None.",
+ "directions": [
+  "D31"
+ ],
+ "scout_scores": [
+  15
+ ],
+ "final": 15,
+ "bench": 75,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 597,
+ "pid": "P597"
+}

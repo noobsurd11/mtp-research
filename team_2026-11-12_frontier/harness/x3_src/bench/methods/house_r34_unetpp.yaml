@@ -1,0 +1,30 @@
+# House model: U-Net++ (smp 0.5.0) on an ImageNet ResNet-34, 1-channel input, the 100% recipe of pf2_SUP_100pct_s5
+# (pf2_jobs.txt 210d0d6f) minus seed / run_name (the queue adds seed, run_name and data.root).
+name: house_r34_unetpp
+version: 1
+family: cnn-unetpp
+papers: []
+kind: harness
+config: configs/supervised.yaml
+opts:
+  - data.labeled_fraction=1.0
+  - training.total_steps=20000
+  - data.split_seed=0
+  - training.labeled_batch_size=8
+  - data.mask_subdir=labeled/masks_escdd
+  - model.name=smp_unetpp
+  - data.augmentation=labelsafe
+  - loss.supervised=ce_dice
+  - training.val_every=20000
+weights:
+  # smp-hub/resnet34.imagenet in the offline HF cache (md5 = gaint's, checked by b6_cv02_queue 56f9e72d)
+  - path: /home/noob/.cache/huggingface/hub/models--smp-hub--resnet34.imagenet/snapshots/7a57b34f723329ff020b3f8bc41771163c519d0c/model.safetensors
+    md5: f57b430554b18e1238c4f92eac566544
+weights_key: model
+decision_rule: argmax24
+memory:
+  peak_mib: 6830
+  gate_mib: 9000
+  source: "pf2 smoke SUP100-g, nvidia-smi per process, gaint 31 Oct (build_pf2 gate 5); gate rule peak + 2048"
+external: null
+notes: "Training code e544133 (el_f3) = el_bench with all bench / thin / f8 keys absent (CPU identity, BUILD_LOG)."

@@ -1,0 +1,113 @@
+# Opening read: set e1_106, labels set, 106 cells, 71 clusters, device cpu, fp32, OP-A only; bootstrap 2000 draws, seed 0
+# T3b card: arms ALL, HALF are models trained on E1 cells (out-of-fold); ZS = zero-shot comparator (never trained on E1), printed beside the T3b arms ALL, HALF
+
+## subset all: 106 cells, 71 clusters
+| arm | models | relF1@2 | relP@2 | relR@2 | strict crack IoU | inactive IoU | mIoU-R13 | width ratio | false crack px (crack-free cells) |
+|---|---|---|---|---|---|---|---|---|---|
+| ALL | 3 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0001 | 0.000 | 0 |
+| HALF | 3 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0001 | 0.002 | 29 |
+| ZS (zero-shot comparator) | 3 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0036 | 1.424 | 21658 |
+- ALL - ZS (B minus the zero-shot comparator): relF1@2 -0.0000 seed-aware [-0.0000, 0.0000] (SE 0.0000), fixed-model [-0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0035; width ratio B / A 0.000; false crack px B / A 0.000
+- HALF - ZS (B minus the zero-shot comparator): relF1@2 -0.0000 seed-aware [-0.0000, 0.0000] (SE 0.0000), fixed-model [-0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0035; width ratio B / A 0.002; false crack px B / A 0.001
+- ALL - HALF: relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 0.0000; width ratio B / A 0.000; false crack px B / A 0.000
+
+## subset src:BMRK: 5 cells, 5 clusters
+| arm | models | relF1@2 | relP@2 | relR@2 | strict crack IoU | inactive IoU | mIoU-R13 | width ratio | false crack px (crack-free cells) |
+|---|---|---|---|---|---|---|---|---|---|
+| ALL | 3 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0001 | 0.000 | 0 |
+| HALF | 3 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0001 | 0.003 | 2 |
+| ZS (zero-shot comparator) | 3 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0037 | 2.132 | 1168 |
+- ALL - ZS (B minus the zero-shot comparator): relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0036; width ratio B / A 0.000; false crack px B / A 0.000
+- HALF - ZS (B minus the zero-shot comparator): relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0036; width ratio B / A 0.001; false crack px B / A 0.001
+- ALL - HALF: relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0000; width ratio B / A 0.000; false crack px B / A 0.000
+
+## subset src:CSIR: 101 cells, 66 clusters
+| arm | models | relF1@2 | relP@2 | relR@2 | strict crack IoU | inactive IoU | mIoU-R13 | width ratio | false crack px (crack-free cells) |
+|---|---|---|---|---|---|---|---|---|---|
+| ALL | 3 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0001 | 0.000 | 0 |
+| HALF | 3 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0001 | 0.002 | 27 |
+| ZS (zero-shot comparator) | 3 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0036 | 1.401 | 20489 |
+- ALL - ZS (B minus the zero-shot comparator): relF1@2 -0.0000 seed-aware [-0.0000, 0.0000] (SE 0.0000), fixed-model [-0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0035; width ratio B / A 0.000; false crack px B / A 0.000
+- HALF - ZS (B minus the zero-shot comparator): relF1@2 -0.0000 seed-aware [-0.0000, 0.0000] (SE 0.0000), fixed-model [-0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0035; width ratio B / A 0.002; false crack px B / A 0.001
+- ALL - HALF: relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 0.0000; width ratio B / A 0.000; false crack px B / A 0.000
+
+## subset type:halfcut: 53 cells, 44 clusters
+| arm | models | relF1@2 | relP@2 | relR@2 | strict crack IoU | inactive IoU | mIoU-R13 | width ratio | false crack px (crack-free cells) |
+|---|---|---|---|---|---|---|---|---|---|
+| ALL | 3 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0002 | 0.000 | 0 |
+| HALF | 3 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0001 | 0.003 | 18 |
+| ZS (zero-shot comparator) | 3 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0036 | 1.352 | 10629 |
+- ALL - ZS (B minus the zero-shot comparator): relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0035; width ratio B / A 0.000; false crack px B / A 0.000
+- HALF - ZS (B minus the zero-shot comparator): relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0035; width ratio B / A 0.002; false crack px B / A 0.002
+- ALL - HALF: relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 0.0000; width ratio B / A 0.000; false crack px B / A 0.000
+
+## subset type:full: 53 cells, 41 clusters
+| arm | models | relF1@2 | relP@2 | relR@2 | strict crack IoU | inactive IoU | mIoU-R13 | width ratio | false crack px (crack-free cells) |
+|---|---|---|---|---|---|---|---|---|---|
+| ALL | 3 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0001 | 0.000 | 0 |
+| HALF | 3 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0001 | 0.002 | 11 |
+| ZS (zero-shot comparator) | 3 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0036 | 1.505 | 11028 |
+- ALL - ZS (B minus the zero-shot comparator): relF1@2 -0.0000 seed-aware [-0.0001, 0.0000] (SE 0.0000), fixed-model [-0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0035; width ratio B / A 0.000; false crack px B / A 0.000
+- HALF - ZS (B minus the zero-shot comparator): relF1@2 -0.0000 seed-aware [-0.0001, 0.0000] (SE 0.0000), fixed-model [-0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0035; width ratio B / A 0.001; false crack px B / A 0.001
+- ALL - HALF: relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0000; width ratio B / A 0.000; false crack px B / A 0.000
+
+## subset crack_cells: 32 cells, 23 clusters
+| arm | models | relF1@2 | relP@2 | relR@2 | strict crack IoU | inactive IoU | mIoU-R13 | width ratio | false crack px (crack-free cells) |
+|---|---|---|---|---|---|---|---|---|---|
+| ALL | 3 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0001 | 0.000 | 0 |
+| HALF | 3 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0001 | 0.001 | 0 |
+| ZS (zero-shot comparator) | 3 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0037 | 0.429 | 0 |
+- ALL - ZS (B minus the zero-shot comparator): relF1@2 -0.0000 seed-aware [-0.0001, 0.0000] (SE 0.0000), fixed-model [-0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0035; width ratio B / A 0.000; false crack px B / A n/a
+- HALF - ZS (B minus the zero-shot comparator): relF1@2 -0.0000 seed-aware [-0.0001, 0.0000] (SE 0.0000), fixed-model [-0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0035; width ratio B / A 0.002; false crack px B / A n/a
+- ALL - HALF: relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 0.0000; width ratio B / A 0.000; false crack px B / A n/a
+
+## subset crack_free_cells: 74 cells, 56 clusters
+| arm | models | relF1@2 | relP@2 | relR@2 | strict crack IoU | inactive IoU | mIoU-R13 | width ratio | false crack px (crack-free cells) |
+|---|---|---|---|---|---|---|---|---|---|
+| ALL | 3 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | n/a | 0.0000 | 0.0002 | n/a | 0 |
+| HALF | 3 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0002 | n/a | 29 |
+| ZS (zero-shot comparator) | 3 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0043 | n/a | 21658 |
+- ALL - ZS (B minus the zero-shot comparator): relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU n/a [n/a, n/a]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0042; width ratio B / A n/a; false crack px B / A 0.000
+- HALF - ZS (B minus the zero-shot comparator): relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0042; width ratio B / A n/a; false crack px B / A 0.001
+- ALL - HALF: relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU n/a [n/a, n/a]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 0.0000; width ratio B / A n/a; false crack px B / A 0.000
+
+## subset strat_full: 44 cells, 24 clusters
+| arm | models | relF1@2 | relP@2 | relR@2 | strict crack IoU | inactive IoU | mIoU-R13 | width ratio | false crack px (crack-free cells) |
+|---|---|---|---|---|---|---|---|---|---|
+| ALL | 3 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0001 | 0.000 | 0 |
+| HALF | 3 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0001 | 0.002 | 14 |
+| ZS (zero-shot comparator) | 3 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0036 | 1.712 | 9608 |
+- ALL - ZS (B minus the zero-shot comparator): relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0035; width ratio B / A 0.000; false crack px B / A 0.000
+- HALF - ZS (B minus the zero-shot comparator): relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0035; width ratio B / A 0.001; false crack px B / A 0.001
+- ALL - HALF: relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0000; width ratio B / A 0.000; false crack px B / A 0.000
+
+## subset strat_halfcut: 62 cells, 47 clusters
+| arm | models | relF1@2 | relP@2 | relR@2 | strict crack IoU | inactive IoU | mIoU-R13 | width ratio | false crack px (crack-free cells) |
+|---|---|---|---|---|---|---|---|---|---|
+| ALL | 3 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0002 | 0.000 | 0 |
+| HALF | 3 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0001 | 0.002 | 15 |
+| ZS (zero-shot comparator) | 3 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0036 | 1.273 | 12050 |
+- ALL - ZS (B minus the zero-shot comparator): relF1@2 -0.0000 seed-aware [-0.0000, 0.0000] (SE 0.0000), fixed-model [-0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0035; width ratio B / A 0.000; false crack px B / A 0.000
+- HALF - ZS (B minus the zero-shot comparator): relF1@2 -0.0000 seed-aware [-0.0000, 0.0000] (SE 0.0000), fixed-model [-0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0035; width ratio B / A 0.002; false crack px B / A 0.001
+- ALL - HALF: relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 0.0000; width ratio B / A 0.000; false crack px B / A 0.000
+
+## subset strat_hard: 29 cells, 17 clusters
+| arm | models | relF1@2 | relP@2 | relR@2 | strict crack IoU | inactive IoU | mIoU-R13 | width ratio | false crack px (crack-free cells) |
+|---|---|---|---|---|---|---|---|---|---|
+| ALL | 3 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0002 | 0.000 | 0 |
+| HALF | 3 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0001 | 0.002 | 7 |
+| ZS (zero-shot comparator) | 3 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0036 | 1.392 | 5883 |
+- ALL - ZS (B minus the zero-shot comparator): relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0035; width ratio B / A 0.000; false crack px B / A 0.000
+- HALF - ZS (B minus the zero-shot comparator): relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0035; width ratio B / A 0.002; false crack px B / A 0.001
+- ALL - HALF: relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 0.0000; width ratio B / A 0.000; false crack px B / A 0.000
+
+## subset strat_halfcut_noscuff: 33 cells, 31 clusters
+| arm | models | relF1@2 | relP@2 | relR@2 | strict crack IoU | inactive IoU | mIoU-R13 | width ratio | false crack px (crack-free cells) |
+|---|---|---|---|---|---|---|---|---|---|
+| ALL | 3 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0002 | 0.000 | 0 |
+| HALF | 3 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0001 | 0.002 | 8 |
+| ZS (zero-shot comparator) | 3 | 0.0000 [0.0000, 0.0001] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0036 | 1.184 | 6167 |
+- ALL - ZS (B minus the zero-shot comparator): relF1@2 -0.0000 seed-aware [-0.0001, 0.0000] (SE 0.0000), fixed-model [-0.0001, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0035; width ratio B / A 0.000; false crack px B / A 0.000
+- HALF - ZS (B minus the zero-shot comparator): relF1@2 -0.0000 seed-aware [-0.0001, 0.0000] (SE 0.0000), fixed-model [-0.0001, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0035; width ratio B / A 0.002; false crack px B / A 0.001
+- ALL - HALF: relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 0.0000; width ratio B / A 0.000; false crack px B / A 0.000
+

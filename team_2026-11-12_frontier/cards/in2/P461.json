@@ -1,0 +1,35 @@
+{
+ "paper_id": "arxiv:2502.08321",
+ "title": "Screener: Self-supervised Pathology Segmentation in Medical CT Images",
+ "year": 2025,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2502.08321",
+ "code_url": "",
+ "mechanism": "Dense self-supervised features plus a density-based anomaly segmenter conditioned on learned masking-invariant dense features; the same pretraining also beats other SSL methods when fine-tuned supervised.",
+ "adaptation": "One dense SSL run on the 159k pool gives (a) a dense-pretrained ResNet-34/ConvNeXt-T encoder for U-Net++ and (b) a label-free anomaly map; conditioning variable = cell layout/source embedding instead of position.",
+ "min_experiment": "Arm dense SSL encoder + PF vs baseline PF and the MIM checkpoint, 5 seeds; metric CV crack IoU and inactive IoU; kill if crack gain < +0.012 and inactive < +0.02. About 60 GPU-h.",
+ "score": 35,
+ "bench_score": 35,
+ "bet": "moonshot",
+ "evidence": "R: trained on > 30k unlabelled CT volumes; beats UVAS methods on four test sets (1,820 scans) and other SSL pretraining in supervised fine-tuning.",
+ "gpu_hours": 60,
+ "prior_overlap": "Section 5 lists dense SSL objectives as not closed (MIM / DDeP only).",
+ "targets": [
+  "inactive",
+  "crack",
+  "e1_unseen"
+ ],
+ "directions": [
+  "D07"
+ ],
+ "scout_scores": [
+  35
+ ],
+ "final": 35,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 461,
+ "pid": "P461"
+}

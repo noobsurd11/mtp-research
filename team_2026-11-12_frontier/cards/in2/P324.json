@@ -1,0 +1,44 @@
+{
+ "paper_id": "doi:10.1016/j.compmedimag.2021.102026",
+ "title": "Unified Focal loss: Generalising Dice and cross entropy-based losses to handle class imbalanced medical image segmentation",
+ "year": 2022,
+ "venue": "Computerized Medical Imaging and Graphics",
+ "url": "https://arxiv.org/abs/2102.04525",
+ "code_url": "https://github.com/mlyg/unified-focal-loss",
+ "mechanism": "Compound of asymmetric focal CE and asymmetric focal Tversky with three hyperparameters, generalising Dice, CE, focal and Tversky losses.",
+ "adaptation": "Replace CE + Dice; asymmetry set to favour crack and inactive recall toward the relR@2 >= 0.90 target, with relP@2 watched as the width check.",
+ "min_experiment": "Arm Unified Focal (paper defaults) vs SUP100, 5 v 5. Kill if relR@2 not up by 0.02 at relP@2 drop <= 0.05 and crack IoU not better.",
+ "score": 44,
+ "bench_score": 65,
+ "bet": "safe",
+ "targets": [
+  "crack",
+  "inactive",
+  "benchmark"
+ ],
+ "evidence": "R: imbalanced medical segmentation tasks (884 cites); numbers not read.",
+ "gpu_hours": 6,
+ "prior_overlap": "none (focal / Tversky family untested)",
+ "directions": [
+  "D18"
+ ],
+ "scout_scores": [
+  44,
+  44
+ ],
+ "alt_notes": [
+  {
+   "from": "D18",
+   "adaptation": "Replace CE + Dice; asymmetry set to favour crack and inactive recall to chase relR@2 >= 0.90; Keras code must be ported (PyTorch port on PyPI untested).",
+   "min_experiment": "Arm: Unified Focal at paper defaults, 5 seeds; baseline SUP100. Kill: relR@2 not up by 0.02 at relP@2 drop <= 0.05.",
+   "score": 44
+  }
+ ],
+ "final": 44,
+ "bench": 65,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 324,
+ "pid": "P324"
+}

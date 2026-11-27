@@ -1,0 +1,31 @@
+# per-class guard table from the argmax records of /home/noob/work/bench_reads/c3swad (read tool fdb56b78); 532 OOF cells; IoU / precision / recall pooled over cells, mean (sd) over seeds; delta = arm mean - PF mean; descriptive
+
+## all 532 cells
+arm	seeds	class	name	GT px (mean)	IoU mean (sd)	delta IoU	precision mean	recall mean
+PF	5	13	material	762150	0.3952 (0.005)	+0.0000	0.7070	0.4729
+PF	5	16	splice	63299	0.0157 (0.010)	+0.0000	0.3107	0.0165
+PF	5	20	edge_dark	699500	0.6278 (0.004)	+0.0000	0.7836	0.7595
+PF	5	11	inactive	285020	0.5042 (0.009)	+0.0000	0.7722	0.5928
+SWADBN	5	13	material	762150	0.4259 (0.005)	+0.0306	0.6429	0.5582
+SWADBN	5	16	splice	63299	0.0003 (0.000)	-0.0154	0.1434	0.0003
+SWADBN	5	20	edge_dark	699500	0.6389 (0.004)	+0.0111	0.7508	0.8110
+SWADBN	5	11	inactive	285020	0.5196 (0.012)	+0.0154	0.7217	0.6499
+SWAD	5	13	material	762150	0.4069 (0.005)	+0.0117	0.7005	0.4929
+SWAD	5	16	splice	63299	0.0001 (0.000)	-0.0156	0.2239	0.0001
+SWAD	5	20	edge_dark	699500	0.6399 (0.003)	+0.0121	0.7739	0.7870
+SWAD	5	11	inactive	285020	0.5250 (0.008)	+0.0208	0.7569	0.6315
+
+## 416 clean cells
+arm	seeds	class	name	GT px (mean)	IoU mean (sd)	delta IoU	precision mean	recall mean
+PF	5	13	material	410433	0.3716 (0.005)	+0.0000	0.6802	0.4507
+PF	5	16	splice	44573	0.0190 (0.014)	+0.0000	0.3293	0.0201
+PF	5	20	edge_dark	699500	0.6285 (0.004)	+0.0000	0.7847	0.7595
+PF	5	11	inactive	247389	0.5050 (0.012)	+0.0000	0.7810	0.5888
+SWADBN	5	13	material	410433	0.3919 (0.005)	+0.0203	0.6144	0.5201
+SWADBN	5	16	splice	44573	0.0004 (0.001)	-0.0186	0.1591	0.0004
+SWADBN	5	20	edge_dark	699500	0.6393 (0.004)	+0.0108	0.7514	0.8110
+SWADBN	5	11	inactive	247389	0.5275 (0.010)	+0.0226	0.7382	0.6491
+SWAD	5	13	material	410433	0.3794 (0.004)	+0.0078	0.6778	0.4629
+SWAD	5	16	splice	44573	0.0002 (0.000)	-0.0189	0.5028	0.0002
+SWAD	5	20	edge_dark	699500	0.6400 (0.003)	+0.0116	0.7742	0.7870
+SWAD	5	11	inactive	247389	0.5273 (0.008)	+0.0223	0.7652	0.6292

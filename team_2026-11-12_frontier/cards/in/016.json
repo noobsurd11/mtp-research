@@ -1,0 +1,67 @@
+{
+ "paper_id": "doi:10.1016/j.patcog.2025.112107",
+ "title": "Coarse-to-fine crack cue for robust crack detection (CrackCue)",
+ "year": 2025,
+ "venue": "Pattern Recognition",
+ "url": "https://arxiv.org/abs/2507.16851",
+ "code_url": "",
+ "mechanism": "Max-pool (k=8) plus upsample erases thin dark cracks; a skip-free encoder-decoder trained only on non-crack pixels refines this into a crack-free background; abs(image minus background) is concatenated as an extra input channel to any segmenter.",
+ "evidence": "R: cross-dataset (train CrackTree, test 3 sets) ODS +5.7% U-Net, +7.6% CrackFormer, +4.2% DeepCrack; under defocus blur U-Net+CrackCue avg ODS 0.795 vs 0.739 (LIOT 0.723); under contrast perturbation 0.842 vs 0.668. Ablation: median and black-hat cues help moderately, Canny hurts.",
+ "adaptation": "Learned golden cell for EL: mask crack (dilated to 5 px to cover the 4 px FWHM) and inactive from the reconstruction loss; keep k=8 at 512 px (also try 12); fingers, busbars and grain texture stay in the loss so the cue learns to suppress them; 2-channel input with conv1 channel 2 initialised from the mean ImageNet filter. Risk: scuff streaks on E1 are dark and unseen, so the cue may fire on them.",
+ "min_experiment": "Arm: house U-Net++ + background net + cue channel, 5 seeds. Baseline: house (PF for E1 inactive). Metrics: test-clean crack IoU and relF1@2; E1 crack relF1@2 and recall in half-cut cells. Kill: E1 relF1@2 gain < +0.03 and test crack IoU gain < +0.012.",
+ "gpu_hours": 15,
+ "prior_overlap": "none. BRIEF 5 tried intensity normalisation and BN adaptation at inference, not a learned background-difference input channel.",
+ "targets": [
+  "crack",
+  "e1_unseen"
+ ],
+ "bet": "medium",
+ "score": 72,
+ "bench_score": 45,
+ "directions": [
+  "D08",
+  "D09",
+  "D12"
+ ],
+ "scout_scores": [
+  72,
+  72,
+  64,
+  64,
+  70
+ ],
+ "alt_notes": [
+  {
+   "from": "D08",
+   "adaptation": "Mask crack and inactive (crack dilated to about 5 px, matching the 4 px dark-line FWHM) from the reconstruction loss so fingers, busbars and grain are learned as background; k=8 at 512 px (try 12); 2-channel input with conv1 channel 2 initialised from the mean ImageNet filter; watch E1 precision because scuff streaks are absent from training and may light up the cue.",
+   "min_experiment": "Arm: house + background net + |I-B| channel, joint loss weight 1, 5 seeds. Baseline: house U-Net++. Metrics: test-clean crack IoU and relF1@2, E1 crack relF1@2 and recall in the 20 scuff half-cut cells. Kill: E1 relF1@2 gain < +0.03 AND test crack IoU gain < +0.012.",
+   "score": 72
+  },
+  {
+   "from": "D09",
+   "adaptation": "EL cracks are thin and darker, matching the prior. Dilate crack labels to about 5 px (4 px FWHM) and also mask inactive in the recon loss. Fingers and busbars are thin dark lines too, so the recon net must learn to rebuild them; inspect cue maps on mono vs multi and half-cut cells before training. Feed (EL, cue) as 2 channels to U-Net++ PF.",
+   "min_experiment": "Arm: PF U-Net++ with 2-channel (EL, cue) input, recon net trained per fold; plus a LIOT-input arm. Baseline: PF. Metric: E1 crack relF1@2 and recall, module-grouped 5-fold CV crack IoU. Kill if E1 relF1@2 gain < +0.03 or CV crack IoU drops > 0.01. 3 seeds per arm.",
+   "score": 64
+  },
+  {
+   "from": "D09",
+   "adaptation": "EL cracks are thin and darker than context, so the prior fits. Dilate crack labels to about 5 px (FWHM 4 px) and also mask inactive in the recon loss. Fingers and busbars are thin dark lines too, so the recon net must rebuild them; inspect cue maps on mono, multi and half-cut scuffed pool cells first. Cue becomes a second input channel to U-Net++ PF.",
+   "min_experiment": "Arm: 2-channel (EL, cue) U-Net++ PF, recon net trained per fold; baseline PF; 3 seeds. Metric: E1 crack relF1@2 and recall, CV crack IoU. Kill if E1 relF1@2 gain < +0.03 or CV crack IoU drops > 0.01. Add a LIOT input arm in the same batch.",
+   "score": 64
+  },
+  {
+   "from": "D12",
+   "adaptation": "1-ch EL + cue as 2-ch input to house U-Net++ (conv1 widened, weights copied). Mask crack and gridline (dilated to 5 px) in the reconstruction loss. Start with the zero-parameter coarse cue, pool k in {4,6,8} since crack FWHM is about 4 px and fingers 2-3 px. Expect the cue to also fire on fingers and E1 scuff streaks: a chance for gridline recall and a risk for crack precision.",
+   "min_experiment": "Arm: house + coarse cue channel, 5 seeds, 20k steps; baseline: house 5 seeds (PF variant as second pair for E1). Select on val+F51, score test clean-49 and E1. Metrics: crack relF1@2, crack IoU, gridline IoU, E1 crack relF1@2. Kill: E1 relF1@2 gain < 0.03 and test relF1@2 not up, or test crack IoU drop > 0.012.",
+   "score": 70
+  }
+ ],
+ "final": 72,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 16,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

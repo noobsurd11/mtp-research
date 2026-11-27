@@ -1,0 +1,55 @@
+{
+ "paper_id": "doi:10.1117/1.jmi.9.5.052407",
+ "title": "Knowledge distillation with ensembles of convolutional neural networks for medical image segmentation",
+ "year": 2022,
+ "venue": "Journal of Medical Imaging",
+ "url": "https://doi.org/10.1117/1.jmi.9.5.052407",
+ "code_url": "",
+ "mechanism": "Train one CNN on the soft class probabilities of a seed or architecture ensemble. The distilled network keeps the ensemble's accuracy and beats the same network trained on reference labels.",
+ "adaptation": "Teacher = our 5-seed PF ensemble with dihedral TTA. Save soft probabilities for the 478 train cells (mixed with or replacing the 1-2 px hard crack labels, whose soft band absorbs label jitter) and for the 11.9k CSIR/ARTS pool. Student = house U-Net++ R34 under PF, 1-channel, 512 px.",
+ "min_experiment": "Arm A: PF student on train soft targets. Arm B: A + pool soft targets with strong aug. Baseline: PF single model (5 seeds) and the 5-seed ensemble. Metrics: clean-49 crack IoU and relF1@2, inactive IoU, mIoU_rob, E1 crack relF1@2 and inactive IoU. Kill: B below PF single mean + 0.010 crack IoU and no E1 gain. Success: a single model reaches the ensemble's 0.485 crack IoU at argmax.",
+ "evidence": "R: on 3 public datasets (chest CT 4 organs, brain MRI 6 structures, cardiac cine-MRI 3 structures), the distilled networks matched the uniform and diverse ensembles and significantly beat the same network trained on reference segmentations. E: our 5-seed ensemble gives +0.014 to +0.018 crack IoU, the only clear win so far.",
+ "gpu_hours": 10,
+ "bet": "safe",
+ "score": 72,
+ "bench_score": 55,
+ "targets": [
+  "crack",
+  "inactive",
+  "e1_unseen",
+  "deployment"
+ ],
+ "prior_overlap": "Partial. The BRIEF section 5 SSL row used an online Mean Teacher (an EMA of itself) with hard or tolerant pseudo-labels, and distillation is listed as never tried. An offline ensemble teacher with soft targets on labelled and pool cells has not been run.",
+ "directions": [
+  "D18",
+  "D29",
+  "D34"
+ ],
+ "scout_scores": [
+  58,
+  72,
+  72
+ ],
+ "alt_notes": [
+  {
+   "from": "D18",
+   "adaptation": "Same FINAL 5-seed teacher as the JML-KD arm, plain KL/CE on soft maps over train + pool cells; acts as the control that shows whether JML adds anything over classic KD.",
+   "min_experiment": "Arm: KL-KD student from FINAL ensemble, 5 seeds; baseline SUP100. Metric crack IoU, relF1@2. Kill: crack IoU < SUP100 + 0.009.",
+   "score": 58
+  },
+  {
+   "from": "D34",
+   "adaptation": "Cache 5-seed house (and PF) softmax under the D4 group on the 478 train cells; student = house U-Net++ RN34, CE(GT) + crack/inactive Dice + KL to teacher (T 1-2). Soft targets carry the ensemble's 2-4 px crack band and per-source width that 1-2 px jittered hard labels lack.",
+   "min_experiment": "Arm: KD student, house recipe 20k steps, 5 seeds. Baseline: house single (0.474 crack IoU, 0.881 relF1@2) with 5-seed ensemble as upper reference. Metric: crack IoU, relF1@2 on clean 49 and 5-fold module-grouped CV. Kill: student mean crack IoU < 0.481 and relF1@2 < 0.889.",
+   "score": 72
+  }
+ ],
+ "final": 72,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 14,
+ "pub_allowed": 1,
+ "selected_for": "top"
+}

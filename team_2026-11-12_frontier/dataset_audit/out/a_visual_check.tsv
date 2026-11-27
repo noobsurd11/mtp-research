@@ -1,0 +1,33 @@
+# S: one non-expert look by the dataset auditor (19 Nov 2026) at gallery sheets 00-09; not an annotation; never used to change a label.
+# verdicts: label_error_likely | convention (labels follow a rule the models do not share, e.g. crack inside or on the edge of inactive) | ambiguous | model_error_likely | unverifiable
+sheet	row	type	stem	px	verdict	note
+00	0	MC	CSIR_00094_r16_c5	280	label_error_likely	the visible diagonal crack is unlabelled; the label line runs parallel about 8-10 px away on uniform material (displaced label)
+00	1	MC	CSIR_00092_r12_c5	186	convention	models draw crack on the edges of a dark triangle the label marks as inactive
+00	2	MC	CSIR_00092_r11_c5	152	convention	models put crack on the inside edge of a labelled inactive region (scuff cell)
+00	3	MC	CFVS_00114_r8_c2	109	convention	dark line on the edge of labelled inactive; label has no crack there, other cells do
+01	0	MC	CFVS_00125_r8_c5	105	model_error_likely	crack predicted inside a uniformly dark labelled-inactive region; nothing visible
+01	1	MC	CSIR_00092_r12_c5	100	label_error_likely	faint dark lines continue the labelled crack downwards; unlabelled extension
+01	2	MC	CFVS_00178_r8_c2	96	ambiguous	line along a ribbon edge
+01	3	MC	CFVS_00013_r7_c4	89	convention	dark streaks inside labelled inactive; crack-inside-inactive precedence
+02	0	MC	CFVS_00013_r7_c4	86	convention	as above
+02	1	MC	CFVS_00114_r8_c2	86	convention	crack on the boundary of labelled inactive
+02	2	SC	CSIR_00094_r16_c5	1024	label_error_likely	displaced label (parallel to the visible crack, on uniform material)
+02	3	SC	CFVS_00146_r8_c3	672	convention	dendritic cracks drawn inside a very dark inactive region; faint lines visible; models call it inactive
+03	0	SC	CSIR_00090_r3_c5	604	ambiguous	crack along a dark grain path in a multi-crystalline cell
+03	1	SC	CSIR_00092_r12_c5	420	ambiguous	triangle edges; label and models offset by a few px
+03	2	SC	CSIR_00090_r4_c4	390	ambiguous	faint Y-shaped dark line on multi-crystalline texture; plausibly real
+03	3	SC	CSIR_00094_r16_c5	308	label_error_likely	displaced label band in the cell gap; models on the real line
+04	0	SC	CSIR_00127_r11_c5	271	ambiguous	label on a brightness step between two regions
+04	1	SC	CSIR_00070_r7_c2	267	unverifiable	image is noise (flagged noisy, sigma > 10); no crack visible
+04	2	MI	CFVS_00046_r8_c4	3186	label_error_likely	dark region bounded by labelled cracks, not labelled inactive
+04	3	MI	CFVS_00126_r5_c3	2044	label_error_likely	dark region; a region of the same darkness nearby is labelled inactive
+05	0	MI	CFVS_00143_r4_c3	792	label_error_likely	dark diamond enclosed by labelled cracks; a similar diamond below is labelled inactive
+05	1	MI	CFVS_00143_r4_c3	709	label_error_likely	as above
+05	2	MI	CFVS_00046_r8_c4	479	ambiguous	dark band, darker than surroundings but not black
+05	3	SI	BMRK_01660_cell0398	3627	ambiguous	triangle labelled inactive is only slightly darker (darkness threshold)
+06	0	SI	CSIR_00055_r6_c3	2716	label_error_likely	region bounded by cracks labelled inactive but as bright as the rest of the cell (z +0.79)
+06	1	SI	CSIR_00090_r3_c5	1593	ambiguous	dark multi-crystalline grain area labelled inactive (intrinsic dark vs inactive)
+06	2	SI	CSIR_00179_r12_c4	1383	ambiguous	under-exposed image; region not distinct
+06	3	SI	CSIR_00055_r6_c3	1238	label_error_likely	as row 06/0
+07	0	SI	CSIR_00135_r9_c3	1056	ambiguous	slightly darker diamond bounded by cracks
+07	1	SI	CSIR_00179_r12_c4	986	ambiguous	under-exposed image

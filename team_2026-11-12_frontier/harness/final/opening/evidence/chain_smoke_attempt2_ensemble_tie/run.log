@@ -1,0 +1,15 @@
+[2026-11-21 05:25:40] chain smoke in /home/noob/work/bench_int_io/opening/chain_922927 (G 8bd1c2761c85f4721e444a8bf7124d2e5804973a, R 82ea81cb34a400df0471c87f0278006d2f8b30dd)
+synthetic data and 10 tiny runs made
+register rc 0
+| 8 | OPENING_RULE.md e3b01655818c2a06f914585061ab2140 (harness/final/opening) | C1 fin_pf_v11_pool_s5..9 (model, plain); C2 fin_hrnet_swad_v11_pool_s5..9 (swad, D4) = the final model; C3 = mean softm
+ledger row, benchmark/test_openings.md section B:
+| 19 | final opening (harness/final/opening, rule e3b01655818c2a06f914585061ab2140) | C1 fin_pf_v11_pool_s5..9 (plain), C2 fin_hrnet_swad_v11_pool_s5..9 (swad, D4), C1-D4 | public table only, decides 
+dumps: 30 of 30 in 891 s
+negative wrong REG_MD5: rc 1 (REFUSED: REGISTERED.txt md5 != REG_MD5); out dir created: no
+negative tampered manifest: rc 1 (  fin_pf_v11_pool_s7.test50: weights_key = 'swad', expected 'model'); out dir created: no
+read rc 1
+manifest check: 30 dumps, device ['cpu']: OK
+[2026-11-21 05:40:50] records: 15 E1, 15 test50 v0, 15 test50 v11
+negative existing output: rc 1 (REFUSED: output folder exists: /home/noob/work/bench_int_io/opening/chain_922927/reads/open_final)
+[2026-11-21 05:40:53] chain smoke done (read rc 1); scratch removed
+smoke rc 1

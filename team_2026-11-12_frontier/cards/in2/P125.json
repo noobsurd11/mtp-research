@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1016/j.neuroimage.2023.120041",
+ "title": "CarveMix: A simple data augmentation method for brain lesion segmentation",
+ "year": 2023,
+ "venue": "NeuroImage",
+ "url": "https://doi.org/10.1016/j.neuroimage.2023.120041",
+ "code_url": "https://github.com/ZhangxinruBIT/CarveMix",
+ "mechanism": "Carve an ROI around a lesion with random context margin from one labelled image and place it at the same coordinates in another labelled image, labels following, with harmonisation across sources.",
+ "adaptation": "Same-location transfer works because cells of one type share geometry. ROI = crack or inactive component dilated by 8 to 40 px, source and target same source and cell type, both labelled; seam lies in labelled background, so seams are not tied to defects.",
+ "min_experiment": "PF+CVM vs PF, 5 seeds + module-grouped CV; CV inactive IoU, test crack IoU, CP100 decoy rate. Kill: CV inactive < +0.02 and crack IoU < +0.012, or decoy rate > 2x PF.",
+ "evidence": "Improves brain lesion Dice on several datasets (abstract); in Cut to the Mix +2.5 macro Dice on 20 CT volumes.",
+ "prior_overlap": "CP100 pasted crack masks only (no context) onto unlabelled pool cells at random places; same-location ROI transfer between labelled cells is untested.",
+ "score": 58,
+ "bench_score": 30,
+ "bet": "safe",
+ "gpu_hours": 31,
+ "targets": [
+  "inactive",
+  "crack"
+ ],
+ "directions": [
+  "D21"
+ ],
+ "scout_scores": [
+  58
+ ],
+ "final": 58,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 125,
+ "pid": "P125"
+}

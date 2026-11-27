@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1109/cvpr52733.2024.01063",
+ "title": "Each Test Image Deserves A Specific Prompt: Continual Test-Time Adaptation for 2D Medical Image Segmentation (VPTTA)",
+ "year": 2024,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2311.18363",
+ "code_url": "https://github.com/Chen-Ziyang/VPTTA",
+ "mechanism": "The model stays frozen; each image gets a low-frequency Fourier prompt trained in one iteration by BN-statistics alignment, initialised from a memory bank.",
+ "adaptation": "Prompt the amplitude spectrum of each 1-channel 512 px EL cell. The loss is BN alignment, the same signal that failed in T9, so the expected gain is low. Include it as a baseline in the TTA track.",
+ "min_experiment": "Arm: VPTTA ported to 1 channel on FINAL. Baseline: no TTA. Benchmark row; report E1 relF1@2 and the test delta.",
+ "score": 18,
+ "bench_score": 55,
+ "bet": "safe",
+ "targets": [
+  "benchmark",
+  "e1_unseen"
+ ],
+ "evidence": "R: beats prior CTTA on optic disc/cup and polyp multi-domain segmentation; 68 citations; widely used as a medical TTA baseline.",
+ "gpu_hours": 1,
+ "prior_overlap": "Partial. The supervision signal (BN statistics alignment) overlaps T9, which failed on the same E1-like panels; the input-prompt parameterisation was not run.",
+ "directions": [
+  "D31"
+ ],
+ "scout_scores": [
+  18
+ ],
+ "final": 18,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 593,
+ "pid": "P593"
+}

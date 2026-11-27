@@ -1,0 +1,62 @@
+{
+ "paper_id": "doi:10.1109/tpami.2025.3528453",
+ "title": "UniMatch V2: Pushing the Limit of Semi-Supervised Semantic Segmentation",
+ "year": 2025,
+ "venue": "IEEE TPAMI",
+ "url": "https://arxiv.org/abs/2410.10777",
+ "code_url": "https://github.com/LiheYoung/UniMatch-V2",
+ "mechanism": "Uses a DINOv2 ViT encoder with a DPT head and single-stream weak-to-strong consistency. Complementary channel-wise dropout gives two disjoint feature streams, with an EMA teacher. The gains persist at full labels when the encoder is a large pretrained ViT.",
+ "adaptation": "Replicate the 1-channel EL image to 3 channels. 518 px gives 37x37 tokens, far too coarse for 1-2 px cracks, so fuse the DPT output with a stride-2 CNN stem or decoder (U-Net++ R34 branch), or run at 1036 px. Fine-tune the encoder at 0.1x lr following the PF finding. Unlabelled pool = 11.9k CSIR/ARTS cells, including the 1,152 half-cells.",
+ "min_experiment": "Arm A: DINOv2-B + DPT + CNN skip, supervised on 478 cells. Arm B: A + UniMatch V2 on the 11.9k pool. 3 seeds, 40k steps. Compare B vs A and B vs the house model on clean-49 crack relF1@2 and IoU, inactive IoU, mIoU_rob, E1 crack relF1@2. Kill: B-A < +0.01 crack relF1@2 and < +0.02 inactive IoU, and B more than 0.02 below house crack IoU.",
+ "evidence": "R: Pascal full split (1,464 labels): DINOv2-S 85.6 -> 87.8 (+2.2), DINOv2-B 88.3 -> 90.8 (+2.5), DINOv2-L 90.7 -> 91.2 (+0.5) mIoU. Real-world full-label setting with extra unlabelled data: COCO +0.7, ADE20K +0.8 to +1.6, Cityscapes +0.3. A frozen DINOv2-S beats a fine-tuned ResNet-101. SAM encoders do much worse than DINOv2 in their framework.",
+ "gpu_hours": 60,
+ "bet": "medium",
+ "score": 60,
+ "bench_score": 92,
+ "targets": [
+  "crack",
+  "inactive",
+  "e1_unseen",
+  "other_classes",
+  "benchmark"
+ ],
+ "prior_overlap": "Partial. The SSL row was ResNet-34 only, and the foundation-encoder row covered frozen linear probes plus one 4k-step ConvNeXt-T screen. A fine-tuned ViT-B/L, with or without SSL, was never run, and BRIEF lists it as open.",
+ "directions": [
+  "D24",
+  "D29"
+ ],
+ "scout_scores": [
+  42,
+  40,
+  55,
+  60
+ ],
+ "alt_notes": [
+  {
+   "from": "D24",
+   "adaptation": "VFM-H as the student; 478 labelled + 11.9k pool; keep label-safe augmentation for strong views of thin cracks.",
+   "min_experiment": "UniMatch V2 VFM-H vs supervised VFM-H; CV crack relF1@2, inactive IoU, E1 relF1@2; kill if all n.d.",
+   "score": 40
+  },
+  {
+   "from": "D24",
+   "adaptation": "VFM-H as student on 478 labelled + 11.9k pool (or E1-like half-cells), house label-safe strong augmentation only.",
+   "min_experiment": "Arm: VFM-H + UniMatch V2. Baseline: VFM-H supervised only, and house PF. Metric: CV crack relF1@2, inactive IoU, E1 relF1@2. Kill: both CV metrics n.d. and E1 not +0.02.",
+   "score": 42
+  },
+  {
+   "from": "D24",
+   "adaptation": "DINOv2/v3 ViT-B or ViT-L at 1024 px input, since the 37-token grid at 512 px is too coarse for 1 to 2 px cracks. 1-channel input replicated to 3. Pool 11.9k. tau 0.95 for non-crack classes and a tolerance band for crack pseudo-labels. Best used as a VFM SSL baseline in the benchmark.",
+   "min_experiment": "Arm UMv2-VFM (DINOv3 ViT-B, 1024 px, 478 labelled + 11.9k pool) vs the same encoder supervised-only, 3 seeds. Metrics: crack relF1@2, inactive IoU, mIoU_rob, E1 relF1@2. Kill if all are n.d. vs supervised-only.",
+   "score": 55
+  }
+ ],
+ "final": 60,
+ "bench": 92,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 86,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

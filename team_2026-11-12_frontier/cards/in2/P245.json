@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2509.20295",
+ "title": "FAST: Foreground-aware Diffusion with Accelerated Sampling Trajectory for Segmentation-oriented Anomaly Synthesis",
+ "year": 2025,
+ "venue": "NeurIPS 2025",
+ "url": "https://arxiv.org/abs/2509.20295",
+ "code_url": "https://github.com/Chhro123/fast-foreground-aware-anomaly-synthesis",
+ "mechanism": "Mask-conditioned diffusion that adjusts anomaly-aware noise inside the foreground mask at each step (FARM) and samples in about 10 steps (AIAS), producing image-mask pairs designed for downstream segmentation.",
+ "adaptation": "Train on the 478 grayscale cells with inactive and crack masks as foreground. Synthesise inactive regions (42 real train cells) on clean pool cells using real inactive and crack mask shapes, so inactive keeps touching a crack. Add to 25% of each batch.",
+ "min_experiment": "Arm: PF + 2,000 FAST-synthesised inactive cells, 5 seeds. Baseline: PF 5-seed. Metrics: module-grouped 5-fold CV inactive IoU (primary), test, BMRK and E1 inactive IoU. Kill: CV inactive IoU gain under 0.02.",
+ "evidence": "R: outperforms prior anomaly synthesis methods on downstream segmentation over multiple industrial benchmarks (MVTec-style); 10-step sampling.",
+ "prior_overlap": "none for this mechanism. Crack copy-paste was n.d.; diffusion synthesis is listed as never tried. SARD (same group) is covered by another direction.",
+ "score": 48,
+ "bench_score": 35,
+ "bet": "medium",
+ "gpu_hours": 40,
+ "targets": [
+  "inactive",
+  "crack"
+ ],
+ "directions": [
+  "D42"
+ ],
+ "scout_scores": [
+  48
+ ],
+ "final": 48,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 245,
+ "pid": "P245"
+}

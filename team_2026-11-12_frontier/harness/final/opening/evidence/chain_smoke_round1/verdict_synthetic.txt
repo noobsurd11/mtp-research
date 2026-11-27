@@ -1,0 +1,144 @@
+# Verdict of the final opening (OPENING_RULE.md; E1 opening #8 decides, test50 opening #19 is the public table)
+# relF1@2 decides; strict crack IoU is printed with its convention band and decides nothing; OP-A only; no threshold or bias was set on a sealed cell.
+# registration: TEST MODE (dry run, NOT a registration; overrides: IO=/home/noob/work/bench_int_io/opening/chain_992731/io FIN_VERDICT=/home/noob/work/bench_int_io/opening/chain_992731/fin_verdict.txt G=8bd1c2761c85f4721e444a8bf7124d2e5804973a R=0c72cf942a5cc89accfcd02e1d2b443a033549d9 EXT_DIR=/home/noob/work/bench_int_io/opening/chain_992731/ext117 LABELED_DIR=/home/noob/work/bench_int_io/opening/chain_992731/labeled MASKS_V11_DIR=/home/noob/work/bench_int_io/opening/chain_992731/masks_v11 REPO_G=/home/noob/work/bench_wt_openg SKIP_GIT=1) | registered 2026-11-21 06:51:34 IST by noob@giant | rule OPENING_RULE.md 69f0c0f382083f049e676221e9d8daac | jobs dbd54984b5e34555169796ac5a5726c5 30 lines | c1d4 yes (fin verdict 4eaf85d28407064e22aa40bc992b2219) | flags none | ruled: not needed
+
+## fin CV5 TTA read (FINAL_RULE section 4): its decisions, quoted as registered (OPENING_RULE section 10)
+(a) B5 TTA RESULT REPLICATED ON CV5V3 / CV02: (a) PF_D4 - PF is CONFIRMED. C1 (PF) is also shown with D4 in the opening (descriptive).
+(b) D4 IN C2 / C3 SUPPORTED ON CV5: (b) CS_D4 - CS is CONFIRMED.
+(c) C2 PASSES ITS CV5 CHECK (selection-biased; the E1 opening is the test): synthetic smoke line
+
+## E1 opening #8: the primary contrast P = C2 - C1 (crack relF1@2, OP-A, 106 cells, 71 clusters)
+Delta +0.0016, seed-aware 95% interval [+0.0000, +0.0048] (SE 0.0014); M 0.010
+FAIL	G1 width ratio C2 / C1 pooled n/a (band 0.85 to 1.15; C2 45.440, C1 0.000)
+FAIL	G2 width ratio C2 / C1 on CSIR (101 cells) n/a (band 0.85 to 1.15)
+FAIL	G3 false crack px on the 45 crack-free cells: C2 396233 <= 1.5 x C1 0 (ratio n/a)
+PASS	G4 mIoU-R13 delta +0.0062 >= -0.01
+=> P: NOT CONFIRMED (the interval holds 0; Delta > 0); failing guard items: G1 width pooled, G2 width CSIR, G3 false crack px
+   inactive IoU (reported, never decides; 10 inactive cells): +0.0016 seed-aware [+0.0000, +0.0046], fixed-model [+0.0012, +0.0020]
+   strict crack IoU: +0.0002 [+0.0000, +0.0005] (inside the convention band +-0.019; decides nothing)
+   fixed-model interval of P (the 10 trained models fixed; clusters only): [+0.0013, +0.0019]
+   relP@2 +0.0008 [+0.0000, +0.0024]; relR@2 +0.1557 [+0.0000, +0.4676]; relF1@1 +0.0009 [+0.0000, +0.0029]
+
+## E1 per model (OP-A): relF1@2 / strict crack IoU / inactive IoU / mIoU-R13 / width ratio / false crack px
+C1	seed 5	0.0000	0.0000	0.0000	0.0000	0.000	0
+C1	seed 6	0.0000	0.0000	0.0000	0.0000	0.000	0
+C1	seed 7	0.0000	0.0000	0.0000	0.0000	0.000	0
+C1	seed 8	0.0000	0.0000	0.0000	0.0000	0.000	0
+C1	seed 9	0.0000	0.0000	0.0000	0.0000	0.000	0
+C2	seed 5	0.0000	0.0000	0.0000	0.0000	0.000	0
+C2	seed 6	0.0000	0.0000	0.0000	0.0000	0.000	0
+C2	seed 7	0.0000	0.0000	0.0000	0.0294	0.000	0
+C2	seed 8	0.0079	0.0008	0.0078	0.0014	227.201	1981166
+C2	seed 9	0.0000	0.0000	0.0002	0.0001	0.000	0
+C3	seed 56789	0.0004	0.0000	0.0000	0.0001	0.013	111
+EPF	seed 56789	0.0000	0.0000	0.0000	0.0000	0.000	0
+C2S5	seed 5	0.0000	0.0000	0.0000	0.0000	0.000	0
+C1D4	seed 5	0.0000	0.0000	0.0000	0.0000	0.000	0
+C1D4	seed 6	0.0000	0.0000	0.0000	0.0000	0.000	0
+C1D4	seed 7	0.0000	0.0000	0.0000	0.0000	0.000	0
+C1D4	seed 8	0.0000	0.0000	0.0000	0.0000	0.000	0
+C1D4	seed 9	0.0000	0.0000	0.0000	0.0000	0.000	0
+
+## E1 printed beside (decides nothing)
+S1 C3 - C1 (ensemble against the baseline): relF1@2 +0.0004 [+0.0000, +0.0009] (fixed-model [+0.0000, +0.0010]); strict crack IoU +0.0000 [+0.0000, +0.0000] (inside the convention band +-0.019; decides nothing); inactive IoU +0.0000 [+0.0000, +0.0000]; mIoU-R13 +0.0001 [+0.0001, +0.0001]
+S2 C3 - E-PF (the ensemble comparator; C3 costs 8 x E-PF; fixed models): relF1@2 +0.0004 [+0.0000, +0.0010] (fixed-model [+0.0000, +0.0010]); strict crack IoU +0.0000 [+0.0000, +0.0000] (inside the convention band +-0.019; decides nothing); inactive IoU +0.0000 [+0.0000, +0.0000]; mIoU-R13 +0.0001 [+0.0001, +0.0001]
+S3 C3 - C2 (the ensemble's gain over its members): relF1@2 -0.0012 [-0.0047, +0.0008] (fixed-model [-0.0017, -0.0006]); strict crack IoU -0.0002 [-0.0005, +0.0000] (inside the convention band +-0.019; decides nothing); inactive IoU -0.0016 [-0.0048, +0.0000]; mIoU-R13 -0.0061 [-0.0176, +0.0001]
+S4 C2 seed 5 (deployable) - C1: relF1@2 +0.0000 [+0.0000, +0.0000] (fixed-model [+0.0000, +0.0000]); strict crack IoU +0.0000 [+0.0000, +0.0000] (inside the convention band +-0.019; decides nothing); inactive IoU +0.0000 [+0.0000, +0.0000]; mIoU-R13 -0.0000 [-0.0000, +0.0000]
+S5 E-PF - C1: relF1@2 +0.0000 [+0.0000, +0.0000] (fixed-model [+0.0000, +0.0000]); strict crack IoU +0.0000 [+0.0000, +0.0000] (inside the convention band +-0.019; decides nothing); inactive IoU +0.0000 [+0.0000, +0.0000]; mIoU-R13 -0.0000 [-0.0000, +0.0000]
+C1-D4 - C1 (D4 on PF; descriptive): relF1@2 +0.0000 [+0.0000, +0.0000] (fixed-model [+0.0000, +0.0000]); strict crack IoU +0.0000 [+0.0000, +0.0000] (inside the convention band +-0.019; decides nothing); inactive IoU +0.0000 [+0.0000, +0.0000]; mIoU-R13 -0.0000 [-0.0000, +0.0000]
+C2 - C1-D4 (same views; descriptive): relF1@2 +0.0016 [+0.0000, +0.0048] (fixed-model [+0.0013, +0.0019]); strict crack IoU +0.0002 [+0.0000, +0.0005] (inside the convention band +-0.019; decides nothing); inactive IoU +0.0016 [+0.0000, +0.0046]; mIoU-R13 +0.0062 [+0.0000, +0.0179]
+A/A C1 {7,8} - {5,6} (descriptive): relF1@2 +0.0000 [+0.0000, +0.0000], SE +0.0000
+
+## E1 strata (decide nothing): C2 - C1 relF1@2, seed-aware interval; n cells / clusters
+src:BMRK	5 / 5	relF1@2 +0.0017 [+0.0000, +0.0058]	strict crack IoU +0.0002 [+0.0000, +0.0006] (inside the convention band +-0.019; decides nothing)
+src:CSIR	101 / 66	relF1@2 +0.0016 [+0.0000, +0.0048]	strict crack IoU +0.0002 [+0.0000, +0.0005] (inside the convention band +-0.019; decides nothing)
+type:halfcut	27 / 24	relF1@2 +0.0016 [+0.0000, +0.0050]	strict crack IoU +0.0002 [+0.0000, +0.0005] (inside the convention band +-0.019; decides nothing)
+type:full	79 / 59	relF1@2 +0.0016 [+0.0000, +0.0049]	strict crack IoU +0.0002 [+0.0000, +0.0005] (inside the convention band +-0.019; decides nothing)
+crack_cells	61 / 45	relF1@2 +0.0027 [+0.0000, +0.0082]	strict crack IoU +0.0003 [+0.0000, +0.0008] (inside the convention band +-0.019; decides nothing)
+crack_free_cells	45 / 35	relF1@2 +0.0000 [+0.0000, +0.0000]	strict crack IoU n/a [n/a, n/a] (outside the convention band +-0.019; decides nothing)
+
+## E1 per-class IoU of the 13 robust classes (OP-A; arm mean over its models; decides nothing)
+| class | C1 | C2 | C3 | EPF | C2S5 | C1D4 |
+|---|---|---|---|---|---|---|
+| 0 background | 0.0000 | 0.0347 | 0.0001 | 0.0000 | 0.0000 | 0.0000 |
+| 1 sp multi | 0.0000 | 0.0000 | 0.0000 | 0.0000 | n/a | 0.0000 |
+| 2 sp mono | 0.0000 | 0.0000 | n/a | 0.0000 | n/a | 0.0000 |
+| 4 ribbons | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 |
+| 5 border | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 |
+| 7 padding | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 |
+| 11 inactive | 0.0000 | 0.0016 | 0.0000 | 0.0000 | 0.0000 | 0.0000 |
+| 13 material | 0.0000 | 0.0000 | 0.0000 | 0.0000 | n/a | 0.0000 |
+| 14 crack | 0.0000 | 0.0002 | 0.0000 | 0.0000 | 0.0000 | 0.0000 |
+| 15 gridline | 0.0000 | 0.0006 | 0.0006 | 0.0000 | 0.0000 | 0.0000 |
+| 16 splice | 0.0000 | 0.0000 | 0.0000 | 0.0000 | n/a | 0.0000 |
+| 20 edge dark | n/a | n/a | n/a | n/a | n/a | n/a |
+| 21 frame edge | 0.0000 | 0.0000 | n/a | 0.0000 | n/a | 0.0000 |
+
+## E1 components (OP-A; arm mean; decides nothing): crack >= 20 px recall (>= 50% covered within 2 px) / precision; inactive >= 100 px recall / precision
+| arm | crack recall | crack precision | inactive recall | inactive precision |
+|---|---|---|---|---|
+| C1 | 0.000 | n/a | 0.000 | n/a |
+| C2 | 0.200 | 0.012 | 0.000 | 0.000 |
+| C3 | 0.000 | n/a | 0.000 | n/a |
+| EPF | 0.000 | n/a | 0.000 | n/a |
+| C2S5 | 0.000 | n/a | 0.000 | n/a |
+| C1D4 | 0.000 | n/a | 0.000 | n/a |
+
+## test50 opening #19: the public table (decides nothing alone; leakage disclosed below)
+### Published rows (copied, PUBLIC_BENCH.md 2a)
+- Pratt 2023 model 4c (DeepLabv3+, custom weights), median IoU (rule A inferred): crack 0.25, gridline 0.20, inactive 0.38, mean of 3 0.28; ribbons 0.63, spacing 0.77; median recall crack 0.86 (Fig. 7 / 8; doi:10.1016/j.sasc.2023.200048)
+- Pratt 2023 best per class over 12 models: crack 0.26 (1c), gridline 0.32 (1a, 2a), inactive 0.38 (4c)
+- SEiPV-Net (equal weights): 'mIoU' 0.8604, 'IoU' 0.7447, Dice 0.8531, F1 0.9426, P 0.9491, R 0.9362 (averaging not defined; doi:10.3390/en16237726)
+- PV-S3 CSB-S1, FSL 100%: crack IoU 0.58 (P 0.86, R 0.64), gridline 0.83, inactive 0.50 (P 0.62, R 0.71), mean 0.6367 (split not stated, background rule not stated; doi:10.1016/j.engappai.2025.111790)
+- Not comparable (other test sets that overlap our training pool): Attention-Based SegNet 2024, Ramadan 2026, Hanifi 2025, Torpey 2024
+### Ours on v0 (BenchmarkEL 20211104 masks_coded), all 50 cells, 512 px, OP-A: mean over seeds [min, max]; seed 5
+| metric | C1 mean [min, max] | C1 seed 5 | C2 mean [min, max] | C2 seed 5 | C1D4 mean [min, max] | C1D4 seed 5 |
+|---|---|---|---|---|---|---|
+| Pratt A crack | 0.000 [0.000, 0.000] | 0.000 | 0.000 [0.000, 0.001] | 0.000 | 0.000 [0.000, 0.000] | 0.000 |
+| Pratt A gridline | 0.000 [0.000, 0.000] | 0.000 | 0.001 [0.000, 0.006] | 0.000 | 0.000 [0.000, 0.000] | 0.000 |
+| Pratt A inactive | 0.000 [0.000, 0.000] | 0.000 | 0.005 [0.000, 0.023] | 0.000 | 0.000 [0.000, 0.000] | 0.000 |
+| Pratt A mean of 3 | 0.000 [0.000, 0.000] | 0.000 | 0.002 [0.000, 0.008] | 0.000 | 0.000 [0.000, 0.000] | 0.000 |
+| Pratt A ribbons | 0.000 [0.000, 0.000] | 0.000 | 0.000 [0.000, 0.000] | 0.000 | 0.000 [0.000, 0.000] | 0.000 |
+| Pratt A spacing | n/a [n/a, n/a] | n/a | n/a [n/a, n/a] | n/a | n/a [n/a, n/a] | n/a |
+| Pratt B mean of 3 | 0.000 [0.000, 0.000] | 0.000 | 0.000 [0.000, 0.000] | 0.000 | 0.000 [0.000, 0.000] | 0.000 |
+| Pratt C mean of 3 | 0.667 [0.667, 0.667] | 0.667 | 0.400 [0.000, 0.667] | 0.667 | 0.667 [0.667, 0.667] | 0.667 |
+| Pratt median recall crack | 0.000 [0.000, 0.000] | 0.000 | 0.036 [0.000, 0.181] | 0.000 | 0.000 [0.000, 0.000] | 0.000 |
+| PV-S3 crack IoU (all px) | 0.000 [0.000, 0.000] | 0.000 | 0.000 [0.000, 0.001] | 0.000 | 0.000 [0.000, 0.000] | 0.000 |
+| PV-S3 gridline IoU (all px) | 0.000 [0.000, 0.000] | 0.000 | 0.001 [0.000, 0.003] | 0.000 | 0.000 [0.000, 0.000] | 0.000 |
+| PV-S3 inactive IoU (all px) | 0.000 [0.000, 0.000] | 0.000 | 0.001 [0.000, 0.007] | 0.000 | 0.000 [0.000, 0.000] | 0.000 |
+| PV-S3 mean IoU (all px) | 0.000 [0.000, 0.000] | 0.000 | 0.001 [0.000, 0.003] | 0.000 | 0.000 [0.000, 0.000] | 0.000 |
+| PV-S3 mean IoU (bg GT dropped) | 0.000 [0.000, 0.000] | 0.000 | 0.004 [0.000, 0.013] | 0.000 | 0.000 [0.000, 0.000] | 0.000 |
+| SEiPV pixel acc | 0.000 [0.000, 0.000] | 0.000 | 0.032 [0.000, 0.159] | 0.000 | 0.000 [0.000, 0.000] | 0.000 |
+| SEiPV micro IoU | 0.000 [0.000, 0.000] | 0.000 | 0.017 [0.000, 0.087] | 0.000 | 0.000 [0.000, 0.000] | 0.000 |
+| SEiPV fw-IoU | 0.000 [0.000, 0.000] | 0.000 | 0.031 [0.000, 0.155] | 0.000 | 0.000 [0.000, 0.000] | 0.000 |
+| SEiPV F1 weighted | 0.000 [0.000, 0.000] | 0.000 | 0.053 [0.000, 0.264] | 0.000 | 0.000 [0.000, 0.000] | 0.000 |
+| SEiPV per-image mIoU absent=1 | 0.642 [0.608, 0.650] | 0.650 | 0.650 [0.589, 0.688] | 0.688 | 0.693 [0.650, 0.756] | 0.756 |
+| SEiPV per-image mIoU absent skipped | 0.000 [0.000, 0.000] | 0.000 | 0.004 [0.000, 0.021] | 0.000 | 0.000 [0.000, 0.000] | 0.000 |
+| SEiPV mIoU GT classes + bg | 0.000 [0.000, 0.000] | 0.000 | 0.006 [0.000, 0.029] | 0.000 | 0.000 [0.000, 0.000] | 0.000 |
+| SEiPV mIoU GT classes, no bg | 0.000 [0.000, 0.000] | 0.000 | 0.000 [0.000, 0.002] | 0.000 | 0.000 [0.000, 0.000] | 0.000 |
+### Ours on v1.1 (our protocol), OP-A: relF1@2 / strict crack IoU / inactive IoU / mIoU-R13 / width / false crack px
+all (50 cells)	C1	0.0000	0.0000	0.0000	0.0000	0.000	0
+all (50 cells)	C2	0.0016	0.0002	0.0015	0.0062	45.591	184869
+all (50 cells)	C2S5	0.0000	0.0000	0.0000	0.0000	0.000	0
+all (50 cells)	C1D4	0.0000	0.0000	0.0000	0.0000	0.000	0
+all	C2 - C1 (secondary, decides nothing alone): relF1@2 +0.0016 [+0.0000, +0.0049]; strict crack IoU +0.0002 [+0.0000, +0.0005] (inside the convention band +-0.019; decides nothing)
+clean49 (49 cells)	C1	0.0000	0.0000	0.0000	0.0000	0.000	0
+clean49 (49 cells)	C2	0.0016	0.0002	0.0015	0.0062	44.674	176015
+clean49 (49 cells)	C2S5	0.0000	0.0000	0.0000	0.0000	0.000	0
+clean49 (49 cells)	C1D4	0.0000	0.0000	0.0000	0.0000	0.000	0
+clean49	C2 - C1 (secondary, decides nothing alone): relF1@2 +0.0016 [+0.0000, +0.0051]; strict crack IoU +0.0002 [+0.0000, +0.0005] (inside the convention band +-0.019; decides nothing)
+nolink16 (16 cells)	C1	0.0000	0.0000	0.0000	0.0000	0.000	0
+nolink16 (16 cells)	C2	0.0018	0.0002	0.0020	0.0062	38.738	43906
+nolink16 (16 cells)	C2S5	0.0000	0.0000	0.0000	0.0000	0.000	0
+nolink16 (16 cells)	C1D4	0.0000	0.0000	0.0000	0.0000	0.000	0
+nolink16	C2 - C1 (secondary, decides nothing alone): relF1@2 +0.0018 [+0.0000, +0.0057]; strict crack IoU +0.0002 [+0.0000, +0.0006] (inside the convention band +-0.019; decides nothing)
+
+## Disclosures
+- test50 leakage (results/stageC/SPLIT_INTEGRITY.md 5b): 8 test cells are the same physical cell as a pool cell, 7 are neighbouring crops, 19 more share a module with pool cells; the full-pool models trained on all of them: test50 numbers are in-distribution numbers with known leakage.
+- prior looks: test50 18 counted openings and many uncounted reads; E1 7 registered openings (3 looks at one contrast) plus reads before 31 Oct and one use of published E1 contrasts (R0, 15 Nov); the final models were never scored on either set.
+- selection: readout swad chosen after the c3x CV5 read; D4 adopted from the B5 CV5 read; both on pool cells only; the candidates were fixed by the user before any number of the final models; HRNet + SWAD (swad_bn) failed its CV5 confirmation (C3X_READ.md).
+- E1: 101 of 106 cells CSIR, 62 half-cut cells (the pool has none), 10 inactive cells, crack in 32 cells; no published comparator; one primary contrast; all dumps on cv02 (one GPU model), the read on gaint CPU.
+- entry class: C2 is entry class (c) of protocol 6.1 (D4 = 8 views) and P compares it with C1 at 1 view: P is the contrast of the whole candidate (HRNet-W18 U-Net++ + SWAD, D4: 8 views) against PF (one view). Only C1-D4 (in the opening iff the fin read (a) replicated B5) separates the D4 part from the model part; if C1-D4 is absent, nothing on E1 separates them.
+- operating point: OP-A only, a stated deviation from protocol 5.4 (a crack gain counts at OP-A and OP-W): OP-W needs a bias fitted on held-out folds, which full-pool models do not have, and fitting it on a sealed set would be tuning; the width guards G1 / G2 (0.85 to 1.15, pooled and CSIR) take OP-W's role.
+
+FINAL OPENING VERDICT: E1 P (C2 - C1 relF1@2) NOT CONFIRMED (the interval holds 0; Delta > 0); Delta +0.0016 [+0.0000, +0.0048]; test50: public table only.

@@ -1,0 +1,26 @@
+# D0 placement (bench_d0.py 01e808da); labels v11; 532 OOF stems; snapped labels: none (b) only against original labels
+
+## arm PF (seeds [5, 6]); reading of the pooled prediction share: BETWEEN 0.60 and 0.75: the lead decides
+scope	subset	cells	pred share<=1px	GT share<=1px	pred <=0.5	GT <=0.5	pred pts vis	GT pts vis	IoU orig	IoU snapped	p@ridge	p@label
+pooled	all	458	0.6041	0.4952	0.3817	0.2813	97740	109848	0.3627	n/a	0.4088	0.5012
+pooled	src:ARTS	94	0.8615	0.7347	0.5277	0.3936	11222	15122	0.2975	n/a	0.4619	0.3668
+pooled	src:BMRK	60	0.5074	0.4334	0.3254	0.2526	12566	14670	0.3976	n/a	0.4205	0.5290
+pooled	src:CFVS	198	0.5370	0.4590	0.3202	0.2548	52328	53902	0.3691	n/a	0.3936	0.5922
+pooled	src:CSIR	102	0.6864	0.4619	0.4872	0.2867	21109	25668	0.3354	n/a	0.4040	0.3445
+pooled	src:SDLE	4	0.7942	0.6749	0.5010	0.3004	515	486	0.3005	n/a	0.6691	0.7877
+s5	all	229	0.6050	0.4952	0.3814	0.2813	48834	54924	0.3602	n/a	0.4084	0.4982
+s5	src:ARTS	47	0.8613	0.7347	0.5167	0.3936	5595	7561	0.2983	n/a	0.4528	0.3776
+s5	src:BMRK	30	0.5063	0.4334	0.3249	0.2526	6315	7335	0.3974	n/a	0.4124	0.5295
+s5	src:CFVS	99	0.5373	0.4590	0.3211	0.2548	26145	26951	0.3664	n/a	0.3962	0.5868
+s5	src:CSIR	51	0.6909	0.4619	0.4890	0.2867	10516	12834	0.3321	n/a	0.4058	0.3378
+s5	src:SDLE	2	0.8213	0.6749	0.5551	0.3004	263	243	0.2927	n/a	0.6857	0.7888
+s6	all	229	0.6031	0.4952	0.3820	0.2813	48906	54924	0.3651	n/a	0.4092	0.5042
+s6	src:ARTS	47	0.8617	0.7347	0.5387	0.3936	5627	7561	0.2966	n/a	0.4709	0.3560
+s6	src:BMRK	30	0.5086	0.4334	0.3259	0.2526	6251	7335	0.3977	n/a	0.4286	0.5284
+s6	src:CFVS	99	0.5366	0.4590	0.3193	0.2548	26183	26951	0.3719	n/a	0.3910	0.5977
+s6	src:CSIR	51	0.6821	0.4619	0.4855	0.2867	10593	12834	0.3386	n/a	0.4022	0.3512
+s6	src:SDLE	2	0.7659	0.6749	0.4444	0.3004	252	243	0.3087	n/a	0.6526	0.7865
+mean p_crack by signed distance from the ridge (px; + = toward the label; GT points with the ridge >= 1 px off, n = 76294):
+  -4.0:0.051  -3.5:0.052  -3.0:0.056  -2.5:0.068  -2.0:0.095  -1.5:0.156  -1.0:0.233  -0.5:0.328  +0.0:0.409  +0.5:0.422  +1.0:0.420  +1.5:0.357  +2.0:0.291  +2.5:0.253  +3.0:0.227  +3.5:0.213  +4.0:0.203
+
+Reading (fixed, WAVE2_REVIEW X5): pred share >= 0.75 on ridge; <= 0.60 follows the jitter or is blurred; in between the lead decides. D0 orders the placement arms; it closes none.

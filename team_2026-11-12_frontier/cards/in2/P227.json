@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2110.05474",
+ "title": "Semi-Supervised Semantic Segmentation via Adaptive Equalization Learning (AEL)",
+ "year": 2021,
+ "venue": "NeurIPS",
+ "url": "https://arxiv.org/abs/2110.05474",
+ "code_url": "https://github.com/hzhupku/SemiSeg-AEL",
+ "mechanism": "A confidence bank tracks per-class performance during training. Weak classes get a higher chance of being copy-pasted or CutMixed and of being sampled.",
+ "evidence": "Cityscapes 1/32 cumulative ablation 69.1 to 74.3 mIoU, with adaptive copy-paste adding +0.85 (1/32) and +0.71 (1/16). Tail classes gain 10 to 22 IoU. These numbers come from the handbook's notes on the paper.",
+ "adaptation": "Labelled stream only, since SSL was n.d. at 100%. A running per-class IoU on train batches decides which class regions (splice, gridline, edge_dark, material, inactive) are pasted between labelled cells of the same source. Crack is excluded at first because of the decoy risk.",
+ "min_experiment": "PF+AEL class-aware paste vs PF, 5 seeds. Metrics: mIoU_rob and the per-class IoU of splice, gridline, edge_dark and material. Kill if mIoU_rob gain < +0.005.",
+ "prior_overlap": "SSL CutMix in Mean Teacher was not class-aware and ran on the unlabelled stream (n.d.). Class-aware mixing between labelled cells has not been run.",
+ "score": 50,
+ "bench_score": 30,
+ "bet": "medium",
+ "targets": [
+  "other_classes",
+  "inactive"
+ ],
+ "gpu_hours": 6,
+ "directions": [
+  "D21"
+ ],
+ "scout_scores": [
+  50
+ ],
+ "final": 50,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 227,
+ "pid": "P227"
+}

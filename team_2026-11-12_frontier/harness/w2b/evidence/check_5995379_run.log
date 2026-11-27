@@ -1,0 +1,55 @@
+[2026-11-17 18:01:19] A: start; TAG 5995379 = 59953790690dc6fa734981341ddce913429d2b4c; worktree HEAD 5995379; bench_wt_w2 c57508e changes 0; el_bench 31c0c36 changes 0; identity_cpu 962379a6 compare_id 3b83b364
+[2026-11-17 18:01:19] A: new made: git archive 5995379 -> /home/noob/work/bench_w2b_io/new_5995379 (+ data symlinks)
+[2026-11-17 18:01:24] B: start; TAG 5995379 = 59953790690dc6fa734981341ddce913429d2b4c; worktree HEAD 5995379; bench_wt_w2 c57508e changes 0; el_bench 31c0c36 changes 0; identity_cpu 962379a6 compare_id 3b83b364
+[2026-11-17 18:03:11] A: id PFV11 ref rc=0
+[2026-11-17 18:03:16] B: id SBJ ref rc=0
+[2026-11-17 18:05:00] A: id PFV11 new rc=0
+[2026-11-17 18:05:00] A: id PFV11 (house_r34_unetpp_pf_v11 on cv5v2_v11_f0) compare rc=0: IDENTICAL (5 steps, all fields except code / sec)
+[2026-11-17 18:05:03] B: id SBJ new rc=0
+[2026-11-17 18:05:03] B: id SBJ (soft_band_jml on cv5v2_v11_f0) compare rc=0: IDENTICAL (5 steps, all fields except code / sec)
+[2026-11-17 18:06:48] A: id HV11 ref rc=0
+[2026-11-17 18:06:51] B: id JMLH ref rc=0
+[2026-11-17 18:08:30] A: id HV11 new rc=0
+[2026-11-17 18:08:30] A: id HV11 (house_r34_unetpp_v11 on cv5v2_v11_f0) compare rc=0: IDENTICAL (5 steps, all fields except code / sec)
+[2026-11-17 18:08:33] B: id JMLH new rc=0
+[2026-11-17 18:08:33] B: id JMLH (jml_hard on cv5v2_v11_f0) compare rc=0: IDENTICAL (5 steps, all fields except code / sec)
+[2026-11-17 18:10:13] A: id PFV1 ref rc=0
+[2026-11-17 18:10:18] B: id EMA ref rc=0
+[2026-11-17 18:12:02] A: id PFV1 new rc=0
+[2026-11-17 18:12:02] A: id PFV1 (house_r34_unetpp_pf on cv5v2_v1_f0) compare rc=0: IDENTICAL (5 steps, all fields except code / sec)
+[2026-11-17 18:12:08] B: id EMA new rc=0
+[2026-11-17 18:12:08] B: id EMA (ema_wise_posthoc_pf_v11 on cv5v2_v11_f0) compare rc=0: IDENTICAL (5 steps, all fields except code / sec)
+[2026-11-17 18:13:46] A: id HV1 ref rc=0
+[2026-11-17 18:13:52] B: id SWAD ref rc=0
+[2026-11-17 18:15:29] A: id HV1 new rc=0
+[2026-11-17 18:15:29] A: id HV1 (house_r34_unetpp on cv5v2_v1_f0) compare rc=0: IDENTICAL (5 steps, all fields except code / sec)
+[2026-11-17 18:15:35] B: id SWAD new rc=0
+[2026-11-17 18:15:35] B: id SWAD (swad_const_pf_v11 on cv5v2_v11_f0) compare rc=0: IDENTICAL (5 steps, all fields except code / sec)
+[2026-11-17 18:17:14] A: id RCS ref rc=0
+[2026-11-17 18:17:18] B: id SPD ref rc=0
+[2026-11-17 18:19:01] A: id RCS new rc=0
+[2026-11-17 18:19:01] A: id RCS (rcs_pf_v11 on cv5v2_v11_f0) compare rc=0: IDENTICAL (5 steps, all fields except code / sec)
+[2026-11-17 18:19:04] B: id SPD new rc=0
+[2026-11-17 18:19:04] B: id SPD (encoder_spd_pf_v11 on cv5v2_v11_f0) compare rc=0: IDENTICAL (5 steps, all fields except code / sec)
+[2026-11-17 18:19:15] A: render check: 140 of 140 rendered configs equal at c57508e and at NEW (cards of c57508e: 14); differing: none
+[2026-11-17 18:19:16] A: W1-G config_used.yaml cfgcheck OK at NEW: 10 of 10
+[2026-11-17 18:19:19] A: wave 2a config_used.yaml (bq/w2a/jobs.txt d8be4f16) cfgcheck OK at NEW: 61 of 61
+[2026-11-17 18:20:36] A: pytest full suite NEW rc=0: 470 passed, 4 skipped, 14 warnings in 75.73s (0:01:15)
+[2026-11-17 18:20:39] B: dump identity ref rc=0: dumped w1g_pf_v11_f0_s5 cv5v2_f0: 107 cells
+[2026-11-17 18:22:09] B: dump identity new rc=0: dumped w1g_pf_v11_f0_s5 cv5v2_f0: 107 cells
+[2026-11-17 18:22:11] B: dump identity compare rc=0: IDENTICAL (107 cells, 535 arrays; manifest equal except ['bytes_total', 'card', 'card_md5', 'cells', 'code_commit', 'code_repo', 'writer', 'written'])
+[2026-11-17 18:22:11] B: lane B done
+[2026-11-17 18:24:38] A: smoke w2bs_pf_ref (house_r34_unetpp_pf_v11, code ref_c57508e, root cv5v2_v11_f0) rc=0 tracebacks 0 nan 0 Labelled: 425 | cfgcheck vs card (5-step overrides expected): CONFIG FAIL 5 |   | step1 step 1/5  loss=4.204  loss_sup=4.204  loss_con=0  lambda=0  lr=1e-05  steps_per_sec=0.06381
+[2026-11-17 18:28:30] A: smoke w2bs_pf_new (house_r34_unetpp_pf_v11, code new_5995379, root cv5v2_v11_f0) rc=0 tracebacks 0 nan 0 Labelled: 425 | cfgcheck vs card (5-step overrides expected): CONFIG FAIL 5 |   | step1 step 1/5  loss=4.204  loss_sup=4.204  loss_con=0  lambda=0  lr=1e-05  steps_per_sec=0.07139
+[2026-11-17 18:28:30] A: PF smoke ref vs new metrics.json rc=0: IDENTICAL (metrics.json without timing / run_name / steps_per_sec; keys 24)
+[2026-11-17 18:32:18] A: smoke w2bs_la_ce_pf_v11_f0 (la_ce_pf_v11, code new_5995379, root cv5v2_v11_f0) rc=0 tracebacks 0 nan 0 Labelled: 425 | cfgcheck vs card (5-step overrides expected): CONFIG FAIL 5 | LA_CE: logit offset on the CE term only (row train.txt md5 96d3154c34b964f9a482912786040ba3): [0.0, -0.25, -0.25, 0.0, -0.375, -0.0625, 0.0, -0.25, 0.0, 0.0, 0.0, -4.0, 0.0, -1.375, 0.0, -1.0, -2.0, 0.0, 0.0, 0.0, -0.5625, 0.0, 0.0, 0.0]  | step1 step 1/5  loss=4.057  loss_sup=4.057  loss_con=0  lambda=0  lr=1e-05  steps_per_sec=0.07084
+[2026-11-17 18:36:16] A: smoke w2bs_la_ce_pf_v11_f3 (la_ce_pf_v11, code new_5995379, root cv5v2_v11_f3) rc=0 tracebacks 0 nan 0 Labelled: 428 | cfgcheck vs card (5-step overrides expected): CONFIG FAIL 5 | LA_CE: logit offset on the CE term only (row train.txt md5 b65ff0f2c2d272a83cc0ec32cfcaa79d): [0.0, -0.25, -0.25, 0.0, -0.375, 0.1875, 0.0, -0.3125, 0.0, 0.0, 0.0, -4.0, 0.0, -1.4375, 0.0, -1.0, -1.75, 0.0, 0.0, 0.0, -0.625, 0.0, 0.0, 0.0]  | step1 step 1/5  loss=4.05  loss_sup=4.05  loss_con=0  lambda=0  lr=1e-05  steps_per_sec=0.0713
+[2026-11-17 18:37:31] A: dump la_ce_pf_v11 decision card rc=1:  tracebacks 1
+[2026-11-17 18:37:31] A: dump check la_ce_pf_v11 rc=1: Traceback (most recent call last):   File "<stdin>", line 8, in <module>   File "/usr/lib/python3.12/pathlib.py", line 1029, in read_text     with self.open(mode='r', encoding=encoding, errors=errors) as f:          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   File "/usr/lib/python3.12/pathlib.py", line 1015, in open     return io.open(self, mode, buffering, encoding, errors, newline)            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ FileNotFoundError: [Errno 2] No such file or directory: '/home/noob/work/bench_w2b_io/check_5995379/dumps/elbench1/la_ce_pf_v11/w2bs_la_ce_pf_v11_f0/cv5v2_f0/manifest.json' 
+[2026-11-17 18:41:48] A: smoke w2bs_layered_ci_pf_v11_f0 (layered_ci_pf_v11, code new_5995379, root cv5v2_v11_f0) rc=0 tracebacks 0 nan 0 Labelled: 425 | cfgcheck vs card (5-step overrides expected): CONFIG FAIL 5 |   | step1 step 1/5  loss=6.482  loss_sup=4.204  loss_con=0  lambda=0  aux_inact_region_bce=1.282  aux_inact_region_dice=0.9961  loss_aux=2.278  lr=1e-05  steps_per_sec=0.06634
+[2026-11-17 18:46:07] A: smoke w2bs_layered_ci_pf_v11_f3 (layered_ci_pf_v11, code new_5995379, root cv5v2_v11_f3) rc=0 tracebacks 0 nan 0 Labelled: 428 | cfgcheck vs card (5-step overrides expected): CONFIG FAIL 5 |   | step1 step 1/5  loss=6.441  loss_sup=4.17  loss_con=0  lambda=0  aux_inact_region_bce=1.271  aux_inact_region_dice=1  loss_aux=2.271  lr=1e-05  steps_per_sec=0.05178
+[2026-11-17 18:47:28] A: dump layered_ci_pf_v11 decision card rc=1:  tracebacks 1
+[2026-11-17 18:48:46] A: dump layered_ci_pf_v11 decision argmax24 rc=1:  tracebacks 1
+[2026-11-17 18:50:15] A: dump layered_ci_pf_v11 decision layered_ci_union rc=1:  tracebacks 1
+[2026-11-17 18:50:15] A: dump check layered_ci_pf_v11 rc=1: Traceback (most recent call last):   File "<stdin>", line 8, in <module>   File "/usr/lib/python3.12/pathlib.py", line 1029, in read_text     with self.open(mode='r', encoding=encoding, errors=errors) as f:          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   File "/usr/lib/python3.12/pathlib.py", line 1015, in open     return io.open(self, mode, buffering, encoding, errors, newline)            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ FileNotFoundError: [Errno 2] No such file or directory: '/home/noob/work/bench_w2b_io/check_5995379/dumps/elbench1/layered_ci_pf_v11/w2bs_layered_ci_pf_v11_f0/cv5v2_f0/manifest.json' 
+[2026-11-17 18:50:15] A: lane A done

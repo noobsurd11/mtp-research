@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.1109/jphotov.2018.2846665",
+ "title": "Quantitative Electroluminescence Imaging Analysis for Performance Estimation of PID-Influenced PV Modules",
+ "year": 2018,
+ "venue": "IEEE Journal of Photovoltaics",
+ "url": "https://doi.org/10.1109/jphotov.2018.2846665",
+ "code_url": "",
+ "mechanism": "Camera and perspective correction, then power-loss map from the log ratio of two EL images (before / after degradation or two currents).",
+ "evidence": "R: about 2000 EL images and I-V curves, relative RMSE 1 to 3% against flash test.",
+ "adaptation": "Single-bias data, so no score use; physics basis for converting dark / inactive area into a power-loss band, and for any future two-current capture on WattCycle's rig.",
+ "min_experiment": "No training: only if two-current images become available; otherwise use as a reference for the severity metric.",
+ "gpu_hours": 0,
+ "prior_overlap": "none",
+ "targets": [
+  "severity"
+ ],
+ "bet": "safe",
+ "score": 10,
+ "bench_score": 45,
+ "directions": [
+  "D08"
+ ],
+ "scout_scores": [
+  10
+ ],
+ "final": 10,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 630,
+ "pid": "P630"
+}

@@ -1,0 +1,35 @@
+{
+ "paper_id": "arxiv:2406.00327",
+ "title": "Quality Sentinel: Estimating Label Quality and Errors in Medical Segmentation Datasets",
+ "year": 2024,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2406.00327",
+ "code_url": "",
+ "mechanism": "Regressor on (image, label) predicts the label's Dice against a correct label, trained on synthetic corruptions; used to pick high-quality labels and pseudo-labels.",
+ "adaptation": "Train on 532 labelled cells with EL-specific corruptions (1-3 px shifts, width 1-4 px, dropped/spurious segments, inactive boundary errors), target relF1@2 and inactive IoU; use to rank train labels and to select pool pseudo-labels image by image.",
+ "min_experiment": "Arm: house + top 1,000 pool cells by predicted pseudo-label quality (5-seed teacher). Baseline: house and earlier pool SSL. Metric: E1 crack relF1@2, E1 inactive IoU, clean-49 crack IoU. Kill: predicted-vs-true quality Spearman < 0.5 on real val labels, or no gain over earlier pool run.",
+ "score": 55,
+ "bench_score": 35,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "inactive",
+  "e1_unseen"
+ ],
+ "evidence": "R: r = 0.902 between predicted and true label Dice over 142 structures; 4M training pairs; quality-selected pseudo-labels gave 33-88% gain over entropy selection; 1/3 annotation cost cut on TotalSegmentator.",
+ "gpu_hours": 25,
+ "prior_overlap": "Pseudo-label SSL row: per-pixel hard/tolerant thresholds with 11.9k pool at 100% labels n.d.; image-level learned quality selection not run. Partly open.",
+ "directions": [
+  "D37"
+ ],
+ "scout_scores": [
+  55
+ ],
+ "final": 55,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 163,
+ "pid": "P163"
+}

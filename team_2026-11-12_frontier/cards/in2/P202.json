@@ -1,0 +1,42 @@
+{
+ "paper_id": "arxiv:2601.02273",
+ "title": "TopoLoRA-SAM: Topology-Aware Parameter-Efficient Adaptation of Foundation Segmenters for Thin-Structure and Cross-Domain Binary Semantic Segmentation",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2601.02273",
+ "code_url": "https://github.com/salimkhazem/Seglab",
+ "mechanism": "LoRA in frozen SAM ViT-B plus a depthwise-separable conv adapter on the image embedding, prompt-free decoding, optional clDice.",
+ "adaptation": "Use LoRA + conv adapter, drop clDice; 1024 input; multi-class head instead of binary.",
+ "evidence": "R: best retina-average Dice 0.595 and overall avg Dice 0.735 vs Mask2Former 0.709; LoRA +4.2 Dice over decoder-only; conv adapter +1.2 BFScore. Absolute retina numbers are low.",
+ "min_experiment": "LoRA+conv-adapter arm in the PEFT grid vs plain LoRA; crack IoU, relF1@2; kill if < plain LoRA + 0.01.",
+ "gpu_hours": 15,
+ "score": 50,
+ "bench_score": 50,
+ "bet": "medium",
+ "targets": [
+  "crack"
+ ],
+ "prior_overlap": "Soft clDice failed here (Loss row), so the clDice part is closed; LoRA + adapter is open.",
+ "directions": [
+  "D14"
+ ],
+ "scout_scores": [
+  48,
+  50
+ ],
+ "alt_notes": [
+  {
+   "from": "D14",
+   "adaptation": "SAM ViT-B/L at 1024, 24-class decoder, no clDice (soft clDice failed here), LoRA rank 16 and 32, house loss.",
+   "min_experiment": "LoRA-SAM + conv adapter vs house PF, 5-fold CV then 3 seeds; default kill line (CV crack relF1@2 -0.005, E1 +0.03).",
+   "score": 48
+  }
+ ],
+ "final": 50,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 202,
+ "pid": "P202"
+}

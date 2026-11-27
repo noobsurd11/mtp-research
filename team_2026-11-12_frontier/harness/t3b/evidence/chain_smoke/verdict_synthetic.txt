@@ -1,0 +1,76 @@
+# Verdict of the T3b opening (T3B_RULE.md; E1 opening #9): few-shot layout adaptation inside E1
+# relF1@2 decides; strict crack IoU is printed with its convention band and decides nothing; OP-A only; no threshold, bias or checkpoint was chosen on E1. ZS is the zero-shot comparator, printed beside, never a T3b model.
+# registration: TEST MODE (dry run, NOT a registration; overrides: IO=/home/noob/work/bench_int_io/t3b/chain_2865203/io EXT_DIR=/home/noob/work/bench_int_io/t3b/chain_2865203/ext117 RD_OPEN=/home/noob/work/bench_int_io/t3b/chain_2865203/relay_open OPEN_REG=/home/noob/work/bench_int_io/t3b/chain_2865203/open_reg/REGISTERED.txt) | registered 2026-11-22 02:37:42 IST by noob@giant | rule T3B_RULE.md 0c006d4466f0312f4ca01184ea52a95a | lists LISTS.md5 5c86318a0d3c628bf3f9711fe7081fb5 | jobs_dump 9423cb91fe968be1bd4a263b729b28d2 30 lines | commits K cba7fbdf5df1579d6efb1168eb292e637bc9fad6 F2 9967d59abaab03cef83c1e3014840b2359ef45d7 G 8bd1c2761c85f4721e444a8bf7124d2e5804973a R 0c72cf942a5cc89accfcd02e1d2b443a033549d9 | zs 72d9749d802638e7be4208db19aed33b (opening #8 REGISTERED 4c783a779208979ccbed8c13802950b2; C2 seeds 5 6 7 on e1_106; relay /home/noob/work/bench_int_io/t3b/chain_2865203/relay_open)
+
+## T3b opening #9: the primary contrast P = ALL - ZS (pooled out-of-fold crack relF1@2, OP-A, 106 cells, 71 clusters)
+Delta -0.0000, seed-aware 95% interval [-0.0000, +0.0000] (SE 0.0000); M 0.010
+PASS	G1 false crack px on the 74 crack-free cells: ALL 0 <= 1.5 x ZS (zero-shot) 21658 (ratio 0.000)
+PASS	G2 mIoU-R13 delta -0.0035 >= -0.01
+=> P: NOT CONFIRMED (the interval holds 0; Delta <= 0)
+   predicted crack width ratio ALL / ZS 0.000 (ALL 0.000, ZS 1.424; reported, not a guard: E1 labels are about 1.5 x wider than the pool labels)
+   fixed-model interval of P (the 6 trained models fixed; clusters only): [-0.0000, +0.0000]
+   strict crack IoU +0.0000 [+0.0000, +0.0000] (inside the convention band +-0.019; decides nothing)
+   inactive IoU +0.0000 [+0.0000, +0.0000] (reported, never decides)
+   relP@2 -0.0000 [-0.0000, +0.0000]; relR@2 -0.0000 [-0.0001, +0.0000]; relF1@1 +0.0000 [+0.0000, +0.0000]
+
+## Printed beside (decide nothing)
+HALF - ZS (half of the training-side E1 image ids against the zero-shot comparator): relF1@2 -0.0000 [-0.0000, +0.0000] (fixed-model [-0.0000, +0.0000]); strict crack IoU +0.0000 [+0.0000, +0.0000] (inside the convention band +-0.019; decides nothing); inactive IoU +0.0000 [+0.0000, +0.0000] (reported only); mIoU-R13 -0.0035 [-0.0107, +0.0002]; width ratio B / A 0.002
+ALL - HALF (all against half of the training-side E1 image ids): relF1@2 +0.0000 [+0.0000, +0.0000] (fixed-model [+0.0000, +0.0000]); strict crack IoU +0.0000 [+0.0000, +0.0000] (inside the convention band +-0.019; decides nothing); inactive IoU +0.0000 [+0.0000, +0.0000] (reported only); mIoU-R13 +0.0000 [-0.0003, +0.0003]; width ratio B / A 0.000
+
+## Crack components >= 20 px (arm mean over 3 seeds [min, max]; decide nothing): any-hit recall (a GT component counted if any px lies within 2 px of a predicted crack px) / recall at >= 50% covered / precision
+ALL (trained on E1, out-of-fold): any-hit 0.000 [0.000, 0.000]; >= 50% 0.000; precision n/a
+HALF (trained on E1, out-of-fold): any-hit 0.000 [0.000, 0.000]; >= 50% 0.000; precision n/a
+ZS (zero-shot comparator, never trained on E1): any-hit 0.010 [0.000, 0.031]; >= 50% 0.000; precision n/a
+
+## Strata (decide nothing): seed-aware intervals; n cells / clusters
+full cells (strat_full)	44 / 24	ALL - ZS relF1@2 +0.0000 [+0.0000, +0.0000]; HALF - ZS relF1@2 +0.0000 [+0.0000, +0.0000]; ALL - HALF relF1@2 +0.0000 [+0.0000, +0.0000]; ALL - ZS strict crack IoU +0.0000 [+0.0000, +0.0000] (inside the convention band +-0.019; decides nothing)
+half-cut cells (strat_halfcut)	62 / 47	ALL - ZS relF1@2 -0.0000 [-0.0000, +0.0000]; HALF - ZS relF1@2 -0.0000 [-0.0000, +0.0000]; ALL - HALF relF1@2 +0.0000 [+0.0000, +0.0000]; ALL - ZS strict crack IoU +0.0000 [+0.0000, +0.0000] (inside the convention band +-0.019; decides nothing)
+hard = half-cut + scuff (strat_hard)	29 / 17	ALL - ZS relF1@2 +0.0000 [+0.0000, +0.0000]; HALF - ZS relF1@2 +0.0000 [+0.0000, +0.0000]; ALL - HALF relF1@2 +0.0000 [+0.0000, +0.0000]; ALL - ZS strict crack IoU +0.0000 [+0.0000, +0.0000] (inside the convention band +-0.019; decides nothing)
+half-cut without scuff (strat_halfcut_noscuff)	33 / 31	ALL - ZS relF1@2 -0.0000 [-0.0001, +0.0000]; HALF - ZS relF1@2 -0.0000 [-0.0001, +0.0000]; ALL - HALF relF1@2 +0.0000 [+0.0000, +0.0000]; ALL - ZS strict crack IoU +0.0000 [+0.0000, +0.0000] (inside the convention band +-0.019; decides nothing)
+crack cells (GT crack px > 0) (crack_cells)	32 / 23	ALL - ZS relF1@2 -0.0000 [-0.0001, +0.0000]; HALF - ZS relF1@2 -0.0000 [-0.0001, +0.0000]; ALL - HALF relF1@2 +0.0000 [+0.0000, +0.0000]; ALL - ZS strict crack IoU +0.0000 [+0.0000, +0.0000] (inside the convention band +-0.019; decides nothing)
+crack-free cells (crack_free_cells)	74 / 56	ALL - ZS relF1@2 +0.0000 [+0.0000, +0.0000]; HALF - ZS relF1@2 +0.0000 [+0.0000, +0.0000]; ALL - HALF relF1@2 +0.0000 [+0.0000, +0.0000]; ALL - ZS strict crack IoU n/a [n/a, n/a] (outside the convention band +-0.019; decides nothing)
+CSIR cells (src:CSIR)	101 / 66	ALL - ZS relF1@2 -0.0000 [-0.0000, +0.0000]; HALF - ZS relF1@2 -0.0000 [-0.0000, +0.0000]; ALL - HALF relF1@2 +0.0000 [+0.0000, +0.0000]; ALL - ZS strict crack IoU +0.0000 [+0.0000, +0.0000] (inside the convention band +-0.019; decides nothing)
+BMRK cells (src:BMRK)	5 / 5	ALL - ZS relF1@2 +0.0000 [+0.0000, +0.0000]; HALF - ZS relF1@2 +0.0000 [+0.0000, +0.0000]; ALL - HALF relF1@2 +0.0000 [+0.0000, +0.0000]; ALL - ZS strict crack IoU +0.0000 [+0.0000, +0.0000] (inside the convention band +-0.019; decides nothing)
+
+## Per model (OP-A): relF1@2 / strict crack IoU / inactive IoU / mIoU-R13 / width ratio / false crack px / any-hit recall
+ALL (trained on E1, out-of-fold)	seed 5	0.0000	0.0000	0.0000	0.0004	0.000	0	0.000
+ALL (trained on E1, out-of-fold)	seed 6	0.0000	0.0000	0.0000	0.0000	0.000	0	0.000
+ALL (trained on E1, out-of-fold)	seed 7	0.0000	0.0000	0.0000	0.0000	0.000	0	0.000
+HALF (trained on E1, out-of-fold)	seed 5	0.0000	0.0000	0.0000	0.0004	0.006	87	0.000
+HALF (trained on E1, out-of-fold)	seed 6	0.0000	0.0000	0.0000	0.0000	0.000	0	0.000
+HALF (trained on E1, out-of-fold)	seed 7	0.0000	0.0000	0.0000	0.0000	0.000	0	0.000
+ZS (zero-shot comparator, never trained on E1)	seed 5	0.0000	0.0000	0.0000	0.0000	0.000	0	0.000
+ZS (zero-shot comparator, never trained on E1)	seed 6	0.0000	0.0000	0.0000	0.0109	0.000	0	0.000
+ZS (zero-shot comparator, never trained on E1)	seed 7	0.0000	0.0000	0.0000	0.0000	4.272	64973	0.031
+
+## Per-class IoU of the 13 robust classes (OP-A; arm mean; decides nothing)
+| class | ALL | HALF | ZS (zero-shot) |
+|---|---|---|---|
+| 0 background | 0.0000 | 0.0000 | 0.0000 |
+| 1 sp multi | n/a | 0.0000 | 0.0000 |
+| 2 sp mono | 0.0000 | 0.0000 | n/a |
+| 4 ribbons | 0.0000 | 0.0000 | 0.0000 |
+| 5 border | 0.0000 | 0.0000 | n/a |
+| 7 padding | 0.0000 | 0.0007 | 0.0218 |
+| 11 inactive | 0.0000 | 0.0000 | 0.0000 |
+| 13 material | n/a | 0.0000 | 0.0000 |
+| 14 crack | 0.0000 | 0.0000 | 0.0000 |
+| 15 gridline | 0.0009 | 0.0000 | 0.0000 |
+| 16 splice | 0.0000 | n/a | n/a |
+| 20 edge dark | n/a | n/a | 0.0000 |
+| 21 frame edge | 0.0000 | n/a | n/a |
+
+## Disclosures
+- E1 is training data for the T3b models from the registration of this opening (user, 21 Nov 2026 about 14:35 IST, 'run T3b on free GPUs'); no later zero-shot claim on E1 by this team. The T3 table (opening #8) is frozen before it.
+- ZS = the zero-shot comparator: opening #8's C2 (full-pool HRNet-W18 U-Net++ + SWAD, swad, D4) seeds 5 to 7, the same relayed dumps, re-scored by K's scorer; it never saw an E1 cell. It is printed beside, never a T3b model.
+- Separation: every T3b record carries trained_on_e1; every T3 / E1-column scorer refuses it; this card is the only read that holds both (bench_open_read.py --t3b).
+- Recipe fixed before any T3b number (the C2 recipe, final weights, swad, D4, argmax): no threshold, bias or checkpoint was chosen on E1; only the training list differs (pool532_v11 + the E1 cells of the other 4 folds, or a fixed half).
+- Concentration (proposal section 4): half of E1's crack px sit in 3 image ids and the hard-stratum crack cells in 10; the pooled score has the uncertainty of about 9 images; single folds say little and are not printed as results.
+- Folds are by image id; whether neighbouring CSIR ids are modules of one batch with shared handling marks is unknown, so the out-of-fold number may be optimistic for a truly new site.
+- Label width: E1 labels are about 1.5 x wider than the pool labels; a T3b model learns that width, which lifts strict IoU and pixel recall without finding more cracks. relF1@2 decides; the width ratio is printed; strict IoU only with its band.
+- Seeds: 3 (lead's choice over the proposal's 2; the seed-aware bootstrap needs more than 2). Machine: all 33 dumps on cv02 (one GPU model); the read on gaint CPU. One primary contrast; everything else is descriptive.
+- Inactive: E1 has 10 inactive cells in 7 image ids (3 hold 87%): reported, never decides.
+- T3b records live only under bench_reads/t3b_open9; record readers other than bench_open_read, bench_score summary and derived (e.g. bench_headres, bench_read_w1, bench_udev_read) do not check trained_on_e1 and are never pointed at them.
+- From staging to unstage, DT/files on the shared cv02 login held the E1 training labels of all 106 cells (each fold's held-out labels present but not linked from its root; the deploy root needs all 106); removed at unstage.
+
+T3B VERDICT: P (ALL - ZS pooled out-of-fold crack relF1@2) NOT CONFIRMED (the interval holds 0; Delta <= 0); Delta -0.0000 [-0.0000, +0.0000]; width ratio ALL / ZS 0.000 (reported).

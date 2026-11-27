@@ -1,0 +1,77 @@
+{
+ "paper_id": "arxiv:2408.08870",
+ "title": "SAM2-UNet: segment anything 2 makes strong encoder for natural and medical image segmentation",
+ "year": 2024,
+ "venue": "Visual Intelligence (2026)",
+ "url": "https://arxiv.org/abs/2408.08870",
+ "code_url": "https://github.com/WZH0120/SAM2-UNet",
+ "mechanism": "SAM 2 Hiera encoder kept mostly frozen with small adapters, feeding a plain U-Net decoder; Hiera has a stride-4 first stage so fine detail survives into the skips.",
+ "adaptation": "1-channel EL replicated to 3 channels; Hiera-L (and B+); one arm at 512 and one at 1024 (2x bilinear upscale); replace binary head with 24-class head, house CE + soft Dice on crack/inactive, label-safe aug only, val-chosen crack logit bias; also ensemble with the house U-Net++ (heterogeneous ensembles untested here).",
+ "evidence": "R: beats specialised SOTA on camouflage, salient, mirror, marine, polyp segmentation (abstract only); 242 citations. No thin-structure numbers in abstract.",
+ "min_experiment": "Arms SAM2-UNet Hiera-L @512 and @1024, 3 seeds, 20k steps vs house U-Net++ and PF. Metrics clean-49 crack IoU, relF1@2, inactive IoU, mIoU_rob; E1 crack relF1@2 and inactive IoU; 5-fold CV. Also SAM2-UNet+house ensemble vs house 5-seed ensemble. Kill if crack IoU < 0.465 and relF1@2 < 0.875 and E1 relF1@2 < 0.43 and ensemble adds < +0.01 crack IoU.",
+ "gpu_hours": 40,
+ "score": 74,
+ "bench_score": 85,
+ "bet": "safe",
+ "targets": [
+  "crack",
+  "e1_unseen",
+  "inactive",
+  "benchmark"
+ ],
+ "prior_overlap": "Foundation encoders row: only a frozen linear probe of SAM2 Hiera-T was run. Adapter fine-tuning of Hiera-L with a U-Net decoder and 1024 input is listed as not closed.",
+ "directions": [
+  "D09",
+  "D14",
+  "D24"
+ ],
+ "scout_scores": [
+  55,
+  55,
+  70,
+  74,
+  62,
+  60
+ ],
+ "alt_notes": [
+  {
+   "from": "D09",
+   "adaptation": "Gray to 3 channels, 512 px, Hiera-B+ or L. Hiera stage 1 is stride 4, so add a full-resolution conv skip from the raw image or 1-2 px cracks vanish. 24-class head, house CE plus Dice on crack and inactive.",
+   "min_experiment": "Arm: SAM2-UNet Hiera-B+ with adapters and extra full-res skip; baseline PF; 3 seeds. Metric: CV crack IoU, E1 crack relF1@2, mIoU_rob. Kill if CV crack IoU < PF minus 0.01 and E1 n.d.",
+   "score": 55
+  },
+  {
+   "from": "D09",
+   "adaptation": "Gray replicated to 3 channels, 512 px, Hiera-B+ or L. Hiera stage 1 is stride 4, so add a full or half resolution conv skip from the raw image, or 1 to 2 px cracks are lost. 24-class head, house CE + Dice. SECrackSeg (doi:10.3390/s25092642) shows the same design used for cracks.",
+   "min_experiment": "Arm: SAM2-UNet with full-res skip, 24 classes; baseline: PF; 3 seeds. Metric: CV crack IoU, E1 crack relF1@2, mIoU_rob. Kill if CV crack IoU < PF minus 0.01 and E1 n.d.",
+   "score": 55
+  },
+  {
+   "from": "D09",
+   "adaptation": "1-ch EL replicated to 3 ch, 512 upscaled to 1024; Hiera-B+ or L; 24-class head; add stride-2 conv stem skip so 1-2 px cracks reach the decoder; house CE + Dice on crack/inactive, label-safe aug, 20k steps, encoder lr 0.1x (PF-style).",
+   "min_experiment": "SAM2-UNet Hiera-B+ at 1024 vs house PF; module-grouped 5-fold CV (1 seed/fold) then 3 seeds on clean-49 and E1. Kill if CV crack relF1@2 > 0.005 below PF AND E1 crack relF1@2 not >= PF+0.03 AND E1 inactive IoU not > 0.24.",
+   "score": 70
+  },
+  {
+   "from": "D24",
+   "adaptation": "Hierarchical stride-4 encoder avoids the stride-16 crack dilution (70.7% of crack signal below 1/4 at stride 16 vs 8.5% at stride 4, idea08 file). Hiera-B+ or L at 1024, add a stride-2 stem skip, 24-class head, house loss, 20k steps. Overlaps D14 item 1.",
+   "min_experiment": "Arm: SAM2-UNet Hiera-B+ at 1024. Baseline: house PF. Metric: CV crack relF1@2 and inactive IoU, then 3 seeds clean-49 and E1. Kill: default line.",
+   "score": 62
+  },
+  {
+   "from": "D24",
+   "adaptation": "Hiera-B+ / L at 512 and 1024 px, add a stride-2 image skip, 24-class head, house loss. Hiera is stride 4, so no ViT stride problem.",
+   "min_experiment": "SAM2-UNet Hiera-B+ vs house PF, CV then 3 seeds; default kill line.",
+   "score": 60
+  }
+ ],
+ "final": 74,
+ "bench": 85,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 2,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P002"
+}

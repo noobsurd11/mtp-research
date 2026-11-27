@@ -1,0 +1,35 @@
+{
+ "paper_id": "doi:10.1109/cvpr52688.2022.01392",
+ "title": "Towards Total Recall in Industrial Anomaly Detection (PatchCore)",
+ "year": 2022,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2106.08265",
+ "code_url": "https://github.com/open-edge-platform/anomalib",
+ "mechanism": "Coreset memory bank of mid-level patch features; nearest-neighbour distance is the anomaly score.",
+ "adaptation": "Canonical AD row of the benchmark and the bank builder for the WeakREST residual arm; banks per source x layout from clean pool cells; report crack and inactive relF1@2 to show the gap to supervised.",
+ "evidence": "R: MVTec AD image AUROC up to 99.6 (widely reported; 1996 citations).",
+ "min_experiment": "Benchmark row, one run per source; no kill line.",
+ "gpu_hours": 2,
+ "prior_overlap": "none",
+ "score": 30,
+ "bench_score": 85,
+ "bet": "safe",
+ "targets": [
+  "benchmark"
+ ],
+ "directions": [
+  "D39"
+ ],
+ "scout_scores": [
+  30
+ ],
+ "final": 30,
+ "bench": 85,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 495,
+ "pub_allowed": 0,
+ "selected_for": "bench",
+ "pid": "P495"
+}

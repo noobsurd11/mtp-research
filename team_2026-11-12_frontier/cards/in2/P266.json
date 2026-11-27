@@ -1,0 +1,35 @@
+{
+ "paper_id": "arxiv:2605.14808",
+ "title": "SuperADD: Training-free Class-agnostic Anomaly Segmentation (CVPR 2026 VAND 4.0 Industrial Track)",
+ "year": 2026,
+ "venue": "arXiv (CVPR 2026 VAND workshop challenge)",
+ "url": "https://arxiv.org/abs/2605.14808",
+ "code_url": "https://github.com/LukasRoom/SuperADD",
+ "mechanism": "Training-free DINOv3 memory-bank AD built for train/deploy distribution shift: overlapping patches, intensity-augmented bank, coverage-aware subsampling, iterative morphological closing.",
+ "adaptation": "E1 recall prior: bank = clean pool cells incl. half-cells; overlapping 224 crops of each 512 cell; intensity augmentation spanning the 5 sources' contrast; skip closing for crack maps (widens them), keep for inactive. Fuse as an extra input channel to PF or as a logit boost inside high-AD components.",
+ "evidence": "R: MVTec AD 2 segmentation F1 62.61 / 57.42 / 54.35 on public / private / private-mixed test, above SuperAD and other SOTA.",
+ "min_experiment": "Offline map on F51, H36, CV folds (<3 GPU-h); kill if <30% of PF-missed crack components >=20 px recovered at 1% flagged area. If it passes: PF + AD channel vs PF, 5 seeds, CV then E1; kill E1 crack relF1@2 gain < +0.03 or CV crack IoU drop > 0.01.",
+ "gpu_hours": 15,
+ "prior_overlap": "none in BRIEF section 5. D07 proposes a similar offline arm with AnomalyDINO / MuSc; run in the same table.",
+ "score": 45,
+ "bench_score": 75,
+ "bet": "medium",
+ "targets": [
+  "e1_unseen",
+  "inactive",
+  "benchmark"
+ ],
+ "directions": [
+  "D39"
+ ],
+ "scout_scores": [
+  45
+ ],
+ "final": 45,
+ "bench": 75,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 266,
+ "pid": "P266"
+}

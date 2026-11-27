@@ -1,0 +1,138 @@
+# c3swad verdict from /home/noob/work/bench_reads/c3swad/read/read.json (read tool fdb56b78; A/A PF:5,6:7,8; groups d880a769); rule: LAUNCH_REQUEST_c3swad.md section 7; script c3swad_verdict.py
+
+## SWADBN (primary, swad_bn)
+FAIL	headline	532 cells	OP-A	relF1@2 SWADBN - PF = +0.0070 [-0.0007, +0.0156], M 0.0100
+FAIL	headline	532 cells	OP-W	relF1@2 SWADBN - PF = +0.0048 [-0.0036, +0.0141], M 0.0100
+FAIL	headline	416 clean cells	OP-A	relF1@2 SWADBN - PF = +0.0098 [+0.0009, +0.0198], M 0.0100
+FAIL	headline	416 clean cells	OP-W	relF1@2 SWADBN - PF = +0.0071 [-0.0025, +0.0176], M 0.0100
+PASS	width_pooled	532 cells	OP-A	all (n 532): width 1.1032 / 1.0189 = 1.083 (band 0.85 to 1.15)
+FAIL	width_source	532 cells	OP-A	src:ARTS (n 182): width 1.0831 / 0.8679 = 1.248 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-A	src:BMRK (n 50): width 0.9224 / 0.8599 = 1.073 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-A	src:CFVS (n 169): width 1.1665 / 1.0848 = 1.075 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-A	src:CSIR (n 114): width 0.9900 / 0.9133 = 1.084 (band 0.85 to 1.15)
+FAIL	false_alarm	532 cells	OP-A	false crack px on crack-free cells 339 against 212 = 1.60 x (max 1.5); share of crack-free cells with >= 50 px 0.0066 against 0.0013
+PASS	inactive	532 cells	OP-A	inactive IoU SWADBN - PF = +0.0154 [-0.0404, +0.0644], allowed drop 0.0462
+PASS	miou	532 cells	OP-A	mIoU-R13 SWADBN - PF = +0.0073 [+0.0002, +0.0147], allowed drop 0.0100
+PASS	width_pooled	532 cells	OP-W	all (n 532): width 1.0170 / 1.0189 = 0.998 (band 0.85 to 1.15)
+FAIL	width_source	532 cells	OP-W	src:ARTS (n 182): width 1.0009 / 0.8679 = 1.153 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-W	src:BMRK (n 50): width 0.8580 / 0.8599 = 0.998 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-W	src:CFVS (n 169): width 1.0734 / 1.0848 = 0.990 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-W	src:CSIR (n 114): width 0.9138 / 0.9133 = 1.001 (band 0.85 to 1.15)
+PASS	false_alarm	532 cells	OP-W	false crack px on crack-free cells 271 against 212 = 1.28 x (max 1.5); share of crack-free cells with >= 50 px 0.0046 against 0.0013
+PASS	inactive	532 cells	OP-W	inactive IoU SWADBN - PF = +0.0169 [-0.0398, +0.0666], allowed drop 0.0462
+PASS	miou	532 cells	OP-W	mIoU-R13 SWADBN - PF = +0.0071 [-0.0003, +0.0145], allowed drop 0.0100
+PASS	width_pooled	416 clean cells	OP-A	all (n 416): width 1.0452 / 0.9514 = 1.099 (band 0.85 to 1.15)
+FAIL	width_source	416 clean cells	OP-A	src:ARTS (n 131): width 1.0102 / 0.7832 = 1.290 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-A	src:BMRK (n 50): width 0.9224 / 0.8599 = 1.073 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-A	src:CFVS (n 132): width 1.1239 / 1.0305 = 1.091 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-A	src:CSIR (n 103): width 0.8831 / 0.7949 = 1.111 (band 0.85 to 1.15)
+PASS	false_alarm	416 clean cells	OP-A	false crack px on crack-free cells 276 against 196 = 1.40 x (max 1.5); share of crack-free cells with >= 50 px 0.0062 against 0.0018
+PASS	inactive	416 clean cells	OP-A	inactive IoU SWADBN - PF = +0.0226 [-0.0406, +0.0737], allowed drop 0.0539
+PASS	miou	416 clean cells	OP-A	mIoU-R13 SWADBN - PF = +0.0077 [-0.0012, +0.0163], allowed drop 0.0100
+PASS	width_pooled	416 clean cells	OP-W	all (n 416): width 0.9502 / 0.9514 = 0.999 (band 0.85 to 1.15)
+FAIL	width_source	416 clean cells	OP-W	src:ARTS (n 131): width 0.9246 / 0.7832 = 1.181 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-W	src:BMRK (n 50): width 0.8469 / 0.8599 = 0.985 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-W	src:CFVS (n 132): width 1.0183 / 1.0305 = 0.988 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-W	src:CSIR (n 103): width 0.8065 / 0.7949 = 1.015 (band 0.85 to 1.15)
+PASS	false_alarm	416 clean cells	OP-W	false crack px on crack-free cells 211 against 196 = 1.07 x (max 1.5); share of crack-free cells with >= 50 px 0.0035 against 0.0018
+PASS	inactive	416 clean cells	OP-W	inactive IoU SWADBN - PF = +0.0248 [-0.0390, +0.0761], allowed drop 0.0539
+PASS	miou	416 clean cells	OP-W	mIoU-R13 SWADBN - PF = +0.0074 [-0.0017, +0.0161], allowed drop 0.0100
+=> SWADBN: headline FAIL; failing guard items 5: width_source src:ARTS OP-A 532 cells; false_alarm OP-A 532 cells; width_source src:ARTS OP-W 532 cells; width_source src:ARTS OP-A 416 clean cells; width_source src:ARTS OP-W 416 clean cells
+
+## SWAD (declared secondary, swad)
+FAIL	headline	532 cells	OP-A	relF1@2 SWAD - PF = +0.0064 [-0.0009, +0.0138], M 0.0100
+FAIL	headline	532 cells	OP-W	relF1@2 SWAD - PF = +0.0053 [-0.0022, +0.0128], M 0.0100
+FAIL	headline	416 clean cells	OP-A	relF1@2 SWAD - PF = +0.0075 [-0.0009, +0.0165], M 0.0100
+FAIL	headline	416 clean cells	OP-W	relF1@2 SWAD - PF = +0.0058 [-0.0030, +0.0150], M 0.0100
+PASS	width_pooled	532 cells	OP-A	all (n 532): width 1.0613 / 1.0189 = 1.042 (band 0.85 to 1.15)
+FAIL	width_source	532 cells	OP-A	src:ARTS (n 182): width 1.0052 / 0.8679 = 1.158 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-A	src:BMRK (n 50): width 0.8659 / 0.8599 = 1.007 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-A	src:CFVS (n 169): width 1.1389 / 1.0848 = 1.050 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-A	src:CSIR (n 114): width 0.9160 / 0.9133 = 1.003 (band 0.85 to 1.15)
+PASS	false_alarm	532 cells	OP-A	false crack px on crack-free cells 156 against 212 = 0.74 x (max 1.5); share of crack-free cells with >= 50 px 0.0026 against 0.0013
+PASS	inactive	532 cells	OP-A	inactive IoU SWAD - PF = +0.0208 [-0.0242, +0.0615], allowed drop 0.0462
+PASS	miou	532 cells	OP-A	mIoU-R13 SWAD - PF = +0.0001 [-0.0065, +0.0069], allowed drop 0.0100
+PASS	width_pooled	532 cells	OP-W	all (n 532): width 1.0204 / 1.0189 = 1.001 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-W	src:ARTS (n 182): width 0.9679 / 0.8679 = 1.115 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-W	src:BMRK (n 50): width 0.8374 / 0.8599 = 0.974 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-W	src:CFVS (n 169): width 1.0933 / 1.0848 = 1.008 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-W	src:CSIR (n 114): width 0.8834 / 0.9133 = 0.967 (band 0.85 to 1.15)
+PASS	false_alarm	532 cells	OP-W	false crack px on crack-free cells 144 against 212 = 0.68 x (max 1.5); share of crack-free cells with >= 50 px 0.0026 against 0.0013
+PASS	inactive	532 cells	OP-W	inactive IoU SWAD - PF = +0.0217 [-0.0239, +0.0622], allowed drop 0.0462
+PASS	miou	532 cells	OP-W	mIoU-R13 SWAD - PF = -0.0000 [-0.0066, +0.0068], allowed drop 0.0100
+PASS	width_pooled	416 clean cells	OP-A	all (n 416): width 1.0014 / 0.9514 = 1.053 (band 0.85 to 1.15)
+FAIL	width_source	416 clean cells	OP-A	src:ARTS (n 131): width 0.9297 / 0.7832 = 1.187 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-A	src:BMRK (n 50): width 0.8659 / 0.8599 = 1.007 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-A	src:CFVS (n 132): width 1.0952 / 1.0305 = 1.063 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-A	src:CSIR (n 103): width 0.8072 / 0.7949 = 1.015 (band 0.85 to 1.15)
+PASS	false_alarm	416 clean cells	OP-A	false crack px on crack-free cells 128 against 196 = 0.65 x (max 1.5); share of crack-free cells with >= 50 px 0.0027 against 0.0018
+PASS	inactive	416 clean cells	OP-A	inactive IoU SWAD - PF = +0.0223 [-0.0304, +0.0685], allowed drop 0.0539
+PASS	miou	416 clean cells	OP-A	mIoU-R13 SWAD - PF = +0.0003 [-0.0086, +0.0092], allowed drop 0.0100
+PASS	width_pooled	416 clean cells	OP-W	all (n 416): width 0.9501 / 0.9514 = 0.999 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-W	src:ARTS (n 131): width 0.8854 / 0.7832 = 1.130 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-W	src:BMRK (n 50): width 0.8276 / 0.8599 = 0.962 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-W	src:CFVS (n 132): width 1.0364 / 1.0305 = 1.006 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-W	src:CSIR (n 103): width 0.7692 / 0.7949 = 0.968 (band 0.85 to 1.15)
+PASS	false_alarm	416 clean cells	OP-W	false crack px on crack-free cells 113 against 196 = 0.58 x (max 1.5); share of crack-free cells with >= 50 px 0.0027 against 0.0018
+PASS	inactive	416 clean cells	OP-W	inactive IoU SWAD - PF = +0.0237 [-0.0292, +0.0699], allowed drop 0.0539
+PASS	miou	416 clean cells	OP-W	mIoU-R13 SWAD - PF = +0.0001 [-0.0088, +0.0089], allowed drop 0.0100
+=> SWAD: headline FAIL; failing guard items 2: width_source src:ARTS OP-A 532 cells; width_source src:ARTS OP-A 416 clean cells
+
+## verdict
+NOT CONFIRMED (no confirmed gain): the primary readout swad_bn does not pass the headline.
+
+## beside the verdict: per-seed differences (pooled out-of-fold value of the seed, arm minus PF of the same seed)
+per_seed	532 cells	OP-A	relF1_2	SWADBN - PF	s5 +0.0061	s6 +0.0104	s7 +0.0064	s8 +0.0063	s9 +0.0056
+per_seed	532 cells	OP-A	crack_iou	SWADBN - PF	s5 +0.0174	s6 +0.0183	s7 +0.0160	s8 +0.0224	s9 +0.0161
+per_seed	532 cells	OP-A	miou_rob	SWADBN - PF	s5 +0.0020	s6 +0.0078	s7 +0.0089	s8 +0.0100	s9 +0.0079
+per_seed	532 cells	OP-W	relF1_2	SWADBN - PF	s5 +0.0038	s6 +0.0086	s7 +0.0045	s8 +0.0033	s9 +0.0037
+per_seed	532 cells	OP-W	crack_iou	SWADBN - PF	s5 +0.0127	s6 +0.0140	s7 +0.0122	s8 +0.0159	s9 +0.0108
+per_seed	532 cells	OP-W	miou_rob	SWADBN - PF	s5 +0.0017	s6 +0.0076	s7 +0.0087	s8 +0.0097	s9 +0.0077
+per_seed	416 clean cells	OP-A	relF1_2	SWADBN - PF	s5 +0.0105	s6 +0.0130	s7 +0.0096	s8 +0.0091	s9 +0.0070
+per_seed	416 clean cells	OP-A	crack_iou	SWADBN - PF	s5 +0.0224	s6 +0.0204	s7 +0.0194	s8 +0.0246	s9 +0.0178
+per_seed	416 clean cells	OP-A	miou_rob	SWADBN - PF	s5 +0.0021	s6 +0.0094	s7 +0.0090	s8 +0.0101	s9 +0.0079
+per_seed	416 clean cells	OP-W	relF1_2	SWADBN - PF	s5 +0.0083	s6 +0.0106	s7 +0.0073	s8 +0.0048	s9 +0.0047
+per_seed	416 clean cells	OP-W	crack_iou	SWADBN - PF	s5 +0.0167	s6 +0.0149	s7 +0.0147	s8 +0.0148	s9 +0.0102
+per_seed	416 clean cells	OP-W	miou_rob	SWADBN - PF	s5 +0.0018	s6 +0.0091	s7 +0.0088	s8 +0.0096	s9 +0.0075
+per_seed	532 cells	OP-A	relF1_2	SWAD - PF	s5 +0.0053	s6 +0.0085	s7 +0.0063	s8 +0.0052	s9 +0.0065
+per_seed	532 cells	OP-A	crack_iou	SWAD - PF	s5 +0.0179	s6 +0.0181	s7 +0.0161	s8 +0.0217	s9 +0.0164
+per_seed	532 cells	OP-A	miou_rob	SWAD - PF	s5 -0.0052	s6 +0.0019	s7 +0.0018	s8 +0.0021	s9 +0.0000
+per_seed	532 cells	OP-W	relF1_2	SWAD - PF	s5 +0.0038	s6 +0.0073	s7 +0.0055	s8 +0.0040	s9 +0.0057
+per_seed	532 cells	OP-W	crack_iou	SWAD - PF	s5 +0.0147	s6 +0.0154	s7 +0.0143	s8 +0.0189	s9 +0.0136
+per_seed	532 cells	OP-W	miou_rob	SWAD - PF	s5 -0.0054	s6 +0.0018	s7 +0.0017	s8 +0.0020	s9 -0.0001
+per_seed	416 clean cells	OP-A	relF1_2	SWAD - PF	s5 +0.0081	s6 +0.0091	s7 +0.0083	s8 +0.0066	s9 +0.0055
+per_seed	416 clean cells	OP-A	crack_iou	SWAD - PF	s5 +0.0219	s6 +0.0184	s7 +0.0184	s8 +0.0226	s9 +0.0158
+per_seed	416 clean cells	OP-A	miou_rob	SWAD - PF	s5 -0.0054	s6 +0.0027	s7 +0.0019	s8 +0.0032	s9 -0.0008
+per_seed	416 clean cells	OP-W	relF1_2	SWAD - PF	s5 +0.0063	s6 +0.0072	s7 +0.0070	s8 +0.0047	s9 +0.0039
+per_seed	416 clean cells	OP-W	crack_iou	SWAD - PF	s5 +0.0177	s6 +0.0146	s7 +0.0155	s8 +0.0179	s9 +0.0110
+per_seed	416 clean cells	OP-W	miou_rob	SWAD - PF	s5 -0.0056	s6 +0.0025	s7 +0.0017	s8 +0.0029	s9 -0.0010
+A/A	532 cells	relF1_2 delta -0.0002 SE 0.0037 M 0.0100; crack_iou delta -0.0014 SE 0.0041 M 0.0100; inact_iou delta -0.0135 SE 0.0231 M 0.0462; miou_rob delta -0.0044 SE 0.0027 M 0.0100
+A/A	416 clean cells	relF1_2 delta +0.0002 SE 0.0045 M 0.0100; crack_iou delta -0.0016 SE 0.0052 M 0.0105; inact_iou delta -0.0107 SE 0.0269 M 0.0539; miou_rob delta -0.0037 SE 0.0032 M 0.0100
+
+## beside the verdict: encoder cosine to the ImageNet start at step 20000 (enc_probe.jsonl of each swad run)
+probe	c3s_swad_v11_f0_s5	layer3 cos 0.8282	layer4 cos 0.8007
+probe	c3s_swad_v11_f0_s6	layer3 cos 0.8273	layer4 cos 0.7940
+probe	c3s_swad_v11_f0_s7	layer3 cos 0.8275	layer4 cos 0.7949
+probe	c3s_swad_v11_f0_s8	layer3 cos 0.8282	layer4 cos 0.7983
+probe	c3s_swad_v11_f0_s9	layer3 cos 0.8280	layer4 cos 0.7952
+probe	c3s_swad_v11_f1_s5	layer3 cos 0.8301	layer4 cos 0.7861
+probe	c3s_swad_v11_f1_s6	layer3 cos 0.8314	layer4 cos 0.7971
+probe	c3s_swad_v11_f1_s7	layer3 cos 0.8303	layer4 cos 0.8009
+probe	c3s_swad_v11_f1_s8	layer3 cos 0.8303	layer4 cos 0.7912
+probe	c3s_swad_v11_f1_s9	layer3 cos 0.8326	layer4 cos 0.7852
+probe	c3s_swad_v11_f2_s5	layer3 cos 0.8286	layer4 cos 0.7921
+probe	c3s_swad_v11_f2_s6	layer3 cos 0.8292	layer4 cos 0.7979
+probe	c3s_swad_v11_f2_s7	layer3 cos 0.8321	layer4 cos 0.7900
+probe	c3s_swad_v11_f2_s8	layer3 cos 0.8296	layer4 cos 0.8020
+probe	c3s_swad_v11_f2_s9	layer3 cos 0.8295	layer4 cos 0.7989
+probe	c3s_swad_v11_f3_s5	layer3 cos 0.8306	layer4 cos 0.8013
+probe	c3s_swad_v11_f3_s6	layer3 cos 0.8317	layer4 cos 0.8071
+probe	c3s_swad_v11_f3_s7	layer3 cos 0.8290	layer4 cos 0.8040
+probe	c3s_swad_v11_f3_s8	layer3 cos 0.8299	layer4 cos 0.8000
+probe	c3s_swad_v11_f3_s9	layer3 cos 0.8299	layer4 cos 0.7996
+probe	c3s_swad_v11_f4_s5	layer3 cos 0.8301	layer4 cos 0.7934
+probe	c3s_swad_v11_f4_s6	layer3 cos 0.8328	layer4 cos 0.7935
+probe	c3s_swad_v11_f4_s7	layer3 cos 0.8300	layer4 cos 0.7979
+probe	c3s_swad_v11_f4_s8	layer3 cos 0.8289	layer4 cos 0.8004
+probe	c3s_swad_v11_f4_s9	layer3 cos 0.8306	layer4 cos 0.8041
+probe	summary	25 runs: layer3 cos 0.827 to 0.833, layer4 cos 0.785 to 0.807; layer4 below 0.8 in 17 of 25, layer3 below 0.8 in 0

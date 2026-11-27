@@ -1,0 +1,57 @@
+# unit test of share_pick (part U of c3lane_test.sh), new cq.sh 14d33b80: result file, then the log of the stand-in lg, then the look times at GPU 1 (ms)
+u1a_rc=1
+u1a_shared=''
+u1a_sleep=30
+u1b_rc=1
+u1b_shared=''
+u1b_sleep=30
+u1c_rc=0
+u1c_shared='beside alice:30000MiB(9100001) ; free 30000 MiB >= SHARE_TRAIN 20480 at two looks 31 s apart'
+u1c_sleep=2
+u1_real_ab=10
+u1_real_ac=31
+u2a_rc=1
+u2a_shared=''
+u2a_sleep=30
+u2b_rc=1
+u2b_shared=''
+u2b_sleep=30
+u3_rc=0
+u3_shared='beside alice:30000MiB(9100001) ; free 30000 MiB >= SHARE_TRAIN 20480 at two looks 119 s apart'
+u3_sleep=2
+u4a_rc=1
+u4a_shared=''
+u4a_sleep=2
+u4b_rc=1
+u4b_shared=''
+u4b_sleep=30
+# log
+lane GPU 1: shared candidate, first look (free 30000 MiB >= SHARE_TRAIN 20480; beside alice:30000MiB(9100001) )
+lane GPU 1: shared candidate, the earlier look is 125 s old (more than 120 s): it does not count
+lane GPU 1: shared candidate, first look (free 30000 MiB >= SHARE_TRAIN 20480; beside alice:30000MiB(9100001) )
+lane GPU 1: shared candidate lost
+lane GPU 1: shared candidate, first look (free 30000 MiB >= SHARE_TRAIN 20480; beside alice:30000MiB(9100001) )
+# looks at GPU 1 (ms)
+1794906858917
+1794906868929
+1794906889939
+1794906889951
+1794906890963
+1794906890973
+1794906890984
+1794906890993
+# the same unit test on the reviewed cq.sh 4fc8d2c0 (U1 only is meaningful there: the stamps of U2 to U4 are in ms, the reviewed code counts in s)
+u1a_rc=1
+u1a_shared=''
+u1a_sleep=30
+u1b_rc=0
+u1b_shared='beside alice:30000MiB(9100001) ; free 30000 MiB >= SHARE_TRAIN 20480 at two looks 30 s apart'
+u1b_sleep=2
+u1c_rc=0
+u1c_shared='beside alice:30000MiB(9100001) ; free 30000 MiB >= SHARE_TRAIN 20480 at two looks 51 s apart'
+u1c_sleep=2
+u1_real_ab=10
+u1_real_ac=31
+1794906858933
+1794906868945
+1794906889955

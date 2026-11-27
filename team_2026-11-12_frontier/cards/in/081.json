@@ -1,0 +1,74 @@
+{
+ "paper_id": "doi:10.1145/3581783.3612136",
+ "title": "PNT-Edge: Towards Robust Edge Detection with Noisy Labels by Learning Pixel-level Noise Transitions",
+ "year": 2023,
+ "venue": "ACM MM",
+ "url": "https://arxiv.org/abs/2307.14070",
+ "code_url": "https://github.com/DREAMXFAR/PNT-Edge",
+ "mechanism": "Models label corruption as a smooth displacement field. A 4-layer FCN takes the image, confident predictions and the noisy label, and warps the detector output onto the noisy label, so the detector itself fits the clean, aligned edges.",
+ "adaptation": "Warm up the house model only until the val crack metric saturates (the memorization point). Then train jointly with the warp module on the crack channel, max shift 3 px. Drop or replace the local-edge-density prior with ridge strength, because cracks are sparse. The warp absorbs per-source and per-annotator offsets, and the detector learns ridge-centred cracks.",
+ "min_experiment": "Arm: house warm-up + PSL joint training, 5 seeds. Baseline: house at 100% labels. Metrics: crack IoU, relF1@2, E1 relF1@2. Kill if crack IoU and relF1@2 are both n.d. (< 0.012 and < 0.01).",
+ "score": 62,
+ "bench_score": 35,
+ "bet": "medium",
+ "evidence": "R: gains over CASENet-S and SEAL on SBD and Cityscapes, scored on a re-annotated clean SBD subset. Shows the memorization effect: clean-label metrics saturate early, then the model memorizes noise. Losses: MSE on confident shifts, warp similarity, smoothness, unmatched-pixel suppression.",
+ "gpu_hours": 15,
+ "prior_overlap": "Partly overlaps offset-tolerant CE (n.d.). A learned smooth displacement field with suppression of unmatched pixels is a different mechanism. Noisy-label methods are listed as never tried. Open.",
+ "targets": [
+  "crack"
+ ],
+ "directions": [
+  "D13",
+  "D15",
+  "D16",
+  "D17"
+ ],
+ "scout_scores": [
+  62,
+  58,
+  62,
+  58,
+  55,
+  52
+ ],
+ "alt_notes": [
+  {
+   "from": "D13",
+   "adaptation": "Warm up the house model until val crack metric on revised labels saturates, then joint training with a crack-only warp (max shift 3 px), ridge strength replacing the edge-density prior. Detector learns ridge-centred cracks; warp absorbs per-source offsets.",
+   "min_experiment": "Arm: warm-up + PSL joint training, 5 seeds; baseline house 5 seeds. Metrics crack IoU, relF1@2, E1 relF1@2. Kill if crack IoU and relF1@2 both n.d. About 15 GPU-h.",
+   "score": 58
+  },
+  {
+   "from": "D15",
+   "adaptation": "Add a 2-channel flow head on the U-Net++ decoder bounded to +/-3 px, applied only to crack (and inactive boundary) channels, with smoothness along the crack in place of the edge-density term; infer with the unwarped head.",
+   "min_experiment": "Arm: house + bounded flow head on crack. Baseline: house. Metric: strict crack IoU, relF1@2, component recall >= 20 px. Kill if strict IoU < house and relF1@2 not up by >= 0.01. About 6 GPU-h plus 2 days code.",
+   "score": 62
+  },
+  {
+   "from": "D16",
+   "adaptation": "Crack only, max shift 3 px, after warm-up on the house recipe; condition the shift network on a source one-hot so it learns per-source bias (BMRK worst, 38% within 1 px). Report mean learned shift per source as a label-quality number for the benchmark.",
+   "min_experiment": "Arm: house warm-up + PSL warp training, 5 seeds; baseline: house. Metrics: crack IoU, relF1@2 on clean-49, E1 relF1@2. Kill if both n.d.",
+   "score": 58
+  },
+  {
+   "from": "D16",
+   "adaptation": "Add a 2-channel shift head conditioned on source ID, displacement capped at 2 px with smoothness, applied to the crack channel before CE + Dice; predict unwarped. The source conditioning lets it learn each source's offset and width.",
+   "min_experiment": "Arm: house + source-conditioned shift head, 5 seeds. Baseline: house. Metric: clean-49 crack IoU and relF1@2. Kill: crack IoU under +0.012.",
+   "score": 55
+  },
+  {
+   "from": "D17",
+   "adaptation": "Make the shift head source-conditioned (FiLM on source ID) and apply it to the crack channel only. Use the warped output for strict IoU against source labels and the unwarped output for relF1@2 and severity length estimates. Run only if per-source label-to-ridge offset is systematic.",
+   "min_experiment": "Pre-check (no GPU): per-source signed offset of label skeleton to darkest ridge in x and y on train labels; proceed only if any source mean > 0.3 px. Arm: house PF + source-conditioned shift head, 5 seeds vs house PF; metric clean-49 crack IoU; kill if < +0.012.",
+   "score": 52
+  }
+ ],
+ "final": 62,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 81,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

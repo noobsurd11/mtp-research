@@ -1,0 +1,35 @@
+{
+ "paper_id": "doi:10.1007/978-3-031-72111-3_14",
+ "title": "Cut to the Mix: Simple Data Augmentation Outperforms Elaborate Ones in Limited Organ Segmentation Datasets",
+ "year": 2024,
+ "venue": "MICCAI (LNCS)",
+ "url": "https://arxiv.org/abs/2602.03555",
+ "code_url": "",
+ "mechanism": "Supervised CutMix between labelled images (box ~ Beta(0.5,0.5)) with labels copied, compared with CarveMix, AnatoMix and ObjectAug on small data.",
+ "adaptation": "CutMix between two labelled train cells of the same cell type, box aligned to the cell grid; labels follow the box; 50% of batches; no mixing across BMRK and others at first (label width differs). Seams are labelled from both sides, teaching that discontinuities are not cracks.",
+ "min_experiment": "PF+CM vs PF, 5 seeds; mIoU_rob, splice/gridline/edge_dark/material IoU, crack IoU and false crack px on 31 crack-free val cells. Kill: mIoU_rob < +0.005 and crack IoU change within +-0.012.",
+ "evidence": "20 training CT volumes (AMOS), 16 organs, nnU-Net: CutMix +4.8 macro Dice with TDA (78.2 to 83.0), CarveMix +2.5, AnatoMix +3.2, ObjectAug collapsed to 22.6 macro.",
+ "prior_overlap": "Partial: CutMix was run inside Mean Teacher on the unlabelled stream (n.d. at 100%). Supervised CutMix of labelled cells never run.",
+ "score": 60,
+ "bench_score": 45,
+ "bet": "safe",
+ "gpu_hours": 6,
+ "targets": [
+  "other_classes",
+  "crack"
+ ],
+ "directions": [
+  "D21"
+ ],
+ "scout_scores": [
+  60
+ ],
+ "final": 60,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 94,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

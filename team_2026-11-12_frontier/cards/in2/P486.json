@@ -1,0 +1,43 @@
+{
+ "paper_id": "doi:10.1007/978-3-031-72111-3_5",
+ "title": "Centerline Boundary Dice Loss for Vascular Segmentation (cbDice)",
+ "year": 2024,
+ "venue": "MICCAI 2024",
+ "url": "https://arxiv.org/abs/2407.01517",
+ "code_url": "https://github.com/PengchengShi1220/cbDice",
+ "mechanism": "clDice extended with boundary and radius-normalised skeleton terms to balance thin and thick branches.",
+ "adaptation": "Crack radius is about 1 px, so on crack cbDice is close to clDice (which failed here). The only distinct use is multi-class balancing of thick inactive / ribbons against thin crack / gridline (beta 0.5 to 1 for 2D).",
+ "min_experiment": "Arm: PF + cbDice over crack, gridline and inactive, 3 seeds. Baseline: PF. Metrics: gridline and inactive IoU. Kill if neither gains 0.02.",
+ "score": 32,
+ "bench_score": 65,
+ "bet": "moonshot",
+ "targets": [
+  "other_classes",
+  "benchmark"
+ ],
+ "evidence": "R (full text): DRIVE 2D Dice 82.5 (best), gains under 1 point over clDice. TopCoW small-artery Dice 43.4 vs 38.5 for clDice. R (TopoMortar): CrackTree Dice 0.76, no topology gain over CEDice.",
+ "gpu_hours": 4,
+ "prior_overlap": "Close to soft clDice (failed, same conditions) on the crack class. Untested for multi-class width balance.",
+ "directions": [
+  "D10"
+ ],
+ "scout_scores": [
+  32,
+  28
+ ],
+ "alt_notes": [
+  {
+   "from": "D10",
+   "adaptation": "Crack radius is about 1 px everywhere, so on crack cbDice reduces to near clDice, which failed here. Only possible use is multi-class balance between thick (inactive, ribbons) and thin (crack, gridline) classes. Belongs in the benchmark suite as a standard baseline.",
+   "min_experiment": "Benchmark baseline only: PF + cbDice on crack and gridline, 5 seeds; kill if crack IoU < PF - 0.012.",
+   "score": 28
+  }
+ ],
+ "final": 32,
+ "bench": 65,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 486,
+ "pid": "P486"
+}

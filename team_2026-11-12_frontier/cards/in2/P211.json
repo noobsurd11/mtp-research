@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2205.09739",
+ "title": "Diverse Weight Averaging for Out-of-Distribution Generalization",
+ "year": 2022,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2205.09739",
+ "code_url": "",
+ "mechanism": "Average weights of independent runs with different hyperparameters from a shared init; weight averaging helps most when the input distribution shifts.",
+ "adaptation": "Fork 8 runs from one PF checkpoint varying lr, Dice weights, synthetic half-cut views, Skeleton Recall 0.1; average weights for one E1-robust model.",
+ "min_experiment": "Arm: DiWA of 8 forks. Baseline: their output ensemble and singles. Metric: E1 relF1@2, test crack IoU. Kill: DiWA below mean single.",
+ "evidence": "R: improves state of the art on DomainBed without inference overhead; bias-variance-covariance-locality decomposition.",
+ "gpu_hours": 10,
+ "bet": "medium",
+ "targets": [
+  "e1_unseen"
+ ],
+ "prior_overlap": "none",
+ "score": 50,
+ "bench_score": 35,
+ "directions": [
+  "D34"
+ ],
+ "scout_scores": [
+  50
+ ],
+ "final": 50,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 211,
+ "pid": "P211"
+}

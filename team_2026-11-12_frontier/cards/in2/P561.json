@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1145/3830018",
+ "title": "Generative Edge Detection with Stable Diffusion (GED)",
+ "year": 2026,
+ "venue": "ACM TOMM",
+ "url": "https://arxiv.org/abs/2410.03080",
+ "code_url": "",
+ "mechanism": "Fine-tunes the Stable Diffusion denoising U-Net to predict latent edge maps in one step, with granularity as a condition and a granularity regularisation.",
+ "adaptation": "Same VAE-latent risk as DiffusionEdge for 1 px cracks, so the reconstruction gate comes first. Use source label style as the granularity condition.",
+ "min_experiment": "Gate: SD VAE reconstruction IoU of GT crack maps >= 0.9. Arm: GED on crack, 3 seeds. Baseline: house. Metric: relF1@2. Kill at the gate or if relF1@2 is below the house model.",
+ "score": 25,
+ "bench_score": 40,
+ "bet": "moonshot",
+ "evidence": "R: BSDS ODS 0.870, OIS 0.880.",
+ "gpu_hours": 40,
+ "prior_overlap": "Not tested. Open.",
+ "targets": [
+  "crack",
+  "benchmark"
+ ],
+ "directions": [
+  "D13"
+ ],
+ "scout_scores": [
+  25
+ ],
+ "final": 25,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 561,
+ "pid": "P561"
+}

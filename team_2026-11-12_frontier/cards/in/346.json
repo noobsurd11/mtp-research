@@ -1,0 +1,35 @@
+{
+ "paper_id": "arxiv:2102.04306",
+ "title": "TransUNet: Transformers Make Strong Encoders for Medical Image Segmentation",
+ "year": 2021,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2102.04306",
+ "code_url": "",
+ "mechanism": "ResNet-50 stem plus ViT encoder on the 1/16 feature map, cascaded upsampler with CNN skip connections.",
+ "adaptation": "Benchmark suite: 512 px gray replicated to 3 channels, ImageNet R50-ViT-B/16 init, PF schedule, label-safe aug, same folds and metrics.",
+ "min_experiment": "TransUNet (PF) 5 folds v house PF; benchmark row. For score: kill if E1 relF1@2 < +0.03 and CV crack relF1@2 < +0.01.",
+ "evidence": "R: Synapse multi-organ and ACDC gains over U-Net and attention U-Net at release; most cited 2D Transformer U-Net. Counter: Revisited shows Transformers below nnU-Net in 3D.",
+ "gpu_hours": 60,
+ "bet": "moonshot",
+ "prior_overlap": "none; no transformer segmenter tried",
+ "score": 25,
+ "bench_score": 80,
+ "targets": [
+  "benchmark",
+  "e1_unseen"
+ ],
+ "directions": [
+  "D25"
+ ],
+ "scout_scores": [
+  25
+ ],
+ "final": 25,
+ "bench": 80,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 346,
+ "pub_allowed": 0,
+ "selected_for": "bench"
+}

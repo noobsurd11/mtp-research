@@ -1,0 +1,62 @@
+{
+ "paper_id": "arxiv:2303.14444",
+ "title": "MultiTalent: A Multi-Dataset Approach to Medical Image Segmentation",
+ "year": 2023,
+ "venue": "MICCAI",
+ "url": "https://arxiv.org/abs/2303.14444",
+ "code_url": "https://github.com/MIC-DKFZ/MultiTalent",
+ "mechanism": "Keep every dataset's classes distinct with one sigmoid head per class on a shared backbone; BCE + batch Dice only on classes a dataset annotates; losses summed; dataset sampling ~ 1/sqrt(n).",
+ "evidence": "13 CT datasets: +1.26 Dice average over datasets, largest gains on difficult/cancer classes; as pretraining beat SSL baselines.",
+ "adaptation": "Keep 24-class softmax head for BenchmarkEL; add sigmoid heads for UCF crack_region/contact/interconnect/corrosion, MSS crack/dark/busbar/noncell, PV-Vision crack. Batches 50% BenchmarkEL; loss per head only on its dataset's cells. Joint from step 0 so no later fine-tune erases the shared encoder.",
+ "min_experiment": "Arm: joint training with extra heads, 30k steps, 5 seeds, with source conditioning if D36 exp 1 passed. Baseline: house 5-seed. Metrics: clean-49 crack IoU, inactive IoU, E1 crack relF1@2. Kill if crack IoU < +0.012 AND E1 relF1@2 < +0.03 AND inactive IoU not up. ~15 GPU-h.",
+ "prior_overlap": "BRIEF 5 'UCF-EL supervised pretraining of the encoder' was sequential pretrain then house fine-tune that erased the encoder; joint training is explicitly not closed",
+ "score": 72,
+ "bench_score": 60,
+ "bet": "medium",
+ "gpu_hours": 15,
+ "targets": [
+  "crack",
+  "inactive",
+  "e1_unseen",
+  "other_classes"
+ ],
+ "directions": [
+  "D17",
+  "D27",
+  "D36"
+ ],
+ "scout_scores": [
+  68,
+  50,
+  48,
+  72
+ ],
+ "alt_notes": [
+  {
+   "from": "D27",
+   "adaptation": "Same run family as the partial-label loss. BenchmarkEL, MultiSolSegment (independent crack, busbar, dark) and UCF-EL in one model, with per-dataset loss masks on independent outputs.",
+   "min_experiment": "Variant of the UCF joint run that adds MultiSolSegment with masked sigmoid losses. Baseline: PF. Metrics: E1 relF1@2, crack IoU. Kill if no gain over the UCF-only joint arm of >= 0.01 relF1@2.",
+   "score": 50
+  },
+  {
+   "from": "D27",
+   "adaptation": "UCF-EL, MultiSolSegment, BenchmarkEL in one run with sigmoid outputs and dataset-specific loss masks; union-class loss for UCF from the Bevandic row.",
+   "min_experiment": "Extension of the UCF joint run adding MultiSolSegment with masked channels; same baseline (PF) and kill line as the Bevandic arm.",
+   "score": 48
+  },
+  {
+   "from": "D17",
+   "adaptation": "Add 5 per-source crack sigmoid channels (optionally per-source inactive) beside the 24-class softmax; each cell trains only its source channel; at test read the image's source channel. The same head admits UCF-EL 'crack' (a crack+inactive region class) and MultiSolSegment classes as their own channels for joint training without overwriting the thin-crack convention.",
+   "min_experiment": "Arm A: per-source crack channels on house PF, 5 seeds vs house PF 5 seeds; clean-49 crack IoU and per-source CV crack IoU; kill if gain < +0.012. Arm B: + UCF-EL joint training with its own channel; metric E1 crack relF1@2 and recall; kill if E1 relF1@2 gain < +0.03.",
+   "score": 68
+  }
+ ],
+ "final": 72,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 11,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

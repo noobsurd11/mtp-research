@@ -1,0 +1,44 @@
+{
+ "paper_id": "arxiv:2603.13044",
+ "title": "GP-VMxSMA: Benchmarking General-Purpose Vision Models and Specialized Architectures for 2D Medical Image Segmentation",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2603.13044",
+ "code_url": "",
+ "mechanism": "Controlled 2D comparison of general-purpose models (SegFormer-B3, SegNeXt-L, VWFormer, InternImage-T, TransNeXt-T with UPerHead) against medical architectures (U-Net, HiFormer, MISSFormer, Swin-UMamba, CENet), with a per-model LR sweep, 5-fold CV, and linear mixed-effects models for significance.",
+ "adaptation": "Benchmark protocol for EL: an LR sweep per model on val, 5 module-grouped folds, and a mixed-effects model with model as a fixed effect and fold, source and cell as random effects (handles the 5 sources). Add one SegFormer or UPerNet-ConvNeXt arm as the natural-image reference.",
+ "min_experiment": "Within the benchmark run, fit the mixed-effects model on per-cell crack relF1@2 for all suite methods and report the family and method effects with CIs against the house model. No kill line (protocol item).",
+ "evidence": "R: on ISIC18, NeoPolyp and CAMUS, DSC estimates were tightly clustered; SegFormer mean DSC 90.7%; the family effect was significant but tiny (d = 0.04).",
+ "prior_overlap": "none",
+ "score": 30,
+ "bench_score": 80,
+ "bet": "safe",
+ "targets": [
+  "benchmark",
+  "measurement"
+ ],
+ "gpu_hours": 40,
+ "directions": [
+  "D23",
+  "D25"
+ ],
+ "scout_scores": [
+  20,
+  30
+ ],
+ "alt_notes": [
+  {
+   "from": "D23",
+   "adaptation": "Copy the mixed-effects analysis for our benchmark: fixed effect method, random effects fold, seed and source; addresses problem 5 (50-cell test noise).",
+   "min_experiment": "Analysis only on existing and new CV results; no training.",
+   "score": 20
+  }
+ ],
+ "final": 30,
+ "bench": 80,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 496,
+ "pid": "P496"
+}

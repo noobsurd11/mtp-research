@@ -1,0 +1,44 @@
+{
+ "paper_id": "arxiv:2602.13693",
+ "title": "A WDLoRA-Based Multimodal Generative Framework for Clinically Guided Corneal Confocal Microscopy Image Synthesis in Diabetic Neuropathy",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/pdf/2602.13693",
+ "code_url": "",
+ "mechanism": "Foundation diffusion model fine-tuned with weight-decomposed LoRA, conditioned jointly on thin nerve-fibre masks and clinical prompts.",
+ "adaptation": "Prompt = source and cell type (e.g. CSIR mono half-cut, BMRK) so every train mask can be rendered in each source style; targets weak sources (BMRK, CFVS without twin) and E1 style.",
+ "min_experiment": "PF + all train masks rendered in BMRK and CSIR half-cut styles vs PF. Metric CV BMRK inactive/crack IoU and E1 relF1@2. Kill: BMRK inactive CV gain < +0.03 and E1 relF1@2 gain < +0.02.",
+ "evidence": "R: grayscale corneal confocal microscopy with thin fibres; FID 5.18, SSIM 0.630; downstream segmentation +2.2%, diagnosis +2.1%.",
+ "gpu_hours": 30,
+ "bet": "medium",
+ "targets": [
+  "e1_unseen",
+  "inactive",
+  "crack"
+ ],
+ "prior_overlap": "none",
+ "score": 45,
+ "bench_score": 30,
+ "directions": [
+  "D33"
+ ],
+ "scout_scores": [
+  45,
+  45
+ ],
+ "alt_notes": [
+  {
+   "from": "D33",
+   "adaptation": "Prompt = source and cell type so each train mask renders in every source style (BMRK, half-cut CSIR).",
+   "min_experiment": "PF + masks rendered in BMRK and half-cut CSIR styles vs PF. Kill: BMRK inactive CV < +0.03 and E1 relF1@2 < +0.02. About 30 GPU-h.",
+   "score": 45
+  }
+ ],
+ "final": 45,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 303,
+ "pid": "P303"
+}

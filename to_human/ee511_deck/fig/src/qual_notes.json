@@ -1,0 +1,289 @@
+{
+ "Q1": {
+  "n_cand": 190,
+  "pooled": {
+   "PF": 0.8441457603247178,
+   "hanifi": 0.8377029272341046,
+   "ucf": 0.7668948873821373,
+   "pratt": 0.7509656323149556
+  },
+  "rows": [
+   {
+    "label": "median gain",
+    "stem": "CSIR_00203_r3_c3",
+    "fold": 3,
+    "gt_crack_px": 1234,
+    "gain": 0.04781425305110398,
+    "mean": {
+     "PF": 0.962893905066524,
+     "hanifi": 0.9601004456311008,
+     "ucf": 0.9369684049382461,
+     "pratt": 0.8481701054769131
+    },
+    "s5": {
+     "PF": 0.9484186224259765,
+     "hanifi": 0.9579003092697332,
+     "ucf": 0.935625661580313,
+     "pratt": 0.864937998706904
+    },
+    "s5_cpu": {
+     "hanifi": 0.9579003092697332,
+     "ucf": 0.935625661580313,
+     "pratt": 0.864937998706904
+    },
+    "rec_check": {
+     "PF": true,
+     "hanifi": true,
+     "ucf": true,
+     "pratt": true
+    },
+    "pf_dump": "/home/noob/work/bench_relay/w1c/w1c1_pf_v11_f3_s5/dumps/elbench1/house_r34_unetpp_pf_v11/w1c1_pf_v11_f3_s5/cv5v2_f3/CSIR_00203_r3_c3.npz"
+   },
+   {
+    "label": "25th pct gain",
+    "stem": "CSIR_00177_r8_c4",
+    "fold": 4,
+    "gt_crack_px": 62,
+    "gain": 0.012767648608848825,
+    "mean": {
+     "PF": 0.8966555050987784,
+     "hanifi": 0.9799306574209894,
+     "ucf": 0.873620819627193,
+     "pratt": 0.7981120924216066
+    },
+    "s5": {
+     "PF": 0.7843137254901961,
+     "hanifi": 0.9598613148419789,
+     "ucf": 0.9122807017543859,
+     "pratt": 0.7990543735224586
+    },
+    "s5_cpu": {
+     "hanifi": 0.9598613148419789,
+     "ucf": 0.9122807017543859,
+     "pratt": 0.7990543735224586
+    },
+    "rec_check": {
+     "PF": true,
+     "hanifi": true,
+     "ucf": true,
+     "pratt": true
+    },
+    "pf_dump": "/home/noob/work/bench_relay/w1c/w1c1_pf_v11_f4_s5/dumps/elbench1/house_r34_unetpp_pf_v11/w1c1_pf_v11_f4_s5/cv5v2_f4/CSIR_00177_r8_c4.npz"
+   },
+   {
+    "label": "largest loss",
+    "stem": "ARTS_00073_r7_c3",
+    "fold": 0,
+    "gt_crack_px": 77,
+    "gain": -0.5271556596589924,
+    "mean": {
+     "PF": 0.17014925373134332,
+     "hanifi": 0.8548761609907121,
+     "ucf": 0.5038356975586121,
+     "pratt": 0.7332028816216832
+    },
+    "s5": {
+     "PF": 0.8507462686567165,
+     "hanifi": 0.8421052631578948,
+     "ucf": 0.5953002610966058,
+     "pratt": 0.7455102408553067
+    },
+    "s5_cpu": {
+     "hanifi": 0.8421052631578948,
+     "ucf": 0.5953002610966058,
+     "pratt": 0.7455102408553067
+    },
+    "rec_check": {
+     "PF": true,
+     "hanifi": true,
+     "ucf": true,
+     "pratt": true
+    },
+    "pf_dump": "/home/noob/work/bench_relay/w1c/w1c1_pf_v11_f0_s5/dumps/elbench1/house_r34_unetpp_pf_v11/w1c1_pf_v11_f0_s5/cv5v2_f0/ARTS_00073_r7_c3.npz"
+   }
+  ],
+  "ckpt": {
+   "hanifi": {
+    "3": "/home/noob/work/bench_relay/rows1/r1_hanifi_vgg16_unet_pf_f3_s5/experiments/r1_hanifi_vgg16_unet_pf_f3_s5/checkpoints/slim.pth",
+    "4": "/home/noob/work/bench_relay/rows1/r1_hanifi_vgg16_unet_pf_f4_s5/experiments/r1_hanifi_vgg16_unet_pf_f4_s5/checkpoints/slim.pth",
+    "0": "/home/noob/work/bench_relay/rows1/r1_hanifi_vgg16_unet_pf_f0_s5/experiments/r1_hanifi_vgg16_unet_pf_f0_s5/checkpoints/slim.pth"
+   },
+   "ucf": {
+    "3": "/home/noob/work/bench_relay/rows1/r1_ucf_dlv3_r50_pf_f3_s5/experiments/r1_ucf_dlv3_r50_pf_f3_s5/checkpoints/slim.pth",
+    "4": "/home/noob/work/bench_relay/rows1/r1_ucf_dlv3_r50_pf_f4_s5/experiments/r1_ucf_dlv3_r50_pf_f4_s5/checkpoints/slim.pth",
+    "0": "/home/noob/work/bench_relay/rows1/r1_ucf_dlv3_r50_pf_f0_s5/experiments/r1_ucf_dlv3_r50_pf_f0_s5/checkpoints/slim.pth"
+   },
+   "pratt": {
+    "3": "/home/noob/work/bench_relay/rows1/r1_pratt_dlv3p_wcec_f3_s5/experiments/r1_pratt_dlv3p_wcec_f3_s5/checkpoints/slim.pth",
+    "4": "/home/noob/work/bench_relay/rows1/r1_pratt_dlv3p_wcec_f4_s5/experiments/r1_pratt_dlv3p_wcec_f4_s5/checkpoints/slim.pth",
+    "0": "/home/noob/work/bench_relay/rows1/r1_pratt_dlv3p_wcec_f0_s5/experiments/r1_pratt_dlv3p_wcec_f0_s5/checkpoints/slim.pth"
+   }
+  }
+ },
+ "Q2": {
+  "n_cand": {
+   "n": 32
+  },
+  "pooled": {
+   "C1": 0.4466719665505545,
+   "C2": 0.4896760529096357
+  },
+  "rows": [
+   {
+    "label": "90th pct gain",
+    "stem": "CSIR_00345_r5_c6",
+    "gp": 874,
+    "c1": 0.5046904473067547,
+    "c2": 0.6479378939816304,
+    "c1s5": 0.576458559652374,
+    "c2s5": 0.6371712577485971,
+    "gain": 0.14324744667487566,
+    "kind": "full",
+    "hard": false,
+    "c1_dump": "/mnt/nas/noob_el_archive/bench_relay/open/fin_pf_v11_pool_s5.e1_106/dumps/elbench1/house_r34_unetpp_pf_v11/fin_pf_v11_pool_s5.e1_106/e1_106/CSIR_00345_r5_c6.npz",
+    "c2_dump": "/mnt/nas/noob_el_archive/bench_relay/open/fin_hrnet_swad_v11_pool_s5.swad.tta_d4.e1_106/dumps/elbench1/hrnet_w18_unetpp_swad_const_pf_v11/fin_hrnet_swad_v11_pool_s5.swad.tta_d4.e1_106/e1_106/CSIR_00345_r5_c6.npz"
+   },
+   {
+    "label": "median gain",
+    "stem": "CSIR_01633_r8_c5",
+    "gp": 367,
+    "c1": 0.9406926451896368,
+    "c2": 0.9577901902047256,
+    "c1s5": 0.9751654623838728,
+    "c2s5": 0.965481869005488,
+    "gain": 0.017097545015088755,
+    "kind": "half-cut",
+    "hard": false,
+    "c1_dump": "/mnt/nas/noob_el_archive/bench_relay/open/fin_pf_v11_pool_s5.e1_106/dumps/elbench1/house_r34_unetpp_pf_v11/fin_pf_v11_pool_s5.e1_106/e1_106/CSIR_01633_r8_c5.npz",
+    "c2_dump": "/mnt/nas/noob_el_archive/bench_relay/open/fin_hrnet_swad_v11_pool_s5.swad.tta_d4.e1_106/dumps/elbench1/hrnet_w18_unetpp_swad_const_pf_v11/fin_hrnet_swad_v11_pool_s5.swad.tta_d4.e1_106/e1_106/CSIR_01633_r8_c5.npz"
+   },
+   {
+    "label": "25th pct gain",
+    "stem": "CSIR_01717_r18_c5",
+    "gp": 2029,
+    "c1": 0.2784386779458849,
+    "c2": 0.23440984226049527,
+    "c1s5": 0.25595099741587934,
+    "c2s5": 0.19211154864114646,
+    "gain": -0.04402883568538962,
+    "kind": "half-cut",
+    "hard": true,
+    "c1_dump": "/mnt/nas/noob_el_archive/bench_relay/open/fin_pf_v11_pool_s5.e1_106/dumps/elbench1/house_r34_unetpp_pf_v11/fin_pf_v11_pool_s5.e1_106/e1_106/CSIR_01717_r18_c5.npz",
+    "c2_dump": "/mnt/nas/noob_el_archive/bench_relay/open/fin_hrnet_swad_v11_pool_s5.swad.tta_d4.e1_106/dumps/elbench1/hrnet_w18_unetpp_swad_const_pf_v11/fin_hrnet_swad_v11_pool_s5.swad.tta_d4.e1_106/e1_106/CSIR_01717_r18_c5.npz"
+   },
+   {
+    "label": "largest loss",
+    "stem": "BMRK_01515_cell2169",
+    "gp": 55,
+    "c1": 0.18431372549019606,
+    "c2": 0.0,
+    "c1s5": 0.0,
+    "c2s5": 0.0,
+    "gain": -0.18431372549019606,
+    "kind": "full",
+    "hard": false,
+    "c1_dump": "/mnt/nas/noob_el_archive/bench_relay/open/fin_pf_v11_pool_s5.e1_106/dumps/elbench1/house_r34_unetpp_pf_v11/fin_pf_v11_pool_s5.e1_106/e1_106/BMRK_01515_cell2169.npz",
+    "c2_dump": "/mnt/nas/noob_el_archive/bench_relay/open/fin_hrnet_swad_v11_pool_s5.swad.tta_d4.e1_106/dumps/elbench1/hrnet_w18_unetpp_swad_const_pf_v11/fin_hrnet_swad_v11_pool_s5.swad.tta_d4.e1_106/e1_106/BMRK_01515_cell2169.npz"
+   }
+  ]
+ },
+ "Q3": {
+  "n_cand": {
+   "n": 32
+  },
+  "pooled": {
+   "ZS": 0.4881095028320777,
+   "ALL": 0.7094056584209133
+  },
+  "rows": [
+   {
+    "label": "90th pct gain",
+    "fold": 4,
+    "stem": "CSIR_02026_r16_c1",
+    "gp": 1079,
+    "zs": 0.1526664084725986,
+    "al": 0.7402897329093941,
+    "zss5": 0.0,
+    "als5": 0.7843035805233757,
+    "gain": 0.5876233244367955,
+    "kind": "half-cut",
+    "hard": true,
+    "zs_dump": "/mnt/nas/noob_el_archive/bench_relay/open/fin_hrnet_swad_v11_pool_s5.swad.tta_d4.e1_106/dumps/elbench1/hrnet_w18_unetpp_swad_const_pf_v11/fin_hrnet_swad_v11_pool_s5.swad.tta_d4.e1_106/e1_106/CSIR_02026_r16_c1.npz",
+    "all_dump": "/mnt/nas/noob_el_archive/bench_relay/t3bopen/t3b_all_f4_s5.swad.tta_d4.e1t3b_f4/dumps/elbench1/hrnet_w18_unetpp_swad_const_pf_v11/t3b_all_f4_s5.swad.tta_d4.e1t3b_f4/e1t3b_f4/CSIR_02026_r16_c1.npz",
+    "oof": {
+     "run_id": "t3b_all_f4_s5.swad.tta_d4.e1t3b_f4",
+     "set": "e1t3b_f4",
+     "split_def": "/tmp/noob_el/bench_data_t3b/roots/t3b_all_f4",
+     "split_md5": "b46ac8a0df3d804468b4c54ebdb62c29",
+     "train_list_checked": "not on gaint (bench_infer overlap guard at dump time)"
+    }
+   },
+   {
+    "label": "median gain",
+    "fold": 0,
+    "stem": "CSIR_01717_r19_c5",
+    "gp": 1694,
+    "zs": 0.6964152632445278,
+    "al": 0.7684570998479602,
+    "zss5": 0.6963286500267127,
+    "als5": 0.7606986820562456,
+    "gain": 0.07204183660343233,
+    "kind": "half-cut",
+    "hard": true,
+    "zs_dump": "/mnt/nas/noob_el_archive/bench_relay/open/fin_hrnet_swad_v11_pool_s5.swad.tta_d4.e1_106/dumps/elbench1/hrnet_w18_unetpp_swad_const_pf_v11/fin_hrnet_swad_v11_pool_s5.swad.tta_d4.e1_106/e1_106/CSIR_01717_r19_c5.npz",
+    "all_dump": "/mnt/nas/noob_el_archive/bench_relay/t3bopen/t3b_all_f0_s5.swad.tta_d4.e1t3b_f0/dumps/elbench1/hrnet_w18_unetpp_swad_const_pf_v11/t3b_all_f0_s5.swad.tta_d4.e1t3b_f0/e1t3b_f0/CSIR_01717_r19_c5.npz",
+    "oof": {
+     "run_id": "t3b_all_f0_s5.swad.tta_d4.e1t3b_f0",
+     "set": "e1t3b_f0",
+     "split_def": "/tmp/noob_el/bench_data_t3b/roots/t3b_all_f0",
+     "split_md5": "d8a6cbfcd735511238c92a43d7220856",
+     "train_list_checked": "not on gaint (bench_infer overlap guard at dump time)"
+    }
+   },
+   {
+    "label": "25th pct gain",
+    "fold": 2,
+    "stem": "CSIR_01633_r8_c5",
+    "gp": 367,
+    "zs": 0.9632477753729952,
+    "al": 0.9406614896204535,
+    "zss5": 0.965481869005488,
+    "als5": 0.9386792452830188,
+    "gain": -0.022586285752541735,
+    "kind": "half-cut",
+    "hard": false,
+    "zs_dump": "/mnt/nas/noob_el_archive/bench_relay/open/fin_hrnet_swad_v11_pool_s5.swad.tta_d4.e1_106/dumps/elbench1/hrnet_w18_unetpp_swad_const_pf_v11/fin_hrnet_swad_v11_pool_s5.swad.tta_d4.e1_106/e1_106/CSIR_01633_r8_c5.npz",
+    "all_dump": "/mnt/nas/noob_el_archive/bench_relay/t3bopen/t3b_all_f2_s5.swad.tta_d4.e1t3b_f2/dumps/elbench1/hrnet_w18_unetpp_swad_const_pf_v11/t3b_all_f2_s5.swad.tta_d4.e1t3b_f2/e1t3b_f2/CSIR_01633_r8_c5.npz",
+    "oof": {
+     "run_id": "t3b_all_f2_s5.swad.tta_d4.e1t3b_f2",
+     "set": "e1t3b_f2",
+     "split_def": "/tmp/noob_el/bench_data_t3b/roots/t3b_all_f2",
+     "split_md5": "a19426042158f947c32ffb8a0cac5f69",
+     "train_list_checked": "not on gaint (bench_infer overlap guard at dump time)"
+    }
+   },
+   {
+    "label": "largest loss",
+    "fold": 1,
+    "stem": "CSIR_02136_r7_c6",
+    "gp": 412,
+    "zs": 0.8169248092499307,
+    "al": 0.0,
+    "zss5": 0.7025437070179799,
+    "als5": 0.0,
+    "gain": -0.8169248092499307,
+    "kind": "half-cut",
+    "hard": false,
+    "zs_dump": "/mnt/nas/noob_el_archive/bench_relay/open/fin_hrnet_swad_v11_pool_s5.swad.tta_d4.e1_106/dumps/elbench1/hrnet_w18_unetpp_swad_const_pf_v11/fin_hrnet_swad_v11_pool_s5.swad.tta_d4.e1_106/e1_106/CSIR_02136_r7_c6.npz",
+    "all_dump": "/mnt/nas/noob_el_archive/bench_relay/t3bopen/t3b_all_f1_s5.swad.tta_d4.e1t3b_f1/dumps/elbench1/hrnet_w18_unetpp_swad_const_pf_v11/t3b_all_f1_s5.swad.tta_d4.e1t3b_f1/e1t3b_f1/CSIR_02136_r7_c6.npz",
+    "oof": {
+     "run_id": "t3b_all_f1_s5.swad.tta_d4.e1t3b_f1",
+     "set": "e1t3b_f1",
+     "split_def": "/tmp/noob_el/bench_data_t3b/roots/t3b_all_f1",
+     "split_md5": "8e0d6dee6640b97eed6b7726ef006ccb",
+     "train_list_checked": "not on gaint (bench_infer overlap guard at dump time)"
+    }
+   }
+  ]
+ }
+}

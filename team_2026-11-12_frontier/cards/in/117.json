@@ -1,0 +1,53 @@
+{
+ "paper_id": "arxiv:2610.22210",
+ "title": "TRACE: Topology-Aware Reconnection via Prediction-Adaptive Connectivity Enforcement for Thin-Structure Segmentation",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2610.22210",
+ "code_url": "",
+ "mechanism": "For each skeleton point whose removal splits the local target skeleton, find the easiest valid reconnection under the current prediction among nearby target pixels and supervise its bottleneck pixel with a centred logit margin, so supervision follows the prediction rather than a fixed centreline.",
+ "adaptation": "Implement in-house (3x3 local search, about 150 lines). As published the candidates are only label pixels, so on 1 to 2 px labels it stays on the drawn line; widen the candidate support to the crack label dilated by 1 px for this term only so the reconnection can follow the true dark ridge. Crack class only, weight 0.1 or 0.3 chosen on val.",
+ "min_experiment": "PF + TRACE (dilated support) vs PF, 5 seeds. Metrics: relF1@2, components >= 20 px found, crack IoU, predicted width. Kill if relF1@2 gain < 0.01 or predicted width rises > 15%.",
+ "evidence": "R: nnU-Net style training, 6 benchmarks. DeepCrack (270 train, CS2-Net backbone): Dice 82.78 to 85.20, beta error 6.16 to 3.69, clDice 89.03 to 91.10; SkelRecall 84.26 / 4.74; clDice 84.58 / 5.06. Stacks with SCNP on DRIVE and DSCA. Low memory and time overhead vs clDice / Betti matching.",
+ "gpu_hours": 8,
+ "bet": "medium",
+ "score": 58,
+ "bench_score": 50,
+ "targets": [
+  "crack",
+  "e1_unseen",
+  "benchmark"
+ ],
+ "prior_overlap": "Partial: Skeleton Recall (fixed skeleton recall) and offset-tolerant CE were run; prediction-adaptive bottleneck supervision was not.",
+ "directions": [
+  "D10",
+  "D11"
+ ],
+ "scout_scores": [
+  55,
+  58,
+  47
+ ],
+ "alt_notes": [
+  {
+   "from": "D10",
+   "adaptation": "Suits jittered labels: the model must connect the crack, not sit on the drawn line. In-house: build a graph from each crack component's label skeleton, run a min-cost path in a 3 px band on -log p(crack), and add CE on the bottleneck pixels. Cheap at 512 px with 0.19% crack pixels.",
+   "min_experiment": "Arm: PF + TRACE-style bottleneck CE (crack), 5 seeds. Baseline: PF. Metrics: component recall (>= 20 px), relF1@2, crack IoU, width. Kill if component recall gain < 0.02 and relF1@2 gain < 0.01.",
+   "score": 55
+  },
+  {
+   "from": "D11",
+   "adaptation": "2D re-implementation for crack only; addresses why fixed-skeleton losses misbehave under 1-2 px jitter.",
+   "min_experiment": "Arm = PF + TRACE crack loss; baseline = PF and PF + Skeleton Recall w 0.1; 5 seeds; metrics components found, E1 relF1@2, IoU. Kill if no gain over Skeleton Recall w 0.1.",
+   "score": 47
+  }
+ ],
+ "final": 58,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 117,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

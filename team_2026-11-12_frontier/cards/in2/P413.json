@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2211.15272",
+ "title": "Topologically faithful image segmentation via induced matching of persistence barcodes (Betti matching)",
+ "year": 2022,
+ "venue": "arXiv (ICML 2023)",
+ "url": "https://arxiv.org/abs/2211.15272",
+ "code_url": "https://github.com/nstucki/Betti-matching",
+ "mechanism": "Persistent-homology loss that matches predicted and label barcode features by their induced spatial correspondence, then penalises unmatched or shifted features. The efficient C++ version is arxiv:2407.04683.",
+ "adaptation": "Crack class, 0-dimensional features. Compute it only on label components >= 20 px so that tiny label fragments (76 to 88% of components) are not enforced. Could raise the share of components found (0.798).",
+ "min_experiment": "Arm: PF + Betti matching (crack, w 0.1, last 10k steps), 3 seeds screen then 5. Baseline: PF. Metric: component recall >= 20 px, crack IoU. Kill if component recall gain < 0.02 or crack IoU < baseline - 0.012.",
+ "score": 38,
+ "bench_score": 60,
+ "bet": "moonshot",
+ "targets": [
+  "crack"
+ ],
+ "evidence": "R (web summary of abstract): better topology on six datasets with volumetric performance kept. TopoMortar shows a different PH loss (TopoLoss) dropping CrackTree Dice to 0.52.",
+ "gpu_hours": 12,
+ "prior_overlap": "none. No PH loss was run here.",
+ "directions": [
+  "D10"
+ ],
+ "scout_scores": [
+  38
+ ],
+ "final": 38,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 413,
+ "pid": "P413"
+}

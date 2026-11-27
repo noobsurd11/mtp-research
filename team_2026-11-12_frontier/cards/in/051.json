@@ -1,0 +1,45 @@
+{
+ "paper_id": "arxiv:2006.06882",
+ "title": "Rethinking Pre-training and Self-training",
+ "year": 2020,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2006.06882",
+ "code_url": "",
+ "mechanism": "A fixed teacher pseudo-labels extra data, and the student is trained on labels plus pseudo-labels under strong augmentation. Self-training helps at every label size, including 100%, when the augmentation is strong.",
+ "adaptation": "Our house uses weak label-safe augmentation because hard 1-2 px labels break under resampling. Soft teacher probabilities can be resampled bilinearly, so pool images can take scale jitter 0.75-1.5, small rotation, blur and gamma. Labelled cells keep label-safe aug. Teacher = the ensemble of paper 1.",
+ "min_experiment": "Arm B of the ensemble-distillation experiment, run with and without strong aug on pool images (aug ablation). Baseline: PF single model. Metric: clean-49 crack IoU and relF1@2, E1 crack relF1@2. Kill: strong-aug arm not better than weak-aug arm by +0.005 crack IoU or +0.02 E1 relF1@2.",
+ "evidence": "R: COCO detection, self-training +1.3 to +3.4 AP at every data size including 100% labels, while ImageNet pretraining hurt at full COCO. PASCAL segmentation +1.5 mIoU over the previous SOTA (90.5 mIoU), on top of a pretrained model.",
+ "gpu_hours": 10,
+ "bet": "medium",
+ "score": 66,
+ "bench_score": 45,
+ "targets": [
+  "crack",
+  "e1_unseen",
+  "inactive"
+ ],
+ "prior_overlap": "Partial. The BRIEF SSL row (Mean Teacher with CutMix, 11.9k pool, 100% labels) was n.d. That run used an online EMA teacher and weak label-safe geometry. An offline stronger teacher with soft labels and strong scale augmentation on the pool is open.",
+ "directions": [
+  "D29"
+ ],
+ "scout_scores": [
+  62,
+  66
+ ],
+ "alt_notes": [
+  {
+   "from": "D29",
+   "adaptation": "Use strong geometric and photometric aug (scale jitter 0.5 to 2, elastic, blur, gamma) only on pseudo-labelled pool cells: the pseudo mask is warped with the image, so the label-safe rule for jittered GT does not apply. Use the L_h/L_p EMA normalisation (decay 0.9997). Can be combined with the Naive-Student arm.",
+   "min_experiment": "Within the NS-12k arm, compare student aug = label-safe vs strong (5 seeds each). Metric: crack relF1@2 and IoU on clean-49, E1 relF1@2. Kill if strong aug is n.d. vs label-safe.",
+   "score": 62
+  }
+ ],
+ "final": 66,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 51,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

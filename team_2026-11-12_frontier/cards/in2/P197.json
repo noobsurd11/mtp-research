@@ -1,0 +1,45 @@
+{
+ "paper_id": "doi:10.1109/tii.2023.3275705",
+ "title": "RERN: Rich Edge Features Refinement Detection Network for Polycrystalline Solar Cell Defect Segmentation",
+ "year": 2023,
+ "venue": "IEEE Transactions on Industrial Informatics",
+ "url": "https://doi.org/10.1109/tii.2023.3275705",
+ "code_url": "",
+ "mechanism": "Edge-detection formulation of defect segmentation with bidirectional strip refinement attention (long-range horizontal and vertical context plus channel context), lightweight and pluggable; evaluated with tolerance-based ODS F-measure.",
+ "adaptation": "Insert strip attention into the last two U-Net++ decoder stages; aimed at gridline (recall 0.33, long straight lines) and long cracks. Use their tolerant ODS/OIS idea as a benchmark crack metric alongside relF1@2.",
+ "min_experiment": "Arm house + strip attention vs house, 5 seeds; gridline IoU/recall and crack relF1@2; kill if gridline IoU < +0.03 and crack relF1@2 not up.",
+ "evidence": "R: ODS F 0.854 on their PSCDE poly-Si defect edge dataset at maxDist 0.0015; BSRA also improved other edge networks on PSCDE.",
+ "prior_overlap": "none: edge-detection formulations and strip attention never tried.",
+ "score": 50,
+ "bench_score": 60,
+ "bet": "medium",
+ "gpu_hours": 12,
+ "targets": [
+  "other_classes",
+  "crack",
+  "benchmark"
+ ],
+ "directions": [
+  "D01",
+  "D03"
+ ],
+ "scout_scores": [
+  50,
+  45
+ ],
+ "alt_notes": [
+  {
+   "from": "D03",
+   "adaptation": "Insert BSRA (directional strip pooling) into U-Net++ decoder blocks and train crack with class-balanced edge BCE. For the benchmark, report ODS/OIS at maxDist = 2 px alongside relF1@2.",
+   "min_experiment": "Arm: U-Net++ + BSRA. Baseline: house, 5 seeds. Metric: relF1@2, crack components >= 20 px found. Kill if relF1@2 < +0.01.",
+   "score": 45
+  }
+ ],
+ "final": 50,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 197,
+ "pid": "P197"
+}

@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2304.00424",
+ "title": "Progressive Random Convolutions for Single Domain Generalization",
+ "year": 2023,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2304.00424",
+ "code_url": "",
+ "mechanism": "Repeated application of one small random conv block (with deformable offsets and affine) grows augmentation diversity without destroying semantics.",
+ "adaptation": "Zero the deformable offsets (they move 1-2 px cracks off their labels). Run as the alternative to GIN in the same arm family.",
+ "min_experiment": "PF + Pro-RandConv (no offsets) vs PF + GIN arm; keep the better on val/F51; kill if neither beats PF by +0.03 E1 relF1@2.",
+ "score": 45,
+ "bench_score": 40,
+ "bet": "safe",
+ "targets": [
+  "e1_unseen"
+ ],
+ "evidence": "R: 68.88% single-source PACS (ResNet-18), 81.35% Digits (classification).",
+ "gpu_hours": 4,
+ "prior_overlap": "none",
+ "directions": [
+  "D30"
+ ],
+ "scout_scores": [
+  45
+ ],
+ "final": 45,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 295,
+ "pid": "P295"
+}

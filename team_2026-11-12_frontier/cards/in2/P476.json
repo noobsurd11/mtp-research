@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:1904.13204",
+ "title": "GaborNet: Gabor filters with learnable parameters in deep convolutional neural networks",
+ "year": 2019,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/1904.13204",
+ "code_url": "",
+ "mechanism": "First-layer convolution filters constrained to Gabor functions whose parameters are learned by backpropagation.",
+ "adaptation": "A parallel stem of 16 learnable Gabor filters (8 orientations x 2 scales, wavelength 4 to 8 px) on the 1-channel EL input, concatenated to the conv1 output.",
+ "min_experiment": "Arm: house + Gabor stem, 5 seeds. Baseline: house. Metric: crack IoU, relF1@2. Kill: crack IoU < +0.012.",
+ "evidence": "R: faster convergence and better accuracy than plain CNNs on several recognition datasets (abstract).",
+ "gpu_hours": 6,
+ "prior_overlap": "none",
+ "score": 35,
+ "bench_score": 15,
+ "bet": "safe",
+ "targets": [
+  "crack"
+ ],
+ "directions": [
+  "D28"
+ ],
+ "scout_scores": [
+  35
+ ],
+ "final": 35,
+ "bench": 15,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 476,
+ "pid": "P476"
+}

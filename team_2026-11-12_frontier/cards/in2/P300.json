@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1109/wacv61041.2025.00370",
+ "title": "GAUDA: Generative Adaptive Uncertainty-Guided Diffusion-Based Augmentation for Surgical Segmentation",
+ "year": 2025,
+ "venue": "WACV",
+ "url": "https://arxiv.org/pdf/2501.10819",
+ "code_url": "",
+ "mechanism": "Joint LDM over compact (image, mask) latents; generation is targeted online at classes where a Bayesian segmenter's epistemic uncertainty is highest.",
+ "adaptation": "Uncertainty per class from the 5-seed house ensemble; condition on class presence for inactive, splice, gridline, edge_dark, material; run offline in 3 rounds instead of online.",
+ "min_experiment": "3 rounds of uncertainty-targeted generation vs one-shot generation at matched count, on PF. Metric mIoU_rob. Kill: < +0.01.",
+ "evidence": "R: +1.6 IoU CaDISv2, +1.5 IoU CholecSeg8k over comparable methods.",
+ "gpu_hours": 40,
+ "bet": "medium",
+ "targets": [
+  "other_classes",
+  "inactive"
+ ],
+ "prior_overlap": "none",
+ "score": 45,
+ "bench_score": 35,
+ "directions": [
+  "D33"
+ ],
+ "scout_scores": [
+  45
+ ],
+ "final": 45,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 300,
+ "pid": "P300"
+}

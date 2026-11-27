@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2503.02128",
+ "title": "Aerial Infrared Health Monitoring of Solar Photovoltaic Farms at Scale",
+ "year": 2025,
+ "venue": "CVPR Workshops",
+ "url": "https://arxiv.org/abs/2503.02128",
+ "code_url": "",
+ "mechanism": "Cascade of table segmentation, oriented panel detection and anomaly detection, plus a max-minus-median sub-grid rule for hot spots with five delta-T severity bands.",
+ "evidence": "R (full text read): >6,000 US farms, 2.2 to 6.5 cm GSD; table U-Net mIoU 97.9; rotated Faster R-CNN mAP@75 83.3; YOLOv5-L P@50 89.8; hot spot = >5 C above neighbours, bands up to >= 15 C. Data private.",
+ "adaptation": "Blueprint for the drone thermal deliverable; the physically defined banded severity output is a template for an EL severity layer (inactive area fraction bands per cell, crack mode).",
+ "min_experiment": "CPU: define EL severity bands from predicted inactive fraction per cell, check agreement with ground-truth bands on val (weighted kappa); kill the band scheme if kappa < 0.6.",
+ "gpu_hours": 0.5,
+ "prior_overlap": "none.",
+ "targets": [
+  "deployment",
+  "severity"
+ ],
+ "bet": "safe",
+ "score": 15,
+ "bench_score": 45,
+ "directions": [
+  "D05"
+ ],
+ "scout_scores": [
+  15
+ ],
+ "final": 15,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 611,
+ "pid": "P611"
+}

@@ -1,0 +1,52 @@
+{
+ "paper_id": "arxiv:2103.16562",
+ "title": "Boundary IoU: Improving Object-Centric Image Segmentation Evaluation",
+ "year": 2021,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2103.16562",
+ "code_url": "https://github.com/bowenc0221/boundary-iou-api",
+ "mechanism": "IoU restricted to a band of width d around both contours; more sensitive to boundary quality on large objects.",
+ "adaptation": "Use for inactive and large structural classes; for 1-2 px cracks Boundary IoU at d >= 2 equals mask IoU, so no use for crack.",
+ "min_experiment": "Arm: Boundary IoU d=3 for inactive, gridline, busbar on OOF. Kill: never changes a ranking vs mask IoU.",
+ "score": 25,
+ "bench_score": 65,
+ "bet": "safe",
+ "targets": [
+  "benchmark",
+  "inactive",
+  "other_classes"
+ ],
+ "evidence": "R: more sensitive than mask IoU to boundary errors on large objects on COCO, LVIS, Cityscapes.",
+ "gpu_hours": 0,
+ "prior_overlap": "none",
+ "directions": [
+  "D27",
+  "D41"
+ ],
+ "scout_scores": [
+  10,
+  10,
+  25
+ ],
+ "alt_notes": [
+  {
+   "from": "D27",
+   "adaptation": "Benchmark scoring: Boundary IoU at d = 2 px for inactive and structural classes beside IoU; for crack it is close to relF1@2 and gives it a published name; Boundary PQ if an instance view is adopted.",
+   "min_experiment": "No training: rescore existing house and PF predictions on val/CV folds with Boundary IoU d = 1, 2, 3 and check rank agreement with relF1@2.",
+   "score": 10
+  },
+  {
+   "from": "D27",
+   "adaptation": "Benchmark scoring: report Boundary IoU at d = 2 px for inactive and the structural classes next to IoU. For crack it is close to our relaxed metric and gives that metric a published, citable name.",
+   "min_experiment": "No training. Recompute on existing house / PF predictions on val folds and check that model rankings stay stable across seeds.",
+   "score": 10
+  }
+ ],
+ "final": 25,
+ "bench": 65,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 549,
+ "pid": "P549"
+}

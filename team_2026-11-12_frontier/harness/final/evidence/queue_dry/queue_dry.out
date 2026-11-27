@@ -1,0 +1,28 @@
+== build
+fin list: 85 lines = 10 full-pool trainings (candidate s5-9, PF s5-9) + 75 dump-only D4 jobs (CS_D4, PF_D4, CB_D4 x 25); logp 0; no sealed set
+wrote /tmp/claude-1003/-home-noob/72e5944a-6b2b-4807-a45d-84138b3413e5/scratchpad/io_dry/jobs.txt md5 cc4d7006ab0c4e23bba896474c0f7169
+source runs: 50 of 50 complete (config_used.yaml + checkpoints/latest.pth; 25 c3x in bench_03375d4, 25 c3_pf_v11 in bench_89b9ea5)
+[2026-11-21 00:45:02] build: built /tmp/claude-1003/-home-noob/72e5944a-6b2b-4807-a45d-84138b3413e5/scratchpad/io_dry/jobs.txt: 85 lines, md5 cc4d7006ab0c4e23bba896474c0f7169; no name in use on cv02 or in a gaint relay; 50 source runs complete
+== build again (refuse)
+REFUSED (build): /tmp/claude-1003/-home-noob/72e5944a-6b2b-4807-a45d-84138b3413e5/scratchpad/io_dry/jobs.txt exists (use a new IO for a new list)
+== root, wrong F
+REFUSED (root): F must be the full commit 821dfadf49116cc6d5fdbd6697e263dd7cf0f834
+== root, wrong FB
+REFUSED (root): FB must be /tmp/noob_el/bench_821dfad (the deploy of F by c3_deploy.sh)
+== root, FB not deployed yet
+REFUSED (root): FB REVISION is not F
+== render (FB not deployed)
+REFUSED (render): FB REVISION is not F
+== place DRY
+DRY, not run on cv02: mkdir /tmp/noob_el/bench_q/fin; jobs.txt (md5 cc4d7006ab0c4e23bba896474c0f7169, 85 lines, r--r--r--); LPG 1; MAXC 12; SHARE_TRAIN 20480; SHARE_DUMP 10240
+== place DRY, bad MAXC
+REFUSED (place): MAXC must be a whole number
+== guard DRY
+DRY, not run on cv02: place /tmp/noob_el/bench_q/diskguard5.sh (md5 2719c5f703c0fe6b42436e07cff68d81), tmux new-session -d -s bench_diskguard5 'bash /tmp/noob_el/bench_q/diskguard5.sh'
+== arm DRY, GAPSEC 20
+REFUSED (arm): GAPSEC below 30
+== arm DRY, no render
+REFUSED (arm): no passed 'render' in /tmp/claude-1003/-home-noob/72e5944a-6b2b-4807-a45d-84138b3413e5/scratchpad/io_dry
+== status
+cv02 2026-11-20 19:15:04 UTC; free 42 GB; HOLD in fin: no
+fin: no dir

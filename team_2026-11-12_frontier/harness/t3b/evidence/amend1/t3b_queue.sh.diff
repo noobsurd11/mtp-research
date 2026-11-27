@@ -1,0 +1,12 @@
+51a52,54
+> # AMENDMENT_1 (22 Nov 2026): kb_check sorts both CODE.md5 files by path (LC_ALL=C sort -k2) before the diff (F2's deploy wrote
+> #   its CODE.md5 in another line order than c3_deploy.sh does now, so the unsorted diff listed 123 paths instead of K's 33);
+> #   dt_check sorts IO/data/LINKS.tsv with LC_ALL=C before its md5, as the cv02 side already does. Nothing else changed.
+136c139
+< kb_check(){ local out d; out=$(R "cd $KB && echo \"rev \$(cat REVISION)\"; md5sum -c --quiet CODE.md5 > /dev/null 2>&1 && echo CODE_OK; echo \"$PINS\" | md5sum -c --quiet - > /dev/null 2>&1 && echo PINS_OK; (cd $F2B && md5sum -c --quiet CODE.md5 > /dev/null 2>&1) && echo F2B_OK; diff <(grep -v '  REVISION\$' $F2B/CODE.md5) <(grep -v '  REVISION\$' CODE.md5) | grep '^[<>]' | awk '{print \$1 \$3}' | LC_ALL=C sort | tr '\n' ' '") || no "ssh failed"
+---
+> kb_check(){ local out d; out=$(R "cd $KB && echo \"rev \$(cat REVISION)\"; md5sum -c --quiet CODE.md5 > /dev/null 2>&1 && echo CODE_OK; echo \"$PINS\" | md5sum -c --quiet - > /dev/null 2>&1 && echo PINS_OK; (cd $F2B && md5sum -c --quiet CODE.md5 > /dev/null 2>&1) && echo F2B_OK; diff <(grep -v '  REVISION\$' $F2B/CODE.md5 | LC_ALL=C sort -k2) <(grep -v '  REVISION\$' CODE.md5 | LC_ALL=C sort -k2) | grep '^[<>]' | awk '{print \$1 \$3}' | LC_ALL=C sort | tr '\n' ' '") || no "ssh failed"
+144c147
+< dt_check(){ local o w; w="OK $(md5sum < $IO/data/MANIFEST.md5 | cut -c1-32) $(md5sum < $IO/data/roots/ROOTS_t3b.md5 | cut -c1-32) $(md5sum < $IO/data/LINKS.tsv | cut -c1-32)"
+---
+> dt_check(){ local o w; w="OK $(md5sum < $IO/data/MANIFEST.md5 | cut -c1-32) $(md5sum < $IO/data/roots/ROOTS_t3b.md5 | cut -c1-32) $(LC_ALL=C sort $IO/data/LINKS.tsv | md5sum | cut -c1-32)"

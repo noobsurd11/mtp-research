@@ -1,0 +1,67 @@
+{
+ "paper_id": "doi:10.1109/tmi.2022.3193072",
+ "title": "Adjusting the Ground Truth Annotations for Connectivity-Based Learning to Delineate",
+ "year": 2022,
+ "venue": "IEEE Transactions on Medical Imaging",
+ "url": "https://arxiv.org/abs/2112.02781",
+ "code_url": "https://github.com/doruk-oner/AdjustingAnnotationswithSnakes",
+ "mechanism": "The annotated centerline is a snake (graph of vertices) that deforms during training toward the network's predicted distance map, regularized by elasticity and spring terms so it stays smooth and keeps its topology; the net trains on the distance map of the adjusted snake.",
+ "adaptation": "2D version: skeletonize crack labels to polylines, add a truncated-distance regression head to U-Net++, update snakes every N steps (SnakeFast) with displacement capped at 2 px, train the crack class on the adjusted snake redrawn at the source width.",
+ "min_experiment": "Arm: house + distance head with snake-adjusted crack targets, 5 seeds. Baseline: house. Metric: clean-49 crack IoU, relF1@2, components >= 20 px found. Kill: crack IoU below baseline by more than 0.012 and relF1@2 not up by 0.01.",
+ "evidence": "R: on Brain, Neurons, MRA (10, 1, 31 training volumes) SnakeFast beats training on original annotations in APLS and TLTS, pixel quality about equal; degrades much more slowly as synthetic annotation deformation grows; beats NR-Dice, QAM, DS6 on topology metrics.",
+ "gpu_hours": 15,
+ "bet": "medium",
+ "targets": [
+  "crack"
+ ],
+ "prior_overlap": "none. Snakes listed as never tried; offset-tolerant CE did not move the labels.",
+ "score": 66,
+ "bench_score": 35,
+ "directions": [
+  "D10",
+  "D11",
+  "D16"
+ ],
+ "scout_scores": [
+  55,
+  45,
+  57,
+  52,
+  66
+ ],
+ "alt_notes": [
+  {
+   "from": "D10",
+   "adaptation": "Skeletonise each crack label into a polyline graph, snake it toward the model's crack ridge (or the image's dark ridge) within 2 px every N steps, then redraw at each source's convention width (ARTS 1.5, CSIR/CFVS 1.75, BMRK 3.0, SDLE 3.25 px). Test labels stay unchanged, so gains may show in relF1@2 before strict IoU.",
+   "min_experiment": "PF trained on snake-adjusted crack labels vs PF, 5 seeds. Kill if relF1@2 gain < 0.01 and crack IoU change < +0.012.",
+   "score": 45
+  },
+  {
+   "from": "D10",
+   "adaptation": "Skeletonise crack labels to polylines, run a snake toward the dark EL ridge or the model's ridge every N steps (max 2 px displacement), redraw at each source's convention width (ARTS 1.5, CFVS/CSIR 1.75, BMRK 3.0). Test labels stay unchanged, so relF1 may rise more than strict IoU. Doubles as a label-refinement tool for the benchmark.",
+   "min_experiment": "Arm: PF trained on snake-adjusted crack labels, 5 seeds. Baseline: PF on revised labels. Metrics: clean-49 crack IoU, relF1@2, width. Kill if crack IoU < baseline - 0.012 and relF1@2 gain < 0.01.",
+   "score": 55
+  },
+  {
+   "from": "D11",
+   "adaptation": "Crack mask -> skeleton -> polylines; each epoch move polylines up to 2 px toward the network's ridge (snake energy = network output + smoothness), rasterise at source width as the new target. Code is 3D; port to 2D.",
+   "min_experiment": "Arm PF with snake-adjusted crack labels from epoch 25% onward vs PF; metric relF1@2 and strict IoU against original CV labels; kill if relF1@2 +<0.01 and strict IoU down >0.01.",
+   "score": 52
+  },
+  {
+   "from": "D10",
+   "adaptation": "Convert crack masks to polylines, allow each to move within 2 px toward the network's predicted ridge each epoch, rasterise at source width. Model-driven version of ridge snapping.",
+   "min_experiment": "Arm = PF with per-epoch polyline snapping (limit 2 px, start after 5k steps); baseline = PF; 5 seeds + 5-fold CV; metrics crack IoU on original labels, relF1@2, E1. Kill as for ridge snapping: IoU drop > 0.01 with no relF1@2 gain.",
+   "score": 57
+  }
+ ],
+ "final": 66,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 55,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P055"
+}

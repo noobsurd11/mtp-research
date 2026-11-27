@@ -1,0 +1,35 @@
+{
+ "paper_id": "doi:10.1609/aaai.v39i4.32408",
+ "title": "Every Component Counts: Rethinking the Measure of Success for Medical Semantic Segmentation in Multi-Instance Segmentation Tasks (CC-Metrics)",
+ "year": 2025,
+ "venue": "AAAI",
+ "url": "https://arxiv.org/abs/2410.18684",
+ "code_url": "https://github.com/alexanderjaus/CC-Metrics",
+ "mechanism": "Evaluates Dice / surface Dice per GT component on its Voronoi cell and averages, removing the large-component bias; proximity-based matching.",
+ "adaptation": "Benchmark metric: per-instance crack Dice and per-instance relF1@2 on merged crack instances, plus size-stratified recall (< 20 px, >= 20 px) for test and E1.",
+ "min_experiment": "Compute CC-Dice on val/F51 predictions of house vs ensemble vs PF; check rank agreement with relF1@2. Kill as a headline metric if rank correlation > 0.95 with relF1@2 (adds no information).",
+ "evidence": "Whole-body PET/CT metastases: standard metrics biased to large components; CC-Metrics fixes Dice and HD sensitivity to small lesions.",
+ "gpu_hours": 0,
+ "bet": "safe",
+ "prior_overlap": "none",
+ "targets": [
+  "benchmark",
+  "measurement"
+ ],
+ "score": 22,
+ "bench_score": 85,
+ "directions": [
+  "D20"
+ ],
+ "scout_scores": [
+  22
+ ],
+ "final": 22,
+ "bench": 85,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 571,
+ "pub_allowed": 0,
+ "selected_for": "bench"
+}

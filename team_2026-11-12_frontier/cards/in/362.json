@@ -1,0 +1,35 @@
+{
+ "paper_id": "arxiv:2603.13044",
+ "title": "GP-VM x SMA: Benchmarking General-Purpose Vision Models and Specialized Architectures for 2D Medical Image Segmentation",
+ "year": 2026,
+ "venue": "BMVC 2026 (per arXiv)",
+ "url": "https://arxiv.org/abs/2603.13044",
+ "code_url": "",
+ "mechanism": "11 segmenters (SegFormer, SegNeXt, TransNeXt, InternImage, medical-specific nets) under one protocol on 3 small 2D datasets, with linear mixed-effects models for significance.",
+ "evidence": "R: general-purpose models comparable to or better than specialized ones (snippet: VW-MiT 91.0 mDSC, SegNeXt and SegFormer 90.7).",
+ "adaptation": "Copy the mixed-effects analysis for our benchmark: fixed effect method, random effects fold, seed and source; addresses problem 5 (50-cell test noise).",
+ "min_experiment": "Analysis only on existing and new CV results; no training.",
+ "score": 20,
+ "bench_score": 78,
+ "bet": "safe",
+ "gpu_hours": 0,
+ "targets": [
+  "benchmark",
+  "measurement"
+ ],
+ "prior_overlap": "none.",
+ "directions": [
+  "D23"
+ ],
+ "scout_scores": [
+  20
+ ],
+ "final": 20,
+ "bench": 78,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 362,
+ "pub_allowed": 0,
+ "selected_for": "bench"
+}

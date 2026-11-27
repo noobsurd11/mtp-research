@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2408.10031",
+ "title": "Dynamic Label Injection for Imbalanced Industrial Defect Segmentation",
+ "year": 2025,
+ "venue": "ECCV 2024 Workshops (LNCS)",
+ "url": "https://arxiv.org/abs/2408.10031",
+ "code_url": "",
+ "mechanism": "During training, inject real defects into defect-free images by Poisson seamless cloning and cut-paste so every batch is class-balanced, replacing loss-side balancing.",
+ "adaptation": "Target inactive (42 train cells), splice (never predicted), edge_dark, corrosion, not crack: clone inactive regions with their bounding crack into clean cells of the same source and mono/multi type so the inactive-touches-crack rule holds.",
+ "evidence": "R: Magnetic Tile multi-class, IoU gain over balancing losses, also under weak supervision (numbers not read). Code per web search at github.com/covisionlab/dynamic-label-injection (unverified).",
+ "min_experiment": "Arm: house + per-batch Poisson-cloned inactive(+crack), splice, edge_dark; baseline: house; metric: CV inactive IoU (test is decided by 3 cells) and splice IoU; kill if CV inactive IoU gain < +0.02 and splice stays 0.",
+ "gpu_hours": 8,
+ "prior_overlap": "Crack copy-paste onto pool cells was n.d. (more decoys); inactive / rare-class injection with Poisson blending and batch balancing not tested.",
+ "score": 48,
+ "bench_score": 35,
+ "bet": "medium",
+ "targets": [
+  "inactive",
+  "other_classes"
+ ],
+ "directions": [
+  "D40"
+ ],
+ "scout_scores": [
+  48
+ ],
+ "final": 48,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 244,
+ "pid": "P244"
+}

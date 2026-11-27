@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2504.07691",
+ "title": "Distilling Knowledge from Heterogeneous Architectures for Semantic Segmentation",
+ "year": 2025,
+ "venue": "AAAI",
+ "url": "https://arxiv.org/abs/2504.07691",
+ "code_url": "",
+ "mechanism": "KD between CNN and Transformer by projecting intermediate features into an aligned logit space, with reliability-based teacher-student knowledge mixing and evaluation.",
+ "adaptation": "Transformer teacher (best from D23/D24) into the house U-Net++ RN34 student to carry global context for half-cut layout and scuff without transformer inference cost.",
+ "min_experiment": "Arm: HeteroAKD student. Baseline: logit KD from the same teacher. Metric: E1 relF1@2, crack IoU. Kill: < +0.01 over logit KD.",
+ "evidence": "R: beats prior KD methods on three mainstream segmentation benchmarks across heterogeneous teacher-student pairs.",
+ "gpu_hours": 8,
+ "bet": "moonshot",
+ "targets": [
+  "e1_unseen",
+  "crack"
+ ],
+ "prior_overlap": "none",
+ "score": 45,
+ "bench_score": 35,
+ "directions": [
+  "D34"
+ ],
+ "scout_scores": [
+  45
+ ],
+ "final": 45,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 298,
+ "pid": "P298"
+}

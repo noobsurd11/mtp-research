@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2312.07273",
+ "title": "Benchmarking Pretrained Vision Embeddings for Near- and Duplicate Detection in Medical Images",
+ "year": 2023,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2312.07273",
+ "code_url": "",
+ "mechanism": "Pretrained foundation-model embeddings with cosine thresholds find near-duplicate images that bias evaluation.",
+ "adaptation": "Embed all cells (582, E1, F51/H36, UCF-EL, pool) with the DINOv2/v3 encoders already used in the linear probes. Flag cross-split pairs above the threshold and check them against module ids.",
+ "min_experiment": "Near-duplicate scan, then the house score on test cells with vs without a near-duplicate in train. Decision: move flagged pairs into the same fold if the score gap > 0.03.",
+ "prior_overlap": "none",
+ "score": 20,
+ "bench_score": 82,
+ "bet": "safe",
+ "targets": [
+  "benchmark",
+  "measurement"
+ ],
+ "evidence": "R: compares pretrained embeddings for near-duplicate detection in medical images (abstract level only).",
+ "gpu_hours": 1,
+ "directions": [
+  "D43"
+ ],
+ "scout_scores": [
+  20
+ ],
+ "final": 20,
+ "bench": 82,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 579,
+ "pid": "P579"
+}

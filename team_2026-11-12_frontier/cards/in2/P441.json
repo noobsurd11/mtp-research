@@ -1,0 +1,44 @@
+{
+ "paper_id": "doi:10.1109/cvpr52734.2025.01900",
+ "title": "Dinomaly: The Less Is More Philosophy in Multi-Class Unsupervised Anomaly Detection",
+ "year": 2025,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2405.14325",
+ "code_url": "https://github.com/guojiajeremy/Dinomaly",
+ "mechanism": "Normal-only feature reconstruction with a DINOv2 encoder, dropout noisy bottleneck, linear attention and loose reconstruction for a single multi-class model.",
+ "adaptation": "One model across 5 sources x mono/multi/half-cut trained on clean pool cells; evaluate the map against inactive masks and crack masks dilated by 2 px; candidate prior channel for E1.",
+ "min_experiment": "Train once; pixel AUROC / AU-PRO on test and F51 for inactive and crack-band; fusion with PF ensemble, kill if E1 inactive IoU gain < +0.03.",
+ "score": 35,
+ "bench_score": 75,
+ "bet": "medium",
+ "gpu_hours": 12,
+ "targets": [
+  "benchmark",
+  "inactive",
+  "e1_unseen"
+ ],
+ "evidence": "R: image AUROC 99.6 MVTec-AD, 98.7 VisA, 89.3 Real-IAD in multi-class setting.",
+ "prior_overlap": "none",
+ "directions": [
+  "D07"
+ ],
+ "scout_scores": [
+  35,
+  35
+ ],
+ "alt_notes": [
+  {
+   "from": "D07",
+   "adaptation": "One model over 5 sources x mono/multi/half-cut on clean pool cells; evaluate the map against inactive and crack dilated by 2 px; prior channel for E1.",
+   "min_experiment": "Benchmark AD track: train once, report pixel AUROC, AU-PRO, relF1@2 per class on CV and E1; for scores, same offline recall test as AnomalyDINO with kill at < 30% recovery.",
+   "score": 35
+  }
+ ],
+ "final": 35,
+ "bench": 75,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 441,
+ "pid": "P441"
+}

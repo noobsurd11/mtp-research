@@ -1,0 +1,43 @@
+{
+ "paper_id": "doi:10.1109/iccvw60793.2023.00147",
+ "title": "Tiny and Efficient Model for the Edge Detection Generalization (TEED)",
+ "year": 2023,
+ "venue": "ICCV Workshops",
+ "url": "https://arxiv.org/abs/2308.06468",
+ "code_url": "https://github.com/xavysp/TEED",
+ "mechanism": "A 58K-parameter edge detector that trains in under 30 min and gives crisp edge maps.",
+ "adaptation": "A benchmark suite member for the efficiency and deployment axis on crack. Optionally an auxiliary high-resolution crack-edge branch.",
+ "min_experiment": "Run TEED on crack, 3 seeds, under the benchmark protocol. Compare with house relF1@2 and FPS. No kill line: it is a reference baseline.",
+ "score": 20,
+ "bench_score": 50,
+ "bet": "safe",
+ "evidence": "R: 58K params, trains on BIPED in under 30 min, adds a new generalization test set.",
+ "gpu_hours": 3,
+ "prior_overlap": "Not tested. Open.",
+ "targets": [
+  "deployment",
+  "benchmark"
+ ],
+ "directions": [
+  "D13"
+ ],
+ "scout_scores": [
+  20,
+  20
+ ],
+ "alt_notes": [
+  {
+   "from": "D13",
+   "adaptation": "Benchmark member for the efficiency/deployment axis on crack-only maps; possible cheap auxiliary crack branch.",
+   "min_experiment": "Run as suite baseline on the fixed protocol; no score claim. About 2 GPU-h.",
+   "score": 20
+  }
+ ],
+ "final": 20,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 587,
+ "pid": "P587"
+}

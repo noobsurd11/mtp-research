@@ -1,0 +1,55 @@
+{
+ "paper_id": "arxiv:2111.14887",
+ "title": "DAFormer: Improving Network Architectures and Training Strategies for Domain-Adaptive Semantic Segmentation (RCS + ImageNet feature distance)",
+ "year": 2022,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2111.14887",
+ "code_url": "https://github.com/lhoyer/DAFormer",
+ "mechanism": "Rare-class sampling of source images plus an L2 distance that keeps bottleneck features close to the frozen ImageNet encoder (thing-class pixels), with lr warmup; protects pretrained features during adaptation.",
+ "evidence": "GTA to Cityscapes: self-training 58.2, +FD 61.7, +RCS 64.0, both 66.2 mIoU; with no target data (pure DG) RCS+FD add +5.1 mIoU (supp. Table S3); also helps DeepLabV2.",
+ "adaptation": "FD as a soft alternative to PF: L2 between layer4 features of the training ResNet-34 and a frozen ImageNet ResNet-34 (weight 0.005 to 0.05, all pixels or crack/inactive/defect pixels). This targets the found erasure of layer3/4 that PF fixes (E1 inactive 0.05 to 0.24). RCS: sample training cells by rarity of inactive, splice, gridline and material.",
+ "min_experiment": "Arms house+FD, house+FD+RCS, PF+RCS vs house and PF, 5 seeds. Metrics: E1 inactive IoU, E1 crack relF1@2, test inactive IoU, splice/gridline IoU. Kill: house+FD not within 0.03 of PF on E1 inactive and no other gain; RCS killed if inactive and splice gain < +0.03.",
+ "prior_overlap": "Partial: PF already tests encoder preservation by freezing and low lr; the FD loss and rare-class sampling were never run. Open.",
+ "score": 62,
+ "bench_score": 75,
+ "bet": "safe",
+ "gpu_hours": 17,
+ "targets": [
+  "e1_unseen",
+  "inactive",
+  "other_classes",
+  "benchmark"
+ ],
+ "directions": [
+  "D29",
+  "D30"
+ ],
+ "scout_scores": [
+  58,
+  62,
+  55
+ ],
+ "alt_notes": [
+  {
+   "from": "D29",
+   "adaptation": "The feature distance directly counters our finding that the house fine-tune erases ResNet layer3/layer4. Add an L2 loss to frozen ImageNet R34 layer4 on crack, inactive and splice pixels (weight 0.005 to 0.05), as an alternative or complement to PF. RCS: sample training cells by rarity of crack, inactive, splice and gridline.",
+   "min_experiment": "Arm FD-RCS vs house PF, 5 seeds. Metrics: E1 inactive IoU, clean-49 crack IoU, mIoU_rob. Kill if no metric beats PF beyond the seed noise.",
+   "score": 58
+  },
+  {
+   "from": "D30",
+   "adaptation": "Rare class sampling over cells with crack, inactive (42 cells), splice, gridline. Feature-distance regulariser as a soft form of PF encoder preservation. MiT-B5 at 512 px with 1-ch replicated to 3 as a benchmark entry.",
+   "min_experiment": "(a) house + RCS vs house; kill if test and E1 inactive IoU gains < +0.02. (b) house + FD vs PF; kill if not better than PF on E1. 3 seeds each.",
+   "score": 55
+  }
+ ],
+ "final": 62,
+ "bench": 75,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 68,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P068"
+}

@@ -1,0 +1,43 @@
+{
+ "paper_id": "arxiv:2401.16753",
+ "title": "MuSc: Zero-Shot Industrial Anomaly Classification and Segmentation with Mutual Scoring of the Unlabeled Images",
+ "year": 2024,
+ "venue": "ICLR",
+ "url": "https://arxiv.org/abs/2401.16753",
+ "code_url": "https://github.com/xrli-U/MuSc",
+ "mechanism": "Training-free zero-shot segmentation: each patch is scored by its distance to patches of the other unlabelled test images, since normal patches recur and anomalies are rare.",
+ "adaptation": "Transductive per E1 module and layout group (and per source in test): score each cell against the other cells of the same module; use the map to raise crack/inactive logits in components where house p < 0.001; scuff repeated across a module partly self-cancels.",
+ "min_experiment": "Offline: MuSc maps on F51/H36 and pool; recall of house-missed crack components (3 px dilation) and inactive at 1% false-alarm area; then fuse with PF ensemble. Kill if recall on missed components < 30% or fused relP@2 loss exceeds relR@2 gain.",
+ "score": 45,
+ "bench_score": 60,
+ "bet": "medium",
+ "gpu_hours": 3,
+ "targets": [
+  "e1_unseen",
+  "inactive"
+ ],
+ "evidence": "R: zero-shot SOTA on MVTec AD / VisA at publication (abstract); no EL evidence.",
+ "prior_overlap": "none; anomaly-detection priors never tried. Per-module thresholds and per-panel BN failed, but those are different mechanisms.",
+ "directions": [
+  "D07"
+ ],
+ "scout_scores": [
+  45,
+  45
+ ],
+ "alt_notes": [
+  {
+   "from": "D07",
+   "adaptation": "Run per E1 module group and per source/layout; scuff streaks repeated across a module partly self-cancel; output used as crack/inactive recall prior fused with the PF ensemble.",
+   "min_experiment": "Same offline recall test as INP-Former on CV / F51 / H36 grouped by module; baseline PF ensemble; kill if < 30% of missed components recovered at 1% area or relP@2 loss exceeds relR@2 gain.",
+   "score": 45
+  }
+ ],
+ "final": 45,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 272,
+ "pid": "P272"
+}

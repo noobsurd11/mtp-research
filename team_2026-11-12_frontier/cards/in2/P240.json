@@ -1,0 +1,42 @@
+{
+ "paper_id": "arxiv:2603.20782",
+ "title": "MEMO: Human-like Crisp Edge Detection Using Masked Edge Prediction",
+ "year": 2026,
+ "venue": "CVPR 2026",
+ "url": "https://arxiv.org/abs/2603.20782",
+ "code_url": "https://github.com/cplusx/MEMO_Edge_Detection",
+ "mechanism": "Trains with randomly masked edge maps as an extra input. At inference it starts fully masked and reveals pixels in order of confidence, so thick confidence ridges collapse to thin lines. Uses only cross-entropy, plus synthetic pretraining.",
+ "adaptation": "Add a refinement U-Net on frozen house logits, with a second input channel holding a partially revealed crack map. Progressive reveal can link crack fragments (76 to 88% of components are under 20 px). This would be the first refinement-network test on our data.",
+ "min_experiment": "Arm: house + MEMO-style refinement stage, 5 seeds. Baseline: house at 100% labels. Metrics: recall of components >= 20 px, relF1@2, crack IoU. Kill if component recall gains less than 0.02 and relF1@2 is n.d.",
+ "score": 48,
+ "bench_score": 45,
+ "bet": "medium",
+ "evidence": "R: better results on crispness-aware evaluations than prior methods without post-processing. Fine-tuning adds 1.2% params. Numbers not read.",
+ "gpu_hours": 15,
+ "prior_overlap": "Refinement networks are listed as never tried. Open.",
+ "targets": [
+  "crack"
+ ],
+ "directions": [
+  "D13"
+ ],
+ "scout_scores": [
+  48,
+  46
+ ],
+ "alt_notes": [
+  {
+   "from": "D13",
+   "adaptation": "Refinement stage on top of the house model: input EL image plus partially revealed house crack map, trained on 478 cells with random masking, no synthetic pretraining at first; LocMax reveal links crack fragments (most components under 20 px).",
+   "min_experiment": "Arm: house logits + masked-refinement net, 5 seeds; baseline house 5-seed ensemble. Metrics components>=20px found, relF1@2, E1 relF1@2. Kill if component recall gain < 0.02 and relF1@2 n.d. About 20 GPU-h.",
+   "score": 46
+  }
+ ],
+ "final": 48,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 240,
+ "pid": "P240"
+}

@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1109/tip.2025.3644789",
+ "title": "A3-TTA: Adaptive Anchor Alignment Test-Time Adaptation for Image Segmentation",
+ "year": 2025,
+ "venue": "IEEE TIP",
+ "url": "https://arxiv.org/abs/2602.03292",
+ "code_url": "",
+ "mechanism": "Target images with compact class density act as anchors. Pseudo-labels for the others are built under anchor guidance, regularised by boundary-aware entropy and a self-adaptive EMA.",
+ "adaptation": "Anchors are E1 cells whose crack/inactive feature density is close to the train prototype (likely the plain full cells). Anchor-guided pseudo-labels then go to half-cut scuff cells. Crack anchors must be class-balanced (BAPA CBA), or background dominates.",
+ "min_experiment": "Arm: SUP100-PF + A3-TTA on E1 modules. Baseline: SUP100-PF. Kill if E1 relF1@2 gains < +0.02, or test guard drops > 0.005, or H36 crack-free false alarms rise > 2x.",
+ "score": 30,
+ "bench_score": 40,
+ "bet": "medium",
+ "targets": [
+  "e1_unseen",
+  "inactive"
+ ],
+ "evidence": "R: +10.40 to +17.68 Dice over the source model on multi-domain heart and prostate segmentation plus natural images; robust in continual TTA.",
+ "gpu_hours": 2,
+ "prior_overlap": "Partial. Pseudo-label SSL with the 11.9k pool was n.d. at 100%, but that used generic pool cells and fixed thresholds during training, not anchor-guided adaptation on target modules.",
+ "directions": [
+  "D31"
+ ],
+ "scout_scores": [
+  30
+ ],
+ "final": 30,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 515,
+ "pid": "P515"
+}

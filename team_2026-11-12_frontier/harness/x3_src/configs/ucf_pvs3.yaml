@@ -1,0 +1,34 @@
+defaults:
+  - ucf_deeplab
+
+# PV-S3 v1 (ucf_pvs3_ssl20_s0, a failed recipe: see reports/day1.md) (Jha et al., 2025), on top of the UCF-EL
+# supervised recipe: mean teacher (EMA 0.99); the teacher sees the weak view
+# (normalise only), the student the strong view (colour jitter ±50 %, random
+# grey p 0.2, Gaussian blur k 1-5 / sigma 0.1-2; photometric only, CutMix left
+# out); both views share one geometric draw.  Consistency: CE on the teacher's
+# argmax where its confidence >= 0.6 (t_neg = 0: no negative term), weight
+# 1.5 with the Mean Teacher sigmoid ramp-up over the first 1/6 of training.
+# 16 labelled + 8 unlabelled images per step; the unlabelled pool is the other
+# 7,650 official-train images, whose masks are never read.
+method: pvs3
+
+data:
+  labeled_subset: sl20
+  strong_aug: v1               # jitter p 1.0, grey p 0.2, blur p 1.0 (the s0 recipe; see ucf_pvs3_v2.yaml)
+
+training:
+  total_steps: 95700
+
+ssl:
+  ema_alpha: 0.99
+  warmup_steps: 0              # unused by the sigmoid ramp
+  lambda_final: 1.5
+  ramp: sigmoid
+  ramp_steps: 15950            # 5 of 30 "epochs" of the 95,700-step budget
+  consistency_on_labeled: false
+  labeled_view: strong         # supervised CE on the student's strong view (s0 recipe; failed, see day1.md)
+
+loss:
+  consistency: confidence_ce
+  t_pos: 0.6
+  t_neg: 0.0

@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1109/cvpr52734.2025.02222",
+ "title": "Wavelet and Prototype Augmented Query-based Transformer for Pixel-level Surface Defect Detection",
+ "year": 2025,
+ "venue": "CVPR 2025",
+ "url": "https://openaccess.thecvf.com/content/CVPR2025/html/Yan_Wavelet_and_Prototype_Augmented_Query-based_Transformer_for_Pixel-level_Surface_Defect_CVPR_2025_paper.html",
+ "code_url": "",
+ "mechanism": "Query-based mask transformer whose queries are refined by wavelet-domain cross-attention (high and low frequency) and prototype cross-attention for cluttered backgrounds.",
+ "adaptation": "Benchmark arm: recent pixel-level defect method validated on cracks (CrackSeg9k) and patterned fabric (ZJU-Leaper); 1-channel stem, 24-way queries or per-class binary.",
+ "min_experiment": "Benchmark run under the fixed protocol vs house; no kill line (reference row).",
+ "evidence": "R: SOTA on ESDIs-SOD, CrackSeg9k, ZJU-Leaper. Code listed as github.com/yfhdm/WPFormer by a WebSearch summary, not opened.",
+ "prior_overlap": "none; no mask-classification decoder was ever tried (section 5)",
+ "targets": [
+  "benchmark",
+  "crack"
+ ],
+ "bet": "medium",
+ "gpu_hours": 15,
+ "score": 42,
+ "bench_score": 60,
+ "directions": [
+  "D28"
+ ],
+ "scout_scores": [
+  42
+ ],
+ "final": 42,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 331,
+ "pid": "P331"
+}

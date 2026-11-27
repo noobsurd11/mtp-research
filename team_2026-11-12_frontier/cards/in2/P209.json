@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1016/j.media.2025.103489",
+ "title": "Learning robust medical image segmentation from multi-source annotations (UMA-Net)",
+ "year": 2025,
+ "venue": "Medical Image Analysis",
+ "url": "https://arxiv.org/abs/2304.00466",
+ "code_url": "",
+ "mechanism": "Pixel-level annotation-uncertainty estimates weight the loss, and an image-level quality module routes each sample to a high-quality or a low-quality decoder head.",
+ "adaptation": "Image quality is set from source and label-width deviation: BMRK, SDLE and the speck-level H36 labels go to the low-quality head. Pixel weights come from 5-seed disagreement. The high-quality head is used at test.",
+ "min_experiment": "Arm: two-head routing by source quality, 5 seeds. Baseline: house. Metrics: BMRK crack and inactive IoU, overall crack IoU. Kill if the BMRK crack IoU gain is below 0.03.",
+ "score": 50,
+ "bench_score": 40,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "inactive"
+ ],
+ "evidence": "R (web abstract): on simulated JSRT lung data, +5.31% over single-annotation noise-robust methods and +1.47% over multi-source methods; tested on chest X-ray, fundus and breast DCE-MRI.",
+ "gpu_hours": 7,
+ "prior_overlap": "none",
+ "directions": [
+  "D15"
+ ],
+ "scout_scores": [
+  50
+ ],
+ "final": 50,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 209,
+ "pid": "P209"
+}

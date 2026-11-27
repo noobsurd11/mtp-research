@@ -1,0 +1,35 @@
+{
+ "paper_id": "doi:10.52202/085713-3969",
+ "title": "SANSA: Unleashing the Hidden Semantics in SAM2 for Few-Shot Segmentation",
+ "year": 2025,
+ "venue": "NeurIPS",
+ "url": "https://arxiv.org/abs/2505.21795",
+ "code_url": "https://github.com/ClaudiaCuttano/SANSA",
+ "mechanism": "A light adapter makes SAM2 features semantic (not instance-tracking), then SAM2 memory attention matches support to query; supports point, box and scribble prompts.",
+ "evidence": "R: SOTA on generalisation-oriented FSS benchmarks, beats generalist in-context models, faster and smaller than prior methods (natural-image benchmarks only).",
+ "adaptation": "Same pipeline as GFDS SAM2 mode but semantic matching suits cracks that differ in shape between cells; optionally re-train the adapter episodically on our 478 cells (pairs sharing a class), then label pool half-cells and run the K-shot track.",
+ "min_experiment": "Within G0: SANSA (off-the-shelf and EL-episodic adapter) vs GFDS SAM2 video mode vs house PF ensemble on val54+F51+H36; metric H36 inactive IoU and crack relF1@2; kill if not above SAM2 video mode and not above house on any class.",
+ "prior_overlap": "none; SAM2 Hiera-T was only linear-probed frozen (no gain), never used as a matcher or labeller.",
+ "score": 38,
+ "bench_score": 65,
+ "bet": "medium",
+ "targets": [
+  "inactive",
+  "e1_unseen",
+  "benchmark"
+ ],
+ "gpu_hours": 24,
+ "directions": [
+  "D38"
+ ],
+ "scout_scores": [
+  38
+ ],
+ "final": 38,
+ "bench": 65,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 410,
+ "pid": "P410"
+}

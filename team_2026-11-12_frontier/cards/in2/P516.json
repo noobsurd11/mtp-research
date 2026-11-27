@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1088/1361-6560/aeb29f",
+ "title": "Domain-aligned self-supervision: CT-specialized DINOv3 enhances PET/CT tumor segmentation",
+ "year": 2026,
+ "venue": "Physics in Medicine and Biology",
+ "url": "https://doi.org/10.1088/1361-6560/aeb29f",
+ "code_url": "",
+ "mechanism": "Evidence study: domain proximity and pretraining scale jointly decide whether DINOv3 pretraining helps; natural-image DINOv3 can fail to beat random init on a distant greyscale modality.",
+ "evidence": "R (abstract): frozen encoders in nnU-Net, 5-fold CV on autoPET and HECKTOR; CT-pretrained DINOv3 best; natural-image DINOv3 did not beat from-scratch.",
+ "adaptation": "Caution for every natural-image VFM arm on EL, and support for in-domain continued pretraining on the EL pool (ExPLoRA / MedDINOv3) over more natural-image scale.",
+ "min_experiment": "Covered by the ExPLoRA arm: adapted vs original backbone on E1 relF1@2; kill if not +0.02.",
+ "prior_overlap": "Not a method run here; informs the A8 null.",
+ "score": 30,
+ "bench_score": 40,
+ "bet": "safe",
+ "targets": [
+  "e1_unseen",
+  "benchmark"
+ ],
+ "gpu_hours": 0,
+ "directions": [
+  "D24"
+ ],
+ "scout_scores": [
+  30
+ ],
+ "final": 30,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 516,
+ "pid": "P516"
+}

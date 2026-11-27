@@ -1,0 +1,53 @@
+{
+ "paper_id": "arxiv:2605.20405",
+ "title": "Disentangling Sampling from Training Budget in Class-Imbalanced CT Body Composition Segmentation",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2605.20405",
+ "code_url": "https://github.com/iasonsky/episodic-sampling",
+ "mechanism": "Episodic (class-balanced) batch construction in fully supervised segmentation, with the warning that sampling gains are often a training-iteration confound.",
+ "adaptation": "Batch of 8: force at least one cell with inactive and one with splice/edge_dark/material, rest random; keep 20k steps. Benchmark rule: report iteration budgets when comparing samplers.",
+ "min_experiment": "Arm: episodic batches, 5 seeds, 20k steps; baseline SUP100; metric mIoU_rob and inactive IoU; kill if both n.d. Run only if RCS arm is unclear.",
+ "score": 55,
+ "bench_score": 50,
+ "bet": "safe",
+ "evidence": "R: 210 CT scans, 9 tissues: full data Dice 0.882 vs 0.878 (equal); low data 0.787 vs 0.758/0.762 mostly from 12x iteration difference; under matched budgets random sampling overfits about 3x earlier.",
+ "gpu_hours": 6,
+ "prior_overlap": "none",
+ "targets": [
+  "inactive",
+  "other_classes",
+  "benchmark"
+ ],
+ "directions": [
+  "D19",
+  "D21",
+  "D35"
+ ],
+ "scout_scores": [
+  55,
+  42,
+  48
+ ],
+ "alt_notes": [
+  {
+   "from": "D21",
+   "adaptation": "Batches of 8 with at least 2 crack, 2 inactive and 1 rare-structure cell; compare at matched 20k steps (already our protocol) and report val overfitting curves.",
+   "min_experiment": "PF+EP vs PF+RCS vs PF in one sweep; same metrics and kill as RCS.",
+   "score": 42
+  },
+  {
+   "from": "D35",
+   "adaptation": "Each batch of 8 holds at least 1 of the 42 inactive cells and spans at least 3 of the 5 sources; compare at matched 20k steps and at 40k; keep it moderate given the crack sampling result.",
+   "min_experiment": "Arm: PF + episodic batches, 5 seeds. Baseline: SUP100-PF. Metric: inactive IoU (test, E1), BMRK crack/inactive IoU. Kill: inactive IoU gain < 0.02 and BMRK not better.",
+   "score": 48
+  }
+ ],
+ "final": 55,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 141,
+ "pid": "P141"
+}

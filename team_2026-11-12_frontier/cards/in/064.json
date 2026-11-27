@@ -1,0 +1,44 @@
+{
+ "paper_id": "doi:10.1016/j.patcog.2023.109819",
+ "title": "Haar Wavelet Downsampling: A Simple but Effective Downsampling Module for Semantic Segmentation",
+ "year": 2023,
+ "venue": "Pattern Recognition",
+ "url": "https://github.com/apple1986/HWD",
+ "code_url": "https://github.com/apple1986/HWD",
+ "mechanism": "Haar DWT plus 1x1 conv as the downsampling operator, so stride-2 steps keep high-frequency detail in subband channels instead of aliasing it away.",
+ "adaptation": "Swap the ResNet-34 stem max-pool for HWD (all ImageNet weights kept), and optionally the layer2 entry stride. A 1 to 2 px crack is partly lost at the first max-pool on a 512 px cell.",
+ "min_experiment": "Arm: house and PF with an HWD stem, 5 seeds. Baseline: house / PF. Metric: crack components >= 20 px found, crack recall at relP@2 >= 0.90. Kill: components found < +0.02 and crack IoU not up.",
+ "evidence": "R: segmentation gains across modalities and backbones and a lower feature-entropy index, as stated in the abstract and README. I saw no thin-structure numbers.",
+ "gpu_hours": 6,
+ "prior_overlap": "none. D09 proposes a similar wavelet stem through NWG-DETR.",
+ "score": 64,
+ "bench_score": 20,
+ "bet": "safe",
+ "targets": [
+  "crack",
+  "e1_unseen"
+ ],
+ "directions": [
+  "D28"
+ ],
+ "scout_scores": [
+  64,
+  64
+ ],
+ "alt_notes": [
+  {
+   "from": "D28",
+   "adaptation": "Replace the ResNet-34 stem max-pool (optionally the stride-2 entry of layer2); a 1 to 2 px crack is half lost at the first max-pool. Combine with Seg-Aliasing if both pass.",
+   "min_experiment": "Arm: house with HWD stem; baselines house and PF; 5 seeds; crack components found, recall at relP@2 >= 0.90, crack IoU; kill if components found < +0.02 and crack IoU not up. About 6 GPU-h.",
+   "score": 64
+  }
+ ],
+ "final": 64,
+ "bench": 20,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 64,
+ "pub_allowed": 1,
+ "selected_for": "top"
+}

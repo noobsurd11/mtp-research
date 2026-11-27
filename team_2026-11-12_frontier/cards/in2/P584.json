@@ -1,0 +1,51 @@
+{
+ "paper_id": "arxiv:2406.10891",
+ "title": "Noisy Annotations in Semantic Segmentation",
+ "year": 2024,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2406.10891",
+ "code_url": "https://github.com/eden500/Noisy-Labels-Instance-Segmentation",
+ "mechanism": "A benchmark of spatial annotation noise (boundary distortion, class confusion, tool artefacts) on COCO-N, Cityscapes-N and VIPER-N.",
+ "adaptation": "Shapes the EL benchmark: add a label-noise stress track with calibrated crack jitter and source-width noise, and report each method's sensitivity. It also warns that classification-style noise-robust methods may fail on thin, boundary-dominated cracks.",
+ "min_experiment": "No training arm. Build the jittered test copies (shared with the Syncrack-style item) and report the rank stability of methods across noise levels.",
+ "score": 20,
+ "bench_score": 58,
+ "bet": "safe",
+ "targets": [
+  "benchmark",
+  "measurement"
+ ],
+ "evidence": "R (web abstract): mainstream label-noise robustness methods fail on boundary-sensitive segmentation; denoising gives limited benefit for instance segmentation.",
+ "gpu_hours": 2,
+ "prior_overlap": "none",
+ "directions": [
+  "D15",
+  "D16"
+ ],
+ "scout_scores": [
+  20,
+  20,
+  18
+ ],
+ "alt_notes": [
+  {
+   "from": "D15",
+   "adaptation": "Template for a noisy-label robustness track in the EL benchmark: fixed test, train labels perturbed by offset, width and omission levels per source.",
+   "min_experiment": "No model arm; benchmark design input. Cheapest use: reuse the synthetic-jitter probe (Rill-Garcia row) as the benchmark's robustness track.",
+   "score": 20
+  },
+  {
+   "from": "D16",
+   "adaptation": "Benchmark design: report crack metrics under controlled synthetic jitter of test labels (1 and 2 px, per-source width) to show how much of a method's score is label noise.",
+   "min_experiment": "CPU-only: re-score the house ensemble against jittered test labels; deliverable is a sensitivity table, no kill line.",
+   "score": 18
+  }
+ ],
+ "final": 20,
+ "bench": 58,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 584,
+ "pid": "P584"
+}

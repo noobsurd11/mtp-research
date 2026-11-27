@@ -1,0 +1,43 @@
+{
+ "paper_id": "arxiv:2606.15937",
+ "title": "GOOSE-M2F: Adapting Mask2Former for High-Fidelity, Long-Tailed Fine-Grained Semantic Segmentation in Unstructured Outdoor Terrain",
+ "year": 2026,
+ "venue": "arXiv (ICRA 2026 GOOSE challenge report)",
+ "url": "https://arxiv.org/abs/2606.15937",
+ "code_url": "https://github.com/Aditya-Lingam-9000/GOOSE-M2F",
+ "mechanism": "Auxiliary per-pixel CE head (weight 0.4, removed at inference) beside the Mask2Former matching loss so rare/tiny classes get dense gradient; plus 200 queries, distribution-balanced loss, rare-class copy-paste.",
+ "evidence": "R: ablation on GOOSE val 54.6 -> 57.1 (+200 queries) -> 60.4 (+refinement) -> 63.8 (+3.4 aux head) -> 67.5 (balanced loss + rare copy-paste); 3rd place 70.08 composite mIoU; Swin-L; ablation table has internal inconsistencies.",
+ "adaptation": "Bolt the dense head onto any mask classifier we run (EoMT/M2F) at full resolution, not 1/4, supervised with our CE + soft Dice on crack and inactive; class-balanced weights only on weak other classes (gridline, splice, edge_dark, material). S: in semantic mode each present class is one target so the 'zero gradient' claim is shaky; the head is cheap insurance for 0.19%-pixel crack.",
+ "min_experiment": "Within the M2F/EoMT runs: arm with dense aux head vs same model without; metrics crack IoU, relF1@2, splice IoU, mIoU_rob; kill if crack IoU gain < 0.012 and splice stays 0.",
+ "score": 55,
+ "bench_score": 35,
+ "bet": "safe",
+ "gpu_hours": 15,
+ "targets": [
+  "crack",
+  "other_classes"
+ ],
+ "prior_overlap": "none; long-tail and auxiliary losses on mask classifiers untested.",
+ "directions": [
+  "D23"
+ ],
+ "scout_scores": [
+  55,
+  55
+ ],
+ "alt_notes": [
+  {
+   "from": "D23",
+   "adaptation": "Add a full-res dense head with our CE + Dice on crack and inactive to any mask classifier (EoMT, M2F); copy-paste inactive regions together with their bounding cracks rather than cracks alone.",
+   "min_experiment": "M2F Swin-B 512 arm A (plain) vs arm B (+dense aux head + high-res conv branch), baseline house; metrics crack relF1@2, inactive IoU, splice/material/edge_dark IoU, mIoU_rob; kill B if mIoU_rob < house - 0.01 and inactive IoU not above house.",
+   "score": 55
+  }
+ ],
+ "final": 55,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 159,
+ "pid": "P159"
+}

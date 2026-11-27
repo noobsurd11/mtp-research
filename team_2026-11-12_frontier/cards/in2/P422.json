@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2512.01510",
+ "title": "Semantic-Aware Random Convolution and Source Matching for Domain Generalization in Medical Image Segmentation",
+ "year": 2026,
+ "venue": "IEEE Access",
+ "url": "https://arxiv.org/abs/2512.01510",
+ "code_url": "https://github.com/imigraz/SRCSM_Domain_Generalization",
+ "mechanism": "Different random convolutions per labelled region during training; test-time intensity mapping of target images toward source.",
+ "adaptation": "Use only the training half, with the same crack/inactive exclusion as SLAug; skip test-time mapping (intensity normalisation already failed here).",
+ "min_experiment": "Run only if SLAug arm passes: PF + semantic RandConv vs PF + SLAug, 3 seeds; keep the better.",
+ "score": 38,
+ "bench_score": 35,
+ "bet": "safe",
+ "targets": [
+  "e1_unseen"
+ ],
+ "evidence": "R: beats prior DG methods in most cross-modality and cross-centre settings (abdominal, whole-heart, prostate), matching in-domain baseline in several.",
+ "gpu_hours": 5,
+ "prior_overlap": "Test-time half overlaps BRIEF s5 intensity normalisation (fail); training half untested.",
+ "directions": [
+  "D30"
+ ],
+ "scout_scores": [
+  38
+ ],
+ "final": 38,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 422,
+ "pid": "P422"
+}

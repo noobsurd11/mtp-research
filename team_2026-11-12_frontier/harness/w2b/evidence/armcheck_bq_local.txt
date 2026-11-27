@@ -1,0 +1,36 @@
+  note: launch.sh names Q=/home/noob/work/bq/w2b_smoke, checked dir /home/yugma/mtp/research/team_2026-11-12_frontier/harness/w2b/bq_local/w2b_smoke (prepared copy); checks use /home/yugma/mtp/research/team_2026-11-12_frontier/harness/w2b/bq_local/w2b_smoke
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/w2b/bq_local/w2b_smoke: SES=bench_q_w2b_smoke DEPLOY=f678381 JOBS_MD5=973308a9 DJOBS_MD5=none REPO=/home/noob/work/bench_wt_w2b MAXH=120 MAXC 1
+  smoke_w2b_pf_f0_s5: train.py --exit_after_step 200 --opts ... (17 tokens, md5 8b534ff6)
+  smoke_w2b_lace_f0_s5: train.py --exit_after_step 200 --opts ... (22 tokens, md5 d69be3f3)
+  smoke_w2b_lci_f0_s5: train.py --exit_after_step 200 --opts ... (24 tokens, md5 5d50f583)
+  ARMCHECK PASS (bench_setup and bench_q's arming checks would pass)
+  note: launch.sh names Q=/home/noob/work/bq/w2b_lcipath, checked dir /home/yugma/mtp/research/team_2026-11-12_frontier/harness/w2b/bq_local/w2b_lcipath (prepared copy); checks use /home/yugma/mtp/research/team_2026-11-12_frontier/harness/w2b/bq_local/w2b_lcipath
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/w2b/bq_local/w2b_lcipath: SES=bench_q_w2b_lcipath DEPLOY=f678381 JOBS_MD5=06752167 DJOBS_MD5=b798b2a67007bb909f32254387d34073 REPO=/home/noob/work/bench_wt_w2b MAXH=120 MAXC 1 dump MAXC 1
+  w2b_lcipath_f0_s5: train.py --opts ... (24 tokens, md5 6d164c90)
+  ARMCHECK PASS (bench_setup and bench_q's arming checks would pass)
+  note: launch.sh names Q=/home/noob/work/bq/w2b_lace, checked dir /home/yugma/mtp/research/team_2026-11-12_frontier/harness/w2b/bq_local/w2b_lace (prepared copy); checks use /home/yugma/mtp/research/team_2026-11-12_frontier/harness/w2b/bq_local/w2b_lace
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/w2b/bq_local/w2b_lace: SES=bench_q_w2b_lace DEPLOY=f678381 JOBS_MD5=f89627eb DJOBS_MD5=3759e8249fa4a112493f0258e11e9adb REPO=/home/noob/work/bench_wt_w2b MAXH=120 MAXC 2 dump MAXC 1
+  w2b_lace_f0_s5: train.py --opts ... (22 tokens, md5 5df1a37f)
+  w2b_lace_f1_s5: train.py --opts ... (22 tokens, md5 25463f17)
+  w2b_lace_f2_s5: train.py --opts ... (22 tokens, md5 3a34ea31)
+  w2b_lace_f3_s5: train.py --opts ... (22 tokens, md5 08c17400)
+  w2b_lace_f4_s5: train.py --opts ... (22 tokens, md5 7805d519)
+  w2b_lace_f0_s6: train.py --opts ... (22 tokens, md5 57d78d25)
+  w2b_lace_f1_s6: train.py --opts ... (22 tokens, md5 e52a7c54)
+  w2b_lace_f2_s6: train.py --opts ... (22 tokens, md5 af64437a)
+  w2b_lace_f3_s6: train.py --opts ... (22 tokens, md5 5f0449f3)
+  w2b_lace_f4_s6: train.py --opts ... (22 tokens, md5 f056e4a5)
+  ARMCHECK PASS (bench_setup and bench_q's arming checks would pass)
+  note: launch.sh names Q=/home/noob/work/bq/w2b_lci, checked dir /home/yugma/mtp/research/team_2026-11-12_frontier/harness/w2b/bq_local/w2b_lci (prepared copy); checks use /home/yugma/mtp/research/team_2026-11-12_frontier/harness/w2b/bq_local/w2b_lci
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/w2b/bq_local/w2b_lci: SES=bench_q_w2b_lci DEPLOY=f678381 JOBS_MD5=cd7d1c9d DJOBS_MD5=135778ff7c09635d98cf6de59cf16b10 REPO=/home/noob/work/bench_wt_w2b MAXH=120 MAXC 2 dump MAXC 1
+  w2b_lci_f0_s5: train.py --opts ... (24 tokens, md5 a5ed4bc3)
+  w2b_lci_f1_s5: train.py --opts ... (24 tokens, md5 2a31ce8c)
+  w2b_lci_f2_s5: train.py --opts ... (24 tokens, md5 d500ca3b)
+  w2b_lci_f3_s5: train.py --opts ... (24 tokens, md5 18af81d1)
+  w2b_lci_f4_s5: train.py --opts ... (24 tokens, md5 fc42aedb)
+  w2b_lci_f0_s6: train.py --opts ... (24 tokens, md5 fa914563)
+  w2b_lci_f1_s6: train.py --opts ... (24 tokens, md5 b1431c1a)
+  w2b_lci_f2_s6: train.py --opts ... (24 tokens, md5 c907940d)
+  w2b_lci_f3_s6: train.py --opts ... (24 tokens, md5 231cf383)
+  w2b_lci_f4_s6: train.py --opts ... (24 tokens, md5 c5e1a013)
+  ARMCHECK PASS (bench_setup and bench_q's arming checks would pass)

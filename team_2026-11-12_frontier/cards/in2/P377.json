@@ -1,0 +1,43 @@
+{
+ "paper_id": "arxiv:2408.11054",
+ "title": "Near, far: Patch-ordering enhances vision foundation models' scene understanding (NeCo)",
+ "year": 2024,
+ "venue": "ICLR 2025",
+ "url": "https://arxiv.org/abs/2408.11054",
+ "code_url": "https://github.com/vpariza/NeCo",
+ "mechanism": "Dense post-pretraining that enforces consistent nearest-neighbour rankings of patch features between student and teacher via differentiable sorting; 19 GPU-h.",
+ "adaptation": "Run on DINOv2-reg or DINOv3 ViT-B/L with pool cells at 448-518 px (1-ch repeated to 3) before D24's VFM fine-tune.",
+ "min_experiment": "Arm: D24 DINOv3 ViT-B arm after NeCo on pool. Baseline: same arm without NeCo. Kill if E1 crack recall and out-of-fold relF1@2 both < +0.01.",
+ "evidence": "R: +5.5 ADE20k and +6 Pascal in-context seg; +7.2 COCO-Things, +5.7 COCO-Stuff linear seg.",
+ "prior_overlap": "None; BRIEF 5 tested only frozen linear probes and one ConvNeXt-T fine-tune screen.",
+ "score": 40,
+ "bench_score": 45,
+ "bet": "medium",
+ "gpu_hours": 25,
+ "targets": [
+  "crack",
+  "e1_unseen"
+ ],
+ "directions": [
+  "D32"
+ ],
+ "scout_scores": [
+  40,
+  40
+ ],
+ "alt_notes": [
+  {
+   "from": "D32",
+   "adaptation": "NeCo on DINOv2-reg / DINOv3 ViT-B with pool cells at 448 to 518 px, 1-ch repeated to 3, before the D24 VFM fine-tune.",
+   "min_experiment": "D24 DINOv3 ViT-B arm after NeCo on pool (~20 GPU-h) vs without; kill if E1 crack recall and out-of-fold relF1@2 both < +0.01.",
+   "score": 40
+  }
+ ],
+ "final": 40,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 377,
+ "pid": "P377"
+}

@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.1109/cvpr52733.2024.02707",
+ "title": "Continual-MAE: Adaptive Distribution Masked Autoencoders for Continual Test-Time Adaptation",
+ "year": 2024,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2312.12480",
+ "code_url": "",
+ "mechanism": "Distribution-aware masking of uncertain tokens. Predictions on masked and unmasked target views must agree, and HOG features are reconstructed at masked positions.",
+ "adaptation": "Mask 16 px patches where crack or inactive uncertainty is highest. Require consistency with the unmasked prediction, and reconstruct HOG of the 1-channel EL patch through a light head on the ResNet-34 encoder (trained jointly). Adapt per E1 module.",
+ "min_experiment": "Arm: house/PF + joint HOG head (5 seeds), then masked-consistency TTA per E1 module. Baseline: SUP100-PF. Kill if E1 relF1@2 gains < +0.02, or test crack IoU or mIoU_rob drops > 0.005.",
+ "score": 30,
+ "bench_score": 45,
+ "bet": "medium",
+ "targets": [
+  "e1_unseen"
+ ],
+ "evidence": "R: state of the art on four classification and segmentation CTTA benchmarks (numbers not retrieved).",
+ "gpu_hours": 8,
+ "prior_overlap": "Partial. MIM pretraining on the 11.9k pool was n.d., but that was pretraining followed by fine-tuning, not test-time masked consistency on target cells.",
+ "directions": [
+  "D31"
+ ],
+ "scout_scores": [
+  30
+ ],
+ "final": 30,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 511,
+ "pid": "P511"
+}

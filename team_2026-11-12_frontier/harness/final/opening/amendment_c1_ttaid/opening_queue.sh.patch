@@ -1,0 +1,125 @@
+--- a/opening_queue.sh
++++ b/opening_queue.sh
+@@ -34,6 +34,11 @@
+ #           /tmp/noob_el/removed_relayed_dumps_open.log); runs/<job>/RUN.md5 (hashes only) stays; (2) removes DS (only if it
+ #           holds exactly the files of its MANIFEST.md5). No sealed image or prediction then stays on cv02.
+ # DRY=1: every cv02 write or start is printed, not run; read-only checks run.
++# AMENDMENT C1 ttaid (AMENDMENT_C1_TTAID.md; applied only if a C1 plain dump failed closed): AMEND=1 with AMEND_MD5 (the md5
++#   of IO/amend/AMEND.txt logged in the ledgers) works on the queue open2 and the job list IO/amend/jobs.txt (one `--tta id`
++#   line per failed C1 plain dump, named <run>.ttaid.<set>); its outputs go to IO/amend/. unstage with AMEND=1 covers the
++#   base jobs minus the failed ones plus the amendment jobs, and also removes the failed jobs' partial dump dirs (no RUN.md5:
++#   never relayed) from GB/dumps.
+ # Env: G (full commit of G), IO (default /home/noob/work/bench_open_io), MAXC (place; default 4), GAPSEC (arm; >= 30),
+ #   RD (unstage: the relay dir; default /mnt/nas/noob_el_archive/bench_relay/open, as opening_relay.sh and run_opening_read.sh).
+ set -u
+@@ -70,13 +75,22 @@
+ R(){ ssh -n -a -o BatchMode=yes -o ConnectTimeout=20 $C "$1"; }
+ Wr(){ if [ $DRY = 1 ]; then echo "DRY, not run on cv02: $1"; else ssh -n -a -o BatchMode=yes -o ConnectTimeout=20 $C "$1"; fi; }
+ no(){ echo "REFUSED ($STEP): $*"; exit 1; }
+-say(){ echo "[$(date '+%F %T')] $STEP: $*" | tee -a $IO/queue.log; }
++say(){ echo "[$(date '+%F %T')] $STEP: $*" | tee -a $WK/queue.log; }
+ [ -s $IO/REGISTERED.txt ] && [ -s $IO/jobs.txt ] || no "no registration in $IO (run opening_register.sh first)"
+ [ "$(md5sum < $IO/REGISTERED.txt | cut -c1-32)" = "$(cat $IO/REGISTERED.md5)" ] || no "REGISTERED.txt md5 differs from REGISTERED.md5"
+ J=$(cat $IO/jobs.md5); [ "$(md5sum < $IO/jobs.txt | cut -c1-32)" = "$J" ] || no "jobs.txt md5 differs from the registration"
+ grep -q "^jobs $J " $IO/REGISTERED.txt || no "the registration names another job list"
+ SMAN=$(awk '/^stage_manifest /{print $2}' $IO/REGISTERED.txt)
+ NJ=$(grep -c . $IO/jobs.txt)
++JF=$IO/jobs.txt; WK=$IO; FAILED=""
++if [ "${AMEND:-0}" = 1 ]; then   # AMENDMENT C1 ttaid
++  WK=$IO/amend; JF=$WK/jobs.txt; NEWQ=open2; Q=$BQ/$NEWQ
++  [ -s $WK/AMEND.txt ] && [ "$(md5sum < $WK/AMEND.txt | cut -c1-32)" = "${AMEND_MD5:-none}" ] || no "IO/amend/AMEND.txt missing or not AMEND_MD5"
++  grep -q "^registered_base $(cat $IO/REGISTERED.md5)\$" $WK/AMEND.txt || no "the amendment names another registration"
++  J=$(md5sum < $JF | cut -c1-32); grep -q "^amend_jobs $J " $WK/AMEND.txt || no "IO/amend/jobs.txt is not the amendment's list"
++  FAILED=$(awk '/^failed /{print $2}' $WK/AMEND.txt)
++  for n in $FAILED; do grep -q "^$n|" $IO/jobs.txt || no "failed job $n is not in the registered list"; done
++fi
+ GB=/tmp/noob_el/bench_${GC:0:7}
+ need_g(){ [ "$G" = $GC ] || no "G must be the full commit $GC"
+   grep -q "^commits F $FC G $GC " $IO/REGISTERED.txt || no "the registration names another G"
+@@ -101,11 +115,11 @@
+   echo "full-pool runs: 10 of 10 in $F2B with latest.pth = fin2's relayed LATEST.md5, 'trained rc=0', fin2 ALL DONE, fin2 relay ALL DONE"; }
+ root_check(){ local o; o=$(R "cd $DFR 2>/dev/null && echo \"$ROOTPINS\" | md5sum -c --quiet - > /dev/null 2>&1 && echo ROOT_OK") || no "ssh failed"
+   [ "$o" = ROOT_OK ] || no "$DFR pins failed"; echo "root $DFR: pins OK"; }
+-names_check(){ local hit; cut -d'|' -f1 $IO/jobs.txt > $IO/names.txt
+-  hit=$(R "for n in $(tr '\n' ' ' < $IO/names.txt); do ls -d /tmp/noob_el/bench_*/dumps/elbench1/*/\$n /tmp/noob_el/bench_*/runs/\$n $BQ/*/pids/\$n.gpu 2>/dev/null; done; true") || no "ssh failed"
++names_check(){ local hit; cut -d'|' -f1 $JF > $WK/names.txt
++  hit=$(R "for n in $(tr '\n' ' ' < $WK/names.txt); do ls -d /tmp/noob_el/bench_*/dumps/elbench1/*/\$n /tmp/noob_el/bench_*/runs/\$n $BQ/*/pids/\$n.gpu 2>/dev/null; done; true") || no "ssh failed"
+   [ -z "$hit" ] || no "names already used on cv02: $(echo "$hit" | head -3 | tr '\n' ' ')"
+-  for n in $(cat $IO/names.txt); do ls -d /home/noob/work/bench_relay/*/$n 2>/dev/null; done > $IO/relay_hits.txt
+-  [ ! -s $IO/relay_hits.txt ] || no "names already in a gaint relay dir: $(head -3 $IO/relay_hits.txt | tr '\n' ' ')"
++  for n in $(cat $WK/names.txt); do ls -d /home/noob/work/bench_relay/*/$n 2>/dev/null; done > $WK/relay_hits.txt
++  [ ! -s $WK/relay_hits.txt ] || no "names already in a gaint relay dir: $(head -3 $WK/relay_hits.txt | tr '\n' ' ')"
+   echo "names: $NJ, none in use on cv02 or in a gaint relay"; }
+ ds_check(){ local o; o=$(R "cd $DS 2>/dev/null && md5sum -c --quiet MANIFEST.md5 > /dev/null 2>&1 && echo \"OK \$(md5sum < MANIFEST.md5 | cut -c1-32) \$(find . -type f | wc -l) \$(find . \\( -name masks -o -name ignore -o -name 'masks_*' \\) | wc -l)\"") || no "ssh failed"
+   [ "$o" = "OK $SMAN 158 0" ] || no "cv02 $DS: manifest check, md5 (want $SMAN), 158 files and no mask dir expected; got '$o'"
+@@ -130,20 +144,20 @@
+   need_g; gb_check; ds_check
+   W=/tmp/noob_el/bench_open_render/$(date +%Y%m%d_%H%M%S)
+   if [ $DRY = 1 ]; then echo "DRY, not run on cv02: mkdir $W/q; jobs.txt (md5 $J), LPG 1, SEALED; B=$GB Q=$W/q JOBS_MD5=$J DEPLOY=$G DATA_MD5=$DATA_MD5 nice -n 19 bash $GB/bench/q/cv02/cq.sh"; exit 0; fi
+-  ssh -a -o BatchMode=yes -o ConnectTimeout=20 $C "test ! -e $W && mkdir -p $W/q && cat > $W/q/jobs.txt && echo 1 > $W/q/LPG && printf 'e1_106 e1_open8_final\ntest50 t50_open19_final\nmanifest $SMAN\n' > $W/q/SEALED && md5sum < $W/q/jobs.txt | cut -c1-32" < $IO/jobs.txt > $IO/render_md5.txt || no "placing the scratch list failed"
+-  [ "$(cat $IO/render_md5.txt)" = "$J" ] || no "scratch jobs.txt md5 differs"
+-  R "B=$GB Q=$W/q JOBS_MD5=$J DEPLOY=$G DATA_MD5=$DATA_MD5 nice -n 19 bash $GB/bench/q/cv02/cq.sh; echo \"rc \$?; last line: \$(tail -1 $W/q/launch.log | cut -c23-)\"" | tee $IO/render.out
+-  grep -q "gpumem logger (cq_gpumem.sh) not running; not starting" $IO/render.out || no "render did not reach the logger check (see $IO/render.out)"
+-  R "cat $W/q/jobs_rendered.txt" > $IO/rendered.txt || no "ssh failed"
+-  PYTHONDONTWRITEBYTECODE=1 $P $HERE/opening_rendercmp.py --jobs $IO/jobs.txt --rendered $IO/rendered.txt --b $GB | tee $IO/render_cmp.out
+-  [ ${PIPESTATUS[0]} = 0 ] || no "rendered lines do not match (see $IO/render_cmp.out)"
++  ssh -a -o BatchMode=yes -o ConnectTimeout=20 $C "test ! -e $W && mkdir -p $W/q && cat > $W/q/jobs.txt && echo 1 > $W/q/LPG && printf 'e1_106 e1_open8_final\ntest50 t50_open19_final\nmanifest $SMAN\n' > $W/q/SEALED && md5sum < $W/q/jobs.txt | cut -c1-32" < $JF > $WK/render_md5.txt || no "placing the scratch list failed"
++  [ "$(cat $WK/render_md5.txt)" = "$J" ] || no "scratch jobs.txt md5 differs"
++  R "B=$GB Q=$W/q JOBS_MD5=$J DEPLOY=$G DATA_MD5=$DATA_MD5 nice -n 19 bash $GB/bench/q/cv02/cq.sh; echo \"rc \$?; last line: \$(tail -1 $W/q/launch.log | cut -c23-)\"" | tee $WK/render.out
++  grep -q "gpumem logger (cq_gpumem.sh) not running; not starting" $WK/render.out || no "render did not reach the logger check (see $WK/render.out)"
++  R "cat $W/q/jobs_rendered.txt" > $WK/rendered.txt || no "ssh failed"
++  PYTHONDONTWRITEBYTECODE=1 $P $HERE/opening_rendercmp.py --jobs $JF --rendered $WK/rendered.txt --b $GB | tee $WK/render_cmp.out
++  [ ${PIPESTATUS[0]} = 0 ] || no "rendered lines do not match (see $WK/render_cmp.out)"
+   say "render OK in cv02 $W: $NJ dump-only lines; templates and semantics 0 FAIL (the scratch dir may be removed: rm -r $W)";;
+ place)
+   case "$MAXC" in ''|*[!0-9]*) no "MAXC must be a whole number";; esac; [ "$MAXC" -ge 1 ] && [ "$MAXC" -le 8 ] || no "MAXC 1 to 8"
+   R "test ! -e $Q && echo FREE" | grep -qx FREE || no "$Q exists on cv02"
+   if [ $DRY = 1 ]; then echo "DRY, not run on cv02: mkdir $Q; jobs.txt (md5 $J, $NJ lines, r--r--r--); SEALED (r--r--r--: $(sealed_file | tr '\n' ' ')); LPG 1; MAXC $MAXC; no SHARE file"; exit 0; fi
+-  ssh -a -o BatchMode=yes -o ConnectTimeout=20 $C "test ! -e $Q && mkdir $Q && cat > $Q/jobs.txt && chmod a-w $Q/jobs.txt && printf 'e1_106 e1_open8_final\ntest50 t50_open19_final\nmanifest $SMAN\n' > $Q/SEALED && chmod a-w $Q/SEALED && echo 1 > $Q/LPG && echo $MAXC > $Q/MAXC && md5sum < $Q/jobs.txt | cut -c1-32" < $IO/jobs.txt > $IO/place_md5.txt || no "placing failed"
+-  [ "$(cat $IO/place_md5.txt)" = "$J" ] || no "placed jobs.txt md5 differs"
++  ssh -a -o BatchMode=yes -o ConnectTimeout=20 $C "test ! -e $Q && mkdir $Q && cat > $Q/jobs.txt && chmod a-w $Q/jobs.txt && printf 'e1_106 e1_open8_final\ntest50 t50_open19_final\nmanifest $SMAN\n' > $Q/SEALED && chmod a-w $Q/SEALED && echo 1 > $Q/LPG && echo $MAXC > $Q/MAXC && md5sum < $Q/jobs.txt | cut -c1-32" < $JF > $WK/place_md5.txt || no "placing failed"
++  [ "$(cat $WK/place_md5.txt)" = "$J" ] || no "placed jobs.txt md5 differs"
+   say "placed $Q: jobs.txt md5 $J, SEALED (2 openings, manifest $SMAN), LPG 1, MAXC $MAXC, strict lanes (no SHARE file); not armed";;
+ guard)
+   s=$(R "tmux has-session -t '=bench_diskguard7' 2>/dev/null && echo RUNNING; test -e $BQ/diskguard7.sh && md5sum < $BQ/diskguard7.sh | cut -c1-32")
+@@ -157,7 +171,7 @@
+ arm)
+   need_g
+   case "$GAPSEC" in ''|*[!0-9]*) no "GAPSEC must be a whole number";; esac; [ "$GAPSEC" -ge 30 ] || no "GAPSEC below 30"
+-  [ -s $IO/render_cmp.out ] && grep -q "render compare: 0 FAIL" $IO/render_cmp.out || no "no passed 'render' in $IO"
++  [ -s $WK/render_cmp.out ] && grep -q "render compare: 0 FAIL" $WK/render_cmp.out || no "no passed 'render' in $IO"
+   o=$(R "cd $Q && echo \"jobs \$(md5sum < jobs.txt | cut -c1-32) sealed \$(md5sum < SEALED | cut -c1-32) LPG \$(cat LPG) MAXC \$(cat MAXC) share \$(ls SHARE_TRAIN SHARE_DUMP 2>/dev/null | wc -l) used \$(ls -d queue.pid gpumem.pid pids HOLD 2>/dev/null | wc -l)\$(test -s launch.log && echo +log) ses \$(tmux has-session -t '=bench_q_$NEWQ' 2>/dev/null && echo yes || echo no) data \$(md5sum < /tmp/noob_el/bench_data/DEPLOY.md5 | cut -c1-32)\"") || no "ssh failed"
+   [ "$o" = "jobs $J sealed $(sealed_file | md5sum | cut -c1-32) LPG 1 MAXC $MAXC share 0 used 0 ses no data $DATA_MD5" ] || no "queue dir or data check: $o"
+   gb_check; fin_check; root_check; ds_check
+@@ -168,8 +182,8 @@
+   [ "${a:-0}" -ge 35 ] || no "cv02 /tmp free ${a:-?} GB < 35 GB"
+   A="B=$GB Q=$Q SES=bench_q_$NEWQ DEPLOY=$G JOBS_MD5=$J DATA_MD5=$DATA_MD5 GAPSEC=$GAPSEC bash $GB/bench/q/cv02/cq_setup.sh"
+   if [ $DRY = 1 ]; then echo "DRY, pre-checks passed; not run on cv02: $A"; exit 0; fi
+-  R "$A" | tee $IO/arm.out
+-  grep -q "cq_setup: bench_q_$NEWQ armed: gpumem [0-9]* queue [0-9]*" $IO/arm.out || no "arming not confirmed (see $IO/arm.out)"
++  R "$A" | tee $WK/arm.out
++  grep -q "cq_setup: bench_q_$NEWQ armed: gpumem [0-9]* queue [0-9]*" $WK/arm.out || no "arming not confirmed (see $WK/arm.out)"
+   t=0; a=""
+   while [ $t -lt ${ARMWAIT:-300} ]; do a=$(R "grep -m1 -E 'cv02 q armed:|; not starting' $Q/launch.log" 2>/dev/null); [ -n "$a" ] && break; sleep 10; t=$((t+10)); done
+   echo "$a" | cut -c1-400
+@@ -186,7 +200,7 @@
+   ds_check
+   # (1) the sealed dumps in GB/dumps: gaint verifies each relayed copy, cv02 verifies its own files against the same RUN.md5
+   LIST=""
+-  for n in $(cut -d'|' -f1 $IO/jobs.txt); do
++  for n in $(cut -d'|' -f1 $IO/jobs.txt | grep -vxF "${FAILED:-//none//}"; [ "${AMEND:-0}" = 1 ] && cut -d'|' -f1 $JF); do
+     m=$(awk '{print $4}' $RD/.ok/$n 2>/dev/null)
+     [ -n "$m" ] && [ "$(md5sum < $RD/$n/runs/$n/RUN.md5 | cut -c1-32)" = "$m" ] || no "$n: relayed RUN.md5 missing or not the .ok md5"
+     (cd $RD/$n && md5sum -c --quiet runs/$n/RUN.md5 > /dev/null 2>&1) || no "$n: gaint md5sum -c of the relayed copy failed"
+@@ -207,6 +221,11 @@
+   o=$(printf '%s' "$LIST" | ssh -a -o BatchMode=yes -o ConnectTimeout=20 $C "bash -c '$SCR'") || no "ssh failed"
+   echo "$o" | tail -5
+   echo "$o" | grep -qx "REMOVED_DUMPS $NJ" || no "not every sealed dump dir was removed from $GB/dumps (see above; nothing else was touched)"
++  if [ -n "$FAILED" ]; then   # AMENDMENT C1 ttaid: the failed jobs' partial dump dirs (never relayed: no RUN.md5)
++    for n in $FAILED; do o=$(R "d=\$(ls -d $GB/dumps/elbench1/*/$n 2>/dev/null); test ! -e $GB/runs/$n/RUN.md5 && [ -n \"\$d\" ] && [ \"\$(echo \"\$d\" | wc -l)\" = 1 ] && echo \"\$d\"") || no "ssh failed"
++      [ -n "$o" ] || { echo "no partial dump dir of $n (or it has a RUN.md5): left alone"; continue; }
++      Wr "rm -rf -- '$o' && echo \"\$(date -u +%FT%T) removed $o (failed, never relayed; amendment C1 ttaid)\" >> /tmp/noob_el/removed_relayed_dumps_open.log && echo REMOVED_PARTIAL $n"; done
++  fi
+   # (2) the staged sealed images
+   Wr "cd $DS && [ \"\$(find . -type f | wc -l)\" = 158 ] && cd /tmp && chmod -R u+w $DS && rm -rf $DS && echo REMOVED $DS"
+   say "removed $NJ sealed dump dirs from $GB/dumps (each = its verified relayed copy in $RD) and the sealed images ($DS) from cv02";;

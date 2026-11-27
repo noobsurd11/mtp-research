@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1007/978-3-031-58171-7_8",
+ "title": "LesionMix: A Lesion-Level Data Augmentation Method for Medical Image Segmentation",
+ "year": 2024,
+ "venue": "MICCAI DALI workshop (LNCS)",
+ "url": "https://arxiv.org/abs/2308.09026",
+ "code_url": "",
+ "mechanism": "Lesion-level augmentation that controls lesion load distribution, shape, location and intensity, both populating and inpainting lesions.",
+ "adaptation": "Unify paste (Soft-CP / CarveMix) and removal (GDI) under per-source load sampling: per cell, sample crack component count and inactive area from the train distribution of its source and add or remove to reach it.",
+ "min_experiment": "Best of GDI / CarveMix / Soft-CP arms with vs without load control; kill < +0.01 on that arm's metric.",
+ "evidence": "Outperforms recent Mix-based augmentations on 4 brain MR and 1 liver CT lesion datasets (abstract; no numbers read).",
+ "prior_overlap": "none.",
+ "score": 45,
+ "bench_score": 30,
+ "bet": "medium",
+ "gpu_hours": 31,
+ "targets": [
+  "inactive",
+  "crack"
+ ],
+ "directions": [
+  "D21"
+ ],
+ "scout_scores": [
+  45
+ ],
+ "final": 45,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 307,
+ "pid": "P307"
+}

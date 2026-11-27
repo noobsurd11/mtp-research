@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2312.05767",
+ "title": "AnomalyDiffusion: Few-Shot Anomaly Image Generation with Diffusion Model",
+ "year": 2024,
+ "venue": "AAAI",
+ "url": "https://arxiv.org/abs/2312.05767",
+ "code_url": "",
+ "mechanism": "Latent diffusion with a spatial anomaly embedding (learned appearance + mask-encoded location) and adaptive attention re-weighting toward weakly generated regions for aligned anomaly image-mask pairs.",
+ "adaptation": "Benchmark baseline for the synthetic-data track: train per class (crack, inactive) on train cells with grey replicated to 3 channels; report against pixel-space renderers at matched sample count.",
+ "min_experiment": "Arm: PF + AnomalyDiffusion samples. Baseline: rows 1 and 2 at matched count, PF 5 seeds. Metric: E1 relF1@2 (crack), CV inactive IoU. Reported, no kill.",
+ "score": 38,
+ "bench_score": 60,
+ "bet": "safe",
+ "targets": [
+  "benchmark",
+  "inactive"
+ ],
+ "evidence": "R: better generation authenticity and diversity on MVTec and improved downstream inspection (abstract); 192 citations. Code github.com/sjtuplayer/anomalydiffusion stated in paper, not opened.",
+ "gpu_hours": 30,
+ "prior_overlap": "None.",
+ "directions": [
+  "D06"
+ ],
+ "scout_scores": [
+  38
+ ],
+ "final": 38,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 412,
+ "pid": "P412"
+}

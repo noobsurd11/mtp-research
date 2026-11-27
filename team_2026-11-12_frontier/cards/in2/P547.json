@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2509.00833",
+ "title": "SegDINO: An Efficient Design for Medical and Natural Image Segmentation with DINO-V3",
+ "year": 2025,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2509.00833",
+ "code_url": "https://github.com/script-Yang/SegDINO",
+ "mechanism": "Frozen DINOv3 multi-level features aligned to one resolution and decoded by a light MLP head.",
+ "evidence": "R (abstract): SOTA on TN3K, Kvasir-SEG, ISIC and 3 natural sets with few trainable params.",
+ "adaptation": "Benchmark reference row only (frozen VFM + light head); expected to fail on 1-2 px cracks at stride 16, which documents why a detail path is needed.",
+ "min_experiment": "One run under the benchmark protocol; report crack IoU, relF1@2, mIoU_rob; no kill, reference.",
+ "prior_overlap": "Close to the closed frozen linear probes (DINOv3 ViT-S), but with multi-level features and ViT-L; low expected gain.",
+ "score": 25,
+ "bench_score": 70,
+ "bet": "safe",
+ "targets": [
+  "benchmark"
+ ],
+ "gpu_hours": 10,
+ "directions": [
+  "D24"
+ ],
+ "scout_scores": [
+  25
+ ],
+ "final": 25,
+ "bench": 70,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 547,
+ "pid": "P547"
+}

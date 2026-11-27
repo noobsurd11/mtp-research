@@ -1,0 +1,43 @@
+{
+ "paper_id": "arxiv:2607.07123",
+ "title": "Widest-Path Reachability Fields for Connectivity-Preserving Slender Structure Segmentation",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2607.07123",
+ "code_url": "",
+ "mechanism": "A differentiable max-min (widest path) reachability objective on a domain-restricted graph sends gradient to the sparse bottleneck pixels that break connectivity. No inference overhead.",
+ "adaptation": "Domain = crack label dilated by 2 px to absorb jitter, endpoints from the label skeleton, DP on GPU. An alternative solver to TRACE for the same goal, so pick one.",
+ "min_experiment": "Arm: PF + WPRF (crack), 5 seeds. Baseline: PF. Metrics: component recall, relF1@2, crack IoU, width. Kill as for TRACE.",
+ "score": 48,
+ "bench_score": 40,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "e1_unseen"
+ ],
+ "evidence": "R (abstract): 9 architectures, 6 datasets including cracks. Improved 87% of experiments with fixed hyperparameters, clDice +7.2 points on fragile datasets.",
+ "gpu_hours": 10,
+ "prior_overlap": "none",
+ "directions": [
+  "D10"
+ ],
+ "scout_scores": [
+  48,
+  42
+ ],
+ "alt_notes": [
+  {
+   "from": "D10",
+   "adaptation": "Domain = crack label dilated by 2 px (absorbs jitter); endpoints from the label skeleton. Same aim as TRACE with a global solver; run only if TRACE shows a gain.",
+   "min_experiment": "PF + WPRF vs PF, 5 seeds. Kill if relF1@2 gain < 0.01 or width rises > 15%.",
+   "score": 42
+  }
+ ],
+ "final": 48,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 243,
+ "pid": "P243"
+}

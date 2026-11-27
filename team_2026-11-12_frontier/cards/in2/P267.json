@@ -1,0 +1,35 @@
+{
+ "paper_id": "doi:10.1109/cvpr52734.2025.00932",
+ "title": "Exploring Intrinsic Normal Prototypes within a Single Image for Universal Anomaly Detection (INP-Former)",
+ "year": 2025,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2503.02424",
+ "code_url": "https://github.com/luow23/INPFormer",
+ "mechanism": "Normal prototypes are extracted from the test image itself and guide a decoder to reconstruct only normal tokens; residual is the anomaly map, so no aligned external reference is needed.",
+ "adaptation": "Train on clean pool cells across all sources and layouts; on E1 half-cut cells (no train references) the within-cell finger/busbar pattern serves as normality; use the map as a recall prior for inactive and crack components missed by the house model.",
+ "min_experiment": "Offline: on CV folds, F51, H36, fraction of house-missed (p<0.001) crack/inactive components recovered at 1% flagged area; then logit fusion vs baseline PF ensemble; kill if < 30% recovered or fused relP@2 falls more than relR@2 rises. Under 5 GPU-h.",
+ "score": 45,
+ "bench_score": 65,
+ "bet": "medium",
+ "evidence": "R: SOTA single-class, multi-class and few-shot AD on MVTec-AD, VisA, Real-IAD; some zero-shot ability. No EL evidence.",
+ "gpu_hours": 5,
+ "prior_overlap": "none (anomaly-detection priors listed as never tried in section 5)",
+ "targets": [
+  "e1_unseen",
+  "inactive",
+  "benchmark"
+ ],
+ "directions": [
+  "D07"
+ ],
+ "scout_scores": [
+  45
+ ],
+ "final": 45,
+ "bench": 65,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 267,
+ "pid": "P267"
+}

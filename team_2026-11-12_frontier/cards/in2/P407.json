@@ -1,0 +1,43 @@
+{
+ "paper_id": "arxiv:2401.04722",
+ "title": "U-Mamba: Enhancing Long-range Dependency for Biomedical Image Segmentation",
+ "year": 2024,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2401.04722",
+ "code_url": "",
+ "mechanism": "Hybrid conv + Mamba (SSM) blocks in the encoder (U-Mamba Enc) or only the bottleneck (U-Mamba Bot), self-configured inside nnU-Net.",
+ "adaptation": "Run U-Mamba Bot only, always with its No-Mamba control (same net, Mamba layers off), at 512 px 2D; the bottleneck is 16 x 16 tokens, so global mixing is cheap. Target the E1 context gap.",
+ "min_experiment": "U-Mamba Bot against No-Mamba Base on 5 module-grouped folds; metric E1 crack relF1@2 and CV crack relF1@2. Kill: difference within fold SD.",
+ "evidence": "R (original): beats CNN/Transformer baselines on abdomen CT/MR, endoscopy and microscopy. R (nnU-Net Revisited): the No-Mamba control matches U-Mamba on all 6 3D datasets, so the gains came from the residual U-Net.",
+ "prior_overlap": "none here. Externally weakened by the Revisited ablation, which is why the No-Mamba control is required.",
+ "score": 38,
+ "bench_score": 80,
+ "bet": "moonshot",
+ "targets": [
+  "e1_unseen",
+  "benchmark"
+ ],
+ "gpu_hours": 60,
+ "directions": [
+  "D25"
+ ],
+ "scout_scores": [
+  30,
+  38
+ ],
+ "alt_notes": [
+  {
+   "from": "D25",
+   "adaptation": "Suite member: U-Mamba_Bot 2D at 512 px, same folds and label-safe aug; needs mamba-ssm CUDA kernels (install requires OK). Always paired with the No-Mamba ablation, as Revisited did.",
+   "min_experiment": "U-Mamba_Bot v No-Mamba base, 5 folds each. Kill (for score purposes) if E1 relF1@2 difference < 0.03; keep as benchmark row regardless.",
+   "score": 30
+  }
+ ],
+ "final": 38,
+ "bench": 80,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 407,
+ "pid": "P407"
+}

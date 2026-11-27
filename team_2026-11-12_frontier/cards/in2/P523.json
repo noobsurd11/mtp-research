@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1109/iccv51701.2025.02079",
+ "title": "Pseudo-SD: Pseudo Controlled Stable Diffusion for Semi-Supervised and Cross-Domain Semantic Segmentation",
+ "year": 2025,
+ "venue": "ICCV",
+ "url": "https://doi.org/10.1109/iccv51701.2025.02079",
+ "code_url": "https://github.com/DZhaoXd/Pseudo-SD",
+ "mechanism": "Fine-tune Stable Diffusion on (unlabelled/target image, pseudo-label, text) triples with partial attention manipulation and structured pseudo-labels. Then generate label-controlled synthetic images in the target style and train the segmenter on them.",
+ "adaptation": "Fine-tune a mask-conditioned SD on the 1,152 pool half-cells with their pseudo-labels, then render half-cut cells from labelled inactive and crack layouts. SD smears 1-2 px lines, so use the generated cells for inactive and layout context, and paste real crack pixels back.",
+ "min_experiment": "Arm: PF + 2k generated half-cut cells, 5 seeds. Baseline: PF. Metrics: E1 inactive IoU and crack relF1@2, clean-49 non-inferiority. Kill: E1 inactive IoU < PF + 0.03 and E1 crack relF1@2 < PF + 0.02.",
+ "evidence": "R: new state of the art on semi-supervised and cross-domain segmentation benchmarks when injected into current methods (numbers not retrieved).",
+ "gpu_hours": 60,
+ "bet": "moonshot",
+ "score": 30,
+ "bench_score": 30,
+ "targets": [
+  "e1_unseen",
+  "inactive"
+ ],
+ "prior_overlap": "None. Generative synthesis is untested. Synthetic half-cut views made by geometry were n.d., but that is a different mechanism.",
+ "directions": [
+  "D29"
+ ],
+ "scout_scores": [
+  30
+ ],
+ "final": 30,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 523,
+ "pid": "P523"
+}

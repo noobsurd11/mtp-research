@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2410.09409",
+ "title": "Distribution-aware Noisy-label Crack Segmentation",
+ "year": 2024,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2410.09409",
+ "code_url": "",
+ "mechanism": "A SAM-Adapter for cracks, guided by distribution-aware domain knowledge so that it resists omitted and mislabelled cracks in small training sets; tested on an unseen crack dataset.",
+ "adaptation": "Bold bet for E1: fine-tune a SAM / SAM2 adapter on 1-channel EL replicated to 3 channels at 1024 px, with noise guidance from the house-model 5-seed ensemble. Judge on E1 half-cut cells.",
+ "min_experiment": "Arm: SAM2 adapter + noise guidance, 3 seeds. Baseline: house 5-seed ensemble on E1. Metric: E1 crack relF1@2. Kill if E1 relF1@2 < 0.47.",
+ "score": 38,
+ "bench_score": 35,
+ "bet": "moonshot",
+ "targets": [
+  "crack",
+  "e1_unseen"
+ ],
+ "evidence": "R (abstract): beats SOTA on two pavement crack datasets and generalises to the unseen CFD dataset.",
+ "gpu_hours": 40,
+ "prior_overlap": "SAM2 Hiera-T was only linear-probed frozen (no sign of gain). Adapter fine-tuning with noisy-label guidance was not tried.",
+ "directions": [
+  "D15"
+ ],
+ "scout_scores": [
+  38
+ ],
+ "final": 38,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 419,
+ "pid": "P419"
+}

@@ -1,0 +1,562 @@
+% ch03_related.bib: references of Chapter 3 (related work), plus five keys that Chapter 2 also cites
+% (pratt2023benchmark, deitsch2019elpv, pratt2025ictas, hoffmann2021power, chen2022pvsc). Written 23 Nov 2026 for the lead.
+%
+% Rule followed: an entry exists only for a paper whose DOI or arXiv id is recorded on disk:
+%   RW  = thesis/RELATED_WORK.md (f2a6adcd), rows R01 to R21, A1 to A7, section 3 (out of scope); RW_SOURCES.tsv names the
+%         full-text file of each R row;
+%   ML  = cards/ledger/MASTER.tsv, column paper_id (method papers of the suite; OUTLINE section 2, Ch 3, row 3.3);
+%   AUD = dataset_audit/REPORT.md l14 to l19 (label-noise papers, "Research MCP ids");
+%   SYN = team_2026-10-27_unlabelled/SYNTHESIS.md l11 (and ML P086) for UniMatch V2.
+% Every field below was then copied from the publisher-deposited Crossref record of the DOI (api.crossref.org/works/<doi>)
+% or from the arXiv API record (export.arxiv.org/api/query?id_list=<id>), both fetched 23 Nov 2026. Where Crossref and RW
+% disagree, Crossref is used and the difference is listed in ch03_related_NOTES.md section 4.
+% arXiv-only entries use the refs_extra.bib form (@misc with eprint and archivePrefix).
+% Keys already in refs_extra.bib and NOT repeated here: wang2021hrnet, zhou2018unetpp, zhou2020unetpp,
+% kirchhoff2024skeletonrecall, chen2018deeplabv3plus, huang2026pie.
+
+% ===================== Datasets and EL papers with pixel-level numbers (RW table 1, rows R01 to R21) =====================
+
+% RW R01; full text literature/pdfs_inst/pratt2021/p.txt
+@article{pratt2021unet,
+  author  = {Pratt, Lawrence and Govender, Devashen and Klein, Richard},
+  title   = {Defect detection and quantification in electroluminescence images of solar {PV} modules using {U}-net semantic segmentation},
+  journal = {Renewable Energy},
+  volume  = {178},
+  pages   = {1211--1222},
+  year    = {2021},
+  doi     = {10.1016/j.renene.2021.06.086}
+}
+
+% RW R02; full text /home/yugma/papers/2023-Pratt-A-benchmark-dataset-for-defect-detection-aa662c.md
+@article{pratt2023benchmark,
+  author  = {Pratt, Lawrence and Mattheus, Jana and Klein, Richard},
+  title   = {A benchmark dataset for defect detection and classification in electroluminescence images of {PV} modules using semantic segmentation},
+  journal = {Systems and Soft Computing},
+  volume  = {5},
+  pages   = {200048},
+  year    = {2023},
+  doi     = {10.1016/j.sasc.2023.200048}
+}
+
+% RW R03; full text not re-read (MDPI refused the fetch, RW section 5); values via the Mazen 2024 reprint
+@article{eesaar2023seipv,
+  author  = {Eesaar, Hassan and Joe, Sungjin and Rehman, Mobeen Ur and Jang, Yeongmin and Chong, Kil To},
+  title   = {{SEiPV-Net}: An Efficient Deep Learning Framework for Autonomous Multi-Defect Segmentation in Electroluminescence Images of Solar Photovoltaic Modules},
+  journal = {Energies},
+  volume  = {16},
+  number  = {23},
+  pages   = {7726},
+  year    = {2023},
+  doi     = {10.3390/en16237726}
+}
+
+% RW R04 (RW prints the first page as 100793; Crossref gives 100792 to 100804)
+@article{mazen2024segnet,
+  author  = {{Mazen Ali Mazen}, Fatma and Shaker, Yomna O. and {Ahmed Abul Seoud}, Rania},
+  title   = {Attention-Based {SegNet}: Toward Refined Semantic Segmentation of {PV} Modules Defects},
+  journal = {IEEE Access},
+  volume  = {12},
+  pages   = {100792--100804},
+  year    = {2024},
+  doi     = {10.1109/ACCESS.2024.3431098}
+}
+
+% RW R05 (arXiv only)
+@misc{torpey2024pretraining,
+  author        = {Torpey, David and Pratt, Lawrence and Klein, Richard},
+  title         = {A Large-scale Evaluation of Pretraining Paradigms for the Detection of Defects in Electroluminescence Solar Cell Images},
+  year          = {2024},
+  eprint        = {2402.17611},
+  archivePrefix = {arXiv},
+  note          = {arXiv preprint}
+}
+
+% RW R06a to R06c
+@article{jha2025pvs3,
+  author        = {Jha, Abhishek and Rawat, Yogesh and Vyas, Shruti},
+  title         = {Advancing automatic photovoltaic defect detection using semi-supervised semantic segmentation of electroluminescence images},
+  journal       = {Engineering Applications of Artificial Intelligence},
+  volume        = {160},
+  pages         = {111790},
+  year          = {2025},
+  doi           = {10.1016/j.engappai.2025.111790},
+  eprint        = {2404.13693},
+  archivePrefix = {arXiv}
+}
+
+% RW R07
+@article{fioresi2022ucfel,
+  author  = {Fioresi, Joseph and Colvin, Dylan J. and Frota, Rafaela and Gupta, Rohit and Li, Mengjie and Seigneur, Hubert P. and Vyas, Shruti and Oliveira, Sofia and Shah, Mubarak and Davis, Kristopher O.},
+  title   = {Automated Defect Detection and Localization in Photovoltaic Cells Using Semantic Segmentation of Electroluminescence Images},
+  journal = {IEEE Journal of Photovoltaics},
+  volume  = {12},
+  number  = {1},
+  pages   = {53--61},
+  year    = {2022},
+  doi     = {10.1109/JPHOTOV.2021.3131059}
+}
+
+% RW R08 (Crossref: chapter issued 12 Jul 2025, proceedings volume printed 2026; LNCS volume number not in Crossref)
+@inproceedings{hanifi2025multiclass,
+  author    = {Hanifi, Shiva and Jafarnejad, Sasan and Cormier, Mathieu and Frank, Rapha{\"e}l},
+  title     = {Multi-class Semantic Segmentation of Photovoltaic Module Defects and Features: Towards Industrial Robotic Applications},
+  booktitle = {Advances and Trends in Artificial Intelligence. Theory and Applications (IEA/AIE 2025)},
+  series    = {Lecture Notes in Computer Science},
+  publisher = {Springer Nature Singapore},
+  pages     = {37--48},
+  year      = {2025},
+  doi       = {10.1007/978-981-96-8892-0_4}
+}
+
+% RW R09 (arXiv only); E-SCDD
+@misc{hanifi2025escdd,
+  author        = {Hanifi, Shiva and Jafarnejad, Sasan and K{\"o}ntges, Marc and Wentnagel, Andrej and Kokkas, Andreas and Frank, Raphael},
+  title         = {Bridging the Data Gap: Spatially Conditioned Diffusion Model for Anomaly Generation in Photovoltaic Electroluminescence Images},
+  year          = {2025},
+  eprint        = {2511.09604},
+  archivePrefix = {arXiv},
+  note          = {arXiv preprint}
+}
+
+% RW R10a to R10c
+@article{ramadan2026hybrid,
+  author  = {Ramadan, Ebrahim A. and Moawad, Nada M. and Abouzalam, Belal A. and Abouzaid, Wessam F. and El-Banby, Ghada M.},
+  title   = {A hybrid convolutional-transformer neural network model for photovoltaic fault detection and localization},
+  journal = {Scientific Reports},
+  volume  = {16},
+  number  = {1},
+  pages   = {23222},
+  year    = {2026},
+  doi     = {10.1038/s41598-026-57859-7}
+}
+
+% RW R11a, R11b
+@article{lodhi2026efsegnet,
+  author  = {Lodhi, Ehtisham and Lin, Qiu},
+  title   = {{EFSegNet}: An Enhanced Semantic Segmentation Framework for Detecting and Localizing Defects in Photovoltaic Cells via Electroluminescence Imaging},
+  journal = {Energy Conversion and Management: X},
+  volume  = {30},
+  pages   = {101847},
+  year    = {2026},
+  doi     = {10.1016/j.ecmx.2026.101847}
+}
+
+% RW R12 (first of two papers); full text literature/pdfs_inst/chen2022_pvsc_crack_inactive/p.txt
+@inproceedings{chen2022pvsc,
+  author    = {Chen, Xin and Karin, Todd and Jain, Anubhav},
+  title     = {Automatic Crack Segmentation in Electroluminescence Images of Solar Modules and Maximum Inactive Area Prediction},
+  booktitle = {2022 IEEE 49th Photovoltaics Specialists Conference (PVSC)},
+  publisher = {IEEE},
+  pages     = {213},
+  year      = {2022},
+  doi       = {10.1109/PVSC48317.2022.9938503}
+}
+
+% RW R12 (second paper); PV-Vision
+@article{chen2023pvvision,
+  author  = {Chen, Xin and Karin, Todd and Libby, Cara and Deceglie, Michael and Hacke, Peter and Silverman, Timothy J. and Jain, Anubhav},
+  title   = {Automatic Crack Segmentation and Feature Extraction in Electroluminescence Images of Solar Modules},
+  journal = {IEEE Journal of Photovoltaics},
+  volume  = {13},
+  number  = {3},
+  pages   = {334--342},
+  year    = {2023},
+  doi     = {10.1109/JPHOTOV.2023.3249970}
+}
+
+% RW R13
+@article{sohail2023fault,
+  author  = {Sohail, Amir and Ul Islam, Naeem and Ul Haq, Azhar and Ul Islam, Siraj and Shafi, Imran and Park, Jaebyung},
+  title   = {Fault detection and computation of power in {PV} cells under faulty conditions using deep-learning},
+  journal = {Energy Reports},
+  volume  = {9},
+  pages   = {4325--4336},
+  year    = {2023},
+  doi     = {10.1016/j.egyr.2023.03.094}
+}
+
+% RW R14
+@article{elbahri2026autoencoder,
+  author  = {Elbahri, Mohamed and Taleb, Nasreddine and Fahsi, Mahmoud and Taousser, Fatima and {El Mehdi Ardjoun}, Sid Ahmed},
+  title   = {A lightweight autoencoder for photovoltaic module defect segmentation from electroluminescence images},
+  journal = {Solar Energy},
+  volume  = {307},
+  pages   = {114362},
+  year    = {2026},
+  doi     = {10.1016/j.solener.2026.114362}
+}
+
+% RW R15
+@article{sanghi2026multisolsegment,
+  author        = {Sanghi, Ojas and Jost, Norman and Pierce, Benjamin G. and Cooper, Emma and Deane, Isaiah H. and Braid, Jennifer L.},
+  title         = {{MultiSolSegment}: Multi-channel segmentation of overlapping features in electroluminescence images of photovoltaic cells},
+  journal       = {Solar Energy},
+  volume        = {310},
+  pages         = {114469},
+  year          = {2026},
+  doi           = {10.1016/j.solener.2026.114469},
+  eprint        = {2603.13337},
+  archivePrefix = {arXiv}
+}
+
+% RW R16; full text literature/pdfs_inst/duan2025_energy_el_seg/p.txt
+@article{duan2025caak,
+  author  = {Duan, Ruiyao and Wang, Yongjian and Chen, Xisong and Li, Shihua},
+  title   = {An enhanced algorithm for cell-level anomaly segmentation in photovoltaic solar panels using electroluminescence imaging},
+  journal = {Energy},
+  volume  = {331},
+  pages   = {136711},
+  year    = {2025},
+  doi     = {10.1016/j.energy.2025.136711}
+}
+
+% RW R17 (arXiv only)
+@misc{gunasekara2026stcnet,
+  author        = {Gunasekara, Shanaka Ramesh and Devanarayana, Akila Eranda and Guruge, Imasha and Fernando, Nuwantha and Asadi, Ehsan},
+  title         = {{STC-Net}: Electroluminescence-Based Solar Cell Crack Segmentation for Power Loss Estimation},
+  year          = {2026},
+  eprint        = {2608.01714},
+  archivePrefix = {arXiv},
+  note          = {arXiv preprint}
+}
+
+% RW R18
+@article{saleh2026anomaly,
+  author  = {Saleh, Zaid and Alzu'bi, Ahmad and Abuarqoub, Abdelrahman and Hammoudeh, Mohammad},
+  title   = {Automatic anomaly classification of photovoltaic cells with deep semantic segmentation of electroluminescence images},
+  journal = {Computers and Electrical Engineering},
+  volume  = {139},
+  pages   = {111338},
+  year    = {2026},
+  doi     = {10.1016/j.compeleceng.2026.111338}
+}
+
+% RW R19; full text literature/pdfs_inst/lin2026_ees_unsup_fewshot_el/p.txt
+@article{lin2026eiae,
+  author  = {Lin, Ye and Sun, Pingyang and Wu, Rongcheng and Geng, Shu and Yiu, Man Lung and Li, Zhidong and Chen, Fang and Gao, Yu and Wang, Mingzhe and Sun, Kaiwen and Hao, Xiaojing},
+  title   = {Unsupervised and few-shot segmentation in photovoltaic electroluminescence images for defect detection via a novel enhanced iterative autoencoder with simple implementation},
+  journal = {Energy \& Environmental Science},
+  volume  = {19},
+  number  = {2},
+  pages   = {513--526},
+  year    = {2026},
+  doi     = {10.1039/D5EE05042A}
+}
+
+% RW R20 (arXiv only)
+@misc{su2021sigan,
+  author        = {Su, Binyi and Zhou, Zhong and Chen, Haiyong and Cao, Xiaochun},
+  title         = {{SIGAN}: A Novel Image Generation Method for Solar Cell Defect Segmentation and Augmentation},
+  year          = {2021},
+  eprint        = {2104.04953},
+  archivePrefix = {arXiv},
+  note          = {arXiv preprint}
+}
+
+% RW R21
+@article{hijjawi2026instance,
+  author  = {Hijjawi, Ula and Lakshminarayana, Subhash and Xu, Tianhua and Rahman, Mostafizur},
+  title   = {A benchmarking study of instance segmentation methods for photovoltaic cell defect detection using electroluminescence images},
+  journal = {Solar Energy},
+  volume  = {303},
+  pages   = {114083},
+  year    = {2026},
+  doi     = {10.1016/j.solener.2025.114083}
+}
+
+% ===================== Abstract-level rows (RW table 2, A1 to A7) =====================
+
+% RW A1 (RW gives 2024, the early-access year; Crossref issue date March 2025)
+@article{mahboob2025segformer,
+  author  = {Mahboob, Zaid and Khan, M. Adil and Lodhi, Ehtisham and Nawaz, Tahir and Khan, Umar S.},
+  title   = {Using {SegFormer} for Effective Semantic Cell Segmentation for Fault Detection in Photovoltaic Arrays},
+  journal = {IEEE Journal of Photovoltaics},
+  volume  = {15},
+  number  = {2},
+  pages   = {320--331},
+  year    = {2025},
+  doi     = {10.1109/JPHOTOV.2024.3450009}
+}
+
+% RW A2
+@inproceedings{nigin2025mcxnet,
+  author    = {Nigin, Anto and Kulkarni, Kedar},
+  title     = {{MCX-Net}: A Class-Specific Expert Decoder Network for Multi-Class Defect Segmentation in Photovoltaic Cells},
+  booktitle = {2025 5th International Conference on AI-ML-Systems (AIMLSystems)},
+  publisher = {IEEE},
+  pages     = {346--351},
+  year      = {2025},
+  doi       = {10.1109/AIMLSystems67835.2025.11330719}
+}
+
+% RW A3
+@inproceedings{bramantyo2026fracture,
+  author    = {Bramantyo, Ardian Kris and Arifin, Yulyani},
+  title     = {Fracture-Informed {CNN}-Transformer Ensemble for Multiclass Photovoltaic Defect Segmentation in Electroluminescence Images},
+  booktitle = {2026 IEEE International Conference on Instrumentation, Networks, Future Sustainability, Information Theory, Transportation, and Systems (INFINITYS)},
+  publisher = {IEEE},
+  pages     = {1--7},
+  year      = {2026},
+  doi       = {10.1109/INFINITYS69204.2026.11666283}
+}
+
+% RW A4 ("PV-ReAD" in RW; Crossref title below; Crossref issue date January 2027)
+@article{liu2027pvread,
+  author  = {Liu, Qing and Jiang, Yujie and Liu, Beibei and Liu, Min},
+  title   = {A novel reconstruction-based method for unsupervised photovoltaic cell defect detection using electroluminescence images},
+  journal = {Solar Energy},
+  volume  = {321},
+  pages   = {115300},
+  year    = {2027},
+  doi     = {10.1016/j.solener.2026.115300}
+}
+
+% RW A5
+@article{zhou2024siif,
+  author  = {Zhou, Peng and Wang, Rui and Wang, Chuhan and Chen, Haiyong and Liu, Kun},
+  title   = {{SIIF}: Semantic information interactive fusion network for photovoltaic defect segmentation},
+  journal = {Applied Energy},
+  volume  = {371},
+  pages   = {123643},
+  year    = {2024},
+  doi     = {10.1016/j.apenergy.2024.123643}
+}
+
+% RW A6 (RW gives 2023, the online year; Crossref issue date February 2024)
+@article{wang2024rern,
+  author  = {Wang, Chuhan and Chen, Haiyong and Zhao, Shenshen},
+  title   = {{RERN}: Rich Edge Features Refinement Detection Network for Polycrystalline Solar Cell Defect Segmentation},
+  journal = {IEEE Transactions on Industrial Informatics},
+  volume  = {20},
+  number  = {2},
+  pages   = {1408--1419},
+  year    = {2024},
+  doi     = {10.1109/TII.2023.3275705}
+}
+
+% RW A7
+@inproceedings{narayanan2024solar,
+  author    = {Narayanan, Mathiyazhagan and Mohan, Ramya and Rajinikanth, Venkatesan},
+  title     = {Solar Cell Defect Detection using Deep-Learning Segmentation with Two-Fold Training},
+  booktitle = {2024 9th International Conference on Communication and Electronics Systems (ICCES)},
+  publisher = {IEEE},
+  pages     = {168--172},
+  year      = {2024},
+  doi       = {10.1109/ICCES63552.2024.10860045}
+}
+
+% ===================== Datasets and power papers from RW table 3 (out of scope for pixel numbers) =====================
+
+% RW table 3 (ELPV; RW records arXiv 1807.02894; the DOI is the one the arXiv record links)
+@article{deitsch2019elpv,
+  author        = {Deitsch, Sergiu and Christlein, Vincent and Berger, Stephan and Buerhop-Lutz, Claudia and Maier, Andreas and Gallwitz, Florian and Riess, Christian},
+  title         = {Automatic classification of defective photovoltaic module cells in electroluminescence images},
+  journal       = {Solar Energy},
+  volume        = {185},
+  pages         = {455--468},
+  year          = {2019},
+  doi           = {10.1016/j.solener.2019.02.067},
+  eprint        = {1807.02894},
+  archivePrefix = {arXiv}
+}
+
+% RW table 3 (PVEL-AD)
+@article{su2023pvelad,
+  author  = {Su, Binyi and Zhou, Zhong and Chen, Haiyong},
+  title   = {{PVEL-AD}: A Large-Scale Open-World Dataset for Photovoltaic Cell Anomaly Detection},
+  journal = {IEEE Transactions on Industrial Informatics},
+  volume  = {19},
+  number  = {1},
+  pages   = {404--413},
+  year    = {2023},
+  doi     = {10.1109/TII.2022.3162846}
+}
+
+% RW table 3; full text literature/pdfs_inst/pratt2025_ictas_powerloss/p.txt
+@inproceedings{pratt2025ictas,
+  author    = {Pratt, Lawrence and May, Siyasanga Innocent and Mkasi, Wisani},
+  title     = {Correlating Defects in Electroluminescence Images to Photovoltaic Module Power Loss Using {DeepLabV3} for Semantic Segmentation},
+  booktitle = {2025 Conference on Information Communications Technology and Society (ICTAS)},
+  publisher = {IEEE},
+  pages     = {1--6},
+  year      = {2025},
+  doi       = {10.1109/ICTAS64866.2025.11155421}
+}
+
+% RW table 3; abstract read (Crossref)
+@article{hoffmann2021power,
+  author  = {Hoffmann, Mathis and Buerhop-Lutz, Claudia and Reeb, Luca and Pickel, Tobias and Winkler, Thilo and Doll, Bernd and W{\"u}rfl, Tobias and {Marius Peters}, Ian and Brabec, Christoph and Maier, Andreas and Christlein, Vincent},
+  title   = {Deep-learning-based pipeline for module power prediction from electroluminescense measurements},
+  journal = {Progress in Photovoltaics: Research and Applications},
+  volume  = {29},
+  number  = {8},
+  pages   = {920--935},
+  year    = {2021},
+  doi     = {10.1002/pip.3416}
+}
+
+% ===================== Method papers of the suite (ids from ML, cards/ledger/MASTER.tsv) =====================
+
+% ML P260 (arXiv only)
+@misc{xie2021segformer,
+  author        = {Xie, Enze and Wang, Wenhai and Yu, Zhiding and Anandkumar, Anima and Alvarez, Jose M. and Luo, Ping},
+  title         = {{SegFormer}: Simple and Efficient Design for Semantic Segmentation with Transformers},
+  year          = {2021},
+  eprint        = {2105.15203},
+  archivePrefix = {arXiv},
+  note          = {arXiv preprint}
+}
+
+% ML P039 (arXiv only)
+@misc{cha2021swad,
+  author        = {Cha, Junbum and Chun, Sanghyuk and Lee, Kyungjae and Cho, Han-Cheol and Park, Seunghyun and Lee, Yunsung and Park, Sungrae},
+  title         = {{SWAD}: Domain Generalization by Seeking Flat Minima},
+  year          = {2021},
+  eprint        = {2102.08604},
+  archivePrefix = {arXiv},
+  note          = {arXiv preprint}
+}
+
+% ML P036 (rare class sampling)
+@inproceedings{hoyer2022daformer,
+  author    = {Hoyer, Lukas and Dai, Dengxin and Van Gool, Luc},
+  title     = {{DAFormer}: Improving Network Architectures and Training Strategies for Domain-Adaptive Semantic Segmentation},
+  booktitle = {2022 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+  publisher = {IEEE},
+  pages     = {9914--9925},
+  year      = {2022},
+  doi       = {10.1109/CVPR52688.2022.00969}
+}
+
+% ML P017
+@inproceedings{wang2023jml,
+  author    = {Wang, Zifu and Ning, Xuefei and Blaschko, Matthew},
+  title     = {Jaccard Metric Losses: Optimizing the Jaccard Index with Soft Labels},
+  booktitle = {Advances in Neural Information Processing Systems 36},
+  publisher = {Neural Information Processing Systems Foundation, Inc. (NeurIPS)},
+  pages     = {75259--75285},
+  year      = {2023},
+  doi       = {10.52202/075280-3289}
+}
+
+% ML P049 (arXiv record: journal_ref "Transactions on Machine Learning Research 2024")
+@misc{moralesbrotons2024ema,
+  author        = {Morales-Brotons, Daniel and Vogels, Thijs and Hendrikx, Hadrien},
+  title         = {Exponential Moving Average of Weights in Deep Learning: Dynamics and Benefits},
+  year          = {2024},
+  eprint        = {2411.18704},
+  archivePrefix = {arXiv},
+  note          = {Transactions on Machine Learning Research, 2024 (journal reference as given by arXiv)}
+}
+
+% ML P018 (arXiv only)
+@misc{tian2024spd,
+  author        = {Tian, Junjiao and Huang, Chengyue and Kira, Zsolt},
+  title         = {Rethinking Weight Decay for Robust Fine-Tuning of Foundation Models},
+  year          = {2024},
+  eprint        = {2411.01713},
+  archivePrefix = {arXiv},
+  note          = {arXiv preprint}
+}
+
+% ML P012 (arXiv only; GIN + IPA)
+@misc{ouyang2021gin,
+  author        = {Ouyang, Cheng and Chen, Chen and Li, Surui and Li, Zeju and Qin, Chen and Bai, Wenjia and Rueckert, Daniel},
+  title         = {Causality-inspired Single-source Domain Generalization for Medical Image Segmentation},
+  year          = {2021},
+  eprint        = {2111.12525},
+  archivePrefix = {arXiv},
+  note          = {arXiv preprint}
+}
+
+% ===================== Label noise and benchmark practice (ids from AUD, dataset_audit/REPORT.md l14 to l19) =====================
+
+% AUD l14
+@article{northcutt2021confident,
+  author  = {Northcutt, Curtis and Jiang, Lu and Chuang, Isaac},
+  title   = {Confident Learning: Estimating Uncertainty in Dataset Labels},
+  journal = {Journal of Artificial Intelligence Research},
+  volume  = {70},
+  pages   = {1373--1411},
+  year    = {2021},
+  doi     = {10.1613/jair.1.12125}
+}
+
+% AUD l15; also ML P265 (arXiv record: journal_ref NeurIPS 2021 Track on Datasets and Benchmarks)
+@misc{northcutt2021pervasive,
+  author        = {Northcutt, Curtis G. and Athalye, Anish and Mueller, Jonas},
+  title         = {Pervasive Label Errors in Test Sets Destabilize Machine Learning Benchmarks},
+  year          = {2021},
+  eprint        = {2103.14749},
+  archivePrefix = {arXiv},
+  note          = {35th Conference on Neural Information Processing Systems (NeurIPS 2021) Track on Datasets and Benchmarks (journal reference as given by arXiv)}
+}
+
+% AUD l15 to l16 (method section read; full text /home/yugma/papers/2023-Lad-Estimating-label-quality-and-errors-in-*.md)
+@misc{lad2023labelquality,
+  author        = {Lad, Vedang and Mueller, Jonas},
+  title         = {Estimating label quality and errors in semantic segmentation data via any model},
+  year          = {2023},
+  eprint        = {2307.05080},
+  archivePrefix = {arXiv},
+  note          = {arXiv preprint}
+}
+
+% AUD l16 to l17
+@inproceedings{rottmann2023labelerrors,
+  author    = {Rottmann, Matthias and Reese, Marco},
+  title     = {Automated Detection of Label Errors in Semantic Segmentation Datasets via Deep Learning and Uncertainty Quantification},
+  booktitle = {2023 IEEE/CVF Winter Conference on Applications of Computer Vision (WACV)},
+  publisher = {IEEE},
+  pages     = {3213--3222},
+  year      = {2023},
+  doi       = {10.1109/WACV56688.2023.00323}
+}
+
+% AUD l17
+@article{barz2020cifair,
+  author  = {Barz, Bj{\"o}rn and Denzler, Joachim},
+  title   = {Do We Train on Test Data? Purging {CIFAR} of Near-Duplicates},
+  journal = {Journal of Imaging},
+  volume  = {6},
+  number  = {6},
+  pages   = {41},
+  year    = {2020},
+  doi     = {10.3390/jimaging6060041}
+}
+
+% AUD l18
+@inproceedings{tschirschwitz2025label,
+  author    = {Tschirschwitz, David and Rodehorst, Volker},
+  title     = {Label Convergence: Defining an Upper Performance Bound in Object Recognition Through Contradictory Annotations},
+  booktitle = {2025 IEEE/CVF Winter Conference on Applications of Computer Vision (WACV)},
+  publisher = {IEEE},
+  pages     = {6848--6857},
+  year      = {2025},
+  doi       = {10.1109/WACV61041.2025.00666}
+}
+
+% AUD l18 to l19
+@article{fabbrizzi2022bias,
+  author  = {Fabbrizzi, Simone and Papadopoulos, Symeon and Ntoutsi, Eirini and Kompatsiaris, Ioannis},
+  title   = {A survey on bias in visual datasets},
+  journal = {Computer Vision and Image Understanding},
+  volume  = {223},
+  pages   = {103552},
+  year    = {2022},
+  doi     = {10.1016/j.cviu.2022.103552}
+}
+
+% ===================== Semi-supervised context =====================
+
+% SYN l11; ML P086; full text /home/yugma/papers/2025-Yang-UniMatch-V2-Pushing-the-Limit-of-cd81b3.md (Table 1 read)
+@article{yang2025unimatchv2,
+  author  = {Yang, Lihe and Zhao, Zhen and Zhao, Hengshuang},
+  title   = {{UniMatch V2}: Pushing the Limit of Semi-Supervised Semantic Segmentation},
+  journal = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  volume  = {47},
+  number  = {4},
+  pages   = {3031--3048},
+  year    = {2025},
+  doi     = {10.1109/TPAMI.2025.3528453}
+}

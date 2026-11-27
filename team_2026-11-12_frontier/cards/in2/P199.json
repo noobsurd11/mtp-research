@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1002/pip.3348",
+ "title": "Spatially resolved electrical modelling of cracks and other inhomogeneities in crystalline silicon solar cells",
+ "year": 2020,
+ "venue": "Progress in Photovoltaics",
+ "url": "https://onlinelibrary.wiley.com/doi/pdfdirect/10.1002/pip.3348",
+ "code_url": "",
+ "mechanism": "Quasi-SPICE network model of active and inactive microcracks built from EL damage maps; a cell region becomes inactive when cracks cut it off electrically from the busbars.",
+ "adaptation": "Rule renderer for inactive: draw a crack curve on a train cell with crack but no inactive, compute regions isolated from every busbar along the finger direction, darken them by the source-specific inactive/active intensity ratio measured on the 42 train inactive cells (plus noise and edge blur), label inactive and crack. Gives pairs that respect 'inactive always touches a crack'. Also yields inactive-area fraction for severity bands.",
+ "min_experiment": "Arm: PF + rule-rendered crack+inactive cells, 5 seeds. Baseline: PF 5 seeds. Metric: module-grouped 5-fold CV inactive IoU and BMRK inactive IoU. Kill: CV inactive IoU gain < +0.02.",
+ "score": 50,
+ "bench_score": 55,
+ "bet": "medium",
+ "targets": [
+  "inactive",
+  "severity"
+ ],
+ "evidence": "R: model validated on experimental cells; 0.12% error in power-loss estimate for a complexly damaged cell. No ML or image-synthesis evidence.",
+ "gpu_hours": 8,
+ "prior_overlap": "None; physics simulation of EL is listed as never tried.",
+ "directions": [
+  "D06"
+ ],
+ "scout_scores": [
+  50
+ ],
+ "final": 50,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 199,
+ "pid": "P199"
+}

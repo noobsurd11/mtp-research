@@ -1,0 +1,37 @@
+{
+ "paper_id": "doi:10.1007/978-3-032-05169-1_27",
+ "title": "HyperSORT: Self-organising Robust Training with Hyper-networks",
+ "year": 2025,
+ "venue": "MICCAI",
+ "url": "https://arxiv.org/abs/2506.21430",
+ "code_url": "https://github.com/ImFusionGmbH/HyperSORT",
+ "mechanism": "Hypernetwork maps a learned per-sample latent (L1-pulled to 0) to U-Net weights; systematic label styles and errors become outlying latents, latent 0 models the majority style.",
+ "adaptation": "FiLM on the U-Net++ decoder driven by a 2-4 D learned latent per train cell instead of a full hypernetwork (repo needs ImFusion SDK key). Check whether latents cluster by source (label width 1.5 to 3.25 px) and outliers match audit cells; infer at latent 0 or per-source centroid (source-conditional prediction).",
+ "min_experiment": "Arm: FiLM-latent U-Net++, 2 L1 weights, inference at 0 and source centroid. Baseline: house, 5 seeds. Metric: per-source crack IoU (BMRK, CFVS), clean-49 crack IoU / relF1@2, mIoU_rob. Kill: no centroid gain on BMRK/CFVS and no gain at latent 0.",
+ "score": 62,
+ "bench_score": 45,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "other_classes",
+  "measurement"
+ ],
+ "evidence": "R: AMOS with synthetic erosion/dilation styles formed separate latent clusters; on TotalSegmentator surfaced systematic biases and erroneous cases. Qualitative, 3D CT.",
+ "gpu_hours": 15,
+ "prior_overlap": "none; source-conditional prediction and annotator modelling listed as never tried.",
+ "directions": [
+  "D37"
+ ],
+ "scout_scores": [
+  62
+ ],
+ "final": 62,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 76,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P076"
+}

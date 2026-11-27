@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2410.01083",
+ "title": "Deep Nets with Subsampling Layers Unwittingly Discard Useful Activations at Test-Time",
+ "year": 2024,
+ "venue": "ECCV (Lecture Notes in Computer Science)",
+ "url": "https://arxiv.org/abs/2410.01083",
+ "code_url": "https://github.com/ca-joe-yang/discard-in-subsampling",
+ "mechanism": "Stride-2 layers drop 3 of 4 phases; search and aggregate the discarded activations at test time.",
+ "adaptation": "A 1-2 px crack falls on one stride phase in the RN34 stem and maxpool; cheap version is 1 px shift TTA (0,1),(1,0),(1,1) with exact un-shift; full version is their phase search on stem and maxpool.",
+ "min_experiment": "Arm: shift/phase TTA on 5 singles. Baseline: D4 TTA arm. Metric: crack IoU, components >= 20 px. Kill: < +0.003 over D4 TTA.",
+ "evidence": "R: consistent test-time gains for classification and semantic segmentation over nine architectures, complementary to standard TTA.",
+ "gpu_hours": 1,
+ "bet": "medium",
+ "targets": [
+  "crack"
+ ],
+ "prior_overlap": "none",
+ "score": 58,
+ "bench_score": 30,
+ "directions": [
+  "D34"
+ ],
+ "scout_scores": [
+  58
+ ],
+ "final": 58,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 126,
+ "pid": "P126"
+}

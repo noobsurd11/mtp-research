@@ -1,0 +1,114 @@
+2026-11-22 11:37:21 driver start pid 3642643
+2026-11-22 11:37:21 ps5104:    5104  2-09:16:15 python3 finllm_chat.py server | load 2.04 2.07 1.71
+2026-11-22 11:37:21 start UPF_b1_t16 threads 16: --arm UPF --batch 1 --warmup 3 --cells 200
+{"arm": "UPF", "arch": "pf", "members": 1, "views_per_member": 1, "forwards_per_cell": 1, "views_batched": false, "batch": 1, "images_per_forward": 1, "warmup_batches": 3, "timed_batches": 200, "timed_cells": 200, "weights": "checkpoints", "batch_s_median": 0.21558863051177468, "batch_s_p90": 0.23289043061085976, "batch_s_min": 0.18147847198997624, "batch_s_max": 0.2663357160054147, "cell_s_median": 0.21558863051177468, "cell_s_p90": 0.23289043061085976, "cell_s_mean": 0.21571759791404474, "cpu_rss_after_load_mib": 795.46875, "cpu_peak_rss_mib": 1284.734375}
+2026-11-22 11:38:08 end UPF_b1_t16 rc=0
+2026-11-22 11:38:08 ps5104:    5104  2-09:17:01 python3 finllm_chat.py server | load 10.29 4.25 2.47
+2026-11-22 11:38:08 ps5104:    5104  2-09:17:01 python3 finllm_chat.py server | load 10.29 4.25 2.47
+2026-11-22 11:38:08 start UHR_b1_t16 threads 16: --arm UHR --batch 1 --warmup 3 --cells 200
+{"arm": "UHR", "arch": "hrnet", "members": 1, "views_per_member": 1, "forwards_per_cell": 1, "views_batched": false, "batch": 1, "images_per_forward": 1, "warmup_batches": 3, "timed_batches": 200, "timed_cells": 200, "weights": "checkpoints", "batch_s_median": 0.4012005109980237, "batch_s_p90": 0.42726296511827966, "batch_s_min": 0.3662266159954015, "batch_s_max": 0.45392023999011144, "cell_s_median": 0.4012005109980237, "cell_s_p90": 0.42726296511827966, "cell_s_mean": 0.4033056372161081, "cpu_rss_after_load_mib": 868.05859375, "cpu_peak_rss_mib": 1236.79296875}
+2026-11-22 11:39:33 end UHR_b1_t16 rc=0
+2026-11-22 11:39:33 ps5104:    5104  2-09:18:26 python3 finllm_chat.py server | load 15.64 7.52 3.78
+2026-11-22 11:39:33 ps5104:    5104  2-09:18:26 python3 finllm_chat.py server | load 15.64 7.52 3.78
+2026-11-22 11:39:33 start UPF_b1_t8 threads 8: --arm UPF --batch 1 --warmup 3 --cells 200
+{"arm": "UPF", "arch": "pf", "members": 1, "views_per_member": 1, "forwards_per_cell": 1, "views_batched": false, "batch": 1, "images_per_forward": 1, "warmup_batches": 3, "timed_batches": 200, "timed_cells": 200, "weights": "checkpoints", "batch_s_median": 0.308956434004358, "batch_s_p90": 0.3224308429955272, "batch_s_min": 0.26606772100785747, "batch_s_max": 0.3325790970120579, "cell_s_median": 0.308956434004358, "cell_s_p90": 0.3224308429955272, "cell_s_mean": 0.30894441167562037, "cpu_rss_after_load_mib": 794.94140625, "cpu_peak_rss_mib": 1271.90625}
+2026-11-22 11:40:38 end UPF_b1_t8 rc=0
+2026-11-22 11:40:38 ps5104:    5104  2-09:19:31 python3 finllm_chat.py server | load 11.68 7.90 4.16
+2026-11-22 11:40:38 ps5104:    5104  2-09:19:31 python3 finllm_chat.py server | load 11.68 7.90 4.16
+2026-11-22 11:40:38 start UHR_b1_t8 threads 8: --arm UHR --batch 1 --warmup 3 --cells 200
+{"arm": "UHR", "arch": "hrnet", "members": 1, "views_per_member": 1, "forwards_per_cell": 1, "views_batched": false, "batch": 1, "images_per_forward": 1, "warmup_batches": 3, "timed_batches": 200, "timed_cells": 200, "weights": "checkpoints", "batch_s_median": 0.5476369725220138, "batch_s_p90": 0.5700532287184614, "batch_s_min": 0.49452992499573156, "batch_s_max": 0.5918984990275931, "cell_s_median": 0.5476369725220138, "cell_s_p90": 0.5700532287184614, "cell_s_mean": 0.5459775346492824, "cpu_rss_after_load_mib": 867.30078125, "cpu_peak_rss_mib": 1289.71484375}
+2026-11-22 11:42:32 end UHR_b1_t8 rc=0
+2026-11-22 11:42:32 ps5104:    5104  2-09:21:25 python3 finllm_chat.py server | load 9.91 8.44 4.80
+2026-11-22 11:42:32 ps5104:    5104  2-09:21:25 python3 finllm_chat.py server | load 9.91 8.44 4.80
+2026-11-22 11:42:32 start UPF_b1_t1 threads 1: --arm UPF --batch 1 --warmup 2 --cells 50
+{"arm": "UPF", "arch": "pf", "members": 1, "views_per_member": 1, "forwards_per_cell": 1, "views_batched": false, "batch": 1, "images_per_forward": 1, "warmup_batches": 2, "timed_batches": 50, "timed_cells": 50, "weights": "checkpoints", "batch_s_median": 1.357051881001098, "batch_s_p90": 1.3805019349005305, "batch_s_min": 1.2921325509960297, "batch_s_max": 1.4140523470123298, "cell_s_median": 1.357051881001098, "cell_s_p90": 1.3805019349005305, "cell_s_mean": 1.3522134824981913, "cpu_rss_after_load_mib": 794.18359375, "cpu_peak_rss_mib": 1270.96484375}
+2026-11-22 11:43:45 end UPF_b1_t1 rc=0
+2026-11-22 11:43:45 ps5104:    5104  2-09:22:38 python3 finllm_chat.py server | load 4.63 7.14 4.61
+2026-11-22 11:43:45 ps5104:    5104  2-09:22:38 python3 finllm_chat.py server | load 4.63 7.14 4.61
+2026-11-22 11:43:45 start UHR_b1_t1 threads 1: --arm UHR --batch 1 --warmup 2 --cells 50
+{"arm": "UHR", "arch": "hrnet", "members": 1, "views_per_member": 1, "forwards_per_cell": 1, "views_batched": false, "batch": 1, "images_per_forward": 1, "warmup_batches": 2, "timed_batches": 50, "timed_cells": 50, "weights": "checkpoints", "batch_s_median": 2.0323482294916175, "batch_s_p90": 2.071464090707013, "batch_s_min": 1.9554067259887233, "batch_s_max": 2.100969527993584, "cell_s_median": 2.0323482294916175, "cell_s_p90": 2.071464090707013, "cell_s_mean": 2.0331236510392046, "cpu_rss_after_load_mib": 866.7421875, "cpu_peak_rss_mib": 1300.3828125}
+2026-11-22 11:45:33 end UHR_b1_t1 rc=0
+2026-11-22 11:45:33 ps5104:    5104  2-09:24:27 python3 finllm_chat.py server | load 2.48 5.58 4.32
+2026-11-22 11:45:33 ps5104:    5104  2-09:24:27 python3 finllm_chat.py server | load 2.48 5.58 4.32
+2026-11-22 11:45:33 start UPF_b8_t16 threads 16: --arm UPF --batch 8 --warmup 2 --cells 200
+{"arm": "UPF", "arch": "pf", "members": 1, "views_per_member": 1, "forwards_per_cell": 1, "views_batched": false, "batch": 8, "images_per_forward": 8, "warmup_batches": 2, "timed_batches": 25, "timed_cells": 200, "weights": "checkpoints", "batch_s_median": 2.6379495260189287, "batch_s_p90": 2.8658718426013365, "batch_s_min": 2.450331711996114, "batch_s_max": 2.8902308520046063, "cell_s_median": 0.3297436907523661, "cell_s_p90": 0.35823398032516707, "cell_s_mean": 0.3312029353455, "cpu_rss_after_load_mib": 795.5859375, "cpu_peak_rss_mib": 3679.92578125}
+2026-11-22 11:46:47 end UPF_b8_t16 rc=0
+2026-11-22 11:46:47 ps5104:    5104  2-09:25:41 python3 finllm_chat.py server | load 7.21 6.32 4.68
+2026-11-22 11:46:47 ps5104:    5104  2-09:25:41 python3 finllm_chat.py server | load 7.21 6.32 4.68
+2026-11-22 11:46:48 start UHR_b8_t16 threads 16: --arm UHR --batch 8 --warmup 2 --cells 200
+{"arm": "UHR", "arch": "hrnet", "members": 1, "views_per_member": 1, "forwards_per_cell": 1, "views_batched": false, "batch": 8, "images_per_forward": 8, "warmup_batches": 2, "timed_batches": 25, "timed_cells": 200, "weights": "checkpoints", "batch_s_median": 4.6491193260008, "batch_s_p90": 4.911750968394335, "batch_s_min": 4.490876705996925, "batch_s_max": 4.958125256001949, "cell_s_median": 0.5811399157501, "cell_s_p90": 0.6139688710492919, "cell_s_mean": 0.589018073539919, "cpu_rss_after_load_mib": 867.93359375, "cpu_peak_rss_mib": 3781.8671875}
+2026-11-22 11:48:58 end UHR_b8_t16 rc=0
+2026-11-22 11:48:58 ps5104:    5104  2-09:27:52 python3 finllm_chat.py server | load 11.67 8.82 5.84
+2026-11-22 11:48:58 ps5104:    5104  2-09:27:52 python3 finllm_chat.py server | load 11.67 8.82 5.84
+2026-11-22 11:48:58 start UPF_b8_t8 threads 8: --arm UPF --batch 8 --warmup 2 --cells 200
+{"arm": "UPF", "arch": "pf", "members": 1, "views_per_member": 1, "forwards_per_cell": 1, "views_batched": false, "batch": 8, "images_per_forward": 8, "warmup_batches": 2, "timed_batches": 25, "timed_cells": 200, "weights": "checkpoints", "batch_s_median": 3.447169271996245, "batch_s_p90": 3.6077893690089695, "batch_s_min": 3.3153519930201583, "batch_s_max": 3.6392160870018415, "cell_s_median": 0.4308961589995306, "cell_s_p90": 0.4509736711261212, "cell_s_mean": 0.4333083897401229, "cpu_rss_after_load_mib": 795.15625, "cpu_peak_rss_mib": 3683.703125}
+2026-11-22 11:50:35 end UPF_b8_t8 rc=0
+2026-11-22 11:50:35 ps5104:    5104  2-09:29:29 python3 finllm_chat.py server | load 10.92 9.35 6.32
+2026-11-22 11:50:35 ps5104:    5104  2-09:29:29 python3 finllm_chat.py server | load 10.92 9.35 6.32
+2026-11-22 11:50:35 start UHR_b8_t8 threads 8: --arm UHR --batch 8 --warmup 2 --cells 200
+{"arm": "UHR", "arch": "hrnet", "members": 1, "views_per_member": 1, "forwards_per_cell": 1, "views_batched": false, "batch": 8, "images_per_forward": 8, "warmup_batches": 2, "timed_batches": 25, "timed_cells": 200, "weights": "checkpoints", "batch_s_median": 5.764634994993685, "batch_s_p90": 6.009954494400882, "batch_s_min": 5.355872932996135, "batch_s_max": 6.413195566012291, "cell_s_median": 0.7205793743742106, "cell_s_p90": 0.7512443118001102, "cell_s_mean": 0.7199661605352594, "cpu_rss_after_load_mib": 867.3671875, "cpu_peak_rss_mib": 3792.37890625}
+2026-11-22 11:53:14 end UHR_b8_t8 rc=0
+2026-11-22 11:53:14 ps5104:    5104  2-09:32:07 python3 finllm_chat.py server | load 10.02 9.74 6.96
+2026-11-22 11:53:14 ps5104:    5104  2-09:32:07 python3 finllm_chat.py server | load 10.02 9.74 6.96
+2026-11-22 11:53:14 start UPF_b8_t1 threads 1: --arm UPF --batch 8 --warmup 1 --cells 24
+{"arm": "UPF", "arch": "pf", "members": 1, "views_per_member": 1, "forwards_per_cell": 1, "views_batched": false, "batch": 8, "images_per_forward": 8, "warmup_batches": 1, "timed_batches": 3, "timed_cells": 24, "weights": "checkpoints", "batch_s_median": 15.84642904199427, "batch_s_p90": 15.924388029181864, "batch_s_min": 14.872341868001968, "batch_s_max": 15.895153408986516, "cell_s_median": 1.9808036302492837, "cell_s_p90": 1.990548503647733, "cell_s_mean": 1.9422468466242815, "cpu_rss_after_load_mib": 794.73828125, "cpu_peak_rss_mib": 3671.2578125}
+2026-11-22 11:54:18 end UPF_b8_t1 rc=0
+2026-11-22 11:54:18 ps5104:    5104  2-09:33:12 python3 finllm_chat.py server | load 8.47 9.22 6.96
+2026-11-22 11:54:18 ps5104:    5104  2-09:33:12 python3 finllm_chat.py server | load 8.47 9.22 6.96
+2026-11-22 11:54:18 start UHR_b8_t1 threads 1: --arm UHR --batch 8 --warmup 1 --cells 24
+{"arm": "UHR", "arch": "hrnet", "members": 1, "views_per_member": 1, "forwards_per_cell": 1, "views_batched": false, "batch": 8, "images_per_forward": 8, "warmup_batches": 1, "timed_batches": 3, "timed_cells": 24, "weights": "checkpoints", "batch_s_median": 25.664203277992783, "batch_s_p90": 26.43396959641832, "batch_s_min": 25.10848767499556, "batch_s_max": 26.145307227008743, "cell_s_median": 3.208025409749098, "cell_s_p90": 3.30424619955229, "cell_s_mean": 3.204916590833212, "cpu_rss_after_load_mib": 867.15234375, "cpu_peak_rss_mib": 3798.171875}
+2026-11-22 11:56:04 end UHR_b8_t1 rc=0
+2026-11-22 11:56:04 ps5104:    5104  2-09:34:57 python3 finllm_chat.py server | load 13.11 10.42 7.62
+2026-11-22 11:56:04 ps5104:    5104  2-09:34:57 python3 finllm_chat.py server | load 13.11 10.42 7.62
+2026-11-22 11:56:04 start EPF_b1_t16 threads 16: --arm EPF --batch 1 --warmup 2 --cells 40
+{"arm": "EPF", "arch": "pf", "members": 5, "views_per_member": 1, "forwards_per_cell": 5, "views_batched": false, "batch": 1, "images_per_forward": 1, "warmup_batches": 2, "timed_batches": 40, "timed_cells": 40, "weights": "checkpoints", "batch_s_median": 1.3959687399910763, "batch_s_p90": 1.4833137562003684, "batch_s_min": 1.2285375469946302, "batch_s_max": 1.5025136730109807, "cell_s_median": 1.3959687399910763, "cell_s_p90": 1.4833137562003684, "cell_s_mean": 1.3962694688976627, "cpu_rss_after_load_mib": 1284.140625, "cpu_peak_rss_mib": 1717.9296875}
+2026-11-22 11:57:10 end EPF_b1_t16 rc=0
+2026-11-22 11:57:10 ps5104:    5104  2-09:36:04 python3 finllm_chat.py server | load 19.88 12.76 8.61
+2026-11-22 11:57:10 ps5104:    5104  2-09:36:04 python3 finllm_chat.py server | load 19.88 12.76 8.61
+2026-11-22 11:57:10 start C1D4_b1_t16 threads 16: --arm C1D4 --batch 1 --warmup 2 --cells 30
+{"arm": "C1D4", "arch": "pf", "members": 1, "views_per_member": 8, "forwards_per_cell": 8, "views_batched": false, "batch": 1, "images_per_forward": 1, "warmup_batches": 2, "timed_batches": 30, "timed_cells": 30, "weights": "checkpoints", "batch_s_median": 2.2272718059975887, "batch_s_p90": 2.3715827072010143, "batch_s_min": 2.0877423629863188, "batch_s_max": 2.6001825940038543, "cell_s_median": 2.2272718059975887, "cell_s_p90": 2.3715827072010143, "cell_s_mean": 2.2438654098009767, "cpu_rss_after_load_mib": 795.68359375, "cpu_peak_rss_mib": 1356.1796875}
+2026-11-22 11:58:25 end C1D4_b1_t16 rc=0
+2026-11-22 11:58:25 ps5104:    5104  2-09:37:19 python3 finllm_chat.py server | load 21.33 14.84 9.68
+2026-11-22 11:58:26 ps5104:    5104  2-09:37:19 python3 finllm_chat.py server | load 21.33 14.84 9.68
+2026-11-22 11:58:26 start C2_b1_t16 threads 16: --arm C2 --batch 1 --warmup 2 --cells 30
+{"arm": "C2", "arch": "hrnet", "members": 1, "views_per_member": 8, "forwards_per_cell": 8, "views_batched": false, "batch": 1, "images_per_forward": 1, "warmup_batches": 2, "timed_batches": 30, "timed_cells": 30, "weights": "checkpoints", "batch_s_median": 3.8808440564898774, "batch_s_p90": 4.380538131599314, "batch_s_min": 3.6002711309993174, "batch_s_max": 4.918879712000489, "cell_s_median": 3.8808440564898774, "cell_s_p90": 4.380538131599314, "cell_s_mean": 3.966134146902671, "cpu_rss_after_load_mib": 868.23828125, "cpu_peak_rss_mib": 1375.76953125}
+2026-11-22 12:00:36 end C2_b1_t16 rc=0
+2026-11-22 12:00:36 ps5104:    5104  2-09:39:29 python3 finllm_chat.py server | load 22.38 17.69 11.42
+2026-11-22 12:00:36 ps5104:    5104  2-09:39:29 python3 finllm_chat.py server | load 22.38 17.69 11.42
+2026-11-22 12:00:36 start C2vb_b1_t16 threads 16: --arm C2 --views-batched --batch 1 --warmup 2 --cells 30
+{"arm": "C2", "arch": "hrnet", "members": 1, "views_per_member": 8, "forwards_per_cell": 8, "views_batched": true, "batch": 1, "images_per_forward": 8, "warmup_batches": 2, "timed_batches": 30, "timed_cells": 30, "weights": "checkpoints", "batch_s_median": 4.433916825510096, "batch_s_p90": 5.272183504508575, "batch_s_min": 3.97800882399315, "batch_s_max": 5.3711367000069, "cell_s_median": 4.433916825510096, "cell_s_p90": 5.272183504508575, "cell_s_mean": 4.5748047193328, "cpu_rss_after_load_mib": 868.1328125, "cpu_peak_rss_mib": 3638.6015625}
+2026-11-22 12:03:07 end C2vb_b1_t16 rc=0
+2026-11-22 12:03:07 ps5104:    5104  2-09:42:00 python3 finllm_chat.py server | load 18.17 17.79 12.41
+2026-11-22 12:03:07 ps5104:    5104  2-09:42:00 python3 finllm_chat.py server | load 18.17 17.79 12.41
+2026-11-22 12:03:07 start C3_b1_t16 threads 16: --arm C3 --batch 1 --warmup 1 --cells 10
+{"arm": "C3", "arch": "hrnet", "members": 5, "views_per_member": 8, "forwards_per_cell": 40, "views_batched": false, "batch": 1, "images_per_forward": 1, "warmup_batches": 1, "timed_batches": 10, "timed_cells": 10, "weights": "checkpoints", "batch_s_median": 16.58191846650152, "batch_s_p90": 19.172473222206463, "batch_s_min": 14.664699916989775, "batch_s_max": 19.231834200007142, "cell_s_median": 16.58191846650152, "cell_s_p90": 19.172473222206463, "cell_s_mean": 16.950658468599432, "cpu_rss_after_load_mib": 1271.76953125, "cpu_peak_rss_mib": 1884.109375}
+2026-11-22 12:06:26 end C3_b1_t16 rc=0
+2026-11-22 12:06:26 ps5104:    5104  2-09:45:20 python3 finllm_chat.py server | load 18.78 18.80 13.90
+2026-11-22 12:06:26 ps5104:    5104  2-09:45:20 python3 finllm_chat.py server | load 18.78 18.80 13.90
+2026-11-22 12:06:26 start C2_b8_t16 threads 16: --arm C2 --batch 8 --warmup 1 --cells 24
+{"arm": "C2", "arch": "hrnet", "members": 1, "views_per_member": 8, "forwards_per_cell": 8, "views_batched": false, "batch": 8, "images_per_forward": 8, "warmup_batches": 1, "timed_batches": 3, "timed_cells": 24, "weights": "checkpoints", "batch_s_median": 36.49666767500457, "batch_s_p90": 36.597514209366636, "batch_s_min": 36.46579537997604, "batch_s_max": 36.55969675898086, "cell_s_median": 4.562083459375572, "cell_s_p90": 4.5746892761708295, "cell_s_mean": 4.563423325581728, "cpu_rss_after_load_mib": 868.09375, "cpu_peak_rss_mib": 4381.609375}
+2026-11-22 12:08:55 end C2_b8_t16 rc=0
+2026-11-22 12:08:55 ps5104:    5104  2-09:47:48 python3 finllm_chat.py server | load 14.98 17.11 13.97
+2026-11-22 12:08:55 driver ALL DONE
+2026-11-22 12:09:08 extra driver start pid 3668819
+2026-11-22 12:09:08 ps5104:    5104  2-09:48:01 python3 finllm_chat.py server | load 11.95 16.34 13.77
+2026-11-22 12:09:08 start UPF_b1_t16_recheck threads 16: --arm UPF --batch 1 --warmup 3 --cells 60
+{"arm": "UPF", "arch": "pf", "members": 1, "views_per_member": 1, "forwards_per_cell": 1, "views_batched": false, "batch": 1, "images_per_forward": 1, "warmup_batches": 3, "timed_batches": 60, "timed_cells": 60, "weights": "checkpoints", "batch_s_median": 0.2436012450052658, "batch_s_p90": 0.25958958318515213, "batch_s_min": 0.21401814700220712, "batch_s_max": 0.2915572590136435, "cell_s_median": 0.2436012450052658, "cell_s_p90": 0.25958958318515213, "cell_s_mean": 0.2458077176672911, "cpu_rss_after_load_mib": 795.75, "cpu_peak_rss_mib": 1271.23046875}
+2026-11-22 12:09:26 end UPF_b1_t16_recheck rc=0
+2026-11-22 12:09:26 ps5104:    5104  2-09:48:19 python3 finllm_chat.py server | load 12.26 16.15 13.76
+2026-11-22 12:09:26 ps5104:    5104  2-09:48:19 python3 finllm_chat.py server | load 12.26 16.15 13.76
+2026-11-22 12:09:26 start UHR_b1_t16_recheck threads 16: --arm UHR --batch 1 --warmup 3 --cells 60
+{"arm": "UHR", "arch": "hrnet", "members": 1, "views_per_member": 1, "forwards_per_cell": 1, "views_batched": false, "batch": 1, "images_per_forward": 1, "warmup_batches": 3, "timed_batches": 60, "timed_cells": 60, "weights": "checkpoints", "batch_s_median": 0.43437822099076584, "batch_s_p90": 0.4560927790094865, "batch_s_min": 0.3855585260025691, "batch_s_max": 0.48034657500102185, "cell_s_median": 0.43437822099076584, "cell_s_p90": 0.4560927790094865, "cell_s_mean": 0.4318239819505834, "cpu_rss_after_load_mib": 868.22265625, "cpu_peak_rss_mib": 1312.4296875}
+2026-11-22 12:09:56 end UHR_b1_t16_recheck rc=0
+2026-11-22 12:09:56 ps5104:    5104  2-09:48:49 python3 finllm_chat.py server | load 13.25 16.06 13.81
+2026-11-22 12:09:56 ps5104:    5104  2-09:48:49 python3 finllm_chat.py server | load 13.25 16.06 13.81
+2026-11-22 12:09:56 start C1D4_b8_t16 threads 16: --arm C1D4 --batch 8 --warmup 1 --cells 24
+{"arm": "C1D4", "arch": "pf", "members": 1, "views_per_member": 8, "forwards_per_cell": 8, "views_batched": false, "batch": 8, "images_per_forward": 8, "warmup_batches": 1, "timed_batches": 3, "timed_cells": 24, "weights": "checkpoints", "batch_s_median": 22.51247910701204, "batch_s_p90": 23.23731954537798, "batch_s_min": 22.351611842983402, "batch_s_max": 22.96550438099075, "cell_s_median": 2.814059888376505, "cell_s_p90": 2.9046649431722473, "cell_s_mean": 2.8262331387910913, "cpu_rss_after_load_mib": 795.76953125, "cpu_peak_rss_mib": 4272.5625}
+2026-11-22 12:11:29 end C1D4_b8_t16 rc=0
+2026-11-22 12:11:29 ps5104:    5104  2-09:50:22 python3 finllm_chat.py server | load 13.18 15.35 13.77
+2026-11-22 12:11:29 ps5104:    5104  2-09:50:22 python3 finllm_chat.py server | load 13.18 15.35 13.77
+2026-11-22 12:11:29 start EPF_b8_t16 threads 16: --arm EPF --batch 8 --warmup 1 --cells 24
+{"arm": "EPF", "arch": "pf", "members": 5, "views_per_member": 1, "forwards_per_cell": 5, "views_batched": false, "batch": 8, "images_per_forward": 8, "warmup_batches": 1, "timed_batches": 3, "timed_cells": 24, "weights": "checkpoints", "batch_s_median": 13.624513237999054, "batch_s_p90": 13.767079817206831, "batch_s_min": 13.560879605007358, "batch_s_max": 13.713617350003915, "cell_s_median": 1.7030641547498817, "cell_s_p90": 1.7208849771508539, "cell_s_mean": 1.7041254247087636, "cpu_rss_after_load_mib": 1283.5625, "cpu_peak_rss_mib": 4454.59375}
+2026-11-22 12:12:26 end EPF_b8_t16 rc=0
+2026-11-22 12:12:26 ps5104:    5104  2-09:51:20 python3 finllm_chat.py server | load 12.95 14.97 13.74
+2026-11-22 12:12:26 extra driver ALL DONE

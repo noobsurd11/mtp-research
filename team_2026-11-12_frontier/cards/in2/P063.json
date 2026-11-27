@@ -1,0 +1,36 @@
+{
+ "paper_id": "doi:10.1109/tits.2023.3286934",
+ "title": "Weakly-Supervised Crack Detection",
+ "year": 2023,
+ "venue": "IEEE Transactions on Intelligent Transportation Systems",
+ "url": "https://arxiv.org/abs/2206.06743",
+ "code_url": "",
+ "mechanism": "Refine coarse crack annotations by removing annotated pixels whose local visual features resemble the background (data-driven), replacing an earlier brightness-threshold refinement.",
+ "adaptation": "Deliberately coarsen our crack labels to a 5 px band (covers 4 px FWHM plus 1 to 2 px jitter), then apply the data-driven refinement per cell so it adapts to each source's contrast; thin and re-dilate to source width. A second snapper to compare with the ridge snapper, expected to do better on low-contrast CSIR cracks.",
+ "min_experiment": "Arm: house trained on coarsen-then-refine labels; baseline: house and the ridge-snap arm. Metric: crack IoU, relF1@2, CSIR crack relR@2. Kill if CSIR relR@2 not above the ridge-snap arm by 0.02 and pooled metrics n.d. vs house.",
+ "evidence": "R: three crack segmentation datasets and one vessel dataset; annotation 10 to 30x faster at comparable detection accuracy (abstract).",
+ "score": 64,
+ "bench_score": 35,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "e1_unseen"
+ ],
+ "gpu_hours": 12,
+ "prior_overlap": "none: no label refinement was run (BRIEF section 5, Labels row).",
+ "directions": [
+  "D16"
+ ],
+ "scout_scores": [
+  64
+ ],
+ "final": 64,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 63,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P063"
+}

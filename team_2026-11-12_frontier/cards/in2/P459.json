@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1109/wacv57701.2024.00052",
+ "title": "From Denoising Training to Test-Time Adaptation: Enhancing Domain Generalization for Medical Image Segmentation (DeY-Net / DeTTA)",
+ "year": 2024,
+ "venue": "WACV",
+ "url": "https://arxiv.org/abs/2310.20271",
+ "code_url": "",
+ "mechanism": "A U-Net is trained with an auxiliary denoising decoder on the shared encoder; at test time the encoder is adapted per sample with the denoising loss.",
+ "adaptation": "Add a 1-channel denoising decoder to U-Net++ during the 20k-step house training, with Gaussian plus EL-like shot noise. Then run 10-step denoising TTT per cell (test) or per module (E1) on the encoder only.",
+ "min_experiment": "Arm: house + joint denoising decoder (5 seeds), with and without TTT. Baselines: the same model without TTT, and the house model. Metrics: E1 relF1@2 and inactive IoU, test clean-49 guard. Kill if E1 relF1@2 gains < +0.02 or the aux head alone costs > 0.005 crack IoU.",
+ "score": 35,
+ "bench_score": 35,
+ "bet": "medium",
+ "targets": [
+  "e1_unseen",
+  "inactive"
+ ],
+ "evidence": "R: domain-generalisation gains on liver segmentation benchmarks over the baseline (exact numbers not retrieved).",
+ "gpu_hours": 8,
+ "prior_overlap": "Partial. DDeP (decoder denoising pretraining on the pool, then fine-tune) was n.d., but that discards the aux head. Joint training with test-time use of the aux loss was never run.",
+ "directions": [
+  "D31"
+ ],
+ "scout_scores": [
+  35
+ ],
+ "final": 35,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 459,
+ "pid": "P459"
+}

@@ -1,0 +1,43 @@
+{
+ "paper_id": "arxiv:2405.15613",
+ "title": "Automatic Data Curation for Self-Supervised Learning: A Clustering-Based Approach",
+ "year": 2024,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2405.15613",
+ "code_url": "https://github.com/facebookresearch/ssl-data-curation",
+ "mechanism": "Hierarchical k-means on embeddings plus balanced sampling across clusters yields better SSL features than uncurated pools.",
+ "adaptation": "Our pool is 84% ARTS mono 5-busbar; embed cells, cluster, sample a balanced 30-50k subset across mono / multi / half-cell, CSIR / ARTS, dark-streak cells after de-duplication against test / val / E1.",
+ "min_experiment": "Winning pretraining arm on curated 30k vs random 30k; same fine-tune; kill if n.d. on out-of-fold relF1@2 and E1 recall.",
+ "evidence": "R: curated beats uncurated and matches manual curation on web, satellite and text data.",
+ "prior_overlap": "None.",
+ "score": 33,
+ "bench_score": 40,
+ "bet": "safe",
+ "gpu_hours": 50,
+ "targets": [
+  "e1_unseen",
+  "crack"
+ ],
+ "directions": [
+  "D32"
+ ],
+ "scout_scores": [
+  33,
+  33
+ ],
+ "alt_notes": [
+  {
+   "from": "D32",
+   "adaptation": "Cluster embeddings of the de-duplicated 159k pool (84% ARTS mono 5-busbar) and draw a balanced 30 to 50k subset over mono/multi/half-cell, CSIR/ARTS and dark-streak cells.",
+   "min_experiment": "Winning pretraining arm on curated 30k vs random 30k; kill if n.d. on out-of-fold relF1@2 and E1 recall.",
+   "score": 33
+  }
+ ],
+ "final": 33,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 484,
+ "pid": "P484"
+}

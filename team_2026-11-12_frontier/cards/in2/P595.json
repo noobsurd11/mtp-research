@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2607.08203",
+ "title": "Metrics or Mirage? An Audit of Evaluation Inconsistencies in Colonoscopy Polyp Segmentation Benchmarks",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2607.08203",
+ "code_url": "",
+ "mechanism": "Audit of a sub-field's evaluation: incompatible split protocols, missing boundary metrics and significance tests; controlled re-evaluation shows ranking reversals; reporting checklist.",
+ "adaptation": "Same audit for EL segmentation papers (splits, releases, class lists, metrics, tolerance, test size, tests) to back the 'unorganised field' claim.",
+ "min_experiment": "Arm: audit table from D01-D03 paper lists. Kill: none.",
+ "score": 15,
+ "bench_score": 85,
+ "bet": "safe",
+ "targets": [
+  "benchmark"
+ ],
+ "evidence": "R: 27 papers; 5 incompatible split protocols on Kvasir-SEG/CVC-ClinicDB; 26 of 27 without significance tests; near-tied rankings reverse across random splits.",
+ "gpu_hours": 0,
+ "prior_overlap": "none",
+ "directions": [
+  "D41"
+ ],
+ "scout_scores": [
+  15
+ ],
+ "final": 15,
+ "bench": 85,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 595,
+ "pid": "P595"
+}

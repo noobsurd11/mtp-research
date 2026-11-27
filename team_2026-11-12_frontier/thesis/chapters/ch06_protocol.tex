@@ -1,0 +1,224 @@
+% Chapter 6: The benchmark protocol.
+% Source: benchmark/PROTOCOL_v1.0.md (eeb3379a) with the decisions of 22 Nov on its open rulings R1 to R10 (D3 = a).
+% Every number and its source line: ch06_protocol_NOTES.md. Bibliography: ch06_protocol.bib (+ refs_extra.bib).
+
+\chapter{The benchmark protocol}
+\label{ch:protocol}
+
+This chapter states the benchmark protocol, version 1.0, under which every result in Chapters~7 to~9 was read. Version 1.0
+consolidates the draft of 15 November (v0.2) with the reads and the dataset audit of Chapter~4; the ten questions it left open were
+decided on 22 November and are stated here as protocol text. The last condition of the freeze was the few-shot result of Chapter~9,
+read once on 23 November: the primary contrast of opening \#9 is CONFIRMED, as a few-shot result inside E1 (Chapter~9). With it
+written in, v1.0 was frozen on 23 November. Table~\ref{tab:T4} summarises metrics, guards, statistics and decision rules.
+
+\FIG{F9}{Protocol flow: a 2-seed screen on cv5v2 (a pass is a promotion, never a result); a 5-seed row on cv5v3 (a gain needs
+$\Delta\geq M$ and a 95\% interval above 0 at OP-A and OP-W, with the guards passing); one registered E1 opening, read once, with
+candidates and rule frozen before any sealed prediction. Lower boxes: the recorded outcomes. CV5 numbers of the C2 recipe are
+selection-biased; E1: C2 recipe averaged over seeds 5 to 9; OP-A; 101 of 106 cells CSIR; test50: in-distribution, known leakage,
+context only.}
+
+\section{What a comparable number must state}
+\label{sec:protocol-design}
+
+Chapter~3 shows why published EL segmentation numbers cannot be compared: one dataset in three releases (582, 642 and 695 cells) with
+reshuffled splits; test cells that are the same physical cell as a training cell; validation drawn from test; different class lists
+and metric conventions; strict IoU on crack labels 1 to 2~px wide; single runs without intervals. Of the 22 papers with pixel-level EL
+numbers that we read in full, 18 give no interval, seed count or repeat; none states a module-disjoint split, uses a distance-tolerant
+crack metric or reports a number on unseen modules. Our own measurements add two reasons (Chapter~4). On strict crack IoU the label release moves the level
+more than any method gain over PF: the same PF models on the pool score strict crack IoU 0.320 on the 2021 release against 0.365 on label set
+v1.1, and relF1@2 0.822 against 0.846. Strict crack IoU measures the annotators' line-width convention: the same PF predictions score
+0.233, 0.365 and 0.414 against 1-px centreline, v1.1 and 3-px labels, while relF1@2 reads 0.824, 0.846 and 0.849.
+
+We therefore hold that a comparable number states seven things together: dataset release, label set, split, class list, metric
+convention, operating-point rule and seed count. The protocol fixes each, and its checklist (Section~\ref{sec:protocol-governance})
+makes an entry state them. Five choices follow from the measurements: a split grouped by physical module, because the earlier split
+leaked modules across folds; a crack metric that tolerates the label jitter; guards against gains bought by wider cracks or more false
+alarms; margins from an A/A contrast of the baseline; and sealed test sets opened once under a registered rule, because the legacy
+test set had 18 counted openings before the final one and overlaps the pool. Absolute levels from this dataset are not compared with another dataset or
+release.
+
+\section{Data, sets and sealing}
+\label{sec:protocol-sets}
+
+\paragraph{Pool and split.} The data are BenchmarkEL release 20211104 \citep{pratt2021unet,pratt2023benchmark}, 24 classes.
+Development uses the pool P532 (legacy train and validation, 532 cells; Table~\ref{tab:T1}). The label set is v1.1: the 2021 masks
+with the E-SCDD crack and inactive corrections \citep{hanifi2025escdd}, scuff and star pixels set to ignore, and
+one swapped BMRK mask restored; ignore pixels are not scored. The split of record is cv5v3: five folds over 285 module groups, none
+of which spans folds, every pool cell scored once out of fold. BMRK cells are ELPV cells \citep{deitsch2019elpv} with no module
+identity in their pixels, so they stay grouped by image id, a stated limit. Every read prints the 532 cells and the 416 clean cells
+side by side, and both decide; the clean set leaves out the 91 cells that cv5v2 held out while a cell of their module trained, 8
+cells of four open image-id pairs and the 17 SDLE cells. The earlier split cv5v2 (330 groups) holds the 2-seed screens only; its
+module leak, read by a pre-registered difference-in-differences, is not separated (PF relF1@2 +0.0026 [$-$0.0092, +0.0174];
+Table~\ref{tab:T2}). The pool has no half-cut cell, so CV5 cannot measure an unseen cell layout.
+
+\paragraph{Sealed sets.} The legacy test set (test50) is kept for continuity and a public table only. It is in-distribution and leaks:
+8 of its cells are the same physical cell as a pool cell (7 confirmed by pixels, 1 by the cell-table link only). After 19 counted
+openings, the last a public table that decides nothing, it is closed. Every test50 number in this thesis is in-distribution, with known leakage, and context only. The unseen-module set E1 holds 106 cells
+of release 20221008 (CSIR 101, BMRK 5; 71 source images; 62 half-cut, 44 full). No E1 image is linked to a pool image by the pixel
+audit, so ``unseen modules'' is supported, not proven. E1 is scored on the release 20221008 masks, with class 24 mapped to class 2 and
+classes 25 to 28 (scuff, corrosion cell, brightening, star) set to ignore.
+
+\paragraph{Sealing and openings.} No development step reads a label or prediction of a test50 or E1 cell, and 167 forbidden stems may
+not appear in any training list. A sealed set is read only in a registered opening: the rule is written and reviewed, its md5 and the
+md5 of a registration file enter a ledger before any sealed prediction is made, and the read runs once. A repeat is tagged and is not
+the registered read. Every opening is reported. E1 had seven registered openings (1 to 14 November) before the final evaluation, opening \#8, registered on 21 November at 11:22:35 before
+any sealed prediction (Chapter~8). Opening \#9, the few-shot track of Chapter~9, was registered on 22 November; its result, read once on 23
+November, is CONFIRMED: labelled E1 cells of the other folds raise the out-of-fold crack relF1@2 of the C2 recipe against the same
+recipe zero-shot by +0.2213 [+0.0977, +0.3504] (Chapter~9). From opening \#9 on, E1 is training data for the few-shot models: every such run and record carries a
+\texttt{trained\_on\_e1} mark that the read tools refuse outside the few-shot card, and we make no later zero-shot claim on E1.
+
+\paragraph{Classes and scoring unit.} The balance metric mIoU-R13 is the mean IoU over 13 robust classes, printed with its
+per-class values; an absent class is never scored 0 or 1. The scoring unit is the image window: ARTS, CFVS and CSIR images show about
+$3\times3$ cells, and 57\% of crack pixels and 71\% of inactive pixels lie outside the centre cell. The protocol keeps the window, so
+every cell-level quantity in this thesis (a crack-free cell, an inactive area, a severity value) describes a window.
+
+\section{Metrics and guards}
+\label{sec:protocol-metrics}
+
+\paragraph{Headline.} relP@2 is the share of predicted crack pixels whose Euclidean distance to the nearest ground-truth crack pixel is
+at most 2.0~px; relR@2 is the share of ground-truth crack pixels within 2.0~px of a predicted crack pixel; relF1@2 is their F1. The
+distance transform runs per image, ignore pixels are excluded, and counts are pooled over the scored cells. The tolerance is the 95th
+percentile of the distance between two annotations of a crack, 2.000~px. Crack relF1@2 decides every crack contrast; relP@2 and
+relR@2 are printed beside it, and recall is never reported without precision. A centreline F1 at 2~px is not eligible, because it
+rewards a 1-px dilation.
+
+Strict crack IoU is printed because the literature uses it, with its convention band $\pm$0.019: the largest shift of a strict-IoU
+contrast when the same predictions are re-scored on the 1-px centreline, the v1.1 and the 3-px labels. A strict-IoU delta is printed
+as inside or outside the band and decides nothing. The release's check run shows why: oracle predictions of fold~0 shifted by 1~px
+score strict crack IoU 0.370 and relF1@2 0.999. Inactive IoU and mIoU-R13 are printed for every row and act as guards; inactive IoU
+never decides a sealed-set claim. Inactive contrasts carry intervals of about $\pm$0.05 to 0.07 (protocol estimate); inactive pixels sit in only 33 of the
+285 module groups (Kish effective $n$ 12.9). The 18 cells whose inactive label the audit flagged as possibly spurious are scored as
+labelled, because the raters judged most flagged regions to be model errors (30 of 40).
+
+\paragraph{Guards.} A crack gain counts only if it does not come from drawing differently. Five guards apply: (i) pooled width, the
+entry's ratio of predicted to ground-truth crack pixels over the reference's, within 0.85 to 1.15; (ii) the same per source, for every
+source with at least 40 cells in the scored set; (iii) false crack pixels on crack-free cells, at most $1.5\times$ the reference;
+(iv) inactive IoU, a drop of at most $M$; (v) mIoU-R13, a drop of at most $M$ on CV5 and at most 0.010 on a sealed set. On E1 the
+guards are (i), (ii) for CSIR, (iii) and (v), named G1 to G4, and inactive IoU is reported only. Point values decide, bounds are inclusive, and each guard is judged at every deciding operating point and cell set. Printed beside, deciding
+nothing: false crack pixels per crack-free cell, the share of crack-free cells with at least 50 false crack pixels, component recall
+and precision (crack components of at least 20~px), and per-source and per-class values.
+
+The reference PF draws under one false crack pixel per crack-free cell on average (212 over the 303
+crack-free pool cells at OP-A), so $1.5\times$ PF is a tight bound for every arm without PF's partial encoder freeze; the plain fine-tune
+HOUSE sits at $3.7\times$. The bound stays at $1.5\times$ the comparator, frozen, with the per-cell values printed beside it: moving the reference
+after reads that failed the guard would be a post-hoc change.
+
+\section{Operating points, entries and seeds}
+\label{sec:protocol-entries}
+
+\paragraph{Operating points.} OP-A is the argmax over the 24 classes. OP-W adds a crack bias, cross-fitted on the other folds, that
+matches the reference's crack width. On CV5 both decide. OP-F (a crack bias cross-fitted for F1) is printed only, because it is
+unstable under A/A ($-$0.0118 [$-$0.0357, $-$0.0005] crack IoU). OP-C, per-class biases for 11 of the 13 robust classes fitted on the
+other folds, is the comparator for arms that shift class priors. Sealed sets are read at OP-A only, because OP-W needs folds and a bias fitted on a sealed set would be tuning. Entries use final-step weights or a readout
+fixed in the card, never a best-validation checkpoint.
+
+\paragraph{Entry classes and equal cost.} An entry is (a) a single model with one forward pass, the default column; (b) a decision
+layer, credited only against the same model's argmax; (c) an ensemble of models or views, printed beside an equal-cost comparator with
+its view count; or (d) an entry that uses source metadata at test time, a separate row class. Above twice the house model's training
+or inference cost, the equal-cost comparator is a 2-seed PF ensemble. The final model C2 (HRNet-W18 \citep{wang2021hrnet} with a
+U-Net++ decoder \citep{zhou2018unetpp}, SWAD weight averaging \citep{cha2021swad} and D4 test-time augmentation; Chapter~7) is class
+(c) by its eight views. At 1,744 GFLOPs per cell it costs $11.8\times$ the plain PF model C1, above the line, and no equal-cost
+comparator was printed for it. Instead, same-view controls (PF with D4 on CV5, C1-D4 on E1; 1,184 GFLOPs per cell, 0.68 of C2's cost,
+derived) isolate the model part without being equal cost. This is a disclosed deviation for C2; for later entries above the line the
+protocol defines equal cost in FLOPs per cell and requires a FLOP-matched PF comparator. Every row states a fairness record
+(parameters, GFLOPs, output stride, schedule, pretrained weights and their licence, memory, step time, view count).
+
+\paragraph{Data tracks.} The main track admits data and weights whose terms allow research use as found, sources that ask only for a
+citation included, and each row carries a commercial-use column. Every pool-trained row, C1 and C2 included, trains on the 50 BMRK
+cells (ELPV images, CC BY-NC-SA 4.0), and BenchmarkEL states no licence, so C2 is research-only as trained (Chapter~10). A row with
+research-only weights, such as SegFormer MiT-B2 \citep{xie2021segformer}, is a benchmark row only and says so. No extra-data entry
+(UCF-EL, MultiSolSegment) exists in v1.0.
+
+\paragraph{Seeds and tiers.} A screen has 2 seeds; a table row and a candidate have 5 (seeds 5 to 9). A row whose 2-seed interval
+against PF lies wholly below 0 at OP-A and OP-W stays at 2 seeds; this keeps the two EL-paper rows (UCF-EL's DeepLabV3 with
+ResNet-50, Pratt's weighted cross-entropy) at 2 seeds. Five other closed rows were never run at 5 seeds and no new experiments
+followed the few-shot track; they form a separate tier, ``2 seeds, cv5v2 screen, clean-cell column'', not ranked against the 5-seed
+tier. Label efficiency is not part of v1.0; cost and severity are in Chapter~10.
+
+\section{Statistics and decision rules}
+\label{sec:protocol-stats}
+
+\paragraph{CV5.} The interval is a two-stage group bootstrap: module groups with replacement (285 on cv5v3, 330 on cv5v2), then one
+seed per fold and arm; 2,000 draws; 95\% percentile. Seeds are drawn unpaired, which is conservative. The margin is
+$M=\max(0.01,\ 2\times\mathrm{SE})$, with SE the standard error of the baseline's A/A contrast (PF seeds \{5,6\} against \{7,8\}), per
+machine and cell set. For relF1@2, $M$ is 0.010 throughout, except 0.0111 on the 416 clean cells of the cv5v2 screens (RTX A6000 machine); on cv5v3 (532 cells) the A/A difference is $-$0.0002, SE 0.0037. For
+inactive IoU it is 0.049 on the RTX A6000 machine and 0.054 on the RTX PRO 4500 machine (cv5v2), and 0.0462 in the cv5v3 TTA read.
+$M$ covers seed noise, not the choice of folds; the split-variance probe was never run. None of 15 A/A splits would have been promoted on any headline metric.
+The smallest detectable relF1@2 change (power 0.8) is 0.0087, 0.0071 and 0.0055 at 2, 3 and 5 seeds; for inactive IoU, 0.0518, 0.0423
+and 0.0328.
+
+\paragraph{Sealed sets.} The interval is a seed-aware two-stage bootstrap: per draw the clusters (71 source images on E1, 48 on test50)
+with replacement, then for each arm independently $n$ models with replacement from its $n$ ($n=5$; 3 in the few-shot track); 2,000
+draws; 95\% percentile. The fixed-model interval (clusters only) is printed beside; it speaks about the trained models, not the recipe.
+$M$ is fixed at 0.010, not re-estimated on the sealed set. For opening \#8 the smallest detectable effect is $2.80\times0.0265=0.0742$
+(derived from the printed SE; power 0.8, two-sided 0.05).
+
+\paragraph{Verdicts.} A 2-seed screen passes when $\Delta\geq M$ and the lower end is above 0 at OP-A and OP-W on 532 and 416 cells,
+with pooled width held; a pass promotes the arm to a 5-seed confirmation and is never a result (Figure~\ref{fig:F9}). A confirmation needs the same at all
+four values: it is CONFIRMED when every guard also passes; NOT CONFIRMED, reported as a gain with the failing guard items named, when a
+guard fails; and NOT CONFIRMED when the headline fails, worded NO LOSS if the lower end lies above $-M$ at all four values, LOSS
+otherwise. A sealed opening is CONFIRMED when $\Delta\geq M$, the lower end is above 0 and guards G1 to G4 pass. A CV5 number of an arm
+whose readout or component was chosen on the same cells is labelled ``selection-biased'' and cannot confirm the arm. Each arm and each
+opening has one pre-declared primary contrast; everything printed beside it is descriptive. A read never mixes machines. A CV5 gain is
+printed with its shifts under the label variants of Chapter~4 and with $k_0$, the number of module groups whose removal takes it to 0,
+wherever the audit computed them. There are no ranks: rows are ordered by their relF1@2 difference to PF, and a row whose interval holds
+0 is ``not separated from PF''.
+
+\section{The HOUSE rule and the final recipe}
+\label{sec:protocol-house}
+
+Since 14 November, an arm that claims an in-distribution crack gain is also printed against HOUSE, the same U-Net++ / ResNet-34 with
+the plain fine-tune. The rule was applied to HRNet (HRNET $-$ HOUSE +0.0045 [$-$0.0069, +0.0157], Table~\ref{tab:T6}) and, once the
+rule was kept on 22 November, to the C2 recipe on CV5 (Table~\ref{tab:T7a}). The C2 lines have printed intervals and no registered
+rule and decide nothing; their CS and CS\_D4 numbers are selection-biased, because the \texttt{swad} readout was chosen after a read on
+the same cells. CS\_D4 $-$ HOUSE relF1@2 is +0.0163 [+0.0051, +0.0284] at OP-A and +0.0194 [+0.0080, +0.0319] at OP-W on the 532 cells,
+and +0.0164 [+0.0033, +0.0318] and +0.0204 [+0.0073, +0.0369] on the 416. Against HOUSE, C2's false crack pixels are 0.09 to
+$0.17\times$ HOUSE's, and its ARTS width ratio at OP-A falls just below the band (0.847 on 532 cells, 0.846 on 416); HOUSE itself draws
+wide ARTS cracks ($1.307\times$ PF), so this item measures HOUSE's width as much as C2's.
+
+The rule as written compares an eight-view arm with a single-view reference. The single-view line CS $-$ HOUSE is +0.0107 [$-$0.0009,
++0.0229] at OP-A, an interval that holds 0, and +0.0140 [+0.0017, +0.0269] at OP-W (532 cells). No HOUSE prediction with D4 exists and
+none was made, so the like-for-like contrast CS\_D4 $-$ HOUSE\_D4 is not measured. We record this asymmetry as a limitation of the CV5
+evidence for C2: D4 alone adds +0.0134 to PF on CV5, so a HOUSE with D4 would likely close part of the gap (judgement, not measured).
+
+\section{Leakage guards and reporting}
+\label{sec:protocol-governance}
+
+The unlabelled pool list keeps 4,949 cells; a pool cell is removed if it shares a physical module, an md5, an embedding cosine of at
+least 0.98 or a band-pass normalised cross-correlation of at least 0.80 with any labelled or sealed image. Third-party weights trained
+on SCDD or E-SCDD are forbidden; generic public weights are allowed and named. A teacher, generator or labeller never sees the
+student's held-out fold. BMRK and SDLE images carry no module identity in their pixels, so leakage between neighbouring windows cannot
+be excluded for them.
+
+Each entry fills a model info sheet (fields A to J, from identity to deviations) and a ten-item checklist that states the seven
+elements of Section~\ref{sec:protocol-design}, the interval method, the openings with prior looks, the entry class with its equal-cost
+comparator, values with and without flagged cells, and the module groups that carry the gain.
+Three practices from the reads are protocol text: a readout that re-estimates batch-norm statistics names its cells;
+a post-hoc parameter is fixed before the read or cross-fitted, with a Holm correction over its variants; and inactive results state
+their read set. A result file is never edited once its md5 is recorded; corrections go into an errata file that names the lines it
+supersedes. Scoped wordings are fixed: ``unseen modules: supported, not proven''; leakage ``not separated''; D4 ``robust on CV5 (known
+modules); on E1 the D4 part is not resolved''.
+
+\section{Release}
+\label{sec:protocol-release}
+
+The benchmark is prepared for release as lists and code only: code under the MIT licence, lists and result tables under
+CC BY 4.0. The lists hold the split definitions, group and score-exclude files, the module identity of all 700 image ids, the 816-row
+cell table, the unlabelled-pool list and the pixel md5s of the v1.1 pool masks. The code holds the scorer, the CV5 read, the opening
+read and a script that rebuilds v1.1 from the public masks; training code is not included. No image, mask, weight, or label or
+per-cell result of test50 or E1 is shipped; users fetch the data from its owners under their terms (Chapter~10).
+
+An outside entry trains one model per cv5v3 fold, writes one compressed file per held-out cell, and runs the scorer and the CV5 read on
+CPU. A v1.1 rebuild is checked against the pixel md5s in the release lists; on our build, 1,064 files of 532 cells match with 0 mismatches. PF's
+out-of-fold per-cell records on the pool are to be added to the release (decided 22 November), so that an outside entry can be contrasted
+with PF on the same cells. Outside entrants will report E1 levels only, with a self-declared line in a public opening ledger, once a
+tested builder for the E1 label view is in the release; that builder waited for the few-shot read, which ran once on 23 November.
+
+\section{Status and limits}
+\label{sec:protocol-status}
+
+The protocol has been reviewed, its open questions are decided, the GPU latency of the E1 candidates is measured (Chapter~10) and
+the few-shot result, read on 23 November (Chapter~9), is written into it; v1.0 was frozen on 23 November. Its limits: $M$ covers seed noise, not the choice of folds;
+inactive is under-powered on the pool and on E1 (10 inactive cells); the 2-seed tier sits on the leaky cv5v2 split, read with
+clean-cell columns; BMRK and SDLE cells cannot be grouped by physical module; one dataset family and one GPU model per read; and the CV5
+evidence for C2 is selection-biased, with a HOUSE line that is not like for like.

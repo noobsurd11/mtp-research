@@ -1,0 +1,44 @@
+{
+ "paper_id": "arxiv:2006.06015",
+ "title": "Stochastic Segmentation Networks: Modelling Spatially Correlated Aleatoric Uncertainty",
+ "year": 2020,
+ "venue": "NeurIPS",
+ "url": "https://arxiv.org/abs/2006.06015",
+ "code_url": "",
+ "mechanism": "Models logits as a low-rank multivariate Gaussian, giving spatially coherent mask samples at little extra cost.",
+ "adaptation": "Replace the crack logit head with a low-rank Gaussian head. Average the samples, or pick the sample with the highest expected IoU, and use the variance as a calibrated crack uncertainty for review flags and severity.",
+ "min_experiment": "Arm = house PF + SSN crack head (5 seeds) versus house PF. Metrics: crack IoU, relF1@2, ECE. Kill if IoU < +0.012 and ECE does not improve.",
+ "score": 30,
+ "bench_score": 40,
+ "bet": "safe",
+ "targets": [
+  "crack",
+  "severity",
+  "benchmark"
+ ],
+ "evidence": "R: LIDC lung nodule and BraTS; better sample diversity and quality than Probabilistic U-Net (abstract).",
+ "gpu_hours": 6,
+ "prior_overlap": "none",
+ "directions": [
+  "D17"
+ ],
+ "scout_scores": [
+  30,
+  28
+ ],
+ "alt_notes": [
+  {
+   "from": "D17",
+   "adaptation": "Low-rank Gaussian crack head on the house decoder (base of the style-conditioned SSN); mainly calibrated crack uncertainty for severity and human-review flags.",
+   "min_experiment": "Arm: SSN crack head, 5 seeds vs house PF; metrics clean-49 crack IoU (mean prediction) and crack ECE; kill if IoU drops > 0.01 or ECE not better by 20%.",
+   "score": 28
+  }
+ ],
+ "final": 30,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 519,
+ "pid": "P519"
+}

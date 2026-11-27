@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1016/j.patcog.2024.111293",
+ "title": "IMWA: Iterative Model Weight Averaging benefits class-imbalanced learning",
+ "year": 2025,
+ "venue": "Pattern Recognition",
+ "url": "https://arxiv.org/abs/2404.16331",
+ "code_url": "",
+ "mechanism": "Split training into episodes; several models trained from the same start are averaged and the average starts the next episode; complements EMA on imbalanced tasks.",
+ "adaptation": "4 parallel copies on 4 A6000s, average every 1k-2k steps across the 20k house schedule; aims at rare crack pixels and the 42 inactive cells.",
+ "min_experiment": "Arm: IMWA (4 copies, 10 episodes), 3 replicates. Baseline: house single. Metric: inactive IoU and crack IoU on CV. Kill: < +0.01 on both.",
+ "evidence": "R: long-tailed classification, imbalanced SSL and SSOD; +0.8 to +1.8 top-1 over strong bases vs about +0.2 for end-of-training averaging; additive with EMA; Pascal VOC SSOD AP50:95 +1.8 for Unbiased Teacher.",
+ "gpu_hours": 13,
+ "bet": "medium",
+ "targets": [
+  "inactive",
+  "crack"
+ ],
+ "prior_overlap": "none",
+ "score": 55,
+ "bench_score": 25,
+ "directions": [
+  "D34"
+ ],
+ "scout_scores": [
+  55
+ ],
+ "final": 55,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 169,
+ "pid": "P169"
+}

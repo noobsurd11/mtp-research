@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.2172/17198208",
+ "title": "Power Loss Estimation for PV Modules with Cracked Cells",
+ "year": 2025,
+ "venue": "OSTI report (Sandia)",
+ "url": "https://www.osti.gov/servlets/purl/17198208",
+ "code_url": "",
+ "mechanism": "Crack, dark and busbar masks are compressed into a VAE latent, and XGBoost predicts per-cell power loss (the pvcracks pipeline).",
+ "adaptation": "Bold benchmark option: once their cell EL + I-V data is released (listed as pending), feed our masks to their power model and score segmenters by I-V agreement. Reference only until then.",
+ "min_experiment": "When the data is available: per-cell dPmpp MAE using masks from the house, PF and ensemble models. Kill if the spread between models is below the model's own error.",
+ "evidence": "R: per the web docs, XGBoost per-cell dPmpp; numbers not retrieved (full text fetch timed out).",
+ "prior_overlap": "none",
+ "score": 10,
+ "bench_score": 65,
+ "bet": "moonshot",
+ "targets": [
+  "severity",
+  "benchmark"
+ ],
+ "gpu_hours": 1,
+ "directions": [
+  "D44"
+ ],
+ "scout_scores": [
+  10
+ ],
+ "final": 10,
+ "bench": 65,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 626,
+ "pid": "P626"
+}

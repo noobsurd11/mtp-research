@@ -1,0 +1,51 @@
+{
+ "paper_id": "arxiv:2603.01361",
+ "title": "MixerCSeg: An Efficient Mixer Architecture for Crack Segmentation via Decoupled Mamba Attention",
+ "year": 2026,
+ "venue": "CVPR 2026 (arXiv)",
+ "url": "https://arxiv.org/abs/2603.01361",
+ "code_url": "https://github.com/spiderforest/MixerCSeg",
+ "mechanism": "A mixer encoder with CNN, Transformer and Mamba-like paths, a direction-guided edge gated convolution (DEGConv) and spatial refinement multi-level fusion (2.54M params).",
+ "adaptation": "Run it as a benchmark baseline with a 24-class head at 512 px. Separately, lift DEGConv into the house decoder as a crack-edge module.",
+ "min_experiment": "Benchmark row vs house, 3 seeds, full protocol. DEGConv-in-house arm: kill if crack relF1@2 gains < 0.012.",
+ "evidence": "R: state of the art on several crack benchmarks at 2.05 GFLOPs (abstract). WebSearch shows it on the CVPR 2026 open-access site.",
+ "gpu_hours": 8,
+ "bet": "safe",
+ "prior_overlap": "None.",
+ "score": 38,
+ "bench_score": 75,
+ "targets": [
+  "benchmark",
+  "crack"
+ ],
+ "directions": [
+  "D09",
+  "D12"
+ ],
+ "scout_scores": [
+  36,
+  36,
+  38
+ ],
+ "alt_notes": [
+  {
+   "from": "D09",
+   "adaptation": "Benchmark entry as a 2026 crack SOTA; same adaptation as SCSegamba (1-channel stem, 512 px, 3-class and 24-class variants).",
+   "min_experiment": "Arm: MixerCSeg official recipe; baseline PF; 3 seeds. Metric: CV crack IoU, relF1@2. Kill as a model if CV crack IoU < PF minus 0.02; keep as benchmark row.",
+   "score": 36
+  },
+  {
+   "from": "D09",
+   "adaptation": "Benchmark row as newest crack SOTA; same training adaptation as SCSegamba (512 px, 3-class and 24-class, gray to 3 channels).",
+   "min_experiment": "Arm: MixerCSeg official code; baseline: PF; 3 seeds. Metric: CV crack IoU, relF1@2. Kill as a model if CV crack IoU < PF minus 0.02; keep as benchmark row.",
+   "score": 36
+  }
+ ],
+ "final": 38,
+ "bench": 75,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 408,
+ "pid": "P408"
+}

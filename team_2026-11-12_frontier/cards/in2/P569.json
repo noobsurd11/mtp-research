@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2510.17299",
+ "title": "Exploring Structural Degradation in Dense Representations for Self-supervised Learning",
+ "year": 2025,
+ "venue": "NeurIPS 2025",
+ "url": "https://arxiv.org/abs/2510.17299",
+ "code_url": "https://github.com/EldercatSAM/SSL-Degradation",
+ "mechanism": "Longer SSL training can degrade dense-task performance. A label-free Dense representation Structure Estimator (class relevance + effective dimensionality) selects checkpoints or regularises training.",
+ "adaptation": "Only useful alongside a D32 pool SSL run (159k pool, new backbone): score SSL checkpoints with DSE on pool cells and fine-tune from the DSE-chosen one, not the last.",
+ "min_experiment": "Arm: PF fine-tune from the DSE-selected SSL checkpoint. Baseline: PF fine-tune from the last checkpoint. Metric: val + F51 crack AP, then test crack IoU. Kill: DSE choice no better than the last checkpoint on val.",
+ "evidence": "R: degradation seen across 16 SSL methods; DSE-based model selection gives +3.0 mIoU on average at negligible cost.",
+ "prior_overlap": "Partial. MIM and DDeP pool pretraining were n.d., always using the final checkpoint; checkpoint selection was not tested.",
+ "score": 25,
+ "bench_score": 15,
+ "bet": "medium",
+ "gpu_hours": 4,
+ "targets": [
+  "crack",
+  "e1_unseen"
+ ],
+ "directions": [
+  "D42"
+ ],
+ "scout_scores": [
+  25
+ ],
+ "final": 25,
+ "bench": 15,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 569,
+ "pid": "P569"
+}

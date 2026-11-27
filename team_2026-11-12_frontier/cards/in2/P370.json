@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.52202/079017-3979",
+ "title": "ResAD: A Simple Framework for Class Generalizable Anomaly Detection (and ResAD++, doi:10.1007/s11263-026-02885-1)",
+ "year": 2024,
+ "venue": "NeurIPS 2024 / IJCV 2026",
+ "url": "https://arxiv.org/abs/2410.20047",
+ "code_url": "",
+ "mechanism": "Learn on residual features (feature minus few-shot normal reference features) with a hypersphere constraint, so one model detects anomalies in classes never seen in training without retraining.",
+ "adaptation": "Train on train-source full cells with 4 to 8 clean same-source references; at E1, references are clean half-cut pool cells of the same module family. Map used as an E1-only prior channel; compare against the bank-based residual of WeakREST.",
+ "evidence": "R: class-generalizable AD across domains; MVTec AD pixel AUROC 96.9 per leaderboard summary (WebSearch, not verified in paper).",
+ "min_experiment": "Offline only: residual map on H36 and val half-cut pool cells; metric half-cut crack component recall at 1% area. Kill if below the WeakREST bank map. About 5 GPU-h.",
+ "gpu_hours": 5,
+ "prior_overlap": "none",
+ "score": 40,
+ "bench_score": 50,
+ "bet": "medium",
+ "targets": [
+  "e1_unseen"
+ ],
+ "directions": [
+  "D39"
+ ],
+ "scout_scores": [
+  40
+ ],
+ "final": 40,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 370,
+ "pid": "P370"
+}

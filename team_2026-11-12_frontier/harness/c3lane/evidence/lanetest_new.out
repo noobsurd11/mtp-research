@@ -1,0 +1,13 @@
+one user 3 x 3,000 MiB                   -> EXCLUDED  want EXCLUDED  PASS  [other_on: alice:9000MiB(1001,1002,1003)  rc=0]
+one process 4,097 MiB                    -> EXCLUDED  want EXCLUDED  PASS  [other_on: alice:4097MiB(1001)  rc=0]
+one process [N/A]                        -> EXCLUDED  want EXCLUDED  PASS  [other_on: alice:0+N/AMiB(1001)  rc=0]
+one user 3 x 1,000 MiB                   -> QUALIFIES want QUALIFIES PASS  [other_on:  rc=0]
+two users 3,000 + 3,000                  -> QUALIFIES want QUALIFIES PASS  [other_on:  rc=0]
+exactly 4,096 MiB one user               -> QUALIFIES want QUALIFIES PASS  [other_on:  rc=0]
+no owner 2 x 2,100 (bucket unknown)      -> EXCLUDED  want EXCLUDED  PASS  [other_on: unknown:4200MiB(9001,9002)  rc=0]
+other GPU 9,000 MiB                      -> QUALIFIES want QUALIFIES PASS  [other_on:  rc=0]
+no processes                             -> QUALIFIES want QUALIFIES PASS  [other_on:  rc=0]
+ours 9,000 MiB (live pid in pids/)       -> QUALIFIES want QUALIFIES PASS  [other_on:  rc=0]
+ours + alice 5,000                       -> EXCLUDED  want EXCLUDED  PASS  [other_on: alice:5000MiB(1001)  rc=0]
+non-numeric pid                          -> EXCLUDED  want EXCLUDED  PASS  [other_on: unknown:0+N/AMiB([N/A])  rc=0]
+nvidia-smi fails                         -> rc 2 (lane_ok: "nvidia-smi read failed", not qualifying) PASS

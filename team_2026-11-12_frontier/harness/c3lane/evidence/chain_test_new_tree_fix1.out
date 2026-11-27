@@ -1,0 +1,43 @@
+[2026-11-17 14:43:59] start; old cq 02d5ba5f new cq 14d33b80; T1..T5 run side by side
+[2026-11-17 14:45:00] queues ended: rc t1 0 t2 0 t3 0 t4 0 t5 1
+--- T1 patched, QC unset
+PASS T1 end line: 2 trained, 2 dumped (usual dumps), 2 RUN.md5 of 2 jobs
+PASS T1 no HOLD, no FAIL line
+PASS T1 rendered: 5 lines, one further dump line
+PASS T1 further dump command = the usual one + run id, key and job name
+PASS T1 dumps of the swad job: usual (key auto, no logp) then swad, same GPU as training
+PASS T1 log order: trained, usual dump, further dump, RUN.md5
+PASS T1 both dumps passed the BENCH_START check
+PASS T1 slim of the swad job keeps swad_bn,swad; slim of the plain job has no --keys
+PASS T1 RUN.md5 of the swad job: first 4 lines config, slim, LATEST.md5, enc_probe; then the 6 files of both dump dirs (their order follows the locale)
+PASS T1 RUN.md5 of both jobs checks (md5sum -c)
+PASS T1 plain job: one dump (logp 1, key auto), RUN.md5 6 lines, no enc_probe line
+PASS T1 the two jobs ran on different GPUs (LPG 1)
+PASS T1 only GPUs named in GPUS (0 1) were used, for training and for every dump
+PASS T1 lanes released (.end for both)
+--- T2 unpatched, plain job
+PASS T2 end line: 1 trained, 1 dumped, 1 RUN.md5
+PASS T2 = T1: RUN.md5 of the plain job byte-equal
+PASS T2 = T1: rendered lines of the plain job equal (deploy dir name aside)
+PASS T2 = T1: stub calls of the plain job equal (deploy dir and GPU aside)
+PASS T2 = T1: log lines of the plain job equal (time, pids, md5 of cmdline, GPU and lane counts aside)
+--- T3 patched, the further dump fails
+PASS T3 usual dump rc 0, further dump rc 1
+PASS T3 no slim call, no slim.pth, no RUN.md5
+PASS T3 lane released, queue ended: 1 trained, 1 dumped, 0 RUN.md5
+--- T4 patched, QC != B
+PASS T4 armed line names the queue code dir
+PASS T4 end line: 1 trained, 1 dumped, 1 RUN.md5
+PASS T4 cvcard.py and the cv02 variant from QC; card from B (relative path, cwd B)
+PASS T4 slim_ckpt.py from QC, run in B, keys swad_bn,swad
+PASS T4 training and both dumps ran in B
+PASS T4 RUN.md5 of the swad job = T1's
+PASS T4 nothing written into QC (file list and contents as before the run)
+--- T5 unpatched script, 10-field line
+PASS T5 refused at arming, nothing rendered or started
+--- T6 cq_setup.sh with a stub tmux
+PASS T6 without QC: old and new cq_setup.sh give the same tmux commands
+PASS T6 with QC: logger and queue script from QC, QC passed on, B unchanged
+PASS T6 a GPUS list is handed on to cq.sh
+PASS T6 with a changed file in QC: cq_setup.sh refuses, no tmux command
+[2026-11-17 14:45:22] CHAIN TEST: 34 checks, 34 passed, 0 failed

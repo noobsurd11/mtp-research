@@ -1,0 +1,46 @@
+{
+ "paper_id": "arxiv:2105.15203",
+ "title": "SegFormer: Simple and Efficient Design for Semantic Segmentation with Transformers",
+ "year": 2021,
+ "venue": "NeurIPS",
+ "url": "https://arxiv.org/abs/2105.15203",
+ "code_url": "https://github.com/NVlabs/SegFormer",
+ "mechanism": "Hierarchical Mix Transformer encoder without positional encoding plus a lightweight all-MLP decoder.",
+ "evidence": "R: B4 50.3 mIoU ADE20K at 64M params; B5 84.0 Cityscapes val. On EL (D01, doi:10.1109/jphotov.2024.3450009) beat U-Net/DeepLab on UCF-EL.",
+ "adaptation": "MiT-B2/B5 ADE20K weights, grey replicated, 1024 px or full-res skip since output is 1/4 res; lower encoder lr; mainly a benchmark entry and heterogeneous-ensemble member.",
+ "min_experiment": "Arm MiT-B2 + full-res skip, 5-fold CV; baseline house; metrics mIoU_rob, crack relF1@2, E1 crack recall; kill if all three below house.",
+ "score": 45,
+ "bench_score": 90,
+ "bet": "safe",
+ "gpu_hours": 15,
+ "targets": [
+  "benchmark",
+  "other_classes",
+  "e1_unseen"
+ ],
+ "prior_overlap": "none; transformers never tried. Same arm already proposed by D01; run once.",
+ "directions": [
+  "D23"
+ ],
+ "scout_scores": [
+  45,
+  45
+ ],
+ "alt_notes": [
+  {
+   "from": "D23",
+   "adaptation": "MiT-B2/B5 ADE20K weights, 1-ch replicated, 1024 px input or a full-res skip; main candidate for the heterogeneous ensemble member; benchmark entry.",
+   "min_experiment": "SegFormer-B2 1024 px alone vs house (5-fold) and as ensemble member vs house 5-seed ensemble; metrics as in the ensemble experiment; kill alone if mIoU_rob < 0.570, as member if no metric beats noise floor.",
+   "score": 45
+  }
+ ],
+ "final": 45,
+ "bench": 90,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 260,
+ "pub_allowed": 0,
+ "selected_for": "bench",
+ "pid": "P260"
+}

@@ -1,0 +1,44 @@
+{
+ "paper_id": "doi:10.1109/cvpr52734.2025.01942",
+ "title": "nnWNet: Rethinking the Use of Transformers in Biomedical Image Segmentation and Calling for a Unified Evaluation Benchmark",
+ "year": 2025,
+ "venue": "CVPR",
+ "url": "https://doi.org/10.1109/cvpr52734.2025.01942",
+ "code_url": "https://github.com/yanfeng-zhou/nnWNet",
+ "mechanism": "W-shaped network that keeps global (transformer) and local (conv) features flowing continuously across multiple resolutions (HRNet-like), integrated into the nnU-Net framework for unified benchmarking.",
+ "adaptation": "Drop-in nnU-Net trainer, so it runs on our splits with the same recipe as the nnU-Net and ResEnc arms; label-safe augmentation. Keeping a full-resolution stream suits 1 to 2 px cracks.",
+ "min_experiment": "nnWNet on the module-grouped folds against nnU-Net org and ResEnc M; CV-mean crack relF1@2, crack IoU and E1 relF1@2. Kill: CV-mean crack relF1@2 not above ResEnc M by 1 fold SD.",
+ "evidence": "R: state of the art claimed on 2D DRIVE (retinal vessels), ISIC-2017, Kvasir-SEG and CREMI (EM membranes), and on 3D Parse2022, AMOS22, BTCV, ImageCAS, against nnU-Net and transformer baselines. Exact DRIVE/CREMI numbers not retrieved.",
+ "prior_overlap": "none",
+ "score": 50,
+ "bench_score": 70,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "e1_unseen",
+  "benchmark"
+ ],
+ "gpu_hours": 60,
+ "directions": [
+  "D25"
+ ],
+ "scout_scores": [
+  45,
+  50
+ ],
+ "alt_notes": [
+  {
+   "from": "D25",
+   "adaptation": "Run its 2D trainer on our nnU-Net dataset folder (1 channel, 512 px, 24 classes, label-safe aug, same folds). Hypothesis: the global stream separates long scuff streaks on half-cut E1 cells from local cracks while the conv stream keeps 1-2 px detail.",
+   "min_experiment": "nnWNet 2D 5 folds v nnU-Net arm A winner and house 5-seed ensemble. Metric: E1 crack relF1@2 and recall, CV crack relF1@2. Kill if E1 relF1@2 < +0.03 over arm A and CV crack relF1@2 not up 0.01.",
+   "score": 45
+  }
+ ],
+ "final": 50,
+ "bench": 70,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 194,
+ "pid": "P194"
+}

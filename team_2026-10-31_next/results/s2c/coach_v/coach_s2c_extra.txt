@@ -1,0 +1,82 @@
+## 1. guard quantities per seed (s10..s14); singles, argmax
+  test inactive IoU   all 50   SUPPF 0.4418 0.4831 0.4626 0.4938 0.4592 (mean 0.4681) | SKR01 0.4373 0.4413 0.4567 0.4578 0.4485 (mean 0.4483) | d -0.0198
+  test inactive IoU   clean 49 SUPPF 0.4562 0.4989 0.4764 0.5105 0.4743 (mean 0.4833) | SKR01 0.4515 0.4553 0.4710 0.4718 0.4633 (mean 0.4626) | d -0.0207
+  test crack relP@2   all 50   SUPPF 0.9464 0.9482 0.9401 0.9387 0.9470 (mean 0.9441) | SKR01 0.9252 0.9323 0.9272 0.6147 0.9310 (mean 0.8661) | d -0.0780
+  test crack relP@2   clean 49 SUPPF 0.9464 0.9482 0.9401 0.9387 0.9470 (mean 0.9441) | SKR01 0.9336 0.9332 0.9272 0.9361 0.9310 (mean 0.9322) | d -0.0119
+  test crack IoU      all 50   SUPPF 0.4681 0.4711 0.4704 0.4718 0.4645 (mean 0.4692) | SKR01 0.4666 0.4715 0.4758 0.3427 0.4625 (mean 0.4438) | d -0.0254
+  test crack IoU      clean 49 SUPPF 0.4712 0.4742 0.4735 0.4748 0.4676 (mean 0.4722) | SKR01 0.4728 0.4750 0.4787 0.4800 0.4654 (mean 0.4744) | d +0.0021
+  test crack relF1@2  all 50   SUPPF 0.8882 0.8890 0.8931 0.8905 0.8902 (mean 0.8902) | SKR01 0.8882 0.8871 0.8985 0.7164 0.8854 (mean 0.8551) | d -0.0351
+  test crack relF1@2  clean 49 SUPPF 0.8922 0.8931 0.8971 0.8946 0.8942 (mean 0.8942) | SKR01 0.8958 0.8910 0.9024 0.8988 0.8894 (mean 0.8955) | d +0.0012
+## 2. the noisy cell CSIR_00070_r8_c4 per run: GT crack px | predicted crack px | predicted crack px within 2 px of GT | share of the run's predicted crack px (test, all 50)
+  SUPPF: GT crack px 787 | predicted 2 0 0 0 2 | near GT 2 0 0 0 0 | share 0.000 0.000 0.000 0.000 0.000 | GT inactive px 3815, predicted inactive 0 0 125 0 0
+  SKR01: GT crack px 787 | predicted 926 203 0 49713 0 | near GT 45 107 0 133 0 | share 0.009 0.002 0.000 0.344 0.000 | GT inactive px 3815, predicted inactive 0 0 0 50 0
+  SKR01 s13 predicts 49713 crack px on this one cell; the other 4 SKR01 runs 0 .. 926
+## 3. where each trip sits (verdict sets and bars unchanged; these are leave-outs)
+  G2 relP@2 form on the clean 49 (the guard is defined on all 50): -0.0119 (bar < -0.03)
+  without SUPPF s10: G1 -0.0263 / -0.0275 TRIP | G2 relP@2 -0.0774, E1 crack-free x0.912 TRIP | verdict R FAIL
+  without SUPPF s11: G1 -0.0160 / -0.0168 TRIP | G2 relP@2 -0.0770, E1 crack-free x0.943 TRIP | verdict R FAIL
+  without SUPPF s12: G1 -0.0211 / -0.0224 TRIP | G2 relP@2 -0.0790, E1 crack-free x0.916 TRIP | verdict R FAIL
+  without SUPPF s13: G1 -0.0133 / -0.0139 ok | G2 relP@2 -0.0793, E1 crack-free x0.882 TRIP | verdict R FAIL
+  without SUPPF s14: G1 -0.0220 / -0.0229 TRIP | G2 relP@2 -0.0773, E1 crack-free x1.027 TRIP | verdict R FAIL
+  without SKR01 s10: G1 -0.0170 / -0.0179 TRIP | G2 relP@2 -0.0928, E1 crack-free x0.897 TRIP | verdict R FAIL
+  without SKR01 s11: G1 -0.0180 / -0.0189 TRIP | G2 relP@2 -0.0946, E1 crack-free x0.806 TRIP | verdict R FAIL
+  without SKR01 s12: G1 -0.0219 / -0.0228 TRIP | G2 relP@2 -0.0933, E1 crack-free x0.968 TRIP | verdict R FAIL
+  without SKR01 s13: G1 -0.0221 / -0.0230 TRIP | G2 relP@2 -0.0151, E1 crack-free x1.021 ok | verdict R FAIL
+  without SKR01 s14: G1 -0.0198 / -0.0209 TRIP | G2 relP@2 -0.0942, E1 crack-free x0.976 TRIP | verdict R FAIL
+  module drops (48) that remove a trip: G1: CFVS_00114 (-0.0142 / -0.0149) | G2 relP@2: CSIR_00070 (-0.0119)
+  module drops that remove both trips: none
+## 4. seed-aware two-stage bootstrap of the guard quantities (48 test modules x seeds within arm; 2,000 draws; seed 0)
+  G1: share of draws with inactive d <= -0.015 in both sets 0.619; d all 50 95% interval [-0.0486, +0.0153], clean [-0.0510, +0.0154]; share with d < 0 (all) 0.895
+  G2 relP@2: share of draws with d < -0.03 0.461; 95% interval [-0.2651, -0.0065]; median -0.0204
+  either guard trips in 0.809 of the draws
+## 5. test inactive: where the loss sits
+  GT inactive px 92125 in 16 of 50 cells (16 modules); top 3 cells 0.588, n_eff 7.2 cells
+  singles, per-cell inactive IoU (seed means), cells with GT inactive: down in 8 of 16; median change -0.0001
+    BMRK_00073_cell0253    GT px  21382 (0.232)  SUPPF 0.174 -> SKR01 0.138 (-0.036)
+    CFVS_00114_r6_c5       GT px  19305 (0.210)  SUPPF 0.563 -> SKR01 0.520 (-0.042)
+    BMRK_00070_cell0250    GT px  13500 (0.147)  SUPPF 0.353 -> SKR01 0.352 (-0.001)
+    BMRK_00797_cell1631    GT px   8597 (0.093)  SUPPF 0.656 -> SKR01 0.638 (-0.018)
+    CFVS_00027_r4_c4       GT px   5214 (0.057)  SUPPF 0.760 -> SKR01 0.800 (+0.040)
+    CSIR_00092_r8_c4       GT px   4203 (0.046)  SUPPF 0.705 -> SKR01 0.646 (-0.059)
+    CSIR_00070_r8_c4       GT px   3815 (0.041)  SUPPF 0.007 -> SKR01 0.003 (-0.004)
+    CFVS_00042_r8_c4       GT px   3178 (0.034)  SUPPF 0.693 -> SKR01 0.527 (-0.166)
+    CFVS_00035_r8_c4       GT px   2728 (0.030)  SUPPF 0.793 -> SKR01 0.793 (-0.000)
+    BMRK_00219_cell0879    GT px   2715 (0.029)  SUPPF 0.881 -> SKR01 0.889 (+0.009)
+    BMRK_00788_cell1622    GT px   2155 (0.023)  SUPPF 0.355 -> SKR01 0.387 (+0.032)
+    BMRK_00062_cell0242    GT px   1672 (0.018)  SUPPF 0.265 -> SKR01 0.300 (+0.035)
+    ARTS_00073_r4_c2       GT px   1367 (0.015)  SUPPF 0.419 -> SKR01 0.454 (+0.036)
+    CFVS_00026_r9_c5       GT px   1288 (0.014)  SUPPF 0.449 -> SKR01 0.467 (+0.018)
+    CFVS_00180_r11_c4      GT px    920 (0.010)  SUPPF 0.837 -> SKR01 0.842 (+0.004)
+    CFVS_00129_r1_c5       GT px     86 (0.001)  SUPPF 0.000 -> SKR01 0.000 (+0.000)
+  singles without the top-3 GT inactive cells ['BMRK_00070_cell0250', 'BMRK_00073_cell0253', 'CFVS_00114_r6_c5']: d -0.0103 (all) / -0.0117 (clean)
+  singles, test (all 50), seed means: inactive TP px 56111 -> 55236 of 92125 GT (0.609 -> 0.600); inactive predicted on other GT 27793 -> 31053
+  singles, val (54 cells; not a sealed set): inactive IoU 0.5032 -> 0.5155, d +0.0123 (rule-1 thr 0.0949); per seed SUPPF 0.499 0.508 0.445 0.549 0.515 | SKR01 0.598 0.586 0.459 0.495 0.439
+  singles, E1 (106): inactive IoU 0.2255 -> 0.2930 (+0.0675); per seed SUPPF 0.324 0.181 0.280 0.209 0.134 | SKR01 0.275 0.195 0.400 0.381 0.214
+## 6. D: the G1t trip
+  paired image bootstrap (2,000, seed 0; the clean set = the same draw without the noisy cell): share of draws with inactive d <= -0.015 in both sets 0.827; share with d < 0 (all) 0.973; G2a relP@2 share < -0.03 0.004
+  ensembles, per-cell inactive IoU, cells with GT inactive: down in 6 of 16; median change +0.0012
+    BMRK_00073_cell0253    GT px  21382  E-SUPPF 0.200 -> E-SKR2 0.144 (-0.056)
+    CFVS_00114_r6_c5       GT px  19305  E-SUPPF 0.542 -> E-SKR2 0.513 (-0.029)
+    BMRK_00070_cell0250    GT px  13500  E-SUPPF 0.332 -> E-SKR2 0.340 (+0.009)
+    BMRK_00797_cell1631    GT px   8597  E-SUPPF 0.661 -> E-SKR2 0.637 (-0.024)
+    CFVS_00027_r4_c4       GT px   5214  E-SUPPF 0.782 -> E-SKR2 0.832 (+0.050)
+    CSIR_00092_r8_c4       GT px   4203  E-SUPPF 0.699 -> E-SKR2 0.703 (+0.003)
+    CSIR_00070_r8_c4       GT px   3815  E-SUPPF 0.000 -> E-SKR2 0.000 (+0.000)
+    CFVS_00042_r8_c4       GT px   3178  E-SUPPF 0.716 -> E-SKR2 0.420 (-0.296)
+    CFVS_00035_r8_c4       GT px   2728  E-SUPPF 0.795 -> E-SKR2 0.792 (-0.003)
+    BMRK_00219_cell0879    GT px   2715  E-SUPPF 0.879 -> E-SKR2 0.886 (+0.007)
+    BMRK_00788_cell1622    GT px   2155  E-SUPPF 0.373 -> E-SKR2 0.427 (+0.054)
+    BMRK_00062_cell0242    GT px   1672  E-SUPPF 0.356 -> E-SKR2 0.262 (-0.094)
+    ARTS_00073_r4_c2       GT px   1367  E-SUPPF 0.515 -> E-SKR2 0.541 (+0.026)
+    CFVS_00026_r9_c5       GT px   1288  E-SUPPF 0.523 -> E-SKR2 0.549 (+0.027)
+    CFVS_00180_r11_c4      GT px    920  E-SUPPF 0.859 -> E-SKR2 0.862 (+0.002)
+    CFVS_00129_r1_c5       GT px     86  E-SUPPF 0.000 -> E-SKR2 0.000 (+0.000)
+  ensembles without the top-3 GT inactive cells: d -0.0309 (all) / -0.0361 (clean)
+  ensembles, test (all 50): inactive TP px 56896 -> 55736 of 92125 GT; inactive predicted on other GT 27769 -> 32376; GT inactive predicted as background (0) 29224 -> 30451, as crack (14) 2240 -> 2678
+  ensembles, val (54 cells; not sealed): inactive IoU 0.5246 -> 0.5687 (+0.0440); crack IoU 0.4326 -> 0.4420; relF1@2 0.8947 -> 0.9009
+  noisy cell, ensembles: predicted crack px E-SUPPF 0, E-SKR2 348
+## 7. comparison aids (after reading the runner's files)
+  paired image bootstrap of the 5-seed means with a fresh default_rng(0) per set and rng.integers draws (= m2_rung's stream), all: crack [-0.0557, +0.0047] P>0 0.33 | relF1 [-0.0842, +0.0034] P>0 0.29 | inact [-0.0360, +0.0029] P>0 0.04
+  paired image bootstrap of the 5-seed means with a fresh default_rng(0) per set and rng.integers draws (= m2_rung's stream), noNoisy: crack [-0.0011, +0.0060] P>0 0.89 | relF1 [-0.0014, +0.0042] P>0 0.82 | inact [-0.0384, +0.0029] P>0 0.04
+  D E1 any-hit, the 2,000 seed-0 cluster draws: d < 0 in 44, d == 0 in 48, d > 0 in 1908; 2.5th percentile np.float64(0.0); sorted draws no. 50 / 51 (the percentile sits between them): np.float64(0.0) / np.float64(0.0)
+  opening_outputs.txt: 19 collected files; md5 tag and text equal to the raw file for all: True

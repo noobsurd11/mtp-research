@@ -1,0 +1,43 @@
+{
+ "paper_id": "arxiv:2211.05295",
+ "title": "Harmonizing output imbalance for defect segmentation on extremely-imbalanced photovoltaic module cells images",
+ "year": 2022,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2211.05295",
+ "code_url": "",
+ "mechanism": "Focal loss with separate FP and FN regulators plus a region term (DIBE), and an output imbalance index (OII) that picks the regulators so the FP/FN balance at inference hits a target; built for tiny hidden cracks at 1:2000.",
+ "adaptation": "Apply to the crack channel only; compute OII on val with 2 px tolerant TP/FP/FN instead of strict pixels, and raise the FN weight because relR@2 0.866 lags relP@2 0.930.",
+ "min_experiment": "Arm: house with DIBE crack term. Baseline: house, 5 v 5 seeds. Metric: test relR@2 at relP@2 >= 0.92. Kill if relR@2 gain < 0.015.",
+ "score": 48,
+ "bench_score": 30,
+ "bet": "safe",
+ "targets": [
+  "crack"
+ ],
+ "evidence": "R: four architectures, four datasets of varying imbalance, outperforms CE/Dice/focal/Tversky compounds (numbers not extracted).",
+ "gpu_hours": 10,
+ "prior_overlap": "none: focal / Tversky families listed as untested; offset-tolerant CE n.d. is a different mechanism.",
+ "directions": [
+  "D02",
+  "D40"
+ ],
+ "scout_scores": [
+  48,
+  45
+ ],
+ "alt_notes": [
+  {
+   "from": "D40",
+   "adaptation": "Closest domain (mono PV cells, tiny hidden cracks): replace soft Dice on crack with DIBE_Reg, beta > alpha to push relR@2 toward 0.90 at relP@2 >= 0.90; pick alpha/beta by OII on val instead of a post-hoc logit bias.",
+   "min_experiment": "Arm: house with DIBE_Reg (alpha 0.3, beta 0.7) on crack; baseline: house with val-chosen logit bias; metric: test/CV relR@2 at relP@2 >= 0.90; kill if gain < +0.02.",
+   "score": 45
+  }
+ ],
+ "final": 48,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 250,
+ "pid": "P250"
+}

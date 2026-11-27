@@ -1,0 +1,44 @@
+{
+ "paper_id": "doi:10.1109/tpami.2025.3592621",
+ "title": "Spatial Frequency Modulation for Semantic Segmentation (SFM)",
+ "year": 2025,
+ "venue": "TPAMI",
+ "url": "https://arxiv.org/abs/2507.11893",
+ "code_url": "https://github.com/Linwei-Chen/SFM",
+ "mechanism": "Adaptive resampling densely samples high-frequency areas before strided downsampling so they are not aliased, and multi-scale adaptive upsampling demodulates them back in the decoder.",
+ "adaptation": "A 1 to 2 px crack is pure high frequency and is aliased by ResNet-34 conv1 stride 2, the maxpool and each stride-2 block. Insert ARS before conv1 stride and the layer2 downsample, MSAU in the last two U-Net++ decoder nodes; port the modules out of mmseg by hand (no install).",
+ "min_experiment": "Arm house PF + SFM vs house PF; 5-fold CV crack IoU, relF1@2, crack components >= 20 px found, gridline IoU. Kill: gridline IoU < +0.03 and crack IoU n.d. About 10 GPU-h.",
+ "prior_overlap": "None: 2x input (R5) added pixels but not anti-aliased sampling; no frequency-aware module was run.",
+ "evidence": "R: +1.5 mIoU Mask2Former-Swin-T, +1.4 InternImage-T on ADE20K, +0.8 on Cityscapes for deformable conv.",
+ "bet": "medium",
+ "gpu_hours": 10,
+ "score": 50,
+ "bench_score": 35,
+ "targets": [
+  "crack",
+  "other_classes"
+ ],
+ "directions": [
+  "D22",
+  "D28"
+ ],
+ "scout_scores": [
+  50,
+  48
+ ],
+ "alt_notes": [
+  {
+   "from": "D28",
+   "adaptation": "Dense resampling around cracks and finger breaks before strides; heavier follow-up to Seg-Aliasing, only if that shows a signal.",
+   "min_experiment": "Arm: house + SFM; baseline house; kill if crack IoU < +0.012 and E1 relF1@2 < +0.02.",
+   "score": 48
+  }
+ ],
+ "final": 50,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 218,
+ "pid": "P218"
+}

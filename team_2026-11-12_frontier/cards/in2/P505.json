@@ -1,0 +1,35 @@
+{
+ "paper_id": "doi:10.1007/978-3-030-88210-5_25",
+ "title": "Label Noise in Segmentation Networks: Mitigation Must Deal with Bias",
+ "year": 2021,
+ "venue": "MICCAI UNSURE workshop",
+ "url": "https://arxiv.org/abs/2107.02189",
+ "code_url": "",
+ "mechanism": "Evidence paper: segmentation nets are robust to unbiased label errors (random warp, crop) but sensitive to biased errors (constant shift), so mitigation must target bias.",
+ "adaptation": "Not an arm. Frames which part of our crack IoU loss is recoverable: per-source width and any per-source constant offset (biased) vs within-source jitter (unbiased). Motivates the zero-GPU per-source offset / width diagnostics and a benchmark report of biased-error sensitivity.",
+ "min_experiment": "Zero-GPU: per-source mean signed offset of label skeleton to ridge (x, y) and label width on train labels; plus per-source predicted width on CV OOF. Decision rule: proceed with style arms only if a source deviates by > 0.3 px in offset or > 0.15 px in width between prediction and label.",
+ "evidence": "R: BraTS-type tumour masks; constant 5 px shift cost about 10% Dice for supervised, MT and AE models; random warps barely hurt.",
+ "prior_overlap": "none",
+ "score": 30,
+ "bench_score": 55,
+ "bet": "safe",
+ "gpu_hours": 0,
+ "targets": [
+  "crack",
+  "measurement",
+  "benchmark"
+ ],
+ "directions": [
+  "D17"
+ ],
+ "scout_scores": [
+  30
+ ],
+ "final": 30,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 505,
+ "pid": "P505"
+}

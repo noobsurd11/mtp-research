@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:1806.08295",
+ "title": "How Many Random Seeds? Statistical Power Analysis in Deep Reinforcement Learning Experiments",
+ "year": 2018,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/1806.08295",
+ "code_url": "",
+ "mechanism": "Power analysis picks the number of seeds needed to detect a given effect with Welch t-test or bootstrap CI.",
+ "adaptation": "Use our 5-seed SDs (val and OOF) to compute seeds needed for 0.01 crack IoU and 0.02 inactive IoU at power 0.8, for test-49 vs grouped CV.",
+ "min_experiment": "Arm: power calculation on existing runs. Metric: seeds needed. Kill: >20 seeds on test-49 means stop using test-49 for decisions under 0.02.",
+ "score": 45,
+ "bench_score": 60,
+ "bet": "safe",
+ "targets": [
+  "measurement"
+ ],
+ "evidence": "R: tutorial with simulations on deep RL algorithms; Welch t-test and bootstrap CI power curves.",
+ "gpu_hours": 0,
+ "prior_overlap": "partial: BRIEF already estimates 0.012 MDE for 5v5; formal power analysis across instruments not done.",
+ "directions": [
+  "D41"
+ ],
+ "scout_scores": [
+  45
+ ],
+ "final": 45,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 271,
+ "pid": "P271"
+}

@@ -1,0 +1,35 @@
+{
+ "paper_id": "arxiv:2402.03166",
+ "title": "RRWNet: Recursive Refinement Network for effective retinal artery/vein segmentation and classification",
+ "year": 2024,
+ "venue": "Expert Systems with Applications",
+ "url": "https://arxiv.org/abs/2402.03166",
+ "code_url": "https://github.com/j-morano/rrwnet",
+ "mechanism": "A base subnetwork plus a recursive refinement subnetwork that iteratively corrects manifest class confusions in multi-class thin-structure maps; the refinement module also works as a post-processor for other models.",
+ "adaptation": "Run the recursive module on the 24-class probabilities to fix crack vs inactive (20% of train crack pixels sit in or at inactive) and crack vs gridline / ribbon confusions; train on out-of-fold maps from the 5 fold models.",
+ "min_experiment": "Arm: house + recursive refinement module. Baseline: house / PF. Metrics: crack-inactive-gridline confusion, inactive IoU, gridline IoU, mIoU_rob, crack IoU on 5-fold CV and clean-49. Kill: mIoU_rob < +0.005 and inactive IoU < +0.01.",
+ "evidence": "R: state of the art A/V segmentation on three public fundus datasets with fewer manifest classification errors; module improves other methods' maps as post-processing (numbers not read).",
+ "prior_overlap": "none.",
+ "score": 55,
+ "bench_score": 40,
+ "bet": "safe",
+ "gpu_hours": 10,
+ "targets": [
+  "crack",
+  "inactive",
+  "other_classes"
+ ],
+ "directions": [
+  "D26"
+ ],
+ "scout_scores": [
+  55
+ ],
+ "final": 55,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 154,
+ "pid": "P154"
+}

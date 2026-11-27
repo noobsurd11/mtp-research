@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2610.40302",
+ "title": "Self-training for cross-centre coronary vessel segmentation in X-ray angiography using pre-contrast frame subtraction",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2610.40302",
+ "code_url": "",
+ "mechanism": "Self-train on a target-centre pool. Pixels found only by an independent physical cue (pre-contrast subtraction) are set to ignore, not background. The gain depends on how sensitive the teacher is.",
+ "adaptation": "E1 analogue: pool = CSIR half-cut cells. Pseudo-labels come from the PF ensemble. Pixels flagged only by a ridge filter (black top-hat or Frangi tuned to the 4 px FWHM crack profile) become ignore, so cracks the teacher misses are not taught as background.",
+ "min_experiment": "Arm ST-ignore vs plain target-pool self-training vs house PF, 5 seeds. Metric: E1 crack recall and relF1@2. Kill if E1 relF1@2 gains less than 0.03 over PF.",
+ "score": 50,
+ "bench_score": 25,
+ "bet": "medium",
+ "targets": [
+  "e1_unseen",
+  "crack"
+ ],
+ "evidence": "R: thin-vessel segmentation, ARCADE -> XCAD/XACV. XCAD macro Dice +2.7 (95% CI 2.3 to 3.2); a same-epoch fine-tuning control gave -0.6. A second round gave no gain. Starting from a 50-image model, XCAD Dice went 0.623 -> 0.745; XACV did not improve where main vessels were missed.",
+ "gpu_hours": 10,
+ "prior_overlap": "Our Mean Teacher with the external pool set unlabelled pixels by teacher argmax and used no ignore cue. It was not aimed at E1. Open. Risk: E1 crack recall is 0.17, which is the paper's failure case.",
+ "directions": [
+  "D29"
+ ],
+ "scout_scores": [
+  50
+ ],
+ "final": 50,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 230,
+ "pid": "P230"
+}

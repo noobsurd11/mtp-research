@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:1903.06529",
+ "title": "Noisy Supervision for Correcting Misaligned Cadaster Maps Without Perfect Ground Truth Data",
+ "year": 2019,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/1903.06529",
+ "code_url": "",
+ "mechanism": "A multi-resolution network predicts a dense displacement field that moves misaligned map polygons onto image evidence, trained on the noisy data itself and applied iteratively so dataset alignment improves round by round.",
+ "adaptation": "Train a small U-Net (image + jittered label in, 2-channel displacement out) on synthetic jitter drawn from our measured offset distribution (48% within 1 px, 64% within 2 px) applied to high-confidence snapped labels (ARTS, strong ridges); apply to all train crack labels, two rounds; then train the house model.",
+ "min_experiment": "Only if the ridge-snap arm passes. Arm: learned-alignment labels; baseline: ridge-snap arm and house. Kill if n.d. vs ridge-snap.",
+ "evidence": "R: cadaster/OSM building alignment on aerial imagery (web search listing only; numbers not read).",
+ "score": 48,
+ "bench_score": 25,
+ "bet": "medium",
+ "targets": [
+  "crack"
+ ],
+ "gpu_hours": 10,
+ "prior_overlap": "none.",
+ "directions": [
+  "D16"
+ ],
+ "scout_scores": [
+  48
+ ],
+ "final": 48,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 254,
+ "pid": "P254"
+}

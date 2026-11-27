@@ -1,0 +1,26 @@
+row,group,arm,selection_biased,delta,lo95,hi95,source
+1,"5-seed rows, cv5v3, training machine",HOUSE (plain fine-tune),no,+0.0059,-0.0043,+0.0152,results/HOUSEPF_READ.md:12
+2,"5-seed rows, cv5v3, training machine",HRNET (HRNet-W18 U-Net++),no,0.0104,0.0012,0.0203,results/c3hrnet_read/read.txt:214
+3,"5-seed rows, cv5v3, training machine","SWADBN (SWAD, swad_bn readout)",no,0.0070,-0.0007,0.0156,results/c3swad_read/read.txt:214
+4,"5-seed rows, cv5v3, training machine","SWAD (SWAD, swad readout)",no,0.0064,-0.0009,0.0138,results/c3swad_read/read.txt:238
+5,"5-seed rows, cv5v3, training machine","COMBO (HRNet + SWAD, swad_bn)",no,0.0154,0.0065,0.0260,results/c3x_read/read.txt:328
+6,"5-seed rows, cv5v3, training machine","CS (HRNet + SWAD, swad)",yes,0.0166,0.0082,0.0263,results/final_tta_read/read.txt:505
+7,"5-seed rows, cv5v3, training machine",PF_D4 (PF + D4 TTA),no,0.0134,0.0066,0.0207,results/final_tta_read/read.txt:385
+8,"5-seed rows, cv5v3, training machine",CS_D4 (C2 recipe on CV5),yes,0.0222,0.0138,0.0308,results/final_tta_read/read.txt:433
+9,"2-seed screens, cv5v2, training machine",HOUSE (plain fine-tune),no,0.0055,-0.0034,0.0135,results/rows1_read/read.txt:406
+10,"2-seed screens, cv5v2, training machine",U-Net / ResNet-34,no,-0.0016,-0.0110,0.0073,results/rows1_read/read.txt:454
+11,"2-seed screens, cv5v2, training machine",U-Net / VGG-16 (Hanifi et al.),no,-0.0064,-0.0189,0.0042,results/rows1_read/read.txt:502
+12,"2-seed screens, cv5v2, training machine",DeepLabV3+ / ResNet-34,no,-0.0093,-0.0204,0.0019,results/rows1_read/read.txt:430
+13,"2-seed screens, cv5v2, training machine",DeepLabV3 / ResNet-50 (UCF-EL),no,-0.0773,-0.0892,-0.0594,results/rows1_read/read.txt:526
+14,"2-seed screens, cv5v2, training machine","DeepLabV3+, weighted CE (Pratt)",no,-0.0932,-0.1113,-0.0774,results/rows1_read/read.txt:478
+15,"2-seed screens, cv5v2, training machine",HRNet-W18 U-Net++,no,0.0114,0.0032,0.0203,results/rows2_full_read/read.txt:328
+16,"2-seed screens, cv5v2, training machine",SegFormer MiT-B2,no,-0.0026,-0.0132,0.0095,results/rows2_full_read/read.txt:352
+17,"2-seed screens, cv5v2, training machine",Skeleton Recall loss,no,0.0039,-0.0027,0.0115,results/rows2_full_read/read.txt:376
+18,"2-seed screens, cv5v2, second machine",SWAD (swad_bn readout),no,0.0135,0.0051,0.0221,results/w2a_read/read.txt:731
+19,"2-seed screens, cv5v2, second machine",SWAD (swad readout),no,0.0131,0.0066,0.0199,results/w2a_read/read.txt:827
+20,"2-seed screens, cv5v2, second machine",Rare-class sampling (RCS),no,-0.0085,-0.0187,-0.0004,results/w2a_read/read.txt:659
+21,"2-seed screens, cv5v2, second machine",JML loss (hard),no,-0.0004,-0.0086,0.0064,results/w2a_read/read.txt:707
+22,"2-seed screens, cv5v2, second machine",encoder_spd,no,0.0007,-0.0272,0.0130,results/w2a_spd_read/read.txt:200
+23,"2-seed screens, cv5v2, second machine",LA-CE (train-time logit offsets),no,0.0011,-0.0056,0.0071,results/w2b_lace_read/read.txt:275
+24,"2-seed screens, cv5v2, second machine",Layered inactive head (LCI),no,0.0043,-0.0037,0.0111,results/w2b_lci_read/read.txt:377
+25,margin,M (A/A of the cv5v3 read),,0.0100,,,results/final_tta_read/read.txt:356

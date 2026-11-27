@@ -1,0 +1,44 @@
+{
+ "paper_id": "arxiv:2509.17816",
+ "title": "Enhancing Semantic Segmentation with Continual Self-Supervised Pre-training (GLARE)",
+ "year": 2025,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2509.17816",
+ "code_url": "",
+ "mechanism": "Continual SSL for segmentation with patch-level local consistency and a regional consistency constraint, updating only lightweight adapters on a frozen SSL ViT.",
+ "adaptation": "Alternative to ExPLoRA with a dense objective; regions from the structural classes (busbar, ribbon, padding, cell) predicted by the house model on pool cells.",
+ "min_experiment": "Same protocol as ExPLoRA arm; kill if < +0.02 E1 relF1@2 over off-the-shelf DINOv3 in Dino U-Net.",
+ "score": 35,
+ "bench_score": 30,
+ "bet": "moonshot",
+ "gpu_hours": 60,
+ "targets": [
+  "e1_unseen",
+  "other_classes"
+ ],
+ "evidence": "R: consistent gains across several segmentation benchmarks in different domains with small overhead (abstract, no numbers retrieved).",
+ "prior_overlap": "MIM/DDeP on ResNet-34 n.d.; dense continual SSL on a ViT foundation model is open.",
+ "directions": [
+  "D07",
+  "D32"
+ ],
+ "scout_scores": [
+  35,
+  25
+ ],
+ "alt_notes": [
+  {
+   "from": "D32",
+   "adaptation": "Regions from our structural classes (busbar / finger / cell); a cheap second choice after NeCo for a ViT arm.",
+   "min_experiment": "Arm: DINOv3 ViT-B VFM arm after GLARE on pool. Baseline: same arm without. Kill if E1 crack recall < +0.01.",
+   "score": 25
+  }
+ ],
+ "final": 35,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 463,
+ "pid": "P463"
+}

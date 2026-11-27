@@ -1,0 +1,68 @@
+{
+ "paper_id": "doi:10.1007/s10845-025-02680-8",
+ "title": "No label left behind: a unified surface defect detection model for all supervision regimes (SuperSimpleNet)",
+ "year": 2025,
+ "venue": "Journal of Intelligent Manufacturing",
+ "url": "https://arxiv.org/abs/2508.19060",
+ "code_url": "https://github.com/blaz-r/SuperSimpleNet",
+ "mechanism": "One discriminative model trainable in unsupervised, weak, mixed and full supervision, with feature-space synthetic anomalies plus segmentation and classification heads.",
+ "adaptation": "Mixed supervision: 478 pixel-labelled cells + pool cells tagged image-level clean by the house ensemble; binary defect map (crack OR inactive OR material) used as an extra ensemble member for recall.",
+ "min_experiment": "Arm PF ensemble + SuperSimpleNet member vs baseline PF ensemble; metric CV relR@2 at relP@2 >= 0.90; kill if relR@2 gain < +0.02. About 10 GPU-h.",
+ "score": 40,
+ "bench_score": 70,
+ "bet": "medium",
+ "evidence": "R: SOTA across four supervision regimes on four industrial benchmarks; < 10 ms inference.",
+ "gpu_hours": 10,
+ "prior_overlap": "none",
+ "targets": [
+  "crack",
+  "inactive",
+  "benchmark"
+ ],
+ "directions": [
+  "D07",
+  "D21",
+  "D36",
+  "D40"
+ ],
+ "scout_scores": [
+  38,
+  40,
+  30,
+  35,
+  38
+ ],
+ "alt_notes": [
+  {
+   "from": "D07",
+   "adaptation": "Mixed supervision: 478 pixel-labelled cells + pool cells tagged clean by the house ensemble; binary defect map (crack OR inactive OR material) as an ensemble member and as the AD-family baseline in the benchmark.",
+   "min_experiment": "Train once per supervision regime; report pixel AUROC, AU-PRO, SegF1 for crack (2 px tolerance) and inactive on test and E1; as fusion arm with PF ensemble kill if inactive IoU gain < +0.02.",
+   "score": 38
+  },
+  {
+   "from": "D21",
+   "adaptation": "Benchmark baseline across supervision levels (full masks, ELPV-style image labels, mixed); for scores only its synthetic-anomaly stage as a regulariser on pool cells.",
+   "min_experiment": "Benchmark run: train on our splits at each supervision level, report crack / inactive AP and relF1@2 on test and E1; no kill.",
+   "score": 30
+  },
+  {
+   "from": "D36",
+   "adaptation": "Benchmark baseline that can consume ELPV image labels and the unlabelled pool under the same protocol; run on 1-channel 512 px cells with crack/inactive as anomaly maps.",
+   "min_experiment": "Run as a benchmark entry on clean-49 and E1 with mixed supervision (BenchmarkEL masks + ELPV labels). Compare to house 5-seed on crack relF1@2 and inactive IoU. No kill line; reported as a baseline. ~6 GPU-h.",
+   "score": 35
+  },
+  {
+   "from": "D40",
+   "adaptation": "Benchmark: binary crack and binary inactive models in all four regimes at 512 px, ELPV image labels for the weak regime. Score: borrow latent Perlin noise on labelled background as a regulariser on the U-Net++ encoder to suppress decoys (scuffs, grain boundaries).",
+   "min_experiment": "Arm: official code, binary crack/inactive, full and weak regimes; baseline: house; metric: crack AP, relF1@2, E1 relF1@2; benchmark row regardless; score kill if adding it as 6th ensemble member gives < +0.01 relF1@2.",
+   "score": 38
+  }
+ ],
+ "final": 40,
+ "bench": 70,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 362,
+ "pid": "P362"
+}

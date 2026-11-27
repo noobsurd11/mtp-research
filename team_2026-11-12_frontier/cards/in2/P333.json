@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.1109/tpami.2025.3649001",
+ "title": "CrossEarth: Geospatial Vision Foundation Model for Domain Generalizable Remote Sensing Semantic Segmentation",
+ "year": 2025,
+ "venue": "TPAMI",
+ "url": "https://arxiv.org/abs/2410.22629",
+ "code_url": "",
+ "mechanism": "VFM adapted for remote-sensing domain generalisation across location, wavelength and sensor gaps (details beyond the abstract fragment unverified).",
+ "adaptation": "The sensor gap is our 5-source and E1 gap. Take its style-side data handling as EL gain, gamma, blur and vignetting jitter on VFM-H, keeping house label-safe geometry.",
+ "min_experiment": "Arm: VFM-H + Rein + CrossEarth-style source jitter. Baseline: VFM-H + Rein. Metric: E1 crack relF1@2, leave-one-source-out CV. Kill: not +0.02 E1 relF1@2.",
+ "score": 42,
+ "bench_score": 45,
+ "bet": "medium",
+ "targets": [
+  "e1_unseen"
+ ],
+ "evidence": "R: 47 citations; abstract fragment only.",
+ "gpu_hours": 40,
+ "prior_overlap": "partial: intensity normalisation at inference failed; training-time style jitter with a VFM untested.",
+ "directions": [
+  "D24"
+ ],
+ "scout_scores": [
+  42
+ ],
+ "final": 42,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 333,
+ "pid": "P333"
+}

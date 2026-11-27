@@ -1,0 +1,60 @@
+{
+ "paper_id": "arxiv:2104.06064",
+ "title": "Mixed supervision for surface-defect detection: from weakly to fully supervised learning",
+ "year": 2021,
+ "venue": "Computers in Industry",
+ "url": "https://arxiv.org/abs/2104.06064",
+ "code_url": "https://github.com/vicoslab/mixed-segdec-net-comind2021",
+ "mechanism": "Segmentation + image-level classification network trained on any mix of pixel-level and image-level labels.",
+ "evidence": "KolektorSDD2, DAGM, Severstal: few pixel labels plus many weak labels approach full supervision.",
+ "adaptation": "ELPV 2,624 cells (BMRK source): cell-level defect head; p=0 cells give full-image negatives for crack/inactive; p=1 cells MIL positives. De-duplicate ELPV against BenchmarkEL val/test BMRK cells and modules first.",
+ "min_experiment": "Arm: house + cell head + ELPV weak labels, 20k steps, 5 seeds. Baseline: house 5-seed. Metric: BMRK inactive IoU on module-grouped 5-fold CV, crack pixel precision. Kill if BMRK inactive IoU < +0.05 and crack precision not up. ~8 GPU-h.",
+ "prior_overlap": "none; ELPV image labels listed as unused",
+ "score": 62,
+ "bench_score": 40,
+ "bet": "medium",
+ "gpu_hours": 8,
+ "targets": [
+  "inactive",
+  "crack"
+ ],
+ "directions": [
+  "D27",
+  "D36",
+  "D40"
+ ],
+ "scout_scores": [
+  58,
+  58,
+  62,
+  58
+ ],
+ "alt_notes": [
+  {
+   "from": "D27",
+   "adaptation": "Image-level crack-present / inactive-present heads on U-Net++ bottleneck + pooled seg logits; train on 478 masks plus ELPV 2,624 image labels (BMRK source) and PVEL-AD boxes as image labels; seg loss only where masks exist.",
+   "min_experiment": "Arm PF + presence heads + ELPV image labels; baseline PF; metrics BMRK crack IoU, inactive CV IoU, E1 inactive IoU; kill if BMRK crack IoU gain < 0.02 and inactive CV IoU gain < 0.02.",
+   "score": 58
+  },
+  {
+   "from": "D27",
+   "adaptation": "Add an image-level head (crack present, inactive present) on the U-Net++ bottleneck and the seg logits. Train it on mask-derived labels from the 478 cells, on ELPV's 2,624 cells with defect-probability labels (ELPV is the BMRK source, our weakest), and on PVEL-AD boxes reduced to image labels. The seg loss applies only to masked cells.",
+   "min_experiment": "Arm: PF + presence heads + ELPV image labels. Baseline: PF. Metrics: BMRK crack and inactive IoU, inactive precision, E1 inactive IoU. Kill if the BMRK crack IoU gain is < 0.02 and the CV inactive IoU gain is < 0.02.",
+   "score": 58
+  },
+  {
+   "from": "D40",
+   "adaptation": "Dilate 1-2 px crack labels to the 4-5 px dark-line FWHM and weight by distance to the label centreline (p=1 or 2), negatives weight 1; add crack-present / inactive-present cell heads so ELPV image labels (2,624 cells) can enter as weak data.",
+   "min_experiment": "Arm: house + dilated crack label with DT weights (p=1, p=2); baseline: house; metric: 5-fold CV crack relF1@2 and strict IoU; kill if relF1@2 < +0.01 or IoU drops > 0.01. Arm 1b adds stop-grad cls head, kill if cell-level crack recall < +0.02.",
+   "score": 58
+  }
+ ],
+ "final": 62,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 79,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

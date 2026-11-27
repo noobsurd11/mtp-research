@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2610.15612",
+ "title": "Lesion-Aware Attention for Mammography Segmentation with Heterogeneous Supervision",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2610.15612",
+ "code_url": "",
+ "mechanism": "Two-branch mixed supervision: masks for base classes, image labels for more classes; a lesion-wise attentive classifier with per-class prototypes pools features only over lesion-like regions.",
+ "evidence": "Consistent gains over open-vocabulary baselines on several mammography datasets; better localisation of small, low-contrast findings (qualitative).",
+ "adaptation": "Prototype-attention pooling for the ELPV cell-level head so the cell label is not explained by gridlines or borders; aimed at BMRK inactive and false alarms.",
+ "min_experiment": "Variant of ELPV arm: prototype-attention pooling vs plain MIL head, 5 seeds each. Metric: BMRK inactive IoU (5-fold CV), crack precision. Kill if no gain over plain MIL head by 0.03 inactive IoU. ~8 GPU-h.",
+ "prior_overlap": "none",
+ "score": 42,
+ "bench_score": 30,
+ "bet": "moonshot",
+ "gpu_hours": 8,
+ "targets": [
+  "inactive"
+ ],
+ "directions": [
+  "D36"
+ ],
+ "scout_scores": [
+  42
+ ],
+ "final": 42,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 341,
+ "pid": "P341"
+}

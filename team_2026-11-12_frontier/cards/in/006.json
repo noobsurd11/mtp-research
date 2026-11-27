@@ -1,0 +1,56 @@
+{
+ "paper_id": "doi:10.1038/s41592-020-01008-z",
+ "title": "nnU-Net: a self-configuring method for deep learning-based biomedical image segmentation",
+ "year": 2020,
+ "venue": "Nature Methods",
+ "url": "https://arxiv.org/pdf/1904.08128",
+ "code_url": "https://github.com/MIC-DKFZ/nnUNet",
+ "mechanism": "Rule-based self-configuration from a dataset fingerprint plus a fixed recipe: 1000x250 iterations, SGD 0.01 Nesterov 0.99 poly lr, CE+Dice, deep supervision, foreground oversampling, heavy on-the-fly augmentation (rotation, scaling, noise, blur, brightness, contrast, low-res simulation, gamma, mirroring), 5-fold CV, fold ensemble, CV-chosen component post-processing.",
+ "adaptation": "2D config, 1 channel, 512 full-image patch; splits_final.json = our module-grouped 5-fold roots over 532 cells. Change two defaults: 2D rotation U(-180,180) and scaling U(0.7,1.4) resample 1-2 px crack labels (shrink below 1 px, shift), so run a label-safe variant (rot90/flips only, intensity aug kept); nnU-Net trains from scratch with instance norm, while PF showed preserved pretrained features matter for E1, so add an ImageNet R34 encoder arm. Disable largest-component post-processing for crack (many components per cell), let CV decide for inactive.",
+ "min_experiment": "3 arms (default aug, label-safe aug, label-safe + R34 ImageNet encoder), 5 folds each, fold ensemble, scored once on test clean-49 and E1. Baseline: house U-Net++ R34 5-seed ensemble (relF1@2 0.897, inactive IoU 0.456, E1 relF1@2 ~0.43-0.47). Kill if best arm is below house on test crack relF1@2 by >0.01 and on inactive IoU, and E1 relF1@2 not up by >=0.03. Cheaper companion: recipe ladder inside house trainer (100k-step SGD poly, deep supervision, noise/blur/gamma/low-res aug, 5-fold v 5-seed ensemble, CV component removal), 3 seeds each on CV, keep a step if crack relF1@2 or inactive IoU +0.01.",
+ "evidence": "R: state of the art on 23 public datasets / challenges at release; paper states shorter trainings than 1000 epochs diminish performance; 5 fold models ensembled for test. OmniCrack30k reports nnU-Net best for cracks (clIoU@4px 64%, >=10 points ahead).",
+ "gpu_hours": 250,
+ "bet": "safe",
+ "prior_overlap": "Partial. BRIEF section 5 never varied schedule length, optimizer (beyond Adam), deep supervision, noise/blur/gamma/low-res augmentation, CV fold ensembles or component post-processing; nnU-Net style auto-configuration is listed as never tried. Open.",
+ "score": 72,
+ "bench_score": 95,
+ "targets": [
+  "crack",
+  "inactive",
+  "e1_unseen",
+  "other_classes",
+  "benchmark",
+  "measurement"
+ ],
+ "directions": [
+  "D25",
+  "D43"
+ ],
+ "scout_scores": [
+  72,
+  72,
+  72
+ ],
+ "alt_notes": [
+  {
+   "from": "D25",
+   "adaptation": "2D config, 1-channel z-scored EL, 512 px whole-cell patch, 24 labels. Use the existing module-grouped 5 fold roots over the 532 train+val cells as the splits file. Arm A uses default augmentation. Arm B uses label-safe augmentation (flips, rot90, brightness/contrast; no rotation, scaling or low-res simulation, because a 1 px shift costs 0.44 crack IoU). Arm C uses CE + Dice on crack/inactive only, because Dice on 12 classes hurt here.",
+   "min_experiment": "nnU-Net 2d, arms A and B, 5 module-grouped folds; ensemble the 5 fold models on test-49 and E1. Baseline: house 5-seed ensemble (crack IoU 0.485 to 0.488 argmax, relF1@2 0.897, inactive 0.456, mIoU_rob 0.583; E1 relF1@2 about 0.45). Kill: both arms more than 0.012 crack IoU below the house ensemble with no gain in relF1@2, inactive IoU or E1 relF1@2.",
+   "score": 72
+  },
+  {
+   "from": "D43",
+   "adaptation": "Use the existing module-grouped 5-fold roots over the 532 train+val cells. Train the house recipe (and a PF copy) once per fold and ensemble the 5. Pick the crack logit bias on the 532 OOF predictions instead of 54 val cells. Report OOF CV metrics as the benchmark's development score.",
+   "min_experiment": "Arm: 5-fold module-grouped fold ensemble on 532 cells, bias from OOF. Baseline: house 5-seed ensemble on 478 cells (crack IoU 0.485-0.488 argmax, 0.492 with bias; inactive 0.456). Metric: clean-49 crack IoU, relF1@2, inactive IoU, E1 crack relF1@2. Kill: argmax crack IoU < 0.488 AND inactive IoU < 0.456.",
+   "score": 72
+  }
+ ],
+ "final": 72,
+ "bench": 95,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 6,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

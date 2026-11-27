@@ -1,0 +1,44 @@
+{
+ "paper_id": "doi:10.1609/aaai.v39i6.32615",
+ "title": "SAUGE: Taming SAM for Uncertainty-Aligned Multi-Granularity Edge Detection",
+ "year": 2025,
+ "venue": "AAAI",
+ "url": "https://arxiv.org/abs/2412.12892",
+ "code_url": "https://github.com/Star-xing1/SAUGE",
+ "mechanism": "Frozen SAM with a 1.5% adapter that fuses intermediate SAM layers coarse to fine; linearly blended labels give granularity pseudo-labels.",
+ "adaptation": "Frozen SAM/SAM2 encoder with multi-layer adapter fusion and crack-only head on 1-channel EL replicated to 3, aimed at E1 half-cut cells and scuff confounders.",
+ "min_experiment": "Arm: SAUGE-style adapter on frozen SAM, 3 seeds; baseline PF. Metric E1 crack relF1@2 and test crack IoU. Kill if E1 relF1@2 below PF single model. About 20 GPU-h.",
+ "score": 40,
+ "bench_score": 50,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "e1_unseen",
+  "benchmark"
+ ],
+ "evidence": "R: strong cross-dataset generalisation, SOTA on BSDS500, Multicue, NYUDv2 (abstract).",
+ "gpu_hours": 20,
+ "prior_overlap": "Partial: frozen SAM2 Hiera-T linear probe showed no gain, but that was single layer, no adapter, no decoder; adapters listed as open.",
+ "directions": [
+  "D13"
+ ],
+ "scout_scores": [
+  38,
+  40
+ ],
+ "alt_notes": [
+  {
+   "from": "D13",
+   "adaptation": "Frozen SAM or SAM2 encoder with a multi-layer adapter for crack, aimed at E1 (half-cut cells, scuff streaks). Granularity blending maps to label-width styles per source.",
+   "min_experiment": "Arm: frozen SAM + SAUGE adapter on crack, 3 seeds. Baseline: house and PF. Metric: E1 relF1@2 and crack recall. Kill if E1 relF1@2 gains less than 0.03.",
+   "score": 38
+  }
+ ],
+ "final": 40,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 372,
+ "pid": "P372"
+}

@@ -1,0 +1,54 @@
+{
+ "paper_id": "doi:10.1109/cvpr52688.2022.00263",
+ "title": "Adaptive Early-Learning Correction for Segmentation from Noisy Annotations (ADELE)",
+ "year": 2022,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2110.03740",
+ "code_url": "https://github.com/Kangningthu/ADELE",
+ "mechanism": "Detects per class the onset of memorisation from the train IoU curve against noisy labels, then from that point replaces labels with confident, multi-scale-consistent model predictions.",
+ "adaptation": "Per-class curves for crack, inactive, gridline and splice on the 478 train cells. Correction is allowed only (a) within 3 px of an existing crack label, to re-centre it on the ridge while keeping that source's width, and (b) for new components with p>0.9 at every scale, to recover missing cracks. Padding, frame and structural classes are never corrected. Flips and rot90 only as consistency views (label-safe).",
+ "min_experiment": "Arm: PF + ADELE on crack and inactive, 5 seeds, 20k steps. Baseline: PF, 5 seeds. Metrics: relF1@2 and relR@2 at relP@2>=0.90, components >=20 px found, crack IoU, inactive IoU on test-clean-49 and E1. Kill if relF1@2 gain <0.01 and component-recall gain <0.02, or if crack IoU drops by more than 0.012.",
+ "score": 72,
+ "bench_score": 60,
+ "bet": "safe",
+ "targets": [
+  "crack",
+  "inactive",
+  "benchmark"
+ ],
+ "evidence": "R (abstract): beats standard noisy-label methods on a medical segmentation task with noisy annotations, and is SOTA for weakly supervised segmentation on PASCAL VOC 2012. Thin-structure numbers were not read because the full text was unavailable.",
+ "gpu_hours": 8,
+ "prior_overlap": "none. BRIEF section 5 lists noisy-label methods and automatic label refinement as never tried.",
+ "directions": [
+  "D15",
+  "D16"
+ ],
+ "scout_scores": [
+  72,
+  52,
+  58
+ ],
+ "alt_notes": [
+  {
+   "from": "D15",
+   "adaptation": "Separate triggers for crack, inactive, gridline, splice, edge_dark; corrections allowed only within 2 px of existing crack labels (no new components) to protect recall.",
+   "min_experiment": "Arm: house + ADELE, 3 seeds on 5-fold CV. Baseline: house folds. Metric: fold-mean crack IoU, mIoU_rob. Promote only if gain >= +0.01. About 15 GPU-h.",
+   "score": 52
+  },
+  {
+   "from": "D16",
+   "adaptation": "Log per-class train IoU curves over the 20k steps; apply correction to crack only within 2 px of the original label, and to gridline, splice, edge_dark, material where labels look incomplete. Keep inactive uncorrected (well labelled).",
+   "min_experiment": "Arm: house + ADELE correction, 5 seeds. Baseline: house. Metric: clean-49 crack IoU, gridline IoU, mIoU_rob. Kill: crack IoU and mIoU_rob both within noise (under 0.012 and under 0.01).",
+   "score": 58
+  }
+ ],
+ "final": 72,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 10,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P010"
+}

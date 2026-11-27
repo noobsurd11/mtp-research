@@ -1,0 +1,54 @@
+{
+ "paper_id": "doi:10.1109/cvpr52734.2025.02356",
+ "title": "Your ViT is Secretly an Image Segmentation Model (EoMT)",
+ "year": 2025,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2503.19108",
+ "code_url": "https://github.com/tue-mps/eomt",
+ "mechanism": "Plain ViT with learnable queries injected for the last blocks predicts class + mask directly; mask annealing removes masked attention at inference, so no adapter or pixel decoder.",
+ "evidence": "R: COCO PQ gap to ViT-Adapter+M2F shrinks with scale and pretraining (-5.8 ViT-S, -3.8 B, -1.1 L, -0.7 g; -6.1 with IN1K pretraining); ADE20K 58.4 mIoU at 512 with ViT-L DINOv2; small-object AP drops most (23.4 to 20.3); up to 4x faster. DINOv3 EoMT-L 59.5 ADE20K per README.",
+ "adaptation": "ViT-L/16 DINOv2-reg (DINOv3 if user OKs gated weights) from ADE20K semantic ckpt with class head reset; grey replicated to 3 ch; 1024 px input so tokens cover 32 px of original; add a 2-layer full-res conv refinement head on upsampled mask logits + raw image for 1-2 px cracks; dense CE + Dice on crack/inactive on the final semantic map; layer-wise lr decay (PF-like); ~50 queries for 24 classes; also used as a heterogeneous-ensemble member with the house 5-seed ensemble.",
+ "min_experiment": "Arm EoMT-L 1024 + refinement + dense aux, 20k steps, module-grouped 5-fold CV then 5 seeds on test/E1; baseline house PF; metrics inactive IoU, mIoU_rob, E1 crack relF1@2, E1 inactive IoU, plus ensemble arm (softmax average with house ensemble, weight from val). Kill alone if inactive IoU < 0.449 and mIoU_rob < 0.570 and E1 relF1@2 < 0.43; kill as ensemble member if no metric beats the paired noise floor (crack IoU 0.012).",
+ "score": 62,
+ "bench_score": 90,
+ "bet": "medium",
+ "gpu_hours": 60,
+ "targets": [
+  "inactive",
+  "e1_unseen",
+  "other_classes",
+  "benchmark"
+ ],
+ "prior_overlap": "Foundation encoders row: frozen ViT-S/ConvNeXt-T probes and one ConvNeXt-T 4k-step screen. ViT-L, mask decoders, 1024 input and long schedules are explicitly listed as not closed. Open.",
+ "directions": [
+  "D14",
+  "D23"
+ ],
+ "scout_scores": [
+  35,
+  62,
+  62
+ ],
+ "alt_notes": [
+  {
+   "from": "D14",
+   "adaptation": "Benchmark baseline for modern ViT mask classification; run at 1024 for 64 x 64 tokens; expect crack weakness, possible gains on inactive, material and other blob classes.",
+   "min_experiment": "EoMT DINOv2-L @1024, 3 seeds; mIoU_rob and inactive IoU vs house; kill if mIoU_rob < 0.57 and inactive < 0.44.",
+   "score": 35
+  },
+  {
+   "from": "D23",
+   "adaptation": "ViT-L DINOv2-reg (DINOv3 if user OKs gated weights) from ADE20K semantic checkpoint without class head; grey replicated to 3 ch; 1024 px input; full-res path (LoftUp-style upsampler or conv head on upsampled mask logits + raw EL image); dense CE + Dice on crack/inactive on final semantic map; layer-wise lr decay 0.8 as PF analogue; 24 classes, 2 queries per class.",
+   "min_experiment": "Arm EoMT-L DINOv2 1024 px + full-res head + dense aux, 20k steps vs house PF on module-grouped 5-fold CV then 5 seeds; metrics inactive IoU, mIoU_rob, E1 crack relF1@2, E1 inactive IoU; kill if inactive IoU < 0.449 and mIoU_rob < 0.570 and E1 relF1@2 < 0.43; also test as ensemble member with house 5-seed ensemble, kill if no metric beats noise floor (crack IoU 0.012).",
+   "score": 62
+  }
+ ],
+ "final": 62,
+ "bench": 90,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 67,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

@@ -1,0 +1,42 @@
+{
+ "paper_id": "arxiv:2506.10712",
+ "title": "Uncertainty-Masked Bernoulli Diffusion for Camouflaged Object Detection Refinement",
+ "year": 2025,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2506.10712",
+ "code_url": "",
+ "mechanism": "Estimate an uncertainty map, run Bernoulli diffusion refinement only inside uncertain regions and leave confident pixels untouched; pluggable after any encoder-decoder.",
+ "evidence": "R: average gains of 5.5% MAE and 3.2% weighted F-measure across COD benchmarks with modest overhead.",
+ "adaptation": "Replace their HUQNet with free 5-seed ensemble disagreement; restrict Bernoulli diffusion to a 3 px band around disagreeing crack / inactive pixels; condition on 1-ch EL and ensemble mean.",
+ "min_experiment": "Arm: band-restricted Bernoulli diffusion on house ensemble. Baseline: house ensemble with val-chosen bias. Metric: crack relF1@2, IoU. Kill: relF1@2 < +0.01.",
+ "score": 38,
+ "bench_score": 25,
+ "bet": "moonshot",
+ "gpu_hours": 15,
+ "targets": [
+  "crack"
+ ],
+ "prior_overlap": "none",
+ "directions": [
+  "D26"
+ ],
+ "scout_scores": [
+  38,
+  35
+ ],
+ "alt_notes": [
+  {
+   "from": "D26",
+   "adaptation": "Limit refinement to the uncertain 2-4 px band around predicted cracks and inactive borders, protecting the 0.93 relP@2 already reached; uncertainty from 5-seed disagreement instead of a new network.",
+   "min_experiment": "Arm: masked Bernoulli diffusion refiner on the uncertain band. Baseline: house ensemble. Metrics: crack IoU, relP@2 / relR@2 on 5-fold CV. Kill: crack IoU < +0.01.",
+   "score": 35
+  }
+ ],
+ "final": 38,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 433,
+ "pid": "P433"
+}

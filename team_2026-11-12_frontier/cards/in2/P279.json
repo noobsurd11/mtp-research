@@ -1,0 +1,43 @@
+{
+ "paper_id": "arxiv:2202.10054",
+ "title": "Fine-Tuning can Distort Pretrained Features and Underperform Out-of-Distribution (LP-FT)",
+ "year": 2022,
+ "venue": "ICLR",
+ "url": "https://arxiv.org/abs/2202.10054",
+ "code_url": "",
+ "mechanism": "A random head distorts features during full fine-tuning; training the head first on frozen features (LP) then fine-tuning (FT) preserves them.",
+ "adaptation": "PF already freezes the encoder 1k steps. Open variant: LP phase until the decoder converges (about 5k steps) then full FT at house lr, to separate LP-first from low encoder lr.",
+ "evidence": "10 shift datasets: FT +2% ID, -7% OOD vs LP; LP-FT +1% ID, +10% OOD vs FT.",
+ "min_experiment": "Arm LP5k-FT(house lr) vs PF and house, seeds 5-9. Metric: E1 inactive IoU, test relF1@2. Kill if not above house on E1 inactive.",
+ "gpu_hours": 6,
+ "targets": [
+  "e1_unseen",
+  "inactive"
+ ],
+ "bet": "safe",
+ "prior_overlap": "Largely tested: PF is an LP-FT-like recipe (1k frozen steps plus 0.1x lr) and won E1 inactive. Only the split of LP length and post-LP lr is open.",
+ "score": 45,
+ "bench_score": 50,
+ "directions": [
+  "D35"
+ ],
+ "scout_scores": [
+  45,
+  45
+ ],
+ "alt_notes": [
+  {
+   "from": "D35",
+   "adaptation": "PF already does 1k frozen steps. Open variant: frozen phase until decoder converges (5k steps), then full fine-tune at the house lr (not 0.1x), to separate LP-first from low encoder lr.",
+   "min_experiment": "Arm: LP 5k + FT at 1e-3, 5 seeds. Baseline: SUP100-PF and house. Metric: E1 inactive IoU, layer3/4 cosine to init, test crack relF1@2. Kill: E1 inactive not above house by +0.05 (then low lr, not LP, is PF's active part).",
+   "score": 45
+  }
+ ],
+ "final": 45,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 279,
+ "pid": "P279"
+}

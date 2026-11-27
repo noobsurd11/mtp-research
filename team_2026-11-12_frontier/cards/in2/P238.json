@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2306.08075",
+ "title": "BPKD: Boundary Privileged Knowledge Distillation For Semantic Segmentation",
+ "year": 2024,
+ "venue": "WACV",
+ "url": "https://arxiv.org/abs/2306.08075",
+ "code_url": "https://github.com/AkideLiu/BPKD",
+ "mechanism": "Distil edge regions and body regions with separate losses, giving edges extra spatially sensitive supervision.",
+ "adaptation": "Edge mask = crack GT dilated 2 px plus inactive borders; body = rest; up-weight edge term inside the ensemble KD arm.",
+ "min_experiment": "Arm: Noothout KD arm with BPKD loss. Baseline: Noothout KD arm. Metric: crack IoU, relF1@2. Kill: < +0.008 crack IoU.",
+ "evidence": "R: state-of-the-art KD on three segmentation benchmarks, CNN and transformer students.",
+ "gpu_hours": 6,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "benchmark"
+ ],
+ "prior_overlap": "none",
+ "score": 48,
+ "bench_score": 45,
+ "directions": [
+  "D34"
+ ],
+ "scout_scores": [
+  48
+ ],
+ "final": 48,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 238,
+ "pid": "P238"
+}

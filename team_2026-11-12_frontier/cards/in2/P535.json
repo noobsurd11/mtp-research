@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2311.16241",
+ "title": "SemiVL: Semi-Supervised Semantic Segmentation with Vision-Language Guidance",
+ "year": 2024,
+ "venue": "ECCV",
+ "url": "https://arxiv.org/abs/2311.16241",
+ "code_url": "https://github.com/google-research/semivl",
+ "mechanism": "Spatially fine-tuned CLIP, a language-guided decoder, and class definitions given as text to separate confusable classes, inside UniMatch-style SSL.",
+ "adaptation": "Write text definitions for gridline, splice, edge_dark, material and crack in EL terms. CLIP has little EL prior and ViT-B/16 at 512 px is coarse, so the use is mainly as a benchmark SSL baseline and a test for the weak structural classes.",
+ "min_experiment": "Run the official code on our split as a benchmark arm vs UniMatch V2 and house PF, 3 seeds. Metric: mIoU_rob, gridline IoU, splice IoU. Kill as a candidate model if mIoU_rob is below house PF.",
+ "score": 28,
+ "bench_score": 55,
+ "bet": "moonshot",
+ "targets": [
+  "other_classes",
+  "benchmark"
+ ],
+ "evidence": "R: +13.5 mIoU on COCO with 232 labels and +6.1 on VOC with 92 labels over the prior SOTA; gains are at scarce labels.",
+ "gpu_hours": 30,
+ "prior_overlap": "Vision-language models were never tried. Open, but the evidence is low-label only.",
+ "directions": [
+  "D29"
+ ],
+ "scout_scores": [
+  28
+ ],
+ "final": 28,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 535,
+ "pid": "P535"
+}

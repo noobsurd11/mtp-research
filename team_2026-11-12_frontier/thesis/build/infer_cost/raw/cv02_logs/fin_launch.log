@@ -1,0 +1,743 @@
+[2026-11-20 23:53:23] cv02 q armed: 85 jobs (md5 cc4d7006ab0c4e23bba896474c0f7169), rendered 37a236f5, deploy 821dfadf49116cc6d5fdbd6697e263dd7cf0f834 (CODE.md5 OK), data d6063fd83d20e656612540edda702cbe (OK), roots OK, GPUS '0 1 2 3 4 5 6 7', LPG 1, MAXC 8, other-user max 4096 MiB, gap 30 s, lib 1af2ed69, cq 012e8e3f, gpumem 1506982, pid 1507293; nproc 64, loadavg 5.03 4.19 4.05; sharing (live files in /tmp/noob_el/bench_q/fin; 0 = off): SHARE_TRAIN 20480 MiB, SHARE_DUMP 10240 MiB
+[2026-11-20 23:53:24] start fin_hrnet_swad_v11_pool_s5 on GPU 0 (card bench/methods/hrnet_w18_unetpp_swad_const_pf_v11.yaml, seed 5, root /tmp/noob_el/bench_data_fin/roots/pool532_v11, gate 11510; free 48536 MiB; our lanes on GPU 1, all 1)
+[2026-11-20 23:53:24] pid fin_hrnet_swad_v11_pool_s5 1517818 (python; parent 1517816); cmdline recorded (aadad4e5):     PID USER                      STARTED COMMAND|1517818 cv02     Fri Nov 20 23:53:23 2026 /tmp/noob_el/el-fault-detection/.venv/bin/python -u scripts/train.py --config configs/supervised.yaml --opts seed=5 data.labeled_fraction=1.0 training.total_steps=20000 data.split_seed=0 training.labeled_batch_size=8 data.mask_subdir=masks_v11 data.mask_ignore_value=255 model.name=bench_smp model.decoder=unetplusplus model.encoder_name=tu-hrnet_w18 model.encoder_weights=imagenet data.augmentation=labelsafe loss.supervised=ce_dice training.val_every=20000 training.encoder_pf.freeze=1000 training.encoder_pf.ramp=1000 training.encoder_pf.lr_mult=0.1 training.encoder_pf.wd=0 training.lr_scheduler=constant training.weight_avg.swad.mode=uniform training.weight_avg.swad.start=10000 training.weight_avg.swad.end=20000 training.weight_avg.ema_9998.mode=ema training.weight_avg.ema_9998.decay=0.9998 training.bn_recal=true training.enc_probe_every=2000 data.root=/tmp/noob_el/bench_data_fin/roots/pool532_v11 run_name=fin_hrnet_swad_v11_pool_s5
+[2026-11-20 23:53:29] fin_hrnet_swad_v11_pool_s5 config OK (= card)
+[2026-11-20 23:53:29] fin_hrnet_swad_v11_pool_s5 startup line OK: Labelled: 532 (/tmp/noob_el/bench_data_fin/roots/pool532_v11/splits/train.txt)  unlabelled: 0 (-)  val: 107  test: 107
+[2026-11-20 23:53:29] lane GPU 0: our runs on GPU = LPG 1
+[2026-11-20 23:54:03] start fin_hrnet_swad_v11_pool_s6 on GPU 1 (card bench/methods/hrnet_w18_unetpp_swad_const_pf_v11.yaml, seed 6, root /tmp/noob_el/bench_data_fin/roots/pool532_v11, gate 11510; free 48500 MiB; our lanes on GPU 1, all 2)
+[2026-11-20 23:54:03] pid fin_hrnet_swad_v11_pool_s6 1523435 (python; parent 1523433); cmdline recorded (727943f4):     PID USER                      STARTED COMMAND|1523435 cv02     Fri Nov 20 23:54:02 2026 /tmp/noob_el/el-fault-detection/.venv/bin/python -u scripts/train.py --config configs/supervised.yaml --opts seed=6 data.labeled_fraction=1.0 training.total_steps=20000 data.split_seed=0 training.labeled_batch_size=8 data.mask_subdir=masks_v11 data.mask_ignore_value=255 model.name=bench_smp model.decoder=unetplusplus model.encoder_name=tu-hrnet_w18 model.encoder_weights=imagenet data.augmentation=labelsafe loss.supervised=ce_dice training.val_every=20000 training.encoder_pf.freeze=1000 training.encoder_pf.ramp=1000 training.encoder_pf.lr_mult=0.1 training.encoder_pf.wd=0 training.lr_scheduler=constant training.weight_avg.swad.mode=uniform training.weight_avg.swad.start=10000 training.weight_avg.swad.end=20000 training.weight_avg.ema_9998.mode=ema training.weight_avg.ema_9998.decay=0.9998 training.bn_recal=true training.enc_probe_every=2000 data.root=/tmp/noob_el/bench_data_fin/roots/pool532_v11 run_name=fin_hrnet_swad_v11_pool_s6
+[2026-11-20 23:54:09] fin_hrnet_swad_v11_pool_s6 config OK (= card)
+[2026-11-20 23:54:09] fin_hrnet_swad_v11_pool_s6 startup line OK: Labelled: 532 (/tmp/noob_el/bench_data_fin/roots/pool532_v11/splits/train.txt)  unlabelled: 0 (-)  val: 107  test: 107
+[2026-11-20 23:54:10] lane GPU 1: our runs on GPU = LPG 1
+[2026-11-20 23:54:34] start fin_hrnet_swad_v11_pool_s7 on GPU 2 (card bench/methods/hrnet_w18_unetpp_swad_const_pf_v11.yaml, seed 7, root /tmp/noob_el/bench_data_fin/roots/pool532_v11, gate 11510; free 48536 MiB; our lanes on GPU 1, all 3)
+[2026-11-20 23:54:34] pid fin_hrnet_swad_v11_pool_s7 1529414 (python; parent 1529412); cmdline recorded (4be391d3):     PID USER                      STARTED COMMAND|1529414 cv02     Fri Nov 20 23:54:33 2026 /tmp/noob_el/el-fault-detection/.venv/bin/python -u scripts/train.py --config configs/supervised.yaml --opts seed=7 data.labeled_fraction=1.0 training.total_steps=20000 data.split_seed=0 training.labeled_batch_size=8 data.mask_subdir=masks_v11 data.mask_ignore_value=255 model.name=bench_smp model.decoder=unetplusplus model.encoder_name=tu-hrnet_w18 model.encoder_weights=imagenet data.augmentation=labelsafe loss.supervised=ce_dice training.val_every=20000 training.encoder_pf.freeze=1000 training.encoder_pf.ramp=1000 training.encoder_pf.lr_mult=0.1 training.encoder_pf.wd=0 training.lr_scheduler=constant training.weight_avg.swad.mode=uniform training.weight_avg.swad.start=10000 training.weight_avg.swad.end=20000 training.weight_avg.ema_9998.mode=ema training.weight_avg.ema_9998.decay=0.9998 training.bn_recal=true training.enc_probe_every=2000 data.root=/tmp/noob_el/bench_data_fin/roots/pool532_v11 run_name=fin_hrnet_swad_v11_pool_s7
+[2026-11-20 23:54:39] fin_hrnet_swad_v11_pool_s7 config OK (= card)
+[2026-11-20 23:54:39] fin_hrnet_swad_v11_pool_s7 startup line OK: Labelled: 532 (/tmp/noob_el/bench_data_fin/roots/pool532_v11/splits/train.txt)  unlabelled: 0 (-)  val: 107  test: 107
+[2026-11-20 23:54:41] lane GPU 2: our runs on GPU = LPG 1
+[2026-11-20 23:55:07] start fin_hrnet_swad_v11_pool_s8 on GPU 3 (card bench/methods/hrnet_w18_unetpp_swad_const_pf_v11.yaml, seed 8, root /tmp/noob_el/bench_data_fin/roots/pool532_v11, gate 11510; free 48536 MiB; our lanes on GPU 1, all 4)
+[2026-11-20 23:55:07] pid fin_hrnet_swad_v11_pool_s8 1534552 (python; parent 1534550); cmdline recorded (b3a6a96e):     PID USER                      STARTED COMMAND|1534552 cv02     Fri Nov 20 23:55:06 2026 /tmp/noob_el/el-fault-detection/.venv/bin/python -u scripts/train.py --config configs/supervised.yaml --opts seed=8 data.labeled_fraction=1.0 training.total_steps=20000 data.split_seed=0 training.labeled_batch_size=8 data.mask_subdir=masks_v11 data.mask_ignore_value=255 model.name=bench_smp model.decoder=unetplusplus model.encoder_name=tu-hrnet_w18 model.encoder_weights=imagenet data.augmentation=labelsafe loss.supervised=ce_dice training.val_every=20000 training.encoder_pf.freeze=1000 training.encoder_pf.ramp=1000 training.encoder_pf.lr_mult=0.1 training.encoder_pf.wd=0 training.lr_scheduler=constant training.weight_avg.swad.mode=uniform training.weight_avg.swad.start=10000 training.weight_avg.swad.end=20000 training.weight_avg.ema_9998.mode=ema training.weight_avg.ema_9998.decay=0.9998 training.bn_recal=true training.enc_probe_every=2000 data.root=/tmp/noob_el/bench_data_fin/roots/pool532_v11 run_name=fin_hrnet_swad_v11_pool_s8
+[2026-11-20 23:55:12] fin_hrnet_swad_v11_pool_s8 config OK (= card)
+[2026-11-20 23:55:13] fin_hrnet_swad_v11_pool_s8 startup line OK: Labelled: 532 (/tmp/noob_el/bench_data_fin/roots/pool532_v11/splits/train.txt)  unlabelled: 0 (-)  val: 107  test: 107
+[2026-11-20 23:55:15] lane GPU 3: our runs on GPU = LPG 1
+[2026-11-20 23:55:44] start fin_hrnet_swad_v11_pool_s9 on GPU 4 (card bench/methods/hrnet_w18_unetpp_swad_const_pf_v11.yaml, seed 9, root /tmp/noob_el/bench_data_fin/roots/pool532_v11, gate 11510; free 48536 MiB; our lanes on GPU 1, all 5)
+[2026-11-20 23:55:44] pid fin_hrnet_swad_v11_pool_s9 1540448 (python; parent 1540446); cmdline recorded (053dfc15):     PID USER                      STARTED COMMAND|1540448 cv02     Fri Nov 20 23:55:43 2026 /tmp/noob_el/el-fault-detection/.venv/bin/python -u scripts/train.py --config configs/supervised.yaml --opts seed=9 data.labeled_fraction=1.0 training.total_steps=20000 data.split_seed=0 training.labeled_batch_size=8 data.mask_subdir=masks_v11 data.mask_ignore_value=255 model.name=bench_smp model.decoder=unetplusplus model.encoder_name=tu-hrnet_w18 model.encoder_weights=imagenet data.augmentation=labelsafe loss.supervised=ce_dice training.val_every=20000 training.encoder_pf.freeze=1000 training.encoder_pf.ramp=1000 training.encoder_pf.lr_mult=0.1 training.encoder_pf.wd=0 training.lr_scheduler=constant training.weight_avg.swad.mode=uniform training.weight_avg.swad.start=10000 training.weight_avg.swad.end=20000 training.weight_avg.ema_9998.mode=ema training.weight_avg.ema_9998.decay=0.9998 training.bn_recal=true training.enc_probe_every=2000 data.root=/tmp/noob_el/bench_data_fin/roots/pool532_v11 run_name=fin_hrnet_swad_v11_pool_s9
+[2026-11-20 23:55:49] fin_hrnet_swad_v11_pool_s9 config OK (= card)
+[2026-11-20 23:55:49] fin_hrnet_swad_v11_pool_s9 startup line OK: Labelled: 532 (/tmp/noob_el/bench_data_fin/roots/pool532_v11/splits/train.txt)  unlabelled: 0 (-)  val: 107  test: 107
+[2026-11-20 23:55:53] lane GPU 4: our runs on GPU = LPG 1
+[2026-11-20 23:56:24] start fin_pf_v11_pool_s5 on GPU 5 (card bench/methods/house_r34_unetpp_pf_v11.yaml, seed 5, root /tmp/noob_el/bench_data_fin/roots/pool532_v11, gate 9000; free 48536 MiB; our lanes on GPU 1, all 6)
+[2026-11-20 23:56:24] pid fin_pf_v11_pool_s5 1547545 (python; parent 1547543); cmdline recorded (6d7d70f9):     PID USER                      STARTED COMMAND|1547545 cv02     Fri Nov 20 23:56:23 2026 /tmp/noob_el/el-fault-detection/.venv/bin/python -u scripts/train.py --config configs/supervised.yaml --opts seed=5 data.labeled_fraction=1.0 training.total_steps=20000 data.split_seed=0 training.labeled_batch_size=8 data.mask_subdir=masks_v11 data.mask_ignore_value=255 model.name=smp_unetpp data.augmentation=labelsafe loss.supervised=ce_dice training.val_every=20000 training.encoder_pf.freeze=1000 training.encoder_pf.ramp=1000 training.encoder_pf.lr_mult=0.1 training.encoder_pf.wd=0 data.root=/tmp/noob_el/bench_data_fin/roots/pool532_v11 run_name=fin_pf_v11_pool_s5
+[2026-11-20 23:56:29] fin_pf_v11_pool_s5 config OK (= card)
+[2026-11-20 23:56:29] fin_pf_v11_pool_s5 startup line OK: Labelled: 532 (/tmp/noob_el/bench_data_fin/roots/pool532_v11/splits/train.txt)  unlabelled: 0 (-)  val: 107  test: 107
+[2026-11-20 23:56:35] lane GPU 5: our runs on GPU = LPG 1
+[2026-11-20 23:57:09] start fin_pf_v11_pool_s6 on GPU 6 (card bench/methods/house_r34_unetpp_pf_v11.yaml, seed 6, root /tmp/noob_el/bench_data_fin/roots/pool532_v11, gate 9000; free 48536 MiB; our lanes on GPU 1, all 7)
+[2026-11-20 23:57:09] pid fin_pf_v11_pool_s6 1555749 (python; parent 1555747); cmdline recorded (73732fc0):     PID USER                      STARTED COMMAND|1555749 cv02     Fri Nov 20 23:57:08 2026 /tmp/noob_el/el-fault-detection/.venv/bin/python -u scripts/train.py --config configs/supervised.yaml --opts seed=6 data.labeled_fraction=1.0 training.total_steps=20000 data.split_seed=0 training.labeled_batch_size=8 data.mask_subdir=masks_v11 data.mask_ignore_value=255 model.name=smp_unetpp data.augmentation=labelsafe loss.supervised=ce_dice training.val_every=20000 training.encoder_pf.freeze=1000 training.encoder_pf.ramp=1000 training.encoder_pf.lr_mult=0.1 training.encoder_pf.wd=0 data.root=/tmp/noob_el/bench_data_fin/roots/pool532_v11 run_name=fin_pf_v11_pool_s6
+[2026-11-20 23:57:14] fin_pf_v11_pool_s6 config OK (= card)
+[2026-11-20 23:57:14] fin_pf_v11_pool_s6 startup line OK: Labelled: 532 (/tmp/noob_el/bench_data_fin/roots/pool532_v11/splits/train.txt)  unlabelled: 0 (-)  val: 107  test: 107
+[2026-11-20 23:57:21] lane GPU 6: our runs on GPU = LPG 1
+[2026-11-20 23:57:40] start fin_pf_v11_pool_s7 on GPU 7 (card bench/methods/house_r34_unetpp_pf_v11.yaml, seed 7, root /tmp/noob_el/bench_data_fin/roots/pool532_v11, gate 9000; free 48536 MiB; our lanes on GPU 1, all 8)
+[2026-11-20 23:57:40] pid fin_pf_v11_pool_s7 1561990 (python; parent 1561988); cmdline recorded (432d4369):     PID USER                      STARTED COMMAND|1561990 cv02     Fri Nov 20 23:57:39 2026 /tmp/noob_el/el-fault-detection/.venv/bin/python -u scripts/train.py --config configs/supervised.yaml --opts seed=7 data.labeled_fraction=1.0 training.total_steps=20000 data.split_seed=0 training.labeled_batch_size=8 data.mask_subdir=masks_v11 data.mask_ignore_value=255 model.name=smp_unetpp data.augmentation=labelsafe loss.supervised=ce_dice training.val_every=20000 training.encoder_pf.freeze=1000 training.encoder_pf.ramp=1000 training.encoder_pf.lr_mult=0.1 training.encoder_pf.wd=0 data.root=/tmp/noob_el/bench_data_fin/roots/pool532_v11 run_name=fin_pf_v11_pool_s7
+[2026-11-20 23:57:45] fin_pf_v11_pool_s7 config OK (= card)
+[2026-11-20 23:57:45] fin_pf_v11_pool_s7 startup line OK: Labelled: 532 (/tmp/noob_el/bench_data_fin/roots/pool532_v11/splits/train.txt)  unlabelled: 0 (-)  val: 107  test: 107
+[2026-11-21 00:55:25] trained fin_pf_v11_pool_s5 rc=1 (GPU 5)
+[2026-11-21 00:55:25] done fin_pf_v11_pool_s5: final-step lines 1, Traceback lines 3
+[2026-11-21 00:55:25] no dump for fin_pf_v11_pool_s5 (training rc 1)
+[2026-11-21 00:55:35] lane GPU 5: qualifies
+[2026-11-21 00:55:36] dump-only c3x_hrnet_swad_v11_f0_s5.swad.tta_d4 on GPU 5: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f0_s5
+[2026-11-21 00:55:36] dump-only c3x_hrnet_swad_v11_f0_s5.swad.tta_d4: no training (one dump of a finished run)
+[2026-11-21 00:56:10] start dump_c3x_hrnet_swad_v11_f0_s5.swad.tta_d4 on GPU 5 (free 48536 MiB, dump gate 6200)
+[2026-11-21 00:56:10] pid dump_c3x_hrnet_swad_v11_f0_s5.swad.tta_d4 2022642 (python; parent 2022636); cmdline recorded (c93f3c9d)
+[2026-11-21 00:56:10] dump_c3x_hrnet_swad_v11_f0_s5.swad.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f0_s5.swad.tta_d4
+[2026-11-21 00:56:39] trained fin_pf_v11_pool_s6 rc=1 (GPU 6)
+[2026-11-21 00:56:39] done fin_pf_v11_pool_s6: final-step lines 1, Traceback lines 3
+[2026-11-21 00:56:39] no dump for fin_pf_v11_pool_s6 (training rc 1)
+[2026-11-21 00:56:51] lane GPU 5: our runs on GPU = LPG 1
+[2026-11-21 00:56:52] lane GPU 6: qualifies
+[2026-11-21 00:56:52] dump-only c3x_hrnet_swad_v11_f1_s5.swad.tta_d4 on GPU 6: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f1_s5
+[2026-11-21 00:56:52] dump-only c3x_hrnet_swad_v11_f1_s5.swad.tta_d4: no training (one dump of a finished run)
+[2026-11-21 00:57:00] dumped dump_c3x_hrnet_swad_v11_f0_s5.swad.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 00:57:01] RUN.md5 c3x_hrnet_swad_v11_f0_s5.swad.tta_d4 rc=0: 108 files, md5 bb0b3518 (dump-only)
+[2026-11-21 00:57:07] lane GPU 5: qualifies
+[2026-11-21 00:57:10] trained fin_pf_v11_pool_s7 rc=1 (GPU 7)
+[2026-11-21 00:57:10] done fin_pf_v11_pool_s7: final-step lines 1, Traceback lines 3
+[2026-11-21 00:57:10] no dump for fin_pf_v11_pool_s7 (training rc 1)
+[2026-11-21 00:57:22] dump-only c3x_hrnet_swad_v11_f2_s5.swad.tta_d4 on GPU 5: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f2_s5
+[2026-11-21 00:57:22] dump-only c3x_hrnet_swad_v11_f2_s5.swad.tta_d4: no training (one dump of a finished run)
+[2026-11-21 00:57:27] lane GPU 5: our runs on GPU = LPG 1
+[2026-11-21 00:57:28] lane GPU 6: our runs on GPU = LPG 1
+[2026-11-21 00:57:56] start dump_c3x_hrnet_swad_v11_f2_s5.swad.tta_d4 on GPU 5 (free 48536 MiB, dump gate 6200)
+[2026-11-21 00:57:56] pid dump_c3x_hrnet_swad_v11_f2_s5.swad.tta_d4 2041445 (python; parent 2041443); cmdline recorded (7b5e99cb)
+[2026-11-21 00:57:56] dump_c3x_hrnet_swad_v11_f2_s5.swad.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f2_s5.swad.tta_d4
+[2026-11-21 00:58:32] start dump_c3x_hrnet_swad_v11_f1_s5.swad.tta_d4 on GPU 6 (free 48536 MiB, dump gate 6200)
+[2026-11-21 00:58:32] pid dump_c3x_hrnet_swad_v11_f1_s5.swad.tta_d4 2049002 (python; parent 2049000); cmdline recorded (d41fae22)
+[2026-11-21 00:58:32] dump_c3x_hrnet_swad_v11_f1_s5.swad.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f1_s5.swad.tta_d4
+[2026-11-21 00:58:36] dumped dump_c3x_hrnet_swad_v11_f2_s5.swad.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 00:58:37] RUN.md5 c3x_hrnet_swad_v11_f2_s5.swad.tta_d4 rc=0: 104 files, md5 9a376185 (dump-only)
+[2026-11-21 00:58:53] lane GPU 5: qualifies
+[2026-11-21 00:59:09] dump-only c3x_hrnet_swad_v11_f3_s5.swad.tta_d4 on GPU 5: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f3_s5
+[2026-11-21 00:59:09] dump-only c3x_hrnet_swad_v11_f3_s5.swad.tta_d4: no training (one dump of a finished run)
+[2026-11-21 00:59:14] lane GPU 5: our runs on GPU = LPG 1
+[2026-11-21 00:59:22] dumped dump_c3x_hrnet_swad_v11_f1_s5.swad.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 00:59:23] RUN.md5 c3x_hrnet_swad_v11_f1_s5.swad.tta_d4 rc=0: 111 files, md5 19d9a332 (dump-only)
+[2026-11-21 00:59:32] lane GPU 6: qualifies
+[2026-11-21 00:59:43] start dump_c3x_hrnet_swad_v11_f3_s5.swad.tta_d4 on GPU 5 (free 48536 MiB, dump gate 6200)
+[2026-11-21 00:59:43] pid dump_c3x_hrnet_swad_v11_f3_s5.swad.tta_d4 2062933 (python; parent 2062931); cmdline recorded (e960efd0)
+[2026-11-21 00:59:43] dump_c3x_hrnet_swad_v11_f3_s5.swad.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f3_s5.swad.tta_d4
+[2026-11-21 01:00:22] dump-only c3x_hrnet_swad_v11_f4_s5.swad.tta_d4 on GPU 6: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f4_s5
+[2026-11-21 01:00:22] dump-only c3x_hrnet_swad_v11_f4_s5.swad.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:00:23] dumped dump_c3x_hrnet_swad_v11_f3_s5.swad.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:00:23] RUN.md5 c3x_hrnet_swad_v11_f3_s5.swad.tta_d4 rc=0: 102 files, md5 36312f52 (dump-only)
+[2026-11-21 01:00:27] lane GPU 5: qualifies
+[2026-11-21 01:00:56] start dump_c3x_hrnet_swad_v11_f4_s5.swad.tta_d4 on GPU 6 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:00:56] pid dump_c3x_hrnet_swad_v11_f4_s5.swad.tta_d4 2077077 (python; parent 2077075); cmdline recorded (f8dcaa45)
+[2026-11-21 01:00:56] dump_c3x_hrnet_swad_v11_f4_s5.swad.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f4_s5.swad.tta_d4
+[2026-11-21 01:01:28] dump-only c3x_hrnet_swad_v11_f0_s6.swad.tta_d4 on GPU 5: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f0_s6
+[2026-11-21 01:01:28] dump-only c3x_hrnet_swad_v11_f0_s6.swad.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:01:33] lane GPU 5: our runs on GPU = LPG 1
+[2026-11-21 01:01:34] lane GPU 6: our runs on GPU = LPG 1
+[2026-11-21 01:01:46] dumped dump_c3x_hrnet_swad_v11_f4_s5.swad.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:01:46] RUN.md5 c3x_hrnet_swad_v11_f4_s5.swad.tta_d4 rc=0: 112 files, md5 fd29e5c8 (dump-only)
+[2026-11-21 01:01:51] lane GPU 6: qualifies
+[2026-11-21 01:02:02] start dump_c3x_hrnet_swad_v11_f0_s6.swad.tta_d4 on GPU 5 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:02:02] pid dump_c3x_hrnet_swad_v11_f0_s6.swad.tta_d4 2090003 (python; parent 2090001); cmdline recorded (52490a3c)
+[2026-11-21 01:02:02] dump_c3x_hrnet_swad_v11_f0_s6.swad.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f0_s6.swad.tta_d4
+[2026-11-21 01:02:41] dump-only c3x_hrnet_swad_v11_f1_s6.swad.tta_d4 on GPU 6: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f1_s6
+[2026-11-21 01:02:41] dump-only c3x_hrnet_swad_v11_f1_s6.swad.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:02:47] lane GPU 6: our runs on GPU = LPG 1
+[2026-11-21 01:02:52] dumped dump_c3x_hrnet_swad_v11_f0_s6.swad.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:02:53] RUN.md5 c3x_hrnet_swad_v11_f0_s6.swad.tta_d4 rc=0: 108 files, md5 04e15778 (dump-only)
+[2026-11-21 01:03:03] lane GPU 5: qualifies
+[2026-11-21 01:03:15] start dump_c3x_hrnet_swad_v11_f1_s6.swad.tta_d4 on GPU 6 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:03:15] pid dump_c3x_hrnet_swad_v11_f1_s6.swad.tta_d4 2104286 (python; parent 2104284); cmdline recorded (e80279a3)
+[2026-11-21 01:03:15] dump_c3x_hrnet_swad_v11_f1_s6.swad.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f1_s6.swad.tta_d4
+[2026-11-21 01:03:50] dump-only c3x_hrnet_swad_v11_f2_s6.swad.tta_d4 on GPU 5: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f2_s6
+[2026-11-21 01:03:50] dump-only c3x_hrnet_swad_v11_f2_s6.swad.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:03:55] lane GPU 5: our runs on GPU = LPG 1
+[2026-11-21 01:04:05] dumped dump_c3x_hrnet_swad_v11_f1_s6.swad.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:04:05] RUN.md5 c3x_hrnet_swad_v11_f1_s6.swad.tta_d4 rc=0: 111 files, md5 c0951bc0 (dump-only)
+[2026-11-21 01:04:13] lane GPU 6: qualifies
+[2026-11-21 01:04:24] start dump_c3x_hrnet_swad_v11_f2_s6.swad.tta_d4 on GPU 5 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:04:24] pid dump_c3x_hrnet_swad_v11_f2_s6.swad.tta_d4 2118277 (python; parent 2118273); cmdline recorded (c7c09a36)
+[2026-11-21 01:04:24] dump_c3x_hrnet_swad_v11_f2_s6.swad.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f2_s6.swad.tta_d4
+[2026-11-21 01:05:03] dump-only c3x_hrnet_swad_v11_f3_s6.swad.tta_d4 on GPU 6: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f3_s6
+[2026-11-21 01:05:03] dump-only c3x_hrnet_swad_v11_f3_s6.swad.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:05:04] dumped dump_c3x_hrnet_swad_v11_f2_s6.swad.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:05:04] RUN.md5 c3x_hrnet_swad_v11_f2_s6.swad.tta_d4 rc=0: 104 files, md5 d5a5aca1 (dump-only)
+[2026-11-21 01:05:08] lane GPU 5: qualifies
+[2026-11-21 01:05:37] start dump_c3x_hrnet_swad_v11_f3_s6.swad.tta_d4 on GPU 6 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:05:37] pid dump_c3x_hrnet_swad_v11_f3_s6.swad.tta_d4 2133165 (python; parent 2133163); cmdline recorded (f7c2b5a0)
+[2026-11-21 01:05:37] dump_c3x_hrnet_swad_v11_f3_s6.swad.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f3_s6.swad.tta_d4
+[2026-11-21 01:06:10] dump-only c3x_hrnet_swad_v11_f4_s6.swad.tta_d4 on GPU 5: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f4_s6
+[2026-11-21 01:06:10] dump-only c3x_hrnet_swad_v11_f4_s6.swad.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:06:16] lane GPU 5: our runs on GPU = LPG 1
+[2026-11-21 01:06:17] lane GPU 6: our runs on GPU = LPG 1
+[2026-11-21 01:06:17] dumped dump_c3x_hrnet_swad_v11_f3_s6.swad.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:06:18] RUN.md5 c3x_hrnet_swad_v11_f3_s6.swad.tta_d4 rc=0: 102 files, md5 44904345 (dump-only)
+[2026-11-21 01:06:34] lane GPU 6: qualifies
+[2026-11-21 01:06:44] start dump_c3x_hrnet_swad_v11_f4_s6.swad.tta_d4 on GPU 5 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:06:45] pid dump_c3x_hrnet_swad_v11_f4_s6.swad.tta_d4 2146286 (python; parent 2146284); cmdline recorded (5994c216)
+[2026-11-21 01:06:45] dump_c3x_hrnet_swad_v11_f4_s6.swad.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f4_s6.swad.tta_d4
+[2026-11-21 01:07:23] dump-only c3x_hrnet_swad_v11_f0_s7.swad.tta_d4 on GPU 6: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f0_s7
+[2026-11-21 01:07:23] dump-only c3x_hrnet_swad_v11_f0_s7.swad.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:07:30] lane GPU 6: our runs on GPU = LPG 1
+[2026-11-21 01:07:35] dumped dump_c3x_hrnet_swad_v11_f4_s6.swad.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:07:35] RUN.md5 c3x_hrnet_swad_v11_f4_s6.swad.tta_d4 rc=0: 112 files, md5 0bfd53a1 (dump-only)
+[2026-11-21 01:07:46] lane GPU 5: qualifies
+[2026-11-21 01:07:58] start dump_c3x_hrnet_swad_v11_f0_s7.swad.tta_d4 on GPU 6 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:07:58] pid dump_c3x_hrnet_swad_v11_f0_s7.swad.tta_d4 2161196 (python; parent 2161192); cmdline recorded (20e0e87c)
+[2026-11-21 01:07:58] dump_c3x_hrnet_swad_v11_f0_s7.swad.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f0_s7.swad.tta_d4
+[2026-11-21 01:08:33] dump-only c3x_hrnet_swad_v11_f1_s7.swad.tta_d4 on GPU 5: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f1_s7
+[2026-11-21 01:08:33] dump-only c3x_hrnet_swad_v11_f1_s7.swad.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:08:38] dumped dump_c3x_hrnet_swad_v11_f0_s7.swad.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:08:38] RUN.md5 c3x_hrnet_swad_v11_f0_s7.swad.tta_d4 rc=0: 108 files, md5 a59c9ac2 (dump-only)
+[2026-11-21 01:08:38] lane GPU 5: our runs on GPU = LPG 1
+[2026-11-21 01:08:39] lane GPU 6: qualifies
+[2026-11-21 01:09:07] start dump_c3x_hrnet_swad_v11_f1_s7.swad.tta_d4 on GPU 5 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:09:07] pid dump_c3x_hrnet_swad_v11_f1_s7.swad.tta_d4 2175482 (python; parent 2175479); cmdline recorded (d3ea953a)
+[2026-11-21 01:09:07] dump_c3x_hrnet_swad_v11_f1_s7.swad.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f1_s7.swad.tta_d4
+[2026-11-21 01:09:45] dump-only c3x_hrnet_swad_v11_f2_s7.swad.tta_d4 on GPU 6: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f2_s7
+[2026-11-21 01:09:45] dump-only c3x_hrnet_swad_v11_f2_s7.swad.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:09:51] lane GPU 6: our runs on GPU = LPG 1
+[2026-11-21 01:09:57] dumped dump_c3x_hrnet_swad_v11_f1_s7.swad.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:09:57] RUN.md5 c3x_hrnet_swad_v11_f1_s7.swad.tta_d4 rc=0: 111 files, md5 3bac5196 (dump-only)
+[2026-11-21 01:10:08] lane GPU 5: qualifies
+[2026-11-21 01:10:20] start dump_c3x_hrnet_swad_v11_f2_s7.swad.tta_d4 on GPU 6 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:10:20] pid dump_c3x_hrnet_swad_v11_f2_s7.swad.tta_d4 2190878 (python; parent 2190876); cmdline recorded (0b2d07a8)
+[2026-11-21 01:10:20] dump_c3x_hrnet_swad_v11_f2_s7.swad.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f2_s7.swad.tta_d4
+[2026-11-21 01:10:55] dump-only c3x_hrnet_swad_v11_f3_s7.swad.tta_d4 on GPU 5: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f3_s7
+[2026-11-21 01:10:55] dump-only c3x_hrnet_swad_v11_f3_s7.swad.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:11:00] dumped dump_c3x_hrnet_swad_v11_f2_s7.swad.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:11:00] RUN.md5 c3x_hrnet_swad_v11_f2_s7.swad.tta_d4 rc=0: 104 files, md5 bb9b018c (dump-only)
+[2026-11-21 01:11:00] lane GPU 5: our runs on GPU = LPG 1
+[2026-11-21 01:11:01] lane GPU 6: qualifies
+[2026-11-21 01:11:29] start dump_c3x_hrnet_swad_v11_f3_s7.swad.tta_d4 on GPU 5 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:11:29] pid dump_c3x_hrnet_swad_v11_f3_s7.swad.tta_d4 2204907 (python; parent 2204905); cmdline recorded (3d648442)
+[2026-11-21 01:11:29] dump_c3x_hrnet_swad_v11_f3_s7.swad.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f3_s7.swad.tta_d4
+[2026-11-21 01:12:08] dump-only c3x_hrnet_swad_v11_f4_s7.swad.tta_d4 on GPU 6: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f4_s7
+[2026-11-21 01:12:08] dump-only c3x_hrnet_swad_v11_f4_s7.swad.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:12:09] dumped dump_c3x_hrnet_swad_v11_f3_s7.swad.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:12:09] RUN.md5 c3x_hrnet_swad_v11_f3_s7.swad.tta_d4 rc=0: 102 files, md5 cbd25825 (dump-only)
+[2026-11-21 01:12:13] lane GPU 5: qualifies
+[2026-11-21 01:12:42] start dump_c3x_hrnet_swad_v11_f4_s7.swad.tta_d4 on GPU 6 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:12:42] pid dump_c3x_hrnet_swad_v11_f4_s7.swad.tta_d4 2220211 (python; parent 2220209); cmdline recorded (325f36af)
+[2026-11-21 01:12:42] dump_c3x_hrnet_swad_v11_f4_s7.swad.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f4_s7.swad.tta_d4
+[2026-11-21 01:13:15] dump-only c3x_hrnet_swad_v11_f0_s8.swad.tta_d4 on GPU 5: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f0_s8
+[2026-11-21 01:13:15] dump-only c3x_hrnet_swad_v11_f0_s8.swad.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:13:21] lane GPU 5: our runs on GPU = LPG 1
+[2026-11-21 01:13:22] lane GPU 6: our runs on GPU = LPG 1
+[2026-11-21 01:13:32] dumped dump_c3x_hrnet_swad_v11_f4_s7.swad.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:13:33] RUN.md5 c3x_hrnet_swad_v11_f4_s7.swad.tta_d4 rc=0: 112 files, md5 138a0037 (dump-only)
+[2026-11-21 01:13:39] lane GPU 6: qualifies
+[2026-11-21 01:13:49] start dump_c3x_hrnet_swad_v11_f0_s8.swad.tta_d4 on GPU 5 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:13:49] pid dump_c3x_hrnet_swad_v11_f0_s8.swad.tta_d4 2233994 (python; parent 2233992); cmdline recorded (b9bf3124)
+[2026-11-21 01:13:49] dump_c3x_hrnet_swad_v11_f0_s8.swad.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f0_s8.swad.tta_d4
+[2026-11-21 01:14:29] dump-only c3x_hrnet_swad_v11_f1_s8.swad.tta_d4 on GPU 6: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f1_s8
+[2026-11-21 01:14:29] dump-only c3x_hrnet_swad_v11_f1_s8.swad.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:14:35] lane GPU 6: our runs on GPU = LPG 1
+[2026-11-21 01:14:39] dumped dump_c3x_hrnet_swad_v11_f0_s8.swad.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:14:40] RUN.md5 c3x_hrnet_swad_v11_f0_s8.swad.tta_d4 rc=0: 108 files, md5 d107efa2 (dump-only)
+[2026-11-21 01:14:51] lane GPU 5: qualifies
+[2026-11-21 01:15:04] start dump_c3x_hrnet_swad_v11_f1_s8.swad.tta_d4 on GPU 6 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:15:04] pid dump_c3x_hrnet_swad_v11_f1_s8.swad.tta_d4 2250150 (python; parent 2250146); cmdline recorded (3a96c034)
+[2026-11-21 01:15:04] dump_c3x_hrnet_swad_v11_f1_s8.swad.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f1_s8.swad.tta_d4
+[2026-11-21 01:15:39] dump-only c3x_hrnet_swad_v11_f2_s8.swad.tta_d4 on GPU 5: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f2_s8
+[2026-11-21 01:15:39] dump-only c3x_hrnet_swad_v11_f2_s8.swad.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:15:45] lane GPU 5: our runs on GPU = LPG 1
+[2026-11-21 01:15:54] dumped dump_c3x_hrnet_swad_v11_f1_s8.swad.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:15:54] RUN.md5 c3x_hrnet_swad_v11_f1_s8.swad.tta_d4 rc=0: 111 files, md5 144a3261 (dump-only)
+[2026-11-21 01:16:03] lane GPU 6: qualifies
+[2026-11-21 01:16:13] start dump_c3x_hrnet_swad_v11_f2_s8.swad.tta_d4 on GPU 5 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:16:13] pid dump_c3x_hrnet_swad_v11_f2_s8.swad.tta_d4 2264854 (python; parent 2264852); cmdline recorded (4c2f876f)
+[2026-11-21 01:16:13] dump_c3x_hrnet_swad_v11_f2_s8.swad.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f2_s8.swad.tta_d4
+[2026-11-21 01:16:53] dump-only c3x_hrnet_swad_v11_f3_s8.swad.tta_d4 on GPU 6: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f3_s8
+[2026-11-21 01:16:53] dump-only c3x_hrnet_swad_v11_f3_s8.swad.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:16:53] dumped dump_c3x_hrnet_swad_v11_f2_s8.swad.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:16:54] RUN.md5 c3x_hrnet_swad_v11_f2_s8.swad.tta_d4 rc=0: 104 files, md5 8491332a (dump-only)
+[2026-11-21 01:16:59] lane GPU 5: qualifies
+[2026-11-21 01:17:28] start dump_c3x_hrnet_swad_v11_f3_s8.swad.tta_d4 on GPU 6 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:17:28] pid dump_c3x_hrnet_swad_v11_f3_s8.swad.tta_d4 2280624 (python; parent 2280622); cmdline recorded (678749ae)
+[2026-11-21 01:17:28] dump_c3x_hrnet_swad_v11_f3_s8.swad.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f3_s8.swad.tta_d4
+[2026-11-21 01:18:01] dump-only c3x_hrnet_swad_v11_f4_s8.swad.tta_d4 on GPU 5: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f4_s8
+[2026-11-21 01:18:02] dump-only c3x_hrnet_swad_v11_f4_s8.swad.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:18:07] lane GPU 5: our runs on GPU = LPG 1
+[2026-11-21 01:18:08] dumped dump_c3x_hrnet_swad_v11_f3_s8.swad.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:18:08] RUN.md5 c3x_hrnet_swad_v11_f3_s8.swad.tta_d4 rc=0: 102 files, md5 bdc6dc9a (dump-only)
+[2026-11-21 01:18:08] lane GPU 6: our runs on GPU = LPG 1
+[2026-11-21 01:18:25] lane GPU 6: qualifies
+[2026-11-21 01:18:36] start dump_c3x_hrnet_swad_v11_f4_s8.swad.tta_d4 on GPU 5 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:18:36] pid dump_c3x_hrnet_swad_v11_f4_s8.swad.tta_d4 2294878 (python; parent 2294874); cmdline recorded (2539612a)
+[2026-11-21 01:18:36] dump_c3x_hrnet_swad_v11_f4_s8.swad.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f4_s8.swad.tta_d4
+[2026-11-21 01:19:16] dump-only c3x_hrnet_swad_v11_f0_s9.swad.tta_d4 on GPU 6: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f0_s9
+[2026-11-21 01:19:16] dump-only c3x_hrnet_swad_v11_f0_s9.swad.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:19:22] lane GPU 6: our runs on GPU = LPG 1
+[2026-11-21 01:19:26] dumped dump_c3x_hrnet_swad_v11_f4_s8.swad.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:19:26] RUN.md5 c3x_hrnet_swad_v11_f4_s8.swad.tta_d4 rc=0: 112 files, md5 b6bb33ef (dump-only)
+[2026-11-21 01:19:39] lane GPU 5: qualifies
+[2026-11-21 01:19:50] start dump_c3x_hrnet_swad_v11_f0_s9.swad.tta_d4 on GPU 6 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:19:50] pid dump_c3x_hrnet_swad_v11_f0_s9.swad.tta_d4 2311580 (python; parent 2311577); cmdline recorded (e2013857)
+[2026-11-21 01:19:50] dump_c3x_hrnet_swad_v11_f0_s9.swad.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f0_s9.swad.tta_d4
+[2026-11-21 01:20:26] dump-only c3x_hrnet_swad_v11_f1_s9.swad.tta_d4 on GPU 5: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f1_s9
+[2026-11-21 01:20:26] dump-only c3x_hrnet_swad_v11_f1_s9.swad.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:20:32] lane GPU 5: our runs on GPU = LPG 1
+[2026-11-21 01:20:40] dumped dump_c3x_hrnet_swad_v11_f0_s9.swad.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:20:41] RUN.md5 c3x_hrnet_swad_v11_f0_s9.swad.tta_d4 rc=0: 108 files, md5 f3957970 (dump-only)
+[2026-11-21 01:20:50] lane GPU 6: qualifies
+[2026-11-21 01:21:00] start dump_c3x_hrnet_swad_v11_f1_s9.swad.tta_d4 on GPU 5 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:21:00] pid dump_c3x_hrnet_swad_v11_f1_s9.swad.tta_d4 2326650 (python; parent 2326648); cmdline recorded (e13f7fe7)
+[2026-11-21 01:21:00] dump_c3x_hrnet_swad_v11_f1_s9.swad.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f1_s9.swad.tta_d4
+[2026-11-21 01:21:41] dump-only c3x_hrnet_swad_v11_f2_s9.swad.tta_d4 on GPU 6: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f2_s9
+[2026-11-21 01:21:41] dump-only c3x_hrnet_swad_v11_f2_s9.swad.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:21:47] lane GPU 6: our runs on GPU = LPG 1
+[2026-11-21 01:21:50] dumped dump_c3x_hrnet_swad_v11_f1_s9.swad.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:21:51] RUN.md5 c3x_hrnet_swad_v11_f1_s9.swad.tta_d4 rc=0: 111 files, md5 f63787a7 (dump-only)
+[2026-11-21 01:22:03] lane GPU 5: qualifies
+[2026-11-21 01:22:15] start dump_c3x_hrnet_swad_v11_f2_s9.swad.tta_d4 on GPU 6 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:22:15] pid dump_c3x_hrnet_swad_v11_f2_s9.swad.tta_d4 2343019 (python; parent 2343017); cmdline recorded (bd932f23)
+[2026-11-21 01:22:15] dump_c3x_hrnet_swad_v11_f2_s9.swad.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f2_s9.swad.tta_d4
+[2026-11-21 01:22:51] dump-only c3x_hrnet_swad_v11_f3_s9.swad.tta_d4 on GPU 5: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f3_s9
+[2026-11-21 01:22:51] dump-only c3x_hrnet_swad_v11_f3_s9.swad.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:22:55] dumped dump_c3x_hrnet_swad_v11_f2_s9.swad.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:22:56] RUN.md5 c3x_hrnet_swad_v11_f2_s9.swad.tta_d4 rc=0: 104 files, md5 756fd2c3 (dump-only)
+[2026-11-21 01:22:57] lane GPU 5: our runs on GPU = LPG 1
+[2026-11-21 01:22:58] lane GPU 6: qualifies
+[2026-11-21 01:23:26] start dump_c3x_hrnet_swad_v11_f3_s9.swad.tta_d4 on GPU 5 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:23:26] pid dump_c3x_hrnet_swad_v11_f3_s9.swad.tta_d4 2358242 (python; parent 2358240); cmdline recorded (5ad123ae)
+[2026-11-21 01:23:26] dump_c3x_hrnet_swad_v11_f3_s9.swad.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f3_s9.swad.tta_d4
+[2026-11-21 01:24:05] dump-only c3x_hrnet_swad_v11_f4_s9.swad.tta_d4 on GPU 6: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f4_s9
+[2026-11-21 01:24:05] dump-only c3x_hrnet_swad_v11_f4_s9.swad.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:24:06] dumped dump_c3x_hrnet_swad_v11_f3_s9.swad.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:24:06] RUN.md5 c3x_hrnet_swad_v11_f3_s9.swad.tta_d4 rc=0: 102 files, md5 d0cd5316 (dump-only)
+[2026-11-21 01:24:11] lane GPU 5: qualifies
+[2026-11-21 01:24:40] start dump_c3x_hrnet_swad_v11_f4_s9.swad.tta_d4 on GPU 6 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:24:40] pid dump_c3x_hrnet_swad_v11_f4_s9.swad.tta_d4 2374736 (python; parent 2374734); cmdline recorded (c9f837dc)
+[2026-11-21 01:24:40] dump_c3x_hrnet_swad_v11_f4_s9.swad.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f4_s9.swad.tta_d4
+[2026-11-21 01:25:14] dump-only c3_pf_v11_f0_s5.tta_d4 on GPU 5: run /tmp/noob_el/bench_89b9ea5/experiments/c3_pf_v11_f0_s5
+[2026-11-21 01:25:14] dump-only c3_pf_v11_f0_s5.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:25:20] lane GPU 5: our runs on GPU = LPG 1
+[2026-11-21 01:25:21] lane GPU 6: our runs on GPU = LPG 1
+[2026-11-21 01:25:30] dumped dump_c3x_hrnet_swad_v11_f4_s9.swad.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:25:30] RUN.md5 c3x_hrnet_swad_v11_f4_s9.swad.tta_d4 rc=0: 112 files, md5 b60a84cc (dump-only)
+[2026-11-21 01:25:38] lane GPU 6: qualifies
+[2026-11-21 01:25:48] start dump_c3_pf_v11_f0_s5.tta_d4 on GPU 5 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:25:48] pid dump_c3_pf_v11_f0_s5.tta_d4 2390205 (python; parent 2390203); cmdline recorded (da4fddb4)
+[2026-11-21 01:25:48] dump_c3_pf_v11_f0_s5.tta_d4 startup line OK: BENCH_START: run=dump_c3_pf_v11_f0_s5.tta_d4
+[2026-11-21 01:26:29] dumped dump_c3_pf_v11_f0_s5.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:26:29] RUN.md5 c3_pf_v11_f0_s5.tta_d4 rc=0: 108 files, md5 f06b96a3 (dump-only)
+[2026-11-21 01:26:29] dump-only c3_pf_v11_f1_s5.tta_d4 on GPU 6: run /tmp/noob_el/bench_89b9ea5/experiments/c3_pf_v11_f1_s5
+[2026-11-21 01:26:29] dump-only c3_pf_v11_f1_s5.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:26:35] lane GPU 5: qualifies
+[2026-11-21 01:27:04] start dump_c3_pf_v11_f1_s5.tta_d4 on GPU 6 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:27:04] pid dump_c3_pf_v11_f1_s5.tta_d4 2406991 (python; parent 2406989); cmdline recorded (b4bf1273)
+[2026-11-21 01:27:04] dump_c3_pf_v11_f1_s5.tta_d4 startup line OK: BENCH_START: run=dump_c3_pf_v11_f1_s5.tta_d4
+[2026-11-21 01:27:38] dump-only c3_pf_v11_f2_s5.tta_d4 on GPU 5: run /tmp/noob_el/bench_89b9ea5/experiments/c3_pf_v11_f2_s5
+[2026-11-21 01:27:38] dump-only c3_pf_v11_f2_s5.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:27:44] lane GPU 5: our runs on GPU = LPG 1
+[2026-11-21 01:27:44] dumped dump_c3_pf_v11_f1_s5.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:27:44] RUN.md5 c3_pf_v11_f1_s5.tta_d4 rc=0: 111 files, md5 f8da6e79 (dump-only)
+[2026-11-21 01:28:13] start dump_c3_pf_v11_f2_s5.tta_d4 on GPU 5 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:28:13] pid dump_c3_pf_v11_f2_s5.tta_d4 2421984 (python; parent 2421982); cmdline recorded (5e368e7c)
+[2026-11-21 01:28:13] dump_c3_pf_v11_f2_s5.tta_d4 startup line OK: BENCH_START: run=dump_c3_pf_v11_f2_s5.tta_d4
+[2026-11-21 01:28:52] dump-only c3_pf_v11_f3_s5.tta_d4 on GPU 6: run /tmp/noob_el/bench_89b9ea5/experiments/c3_pf_v11_f3_s5
+[2026-11-21 01:28:52] dump-only c3_pf_v11_f3_s5.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:28:53] dumped dump_c3_pf_v11_f2_s5.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:28:53] RUN.md5 c3_pf_v11_f2_s5.tta_d4 rc=0: 104 files, md5 bfbf2c33 (dump-only)
+[2026-11-21 01:28:57] lane GPU 5: qualifies
+[2026-11-21 01:29:26] start dump_c3_pf_v11_f3_s5.tta_d4 on GPU 6 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:29:26] pid dump_c3_pf_v11_f3_s5.tta_d4 2438536 (python; parent 2438534); cmdline recorded (f2ae1416)
+[2026-11-21 01:29:26] dump_c3_pf_v11_f3_s5.tta_d4 startup line OK: BENCH_START: run=dump_c3_pf_v11_f3_s5.tta_d4
+[2026-11-21 01:30:01] dump-only c3_pf_v11_f4_s5.tta_d4 on GPU 5: run /tmp/noob_el/bench_89b9ea5/experiments/c3_pf_v11_f4_s5
+[2026-11-21 01:30:01] dump-only c3_pf_v11_f4_s5.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:30:06] lane GPU 5: our runs on GPU = LPG 1
+[2026-11-21 01:30:06] dumped dump_c3_pf_v11_f3_s5.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:30:07] RUN.md5 c3_pf_v11_f3_s5.tta_d4 rc=0: 102 files, md5 780413a0 (dump-only)
+[2026-11-21 01:30:35] start dump_c3_pf_v11_f4_s5.tta_d4 on GPU 5 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:30:35] pid dump_c3_pf_v11_f4_s5.tta_d4 2454181 (python; parent 2454179); cmdline recorded (5a8a1c52)
+[2026-11-21 01:30:35] dump_c3_pf_v11_f4_s5.tta_d4 startup line OK: BENCH_START: run=dump_c3_pf_v11_f4_s5.tta_d4
+[2026-11-21 01:31:15] dump-only c3_pf_v11_f0_s6.tta_d4 on GPU 6: run /tmp/noob_el/bench_89b9ea5/experiments/c3_pf_v11_f0_s6
+[2026-11-21 01:31:15] dump-only c3_pf_v11_f0_s6.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:31:15] dumped dump_c3_pf_v11_f4_s5.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:31:16] RUN.md5 c3_pf_v11_f4_s5.tta_d4 rc=0: 112 files, md5 f41a5b7a (dump-only)
+[2026-11-21 01:31:20] lane GPU 5: qualifies
+[2026-11-21 01:31:49] start dump_c3_pf_v11_f0_s6.tta_d4 on GPU 6 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:31:49] pid dump_c3_pf_v11_f0_s6.tta_d4 2471083 (python; parent 2471081); cmdline recorded (0ac64e75)
+[2026-11-21 01:31:49] dump_c3_pf_v11_f0_s6.tta_d4 startup line OK: BENCH_START: run=dump_c3_pf_v11_f0_s6.tta_d4
+[2026-11-21 01:32:24] dump-only c3_pf_v11_f1_s6.tta_d4 on GPU 5: run /tmp/noob_el/bench_89b9ea5/experiments/c3_pf_v11_f1_s6
+[2026-11-21 01:32:24] dump-only c3_pf_v11_f1_s6.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:32:29] dumped dump_c3_pf_v11_f0_s6.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:32:29] lane GPU 5: our runs on GPU = LPG 1
+[2026-11-21 01:32:30] RUN.md5 c3_pf_v11_f0_s6.tta_d4 rc=0: 108 files, md5 bbc37229 (dump-only)
+[2026-11-21 01:32:59] start dump_c3_pf_v11_f1_s6.tta_d4 on GPU 5 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:32:59] pid dump_c3_pf_v11_f1_s6.tta_d4 2486548 (python; parent 2486546); cmdline recorded (a7b34686)
+[2026-11-21 01:32:59] dump_c3_pf_v11_f1_s6.tta_d4 startup line OK: BENCH_START: run=dump_c3_pf_v11_f1_s6.tta_d4
+[2026-11-21 01:33:38] dump-only c3_pf_v11_f2_s6.tta_d4 on GPU 6: run /tmp/noob_el/bench_89b9ea5/experiments/c3_pf_v11_f2_s6
+[2026-11-21 01:33:38] dump-only c3_pf_v11_f2_s6.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:33:39] dumped dump_c3_pf_v11_f1_s6.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:33:39] RUN.md5 c3_pf_v11_f1_s6.tta_d4 rc=0: 111 files, md5 6ccd83bb (dump-only)
+[2026-11-21 01:33:43] lane GPU 5: qualifies
+[2026-11-21 01:34:12] start dump_c3_pf_v11_f2_s6.tta_d4 on GPU 6 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:34:12] pid dump_c3_pf_v11_f2_s6.tta_d4 2503446 (python; parent 2503444); cmdline recorded (c1036706)
+[2026-11-21 01:34:12] dump_c3_pf_v11_f2_s6.tta_d4 startup line OK: BENCH_START: run=dump_c3_pf_v11_f2_s6.tta_d4
+[2026-11-21 01:34:47] dump-only c3_pf_v11_f3_s6.tta_d4 on GPU 5: run /tmp/noob_el/bench_89b9ea5/experiments/c3_pf_v11_f3_s6
+[2026-11-21 01:34:47] dump-only c3_pf_v11_f3_s6.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:34:52] dumped dump_c3_pf_v11_f2_s6.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:34:52] lane GPU 5: our runs on GPU = LPG 1
+[2026-11-21 01:34:53] RUN.md5 c3_pf_v11_f2_s6.tta_d4 rc=0: 104 files, md5 118016da (dump-only)
+[2026-11-21 01:35:21] start dump_c3_pf_v11_f3_s6.tta_d4 on GPU 5 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:35:22] pid dump_c3_pf_v11_f3_s6.tta_d4 2519549 (python; parent 2519547); cmdline recorded (c0ec5b68)
+[2026-11-21 01:35:22] dump_c3_pf_v11_f3_s6.tta_d4 startup line OK: BENCH_START: run=dump_c3_pf_v11_f3_s6.tta_d4
+[2026-11-21 01:36:01] dump-only c3_pf_v11_f4_s6.tta_d4 on GPU 6: run /tmp/noob_el/bench_89b9ea5/experiments/c3_pf_v11_f4_s6
+[2026-11-21 01:36:01] dump-only c3_pf_v11_f4_s6.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:36:02] dumped dump_c3_pf_v11_f3_s6.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:36:02] RUN.md5 c3_pf_v11_f3_s6.tta_d4 rc=0: 102 files, md5 5d7d281b (dump-only)
+[2026-11-21 01:36:07] lane GPU 5: qualifies
+[2026-11-21 01:36:35] start dump_c3_pf_v11_f4_s6.tta_d4 on GPU 6 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:36:35] pid dump_c3_pf_v11_f4_s6.tta_d4 2536624 (python; parent 2536622); cmdline recorded (c0d51957)
+[2026-11-21 01:36:35] dump_c3_pf_v11_f4_s6.tta_d4 startup line OK: BENCH_START: run=dump_c3_pf_v11_f4_s6.tta_d4
+[2026-11-21 01:37:11] dump-only c3_pf_v11_f0_s7.tta_d4 on GPU 5: run /tmp/noob_el/bench_89b9ea5/experiments/c3_pf_v11_f0_s7
+[2026-11-21 01:37:11] dump-only c3_pf_v11_f0_s7.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:37:15] dumped dump_c3_pf_v11_f4_s6.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:37:16] RUN.md5 c3_pf_v11_f4_s6.tta_d4 rc=0: 112 files, md5 54013393 (dump-only)
+[2026-11-21 01:37:16] lane GPU 5: our runs on GPU = LPG 1
+[2026-11-21 01:37:45] start dump_c3_pf_v11_f0_s7.tta_d4 on GPU 5 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:37:45] pid dump_c3_pf_v11_f0_s7.tta_d4 2552951 (python; parent 2552949); cmdline recorded (d902f987)
+[2026-11-21 01:37:45] dump_c3_pf_v11_f0_s7.tta_d4 startup line OK: BENCH_START: run=dump_c3_pf_v11_f0_s7.tta_d4
+[2026-11-21 01:38:25] dump-only c3_pf_v11_f1_s7.tta_d4 on GPU 6: run /tmp/noob_el/bench_89b9ea5/experiments/c3_pf_v11_f1_s7
+[2026-11-21 01:38:25] dump-only c3_pf_v11_f1_s7.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:38:25] dumped dump_c3_pf_v11_f0_s7.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:38:26] RUN.md5 c3_pf_v11_f0_s7.tta_d4 rc=0: 108 files, md5 9824e28a (dump-only)
+[2026-11-21 01:38:31] lane GPU 5: qualifies
+[2026-11-21 01:39:00] start dump_c3_pf_v11_f1_s7.tta_d4 on GPU 6 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:39:00] pid dump_c3_pf_v11_f1_s7.tta_d4 2570573 (python; parent 2570571); cmdline recorded (d215b4eb)
+[2026-11-21 01:39:00] dump_c3_pf_v11_f1_s7.tta_d4 startup line OK: BENCH_START: run=dump_c3_pf_v11_f1_s7.tta_d4
+[2026-11-21 01:39:35] dump-only c3_pf_v11_f2_s7.tta_d4 on GPU 5: run /tmp/noob_el/bench_89b9ea5/experiments/c3_pf_v11_f2_s7
+[2026-11-21 01:39:35] dump-only c3_pf_v11_f2_s7.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:39:40] dumped dump_c3_pf_v11_f1_s7.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:39:40] RUN.md5 c3_pf_v11_f1_s7.tta_d4 rc=0: 111 files, md5 66b727e4 (dump-only)
+[2026-11-21 01:39:41] lane GPU 5: our runs on GPU = LPG 1
+[2026-11-21 01:40:10] start dump_c3_pf_v11_f2_s7.tta_d4 on GPU 5 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:40:10] pid dump_c3_pf_v11_f2_s7.tta_d4 2587148 (python; parent 2587145); cmdline recorded (fc043c81)
+[2026-11-21 01:40:10] dump_c3_pf_v11_f2_s7.tta_d4 startup line OK: BENCH_START: run=dump_c3_pf_v11_f2_s7.tta_d4
+[2026-11-21 01:40:50] dump-only c3_pf_v11_f3_s7.tta_d4 on GPU 6: run /tmp/noob_el/bench_89b9ea5/experiments/c3_pf_v11_f3_s7
+[2026-11-21 01:40:50] dump-only c3_pf_v11_f3_s7.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:40:50] dumped dump_c3_pf_v11_f2_s7.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:40:50] RUN.md5 c3_pf_v11_f2_s7.tta_d4 rc=0: 104 files, md5 ca931f5b (dump-only)
+[2026-11-21 01:40:55] lane GPU 5: qualifies
+[2026-11-21 01:41:24] start dump_c3_pf_v11_f3_s7.tta_d4 on GPU 6 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:41:24] pid dump_c3_pf_v11_f3_s7.tta_d4 2605042 (python; parent 2605040); cmdline recorded (7e65566c)
+[2026-11-21 01:41:24] dump_c3_pf_v11_f3_s7.tta_d4 startup line OK: BENCH_START: run=dump_c3_pf_v11_f3_s7.tta_d4
+[2026-11-21 01:41:59] dump-only c3_pf_v11_f4_s7.tta_d4 on GPU 5: run /tmp/noob_el/bench_89b9ea5/experiments/c3_pf_v11_f4_s7
+[2026-11-21 01:42:00] dump-only c3_pf_v11_f4_s7.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:42:04] dumped dump_c3_pf_v11_f3_s7.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:42:04] RUN.md5 c3_pf_v11_f3_s7.tta_d4 rc=0: 102 files, md5 3b011b96 (dump-only)
+[2026-11-21 01:42:05] lane GPU 5: our runs on GPU = LPG 1
+[2026-11-21 01:42:34] start dump_c3_pf_v11_f4_s7.tta_d4 on GPU 5 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:42:34] pid dump_c3_pf_v11_f4_s7.tta_d4 2621439 (python; parent 2621437); cmdline recorded (0c491ba4)
+[2026-11-21 01:42:34] dump_c3_pf_v11_f4_s7.tta_d4 startup line OK: BENCH_START: run=dump_c3_pf_v11_f4_s7.tta_d4
+[2026-11-21 01:43:14] dumped dump_c3_pf_v11_f4_s7.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:43:14] RUN.md5 c3_pf_v11_f4_s7.tta_d4 rc=0: 112 files, md5 35c694ce (dump-only)
+[2026-11-21 01:43:15] dump-only c3_pf_v11_f0_s8.tta_d4 on GPU 6: run /tmp/noob_el/bench_89b9ea5/experiments/c3_pf_v11_f0_s8
+[2026-11-21 01:43:15] dump-only c3_pf_v11_f0_s8.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:43:21] lane GPU 5: qualifies
+[2026-11-21 01:43:49] start dump_c3_pf_v11_f0_s8.tta_d4 on GPU 6 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:43:49] pid dump_c3_pf_v11_f0_s8.tta_d4 2639256 (python; parent 2639254); cmdline recorded (46d785d1)
+[2026-11-21 01:43:49] dump_c3_pf_v11_f0_s8.tta_d4 startup line OK: BENCH_START: run=dump_c3_pf_v11_f0_s8.tta_d4
+[2026-11-21 01:44:25] dump-only c3_pf_v11_f1_s8.tta_d4 on GPU 5: run /tmp/noob_el/bench_89b9ea5/experiments/c3_pf_v11_f1_s8
+[2026-11-21 01:44:25] dump-only c3_pf_v11_f1_s8.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:44:29] dumped dump_c3_pf_v11_f0_s8.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:44:30] RUN.md5 c3_pf_v11_f0_s8.tta_d4 rc=0: 108 files, md5 8fde0615 (dump-only)
+[2026-11-21 01:44:31] lane GPU 5: our runs on GPU = LPG 1
+[2026-11-21 01:44:59] start dump_c3_pf_v11_f1_s8.tta_d4 on GPU 5 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:45:00] pid dump_c3_pf_v11_f1_s8.tta_d4 2655858 (python; parent 2655856); cmdline recorded (a0c54b7b)
+[2026-11-21 01:45:00] dump_c3_pf_v11_f1_s8.tta_d4 startup line OK: BENCH_START: run=dump_c3_pf_v11_f1_s8.tta_d4
+[2026-11-21 01:45:39] dump-only c3_pf_v11_f2_s8.tta_d4 on GPU 6: run /tmp/noob_el/bench_89b9ea5/experiments/c3_pf_v11_f2_s8
+[2026-11-21 01:45:39] dump-only c3_pf_v11_f2_s8.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:45:40] dumped dump_c3_pf_v11_f1_s8.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:45:40] RUN.md5 c3_pf_v11_f1_s8.tta_d4 rc=0: 111 files, md5 bfae3b0a (dump-only)
+[2026-11-21 01:45:44] lane GPU 5: qualifies
+[2026-11-21 01:45:54] trained fin_hrnet_swad_v11_pool_s5 rc=1 (GPU 0)
+[2026-11-21 01:45:54] done fin_hrnet_swad_v11_pool_s5: final-step lines 1, Traceback lines 3
+[2026-11-21 01:45:54] no dump for fin_hrnet_swad_v11_pool_s5 (training rc 1)
+[2026-11-21 01:45:55] lane GPU 0: qualifies
+[2026-11-21 01:46:04] trained fin_hrnet_swad_v11_pool_s6 rc=1 (GPU 1)
+[2026-11-21 01:46:04] done fin_hrnet_swad_v11_pool_s6: final-step lines 1, Traceback lines 3
+[2026-11-21 01:46:04] no dump for fin_hrnet_swad_v11_pool_s6 (training rc 1)
+[2026-11-21 01:46:13] start dump_c3_pf_v11_f2_s8.tta_d4 on GPU 6 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:46:13] pid dump_c3_pf_v11_f2_s8.tta_d4 2672999 (python; parent 2672997); cmdline recorded (b1518adc)
+[2026-11-21 01:46:13] dump_c3_pf_v11_f2_s8.tta_d4 startup line OK: BENCH_START: run=dump_c3_pf_v11_f2_s8.tta_d4
+[2026-11-21 01:46:50] dump-only c3_pf_v11_f3_s8.tta_d4 on GPU 0: run /tmp/noob_el/bench_89b9ea5/experiments/c3_pf_v11_f3_s8
+[2026-11-21 01:46:50] dump-only c3_pf_v11_f3_s8.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:46:51] lane GPU 0: our runs on GPU = LPG 1
+[2026-11-21 01:46:51] lane GPU 1: qualifies
+[2026-11-21 01:46:53] dumped dump_c3_pf_v11_f2_s8.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:46:53] RUN.md5 c3_pf_v11_f2_s8.tta_d4 rc=0: 104 files, md5 fbc8d3c4 (dump-only)
+[2026-11-21 01:47:23] start dump_c3_pf_v11_f3_s8.tta_d4 on GPU 0 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:47:24] pid dump_c3_pf_v11_f3_s8.tta_d4 2685466 (python; parent 2685464); cmdline recorded (e0b1400d)
+[2026-11-21 01:47:24] dump_c3_pf_v11_f3_s8.tta_d4 startup line OK: BENCH_START: run=dump_c3_pf_v11_f3_s8.tta_d4
+[2026-11-21 01:47:35] trained fin_hrnet_swad_v11_pool_s7 rc=1 (GPU 2)
+[2026-11-21 01:47:35] done fin_hrnet_swad_v11_pool_s7: final-step lines 1, Traceback lines 3
+[2026-11-21 01:47:35] no dump for fin_hrnet_swad_v11_pool_s7 (training rc 1)
+[2026-11-21 01:48:01] dump-only c3_pf_v11_f4_s8.tta_d4 on GPU 1: run /tmp/noob_el/bench_89b9ea5/experiments/c3_pf_v11_f4_s8
+[2026-11-21 01:48:01] dump-only c3_pf_v11_f4_s8.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:48:02] lane GPU 1: our runs on GPU = LPG 1
+[2026-11-21 01:48:03] lane GPU 2: qualifies
+[2026-11-21 01:48:04] dumped dump_c3_pf_v11_f3_s8.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:48:04] RUN.md5 c3_pf_v11_f3_s8.tta_d4 rc=0: 102 files, md5 f9a077e6 (dump-only)
+[2026-11-21 01:48:08] trained fin_hrnet_swad_v11_pool_s8 rc=1 (GPU 3)
+[2026-11-21 01:48:08] done fin_hrnet_swad_v11_pool_s8: final-step lines 1, Traceback lines 3
+[2026-11-21 01:48:08] no dump for fin_hrnet_swad_v11_pool_s8 (training rc 1)
+[2026-11-21 01:48:14] lane GPU 0: qualifies
+[2026-11-21 01:48:15] trained fin_hrnet_swad_v11_pool_s9 rc=1 (GPU 4)
+[2026-11-21 01:48:15] done fin_hrnet_swad_v11_pool_s9: final-step lines 1, Traceback lines 3
+[2026-11-21 01:48:15] no dump for fin_hrnet_swad_v11_pool_s9 (training rc 1)
+[2026-11-21 01:48:34] start dump_c3_pf_v11_f4_s8.tta_d4 on GPU 1 (free 48500 MiB, dump gate 6200)
+[2026-11-21 01:48:34] pid dump_c3_pf_v11_f4_s8.tta_d4 2698472 (python; parent 2698470); cmdline recorded (371c1e7a)
+[2026-11-21 01:48:34] dump_c3_pf_v11_f4_s8.tta_d4 startup line OK: BENCH_START: run=dump_c3_pf_v11_f4_s8.tta_d4
+[2026-11-21 01:49:08] dump-only c3_pf_v11_f0_s9.tta_d4 on GPU 0: run /tmp/noob_el/bench_89b9ea5/experiments/c3_pf_v11_f0_s9
+[2026-11-21 01:49:08] dump-only c3_pf_v11_f0_s9.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:49:08] lane GPU 0: our runs on GPU = LPG 1
+[2026-11-21 01:49:14] dumped dump_c3_pf_v11_f4_s8.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:49:15] RUN.md5 c3_pf_v11_f4_s8.tta_d4 rc=0: 112 files, md5 c5ebb794 (dump-only)
+[2026-11-21 01:49:21] lane GPU 1: qualifies
+[2026-11-21 01:49:41] start dump_c3_pf_v11_f0_s9.tta_d4 on GPU 0 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:49:41] pid dump_c3_pf_v11_f0_s9.tta_d4 2710124 (python; parent 2710122); cmdline recorded (435d65b7)
+[2026-11-21 01:49:41] dump_c3_pf_v11_f0_s9.tta_d4 startup line OK: BENCH_START: run=dump_c3_pf_v11_f0_s9.tta_d4
+[2026-11-21 01:50:18] dump-only c3_pf_v11_f1_s9.tta_d4 on GPU 1: run /tmp/noob_el/bench_89b9ea5/experiments/c3_pf_v11_f1_s9
+[2026-11-21 01:50:18] dump-only c3_pf_v11_f1_s9.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:50:19] lane GPU 1: our runs on GPU = LPG 1
+[2026-11-21 01:50:21] dumped dump_c3_pf_v11_f0_s9.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:50:21] RUN.md5 c3_pf_v11_f0_s9.tta_d4 rc=0: 108 files, md5 14aeb78c (dump-only)
+[2026-11-21 01:50:30] lane GPU 0: qualifies
+[2026-11-21 01:50:51] start dump_c3_pf_v11_f1_s9.tta_d4 on GPU 1 (free 48500 MiB, dump gate 6200)
+[2026-11-21 01:50:51] pid dump_c3_pf_v11_f1_s9.tta_d4 2722725 (python; parent 2722723); cmdline recorded (64e96804)
+[2026-11-21 01:50:51] dump_c3_pf_v11_f1_s9.tta_d4 startup line OK: BENCH_START: run=dump_c3_pf_v11_f1_s9.tta_d4
+[2026-11-21 01:51:24] dump-only c3_pf_v11_f2_s9.tta_d4 on GPU 0: run /tmp/noob_el/bench_89b9ea5/experiments/c3_pf_v11_f2_s9
+[2026-11-21 01:51:24] dump-only c3_pf_v11_f2_s9.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:51:25] lane GPU 0: our runs on GPU = LPG 1
+[2026-11-21 01:51:31] dumped dump_c3_pf_v11_f1_s9.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:51:31] RUN.md5 c3_pf_v11_f1_s9.tta_d4 rc=0: 111 files, md5 240d189f (dump-only)
+[2026-11-21 01:51:37] lane GPU 1: qualifies
+[2026-11-21 01:51:57] start dump_c3_pf_v11_f2_s9.tta_d4 on GPU 0 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:51:57] pid dump_c3_pf_v11_f2_s9.tta_d4 2734050 (python; parent 2734047); cmdline recorded (93fe6d4f)
+[2026-11-21 01:51:57] dump_c3_pf_v11_f2_s9.tta_d4 startup line OK: BENCH_START: run=dump_c3_pf_v11_f2_s9.tta_d4
+[2026-11-21 01:52:34] dump-only c3_pf_v11_f3_s9.tta_d4 on GPU 1: run /tmp/noob_el/bench_89b9ea5/experiments/c3_pf_v11_f3_s9
+[2026-11-21 01:52:34] dump-only c3_pf_v11_f3_s9.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:52:35] lane GPU 1: our runs on GPU = LPG 1
+[2026-11-21 01:52:37] dumped dump_c3_pf_v11_f2_s9.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:52:37] RUN.md5 c3_pf_v11_f2_s9.tta_d4 rc=0: 104 files, md5 8ef05fd9 (dump-only)
+[2026-11-21 01:52:47] lane GPU 0: qualifies
+[2026-11-21 01:53:07] start dump_c3_pf_v11_f3_s9.tta_d4 on GPU 1 (free 48500 MiB, dump gate 6200)
+[2026-11-21 01:53:07] pid dump_c3_pf_v11_f3_s9.tta_d4 2746239 (python; parent 2746236); cmdline recorded (b750e4d2)
+[2026-11-21 01:53:07] dump_c3_pf_v11_f3_s9.tta_d4 startup line OK: BENCH_START: run=dump_c3_pf_v11_f3_s9.tta_d4
+[2026-11-21 01:53:41] dump-only c3_pf_v11_f4_s9.tta_d4 on GPU 0: run /tmp/noob_el/bench_89b9ea5/experiments/c3_pf_v11_f4_s9
+[2026-11-21 01:53:41] dump-only c3_pf_v11_f4_s9.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:53:41] lane GPU 0: our runs on GPU = LPG 1
+[2026-11-21 01:53:47] dumped dump_c3_pf_v11_f3_s9.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:53:48] RUN.md5 c3_pf_v11_f3_s9.tta_d4 rc=0: 102 files, md5 fd00cc62 (dump-only)
+[2026-11-21 01:53:54] lane GPU 1: qualifies
+[2026-11-21 01:54:14] start dump_c3_pf_v11_f4_s9.tta_d4 on GPU 0 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:54:14] pid dump_c3_pf_v11_f4_s9.tta_d4 2757576 (python; parent 2757574); cmdline recorded (651a8c7b)
+[2026-11-21 01:54:14] dump_c3_pf_v11_f4_s9.tta_d4 startup line OK: BENCH_START: run=dump_c3_pf_v11_f4_s9.tta_d4
+[2026-11-21 01:54:51] dump-only c3x_hrnet_swad_v11_f0_s5.swad_bn.tta_d4 on GPU 1: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f0_s5
+[2026-11-21 01:54:51] dump-only c3x_hrnet_swad_v11_f0_s5.swad_bn.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:54:52] lane GPU 1: our runs on GPU = LPG 1
+[2026-11-21 01:54:54] dumped dump_c3_pf_v11_f4_s9.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:54:54] RUN.md5 c3_pf_v11_f4_s9.tta_d4 rc=0: 112 files, md5 d1351814 (dump-only)
+[2026-11-21 01:55:03] lane GPU 0: qualifies
+[2026-11-21 01:55:24] start dump_c3x_hrnet_swad_v11_f0_s5.swad_bn.tta_d4 on GPU 1 (free 48500 MiB, dump gate 6200)
+[2026-11-21 01:55:24] pid dump_c3x_hrnet_swad_v11_f0_s5.swad_bn.tta_d4 2769669 (python; parent 2769667); cmdline recorded (9e4990bd)
+[2026-11-21 01:55:24] dump_c3x_hrnet_swad_v11_f0_s5.swad_bn.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f0_s5.swad_bn.tta_d4
+[2026-11-21 01:55:57] dump-only c3x_hrnet_swad_v11_f1_s5.swad_bn.tta_d4 on GPU 0: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f1_s5
+[2026-11-21 01:55:57] dump-only c3x_hrnet_swad_v11_f1_s5.swad_bn.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:55:58] lane GPU 0: our runs on GPU = LPG 1
+[2026-11-21 01:56:04] dumped dump_c3x_hrnet_swad_v11_f0_s5.swad_bn.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:56:04] RUN.md5 c3x_hrnet_swad_v11_f0_s5.swad_bn.tta_d4 rc=0: 108 files, md5 22d0329d (dump-only)
+[2026-11-21 01:56:10] lane GPU 1: qualifies
+[2026-11-21 01:56:30] start dump_c3x_hrnet_swad_v11_f1_s5.swad_bn.tta_d4 on GPU 0 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:56:30] pid dump_c3x_hrnet_swad_v11_f1_s5.swad_bn.tta_d4 2781620 (python; parent 2781618); cmdline recorded (60045d6f)
+[2026-11-21 01:56:30] dump_c3x_hrnet_swad_v11_f1_s5.swad_bn.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f1_s5.swad_bn.tta_d4
+[2026-11-21 01:57:07] dump-only c3x_hrnet_swad_v11_f2_s5.swad_bn.tta_d4 on GPU 1: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f2_s5
+[2026-11-21 01:57:07] dump-only c3x_hrnet_swad_v11_f2_s5.swad_bn.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:57:08] lane GPU 1: our runs on GPU = LPG 1
+[2026-11-21 01:57:20] dumped dump_c3x_hrnet_swad_v11_f1_s5.swad_bn.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:57:21] RUN.md5 c3x_hrnet_swad_v11_f1_s5.swad_bn.tta_d4 rc=0: 111 files, md5 f089b5e1 (dump-only)
+[2026-11-21 01:57:32] lane GPU 0: qualifies
+[2026-11-21 01:57:40] start dump_c3x_hrnet_swad_v11_f2_s5.swad_bn.tta_d4 on GPU 1 (free 48500 MiB, dump gate 6200)
+[2026-11-21 01:57:40] pid dump_c3x_hrnet_swad_v11_f2_s5.swad_bn.tta_d4 2794341 (python; parent 2794339); cmdline recorded (70100052)
+[2026-11-21 01:57:40] dump_c3x_hrnet_swad_v11_f2_s5.swad_bn.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f2_s5.swad_bn.tta_d4
+[2026-11-21 01:58:15] dump-only c3x_hrnet_swad_v11_f3_s5.swad_bn.tta_d4 on GPU 0: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f3_s5
+[2026-11-21 01:58:15] dump-only c3x_hrnet_swad_v11_f3_s5.swad_bn.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:58:16] lane GPU 0: our runs on GPU = LPG 1
+[2026-11-21 01:58:20] dumped dump_c3x_hrnet_swad_v11_f2_s5.swad_bn.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:58:21] RUN.md5 c3x_hrnet_swad_v11_f2_s5.swad_bn.tta_d4 rc=0: 104 files, md5 874006a1 (dump-only)
+[2026-11-21 01:58:28] lane GPU 1: qualifies
+[2026-11-21 01:58:48] start dump_c3x_hrnet_swad_v11_f3_s5.swad_bn.tta_d4 on GPU 0 (free 48536 MiB, dump gate 6200)
+[2026-11-21 01:58:48] pid dump_c3x_hrnet_swad_v11_f3_s5.swad_bn.tta_d4 2806008 (python; parent 2806006); cmdline recorded (6ed4af48)
+[2026-11-21 01:58:48] dump_c3x_hrnet_swad_v11_f3_s5.swad_bn.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f3_s5.swad_bn.tta_d4
+[2026-11-21 01:59:25] dump-only c3x_hrnet_swad_v11_f4_s5.swad_bn.tta_d4 on GPU 1: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f4_s5
+[2026-11-21 01:59:25] dump-only c3x_hrnet_swad_v11_f4_s5.swad_bn.tta_d4: no training (one dump of a finished run)
+[2026-11-21 01:59:26] lane GPU 1: our runs on GPU = LPG 1
+[2026-11-21 01:59:28] dumped dump_c3x_hrnet_swad_v11_f3_s5.swad_bn.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 01:59:28] RUN.md5 c3x_hrnet_swad_v11_f3_s5.swad_bn.tta_d4 rc=0: 102 files, md5 987d1912 (dump-only)
+[2026-11-21 01:59:38] lane GPU 0: qualifies
+[2026-11-21 01:59:58] start dump_c3x_hrnet_swad_v11_f4_s5.swad_bn.tta_d4 on GPU 1 (free 48500 MiB, dump gate 6200)
+[2026-11-21 01:59:58] pid dump_c3x_hrnet_swad_v11_f4_s5.swad_bn.tta_d4 2818332 (python; parent 2818330); cmdline recorded (1c276d6b)
+[2026-11-21 01:59:58] dump_c3x_hrnet_swad_v11_f4_s5.swad_bn.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f4_s5.swad_bn.tta_d4
+[2026-11-21 02:00:32] dump-only c3x_hrnet_swad_v11_f0_s6.swad_bn.tta_d4 on GPU 0: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f0_s6
+[2026-11-21 02:00:32] dump-only c3x_hrnet_swad_v11_f0_s6.swad_bn.tta_d4: no training (one dump of a finished run)
+[2026-11-21 02:00:32] lane GPU 0: our runs on GPU = LPG 1
+[2026-11-21 02:00:48] dumped dump_c3x_hrnet_swad_v11_f4_s5.swad_bn.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 02:00:49] RUN.md5 c3x_hrnet_swad_v11_f4_s5.swad_bn.tta_d4 rc=0: 112 files, md5 e6ffa264 (dump-only)
+[2026-11-21 02:00:57] lane GPU 1: qualifies
+[2026-11-21 02:01:05] start dump_c3x_hrnet_swad_v11_f0_s6.swad_bn.tta_d4 on GPU 0 (free 48536 MiB, dump gate 6200)
+[2026-11-21 02:01:05] pid dump_c3x_hrnet_swad_v11_f0_s6.swad_bn.tta_d4 2830845 (python; parent 2830843); cmdline recorded (75d6b63e)
+[2026-11-21 02:01:05] dump_c3x_hrnet_swad_v11_f0_s6.swad_bn.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f0_s6.swad_bn.tta_d4
+[2026-11-21 02:01:43] dump-only c3x_hrnet_swad_v11_f1_s6.swad_bn.tta_d4 on GPU 1: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f1_s6
+[2026-11-21 02:01:43] dump-only c3x_hrnet_swad_v11_f1_s6.swad_bn.tta_d4: no training (one dump of a finished run)
+[2026-11-21 02:01:44] lane GPU 1: our runs on GPU = LPG 1
+[2026-11-21 02:01:45] dumped dump_c3x_hrnet_swad_v11_f0_s6.swad_bn.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 02:01:45] RUN.md5 c3x_hrnet_swad_v11_f0_s6.swad_bn.tta_d4 rc=0: 108 files, md5 0b8584a3 (dump-only)
+[2026-11-21 02:01:56] lane GPU 0: qualifies
+[2026-11-21 02:02:16] start dump_c3x_hrnet_swad_v11_f1_s6.swad_bn.tta_d4 on GPU 1 (free 48500 MiB, dump gate 6200)
+[2026-11-21 02:02:16] pid dump_c3x_hrnet_swad_v11_f1_s6.swad_bn.tta_d4 2843592 (python; parent 2843590); cmdline recorded (6b2e524a)
+[2026-11-21 02:02:16] dump_c3x_hrnet_swad_v11_f1_s6.swad_bn.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f1_s6.swad_bn.tta_d4
+[2026-11-21 02:02:50] dump-only c3x_hrnet_swad_v11_f2_s6.swad_bn.tta_d4 on GPU 0: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f2_s6
+[2026-11-21 02:02:50] dump-only c3x_hrnet_swad_v11_f2_s6.swad_bn.tta_d4: no training (one dump of a finished run)
+[2026-11-21 02:02:51] lane GPU 0: our runs on GPU = LPG 1
+[2026-11-21 02:03:06] dumped dump_c3x_hrnet_swad_v11_f1_s6.swad_bn.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 02:03:06] RUN.md5 c3x_hrnet_swad_v11_f1_s6.swad_bn.tta_d4 rc=0: 111 files, md5 a3b4b948 (dump-only)
+[2026-11-21 02:03:15] lane GPU 1: qualifies
+[2026-11-21 02:03:23] start dump_c3x_hrnet_swad_v11_f2_s6.swad_bn.tta_d4 on GPU 0 (free 48536 MiB, dump gate 6200)
+[2026-11-21 02:03:23] pid dump_c3x_hrnet_swad_v11_f2_s6.swad_bn.tta_d4 2855529 (python; parent 2855527); cmdline recorded (9213b0da)
+[2026-11-21 02:03:23] dump_c3x_hrnet_swad_v11_f2_s6.swad_bn.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f2_s6.swad_bn.tta_d4
+[2026-11-21 02:04:00] dump-only c3x_hrnet_swad_v11_f3_s6.swad_bn.tta_d4 on GPU 1: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f3_s6
+[2026-11-21 02:04:00] dump-only c3x_hrnet_swad_v11_f3_s6.swad_bn.tta_d4: no training (one dump of a finished run)
+[2026-11-21 02:04:02] lane GPU 1: our runs on GPU = LPG 1
+[2026-11-21 02:04:03] dumped dump_c3x_hrnet_swad_v11_f2_s6.swad_bn.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 02:04:03] RUN.md5 c3x_hrnet_swad_v11_f2_s6.swad_bn.tta_d4 rc=0: 104 files, md5 eff4bc79 (dump-only)
+[2026-11-21 02:04:13] lane GPU 0: qualifies
+[2026-11-21 02:04:33] start dump_c3x_hrnet_swad_v11_f3_s6.swad_bn.tta_d4 on GPU 1 (free 48500 MiB, dump gate 6200)
+[2026-11-21 02:04:34] pid dump_c3x_hrnet_swad_v11_f3_s6.swad_bn.tta_d4 2868159 (python; parent 2868156); cmdline recorded (5904b263)
+[2026-11-21 02:04:34] dump_c3x_hrnet_swad_v11_f3_s6.swad_bn.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f3_s6.swad_bn.tta_d4
+[2026-11-21 02:05:07] dump-only c3x_hrnet_swad_v11_f4_s6.swad_bn.tta_d4 on GPU 0: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f4_s6
+[2026-11-21 02:05:07] dump-only c3x_hrnet_swad_v11_f4_s6.swad_bn.tta_d4: no training (one dump of a finished run)
+[2026-11-21 02:05:08] lane GPU 0: our runs on GPU = LPG 1
+[2026-11-21 02:05:14] dumped dump_c3x_hrnet_swad_v11_f3_s6.swad_bn.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 02:05:14] RUN.md5 c3x_hrnet_swad_v11_f3_s6.swad_bn.tta_d4 rc=0: 102 files, md5 dc088b2c (dump-only)
+[2026-11-21 02:05:21] lane GPU 1: qualifies
+[2026-11-21 02:05:41] start dump_c3x_hrnet_swad_v11_f4_s6.swad_bn.tta_d4 on GPU 0 (free 48536 MiB, dump gate 6200)
+[2026-11-21 02:05:41] pid dump_c3x_hrnet_swad_v11_f4_s6.swad_bn.tta_d4 2880123 (python; parent 2880120); cmdline recorded (45b8c9b8)
+[2026-11-21 02:05:41] dump_c3x_hrnet_swad_v11_f4_s6.swad_bn.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f4_s6.swad_bn.tta_d4
+[2026-11-21 02:06:18] dump-only c3x_hrnet_swad_v11_f0_s7.swad_bn.tta_d4 on GPU 1: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f0_s7
+[2026-11-21 02:06:18] dump-only c3x_hrnet_swad_v11_f0_s7.swad_bn.tta_d4: no training (one dump of a finished run)
+[2026-11-21 02:06:19] lane GPU 1: our runs on GPU = LPG 1
+[2026-11-21 02:06:31] dumped dump_c3x_hrnet_swad_v11_f4_s6.swad_bn.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 02:06:31] RUN.md5 c3x_hrnet_swad_v11_f4_s6.swad_bn.tta_d4 rc=0: 112 files, md5 339ad93d (dump-only)
+[2026-11-21 02:06:43] lane GPU 0: qualifies
+[2026-11-21 02:06:51] start dump_c3x_hrnet_swad_v11_f0_s7.swad_bn.tta_d4 on GPU 1 (free 48500 MiB, dump gate 6200)
+[2026-11-21 02:06:51] pid dump_c3x_hrnet_swad_v11_f0_s7.swad_bn.tta_d4 2893811 (python; parent 2893809); cmdline recorded (8f13bfc9)
+[2026-11-21 02:06:51] dump_c3x_hrnet_swad_v11_f0_s7.swad_bn.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f0_s7.swad_bn.tta_d4
+[2026-11-21 02:07:26] dump-only c3x_hrnet_swad_v11_f1_s7.swad_bn.tta_d4 on GPU 0: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f1_s7
+[2026-11-21 02:07:26] dump-only c3x_hrnet_swad_v11_f1_s7.swad_bn.tta_d4: no training (one dump of a finished run)
+[2026-11-21 02:07:27] lane GPU 0: our runs on GPU = LPG 1
+[2026-11-21 02:07:41] dumped dump_c3x_hrnet_swad_v11_f0_s7.swad_bn.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 02:07:41] RUN.md5 c3x_hrnet_swad_v11_f0_s7.swad_bn.tta_d4 rc=0: 108 files, md5 955c9269 (dump-only)
+[2026-11-21 02:07:51] lane GPU 1: qualifies
+[2026-11-21 02:07:59] start dump_c3x_hrnet_swad_v11_f1_s7.swad_bn.tta_d4 on GPU 0 (free 48536 MiB, dump gate 6200)
+[2026-11-21 02:07:59] pid dump_c3x_hrnet_swad_v11_f1_s7.swad_bn.tta_d4 2906145 (python; parent 2906142); cmdline recorded (9b9d7c72)
+[2026-11-21 02:07:59] dump_c3x_hrnet_swad_v11_f1_s7.swad_bn.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f1_s7.swad_bn.tta_d4
+[2026-11-21 02:08:38] dump-only c3x_hrnet_swad_v11_f2_s7.swad_bn.tta_d4 on GPU 1: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f2_s7
+[2026-11-21 02:08:38] dump-only c3x_hrnet_swad_v11_f2_s7.swad_bn.tta_d4: no training (one dump of a finished run)
+[2026-11-21 02:08:39] lane GPU 1: our runs on GPU = LPG 1
+[2026-11-21 02:08:49] dumped dump_c3x_hrnet_swad_v11_f1_s7.swad_bn.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 02:08:50] RUN.md5 c3x_hrnet_swad_v11_f1_s7.swad_bn.tta_d4 rc=0: 111 files, md5 f3d655bd (dump-only)
+[2026-11-21 02:08:50] lane GPU 0: qualifies
+[2026-11-21 02:09:11] start dump_c3x_hrnet_swad_v11_f2_s7.swad_bn.tta_d4 on GPU 1 (free 48500 MiB, dump gate 6200)
+[2026-11-21 02:09:11] pid dump_c3x_hrnet_swad_v11_f2_s7.swad_bn.tta_d4 2918975 (python; parent 2918973); cmdline recorded (f30c7117)
+[2026-11-21 02:09:11] dump_c3x_hrnet_swad_v11_f2_s7.swad_bn.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f2_s7.swad_bn.tta_d4
+[2026-11-21 02:09:45] dump-only c3x_hrnet_swad_v11_f3_s7.swad_bn.tta_d4 on GPU 0: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f3_s7
+[2026-11-21 02:09:45] dump-only c3x_hrnet_swad_v11_f3_s7.swad_bn.tta_d4: no training (one dump of a finished run)
+[2026-11-21 02:09:45] lane GPU 0: our runs on GPU = LPG 1
+[2026-11-21 02:09:51] dumped dump_c3x_hrnet_swad_v11_f2_s7.swad_bn.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 02:09:51] RUN.md5 c3x_hrnet_swad_v11_f2_s7.swad_bn.tta_d4 rc=0: 104 files, md5 3fa05f0b (dump-only)
+[2026-11-21 02:09:58] lane GPU 1: qualifies
+[2026-11-21 02:10:18] start dump_c3x_hrnet_swad_v11_f3_s7.swad_bn.tta_d4 on GPU 0 (free 48536 MiB, dump gate 6200)
+[2026-11-21 02:10:18] pid dump_c3x_hrnet_swad_v11_f3_s7.swad_bn.tta_d4 2931505 (python; parent 2931503); cmdline recorded (a0469f16)
+[2026-11-21 02:10:18] dump_c3x_hrnet_swad_v11_f3_s7.swad_bn.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f3_s7.swad_bn.tta_d4
+[2026-11-21 02:10:55] dump-only c3x_hrnet_swad_v11_f4_s7.swad_bn.tta_d4 on GPU 1: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f4_s7
+[2026-11-21 02:10:55] dump-only c3x_hrnet_swad_v11_f4_s7.swad_bn.tta_d4: no training (one dump of a finished run)
+[2026-11-21 02:10:57] lane GPU 1: our runs on GPU = LPG 1
+[2026-11-21 02:10:58] dumped dump_c3x_hrnet_swad_v11_f3_s7.swad_bn.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 02:10:58] RUN.md5 c3x_hrnet_swad_v11_f3_s7.swad_bn.tta_d4 rc=0: 102 files, md5 55c0a4b4 (dump-only)
+[2026-11-21 02:11:08] lane GPU 0: qualifies
+[2026-11-21 02:11:29] start dump_c3x_hrnet_swad_v11_f4_s7.swad_bn.tta_d4 on GPU 1 (free 48500 MiB, dump gate 6200)
+[2026-11-21 02:11:29] pid dump_c3x_hrnet_swad_v11_f4_s7.swad_bn.tta_d4 2945404 (python; parent 2945402); cmdline recorded (bee635e1)
+[2026-11-21 02:11:29] dump_c3x_hrnet_swad_v11_f4_s7.swad_bn.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f4_s7.swad_bn.tta_d4
+[2026-11-21 02:12:02] dump-only c3x_hrnet_swad_v11_f0_s8.swad_bn.tta_d4 on GPU 0: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f0_s8
+[2026-11-21 02:12:02] dump-only c3x_hrnet_swad_v11_f0_s8.swad_bn.tta_d4: no training (one dump of a finished run)
+[2026-11-21 02:12:03] lane GPU 0: our runs on GPU = LPG 1
+[2026-11-21 02:12:19] dumped dump_c3x_hrnet_swad_v11_f4_s7.swad_bn.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 02:12:19] RUN.md5 c3x_hrnet_swad_v11_f4_s7.swad_bn.tta_d4 rc=0: 112 files, md5 c6eeb061 (dump-only)
+[2026-11-21 02:12:28] lane GPU 1: qualifies
+[2026-11-21 02:12:35] start dump_c3x_hrnet_swad_v11_f0_s8.swad_bn.tta_d4 on GPU 0 (free 48536 MiB, dump gate 6200)
+[2026-11-21 02:12:36] pid dump_c3x_hrnet_swad_v11_f0_s8.swad_bn.tta_d4 2957661 (python; parent 2957659); cmdline recorded (018df0d0)
+[2026-11-21 02:12:36] dump_c3x_hrnet_swad_v11_f0_s8.swad_bn.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f0_s8.swad_bn.tta_d4
+[2026-11-21 02:13:14] dump-only c3x_hrnet_swad_v11_f1_s8.swad_bn.tta_d4 on GPU 1: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f1_s8
+[2026-11-21 02:13:14] dump-only c3x_hrnet_swad_v11_f1_s8.swad_bn.tta_d4: no training (one dump of a finished run)
+[2026-11-21 02:13:15] lane GPU 1: our runs on GPU = LPG 1
+[2026-11-21 02:13:26] dumped dump_c3x_hrnet_swad_v11_f0_s8.swad_bn.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 02:13:26] RUN.md5 c3x_hrnet_swad_v11_f0_s8.swad_bn.tta_d4 rc=0: 108 files, md5 5f89d526 (dump-only)
+[2026-11-21 02:13:27] lane GPU 0: qualifies
+[2026-11-21 02:13:47] start dump_c3x_hrnet_swad_v11_f1_s8.swad_bn.tta_d4 on GPU 1 (free 48500 MiB, dump gate 6200)
+[2026-11-21 02:13:47] pid dump_c3x_hrnet_swad_v11_f1_s8.swad_bn.tta_d4 2970844 (python; parent 2970842); cmdline recorded (0517c2d3)
+[2026-11-21 02:13:47] dump_c3x_hrnet_swad_v11_f1_s8.swad_bn.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f1_s8.swad_bn.tta_d4
+[2026-11-21 02:14:21] dump-only c3x_hrnet_swad_v11_f2_s8.swad_bn.tta_d4 on GPU 0: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f2_s8
+[2026-11-21 02:14:21] dump-only c3x_hrnet_swad_v11_f2_s8.swad_bn.tta_d4: no training (one dump of a finished run)
+[2026-11-21 02:14:22] lane GPU 0: our runs on GPU = LPG 1
+[2026-11-21 02:14:37] dumped dump_c3x_hrnet_swad_v11_f1_s8.swad_bn.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 02:14:37] RUN.md5 c3x_hrnet_swad_v11_f1_s8.swad_bn.tta_d4 rc=0: 111 files, md5 e4d11386 (dump-only)
+[2026-11-21 02:14:47] lane GPU 1: qualifies
+[2026-11-21 02:14:54] start dump_c3x_hrnet_swad_v11_f2_s8.swad_bn.tta_d4 on GPU 0 (free 48536 MiB, dump gate 6200)
+[2026-11-21 02:14:55] pid dump_c3x_hrnet_swad_v11_f2_s8.swad_bn.tta_d4 2983301 (python; parent 2983299); cmdline recorded (f2327c2e)
+[2026-11-21 02:14:55] dump_c3x_hrnet_swad_v11_f2_s8.swad_bn.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f2_s8.swad_bn.tta_d4
+[2026-11-21 02:15:33] dump-only c3x_hrnet_swad_v11_f3_s8.swad_bn.tta_d4 on GPU 1: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f3_s8
+[2026-11-21 02:15:33] dump-only c3x_hrnet_swad_v11_f3_s8.swad_bn.tta_d4: no training (one dump of a finished run)
+[2026-11-21 02:15:34] lane GPU 1: our runs on GPU = LPG 1
+[2026-11-21 02:15:35] dumped dump_c3x_hrnet_swad_v11_f2_s8.swad_bn.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 02:15:35] RUN.md5 c3x_hrnet_swad_v11_f2_s8.swad_bn.tta_d4 rc=0: 104 files, md5 bb6a1010 (dump-only)
+[2026-11-21 02:15:46] lane GPU 0: qualifies
+[2026-11-21 02:16:06] start dump_c3x_hrnet_swad_v11_f3_s8.swad_bn.tta_d4 on GPU 1 (free 48500 MiB, dump gate 6200)
+[2026-11-21 02:16:06] pid dump_c3x_hrnet_swad_v11_f3_s8.swad_bn.tta_d4 2996613 (python; parent 2996611); cmdline recorded (2c14a910)
+[2026-11-21 02:16:06] dump_c3x_hrnet_swad_v11_f3_s8.swad_bn.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f3_s8.swad_bn.tta_d4
+[2026-11-21 02:16:40] dump-only c3x_hrnet_swad_v11_f4_s8.swad_bn.tta_d4 on GPU 0: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f4_s8
+[2026-11-21 02:16:40] dump-only c3x_hrnet_swad_v11_f4_s8.swad_bn.tta_d4: no training (one dump of a finished run)
+[2026-11-21 02:16:41] lane GPU 0: our runs on GPU = LPG 1
+[2026-11-21 02:16:46] dumped dump_c3x_hrnet_swad_v11_f3_s8.swad_bn.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 02:16:47] RUN.md5 c3x_hrnet_swad_v11_f3_s8.swad_bn.tta_d4 rc=0: 102 files, md5 0c1c3e49 (dump-only)
+[2026-11-21 02:16:54] lane GPU 1: qualifies
+[2026-11-21 02:17:14] start dump_c3x_hrnet_swad_v11_f4_s8.swad_bn.tta_d4 on GPU 0 (free 48536 MiB, dump gate 6200)
+[2026-11-21 02:17:14] pid dump_c3x_hrnet_swad_v11_f4_s8.swad_bn.tta_d4 3009347 (python; parent 3009345); cmdline recorded (d3d0b71c)
+[2026-11-21 02:17:14] dump_c3x_hrnet_swad_v11_f4_s8.swad_bn.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f4_s8.swad_bn.tta_d4
+[2026-11-21 02:17:51] dump-only c3x_hrnet_swad_v11_f0_s9.swad_bn.tta_d4 on GPU 1: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f0_s9
+[2026-11-21 02:17:51] dump-only c3x_hrnet_swad_v11_f0_s9.swad_bn.tta_d4: no training (one dump of a finished run)
+[2026-11-21 02:17:53] lane GPU 1: our runs on GPU = LPG 1
+[2026-11-21 02:18:04] dumped dump_c3x_hrnet_swad_v11_f4_s8.swad_bn.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 02:18:04] RUN.md5 c3x_hrnet_swad_v11_f4_s8.swad_bn.tta_d4 rc=0: 112 files, md5 6311bbf0 (dump-only)
+[2026-11-21 02:18:04] lane GPU 0: qualifies
+[2026-11-21 02:18:25] start dump_c3x_hrnet_swad_v11_f0_s9.swad_bn.tta_d4 on GPU 1 (free 48500 MiB, dump gate 6200)
+[2026-11-21 02:18:25] pid dump_c3x_hrnet_swad_v11_f0_s9.swad_bn.tta_d4 3022805 (python; parent 3022803); cmdline recorded (a642dffe)
+[2026-11-21 02:18:25] dump_c3x_hrnet_swad_v11_f0_s9.swad_bn.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f0_s9.swad_bn.tta_d4
+[2026-11-21 02:18:58] dump-only c3x_hrnet_swad_v11_f1_s9.swad_bn.tta_d4 on GPU 0: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f1_s9
+[2026-11-21 02:18:59] dump-only c3x_hrnet_swad_v11_f1_s9.swad_bn.tta_d4: no training (one dump of a finished run)
+[2026-11-21 02:18:59] lane GPU 0: our runs on GPU = LPG 1
+[2026-11-21 02:19:05] dumped dump_c3x_hrnet_swad_v11_f0_s9.swad_bn.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 02:19:05] RUN.md5 c3x_hrnet_swad_v11_f0_s9.swad_bn.tta_d4 rc=0: 108 files, md5 751a5cff (dump-only)
+[2026-11-21 02:19:12] lane GPU 1: qualifies
+[2026-11-21 02:19:32] start dump_c3x_hrnet_swad_v11_f1_s9.swad_bn.tta_d4 on GPU 0 (free 48536 MiB, dump gate 6200)
+[2026-11-21 02:19:32] pid dump_c3x_hrnet_swad_v11_f1_s9.swad_bn.tta_d4 3035165 (python; parent 3035163); cmdline recorded (c6651747)
+[2026-11-21 02:19:32] dump_c3x_hrnet_swad_v11_f1_s9.swad_bn.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f1_s9.swad_bn.tta_d4
+[2026-11-21 02:20:10] dump-only c3x_hrnet_swad_v11_f2_s9.swad_bn.tta_d4 on GPU 1: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f2_s9
+[2026-11-21 02:20:10] dump-only c3x_hrnet_swad_v11_f2_s9.swad_bn.tta_d4: no training (one dump of a finished run)
+[2026-11-21 02:20:11] lane GPU 1: our runs on GPU = LPG 1
+[2026-11-21 02:20:22] dumped dump_c3x_hrnet_swad_v11_f1_s9.swad_bn.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 02:20:22] RUN.md5 c3x_hrnet_swad_v11_f1_s9.swad_bn.tta_d4 rc=0: 111 files, md5 58bafb17 (dump-only)
+[2026-11-21 02:20:23] lane GPU 0: qualifies
+[2026-11-21 02:20:43] start dump_c3x_hrnet_swad_v11_f2_s9.swad_bn.tta_d4 on GPU 1 (free 48500 MiB, dump gate 6200)
+[2026-11-21 02:20:43] pid dump_c3x_hrnet_swad_v11_f2_s9.swad_bn.tta_d4 3048623 (python; parent 3048621); cmdline recorded (536d1956)
+[2026-11-21 02:20:43] dump_c3x_hrnet_swad_v11_f2_s9.swad_bn.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f2_s9.swad_bn.tta_d4
+[2026-11-21 02:21:17] dump-only c3x_hrnet_swad_v11_f3_s9.swad_bn.tta_d4 on GPU 0: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f3_s9
+[2026-11-21 02:21:17] dump-only c3x_hrnet_swad_v11_f3_s9.swad_bn.tta_d4: no training (one dump of a finished run)
+[2026-11-21 02:21:18] lane GPU 0: our runs on GPU = LPG 1
+[2026-11-21 02:21:23] dumped dump_c3x_hrnet_swad_v11_f2_s9.swad_bn.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 02:21:24] RUN.md5 c3x_hrnet_swad_v11_f2_s9.swad_bn.tta_d4 rc=0: 104 files, md5 fdd1d644 (dump-only)
+[2026-11-21 02:21:31] lane GPU 1: qualifies
+[2026-11-21 02:21:51] start dump_c3x_hrnet_swad_v11_f3_s9.swad_bn.tta_d4 on GPU 0 (free 48536 MiB, dump gate 6200)
+[2026-11-21 02:21:51] pid dump_c3x_hrnet_swad_v11_f3_s9.swad_bn.tta_d4 3061556 (python; parent 3061553); cmdline recorded (bf2c56ff)
+[2026-11-21 02:21:51] dump_c3x_hrnet_swad_v11_f3_s9.swad_bn.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f3_s9.swad_bn.tta_d4
+[2026-11-21 02:22:29] dump-only c3x_hrnet_swad_v11_f4_s9.swad_bn.tta_d4 on GPU 1: run /tmp/noob_el/bench_03375d4/experiments/c3x_hrnet_swad_v11_f4_s9
+[2026-11-21 02:22:29] dump-only c3x_hrnet_swad_v11_f4_s9.swad_bn.tta_d4: no training (one dump of a finished run)
+[2026-11-21 02:22:30] lane GPU 1: our runs on GPU = LPG 1
+[2026-11-21 02:22:31] dumped dump_c3x_hrnet_swad_v11_f3_s9.swad_bn.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 02:22:31] RUN.md5 c3x_hrnet_swad_v11_f3_s9.swad_bn.tta_d4 rc=0: 102 files, md5 7bbb7aea (dump-only)
+[2026-11-21 02:22:42] lane GPU 0: qualifies
+[2026-11-21 02:23:02] start dump_c3x_hrnet_swad_v11_f4_s9.swad_bn.tta_d4 on GPU 1 (free 48500 MiB, dump gate 6200)
+[2026-11-21 02:23:03] pid dump_c3x_hrnet_swad_v11_f4_s9.swad_bn.tta_d4 3075205 (python; parent 3075203); cmdline recorded (a9c5460e)
+[2026-11-21 02:23:03] dump_c3x_hrnet_swad_v11_f4_s9.swad_bn.tta_d4 startup line OK: BENCH_START: run=dump_c3x_hrnet_swad_v11_f4_s9.swad_bn.tta_d4
+[2026-11-21 02:23:36] start fin_pf_v11_pool_s8 on GPU 0 (card bench/methods/house_r34_unetpp_pf_v11.yaml, seed 8, root /tmp/noob_el/bench_data_fin/roots/pool532_v11, gate 9000; free 48536 MiB; our lanes on GPU 1, all 2)
+[2026-11-21 02:23:36] pid fin_pf_v11_pool_s8 3080867 (python; parent 3080864); cmdline recorded (0c70d787):     PID USER                      STARTED COMMAND|3080867 cv02     Sat Nov 21 02:23:35 2026 /tmp/noob_el/el-fault-detection/.venv/bin/python -u scripts/train.py --config configs/supervised.yaml --opts seed=8 data.labeled_fraction=1.0 training.total_steps=20000 data.split_seed=0 training.labeled_batch_size=8 data.mask_subdir=masks_v11 data.mask_ignore_value=255 model.name=smp_unetpp data.augmentation=labelsafe loss.supervised=ce_dice training.val_every=20000 training.encoder_pf.freeze=1000 training.encoder_pf.ramp=1000 training.encoder_pf.lr_mult=0.1 training.encoder_pf.wd=0 data.root=/tmp/noob_el/bench_data_fin/roots/pool532_v11 run_name=fin_pf_v11_pool_s8
+[2026-11-21 02:23:42] fin_pf_v11_pool_s8 config OK (= card)
+[2026-11-21 02:23:42] fin_pf_v11_pool_s8 startup line OK: Labelled: 532 (/tmp/noob_el/bench_data_fin/roots/pool532_v11/splits/train.txt)  unlabelled: 0 (-)  val: 107  test: 107
+[2026-11-21 02:23:42] lane GPU 0: our runs on GPU = LPG 1
+[2026-11-21 02:23:53] dumped dump_c3x_hrnet_swad_v11_f4_s9.swad_bn.tta_d4 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-21 02:23:53] RUN.md5 c3x_hrnet_swad_v11_f4_s9.swad_bn.tta_d4 rc=0: 112 files, md5 2ce37931 (dump-only)
+[2026-11-21 02:23:56] lane GPU 1: qualifies
+[2026-11-21 02:24:08] start fin_pf_v11_pool_s9 on GPU 1 (card bench/methods/house_r34_unetpp_pf_v11.yaml, seed 9, root /tmp/noob_el/bench_data_fin/roots/pool532_v11, gate 9000; free 48500 MiB; our lanes on GPU 1, all 2)
+[2026-11-21 02:24:08] pid fin_pf_v11_pool_s9 3086897 (python; parent 3086895); cmdline recorded (f552f768):     PID USER                      STARTED COMMAND|3086897 cv02     Sat Nov 21 02:24:07 2026 /tmp/noob_el/el-fault-detection/.venv/bin/python -u scripts/train.py --config configs/supervised.yaml --opts seed=9 data.labeled_fraction=1.0 training.total_steps=20000 data.split_seed=0 training.labeled_batch_size=8 data.mask_subdir=masks_v11 data.mask_ignore_value=255 model.name=smp_unetpp data.augmentation=labelsafe loss.supervised=ce_dice training.val_every=20000 training.encoder_pf.freeze=1000 training.encoder_pf.ramp=1000 training.encoder_pf.lr_mult=0.1 training.encoder_pf.wd=0 data.root=/tmp/noob_el/bench_data_fin/roots/pool532_v11 run_name=fin_pf_v11_pool_s9
+[2026-11-21 02:24:13] fin_pf_v11_pool_s9 config OK (= card)
+[2026-11-21 02:24:13] fin_pf_v11_pool_s9 startup line OK: Labelled: 532 (/tmp/noob_el/bench_data_fin/roots/pool532_v11/splits/train.txt)  unlabelled: 0 (-)  val: 107  test: 107
+[2026-11-21 02:24:13] cv02 q: all jobs dispatched; waiting
+[2026-11-21 03:23:07] trained fin_pf_v11_pool_s8 rc=1 (GPU 0)
+[2026-11-21 03:23:07] done fin_pf_v11_pool_s8: final-step lines 1, Traceback lines 3
+[2026-11-21 03:23:07] no dump for fin_pf_v11_pool_s8 (training rc 1)
+[2026-11-21 03:23:08] trained fin_pf_v11_pool_s9 rc=1 (GPU 1)
+[2026-11-21 03:23:08] done fin_pf_v11_pool_s9: final-step lines 1, Traceback lines 3
+[2026-11-21 03:23:08] no dump for fin_pf_v11_pool_s9 (training rc 1)
+[2026-11-21 03:23:08] BENCH CV02 Q ALL DONE (0 trained rc 0, 75 dumped rc 0, 75 RUN.md5 of 85 jobs; pid 1507293)

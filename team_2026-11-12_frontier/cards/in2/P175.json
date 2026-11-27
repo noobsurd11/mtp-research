@@ -1,0 +1,43 @@
+{
+ "paper_id": "arxiv:2609.05816",
+ "title": "CoRe-SAM3: Conditional Semantic--Visual Reconciliation for SAM3 Crack Segmentation",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2609.05816",
+ "code_url": "",
+ "mechanism": "Keep SAM3's text-prompted ('crack') semantic map as the main decision path; train a 19k-param calibration plus a bounded, zero-initialised residual from native visual features to correct it.",
+ "adaptation": "First a zero-shot SAM3 'crack' probe on our 54 val cells at 1008 input; if it detects cracks, train CoRe on crack only and fuse its logits with the house model, mainly for E1 half-cut / scuff cells.",
+ "min_experiment": "Zero-shot SAM3 'crack' on val: relR@2 and relF1@2 vs house; kill if relR@2 < 0.5. Then CoRe + house logit fusion vs house PF on E1 crack relF1@2 (+0.03 needed).",
+ "evidence": "R: 5 crack sets, native SAM3 62.34 -> CoRe 70.47 mean crack IoU, clDice 81.98 -> 89.24; corrects 34.4% of native errors, damages 0.23% of correct pixels; 3 seeds; RTX A2000.",
+ "prior_overlap": "none",
+ "score": 52,
+ "bench_score": 60,
+ "bet": "medium",
+ "gpu_hours": 10,
+ "targets": [
+  "crack",
+  "e1_unseen"
+ ],
+ "directions": [
+  "D14"
+ ],
+ "scout_scores": [
+  52,
+  40
+ ],
+ "alt_notes": [
+  {
+   "from": "D14",
+   "adaptation": "Only if SAM3 zero-shot 'crack' fires on EL cracks (SERD probe first); train on 478 cells crack-only at 1008 px, fuse with house for other classes.",
+   "min_experiment": "CoRe arm vs house crack, 3 seeds; crack IoU, relF1@2, E1 relF1@2; kill if crack IoU < house.",
+   "score": 40
+  }
+ ],
+ "final": 52,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 175,
+ "pid": "P175"
+}

@@ -1,0 +1,59 @@
+{
+ "paper_id": "arxiv:2511.11015",
+ "title": "SUPER Module for Detail-Sensitive and Cost-Efficient U-Net Variant Decoders",
+ "year": 2025,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2511.11015",
+ "code_url": "",
+ "mechanism": "Wavelet-domain decoder block: DWT of decoder features, a learned per-channel bounded suppression (tanh(CBAM) x learnable scale) subtracted from all subbands, and an inverse DWT that replaces spatial upsample + refine.",
+ "adaptation": "Replace the U-Net++ upsample + conv refine at the 256 and 512 px decoder levels with Haar IDWT + suppression. Implement Haar as fixed 2x2 convs; keep the ResNet-34 encoder and the PF schedule; 1-channel input unchanged.",
+ "min_experiment": "Arm: PF + SUPER at decoder levels 0 and 1, 5 seeds. Baseline: PF. Metric: clean-49 crack IoU, relF1@2, components >= 20 px found. Kill: crack IoU < +0.012 and relF1@2 < +0.01.",
+ "evidence": "R: CrackVision12K with a FACS-Net baseline. IoU on 0 to 2 px cracks 0.356 -> 0.451, 2 to 4 px 0.398 -> 0.415, average 0.629 -> 0.646; CTS also up.",
+ "gpu_hours": 8,
+ "prior_overlap": "none in BRIEF section 5 (2x resolution n.d. is a different mechanism). Also listed by D09.",
+ "score": 68,
+ "bench_score": 40,
+ "bet": "medium",
+ "targets": [
+  "crack"
+ ],
+ "directions": [
+  "D09",
+  "D28"
+ ],
+ "scout_scores": [
+  50,
+  50,
+  68,
+  66
+ ],
+ "alt_notes": [
+  {
+   "from": "D09",
+   "adaptation": "Replace U-Net++ decoder upsampling and refinement blocks with SUPER blocks; ResNet-34 encoder and head unchanged; report crack IoU binned by component size.",
+   "min_experiment": "Arm: PF with SUPER decoder; baseline PF; 3 seeds. Metric: crack recall on components under 20 px, CV crack IoU. Kill if small-component recall gain < +0.03.",
+   "score": 50
+  },
+  {
+   "from": "D09",
+   "adaptation": "Replace U-Net++ decoder upsampling blocks with SUPER blocks, encoder unchanged; report crack metrics binned by component size since 76 to 88% of crack components are under 20 px.",
+   "min_experiment": "Arm: PF with SUPER decoder; baseline: PF; 3 seeds. Metric: recall on crack components < 20 px, CV crack IoU. Kill if small-component recall gain < +0.03.",
+   "score": 50
+  },
+  {
+   "from": "D28",
+   "adaptation": "Replace the U-Net++ upsample + conv at the top two decoder levels (256, 512 px) with Haar IDWT + suppression, Haar implemented as fixed 2x2 convs; keep the ResNet-34 encoder and PF schedule.",
+   "min_experiment": "Arm: PF + SUPER at decoder levels 0 and 1; baseline PF; 5 seeds; crack IoU, relF1@2, components >= 20 px found; kill if crack IoU < +0.012 and relF1@2 < +0.01. About 8 GPU-h.",
+   "score": 66
+  }
+ ],
+ "final": 68,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 38,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P038"
+}

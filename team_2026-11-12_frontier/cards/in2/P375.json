@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.1609/aaai.v40i7.37445",
+ "title": "A2LC: Active and Automated Label Correction for Semantic Segmentation",
+ "year": 2026,
+ "venue": "AAAI",
+ "url": "https://arxiv.org/abs/2506.11599",
+ "code_url": "https://github.com/ngbrjyj/A2LC",
+ "mechanism": "Cascaded manual plus automatic label correction: few human correction queries, an automatic stage propagates each correction to similar unqueried regions, tail-class-balanced acquisition.",
+ "adaptation": "Only with user consent: 100 yes/no 'is this a crack' clicks on top flagged components from ranking arms, propagate answers by component feature similarity across all cells. Without clicks reduces to ensemble ranking.",
+ "min_experiment": "Arm: 100 clicks + propagation, retrain. Baseline: ensemble-ranking arm without clicks. Metric: clean-49 crack relF1@2 and IoU. Kill: < +0.01 relF1@2 over no-click arm.",
+ "score": 40,
+ "bench_score": 45,
+ "bet": "medium",
+ "targets": [
+  "crack"
+ ],
+ "evidence": "R: +27.23% over prior ALC at equal budget on Cityscapes; matches prior methods with 20% of budget; PASCAL VOC also.",
+ "gpu_hours": 10,
+ "prior_overlap": "none; conflicts with no-manual-labelling rule unless a minimal case is accepted.",
+ "directions": [
+  "D37"
+ ],
+ "scout_scores": [
+  40
+ ],
+ "final": 40,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 375,
+ "pid": "P375"
+}

@@ -1,0 +1,43 @@
+{
+ "paper_id": "arxiv:2511.03219",
+ "title": "Diffusion-Guided Mask-Consistent Paired Mixing for Endoscopic Image Segmentation (MCPMix)",
+ "year": 2025,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/pdf/2511.03219",
+ "code_url": "",
+ "mechanism": "For each real image, a synthetic counterpart is generated under the same mask; only appearance is mixed and supervision always uses the original mask, with annealing back to real data.",
+ "adaptation": "Counterparts from the UnIACorN or ContourDiff generator (half-cut CSIR style); supervision stays the real mask so generator drift adds no label noise; anneal mix strength to zero by step 20k.",
+ "min_experiment": "PF + paired mixing vs PF + plain synthetic using the same counterparts. Metric E1 crack relF1@2. Kill: gain over plain synthetic < +0.01.",
+ "evidence": "R: Kvasir-SEG, PICCOLO, CVC-ClinicDB, private NPC-LES, ISIC 2017; state of the art claimed, abstract gives no numbers.",
+ "gpu_hours": 6,
+ "bet": "safe",
+ "targets": [
+  "e1_unseen",
+  "crack"
+ ],
+ "prior_overlap": "none",
+ "score": 45,
+ "bench_score": 25,
+ "directions": [
+  "D33"
+ ],
+ "scout_scores": [
+  45,
+  45
+ ],
+ "alt_notes": [
+  {
+   "from": "D33",
+   "adaptation": "Counterparts from the translation/ControlNet arms in target style; real masks keep labels clean even if the generator drifts; anneal to real by step 20k.",
+   "min_experiment": "Paired mixing vs plain synthetic with the same counterparts on PF. Metric E1 relF1@2. Kill: < +0.01. About 6 GPU-h.",
+   "score": 45
+  }
+ ],
+ "final": 45,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 317,
+ "pid": "P317"
+}

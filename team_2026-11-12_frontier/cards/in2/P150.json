@@ -1,0 +1,59 @@
+{
+ "paper_id": "arxiv:2406.10973",
+ "title": "ExPLoRA: Parameter-Efficient Extended Pre-Training to Adapt Vision Transformers under Domain Shifts",
+ "year": 2024,
+ "venue": "ICML 2025 (arXiv 2024)",
+ "url": "https://arxiv.org/abs/2406.10973",
+ "code_url": "",
+ "mechanism": "Continue the VFM's own self-supervised objective (DINOv2) on unlabelled target-domain images, unfreezing 1-2 blocks and LoRA on the rest, then LoRA fine-tune.",
+ "evidence": "R (abstract): SOTA on satellite imagery, beats full pretraining + fine-tune, up to +8% linear-probe top-1 with <10% of parameters.",
+ "adaptation": "Continued DINO pretraining of DINOv2-L (or DINOv3-L) on the 11.9k server pool including 1,152 multi half-cells, so the encoder sees half-cut and scuff cells before supervision; then the VFM-H Rein-LoRA arm.",
+ "min_experiment": "VFM-H with ExPLoRA-adapted backbone vs VFM-H with original backbone; metric E1 crack relF1@2 and CV crack relF1@2; kill if E1 not +0.02 over the original backbone.",
+ "prior_overlap": "MIM and DDeP pretraining on ResNet-34 with the 11.9k pool were n.d.; continued VFM-objective pretraining of a ViT is a different mechanism and untested. Open.",
+ "score": 55,
+ "bench_score": 40,
+ "bet": "moonshot",
+ "targets": [
+  "e1_unseen",
+  "crack"
+ ],
+ "gpu_hours": 250,
+ "directions": [
+  "D07",
+  "D24",
+  "D32"
+ ],
+ "scout_scores": [
+  48,
+  45,
+  55,
+  35
+ ],
+ "alt_notes": [
+  {
+   "from": "D07",
+   "adaptation": "Continue DINOv2/v3 ViT-L SSL on the 159k CSIR/ARTS pool (crops 224-448, 1-ch to 3-ch, include the 1,152 multi half-cells so E1-like layouts are seen), then use as the Dino U-Net backbone.",
+   "min_experiment": "Arm ExPLoRA-adapted ViT-L in Dino U-Net vs Dino U-Net with stock weights and vs PF, 5 seeds; metric CV crack relF1@2 and E1 relF1@2; kill if < +0.01 CV relF1@2 over stock and < +0.03 on E1. About 150 GPU-h.",
+   "score": 45
+  },
+  {
+   "from": "D07",
+   "adaptation": "Continue DINOv2 or DINOv3 ViT-L SSL on the 159k CSIR/ARTS pool (1-ch to 3-ch, crops 224 to 448 from 512 or native 1200 px), then use as the frozen backbone of the Dino U-Net arm.",
+   "min_experiment": "Arm ExPLoRA-EL ViT-L in Dino U-Net vs the same with off-the-shelf DINOv3 vs PF, 5 seeds; metric E1 crack relF1@2 and test crack IoU; kill if ExPLoRA arm gains < +0.02 E1 relF1@2 over the off-the-shelf arm.",
+   "score": 48
+  },
+  {
+   "from": "D32",
+   "adaptation": "Cheaper route to ViT-L continued pretraining on the pool on 8 A6000; feed into D24's VFM fine-tune.",
+   "min_experiment": "Run only if MedDINOv3 or DINOCell arm shows a sign; same arm vs non-adapted VFM; kill if E1 crack recall < +0.02.",
+   "score": 35
+  }
+ ],
+ "final": 55,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 150,
+ "pid": "P150"
+}

@@ -1,0 +1,68 @@
+{
+ "paper_id": "doi:10.1109/cvpr52729.2023.01109",
+ "title": "Directional Connectivity-based Segmentation of Medical Images",
+ "year": 2023,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2304.00145",
+ "code_url": "https://github.com/Zyun-Y/DconnNet",
+ "mechanism": "Predict 8-neighbour pixel connectivity maps per class, with a decoder that disentangles and tracks directional sub-spaces; the mask is recovered from connectivity votes.",
+ "adaptation": "Connectivity output only for crack and inactive (2 x 8 channels) on the ResNet-34 encoder, keep the 24-class CE head. Hoped effect: fewer fragmented crack pieces, more components found, cleaner inactive borders.",
+ "min_experiment": "Arm = PF + DconnNet connectivity heads for crack/inactive; baseline = PF; 5 seeds + 5-fold CV; metrics components >=20 px found, relF1@2, inactive IoU. Kill if components gain < 0.02 and inactive IoU flat.",
+ "score": 62,
+ "bench_score": 70,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "inactive",
+  "benchmark"
+ ],
+ "evidence": "R: beats SOTA on several public medical segmentation benchmarks; third-party listings show DRIVE and CRACK500 results (not read).",
+ "gpu_hours": 20,
+ "prior_overlap": "None; connectivity outputs never tried.",
+ "directions": [
+  "D10",
+  "D11",
+  "D12"
+ ],
+ "scout_scores": [
+  45,
+  62,
+  55,
+  52,
+  56
+ ],
+ "alt_notes": [
+  {
+   "from": "D10",
+   "adaptation": "Add an 8-channel connectivity head for crack and gridline to U-Net++ (BCE), fused at inference. Build connectivity targets from labels dilated by 1 px, because 1-2 px jittered traces give noisy direction targets.",
+   "min_experiment": "Arm: PF + connectivity head (crack, gridline), 5 seeds. Baseline: PF. Metrics: gridline IoU, crack component recall, crack IoU. Kill if gridline gain < 0.02 and component recall gain < 0.02.",
+   "score": 45
+  },
+  {
+   "from": "D11",
+   "adaptation": "Connectivity output for crack and inactive only (2 x 8 channels) on the ResNet-34 U-Net++ encoder, 24-class CE head kept. Binary connectivity flips under 1 px jitter, so pair with a 1 px tube target or use TMAL instead.",
+   "min_experiment": "Arm PF + DconnNet crack/inactive heads vs PF; metric components >=20 px found and inactive IoU; kill if components +<0.02 and inactive IoU flat (within 0.01).",
+   "score": 55
+  },
+  {
+   "from": "D12",
+   "adaptation": "Use a multi-class connectivity head on crack, inactive and gridline on top of the U-Net++ decoder. Inactive touches crack in 99% of regions, so crack-inactive connectivity is a natural constraint.",
+   "min_experiment": "DconnNet head vs house, 5 seeds. Metrics: inactive IoU on 5-fold CV (test inactive rests on 3 cells) and crack relF1@2. Kill if inactive CV IoU gains < 0.02 and crack is flat.",
+   "score": 52
+  },
+  {
+   "from": "D12",
+   "adaptation": "Extra connectivity head only for crack, inactive and gridline (24x8 channels is wasteful); connectivity targets built from labels dilated by 1 px to absorb jitter; keep the CE+Dice mask head.",
+   "min_experiment": "Arm: house + 3-class connectivity head, 5 seeds; baseline house. Metrics: components >=20 px found, crack relF1@2, inactive IoU. Kill: components found and relF1@2 gains both < 0.01.",
+   "score": 56
+  }
+ ],
+ "final": 62,
+ "bench": 70,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 71,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

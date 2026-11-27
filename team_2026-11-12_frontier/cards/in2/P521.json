@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.1109/tip.2022.3189823",
+ "title": "SemiCurv: Semi-Supervised Curvilinear Structure Segmentation",
+ "year": 2022,
+ "venue": "IEEE TIP",
+ "url": "https://arxiv.org/abs/2205.08706",
+ "code_url": "",
+ "mechanism": "Curvilinear SSL with geometric strong augmentation, using a differentiable inverse transform to align predictions for pixel-wise consistency. An N-pair consistency loss prevents collapse to background on imbalanced thin structures.",
+ "adaptation": "Apply its N-pair consistency to crack logits on pool cells, combined with the geometric transform plus inverse warp, instead of CE on hard pseudo-labels. Usable as the unlabelled loss in the ensemble-distillation or UniMatch V2 arms.",
+ "min_experiment": "Ensemble-distillation arm B with an N-pair consistency term vs without. Metric: crack relF1@2 clean 49 and E1. Kill: < +0.005 relF1@2.",
+ "evidence": "R: 6 curvilinear datasets including cracks; with at most 5% labels, reaches about 95% of fully supervised performance.",
+ "gpu_hours": 10,
+ "bet": "medium",
+ "score": 30,
+ "bench_score": 35,
+ "targets": [
+  "crack"
+ ],
+ "prior_overlap": "Partial. Mean Teacher consistency with CutMix was run (n.d. at 100%). The N-pair loss and geometric inverse-warp consistency were not.",
+ "directions": [
+  "D29"
+ ],
+ "scout_scores": [
+  30
+ ],
+ "final": 30,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 521,
+ "pid": "P521"
+}

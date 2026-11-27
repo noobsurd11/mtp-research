@@ -1,0 +1,43 @@
+{
+ "paper_id": "arxiv:2001.11248",
+ "title": "Weakly Supervised Segmentation of Cracks on Solar Cells using Normalized Lp Norm",
+ "year": 2020,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2001.11248",
+ "code_url": "",
+ "mechanism": "Train a classifier with normalized-Lp pooling over activation maps so the maps become crack segmentations from image-level labels only.",
+ "adaptation": "Add an image-level crack head (Lp-pooled crack logits) to the house model, trained on the 2,624 ELPV cells, the same source as our weak BMRK cells, after removing every ELPV cell present in BMRK val/test.",
+ "min_experiment": "Arm: house + Lp image-level loss on ELPV. Baseline: house, 5 seeds. Metric: BMRK crack IoU (0.379 now) and overall crack IoU. Kill if BMRK crack IoU < +0.03.",
+ "evidence": "R: abstract only; ResNet-50 activation-map segmentation of cracks from ELPV-type image labels; no number retrieved.",
+ "prior_overlap": "none; multi-dataset training with ELPV image labels listed as untried",
+ "score": 45,
+ "bench_score": 30,
+ "bet": "medium",
+ "gpu_hours": 10,
+ "targets": [
+  "crack"
+ ],
+ "directions": [
+  "D03",
+  "D36"
+ ],
+ "scout_scores": [
+  45,
+  25
+ ],
+ "alt_notes": [
+  {
+   "from": "D36",
+   "adaptation": "EL-specific image-label baseline trained on ELPV labels for a weak-supervision track of the benchmark.",
+   "min_experiment": "Benchmark only: train on ELPV image labels, score crack relF1@2 on clean-49 and E1 against house model. ~2 GPU-h.",
+   "score": 25
+  }
+ ],
+ "final": 45,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 312,
+ "pid": "P312"
+}

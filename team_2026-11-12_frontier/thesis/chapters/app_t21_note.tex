@@ -1,0 +1,38 @@
+% Appendix note on Table T21 (pre-protocol work). Draft 23 Nov 2026. Sources in ch05_legacy_NOTES.md, section "Appendix note".
+\chapter{Reading the pre-protocol table}\label{app:t21}
+
+Table~\ref{tab:T21} lists the 38 arms and decisions of the work done before the benchmark protocol, from 10 Oct to 14 Nov 2026;
+Chapter~\ref{ch:legacy} discusses them. This note says how to read the table and what it cannot be used for.
+
+\paragraph{Scope.} Every row uses the legacy split of BenchmarkEL \texttt{dataset\_20211104} (478 train, 54 validation, 50 test
+cells). Unless a row says otherwise, models train on label set v1 and the primary contrasts are scored on the 50 test50 cells with
+the same labels; ``clean'' means the 49 test cells without the one very noisy cell. E1 means the 106 cells of
+Section~\ref{sec:data-sets}. Rows name the machine they ran on; seeds from different machines are never pooled.
+
+\paragraph{Decision words.} The outcome column copies the words of the locked rule in force at the time (P8 rule 1): a difference
+passes if it exceeds $\max(0.01,\, 2\sqrt{(s_A^2 + s_B^2)/3})$ on any primary with no primary worse. A value written ``(thr x)'' is that
+rule's threshold for the row; ``floor 0.0100'' is its lower bound of 0.01. ``Robust'' means that the 95\% image-bootstrap interval
+excludes 0 and the sign survives removing the top 3 cells. Bold words are bold in the source. ``Oracle-selected'' (Track D) means the
+added cells were chosen with their labels known. ``KILL'' (the A8 screen) means the screen's continue rule failed; it reads ``no sign
+of a gain'', not ``worse''.
+
+\paragraph{What the table cannot show.} The rows are not comparable with the tables of the protocol (Tables~\ref{tab:T5}
+to~\ref{tab:T16b}): split, label set, recipe and decision rule differ. test50 was scored in every P-series run and overlaps the
+training pool (Table~\ref{tab:T2}), so every test50 value is an in-distribution value with known leakage, context only. The word
+``supported'' means a pass of the lenient locked rule on that set, not CONFIRMED under the protocol. E1 values come from repeated
+reads of the same 106 cells (Table~\ref{tab:T17}).
+
+\paragraph{Arm codes.} SSL arms (P7 to P17) combine letters: A supervised reference; B hard pseudo-labels; C tolerant pseudo-labels;
+D loss-off control (the C arm with the unlabelled loss weight at 0; in P17, BsD5, D means a decoupled decoder instead); m matched
+labelled view; s separate batch-norm forward; M CutMix on unlabelled images; x the external pool of 11,938 unlabelled cells; a
+trailing number is the label fraction in percent (A5c is the 5\% supervised arm of one machine). L0 to L3 are the steps of the
+supervised ladder of P6; L3o is L3 trained on the old masks and L3To the same with an offset-tolerant loss (P14); gU10 and gA10 are
+UCF-EL-initialised and ImageNet-initialised encoders at 10\% (P15). AL5 is the adapted region-routing SSL method; Tc and R are 12
+added crack cells and 12 random cells (Track D). SUP100 is the supervised recipe at 100\% labels, SUP100-g its re-run on the second
+machine, SUP100-PF (SUPPF) the same with the encoder-preserving fine-tune, and MIM100-PF, CP100 and RN50-PF its variants with a
+masked-image-pretrained encoder, crack copy-paste and a ResNet-50 encoder. E-PF and E-house are five-member ensembles. SKR, CLD and B3
+are Skeleton Recall at weight 1, soft clDice and scuff as a class; SKR2 (and SKR01) is Skeleton Recall at weight 0.1, E-SKR2 its
+ensemble; HC and HC2 add synthetic half-cut views; A8 and A8c are DINOv3 and ImageNet ConvNeXt-T encoders.
+
+\paragraph{Sources.} Each row copies a row of the project's results synthesis and is traced to the primary record that row cites;
+no row rests on the synthesis alone. The trace (file, line and md5 of every value) is kept with the table sources.

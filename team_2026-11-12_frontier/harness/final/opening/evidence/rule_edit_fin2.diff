@@ -1,0 +1,27 @@
+8a9,12
+> Edit of 21 Nov 2026 (before registration and before any number; review of fin2, REVIEW_FIN2.md N3): only the checkpoint location
+> and provenance lines changed, for the fin2 resume repair of the full-pool runs (section 2 "All checkpoints", section 8
+> `train_code_revision` / `checkpoint_md5`, section 9 step 1); no candidate, readout, contrast, statistic or guard changed. The
+> previous version is md5 69f0c0f382083f049e676221e9d8daac.
+29,31c33,37
+< All checkpoints: the cv02 full-pool runs of the fin package (deploy of F = 821dfadf, `/tmp/noob_el/bench_821dfad/experiments/`),
+< `checkpoints/latest.pth` at step 20000, trained on all 532 pool cells (label set v1.1, root `pool532_v11`, no sealed stem), seeds
+< 5 to 9. Each dump's `checkpoint_md5` must equal the `LATEST.md5` that fin relayed for that run (read check, section 8).
+---
+> All checkpoints: the cv02 full-pool runs of the fin package as repaired by the resume queue fin2 (FINAL_RULE_ADDENDUM_1.md):
+> run dirs in the deploy of F2 = 9967d59a, `/tmp/noob_el/bench_9967d59/experiments/`, steps 1 to 18,000 trained under F = 821dfadf
+> and the rest under F2 by resume; `checkpoints/latest.pth` at step 20000, trained on all 532 pool cells (label set v1.1, root
+> `pool532_v11`, no sealed stem), seeds 5 to 9. Each dump's `checkpoint_md5` must equal the `LATEST.md5` that fin2 relayed for that
+> run, and its `train_code_revision` is F2 (read check, section 8).
+155c161
+< `bench_infer.py`, `train_code_revision` = F, `checkpoint_md5` = fin's relayed LATEST.md5 of that run; one GPU model over all dumps;
+---
+> `bench_infer.py`, `train_code_revision` = F2, `checkpoint_md5` = fin2's relayed LATEST.md5 of that run; one GPU model over all dumps;
+161,162c167,170
+< 1. **Before:** fin's 10 trainings end with `trained fin_* rc=0`, RUN.md5 and relay (slim.pth, LATEST.md5); fin's CV5 TTA read and
+<    verdict are written; FLAGs, if any, ruled by the lead and the user.
+---
+> 1. **Before:** the 10 full-pool runs end in fin2 (the resume of fin's step-18000 checkpoints; FINAL_RULE_ADDENDUM_1.md) with
+>    `trained fin_* rc=0` for all 10 and fin2's `BENCH CV02 Q ALL DONE`, and fin2's relay ends (RELAY ALL DONE, 10 of 10: slim.pth,
+>    LATEST.md5); the opening starts only after both; fin's CV5 TTA read and verdict are written; FLAGs, if any, ruled by the lead
+>    and the user.

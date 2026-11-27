@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2304.06716",
+ "title": "STU-Net: Scalable and Transferable Medical Image Segmentation Models Empowered by Large-Scale Supervised Pre-training",
+ "year": 2023,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2304.06716",
+ "code_url": "https://github.com/Ziyan-Huang/STU-Net",
+ "mechanism": "nnU-Net blocks modified so depth and width scale together (14M to 1.4B parameters), with supervised pretraining on TotalSegmentator for transfer.",
+ "adaptation": "The pretrained weights are 3D CT and do not transfer to 2D EL. The only usable idea is joint depth+width scaling of a 2D nnU-Net, which the ResEnc L/XL arms already cover.",
+ "min_experiment": "Only if ResEnc L beats M: run a 2D STU-Net-B/L-shaped net on the same folds; CV-mean crack relF1@2. Kill: no gain over ResEnc L.",
+ "evidence": "R: larger models gain more after TotalSegmentator pretraining; in nnU-Net Revisited (from scratch) STU-Net S/B/L did not beat ResEnc L.",
+ "prior_overlap": "none",
+ "score": 20,
+ "bench_score": 50,
+ "bet": "moonshot",
+ "targets": [
+  "benchmark"
+ ],
+ "gpu_hours": 60,
+ "directions": [
+  "D25"
+ ],
+ "scout_scores": [
+  20
+ ],
+ "final": 20,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 586,
+ "pid": "P586"
+}

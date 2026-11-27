@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2304.04429",
+ "title": "BerDiff: Conditional Bernoulli Diffusion Model for Medical Image Segmentation",
+ "year": 2023,
+ "venue": "MICCAI",
+ "url": "https://arxiv.org/abs/2304.04429",
+ "code_url": "",
+ "mechanism": "Conditional diffusion with Bernoulli noise instead of Gaussian for binary masks; multiple samples give diverse plausible masks and an uncertainty view.",
+ "evidence": "R: beats recent SOTA on two medical datasets of different modalities (abstract, no numbers on page).",
+ "adaptation": "Base diffusion process for the UMBD arm, or a standalone crack-binary refiner conditioned on [EL, house p(crack)]; average several samples as a cheap ensemble, which may suit jittered 1 to 2 px labels.",
+ "min_experiment": "Arm: BerDiff refiner on crack channel, 5 samples averaged. Baseline: house ensemble. Metric: relF1@2, crack IoU. Kill: relF1@2 < +0.01.",
+ "score": 32,
+ "bench_score": 25,
+ "bet": "moonshot",
+ "gpu_hours": 12,
+ "targets": [
+  "crack"
+ ],
+ "prior_overlap": "none",
+ "directions": [
+  "D26"
+ ],
+ "scout_scores": [
+  32
+ ],
+ "final": 32,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 491,
+ "pid": "P491"
+}

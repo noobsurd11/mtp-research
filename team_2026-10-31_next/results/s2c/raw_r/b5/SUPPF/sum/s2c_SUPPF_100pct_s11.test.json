@@ -1,0 +1,94 @@
+{
+ "set": "test",
+ "n_cells": 50,
+ "gt_comp20": 189,
+ "op_comp": {
+  "b": 4.8,
+  "j": 89,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.856,
+  "val_P": 0.9296875
+ },
+ "op_rel": {
+  "b": 3.6,
+  "j": 77,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.8769834993937476,
+  "val_P": 0.9003198615944799
+ },
+ "comp_recall_at_opc": 0.8571428571428571,
+ "comp_prec_at_opc": 0.8709677419354839,
+ "relR_at_opr": 0.8754045658926516,
+ "relP_at_opr": 0.9173025255239119,
+ "speck_guard": {
+  "opc": {
+   "compP_all": 0.6606683804627249,
+   "speck_share": 0.00898465190655962
+  },
+  "opr": {
+   "compP_all": 0.7492537313432835,
+   "speck_share": 0.0084631918323482
+  }
+ },
+ "deployed_b": 0.0,
+ "at_deployed": {
+  "P": 0.6578769593643015,
+  "R": 0.6240306709820362,
+  "IoU": 0.4711366580841957,
+  "relP": 0.9482464476682276,
+  "relR": 0.8367943176140931,
+  "compR": 0.798941798941799,
+  "compP": 0.9605263157894737,
+  "compP_all": 0.8477011494252874,
+  "speck_share": 0.01047665937689639,
+  "inactIoU": 0.4830785117084707
+ },
+ "cell_deployed": {
+  "b": 0.0,
+  "n_pos": 48,
+  "n_neg": 2,
+  "n_ambiguous": 0,
+  "recall": 0.9166666666666666,
+  "fa_rate": 0.0,
+  "precision": 1.0,
+  "auroc": 0.9791666666666666
+ },
+ "cell_at_opc": {
+  "b": 4.8,
+  "n_pos": 48,
+  "n_neg": 2,
+  "n_ambiguous": 0,
+  "recall": 0.9375,
+  "fa_rate": 0.0,
+  "precision": 1.0,
+  "auroc": 0.9791666666666666
+ },
+ "cell_b0": {
+  "b": 0.0,
+  "n_pos": 48,
+  "n_neg": 2,
+  "n_ambiguous": 0,
+  "recall": 0.9166666666666666,
+  "fa_rate": 0.0,
+  "precision": 1.0,
+  "auroc": 0.9791666666666666
+ },
+ "inactive_area_err": {
+  "b": 0.0,
+  "mae_all": 1.0596725065069557,
+  "mae_inactive_cells": 4.010009765625,
+  "n_inactive_cells": 13,
+  "mae_other": 0.023067523573588745,
+  "signed_mean": -0.5521070930218501,
+  "max_err": 23.93646240234375
+ },
+ "excluded": [],
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": false,
+ "el_metrics_md5": "6e73ff11aaa6171a52b5a5404877ab46"
+}

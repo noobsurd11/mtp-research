@@ -1,0 +1,771 @@
+{
+ "seeds": [
+  5,
+  6,
+  7,
+  8,
+  9
+ ],
+ "n": {
+  "clean_unmoved": 416,
+  "affected_moved": 47,
+  "affected_unmoved": 69
+ },
+ "units": 285,
+ "B": 2000,
+ "boot_seed": 0,
+ "targets": {
+  "affected_unmoved": {
+   "metrics": {
+    "crack_iou": {
+     "point": -0.0040783980379917265,
+     "lo": -0.013607150688352693,
+     "hi": 0.006888184454173316,
+     "se": 0.006742374905258235,
+     "per_seed": {
+      "5": 0.000727359040725517,
+      "6": -0.010654539580582933,
+      "7": -0.0030873217124683383,
+      "8": -0.0013048901940513336,
+      "9": -0.006072597743581543
+     },
+     "reading": "not separated"
+    },
+    "relF1_2": {
+     "point": 0.0025651416378295933,
+     "lo": -0.009244204613263128,
+     "hi": 0.017415188992737324,
+     "se": 0.010706793387873805,
+     "per_seed": {
+      "5": 0.012683921902941542,
+      "6": -0.003636403317517134,
+      "7": 0.004357483909637638,
+      "8": -0.002631713570690697,
+      "9": 0.002052419264776617
+     },
+     "reading": "not separated"
+    }
+   },
+   "levels": {
+    "5": {
+     "v3": {
+      "affected_unmoved": {
+       "crack_iou": 0.435077032921673,
+       "relF1_2": 0.911513379638501
+      },
+      "clean_unmoved": {
+       "crack_iou": 0.3471115969944644,
+       "relF1_2": 0.8275740863744151
+      }
+     },
+     "v2": {
+      "affected_unmoved": {
+       "crack_iou": 0.4370082932080874,
+       "relF1_2": 0.9004143605551636
+      },
+      "clean_unmoved": {
+       "crack_iou": 0.3497702163216043,
+       "relF1_2": 0.8291589891940192
+      }
+     }
+    },
+    "6": {
+     "v3": {
+      "affected_unmoved": {
+       "crack_iou": 0.43182489379586086,
+       "relF1_2": 0.9053119124947187
+      },
+      "clean_unmoved": {
+       "crack_iou": 0.34766724509160973,
+       "relF1_2": 0.8244140280873755
+      }
+     },
+     "v2": {
+      "affected_unmoved": {
+       "crack_iou": 0.44097979869078624,
+       "relF1_2": 0.9090932602060168
+      },
+      "clean_unmoved": {
+       "crack_iou": 0.3461676104059522,
+       "relF1_2": 0.8245589724811565
+      }
+     }
+    },
+    "7": {
+     "v3": {
+      "affected_unmoved": {
+       "crack_iou": 0.43682008368200836,
+       "relF1_2": 0.9067083126418946
+      },
+      "clean_unmoved": {
+       "crack_iou": 0.348217809141345,
+       "relF1_2": 0.8246901222122607
+      }
+     },
+     "v2": {
+      "affected_unmoved": {
+       "crack_iou": 0.43905187979436694,
+       "relF1_2": 0.9061034833287748
+      },
+      "clean_unmoved": {
+       "crack_iou": 0.3473622835412352,
+       "relF1_2": 0.8284427768087785
+      }
+     }
+    },
+    "8": {
+     "v3": {
+      "affected_unmoved": {
+       "crack_iou": 0.4298000771552409,
+       "relF1_2": 0.9065036058651171
+      },
+      "clean_unmoved": {
+       "crack_iou": 0.34345802630187217,
+       "relF1_2": 0.8277838588601331
+      }
+     },
+     "v2": {
+      "affected_unmoved": {
+       "crack_iou": 0.4317346188414086,
+       "relF1_2": 0.9031317391232765
+      },
+      "clean_unmoved": {
+       "crack_iou": 0.3440876777939886,
+       "relF1_2": 0.8217802785476017
+      }
+     }
+    },
+    "9": {
+     "v3": {
+      "affected_unmoved": {
+       "crack_iou": 0.4329961856107032,
+       "relF1_2": 0.9006839916731213
+      },
+      "clean_unmoved": {
+       "crack_iou": 0.3513586201856318,
+       "relF1_2": 0.8273365329826639
+      }
+     },
+     "v2": {
+      "affected_unmoved": {
+       "crack_iou": 0.43653875304625644,
+       "relF1_2": 0.8976867545446737
+      },
+      "clean_unmoved": {
+       "crack_iou": 0.3488285898776035,
+       "relF1_2": 0.8263917151189929
+      }
+     }
+    }
+   }
+  },
+  "affected_moved": {
+   "metrics": {
+    "crack_iou": {
+     "point": 0.01031762354044451,
+     "lo": -0.028610258798959995,
+     "hi": 0.025222116811451745,
+     "se": 0.01283404130988705,
+     "per_seed": {
+      "5": 0.008926763950017902,
+      "6": 0.0035481483422152293,
+      "7": 0.009387328432478192,
+      "8": 0.02095664326519764,
+      "9": 0.008769233712313584
+     },
+     "reading": "not separated"
+    },
+    "relF1_2": {
+     "point": 0.02487539443728042,
+     "lo": -0.02855050060198046,
+     "hi": 0.038745795048152724,
+     "se": 0.02024366850340526,
+     "per_seed": {
+      "5": 0.02959026904791595,
+      "6": 0.016818690099071,
+      "7": 0.036726118661734475,
+      "8": 0.02251600531839537,
+      "9": 0.018725889059285294
+     },
+     "reading": "not separated"
+    }
+   },
+   "levels": {
+    "5": {
+     "v3": {
+      "affected_moved": {
+       "crack_iou": 0.3761318681318681,
+       "relF1_2": 0.9205152974385418
+      },
+      "clean_unmoved": {
+       "crack_iou": 0.3471115969944644,
+       "relF1_2": 0.8275740863744151
+      }
+     },
+     "v2": {
+      "affected_moved": {
+       "crack_iou": 0.3698637235089901,
+       "relF1_2": 0.8925099312102299
+      },
+      "clean_unmoved": {
+       "crack_iou": 0.3497702163216043,
+       "relF1_2": 0.8291589891940192
+      }
+     }
+    },
+    "6": {
+     "v3": {
+      "affected_moved": {
+       "crack_iou": 0.37026740799576385,
+       "relF1_2": 0.914535408975064
+      },
+      "clean_unmoved": {
+       "crack_iou": 0.34766724509160973,
+       "relF1_2": 0.8244140280873755
+      }
+     },
+     "v2": {
+      "affected_moved": {
+       "crack_iou": 0.36521962496789107,
+       "relF1_2": 0.897861663269774
+      },
+      "clean_unmoved": {
+       "crack_iou": 0.3461676104059522,
+       "relF1_2": 0.8245589724811565
+      }
+     }
+    },
+    "7": {
+     "v3": {
+      "affected_moved": {
+       "crack_iou": 0.3686523649971716,
+       "relF1_2": 0.9132661253339514
+      },
+      "clean_unmoved": {
+       "crack_iou": 0.348217809141345,
+       "relF1_2": 0.8246901222122607
+      }
+     },
+     "v2": {
+      "affected_moved": {
+       "crack_iou": 0.3584095109645836,
+       "relF1_2": 0.8802926612687347
+      },
+      "clean_unmoved": {
+       "crack_iou": 0.3473622835412352,
+       "relF1_2": 0.8284427768087785
+      }
+     }
+    },
+    "8": {
+     "v3": {
+      "affected_moved": {
+       "crack_iou": 0.36738106764071643,
+       "relF1_2": 0.9190018599708586
+      },
+      "clean_unmoved": {
+       "crack_iou": 0.34345802630187217,
+       "relF1_2": 0.8277838588601331
+      }
+     },
+     "v2": {
+      "affected_moved": {
+       "crack_iou": 0.3470540758676352,
+       "relF1_2": 0.8904822743399319
+      },
+      "clean_unmoved": {
+       "crack_iou": 0.3440876777939886,
+       "relF1_2": 0.8217802785476017
+      }
+     }
+    },
+    "9": {
+     "v3": {
+      "affected_moved": {
+       "crack_iou": 0.3669836727823599,
+       "relF1_2": 0.9183949076924481
+      },
+      "clean_unmoved": {
+       "crack_iou": 0.3513586201856318,
+       "relF1_2": 0.8273365329826639
+      }
+     },
+     "v2": {
+      "affected_moved": {
+       "crack_iou": 0.355684408762018,
+       "relF1_2": 0.8987242007694919
+      },
+      "clean_unmoved": {
+       "crack_iou": 0.3488285898776035,
+       "relF1_2": 0.8263917151189929
+      }
+     }
+    }
+   }
+  }
+ },
+ "tool": "bench_leak_did.py",
+ "tool_md5": "ff66f26e2dfbdcba3eef3eaa0672fd8d",
+ "arm": "PF",
+ "labels": "v11",
+ "groups_md5": "d880a769e3672b7dbc3614a33738a326",
+ "strata": "/home/yugma/mtp/research/team_2026-11-12_frontier/results/stageC/cv5v3/cv5v3_compare_cells.tsv",
+ "strata_md5": "4d38187847a99128b98113b8f7626f8f",
+ "n_stems": 532,
+ "dry": false,
+ "allow_partial": false,
+ "notes": [],
+ "runs": [
+  {
+   "split": "cv5v3",
+   "seed": 5,
+   "run_id": "c3_pf_v11_f0_s5",
+   "set": "cv5v3_f0",
+   "manifest_md5": "28d40b5f66609b9275c69eea7d2dd9ba",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v3",
+   "seed": 6,
+   "run_id": "c3_pf_v11_f0_s6",
+   "set": "cv5v3_f0",
+   "manifest_md5": "a9ad4ff65680cc0e41261e57557bfa89",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v3",
+   "seed": 7,
+   "run_id": "c3_pf_v11_f0_s7",
+   "set": "cv5v3_f0",
+   "manifest_md5": "19b82130e7ce645407742cd23ed8171c",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v3",
+   "seed": 8,
+   "run_id": "c3_pf_v11_f0_s8",
+   "set": "cv5v3_f0",
+   "manifest_md5": "54b65afa5443830f0e5de2e297ee2f4d",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v3",
+   "seed": 9,
+   "run_id": "c3_pf_v11_f0_s9",
+   "set": "cv5v3_f0",
+   "manifest_md5": "1b51caf2c3b624fab13f052f5684aa43",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v3",
+   "seed": 5,
+   "run_id": "c3_pf_v11_f1_s5",
+   "set": "cv5v3_f1",
+   "manifest_md5": "5102fc4b1853d066dbaae1251149f22b",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v3",
+   "seed": 6,
+   "run_id": "c3_pf_v11_f1_s6",
+   "set": "cv5v3_f1",
+   "manifest_md5": "8981e8be8252f663e7997480db9e9225",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v3",
+   "seed": 7,
+   "run_id": "c3_pf_v11_f1_s7",
+   "set": "cv5v3_f1",
+   "manifest_md5": "0b569166a36f41b35db7b4a709c7a2e8",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v3",
+   "seed": 8,
+   "run_id": "c3_pf_v11_f1_s8",
+   "set": "cv5v3_f1",
+   "manifest_md5": "930b168cb889ef3b5b576abc9680e201",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v3",
+   "seed": 9,
+   "run_id": "c3_pf_v11_f1_s9",
+   "set": "cv5v3_f1",
+   "manifest_md5": "d318ccfa8649a0741276c35da2262192",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v3",
+   "seed": 5,
+   "run_id": "c3_pf_v11_f2_s5",
+   "set": "cv5v3_f2",
+   "manifest_md5": "47907d1f052afe09113be9cb05f9c961",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v3",
+   "seed": 6,
+   "run_id": "c3_pf_v11_f2_s6",
+   "set": "cv5v3_f2",
+   "manifest_md5": "c4db2d5bf40bd4f07998866960a0bf5c",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v3",
+   "seed": 7,
+   "run_id": "c3_pf_v11_f2_s7",
+   "set": "cv5v3_f2",
+   "manifest_md5": "2f319597c68c3be9bf0a9510d483d913",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v3",
+   "seed": 8,
+   "run_id": "c3_pf_v11_f2_s8",
+   "set": "cv5v3_f2",
+   "manifest_md5": "8a406bdbe094852131a381df1ea423d8",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v3",
+   "seed": 9,
+   "run_id": "c3_pf_v11_f2_s9",
+   "set": "cv5v3_f2",
+   "manifest_md5": "18916e8ae94b8ac15219bbbfb52df44b",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v3",
+   "seed": 5,
+   "run_id": "c3_pf_v11_f3_s5",
+   "set": "cv5v3_f3",
+   "manifest_md5": "0ce43c2f3c70c527652c16110d9b3ec8",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v3",
+   "seed": 6,
+   "run_id": "c3_pf_v11_f3_s6",
+   "set": "cv5v3_f3",
+   "manifest_md5": "d4a8d8153192a1fdde5988274ecc234c",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v3",
+   "seed": 7,
+   "run_id": "c3_pf_v11_f3_s7",
+   "set": "cv5v3_f3",
+   "manifest_md5": "d16d62b8a50456e0d6e899be35e6f3a2",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v3",
+   "seed": 8,
+   "run_id": "c3_pf_v11_f3_s8",
+   "set": "cv5v3_f3",
+   "manifest_md5": "204336219503f198ad59b5f25dc21032",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v3",
+   "seed": 9,
+   "run_id": "c3_pf_v11_f3_s9",
+   "set": "cv5v3_f3",
+   "manifest_md5": "6361ebb68c026f41cfdd6081bda9ed8c",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v3",
+   "seed": 5,
+   "run_id": "c3_pf_v11_f4_s5",
+   "set": "cv5v3_f4",
+   "manifest_md5": "0e6080ea2edd26021c4539e4dab2ca06",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v3",
+   "seed": 6,
+   "run_id": "c3_pf_v11_f4_s6",
+   "set": "cv5v3_f4",
+   "manifest_md5": "13351444c48483cd56064ac8db6cd370",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v3",
+   "seed": 7,
+   "run_id": "c3_pf_v11_f4_s7",
+   "set": "cv5v3_f4",
+   "manifest_md5": "70b845d68af9c13e2e70846b92c1dc15",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v3",
+   "seed": 8,
+   "run_id": "c3_pf_v11_f4_s8",
+   "set": "cv5v3_f4",
+   "manifest_md5": "77e099ca00f4f650970cf68d6b47ac64",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v3",
+   "seed": 9,
+   "run_id": "c3_pf_v11_f4_s9",
+   "set": "cv5v3_f4",
+   "manifest_md5": "5750a14998d318805115f006af142af1",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v2",
+   "seed": 5,
+   "run_id": "w1c1_pf_v11_f0_s5",
+   "set": "cv5v2_f0",
+   "manifest_md5": "197e11edbbe5968587634893059738ca",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v2",
+   "seed": 6,
+   "run_id": "w1c1_pf_v11_f0_s6",
+   "set": "cv5v2_f0",
+   "manifest_md5": "40011527e13dd72e659c702513087e1a",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v2",
+   "seed": 7,
+   "run_id": "w1c1_pf_v11_f0_s7",
+   "set": "cv5v2_f0",
+   "manifest_md5": "a77122e3e6e09ec9226a063a87f84a5b",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v2",
+   "seed": 8,
+   "run_id": "w1c1_pf_v11_f0_s8",
+   "set": "cv5v2_f0",
+   "manifest_md5": "ccf550fe8e9e191f2e214236679f95c3",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v2",
+   "seed": 9,
+   "run_id": "w1c1_pf_v11_f0_s9",
+   "set": "cv5v2_f0",
+   "manifest_md5": "a3c02c2d91d937edb44991426a5c982d",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v2",
+   "seed": 5,
+   "run_id": "w1c1_pf_v11_f1_s5",
+   "set": "cv5v2_f1",
+   "manifest_md5": "d32bf4f16365059f17994181de94490f",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v2",
+   "seed": 6,
+   "run_id": "w1c1_pf_v11_f1_s6",
+   "set": "cv5v2_f1",
+   "manifest_md5": "77457577c5d61d7a933a9cd0c771d924",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v2",
+   "seed": 7,
+   "run_id": "w1c1_pf_v11_f1_s7",
+   "set": "cv5v2_f1",
+   "manifest_md5": "73c3daf413ad14e0cd74381acafd710f",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v2",
+   "seed": 8,
+   "run_id": "w1c1_pf_v11_f1_s8",
+   "set": "cv5v2_f1",
+   "manifest_md5": "522b9def605251e1f932678f388585d0",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v2",
+   "seed": 9,
+   "run_id": "w1c1_pf_v11_f1_s9",
+   "set": "cv5v2_f1",
+   "manifest_md5": "a3b89acf0408d7eb7d6ab438cc32bdc0",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v2",
+   "seed": 5,
+   "run_id": "w1c1_pf_v11_f2_s5",
+   "set": "cv5v2_f2",
+   "manifest_md5": "0cd725e1ada7b20886498f2d295a7bab",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v2",
+   "seed": 6,
+   "run_id": "w1c1_pf_v11_f2_s6",
+   "set": "cv5v2_f2",
+   "manifest_md5": "d24e9b8b42fd3bd4842aeedb0dfa7eaa",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v2",
+   "seed": 7,
+   "run_id": "w1c1_pf_v11_f2_s7",
+   "set": "cv5v2_f2",
+   "manifest_md5": "18d77359f34f83e2a88479aad7be44bf",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v2",
+   "seed": 8,
+   "run_id": "w1c1_pf_v11_f2_s8",
+   "set": "cv5v2_f2",
+   "manifest_md5": "26a1a090f7e5edae68cd39bb4075b689",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v2",
+   "seed": 9,
+   "run_id": "w1c1_pf_v11_f2_s9",
+   "set": "cv5v2_f2",
+   "manifest_md5": "d61b8b5bd2881b174d79d0250dec1fb3",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v2",
+   "seed": 5,
+   "run_id": "w1c1_pf_v11_f3_s5",
+   "set": "cv5v2_f3",
+   "manifest_md5": "402c57fb89d462e1d779d4ddbfdc2218",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v2",
+   "seed": 6,
+   "run_id": "w1c1_pf_v11_f3_s6",
+   "set": "cv5v2_f3",
+   "manifest_md5": "d4fd5665de546dd004965b68168bee15",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v2",
+   "seed": 7,
+   "run_id": "w1c1_pf_v11_f3_s7",
+   "set": "cv5v2_f3",
+   "manifest_md5": "d69ca9af883082fb317bbaba85d842c5",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v2",
+   "seed": 8,
+   "run_id": "w1c1_pf_v11_f3_s8",
+   "set": "cv5v2_f3",
+   "manifest_md5": "8b30b6a0b9a6d2849fb3432591711481",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v2",
+   "seed": 9,
+   "run_id": "w1c1_pf_v11_f3_s9",
+   "set": "cv5v2_f3",
+   "manifest_md5": "5851f68e1d1e85c110e79d1195adee0c",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v2",
+   "seed": 5,
+   "run_id": "w1c1_pf_v11_f4_s5",
+   "set": "cv5v2_f4",
+   "manifest_md5": "1111e150103696209551be89025b6c42",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v2",
+   "seed": 6,
+   "run_id": "w1c1_pf_v11_f4_s6",
+   "set": "cv5v2_f4",
+   "manifest_md5": "971db3937e91d4bda250d0087da01fba",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v2",
+   "seed": 7,
+   "run_id": "w1c1_pf_v11_f4_s7",
+   "set": "cv5v2_f4",
+   "manifest_md5": "5d085c3488dd723302f737dff592787d",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v2",
+   "seed": 8,
+   "run_id": "w1c1_pf_v11_f4_s8",
+   "set": "cv5v2_f4",
+   "manifest_md5": "9408cd4de14fc06d0382052068c0326a",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v2",
+   "seed": 9,
+   "run_id": "w1c1_pf_v11_f4_s9",
+   "set": "cv5v2_f4",
+   "manifest_md5": "fb6eed6669fd8979d1592e6f0dd56eef",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  }
+ ],
+ "seconds": 160
+}

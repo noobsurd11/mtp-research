@@ -1,0 +1,95 @@
+--- scripts/s2c/opening/local/s2c_post_local.sh	2026-11-13 23:45:14.632421318 +0530
++++ scripts/s2c/readout_gaint/s2c_post_local_gaint.sh	2026-11-14 04:37:48.851971590 +0530
+@@ -1,51 +1,60 @@
+ #!/bin/bash
+-# SKR2C opening (E1 opening #7), LOCAL pull + readout on the laptop, after the driver's end line '... s2c opening done: R rc=0 D rc=0'.
+-# = s2_post_local.sh 0ec30d37 (readout part) + skr2e_post_local.sh (pull pattern), minimal diff: arms SKR01 vs SUPPF, BOTH fresh (s10-14,
+-# from this opening's m0, no comparator reuse); HC2 rows out; the pull of post/ and d_out/ (MANIFEST md5sum -c on gaint and laptop, equal
+-# md5s both ends); scuff-ignored m2_rung (reported); the collected file list of the SKR2C opening; the D scorer local/s2c_d_boot.py.
+-# Usage: bash s2c_post_local.sh <FROZEN.md5 md5, 32 hex>   (the registered one; the local copy scripts/s2c/opening/FROZEN.md5 must match)
+-# 1. local frozen check: md5 of the local FROZEN.md5 = the argument; md5sum -c of the local opening set (this script, s2c_d_boot.py);
+-#    m2_rung 0ae9d505 and e1_context 12bd1385 asserted;
+-# 2. gaint: refuse unless opening.log's last line is 's2c opening done: R rc=0 D rc=0'; md5sum -c post/MANIFEST.md5 and d_out/MANIFEST.md5;
+-# 3. laptop: rsync post/ -> results/s2c/raw_r, d_out/ -> results/s2c/raw_d (refuse if either exists), md5sum -c, MANIFEST md5s equal;
+-# 4. test co-primaries SKR01 vs SUPPF (fresh): Track M m2_rung at tau 0 (verdict primaries; default .json = tau0, see raw_r/tau0_check_*)
+-#    and tau 1 (LA, reported), scuff-ignored (reported);
+-# 5. the opening's frozen decision / reported text outputs, as written by the opening, collected into one readout file;
+-# 6. verdict D: s2c_d_boot.py on raw_d (+ --singles = R's fresh m0, --json). Output results/s2c/local/ + local_md5.txt.
+-# coach recomputes on his own; no verdict to team-lead before that.
++# SKR2C opening (E1 opening #7), pull + readout ON GAINT (team-lead, 14 Nov 2026). NOT part of the frozen set.
++# = the frozen scripts/s2c/opening/local/s2c_post_local.sh (1da9a692, FROZEN 836be7e5) with the changes that the move of the orchestrator
++# from the laptop to gaint forces (review_s2c_stage2.md note N1: the frozen file must run on the laptop and stops at its first check here):
++#  (1) transport: post/ and d_out/ are copied locally (rsync -a, no ssh); the same checks stay: end line, md5sum -c of both MANIFESTs at
++#      the source and at the copy, MANIFEST md5s equal on both ends;
++#  (2) python: the laptop venv does not exist here; the house venv python on gaint (3.12.3, numpy 2.5.2) is used, CUDA hidden, -B.
++#      Checked before use (results/s2c/local/env_check.txt): s2c_d_boot.py --selftest = SELFTEST PASS (reproduces openings #4 and #6
++#      line by line) and m2_rung on opening #5's files = byte-identical to the laptop outputs of 3 Nov (tau 0 and tau 1);
++#  (3) N1: m1_analyze.py 8e566254 and m0_analyze.py d5adbe6b pinned too; the D self-test must print SELFTEST PASS or nothing is read;
++#  (4) m2_rung stderr goes to .err files (the frozen file sent it to /dev/null, which hid a failure under set -e).
++# Every scoring command (m2_rung calls, the collected-outputs block, the s2c_d_boot.py call) is the frozen file's, unchanged.
++# The frozen s2c_d_boot.py (164ef377) and the frozen script itself are still md5-checked against FROZEN.md5.
++# Usage: bash s2c_post_local_gaint.sh <FROZEN.md5 md5, 32 hex>
+ set -eu
+ R=/home/yugma/mtp/research; T=$R/team_2026-10-31_next; D=$T/results/s2c; RR=$D/raw_r; RD=$D/raw_d; O=$D/local; OP=$T/scripts/s2c/opening
+-PY=$R/.venv/bin/python; M2=$R/team_2026-10-24_go/trackM/scripts/m2_rung.py; B=$OP/local/s2c_d_boot.py
++G=/home/noob/work/s2c
++PYB=/home/noob/work/el-fault-detection/.venv/bin/python
++PY="env CUDA_VISIBLE_DEVICES= PYTHONDONTWRITEBYTECODE=1 OMP_NUM_THREADS=4 $PYB"
++M2=$R/team_2026-10-24_go/trackM/scripts/m2_rung.py; M1=$R/team_2026-10-24_go/trackM/scripts/m1_analyze.py; M0=$R/team_2026-10-24_go/trackM/scripts/m0_analyze.py
++B=$OP/local/s2c_d_boot.py
+ CX=$R/team_2026-10-29_features/scripts/e1_context.tsv
+ FZ=${1:?registered FROZEN.md5 md5 (32 hex)}
+-die(){ echo "[$(date '+%F %T')] s2c post_local FAIL: $*"; exit 1; }
++die(){ echo "[$(date '+%F %T')] s2c post_local(gaint) FAIL: $*"; exit 1; }
++[ "$(hostname)" = giant ] || die "this copy runs on gaint only"
+ [ "$(md5sum < $OP/FROZEN.md5 | cut -c1-32)" = "$FZ" ] || die "local FROZEN.md5 md5 != $FZ"
++cmp -s $OP/FROZEN.md5 $G/open/FROZEN.md5 || die "project FROZEN.md5 != gaint open/FROZEN.md5"
+ (cd $OP && grep -E '  (local/s2c_post_local.sh|local/s2c_d_boot.py)$' FROZEN.md5 | md5sum -c --quiet) || die "local opening set != FROZEN.md5"
+ [ "$(md5sum < $M2 | cut -c1-8)" = 0ae9d505 ] || die "m2_rung.py md5"
++[ "$(md5sum < $M1 | cut -c1-8)" = 8e566254 ] || die "m1_analyze.py md5 (N1)"
++[ "$(md5sum < $M0 | cut -c1-8)" = d5adbe6b ] || die "m0_analyze.py md5 (N1)"
+ [ "$(md5sum < $CX | cut -c1-8)" = 12bd1385 ] || die "e1_context md5"
+ [ ! -e $RR ] && [ ! -e $RD ] && [ ! -e $O ] || die "$RR, $RD or $O exists (refuse to overwrite)"
+-G=""; for h in noob@172.18.22.20 ssh.noobsurd.info; do ssh -n -o BatchMode=yes -o ConnectTimeout=20 $h true 2>/dev/null && { G=$h; break; }; done
+-[ -n "$G" ] || die "gaint not reachable"
+-M=$(ssh -n -o BatchMode=yes $G "set -u; cd /home/noob/work/s2c || exit 1
+-  tail -n 1 opening.log | grep -q 's2c opening done: R rc=0 D rc=0\$' || { echo NOTDONE; exit 0; }
+-  (cd post && md5sum -c --quiet MANIFEST.md5) && (cd d_out && md5sum -c --quiet MANIFEST.md5) || { echo BADMANIFEST; exit 0; }
+-  echo OK \$(md5sum < post/MANIFEST.md5 | cut -c1-32) \$(md5sum < d_out/MANIFEST.md5 | cut -c1-32)") || die "gaint ssh"
+-set -- $M; [ "${1:-}" = OK ] || die "gaint: $M"; MR=$2; MD=$3
++tail -n 1 $G/opening.log | grep -q 's2c opening done: R rc=0 D rc=0$' || die "gaint: NOTDONE"
++(cd $G/post && md5sum -c --quiet MANIFEST.md5) && (cd $G/d_out && md5sum -c --quiet MANIFEST.md5) || die "gaint: BADMANIFEST"
++MR=$(md5sum < $G/post/MANIFEST.md5 | cut -c1-32); MD=$(md5sum < $G/d_out/MANIFEST.md5 | cut -c1-32)
+ mkdir -p $D
+-rsync -a -e "ssh -o BatchMode=yes" $G:/home/noob/work/s2c/post/ $RR/ || die "rsync post/"
+-rsync -a -e "ssh -o BatchMode=yes" $G:/home/noob/work/s2c/d_out/ $RD/ || die "rsync d_out/"
+-(cd $RR && md5sum -c --quiet MANIFEST.md5) || die "laptop raw_r MANIFEST -c"
+-(cd $RD && md5sum -c --quiet MANIFEST.md5) || die "laptop raw_d MANIFEST -c"
++# N1: the D scorer's self-test on already-opened files (#4 PF2E, #6 SKR2E), before anything of this opening is read
++ST=$D/env_check.txt
++{ echo "[$(date '+%F %T')] env: $($PYB -c 'import sys, numpy; print("python", sys.version.split()[0], "numpy", numpy.__version__)') on $(hostname)"
++  $PY -B $B --selftest $T/results/pf2e/raw $T/results/pf2e/pf2e_boot_runner.txt $CX $T/results/pf2/raw/m0 $T/results/skr2e/raw $T/results/skr2e/skr2e_boot_runner.txt; } > $ST 2> $D/env_check.err || die "s2c_d_boot --selftest rc != 0"
++[ "$(tail -n 1 $ST)" = "SELFTEST PASS" ] || die "s2c_d_boot --selftest did not end with SELFTEST PASS"
++rsync -a $G/post/ $RR/ || die "rsync post/"
++rsync -a $G/d_out/ $RD/ || die "rsync d_out/"
++(cd $RR && md5sum -c --quiet MANIFEST.md5) || die "project raw_r MANIFEST -c"
++(cd $RD && md5sum -c --quiet MANIFEST.md5) || die "project raw_d MANIFEST -c"
+ [ "$(md5sum < $RR/MANIFEST.md5 | cut -c1-32)" = "$MR" ] && [ "$(md5sum < $RD/MANIFEST.md5 | cut -c1-32)" = "$MD" ] || die "MANIFEST md5 differs between ends"
+-echo "[$(date '+%F %T')] pulled post/ -> $RR (MANIFEST $MR) and d_out/ -> $RD (MANIFEST $MD); md5sum -c OK on gaint and laptop"
++echo "[$(date '+%F %T')] copied post/ -> $RR (MANIFEST $MR) and d_out/ -> $RD (MANIFEST $MD); md5sum -c OK at source and copy"
+ mkdir -p $O
+-md5sum $M2 $B $CX > $O/tools_md5.txt
++mv $ST $D/env_check.err $O/
++md5sum $M2 $B $CX $M1 $M0 > $O/tools_md5.txt
+ A=$(for k in 10 11 12 13 14; do echo $RR/m0/SUPPF/s2c_SUPPF_100pct_s$k.json; done)
+ B_SKR=$(for k in 10 11 12 13 14; do echo $RR/m0/SKR01/s2c_SKR01_100pct_s$k.json; done)
+-$PY -B $M2 --label SKR01_vs_SUPPF --a $A --b $B_SKR > $O/m2_rung_SKR01.txt 2>/dev/null
+-$PY -B $M2 --label SKR01_vs_SUPPF_LA1 --a $(echo $A | sed 's/\.json/.tau1.json/g') --b $(echo $B_SKR | sed 's/\.json/.tau1.json/g') > $O/m2_rung_SKR01_tau1.txt 2>/dev/null
++$PY -B $M2 --label SKR01_vs_SUPPF --a $A --b $B_SKR > $O/m2_rung_SKR01.txt 2> $O/m2_rung_SKR01.err
++$PY -B $M2 --label SKR01_vs_SUPPF_LA1 --a $(echo $A | sed 's/\.json/.tau1.json/g') --b $(echo $B_SKR | sed 's/\.json/.tau1.json/g') > $O/m2_rung_SKR01_tau1.txt 2> $O/m2_rung_SKR01_tau1.err
+ $PY -B $M2 --label SKR01_vs_SUPPF_scuffign --a $(echo $A | sed 's#/m0/SUPPF/\(.*\)\.json#/m0_scuffign/SUPPF/\1.scuffign.json#g') \
+-  --b $(echo $B_SKR | sed 's#/m0/SKR01/\(.*\)\.json#/m0_scuffign/SKR01/\1.scuffign.json#g') > $O/m2_rung_SKR01_scuffign.txt 2>/dev/null || echo "scuffign m2_rung rc != 0 (reported only)"
++  --b $(echo $B_SKR | sed 's#/m0/SKR01/\(.*\)\.json#/m0_scuffign/SKR01/\1.scuffign.json#g') > $O/m2_rung_SKR01_scuffign.txt 2> $O/m2_rung_SKR01_scuffign.err || echo "scuffign m2_rung rc != 0 (reported only)"
+ {
+   echo "# SKR2C opening (E1 opening #7; same 50 test and 106 E1 cells as #5 / #6, 3rd look): opening outputs collected by runner (frozen opening code wrote them; runner did not recompute these)"
+   echo "# raw_r MANIFEST $MR; raw_d MANIFEST $MD; $(date '+%F %T')"

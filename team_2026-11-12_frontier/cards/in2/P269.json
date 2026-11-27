@@ -1,0 +1,35 @@
+{
+ "paper_id": "doi:10.52202/079017-4029",
+ "title": "AUCSeg: AUC-oriented Pixel-level Long-tail Semantic Segmentation",
+ "year": 2024,
+ "venue": "NeurIPS",
+ "url": "https://arxiv.org/abs/2409.20398",
+ "code_url": "https://github.com/boyuh/AUCSeg",
+ "mechanism": "Pixel-level AUC (ranking) loss with a tail-class memory bank so each batch contains tail pixels.",
+ "adaptation": "Threshold-free ranking suits crack (bias tuned anyway) and splice; memory bank stores small crops of splice, inactive, edge_dark, material pixels.",
+ "min_experiment": "Arm: AUC loss + T-memory bank added to CE+Dice, 3 seeds; baseline SUP100; metric mIoU_rob, splice IoU, crack AP; kill if mIoU_rob < +0.01.",
+ "score": 45,
+ "bench_score": 60,
+ "bet": "moonshot",
+ "evidence": "R: tail-class gains on Cityscapes, ADE20K, COCO-Stuff 164K.",
+ "gpu_hours": 8,
+ "prior_overlap": "none",
+ "targets": [
+  "other_classes",
+  "inactive",
+  "benchmark"
+ ],
+ "directions": [
+  "D19"
+ ],
+ "scout_scores": [
+  45
+ ],
+ "final": 45,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 269,
+ "pid": "P269"
+}

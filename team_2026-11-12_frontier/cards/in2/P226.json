@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2608.02792",
+ "title": "PixelUp: Zero-Shot Semantic Feature Upsampling for Fine-Grained Vision Tasks",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2608.02792",
+ "code_url": "",
+ "mechanism": "Zero-shot VFM-agnostic upsampler using a coarse-to-fine chain of windowed cross-attention guided by multi-scale semantic features to avoid texture artifacts of image-guided upsamplers.",
+ "adaptation": "Third arm of the upsampler probe; semantic guidance should stop copying multi-crystal grain texture into crack features.",
+ "min_experiment": "Within X1 probe: PixelUp-512 vs AnyUp-512 vs bilinear-1024; CV crack AP and false-positive rate on multi cells. Kill if below AnyUp.",
+ "evidence": "R: average +1.2 mIoU on semantic segmentation and +0.25 delta1 on NYUv2 over prior upsamplers across VFMs.",
+ "gpu_hours": 3,
+ "bet": "medium",
+ "prior_overlap": "none.",
+ "score": 50,
+ "bench_score": 30,
+ "targets": [
+  "crack",
+  "e1_unseen"
+ ],
+ "directions": [
+  "D22"
+ ],
+ "scout_scores": [
+  50
+ ],
+ "final": 50,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 226,
+ "pid": "P226"
+}

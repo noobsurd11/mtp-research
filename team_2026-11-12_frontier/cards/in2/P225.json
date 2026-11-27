@@ -1,0 +1,35 @@
+{
+ "paper_id": "arxiv:2406.09414",
+ "title": "Depth Anything V2",
+ "year": 2024,
+ "venue": "NeurIPS",
+ "url": "https://arxiv.org/abs/2406.09414",
+ "code_url": "",
+ "mechanism": "Scale up the teacher, then train students only on large sets of pseudo-labelled real images, so students learn from a consistent target instead of noisy real labels.",
+ "adaptation": "Teacher = best heavy model (VFM or ensemble). Students train on 159k pseudo-labelled cells only, with no jittered GT, then get a short PF fine-tune on the 478 cells. Tests whether one consistent crack convention raises relF1@2 and E1 detection.",
+ "min_experiment": "Arm pseudo-only student (+ short fine-tune) vs house PF, 3 seeds. Metrics: crack relF1@2 and E1 relF1@2 (strict IoU may fall because of per-source conventions). Kill if relF1@2 is n.d. on both sets.",
+ "score": 50,
+ "bench_score": 30,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "e1_unseen",
+  "deployment"
+ ],
+ "evidence": "R: models from 25M to 1.3B parameters; students trained on large pseudo-labelled real sets reported to give finer and more robust predictions than V1 (abstract-level claim; tables not read).",
+ "gpu_hours": 60,
+ "prior_overlap": "Not tested; the 159k pool was never used. Open.",
+ "directions": [
+  "D29"
+ ],
+ "scout_scores": [
+  50
+ ],
+ "final": 50,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 225,
+ "pid": "P225"
+}

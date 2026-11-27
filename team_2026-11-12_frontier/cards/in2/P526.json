@@ -1,0 +1,42 @@
+{
+ "paper_id": "doi:10.1145/3581783.3612099",
+ "title": "Practical Edge Detection via Robust Collaborative Learning (PEdger)",
+ "year": 2023,
+ "venue": "ACM MM",
+ "url": "https://arxiv.org/abs/2308.14084",
+ "code_url": "",
+ "mechanism": "Collaborative learning between models from different training moments and heterogeneous architectures (recurrent and not) to resist noisy labels, with no pretraining.",
+ "adaptation": "An EMA teacher plus a second architecture trained on labelled data only, with crack consistency used as label denoising at 100% labels.",
+ "min_experiment": "Arm: house + EMA and heterogeneous co-learning on labelled data, 5 seeds. Baseline: house at 100% labels. Metric: crack IoU, relF1@2. Kill if n.d.",
+ "score": 30,
+ "bench_score": 25,
+ "bet": "medium",
+ "evidence": "R: better accuracy, speed and size on BSDS500 and NYUD without pretraining. Numbers not read.",
+ "gpu_hours": 12,
+ "prior_overlap": "Partly closed: Mean Teacher at 100% with the pool was n.d., and CPS at 5% was worse. Its use for denoising labelled data at 100% is untested.",
+ "targets": [
+  "crack"
+ ],
+ "directions": [
+  "D13"
+ ],
+ "scout_scores": [
+  30,
+  30
+ ],
+ "alt_notes": [
+  {
+   "from": "D13",
+   "adaptation": "Supervised EMA teacher plus a second architecture on labelled cells only, consistency on the crack channel.",
+   "min_experiment": "Arm: house + EMA teacher consistency on labelled data, 5 seeds; baseline house. Kill if crack IoU n.d.",
+   "score": 30
+  }
+ ],
+ "final": 30,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 526,
+ "pid": "P526"
+}

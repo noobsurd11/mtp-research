@@ -1,0 +1,92 @@
+# AI-rater check score report. key md5 fe33e96007e45a5027c4b7e44d3a529d
+rater 1: /home/yugma/mtp/research/team_2026-11-12_frontier/dataset_audit/rater/key/designer_scratch/format_test/fake_r1.tsv md5 3a1522eadb59c80280ac3a15186de2e1; lines 184, rated 184/184, missing 0 (0.0%, counted as AMBIGUOUS), invalid verdict 0, repeats ignored 0, unknown IDs 0 [], confidence missing 0
+rater 2: /home/yugma/mtp/research/team_2026-11-12_frontier/dataset_audit/rater/key/designer_scratch/format_test/fake_r2.tsv md5 1ab2e19346d670afddbcf0b19d25fcc6; lines 184, rated 184/184, missing 0 (0.0%, counted as AMBIGUOUS), invalid verdict 0, repeats ignored 0, unknown IDs 0 [], confidence missing 0
+rater 3: /home/yugma/mtp/research/team_2026-11-12_frontier/dataset_audit/rater/key/designer_scratch/format_test/fake_r3.tsv md5 b6a7d5e2965c6e0da4485b442fa5609e; lines 184, rated 184/184, missing 0 (0.0%, counted as AMBIGUOUS), invalid verdict 0, repeats ignored 0, unknown IDs 0 [], confidence missing 0
+
+## Calibration (truth known): sensitivity = label_error called on planted label errors; specificity = no label_error called where the label is correct
+
+### class crack: 18 planted label errors, 18 correct labels
+rater 1: sens 2/18 = 0.111 [0.031, 0.328]  spec 15/18 = 0.833 [0.608, 0.942]  label-side correct on correct labels 3/18  non-committal 24/36  individual gate (sens >= 0.6, spec >= 0.7) no
+rater 2: sens 4/18 = 0.222 [0.090, 0.452]  spec 11/18 = 0.611 [0.386, 0.797]  label-side correct on correct labels 3/18  non-committal 17/36  individual gate (sens >= 0.6, spec >= 0.7) no
+rater 3: sens 6/18 = 0.333 [0.163, 0.563]  spec 14/18 = 0.778 [0.548, 0.910]  label-side correct on correct labels 3/18  non-committal 19/36  individual gate (sens >= 0.6, spec >= 0.7) no
+MAJORITY (>= 2 of 3): sens 2/18 = 0.111 [0.031, 0.328]  spec 13/18 = 0.722 [0.491, 0.875]  Youden J -0.167, bootstrap 95% lower bound -0.390
+Fleiss kappa on these calibration items: binary 0.139, 5 categories 0.129
+   crack DEL planted in consensus (truth label_correct): majority right 5/6; majority verdicts {'no_majority': 4, 'model_error': 1, 'label_error': 1}
+   crack DEL planted in label (truth label_error): majority right 0/6; majority verdicts {'no_majority': 2, 'unverifiable': 1, 'ambiguous': 1, 'convention': 1, 'model_error': 1}
+   crack FAKE planted in consensus (truth label_correct): majority right 4/6; majority verdicts {'label_error': 2, 'no_majority': 1, 'convention': 2, 'unverifiable': 1}
+   crack FAKE planted in label (truth label_error): majority right 1/6; majority verdicts {'no_majority': 3, 'label_error': 1, 'model_error': 2}
+   crack SHIFT planted in consensus (truth label_correct): majority right 4/6; majority verdicts {'label_error': 2, 'unverifiable': 1, 'ambiguous': 1, 'model_error': 1, 'no_majority': 1}
+   crack SHIFT planted in label (truth label_error): majority right 1/6; majority verdicts {'label_error': 1, 'no_majority': 2, 'unverifiable': 1, 'convention': 1, 'ambiguous': 1}
+
+### class inact: 12 planted label errors, 12 correct labels
+rater 1: sens 4/12 = 0.333 [0.138, 0.609]  spec 7/12 = 0.583 [0.320, 0.807]  label-side correct on correct labels 1/12  non-committal 13/24  individual gate (sens >= 0.6, spec >= 0.7) no
+rater 2: sens 3/12 = 0.250 [0.089, 0.532]  spec 5/12 = 0.417 [0.193, 0.680]  label-side correct on correct labels 0/12  non-committal 10/24  individual gate (sens >= 0.6, spec >= 0.7) no
+rater 3: sens 2/12 = 0.167 [0.047, 0.448]  spec 11/12 = 0.917 [0.646, 0.985]  label-side correct on correct labels 1/12  non-committal 18/24  individual gate (sens >= 0.6, spec >= 0.7) no
+MAJORITY (>= 2 of 3): sens 2/12 = 0.167 [0.047, 0.448]  spec 8/12 = 0.667 [0.391, 0.862]  Youden J -0.167, bootstrap 95% lower bound -0.500
+Fleiss kappa on these calibration items: binary -0.047, 5 categories -0.032
+   inact DEL planted in consensus (truth label_correct): majority right 3/6; majority verdicts {'label_error': 3, 'no_majority': 3}
+   inact DEL planted in label (truth label_error): majority right 0/6; majority verdicts {'no_majority': 3, 'convention': 2, 'model_error': 1}
+   inact FAKE planted in consensus (truth label_correct): majority right 5/6; majority verdicts {'ambiguous': 1, 'no_majority': 3, 'unverifiable': 1, 'label_error': 1}
+   inact FAKE planted in label (truth label_error): majority right 2/6; majority verdicts {'no_majority': 3, 'label_error': 2, 'model_error': 1}
+
+### class all: 30 planted label errors, 30 correct labels
+rater 1: sens 6/30 = 0.200 [0.095, 0.373]  spec 22/30 = 0.733 [0.556, 0.858]  label-side correct on correct labels 4/30  non-committal 37/60  individual gate (sens >= 0.6, spec >= 0.7) no
+rater 2: sens 7/30 = 0.233 [0.118, 0.409]  spec 16/30 = 0.533 [0.361, 0.698]  label-side correct on correct labels 3/30  non-committal 27/60  individual gate (sens >= 0.6, spec >= 0.7) no
+rater 3: sens 8/30 = 0.267 [0.142, 0.444]  spec 25/30 = 0.833 [0.664, 0.927]  label-side correct on correct labels 4/30  non-committal 37/60  individual gate (sens >= 0.6, spec >= 0.7) no
+MAJORITY (>= 2 of 3): sens 4/30 = 0.133 [0.053, 0.297]  spec 21/30 = 0.700 [0.521, 0.833]  Youden J -0.167, bootstrap 95% lower bound -0.367
+Fleiss kappa on these calibration items: binary 0.063, 5 categories 0.069
+   crack DEL planted in consensus (truth label_correct): majority right 5/6; majority verdicts {'no_majority': 4, 'model_error': 1, 'label_error': 1}
+   crack DEL planted in label (truth label_error): majority right 0/6; majority verdicts {'no_majority': 2, 'unverifiable': 1, 'ambiguous': 1, 'convention': 1, 'model_error': 1}
+   crack FAKE planted in consensus (truth label_correct): majority right 4/6; majority verdicts {'label_error': 2, 'no_majority': 1, 'convention': 2, 'unverifiable': 1}
+   crack FAKE planted in label (truth label_error): majority right 1/6; majority verdicts {'no_majority': 3, 'label_error': 1, 'model_error': 2}
+   crack SHIFT planted in consensus (truth label_correct): majority right 4/6; majority verdicts {'label_error': 2, 'unverifiable': 1, 'ambiguous': 1, 'model_error': 1, 'no_majority': 1}
+   crack SHIFT planted in label (truth label_error): majority right 1/6; majority verdicts {'label_error': 1, 'no_majority': 2, 'unverifiable': 1, 'convention': 1, 'ambiguous': 1}
+   inact DEL planted in consensus (truth label_correct): majority right 3/6; majority verdicts {'label_error': 3, 'no_majority': 3}
+   inact DEL planted in label (truth label_error): majority right 0/6; majority verdicts {'no_majority': 3, 'convention': 2, 'model_error': 1}
+   inact FAKE planted in consensus (truth label_correct): majority right 5/6; majority verdicts {'ambiguous': 1, 'no_majority': 3, 'unverifiable': 1, 'label_error': 1}
+   inact FAKE planted in label (truth label_error): majority right 2/6; majority verdicts {'no_majority': 3, 'label_error': 2, 'model_error': 1}
+
+## Candidates (124 image-supported audit candidates): majority verdict of 3 raters
+
+### class crack: 78 candidates in 39 cells; Fleiss kappa binary 0.095, 5 categories -0.016
+majority verdicts: {'no_majority': 40, 'convention': 12, 'ambiguous': 7, 'label_error': 10, 'model_error': 4, 'unverifiable': 5}
+label error (>= 2 of 3): 10/78 = 0.128, Wilson [0.071, 0.220]; px-weighted 1891/7795 = 0.243
+cell-cluster bootstrap 95% CI of the share: [0.057, 0.197]
+Rogan-Gladen share corrected for rater sens / spec: nan, joint bootstrap 95% CI [0.000, 0.741] (178 of 200 draws undefined, J <= 0)
+   type MC: 5/46 label error, Wilson [0.047, 0.230]; verdicts {'no_majority': 21, 'convention': 9, 'ambiguous': 5, 'label_error': 5, 'model_error': 4, 'unverifiable': 2}
+   type SC: 5/32 label error, Wilson [0.069, 0.318]; verdicts {'no_majority': 19, 'label_error': 5, 'convention': 3, 'ambiguous': 2, 'unverifiable': 3}
+   source ARTS: 1/4 label error; verdicts {'convention': 1, 'label_error': 1, 'unverifiable': 1, 'no_majority': 1}
+   source BMRK: 1/7 label error; verdicts {'no_majority': 3, 'label_error': 1, 'unverifiable': 1, 'ambiguous': 2}
+   source CFVS: 4/26 label error; verdicts {'no_majority': 12, 'convention': 8, 'label_error': 4, 'ambiguous': 1, 'model_error': 1}
+   source CSIR: 4/41 label error; verdicts {'ambiguous': 4, 'no_majority': 24, 'label_error': 4, 'convention': 3, 'model_error': 3, 'unverifiable': 3}
+
+### class inact: 46 candidates in 14 cells; Fleiss kappa binary -0.043, 5 categories -0.013
+majority verdicts: {'ambiguous': 6, 'label_error': 4, 'no_majority': 23, 'unverifiable': 3, 'convention': 4, 'model_error': 6}
+label error (>= 2 of 3): 4/46 = 0.087, Wilson [0.034, 0.203]; px-weighted 2726/26612 = 0.102
+cell-cluster bootstrap 95% CI of the share: [0.019, 0.212]
+Rogan-Gladen share corrected for rater sens / spec: nan, joint bootstrap 95% CI [0.000, 0.976] (169 of 200 draws undefined, J <= 0)
+   type MI: 2/6 label error, Wilson [0.097, 0.700]; verdicts {'label_error': 2, 'unverifiable': 1, 'no_majority': 3}
+   type SI: 2/40 label error, Wilson [0.014, 0.165]; verdicts {'ambiguous': 6, 'no_majority': 20, 'label_error': 2, 'convention': 4, 'model_error': 6, 'unverifiable': 2}
+   source ARTS: 0/1 label error; verdicts {'no_majority': 1}
+   source BMRK: 0/1 label error; verdicts {'no_majority': 1}
+   source CFVS: 2/20 label error; verdicts {'ambiguous': 4, 'label_error': 2, 'unverifiable': 2, 'no_majority': 8, 'model_error': 3, 'convention': 1}
+   source CSIR: 2/24 label error; verdicts {'label_error': 2, 'no_majority': 13, 'convention': 3, 'ambiguous': 2, 'unverifiable': 1, 'model_error': 3}
+
+## Pre-registered decision
+F5 (crack label errors): G1 majority sens 0.111 >= 0.7 and spec 0.722 >= 0.8: FAIL; G2 J lower bound -0.390 >= 0.3: FAIL; G3 raters passing alone 0 >= 2: FAIL; G4 candidate kappa 0.095 >= 0.4: FAIL
+  -> raters not trusted for crack: F5 (crack label errors) STAYS SUGGESTIVE. The verdict counts above are uncalibrated rater opinion (S) and may only be cited as such.
+F4 (inactive label errors): G1 majority sens 0.167 >= 0.7 and spec 0.667 >= 0.8: FAIL; G2 J lower bound -0.500 >= 0.3: FAIL; G3 raters passing alone 0 >= 2: FAIL; G4 candidate kappa -0.043 >= 0.4: FAIL
+  -> raters not trusted for inact: F4 (inactive label errors) STAYS SUGGESTIVE. The verdict counts above are uncalibrated rater opinion (S) and may only be cited as such.
+
+## Descriptive: the auditor's one non-expert look (out/a_visual_check.tsv) vs the rater majority (matched on stem, type, px; only rated, image-supported candidates)
+   auditor ambiguous            raters convention     1
+   auditor ambiguous            raters label_error    2
+   auditor ambiguous            raters no_majority    3
+   auditor convention           raters convention     2
+   auditor convention           raters no_majority    1
+   auditor label_error_likely   raters ambiguous      1
+   auditor label_error_likely   raters convention     1
+   auditor label_error_likely   raters label_error    3
+   auditor label_error_likely   raters model_error    1
+   auditor label_error_likely   raters no_majority    4
+   matched 19 of 30 auditor rows (the rest are unsupported candidates, not rated)

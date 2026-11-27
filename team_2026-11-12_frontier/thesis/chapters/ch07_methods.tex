@@ -1,0 +1,254 @@
+% ch07_methods.tex: Chapter 7, Baselines and methods under the protocol.
+% Every number is traced in ch07_methods_NOTES.md. Tables are referenced, not copied (thesis_tables.tex).
+\chapter{Baselines and methods under the protocol}\label{ch:methods}
+
+This chapter reports every model and method we ran under the benchmark protocol of Chapter~\ref{ch:protocol}, on the 532 pool
+cells (P532) only, each cell scored once by a model that did not train on its fold. Nothing in this chapter is a statement about
+unseen modules; Chapter~\ref{ch:e1_result} gives the one sealed test. The work ran in two tiers. Screens trained 2 seeds on
+the older split cv5v2 and could only promote an arm, never establish a result (Section~\ref{sec:m-suite} and
+Section~\ref{sec:m-screens}). Rows trained 5 seeds (seeds 5 to 9) on the corrected split cv5v3, in which no physical module
+spans two folds, and were read against a rule registered before the read (Sections~\ref{sec:m-confirm} to~\ref{sec:m-final}).
+Section~\ref{sec:m-robust} tests the contrasts against label variants, and Section~\ref{sec:m-weak} states what was done for the
+weak classes.
+
+The rules are those of Chapter~\ref{ch:protocol}. Crack relF1@2 decides. A crack gain counts only if, at OP-A (argmax) and at
+OP-W (a crack bias cross-fitted so that the predicted crack width matches the reference), on the 532 cells and on the 416 clean
+cells, the gain is at least the margin M = 0.010 and the lower end of the 95\% two-stage group-bootstrap interval is above 0,
+and no guard fails: crack width within 0.85 to 1.15 times the reference, pooled and per source with at least 40 cells; false
+crack pixels on crack-free cells at most 1.5 times the reference; mIoU-R13 and inactive IoU not lower by more than their margins.
+Strict crack IoU is printed with its convention band $\pm$0.019 and decides nothing. M covers seed noise, not the choice of
+folds. All 5-seed rows were trained on one machine; part of the screens were trained on a second machine, and no read mixes
+models of the two.
+
+\section{The reference recipes: PF and HOUSE}\label{sec:m-ref}
+
+Both reference recipes use U-Net++ \citep{zhou2018unetpp} with an ImageNet ResNet-34 encoder \citep{he2015resnet}, one input
+channel, 512 px, batch 8, Adam at learning rate $10^{-3}$ with a 200-step warm-up and cosine decay, weight decay $10^{-4}$,
+20,000 steps, cross-entropy plus soft Dice on crack and inactive, and label-safe augmentation (flips, quarter turns, brightness
+and contrast). HOUSE is this recipe with a plain fine-tune. PF, the encoder-preserving fine-tune, freezes the encoder for
+1,000 steps, then ramps it to 0.1 times the learning rate over the next 1,000 steps, with no encoder weight decay. PF is the baseline of every contrast:
+the plain fine-tune erases the pretrained deep encoder stages, and PF keeps them (Chapter~\ref{ch:legacy}).
+
+On cv5v3 (Table~\ref{tab:T5}; OP-A, mean over seeds 5 to 9) PF reaches crack relF1@2 0.8463 (0.8264 on the 416 clean cells),
+strict crack IoU 0.3653, inactive IoU 0.5042 and mIoU-R13 0.6116, with 212 false crack pixels on the crack-free cells and a
+width ratio of 1.0189. HOUSE reaches 0.852, 0.383, 0.514 and 0.607, with 774 false crack pixels and a width ratio of 1.13.
+
+HOUSE $-$ PF has no registered rule; its intervals were read afterwards and are printed only (Table~\ref{tab:T6}, last but one
+row). On relF1@2 the contrast is +0.0059 [$-$0.0043, +0.0152] at 532 cells and OP-A, and its interval holds 0 at all four values
+(+0.0034, +0.0066 and +0.0025 at the other three). Strict crack IoU is +0.0179 [+0.0093, +0.0266], inside the convention band.
+Nine guard items are outside a bound: the ARTS width at all four values (1.307 / 1.167 / 1.370 / 1.190), the CFVS width on the
+416 cells at OP-A (1.164), and false crack pixels at 2.55 to 3.66 times PF. Our reading (judgement): HOUSE draws cracks wider
+and makes more false crack pixels than PF; its strict-IoU edge is within the size a change of line-width convention produces
+(Section~\ref{sec:m-robust}), and on relF1@2 it is not separated from PF. HOUSE stays a row of its own, and any arm that claims
+an in-distribution crack gain is also printed against it (the HOUSE rule; Section~\ref{sec:m-final}).
+
+\section{The baseline suite: models of the EL papers under equal training}\label{sec:m-suite}
+
+The first screen tranche asks how the model families of published EL segmentation work compare with PF when every row gets the
+same data, labels, steps and augmentation (Table~\ref{tab:T15}; cv5v2, 2 seeds against 5 PF seeds, 532 cells, argmax). The
+rows are not reproductions of the published numbers: the UCF-EL row uses ImageNet weights rather than COCO weights and no
+auxiliary head, and the Pratt row uses our augmentation with the paper's weighted loss. The cv5v2 split carries a module leak
+(Chapter~\ref{ch:data}); all arms share it, so contrasts between arms stay valid.
+
+Against PF on crack relF1@2 (Table~\ref{tab:T16a}), U-Net with a ResNet-34 encoder \citep{ronneberger2015unet} is at
+$-$0.0016 [$-$0.0110, +0.0073], and the VGG-16 U-Net of \citet{hanifi2025multiclass} at $-$0.0064 [$-$0.0189, +0.0042]: neither
+is separated from PF. DeepLabV3+ with ResNet-34 \citep{chen2018deeplabv3plus}, output stride 4, is at $-$0.0093
+[$-$0.0204, +0.0019] at argmax and $-$0.0199 [$-$0.0325, $-$0.0086] once its width is matched; it draws cracks 1.21 times as wide
+as labelled, which hides part of the loss at argmax. Two models from EL papers sit clearly below PF at both operating points: the
+DeepLabV3 / ResNet-50 of UCF-EL \citep{chen2017deeplabv3,fioresi2022ucfel}, output stride 8, at $-$0.0773 [$-$0.0892, $-$0.0594],
+and the DeepLabV3+ with the weighted cross-entropy of \citet{pratt2023benchmark} at $-$0.0932 [$-$0.1113, $-$0.0774]. The weighted loss makes
+cracks 3.05 times too wide (relP@2 0.648, relR@2 0.892); with the width matched it is still at $-$0.0899 [$-$0.1130, $-$0.0693].
+
+Two readings follow, both judgement. No decoder effect was detected here: plain U-Net is not separated from U-Net++ on relF1@2 ($-$0.0016 [$-$0.0110, +0.0073]). Output stride
+does: stride 4 costs about 0.02 relF1@2 once width is matched, and stride 8 about 0.08 to 0.10. Nothing in this tranche beats PF
+or HOUSE. The limits are 2 seeds per row, one machine and pool cells of known modules only.
+
+\section{Screens that did not pass}\label{sec:m-screens}
+
+Each further arm took a published idea that targets one of the problems of this data (thin cracks, rare classes, the encoder
+fine-tune, generalisation across sources) and adapted it to the PF recipe. Table~\ref{tab:T16a} lists the primary contrast and
+the verdict of every arm that did not pass; Table~\ref{tab:T15} gives the levels and Figure~\ref{fig:F10} the contrasts against PF. Two arms passed their screen and were
+promoted: HRNet-W18 U-Net++ \citep{wang2021hrnet} (+0.0114 [+0.0032, +0.0203] at OP-A and +0.0128 [+0.0041, +0.0221] at OP-W)
+and constant-rate weight averaging after SWAD \citep{cha2021swad} (+0.0135 [+0.0051, +0.0221] at OP-A). A screen pass is a
+promotion to a 5-seed row, not a result; Section~\ref{sec:m-confirm} reads both.
+
+\FIG{F10}{Crack relF1@2 contrast of each arm against PF (pool cells, out of fold, OP-A) with 95\% two-stage group-bootstrap intervals.
+Squares: 5-seed rows on cv5v3; circles: 2-seed screens on cv5v2, run on the training machine or a second machine, each read against
+its own PF. Open squares (*): CS and CS\_D4, selection-biased. Dashed line: M = 0.010. Verdicts are those of Tables~\ref{tab:T6},
+\ref{tab:T7a}, \ref{tab:T16a} and~\ref{tab:T16b}; a contrast at or above M does not pass by itself.}
+
+The arms that did not pass, each on crack relF1@2 against its comparator at OP-A unless stated:
+\begin{itemize}
+  \item \textbf{Skeleton Recall loss} \citep{kirchhoff2024skeletonrecall}: +0.0039 [$-$0.0027, +0.0115], SCREEN FAIL, closed. At
+  argmax its recall gain comes with 12\% wider cracks (width ratio 1.13) and lower precision; with the width matched, every crack
+  metric is within 0.005 of PF. Our reading (judgement): the loss moves the operating point, not the frontier.
+  \item \textbf{SegFormer MiT-B2} \citep{xie2021segformer}: $-$0.0026 [$-$0.0132, +0.0095] at OP-A and $-$0.0135 [$-$0.0259,
+  $-$0.0005] at OP-W, SCREEN FAIL, closed. It draws cracks 1.20 times as wide as labelled, outside the width band for every
+  source.
+  \item \textbf{Rare-class sampling} from DAFormer \citep{hoyer2022daformer}: $-$0.0085 [$-$0.0187, $-$0.0004], screen FAIL. The
+  sampler gains on the rare splice class and pays with crack quality, and its false crack pixels rise to 1.68 times PF.
+  \item \textbf{Post-hoc weight EMA} \citep{moralesbrotons2024ema} over the PF runs: +0.0018 [$-$0.0047, +0.0081] against the
+  same runs without it, null.
+  \item \textbf{Jaccard metric loss} \citep{wang2023jml}: the hard-label control is at $-$0.0004 [$-$0.0086, +0.0064], null; the
+  soft-band variant against it is +0.0046 [$-$0.0033, +0.0127], SCREEN FAIL, closed, again an operating-point shift (cracks 7\%
+  wider).
+  \item \textbf{Selective projection decay on the encoder} \citep{tian2024spd}: its mechanism gate failed (the encoder moved
+  further from its start than the gate allowed), so the read is descriptive: +0.0007 [$-$0.0272, +0.0130].
+  \item \textbf{Decision layers and inactive arms}: train-time logit offsets (mIoU-R13 at argmax against PF at OP-C, $-$0.0022 [$-$0.0112, +0.0060],
+  dropped), an auxiliary inactive head with a layered decision (inactive region recall $-$0.0140 [$-$0.0767, +0.0556], parked),
+  a per-source crack bias at inference ($+$0.0003 [$-$0.0046, +0.0132] strict crack IoU, closed) and dual-threshold hysteresis
+  (+0.0011 [$-$0.0016, +0.0062], closed). A crack bias fitted for F1 (OP-F) is unstable under A/A ($-$0.0118 [$-$0.0357,
+  $-$0.0005] crack IoU) and is printed only.
+  \item \textbf{Not run}: a domain-randomisation augmentation \citep{ouyang2021gin} was parked before any run.
+\end{itemize}
+Skeleton Recall was also read on the leave-source-out instrument U1 (CSIR and BMRK held out, 164 cells): +0.0206
+[$-$0.0518, +0.0744], a guard read that decides nothing. Our reading (judgement): on these cells, losses that reshape the crack
+drawing (Skeleton Recall, soft-band Jaccard) move along the precision and recall trade-off rather than past it, and the arms
+aimed at rare classes buy them with crack quality.
+
+\section{Five-seed confirmations on cv5v3}\label{sec:m-confirm}
+
+The two promoted arms and their combination ran as 5-seed rows on cv5v3, each read once under a rule written before the read
+(Table~\ref{tab:T6}; Table~\ref{tab:T16b} collects the rows that did not pass). Figure~\ref{fig:F11} shows the false-pixel and width guards at OP-A.
+
+\FIG{F11}{Guard values per arm on cv5v3 (5 seeds, OP-A), each against PF. (a) False crack pixels on the crack-free cells as a multiple
+of PF; shaded: allowed range up to 1.5 $\times$ PF. (b) Crack width ratio arm / PF, pooled and on ARTS; shaded: 0.85 to 1.15. Filled
+markers: 532 pool cells; open: 416 clean cells. CS and CS\_D4 (*) are selection-biased; HOUSE has no registered rule. OP-W values are
+not drawn.}
+
+\paragraph{HRNet-W18 U-Net++.} HRNET $-$ PF is +0.0104 [+0.0012, +0.0203] at 532 cells and OP-A, +0.0117 [+0.0019, +0.0220] at
+OP-W, +0.0115 [+0.00001, +0.0259] and +0.0126 [+0.0006, +0.0273] on the 416 clean cells: the headline passes at all four values,
+and every seed is positive. Two guards fail: false crack pixels at 2.90 to 4.15 times PF at all four values, and the ARTS width
+at 1.162 on the 416 cells at OP-W. The verdict is NOT CONFIRMED, reported as a gain with failing guard items. The gain is recall
+at equal precision (relR@2 +0.015 at OP-A and +0.023 at OP-W; relP@2 +0.004 and $-$0.001), and strict crack IoU does not move
+(+0.0008 [$-$0.0105, +0.0111]). In absolute terms the false-pixel excess is about 1.8 px per crack-free cell; PF's encoder freeze
+makes PF unusually clean on these cells (212 px), so the 1.5 times PF bound is tight for any arm without the freeze. Against
+HOUSE, HRNET is at +0.0045 [$-$0.0069, +0.0157], a secondary contrast that decides nothing.
+
+\paragraph{Weight averaging.} The SWAD arm keeps the PF recipe, holds the learning rate constant after warm-up and averages
+every iterate of steps 10,000 to 20,000 uniformly; its registered readout (\texttt{swad\_bn}) re-estimates the batch-norm
+statistics on the training fold, and its declared secondary readout (\texttt{swad}) keeps them. SWADBN $-$ PF is +0.0070
+[$-$0.0007, +0.0156] at 532 cells and OP-A; no value reaches M (the 416-cell OP-A value is +0.0098 [+0.0009, +0.0198]), and
+the secondary readout does no better (+0.0064 [$-$0.0009, +0.0138]). The verdict is NOT CONFIRMED (no confirmed gain); SWADBN
+also fails 5 guard items (the ARTS width, and false crack pixels at 1.60 times PF). Strict crack IoU rises, +0.0180 [+0.0108,
++0.0262], but this is a line-width convention effect, not a better crack map: re-scored on the 1-px centreline labels the gain
+is +0.0047 and no longer passes (Section~\ref{sec:m-robust}). On the screen the same arm had +0.0135; at 5 seeds on the
+corrected split it is +0.0070. Our reading (judgement): the screen effect shrank by about half, as an arm selected on a 2-seed
+screen is expected to.
+
+\paragraph{HRNet + SWAD.} The combination, read with \texttt{swad\_bn} as registered (COMBO), is at +0.0154 [+0.0065, +0.0260]
+at 532 cells and OP-A, +0.0158 [+0.0069, +0.0264] at OP-W, and +0.0167 and +0.0166 on the 416 cells, with every seed positive.
+It fails 8 guard items: the ARTS width (1.174 to 1.242) and false crack pixels (1.62 to 1.84 times PF). The verdict is NOT
+CONFIRMED, reported as a gain with the failing guards named. Its pre-declared secondary contrasts against each part are NO LOSS
+(COMBO $-$ HRNET +0.0050 [$-$0.0041, +0.0141]; COMBO $-$ SWADBN +0.0085 [$-$0.0017, +0.0183]). The \texttt{swad} readout of the
+same runs (CS) is at +0.0166 [+0.0082, +0.0263] (selection-biased: this readout was later chosen on these cells), keeps the false crack pixels at PF's level and fails only the ARTS width on the
+416 cells; because it was declared secondary, it cannot be claimed from this read.
+
+So no trained arm was confirmed on CV5 under its registered rule: HRNet and the combination gain on the headline but fail guards,
+and weight averaging does not reach the margin. Our reading (judgement): the failing guards are partly a property of the
+reference. PF is unusually clean on crack-free cells, and the width guard is relative to PF, which draws ARTS cracks thinner than they
+are labelled (on the 131 ARTS cells among the 416 clean cells, PF's width ratio is 0.7832 and that of CS\_D4 0.9078;
+Table~\ref{tab:T7b}). An arm
+that draws ARTS cracks closer to the label width then fails the band, so the guard measures an annotation convention as much as a
+model.
+
+\section{Test-time augmentation}\label{sec:m-tta}
+
+D4 test-time augmentation predicts each cell in 8 views (four quarter turns, each with and without a flip), maps the softmax of
+each view back and averages them. It needs no training and costs 8 times the forward passes. Table~\ref{tab:T7a} gives the
+registered TTA read on cv5v3 (5 folds by 5 seeds per arm), and Table~\ref{tab:T7b} its guard values and the earlier read it
+replicates.
+
+\paragraph{D4 on PF.} PF\_D4 $-$ PF is +0.0134 [+0.0066, +0.0207] at 532 cells and OP-A, and +0.0132 at each of the other three
+values, with no failing guard item: CONFIRMED. False crack pixels on the crack-free cells fall from 212 to 32 (0.15 times PF), and
+the pooled width ratio is 1.021. The result replicates an earlier TTA read on the other machine and split (cv5v2, 2 PF seeds),
+where 8 views gave +0.0173 [+0.0115, +0.0230] (printed beside) and a 24-view variant with scales passed its registered score claim
+at +0.0142 [+0.0079, +0.0202]. This is the one confirmed CV5 crack gain of the thesis, and it holds for cells of known modules: on E1
+the D4 part is not resolved (Chapter~\ref{ch:e1_result}).
+
+\paragraph{D4 on the candidate.} On the HRNet + SWAD candidate with the \texttt{swad} readout, CS\_D4 $-$ CS is +0.0055
+[$-$0.0002, +0.0115] (selection-biased: the \texttt{swad} readout was chosen on these cells): NOT CONFIRMED, NO LOSS. D4 still
+halves the candidate's false crack pixels (213 to 98; selection-biased) and fails no guard; with the same views on both sides,
+CS\_D4 $-$ PF\_D4 is +0.0087 [+0.0017, +0.0157] (descriptive; selection-biased). Our reading (judgement): D4
+and the model change overlap, so on the candidate D4 adds less than on PF. The read raised a flag because D4 costs 8 times the
+inference without a confirmed gain on the candidate; we kept D4 in the final recipe before the sealed opening was registered.
+
+\section{The final recipe and its CV5 check}\label{sec:m-final}
+
+With no confirmed single arm, the combination's registered rule had no fallback to name, and we chose the final recipe from the
+evidence above: C2 = HRNet-W18 U-Net++ trained under the PF recipe with SWAD weight averaging, the \texttt{swad} readout, and D4.
+The \texttt{swad} readout was chosen after the combination read on these same cells, and D4 was adopted from the earlier TTA read.
+Both choices used pool cells, so every CS and CS\_D4 number in this section is selection-biased; the unbiased test is the E1
+opening of Chapter~\ref{ch:e1_result}.
+
+\paragraph{The check.} CS\_D4 $-$ PF is +0.0222 [+0.0138, +0.0308] at 532 cells and OP-A, +0.0228 at OP-W, and +0.0230 and
++0.0229 on the 416 cells (Table~\ref{tab:T7a}, item (c); examples in Figure~\ref{fig:F21}). On CV5 the C2 recipe (CS\_D4) passes its check against PF
+(selection-biased); the ARTS width guard fails on the 416 clean cells at OP-A and OP-W (1.159 against the 1.15 band; named) and
+passes on the 532 cells. The other guards pass: false crack pixels at 0.46 times PF (98 against 212), mIoU-R13 +0.0117
+[+0.0046, +0.0193], and inactive IoU +0.0328 [$-$0.0128, +0.0826], which is within its allowed drop but is not a gain. Strict
+crack IoU is +0.0288 [+0.0197, +0.0374], outside the convention band, and decides nothing. Per seed, the plain candidate beats PF
+in all 5 seeds (CS $-$ PF +0.014 to +0.022). Here ``C2'' is the CV5 version of the recipe (the cv5v3 fold models); the full-pool
+models of Chapter~\ref{ch:e1_result} have no CV5 score of their own.
+
+\paragraph{The HOUSE rule.} The protocol prints any in-distribution crack gain also against HOUSE. The two HOUSE-rule rows of
+Table~\ref{tab:T7a} were read afterwards, are selection-biased, and decide nothing. CS\_D4 $-$ HOUSE, the rule as written, is
++0.0163 [+0.0051, +0.0284] at 532 cells and OP-A, +0.0194 [+0.0080, +0.0319] at OP-W, and +0.0164 [+0.0033, +0.0318] and
++0.0204 [+0.0073, +0.0369] on the 416 cells; strict crack IoU is +0.0110 [+0.0029, +0.0198], inside the band. Two items are
+outside a bound with HOUSE as reference: the ARTS width at OP-A, 0.847 (532) and 0.846 (416), just below 0.85, because HOUSE
+itself draws wide ARTS cracks. As written, the rule compares an 8-view arm with a single-view HOUSE, and no HOUSE D4 predictions
+exist. The single-view line, CS $-$ HOUSE, is +0.0107 [$-$0.0009, +0.0229] at OP-A, holding 0 at OP-A on both cell sets, and
++0.0140 [+0.0017, +0.0269] at OP-W. Our reading (judgement): in distribution, the HRNet + SWAD model alone is not separated
+from HOUSE at argmax, and D4 supplies the rest of the edge.
+
+\paragraph{The crack target.} The operating target set at the start of this work, relR@2 of at least 0.90 at relP@2 of at least
+0.90, is not reached on CV5 either: at OP-A, CS\_D4 is at relP@2 0.9216 and relR@2 0.8211 (selection-biased), and PF at 0.8953
+and 0.8024 (Figure~\ref{fig:F12}).
+
+\FIG{F12}{Crack relP@2 against relR@2 on cv5v3 (532 pool cells, out of fold) for PF, PF\_D4, CS and CS\_D4 at three operating points,
+OP-A (argmax, filled), OP-W (width-matched) and OP-F (F1 bias): means over seeds 5 to 9 with SD bars; PF's OP-A and OP-W coincide.
+Small dots: per seed, the arm's relR@2 at PF's OP-A relP@2 and its relP@2 at PF's OP-A relR@2. Shaded: the 0.90 / 0.90 target, which
+no arm reaches. CS and CS\_D4 (*) are selection-biased.}
+
+\section{Robustness of the contrasts}\label{sec:m-robust}
+
+The dataset audit (Chapter~\ref{ch:data}) re-scored the same out-of-fold predictions of the 5-seed rows on four label variants
+(the older release, the 1-px centreline of v1.1, a 3-px redraw, and v1.1 with the audit's label-error candidates ignored) and
+removed module groups greedily until each relF1@2 contrast reached 0 (Table~\ref{tab:T19b}). The relF1@2 contrasts survive every
+variant, shifting by at most 0.003: COMBO $-$ PF stays a pass under all four (+0.0128 to +0.0161), and HRNET $-$ PF moves from
++0.0104 to +0.0073 on the 3-px labels, below M. The strict-IoU gains of HOUSE and SWAD do not survive a change of line-width
+convention: on the centreline labels they fall to +0.0015 and +0.0047. The crack contrasts that pass rest on few module groups:
+the HRNet + SWAD contrast reaches 0 after removing 31 groups, the HRNet contrast after 17, and HOUSE's relF1@2 edge after 4, out of
+the 125 groups that hold crack pixels. Greedy removal is a worst case, not a sampling distribution. Our reading (judgement):
+relF1@2 is the right decision metric for these labels, and a strict-IoU gain on this data should be read as a statement about the
+width of the drawn line until shown otherwise.
+
+\FIG{F21}{Out-of-fold examples on pool cells (cv5v3): image, v1.1 label, and PF and C2-recipe (CS\_D4) predictions, both seed 5 at OP-A.
+Rows were chosen by a fixed rule from the 190 clean cells with at least 20 crack pixels: the median and the 25th percentile of the C2
+gain in relF1@2 over PF (mean over seeds 5 to 9), and the largest C2 loss against PF. The \texttt{swad} readout was chosen on these
+cells, so the C2 values are selection-biased. Pool cells only; no sealed cell is shown.}
+
+\section{Weak classes}\label{sec:m-weak}
+
+The goal of this work (Chapter~\ref{ch:intro}) names the other classes as well as crack and inactive. On the pool, gridline, splice, edge dark and material are
+the weak ones, and no training arm here was aimed at them except rare-class sampling, which failed
+(Section~\ref{sec:m-screens}). One decision layer was tested: OP-C adds per-class biases for 11 of the 13 robust classes
+(background and crack stay at 0), fitted on the other 4 folds. It passed its pre-set rule on both machines, raising mIoU-R13 by
++0.0126 [+0.0077, +0.0167] on the machine of the 5-seed rows and by +0.0137 [+0.0107, +0.0169] on the other, mostly through
+gridline (+0.058 and +0.060) and splice (+0.075 and +0.092); about a third of the gain is splice at a precision of 0.15 to 0.20.
+OP-C was adopted as the comparator for arms that shift class priors, an entry of the decision-layer class, but no final model
+uses it. On E1 material and edge dark stay at 0 for every arm (Chapter~\ref{ch:e1_result}). The weak classes are not solved in
+this work.
+
+\section{Summary}\label{sec:m-summary}
+
+\begin{itemize}
+  \item Under equal training, two models of the EL papers sit below PF on crack relF1@2 (UCF-EL's DeepLabV3 $-$0.0773, Pratt's
+  weighted loss $-$0.0932), and a third (Hanifi's VGG-16 U-Net) is not separated from it; no decoder effect was detected, an output-stride effect was (2-seed screens on cv5v2).
+  \item None of the 5-seed rows was confirmed: HRNet-W18 and HRNet + SWAD gain on the headline but fail
+  guards, and weight averaging does not reach the margin; its strict-IoU gain is a line-width convention effect.
+  \item D4 TTA on PF is CONFIRMED on CV5 (+0.0134 [+0.0066, +0.0207]); on the candidate it is NOT CONFIRMED, NO LOSS.
+  \item The final recipe C2 (HRNet-W18 U-Net++ + SWAD, \texttt{swad} readout, + D4) passes its CV5 check against PF,
+  selection-biased, with the ARTS width guard failing on the 416 clean cells (named). The unbiased test is E1
+  (Chapter~\ref{ch:e1_result}).
+  \item The 0.90 / 0.90 crack target is not reached, and the weak classes are not solved.
+\end{itemize}

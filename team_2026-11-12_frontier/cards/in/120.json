@@ -1,0 +1,59 @@
+{
+ "paper_id": "doi:10.1109/icra46639.2022.9811702",
+ "title": "Striking the Right Balance: Recall Loss for Semantic Segmentation",
+ "year": 2022,
+ "venue": "ICRA",
+ "url": "https://arxiv.org/abs/2106.14917",
+ "code_url": "https://github.com/PotatoTian/recall-semseg",
+ "mechanism": "Weight CE per class by (1 - running recall), interpolating between plain CE and inverse-frequency CE, so under-called classes get more weight only while they are under-called.",
+ "adaptation": "EMA recall per class across batches (splice absent from most batches of 8). Targets gridline recall 0.33 and splice recall 0. Follow with per-class post-hoc bias to recover precision lost.",
+ "min_experiment": "Arm: recall-weighted CE + Dice(crack, inactive), 3 seeds, then OOF bias; baseline SUP100 and R2c; metric gridline IoU and mIoU_rob; kill if gridline IoU not above 0.357 (R2c) or mIoU_rob < +0.01.",
+ "score": 58,
+ "bench_score": 45,
+ "bet": "medium",
+ "evidence": "R: Synthia, DeepLab-ResNet18: +9% relative mean accuracy with competitive mIoU.",
+ "gpu_hours": 4,
+ "prior_overlap": "Partial: Dice on gridline (R2c) already showed recall gain at precision cost (gridline 0.283 -> 0.357, mIoU_rob n.d.). Recall-weighted CE across all classes not tested.",
+ "targets": [
+  "other_classes"
+ ],
+ "directions": [
+  "D18",
+  "D19",
+  "D20"
+ ],
+ "scout_scores": [
+  44,
+  44,
+  58,
+  48
+ ],
+ "alt_notes": [
+  {
+   "from": "D18",
+   "adaptation": "Targets gridline (recall 0.33) and splice (never predicted); monitor crack precision.",
+   "min_experiment": "Arm: recall loss, 5 seeds; baseline SUP100. Kill: gridline IoU < +0.03 and splice still 0.",
+   "score": 44
+  },
+  {
+   "from": "D18",
+   "adaptation": "Targets gridline (recall 0.33) and splice (never predicted) on the 24-class head; crack precision must be checked.",
+   "min_experiment": "Arm recall loss + house Dice vs SUP100, 5 v 5. Kill if gridline IoU < +0.03 and splice IoU still 0, or crack IoU < -0.012.",
+   "score": 44
+  },
+  {
+   "from": "D20",
+   "adaptation": "All 24 classes with EMA recall over batches; aims at gridline (recall 0.33) and splice (never predicted) without fixed inverse-frequency weights that flood FPs.",
+   "min_experiment": "Arm: recall-weighted CE + house Dice, 5 seeds. Baseline: house. Metrics: mIoU_rob, gridline / splice / edge_dark IoU, crack IoU. Kill: mIoU_rob < house + 0.005.",
+   "score": 48
+  }
+ ],
+ "final": 58,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 120,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

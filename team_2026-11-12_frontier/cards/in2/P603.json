@@ -1,0 +1,44 @@
+{
+ "paper_id": "doi:10.1007/978-3-032-12840-9_28",
+ "title": "Rethinking Semi-supervised Segmentation Beyond Accuracy: Reliability and Robustness",
+ "year": 2025,
+ "venue": "GCPR 2025 (LNCS)",
+ "url": "https://arxiv.org/abs/2506.05917",
+ "code_url": "",
+ "mechanism": "Reliable Segmentation Score: a harmonic mean of accuracy, calibration and uncertainty quality. SSL methods such as UniMatch V2 gain accuracy and robustness but lose calibration and uncertainty quality relative to supervised training.",
+ "adaptation": "In the benchmark, report ECE and an uncertainty metric next to crack relF1@2 and inactive IoU for every SSL or FM arm. Calibrated probabilities matter for severity outputs such as inactive area fraction and power-loss band.",
+ "min_experiment": "No training. Compute ECE and RSS on existing house, PF and ensemble predictions on val/F51, and add them to the benchmark protocol.",
+ "evidence": "R (from the arXiv page via web search): UniMatch V2 has better predictive performance and robustness but is often less calibrated, with less reliable uncertainty, than its supervised counterpart.",
+ "gpu_hours": 0,
+ "bet": "safe",
+ "score": 15,
+ "bench_score": 65,
+ "targets": [
+  "benchmark",
+  "measurement",
+  "severity"
+ ],
+ "prior_overlap": "None.",
+ "directions": [
+  "D29"
+ ],
+ "scout_scores": [
+  10,
+  15
+ ],
+ "alt_notes": [
+  {
+   "from": "D29",
+   "adaptation": "Benchmark: report calibration (ECE) and uncertainty quality next to crack relF1@2 for every SSL, ensemble and VFM arm. Calibration also decides how well the val-chosen crack logit bias transfers to E1.",
+   "min_experiment": "No training. Add ECE and AURC on clean-49 and E1 to the benchmark harness and compute them for the existing house, PF and ensemble predictions.",
+   "score": 10
+  }
+ ],
+ "final": 15,
+ "bench": 65,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 603,
+ "pid": "P603"
+}

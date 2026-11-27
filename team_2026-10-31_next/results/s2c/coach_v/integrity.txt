@@ -1,0 +1,115 @@
+# coach integrity, SKR2C opening (E1 #7); host giant, user noob, 2026-11-14_05:03:40_IST
+## 1. FROZEN
+  [ok] FROZEN.md5 md5: gaint open/ 836be7e5, project 836be7e5, copy in post/ 836be7e5 == registered 836be7e5
+  [ok] gaint md5sum -c FROZEN.md5 (27 files)
+  [ok] project md5sum -c FROZEN.md5
+  [ok] gaint md5sum -c s2c_copies.md5 (10 files)
+  [ok] files in open/ == FROZEN list (27 files) | extra [] missing []
+  [ok] no writable file and no __pycache__ in open/ | writable []
+  newest file mtime in open/: 2026-11-14_00:00:11 (opening start 2026-11-14 00:22:45)
+## 2. MANIFESTs
+  [ok] post/MANIFEST.md5 md5 source bb6dffeafbdf68764b08400cc22441bb == copy == expected
+  [ok] post source md5sum -c
+  [ok] post copy md5sum -c
+  [ok] post: 354 files at source == copy; MANIFEST covers all but itself (353 lines)
+  [ok] d_out/MANIFEST.md5 md5 source 648ff42b00b11d0535d5a6aaed59214e == copy == expected
+  [ok] d_out source md5sum -c
+  [ok] d_out copy md5sum -c
+  [ok] d_out: 15 files at source == copy; MANIFEST covers all but itself (14 lines)
+## 3. end lines
+  opening.log: [Sat Nov 14 12:22:45 AM IST 2026] s2c opening start pid 1727422; FROZEN.md5 836be7e50c509339266097f4ba712f67: md5sum -c OK (27 files); R starts (GS 9900)
+  opening.log: [Sat Nov 14 03:36:26 AM IST 2026] R ended rc=0
+  opening.log: [Sat Nov 14 03:54:53 AM IST 2026] D ended rc=0
+  opening.log: [Sat Nov 14 03:54:53 AM IST 2026] D real-splits assert rc=0 (d_realsplits.txt)
+  opening.log: [Sat Nov 14 03:54:57 AM IST 2026] d_out/MANIFEST.md5 648ff42b00b11d0535d5a6aaed59214e (14 files)
+  opening.log: [Sat Nov 14 03:54:57 AM IST 2026] s2c opening done: R rc=0 D rc=0
+  post.log: [Sat Nov 14 03:36:26 AM IST 2026] decision passes failed: 0 (decision_rc.txt)
+  post.log: [Sat Nov 14 03:36:26 AM IST 2026] s2c scoring done: post rc=0
+  d_run.log: [2026-11-14 03:36:26] s2c D full start pid 3120491 (script md5 6fccdbdf)
+  d_run.log: [2026-11-14 03:54:53] s2c D full end rc=0
+  [ok] opening.log last line ends 's2c opening done: R rc=0 D rc=0'
+  [ok] post.log last line ends 's2c scoring done: post rc=0'
+  [ok] d_run.log last line ends 's2c D full end rc=0'
+  [ok] no s2c/HOLD, no opening_refused.log, post_pre.log empty
+  [ok] opening.log FROZEN md5 in the start line == 836be7e5
+## 4. rc files
+  [ok] decision_rc.txt: e1_coprim rc=0; b5w rc=0; realsplits_b5 rc=0; guards rc=0; named_boot rc=0
+  [ok] extra_rc.txt: enc_cosine rc=0; cellgate rc=0; scuffign rc=0; realsplits_scuffign rc=0
+## 5a. the opening's own real-splits asserts
+  [ok] realsplits.txt: 11 calls, 11 PASS lines, 116 "-> True", 0 False / FAIL
+   modes: pre x1, rescore x2, m0 x2, la x2, b5 x2, scuffign x2
+  [ok] d_realsplits.txt: ['REALSPLITS d PASS']; 3 E-*.b*.json files
+## 5b. my own real-splits check (stems of every per-cell file vs the real lists)
+  [ok] real lists: el_f3 test a31fad14 (50), val 9dcccf00 (54); el_thin test a31fad14, val 9dcccf00; ext117 stems_eval 5266806b (106)
+  [ok] training root: test.txt 9dcccf00 == val.txt 9dcccf00 (the val copy); SPLITS.md5 24568cdb; real test and val lists share 0 stems; test and E1 share 0
+  [ok] 115 per-cell / per-run files: test stems == the real 50 (a31fad14 list), ext stems == the 106 E1 cells, val stems == the real 54; no file holds the training root's test list as "test" | bad []
+  [ok] B5 dumps of SKR01 in post_work (15 npz) == dump_md5_on_gaint.txt
+  [ok] B5 SKR01/rec: files in post_work == copies in post/ (30 files)
+  [ok] B5 SKR01/rec_w: files in post_work == copies in post/ (30 files)
+  [ok] B5 SKR01/sum: files in post_work == copies in post/ (30 files)
+  [ok] B5 SKR01/sum_w: files in post_work == copies in post/ (30 files)
+  [ok] B5 dumps of SUPPF in post_work (15 npz) == dump_md5_on_gaint.txt
+  [ok] B5 SUPPF/rec: files in post_work == copies in post/ (30 files)
+  [ok] B5 SUPPF/rec_w: files in post_work == copies in post/ (30 files)
+  [ok] B5 SUPPF/sum: files in post_work == copies in post/ (30 files)
+  [ok] B5 SUPPF/sum_w: files in post_work == copies in post/ (30 files)
+## 6. exactly the 10 fresh runs
+  [ok] m0/SKR01: 15 JSONs = s10..s14 x (default, tau0, tau1); run names inside == file names
+  [ok] SKR01: scuffign / rescore / rec / rec_w hold exactly the 5 runs
+  [ok] m0/SUPPF: 15 JSONs = s10..s14 x (default, tau0, tau1); run names inside == file names
+  [ok] SUPPF: scuffign / rescore / rec / rec_w hold exactly the 5 runs
+  [ok] D per-cell files: ['E-SKR2.b-0.45.json', 'E-SKR2.b0.json', 'E-SUPPF.b0.json']
+  [ok] E-SKR2.b-0.45.json: members ['s2c_SKR01_100pct_s10', 's2c_SKR01_100pct_s11', 's2c_SKR01_100pct_s12', 's2c_SKR01_100pct_s13', 's2c_SKR01_100pct_s14']; step 20000; code_revision c9bbb02; model code e544133; bias -0.45
+  [ok] E-SKR2.b0.json: members ['s2c_SKR01_100pct_s10', 's2c_SKR01_100pct_s11', 's2c_SKR01_100pct_s12', 's2c_SKR01_100pct_s13', 's2c_SKR01_100pct_s14']; step 20000; code_revision c9bbb02; model code e544133; bias 0.0
+  [ok] E-SUPPF.b0.json: members ['s2c_SUPPF_100pct_s10', 's2c_SUPPF_100pct_s11', 's2c_SUPPF_100pct_s12', 's2c_SUPPF_100pct_s13', 's2c_SUPPF_100pct_s14']; step 20000; code_revision e544133; model code e544133; bias 0.0
+  [ok] latest.pth md5 of the 10 runs: R init_check.txt == D member_latest_md5.txt == the files now (10 runs) | init 10 member 10
+    s2c_SKR01_100pct_s10 4dfd608be2eda96c2656fe59def6e5be
+    s2c_SKR01_100pct_s11 18cb11752377abc74fa09de6f2fc79d6
+    s2c_SKR01_100pct_s12 18a243485b7f4cc88d37f9ef2772c444
+    s2c_SKR01_100pct_s13 8ea4118f3860ccbafc863ff96b4159b6
+    s2c_SKR01_100pct_s14 ab985291e392cfd6d02a31c3d3873345
+    s2c_SUPPF_100pct_s10 1ed12735ea83f988971e153b9b0aaba2
+    s2c_SUPPF_100pct_s11 b0bce5e463368e48dab195dd95197e10
+    s2c_SUPPF_100pct_s12 ef18adce846907984f58be6411609900
+    s2c_SUPPF_100pct_s13 33d0a7ab540bc70ff7d59e61f1a82222
+    s2c_SUPPF_100pct_s14 3e95eb988190229c7bf4bc2b7db7b0a0
+  [ok] el_thin/experiments: no other s2c_* run dir, no *_STOPPED_* | []
+  [ok] el_f3/experiments: no other s2c_* run dir, no *_STOPPED_* | []
+## 7. scorer md5s
+  [ok] md5sum -c scorer_md5_expected.txt now (22 files)
+  [ok] the opening's scorer_md5.txt: 22 OK of 22
+  [ok] expected list == the md5s named in review_s2c_stage2.md / build_s2c_stage2.md (18 of 22 named there) | {}
+   not named in the review (md5 as pinned by the frozen driver): el_f3/reports/enc_cosine.py d3bc7a70, el_f1/reports/f1/smoke_v1/mim_step0.pth 178b872d, el_f3/reports/pf2/post_extra/B5_DEVICE 4e7ff566, el_f3/experiments/pf2_SUPPF_100pct_s5/config_used.yaml 6aba106a
+  [ok] FROZEN.md5 entries == the 27 md5s of build_s2c_stage2.md section 4 | {}
+  [ok] D scripts copied into d_out == the frozen ones (s2c_d_infer.py 6fccdbdf, s2c_d_run.sh 6f1d305f); settings used 6766a6b0
+  [ok] comparator_check.txt: PF2 3827f7c0, HC d5c39e0d, THIN 5d3f5b31, S2 bd671e26, SKR2E 9b43e636 unchanged
+## 8. tau 0 == default; step; code revision
+  [ok] SKR01: tau0 cells == default cells for all 5 (my comparison); tau1 differs from default in 5 of 5; step 20000; code_revision c9bbb02; conf 24x24
+   the opening's tau0_check_SKR01.txt: tau0 == default cells for all runs: True | step 20000 and code_revision c9bbb02 for all 5 | cells per set {'val': 54, 'val_tta': 54, 'test': 50, 'ext': 106} | conf 24x24
+  [ok] SUPPF: tau0 cells == default cells for all 5 (my comparison); tau1 differs from default in 5 of 5; step 20000; code_revision e544133; conf 24x24
+   the opening's tau0_check_SUPPF.txt: tau0 == default cells for all runs: True | step 20000 and code_revision e544133 for all 5 | cells per set {'val': 54, 'val_tta': 54, 'test': 50, 'ext': 106} | conf 24x24
+## 9. worktrees, queue log, training completeness (counts only), config diffs
+  [ok] el_thin: HEAD c9bbb02 REVISION c9bbb02 tracked changes 0 (expect c9bbb02, 0)
+  [ok] el_f3: HEAD e544133 REVISION e544133 tracked changes 0 (expect e544133, 0)
+  [ok] launch.log md5 5d2544a7 (5d2544a7); "S2C ALL TRAINED (10 rc 0 of 10" x1; HOLD / FAIL / MISMATCH lines 0
+  [ok] autostop.log md5 38dd4f0b: trigger / SIGTERM / SIGKILL lines 0
+  [ok] s2c_SKR01_100pct_s10: stdout header x1, "step 20000/20000" x1, Traceback x0, "val: 54  test: 54" x1; launch.log config OK x1, trained rc=0 x1; rc file 0; seed 10; config diff vs pf2_SUPPF_100pct_s5 beyond run_name / seed / experiments_dir = ['weight: 0.1', 'root: /home/noob/work/s2c_root', 'skel_recall:', 'root: data'] | exp file ['<     weight: 0.1', '<   root: /home/noob/work/s2c_root', '<   skel_recall:', '>   root: data']
+  [ok] s2c_SKR01_100pct_s11: stdout header x1, "step 20000/20000" x1, Traceback x0, "val: 54  test: 54" x1; launch.log config OK x1, trained rc=0 x1; rc file 0; seed 11; config diff vs pf2_SUPPF_100pct_s5 beyond run_name / seed / experiments_dir = ['weight: 0.1', 'root: /home/noob/work/s2c_root', 'skel_recall:', 'root: data'] | exp file ['<     weight: 0.1', '<   root: /home/noob/work/s2c_root', '<   skel_recall:', '>   root: data']
+  [ok] s2c_SKR01_100pct_s12: stdout header x1, "step 20000/20000" x1, Traceback x0, "val: 54  test: 54" x1; launch.log config OK x1, trained rc=0 x1; rc file 0; seed 12; config diff vs pf2_SUPPF_100pct_s5 beyond run_name / seed / experiments_dir = ['weight: 0.1', 'root: /home/noob/work/s2c_root', 'skel_recall:', 'root: data'] | exp file ['<     weight: 0.1', '<   root: /home/noob/work/s2c_root', '<   skel_recall:', '>   root: data']
+  [ok] s2c_SKR01_100pct_s13: stdout header x1, "step 20000/20000" x1, Traceback x0, "val: 54  test: 54" x1; launch.log config OK x1, trained rc=0 x1; rc file 0; seed 13; config diff vs pf2_SUPPF_100pct_s5 beyond run_name / seed / experiments_dir = ['weight: 0.1', 'root: /home/noob/work/s2c_root', 'skel_recall:', 'root: data'] | exp file ['<     weight: 0.1', '<   root: /home/noob/work/s2c_root', '<   skel_recall:', '>   root: data']
+  [ok] s2c_SKR01_100pct_s14: stdout header x1, "step 20000/20000" x1, Traceback x0, "val: 54  test: 54" x1; launch.log config OK x1, trained rc=0 x1; rc file 0; seed 14; config diff vs pf2_SUPPF_100pct_s5 beyond run_name / seed / experiments_dir = ['weight: 0.1', 'root: /home/noob/work/s2c_root', 'skel_recall:', 'root: data'] | exp file ['<     weight: 0.1', '<   root: /home/noob/work/s2c_root', '<   skel_recall:', '>   root: data']
+   exp_SKR01.txt md5 1343cca2
+  [ok] s2c_SUPPF_100pct_s10: stdout header x1, "step 20000/20000" x1, Traceback x0, "val: 54  test: 54" x1; launch.log config OK x1, trained rc=0 x1; rc file 0; seed 10; config diff vs pf2_SUPPF_100pct_s5 beyond run_name / seed / experiments_dir = ['root: /home/noob/work/s2c_root', 'root: data'] | exp file ['<   root: /home/noob/work/s2c_root', '>   root: data']
+  [ok] s2c_SUPPF_100pct_s11: stdout header x1, "step 20000/20000" x1, Traceback x0, "val: 54  test: 54" x1; launch.log config OK x1, trained rc=0 x1; rc file 0; seed 11; config diff vs pf2_SUPPF_100pct_s5 beyond run_name / seed / experiments_dir = ['root: /home/noob/work/s2c_root', 'root: data'] | exp file ['<   root: /home/noob/work/s2c_root', '>   root: data']
+  [ok] s2c_SUPPF_100pct_s12: stdout header x1, "step 20000/20000" x1, Traceback x0, "val: 54  test: 54" x1; launch.log config OK x1, trained rc=0 x1; rc file 0; seed 12; config diff vs pf2_SUPPF_100pct_s5 beyond run_name / seed / experiments_dir = ['root: /home/noob/work/s2c_root', 'root: data'] | exp file ['<   root: /home/noob/work/s2c_root', '>   root: data']
+  [ok] s2c_SUPPF_100pct_s13: stdout header x1, "step 20000/20000" x1, Traceback x0, "val: 54  test: 54" x1; launch.log config OK x1, trained rc=0 x1; rc file 0; seed 13; config diff vs pf2_SUPPF_100pct_s5 beyond run_name / seed / experiments_dir = ['root: /home/noob/work/s2c_root', 'root: data'] | exp file ['<   root: /home/noob/work/s2c_root', '>   root: data']
+  [ok] s2c_SUPPF_100pct_s14: stdout header x1, "step 20000/20000" x1, Traceback x0, "val: 54  test: 54" x1; launch.log config OK x1, trained rc=0 x1; rc file 0; seed 14; config diff vs pf2_SUPPF_100pct_s5 beyond run_name / seed / experiments_dir = ['root: /home/noob/work/s2c_root', 'root: data'] | exp file ['<   root: /home/noob/work/s2c_root', '>   root: data']
+   exp_SUPPF.txt md5 dc9c344a
+## 10. gaint readout script vs the frozen script
+  [ok] frozen s2c_post_local.sh 1da9a692 (FROZEN lists 1da9a692); gaint copy 1f43dc6f; stored diff 84fcdaef
+  [ok] stored diff == my diff -u of the two files (below the 2 header lines)
+  [ok] from the first m2_rung call to the end, the two files are equal after dropping the stderr redirect
+   changed non-comment lines in the diff: 45; of them with PY= / PYB= (interpreter): 3; ssh / rsync (transport): 7
+  [ok] Track M: m2_rung 0ae9d505 m1_analyze 8e566254 m0_analyze d5adbe6b; e1_context 12bd1385; frozen s2c_d_boot.py 164ef377
+
+INTEGRITY: NO PROBLEM FOUND

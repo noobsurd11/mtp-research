@@ -1,0 +1,53 @@
+{
+ "paper_id": "doi:10.1007/978-981-96-8892-0_4",
+ "title": "Multi-class Semantic Segmentation of Photovoltaic Module Defects and Features: Towards Industrial Robotic Applications",
+ "year": 2025,
+ "venue": "Lecture Notes in Computer Science",
+ "url": "https://doi.org/10.1007/978-981-96-8892-0_4",
+ "code_url": "https://github.com/sntubix/pv-defect-segmentation",
+ "mechanism": "VGG16-UNet beat ResNet50 and MobileNet encoders on the 29-class SCDD; S: VGG gives the decoder a full-resolution 64-channel skip that the ResNet stem (stride 2 + maxpool) lacks, which matters for 1 to 2 px lines.",
+ "adaptation": "U-Net++ with vgg16_bn encoder, or ResNet-34 plus a light full-res stem branch feeding the last decoder node; 1-ch input, house schedule; check gridline and crack, the two thin classes.",
+ "min_experiment": "Arm full-res-skip U-Net++ vs house, 5 seeds; crack IoU, relF1@2, gridline IoU; kill if crack IoU < +0.012 and gridline IoU < +0.03.",
+ "evidence": "R: VGG16-UNet mean IoU 0.663 on features, 0.326 on defects, dead-cell IoU +0.129 vs prior; custom class weights. Chen 2023 (doi:10.1109/jphotov.2023.3249970) also used VGG16-UNet for crack, F1 0.875 IoU 0.782 on its own set.",
+ "prior_overlap": "none: only ResNet-34/50 encoders tried; 2x input resolution (n.d.) is a different, 4x costlier change.",
+ "score": 52,
+ "bench_score": 75,
+ "bet": "safe",
+ "gpu_hours": 12,
+ "targets": [
+  "crack",
+  "other_classes",
+  "benchmark"
+ ],
+ "directions": [
+  "D01",
+  "D03",
+  "D43"
+ ],
+ "scout_scores": [
+  52,
+  25,
+  15
+ ],
+ "alt_notes": [
+  {
+   "from": "D03",
+   "adaptation": "Run their best (VGG16-UNet) under our fixed split and metrics as the label authors' reference baseline.",
+   "min_experiment": "Run once, 3 seeds, under the benchmark protocol; report all-class and robust mIoU, crack relF1@2. No score kill line.",
+   "score": 25
+  },
+  {
+   "from": "D43",
+   "adaptation": "Include it as the 'prior EL baseline' in the suite, re-run on our 24-class module-grouped splits and metrics to document why published numbers differ.",
+   "min_experiment": "Run VGG16-UNet with class weights on our folds. Baseline: house. Expected to be below the house model; it is kept for comparability, not to raise scores.",
+   "score": 15
+  }
+ ],
+ "final": 52,
+ "bench": 75,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 170,
+ "pid": "P170"
+}

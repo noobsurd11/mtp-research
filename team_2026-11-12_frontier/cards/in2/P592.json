@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.3390/en19020462",
+ "title": "Solar Photovoltaic System Fault Classification via Hierarchical Deep Learning with Imbalanced Multi-Class Thermal Dataset",
+ "year": 2026,
+ "venue": "Energies",
+ "url": "https://www.mdpi.com/1996-1073/19/2/462",
+ "code_url": "",
+ "mechanism": "Two-stage hierarchy (normal vs fault, then fault type) plus contrast-preserving MixUp for low-contrast, imbalanced thermal crops.",
+ "evidence": "R: 8-class thermal benchmark, 9 networks; Swin-T acc 89.48 %, F1 80.50; SlantNet 86.15 % acc at 42,072 img/s; ablations show minority-class gains.",
+ "adaptation": "For EL: an image-level crack / inactive presence gate that multiplies pixel logits at inference, to cut false alarms on clean E1 cells (scuff); for thermal: the ISM recipe.",
+ "min_experiment": "Arm PF + image-level crack / inactive head gating pixel logits; baseline PF; metrics E1 crack relP@2 at fixed relR@2, test relF1@2; kill if E1 relP@2 gain < 0.03.",
+ "gpu_hours": 4,
+ "prior_overlap": "none. Multi-label / image-level heads never tried (BRIEF 5).",
+ "targets": [
+  "e1_unseen",
+  "deployment"
+ ],
+ "bet": "medium",
+ "score": 20,
+ "bench_score": 20,
+ "directions": [
+  "D05"
+ ],
+ "scout_scores": [
+  20
+ ],
+ "final": 20,
+ "bench": 20,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 592,
+ "pid": "P592"
+}

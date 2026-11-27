@@ -1,0 +1,63 @@
+........................................................................ [  9%]
+........................................................................ [ 18%]
+........................................................................ [ 27%]
+........................................................................ [ 36%]
+........................................................................ [ 45%]
+........................................................................ [ 55%]
+........................................................................ [ 64%]
+..........s............................................................. [ 73%]
+........................................................................ [ 82%]
+s.s..............s...................................................... [ 91%]
+................................................................         [100%]
+=============================== warnings summary ===============================
+tests/test_absh.py::test_ssl_aux_pl_uses_the_confidence_rule
+  /home/noob/work/bench_wt_open/tests/test_absh.py:195: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+  Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:820.)
+    assert float(tr._absh_out["aux_keep_u"]) == 0.0 and float(tr._absh_out["loss_aux_con"]) == 0.0
+
+tests/test_bench_aa.py::test_fold_stage_equals_boot_pair
+tests/test_bench_bfix2.py::test_compute_on_kept_stems_equals_the_read_without_those_cells
+tests/test_bench_bfix2.py::test_reports_without_and_with_extras
+tests/test_bench_bfix2.py::test_classbias_read_analyze_restricts_every_table_to_the_kept_stems
+tests/test_bench_classbias.py::test_boot_classes_same_draws_as_boot_pair
+tests/test_bench_x3.py::test_bootstrap_identical_arms_zero_and_margin_floor
+  /home/noob/work/bench_wt_open/bench/crossfit_op.py:281: RuntimeWarning: Mean of empty slice
+    return {k: float(np.nanmean([p[k] for p in per])) for k in BOOT_KEYS}
+
+tests/test_bench_bfix.py: 2 warnings
+tests/test_stream.py: 4 warnings
+tests/test_trainer_utils.py: 8 warnings
+  /usr/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=912352) is multi-threaded, use of fork() may lead to deadlocks in the child.
+    self.pid = os.fork()
+
+tests/test_bench_bfix2.py::test_classbias_read_analyze_restricts_every_table_to_the_kept_stems
+  /home/noob/work/bench_wt_open/bench/classbias.py:260: RuntimeWarning: Mean of empty slice
+    pa = np.nanmean([iou(XA[sd].sum(0)) for sd in sA], 0)
+
+tests/test_bench_bfix2.py::test_classbias_read_analyze_restricts_every_table_to_the_kept_stems
+  /home/noob/work/bench_wt_open/bench/classbias.py:261: RuntimeWarning: Mean of empty slice
+    pb = np.nanmean([iou(XB[sd].sum(0)) for sd in sA], 0)
+
+tests/test_bench_opening_read.py::test_identical_arms_give_zero
+tests/test_bench_opening_read.py::test_point_delta_equals_the_mean_of_model_metrics
+tests/test_bench_opening_read.py::test_read_is_deterministic_and_refuses_overwrite
+  /home/noob/work/bench_wt_open/scripts/bench_open_read.py:135: RuntimeWarning: Mean of empty slice
+    point = {k: float(np.nanmean([pb[s][k] for s in sB]) - np.nanmean([pa[s][k] for s in sA])) for k in BOOT_KEYS}
+
+tests/test_bench_opening_read.py::test_identical_arms_give_zero
+tests/test_bench_opening_read.py::test_point_delta_equals_the_mean_of_model_metrics
+tests/test_bench_opening_read.py::test_read_is_deterministic_and_refuses_overwrite
+  /home/noob/work/bench_wt_open/scripts/bench_open_read.py:152: RuntimeWarning: Mean of empty slice
+    draws[k].append(float(np.nanmean([m[k] for m in mb]) - np.nanmean([m[k] for m in ma])))
+
+tests/test_bench_public_metrics.py::test_seipv_family_formulas
+  /home/noob/work/el-fault-detection/.venv/lib/python3.12/site-packages/numpy/_core/fromnumeric.py:3862: RuntimeWarning: Mean of empty slice
+    return _methods._mean(a, axis=axis, dtype=dtype,
+
+tests/test_bench_public_metrics.py::test_seipv_family_formulas
+  /home/noob/work/el-fault-detection/.venv/lib/python3.12/site-packages/numpy/_core/_methods.py:142: RuntimeWarning: invalid value encountered in scalar divide
+    ret = ret.dtype.type(ret / rcount)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+780 passed, 4 skipped, 31 warnings in 216.64s (0:03:36)
+rc 0

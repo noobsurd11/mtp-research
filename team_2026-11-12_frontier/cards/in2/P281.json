@@ -1,0 +1,43 @@
+{
+ "paper_id": "doi:10.1109/tmi.2025.3564765",
+ "title": "Mamba-Sea: A Mamba-Based Framework With Global-to-Local Sequence Augmentation for Generalizable Medical Image Segmentation",
+ "year": 2025,
+ "venue": "IEEE Transactions on Medical Imaging",
+ "url": "https://arxiv.org/abs/2504.17515",
+ "code_url": "https://github.com/orange-czh/Mamba-Sea",
+ "mechanism": "Domain generalisation via global appearance augmentation plus sequence-wise local style perturbation: resample feature mean/std inside random contiguous token sub-sequences to suppress domain-specific cues.",
+ "adaptation": "Treat the 5 sources as training domains and E1 as the unseen domain. The local style perturbation is architecture-agnostic: apply it to ResNet-34 stage-1/2 feature maps over random row or column strips (half-cut scuffs are streaks), on the house PF model, at training time only.",
+ "min_experiment": "House PF + strip-wise feature style resampling, 3 seeds v house PF 3 seeds. Metric: E1 crack relF1@2 and E1 inactive IoU, test crack IoU must not drop >0.012. Kill if E1 relF1@2 < +0.03 and E1 inactive IoU < +0.03.",
+ "evidence": "R: first method above 90% Dice on the multi-site Prostate DG benchmark (prior SOTA 88.61%).",
+ "gpu_hours": 15,
+ "bet": "medium",
+ "prior_overlap": "Per-panel BN adaptation and intensity normalisation failed, but those are test-time; training-time style perturbation never tested. Open.",
+ "score": 45,
+ "bench_score": 50,
+ "targets": [
+  "e1_unseen",
+  "inactive"
+ ],
+ "directions": [
+  "D25"
+ ],
+ "scout_scores": [
+  45,
+  45
+ ],
+ "alt_notes": [
+  {
+   "from": "D25",
+   "adaptation": "Treat the 5 sources as training domains and E1 as the unseen target. Add the sequence-wise token-style perturbation to the bottleneck of Swin-UMamba or RWKV-UNet. Skip any global intensity augmentation that blurs 1 px lines.",
+   "min_experiment": "Swin-UMamba (or RWKV-UNet) with and without sequence-wise style augmentation, 3 seeds, plus leave-one-source-out folds; metric E1 crack relF1@2 and E1 inactive IoU. Kill: under +0.02 E1 relF1@2.",
+   "score": 45
+  }
+ ],
+ "final": 45,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 281,
+ "pid": "P281"
+}

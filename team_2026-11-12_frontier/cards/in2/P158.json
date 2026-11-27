@@ -1,0 +1,74 @@
+{
+ "paper_id": "arxiv:2307.07245",
+ "title": "FreeCOS: Self-Supervised Learning from Fractals and Unlabeled Images for Curvilinear Object Segmentation",
+ "year": 2023,
+ "venue": "ICCV",
+ "url": "https://arxiv.org/abs/2307.07245",
+ "code_url": "https://github.com/TY-Shi/FreeCOS",
+ "mechanism": "Fractal L-system curvilinear structures blended into unlabelled images via Fourier domain adaptation, with intensity-order (geometric) alignment between synthetic and real images.",
+ "adaptation": "Procedural crack skeletons (L-system or Bezier, branching typical of cell cracks) drawn as dark lines with a measured profile (about 4 px FWHM, per-source contrast from train crack statistics, including the 7% at < 2% contrast) and finger interruptions; FDA-blend onto pool half-cut cells; labels at each source's width. No generator training.",
+ "min_experiment": "Arm: PF + procedural cracks on half-cut pool cells, 5 seeds. Baseline: PF 5 seeds. Metric: E1 crack relF1@2. Kill: gain < +0.02. Run first; it prices the row-1 renderer.",
+ "score": 55,
+ "bench_score": 35,
+ "bet": "safe",
+ "targets": [
+  "e1_unseen",
+  "crack"
+ ],
+ "evidence": "R: outperforms unsupervised and self-supervised methods on XCAD, DRIVE, STARE, CrackTree without labels (abstract; numbers not read).",
+ "gpu_hours": 7,
+ "prior_overlap": "Partly overlaps CP100 (real crack pixels pasted on pool cells, n.d. on test). Differs in new procedural shapes, physically modelled intensity, FDA appearance matching and half-cut target backgrounds scored on E1.",
+ "directions": [
+  "D06",
+  "D07",
+  "D08",
+  "D12"
+ ],
+ "scout_scores": [
+  55,
+  42,
+  40,
+  45,
+  45,
+  40
+ ],
+ "alt_notes": [
+  {
+   "from": "D07",
+   "adaptation": "Render L-system cracks as dark Gaussian dips (FWHM 3-5 px, 2-20% contrast, per-source) into crack-free pool cells with a 1.75 px centreline label; use as a pretraining stage for the crack branch, then house fine-tune.",
+   "min_experiment": "Arm FreeCOS-style crack pretraining + house fine-tune vs house, 5 seeds; metric test relR@2 at matched relP@2 and E1 relF1@2; kill if relR@2 gain < +0.02.",
+   "score": 42
+  },
+  {
+   "from": "D07",
+   "adaptation": "Render L-system cracks as dark Gaussian dips (FWHM 3-5 px, 2-20% contrast, per source) into crack-free pool cells with a 1.75 px centreline label; use as a crack-branch pretraining stage before house fine-tune, not mixed training data.",
+   "min_experiment": "Arm FreeCOS-style crack pretraining + house fine-tune vs baseline house, 5 seeds; metric CV crack relR@2 at equal relP@2; kill if gain < +0.02. About 15 GPU-h.",
+   "score": 40
+  },
+  {
+   "from": "D08",
+   "adaptation": "Composite procedural thin dark curves into pool half-cells (including scuff cells) as a pretext stage, then PF fine-tune. Differs from the closed crack copy-paste (real crack patches) by procedural shapes and order-based alignment. Overlaps D06.",
+   "min_experiment": "Arm: FreeCOS-style pretrain on half-cell pool then PF fine-tune, 5 seeds. Baseline: PF. Metrics: E1 relF1@2, E1 crack false-positive px per half-cut cell. Kill: < +0.03 relF1@2.",
+   "score": 45
+  },
+  {
+   "from": "D08",
+   "adaptation": "Pretext stage on pool half-cells (scuff-bearing) so the model sees thin dark curves on half-cut backgrounds, then PF fine-tune on 478 cells.",
+   "min_experiment": "Arm: FreeCOS pretext then PF fine-tune, 5 seeds. Baseline: PF. Metrics: E1 relF1@2 and crack false-positive px per half-cut cell. Kill: < +0.03 relF1@2.",
+   "score": 45
+  },
+  {
+   "from": "D12",
+   "adaptation": "Render fractal dark lines with a 4 px Gaussian profile on CSIR half-cut pool cells; use as a pretext / 10% minibatch share for crack, aimed at E1.",
+   "min_experiment": "Arm: PF + fractal synthetic share, 5 seeds; baseline PF. Metric E1 relF1@2 and E1 false alarms on scuff cells. Kill: E1 relF1@2 gain < 0.03 or more scuff false alarms.",
+   "score": 40
+  }
+ ],
+ "final": 55,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 158,
+ "pid": "P158"
+}

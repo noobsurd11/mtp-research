@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.3390/app16020837",
+ "title": "StyleSPADE: Realistic Image Augmentation for Robust Infrastructure Crack Segmentation via Ensemble Learning",
+ "year": 2026,
+ "venue": "Applied Sciences",
+ "url": "https://www.mdpi.com/2076-3417/16/2/837",
+ "code_url": "",
+ "mechanism": "Conditional generator combining SPADE mask normalisation with a style exemplar image, keeping crack geometry from the mask and background texture from the exemplar.",
+ "adaptation": "Style exemplar = pool cell from a target group (half-cut CSIR, BMRK, CFVS without twin); mask = a train mask; renders every train mask in every source style. Pixel space, so 1-2 px cracks are representable.",
+ "min_experiment": "PF + train masks rendered with BMRK, CFVS, half-cut CSIR exemplars vs PF. Metric weak-source CV crack IoU and E1 relF1@2. Kill: both gains < +0.02. About 20 GPU-h.",
+ "evidence": "R: crack IoU 0.6376, F1 0.7586 with StyleSPADE data across Mask2Former, Swin-UPerNet, K-Net; 0.6452 with stacking ensemble.",
+ "prior_overlap": "none",
+ "score": 50,
+ "bench_score": 30,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "e1_unseen"
+ ],
+ "gpu_hours": 20,
+ "directions": [
+  "D33"
+ ],
+ "scout_scores": [
+  50
+ ],
+ "final": 50,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 228,
+ "pid": "P228"
+}

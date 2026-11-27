@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.4229/wcpec-82022-3bo.11.6",
+ "title": "Machine Aided Estimation of Solar Cell Crack Caused Power Loss from Electroluminescence Images",
+ "year": 2022,
+ "venue": "WCPEC-8 (DTU Orbit)",
+ "url": "https://doi.org/10.4229/wcpec-82022-3bo.11.6",
+ "code_url": "",
+ "mechanism": "Cell power from inactive area plus histogram moments, with busbar count as a categorical predictor, using polynomial or custom non-linear regression.",
+ "adaptation": "Simplest severity regressor for our cells (inactive fraction + busbar layout), if any paired cell I-V becomes available.",
+ "min_experiment": "None until paired I-V data exists.",
+ "evidence": "R: linear R2 0.85; improved to R2 0.869 with max error 0.17; 2 to 5 busbar mono cells.",
+ "prior_overlap": "none",
+ "score": 10,
+ "bench_score": 55,
+ "bet": "safe",
+ "targets": [
+  "severity"
+ ],
+ "gpu_hours": 0,
+ "directions": [
+  "D44"
+ ],
+ "scout_scores": [
+  10
+ ],
+ "final": 10,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 628,
+ "pid": "P628"
+}

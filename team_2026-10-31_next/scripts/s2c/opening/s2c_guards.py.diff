@@ -1,0 +1,43 @@
+--- s2_guards.py 0a8ea7dc
++++ s2c_guards.py
+@@ -1,4 +1,8 @@
+-"""SKR2 + HC2 guards G1-G3 (protocol_SKR2_HC2 v1.0.1 §3c; pre-registered FAIL rules; a trip FAILS that arm whatever else passes).
++"""SKR2C (protocol_SKR2C §3a guards G1 / G2, E1 opening #7) = s2_guards.py 0a8ea7dc with: arm runs s10..s14; ruling 1 (rulings_s2c_stage2.md):
++the G2 E1 bar is 1.5 x the FRESH base (SUPPF s10-14) seed mean, and the fixed s5-9 bar 5,896 px (1.5 x 3,931) is printed beside it as a
++reference line that decides nothing (the old "SUPPF mean must round to 3,931" refusal stays only in the self-test on the opened s5-9
++files); G3 is not requested by the SKR2C driver (HC2 part removed; ruling 2); labels. Self-test verbatim. Original docstring follows.
++SKR2 + HC2 guards G1-G3 (protocol_SKR2_HC2 v1.0.1 §3c; pre-registered FAIL rules; a trip FAILS that arm whatever else passes).
+ DRAFT (runner's helper, 2 Nov 2026) for coach's review and FREEZE. CPU only; reads m0 per-cell JSONs (test + ext cells) and the F51
+ pass JSON (s2_f51.py). Per-cell fields as hc_e1_coprim / m0_analyze (m0_audit d36f7438 cell_stats, read in the code): conf = bincount
+ (gt * 24 + pred) over keep px = 24x24 row-major GT x pred; crack_rel2 = [pred crack px within 2 px of GT, pred crack px, GT crack px
+@@ -143,16 +147,15 @@
+ 
+ arms = {x[0]: (x[1], x[2:]) for x in a.arm}
+ assert a.base in arms and all(len(v[1]) == 5 for v in arms.values()), 'need 5 runs per arm'
+-assert all(r.endswith(f'_s{k}') for v in arms.values() for r, k in zip(v[1], range(5, 10))), 'runs must be s5..s9 in order'
++assert all(r.endswith(f'_s{k}') for v in arms.values() for r, k in zip(v[1], range(10, 15))), 'runs must be s10..s14 in order'
+ assert set(a.g1) | set(a.g2) | {x[0] for x in a.g3} <= set(arms) - {a.base}
+ V = {n: load(d, runs) for n, (d, runs) in arms.items()}
+ B = V[a.base]
+ fr = mean(B, 'e1_crackfree_px')
+-if round(fr) != SUPPF_FREE:
+-    print(f'G2 REFUSED: {a.base} E1 crack-free px seed mean {fr:.1f} does not round to the registered {SUPPF_FREE}'); sys.exit(1)
+-out = {'label': 'protocol_SKR2_HC2 §3c guards (pre-registered FAIL rules)', 'base': a.base, 'per_run': V, 'G1': {}, 'G2': {}, 'G3': {},
++FIXED_BAR = G2_X * SUPPF_FREE  # ruling 1: reference line only (s5-9 bar 5,896 px); the decision bar is 1.5 x the fresh base mean
++out = {'label': 'protocol_SKR2C §3a guards G1 / G2 (pre-registered FAIL rules; G2 E1 bar = 1.5 x fresh SUPPF s10-14 mean, ruling 1)', 'base': a.base, 'per_run': V, 'G1': {}, 'G2': {}, 'G3': {},
+        'md5': {'m0_analyze.py': MD5['m0_analyze.py'], 'this_file': md5(__file__)}}
+-L = ['## guards (protocol_SKR2_HC2 §3c); 5-seed means; a trip FAILS the arm']
++L = ['## guards (protocol_SKR2C §3a; same cells as #5 / #6); 5-seed means (s10-14); a trip FAILS verdict R']
+ for n in a.g1:
+     out['G1'][n] = r = g1(V[n], B)
+     L.append(f"G1 inactive | {n} - {a.base} | test inactive IoU delta all 50 {r['delta_all']:+.4f}, clean {r['delta_clean']:+.4f} | "
+@@ -162,6 +165,9 @@
+     L.append(f"G2 precision | {n} - {a.base} | test crack relP@2 delta (all 50) {r['delta_test_relP2_all']:+.4f} (TRIP if < {G2_RELP}) | "
+              f"E1 crack px on {V[n][0]['e1_n_crackfree']} crack-free cells {r['e1_crackfree_px_arm']:.0f} vs {r['e1_crackfree_px_base']:.0f} = x{r['ratio']:.2f} "
+              f"(TRIP if > {G2_X}) | {'TRIP' if r['trip'] else 'ok'}")
++    r['fixed_bar_reference'] = {'bar_px': FIXED_BAR, 'arm_mean_above': bool(r['e1_crackfree_px_arm'] > FIXED_BAR), 'decides': False}
++    L.append(f"G2 reference line (decides nothing; ruling 1) | fixed s5-9 bar {FIXED_BAR:.0f} px (1.5 x {SUPPF_FREE}) | {n} E1 crack-free px mean "
++             f"{r['e1_crackfree_px_arm']:.0f} above it: {r['e1_crackfree_px_arm'] > FIXED_BAR} | fresh {a.base} s10-14 mean {fr:.0f} (bar {G2_X * fr:.0f})")
+ for n, p in a.g3:
+     out['G3'][n] = r = g3(p, n)
+     L.append(f"G3 F51 harm | {n} - {a.base} | " + (f"F51 crack AP d {r['d_F51_crack_ap']:+.4f}, boot upper 97.5% {r['boot_hi_97p5']:+.4f} (TRIP if < 0) | "

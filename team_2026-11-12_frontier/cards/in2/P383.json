@@ -1,0 +1,44 @@
+{
+ "paper_id": "arxiv:2607.12292",
+ "title": "Rapid-Deployment Crack Measurement Based on SAM3 Semantic-Edge Response Decoding (SERD)",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2607.12292",
+ "code_url": "",
+ "mechanism": "SAM3's internal prompt-conditioned semantic response keeps crack evidence that its final masks suppress; calibrate it with a fixed Sobel field, training-free; also measures width/length directly.",
+ "adaptation": "Use as a label-free crack prior map on E1-like half-cut cells and the 159k pool: extra input channel or soft teacher for the house model; width/length outputs feed severity.",
+ "min_experiment": "Run SERD on val, F51 and H36; measure crack relR@2 at the house model's relP@2; kill if relR@2 < 0.4. Then house + SERD channel vs house PF on E1 crack recall.",
+ "evidence": "R: 6 crack sets; internal response 82.66% crack-pixel recall vs 74.66% for SAM3 masks; width MAE 6.07 -> 5.55 px.",
+ "prior_overlap": "none",
+ "score": 40,
+ "bench_score": 35,
+ "bet": "moonshot",
+ "gpu_hours": 4,
+ "targets": [
+  "crack",
+  "e1_unseen",
+  "severity"
+ ],
+ "directions": [
+  "D14"
+ ],
+ "scout_scores": [
+  40,
+  40
+ ],
+ "alt_notes": [
+  {
+   "from": "D14",
+   "adaptation": "Zero-shot crack-likelihood map for EL as an E1 diagnostic (house gives p < 0.001 to 70% of E1 crack pixels), as an extra input channel, and as a severity width estimator.",
+   "min_experiment": "No training: SAM3 + SERD on val and F51; relR@2 / relP@2 for crack. Go if relR@2 >= 0.5 on F51; else close the SAM3 text-prompt route.",
+   "score": 40
+  }
+ ],
+ "final": 40,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 383,
+ "pid": "P383"
+}

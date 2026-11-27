@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1109/jphotov.2020.2978068",
+ "title": "Drone-Based Daylight Electroluminescence Imaging of PV Modules",
+ "year": 2020,
+ "venue": "IEEE Journal of Photovoltaics",
+ "url": "https://doi.org/10.1109/jphotov.2020.2978068",
+ "code_url": "",
+ "mechanism": "Drone camera at 120 fps captures EL and background frame pairs under modulated bias in full daylight, giving module EL images.",
+ "evidence": "R: diagnostic EL images from about 1 s of capture near 1 sun; SNR_avg 4.6.",
+ "adaptation": "Moonshot route to field EL for WattCycle; our EL model would face a resolution and SNR shift like E1. Cheap proxy now: degrade test cells to drone-EL resolution and noise and measure the drop.",
+ "min_experiment": "Degrade test clean-49 cells (downsample to 32 to 128 px per cell, add noise to SNR 4.6, upsample), score the house ensemble; report crack relF1@2 and inactive IoU per level. Decision aid for WattCycle hardware, no model change.",
+ "gpu_hours": 1,
+ "prior_overlap": "Desk study ruled out drone EL by camera cost (SWIR); no measurement of required resolution was made.",
+ "targets": [
+  "deployment",
+  "measurement"
+ ],
+ "bet": "moonshot",
+ "score": 25,
+ "bench_score": 30,
+ "directions": [
+  "D05"
+ ],
+ "scout_scores": [
+  25
+ ],
+ "final": 25,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 566,
+ "pid": "P566"
+}

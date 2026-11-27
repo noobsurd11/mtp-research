@@ -1,0 +1,44 @@
+{
+ "paper_id": "arxiv:2409.00947",
+ "title": "XNet v2: Fewer Limitations, Better Results and Greater Universality",
+ "year": 2024,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2409.00947",
+ "code_url": "https://github.com/Yanfeng-Zhou/XNetv2",
+ "mechanism": "A Haar wavelet split gives low- and high-frequency images, remixed with random weights (x_L = I_L + a I_H, x_H = I_H + b I_L). Three sub-networks (raw, LF, HF) are trained with consistency and feature-level LF/HF fusion.",
+ "adaptation": "1-channel Haar of the 512 px cell. HF carries cracks and fingers, LF carries inactive and dark regions. Two uses: (a) supervised XNet v2 as a benchmark arm; (b) the random LF/HF remix as a label-safe augmentation on U-Net++.",
+ "min_experiment": "Arm: house + LF/HF remix augmentation (a, b in [0, 0.5]), 5-fold CV. Baseline: house. Metric: inactive IoU, BMRK crack IoU. Kill: no gain larger than 1 SE on CV. Separately run official XNet v2 supervised as a benchmark entry.",
+ "evidence": "R with full supervision: CREMI Jaccard 75.47 (UNet) -> 79.80, GlaS 81.54 -> 84.03, ISIC-2017 74.49 -> 76.04. XNet (ICCV 2023) repo verified at github.com/Yanfeng-Zhou/XNet.",
+ "gpu_hours": 10,
+ "prior_overlap": "Pseudo-label SSL at 100% was n.d., but XNet's frequency-split consistency and LF/HF remix augmentation were never run.",
+ "score": 55,
+ "bench_score": 50,
+ "bet": "medium",
+ "targets": [
+  "inactive",
+  "crack",
+  "benchmark"
+ ],
+ "directions": [
+  "D28"
+ ],
+ "scout_scores": [
+  55,
+  50
+ ],
+ "alt_notes": [
+  {
+   "from": "D28",
+   "adaptation": "Benchmark arm on 1-channel 512 px; for our model, use the random LF/HF remix as a label-safe augmentation on U-Net++ (HF carries cracks and fingers, LF carries inactive).",
+   "min_experiment": "Benchmark run of supervised XNet v2 (about 10 GPU-h); separate arm house + LF/HF remix vs house, kill if CV gain below 1 SE on inactive and BMRK crack IoU.",
+   "score": 50
+  }
+ ],
+ "final": 55,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 143,
+ "pid": "P143"
+}

@@ -1,0 +1,43 @@
+{
+ "paper_id": "doi:10.1609/aaai.v40i12.37941",
+ "title": "JoDiffusion: Jointly Diffusing Image with Pixel-Level Annotations for Semantic Segmentation Promotion",
+ "year": 2026,
+ "venue": "AAAI",
+ "url": "https://arxiv.org/pdf/2512.13014",
+ "code_url": "https://github.com/00why00/JoDiffusion",
+ "mechanism": "An annotation VAE maps masks into the image latent space and one latent diffusion model generates image and mask jointly, with a mask-optimisation step to reduce annotation noise.",
+ "adaptation": "Replace text prompts with source + class-presence tokens; annotation VAE over 24 classes; 64x64 latent loses cracks, so use for other classes and inactive; recent joint baseline for the benchmark synthetic track.",
+ "min_experiment": "Benchmark baseline: PF + JoDiffusion pairs vs PF. Metric mIoU_rob and per-class IoU of gridline/splice/edge_dark. Reported, no kill; drop if mIoU_rob < +0.005.",
+ "evidence": "R: Pascal VOC, COCO, ADE20K gains over prior synthetic-data methods; 72.5 mIoU VOC per a web summary.",
+ "gpu_hours": 50,
+ "bet": "medium",
+ "targets": [
+  "other_classes",
+  "benchmark"
+ ],
+ "prior_overlap": "none",
+ "score": 30,
+ "bench_score": 45,
+ "directions": [
+  "D33"
+ ],
+ "scout_scores": [
+  30,
+  30
+ ],
+ "alt_notes": [
+  {
+   "from": "D33",
+   "adaptation": "Source + class-presence tokens instead of text; annotation VAE over 24 classes; use for other classes only (latent loses cracks).",
+   "min_experiment": "PF + JoDiffusion pairs vs PF, metric mIoU_rob; benchmark baseline, reported. About 50 GPU-h.",
+   "score": 30
+  }
+ ],
+ "final": 30,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 514,
+ "pid": "P514"
+}

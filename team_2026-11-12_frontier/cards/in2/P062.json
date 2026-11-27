@@ -1,0 +1,54 @@
+{
+ "paper_id": "doi:10.1109/cvpr.2019.01063",
+ "title": "Improved Road Connectivity by Joint Learning of Orientation and Segmentation",
+ "year": 2019,
+ "venue": "CVPR",
+ "url": "https://openaccess.thecvf.com/content_CVPR_2019/html/Batra_Improved_Road_Connectivity_by_Joint_Learning_of_Orientation_and_Segmentation_CVPR_2019_paper.html",
+ "code_url": "https://github.com/anilbatra2185/road_connectivity",
+ "mechanism": "Add an auxiliary task predicting binned road orientation along the label skeleton, sharing features with segmentation, plus a refinement step that closes small gaps.",
+ "adaptation": "Orientation bins (16) computed from the crack label skeleton via PCA in a 7 px window; a 1 px jitter barely changes orientation, so the target is jitter-robust. Also apply to gridline/busbar/ribbon (layout-fixed directions) to help gridline recall 0.33.",
+ "min_experiment": "Arm = PF + 16-bin orientation CE on crack and gridline skeleton pixels; baseline = PF; 5 seeds + 5-fold CV; metrics crack components >=20 px found, relF1@2, gridline IoU. Kill if components gain < 0.02 and gridline IoU gain < 0.02.",
+ "score": 64,
+ "bench_score": 35,
+ "bet": "safe",
+ "targets": [
+  "crack",
+  "other_classes",
+  "e1_unseen"
+ ],
+ "evidence": "R: SpaceNet and DeepGlobe roads, better connectivity (APLS) with the orientation task; exact numbers not read.",
+ "gpu_hours": 20,
+ "prior_overlap": "None; no orientation or direction target has been trained here.",
+ "directions": [
+  "D11",
+  "D12"
+ ],
+ "scout_scores": [
+  64,
+  62,
+  55
+ ],
+ "alt_notes": [
+  {
+   "from": "D11",
+   "adaptation": "16 orientation bins from crack skeleton second moments in a 7x7 window (95.8% of px stay within +-1 bin under 1 px label shift, team E); also apply to gridline and busbar whose orientation is fixed by cell layout (gridline IoU 0.283). Refinement net optional, trained on our own corrupted crack masks.",
+   "min_experiment": "Within T5 arm 4 (stacked); if it passes, decomposition arm PF + orientation only vs PF; metric components >=20 px found, gridline IoU; kill if components +<0.02 and gridline IoU +<0.02.",
+   "score": 62
+  },
+  {
+   "from": "D12",
+   "adaptation": "(a) Orientation head: 16 angle bins from the crack skeleton tangent, dilated 2 px, CE on crack pixels only. Orientation stays stable under 1-2 px label jitter. (b) Train a mask-to-mask refiner on the 478 train crack masks with random breaks, gaps and shifts. This needs no new labels and adds the refinement stage that has never been tried here.",
+   "min_experiment": "(a) Orientation aux vs house, 5 seeds. (b) Refiner on the house ensemble output vs the ensemble alone. Metrics: crack relR@2 at fixed relP@2, components found, E1 recall. Kill if relR@2 gains < 0.01.",
+   "score": 55
+  }
+ ],
+ "final": 64,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 62,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P062"
+}

@@ -1,0 +1,96 @@
+{
+ "paper_id": "doi:10.1109/cvpr.2019.01133",
+ "title": "Devil Is in the Edges: Learning Semantic Boundaries From Noisy Annotations (STEAL)",
+ "year": 2019,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/1904.07934",
+ "code_url": "https://github.com/nv-tlabs/STEAL",
+ "mechanism": "A thinning loss forces a single response peak along the edge normal, and active alignment moves noisy 1-2 px edge labels toward the true boundary by level-set evolution during training.",
+ "adaptation": "Treat crack as an edge class. Every N steps, snap each crack label polyline to the ridge of the current crack logit within +/-2 px, keeping the source's width convention, and add the normal-direction NMS loss on the crack channel only. The released code is old inference code (PyTorch 0.4), so we would reimplement it.",
+ "min_experiment": "Arm: PF + periodic label snapping + NMS loss, 5 seeds. Baseline: PF, 5 seeds. Metrics: crack IoU, relF1@2, crack pixel precision. Kill if crack IoU falls more than 0.012 below baseline, or if relF1@2 shows no detectable difference.",
+ "score": 66,
+ "bench_score": 40,
+ "bet": "medium",
+ "targets": [
+  "crack"
+ ],
+ "evidence": "R (abstract): edge datasets carry label noise that pushes detectors toward thick predictions; STEAL improves on a CASENet backbone and can refine coarse labels. Its edges are 1-2 px wide, the closest structural analogue to our crack labels.",
+ "gpu_hours": 10,
+ "prior_overlap": "Partial. Offset-tolerant CE (n.d.) took a per-pixel min over shifts. STEAL instead re-aligns labels persistently to the image or model ridge and adds a thinning loss, which was not tested. Soft clDice and Skeleton Recall are different mechanisms.",
+ "directions": [
+  "D11",
+  "D13",
+  "D15",
+  "D16",
+  "D26"
+ ],
+ "scout_scores": [
+  55,
+  50,
+  55,
+  52,
+  66,
+  58,
+  50,
+  50,
+  40
+ ],
+ "alt_notes": [
+  {
+   "from": "D11",
+   "adaptation": "Apply the normal-NMS loss to crack only, normal from the orientation target; replace level sets with a +-2 px 1D search along the normal for the best-scoring label position.",
+   "min_experiment": "Arm PF + normal-NMS loss + 1D alignment vs PF; metric relF1@2, width ratio, strict IoU; kill if relF1@2 +<0.01 or width ratio <0.8.",
+   "score": 50
+  },
+  {
+   "from": "D13",
+   "adaptation": "Take the normal direction from the orientation of the label skeleton and apply the NMS loss to crack logits. Replace the level set with a simple snake: every k steps, move each crack label curve to the model's ridge within 2 px. This is the canonical align-while-training baseline.",
+   "min_experiment": "Arm: house + NMS loss + periodic label alignment, 5 seeds. Baseline: house at 100% labels. Metrics: crack IoU, relF1@2, component recall. Kill if all are n.d.",
+   "score": 55
+  },
+  {
+   "from": "D13",
+   "adaptation": "Normals from label skeleton orientation; NMS loss on crack logits; every k steps move each crack label curve to the model ridge within 2 px using a simple snake instead of the level set.",
+   "min_experiment": "Arm: house + NMS loss + periodic label alignment, 5 seeds; baseline house. Metrics crack IoU, relF1@2. Kill if both n.d. About 12 GPU-h.",
+   "score": 52
+  },
+  {
+   "from": "D11",
+   "adaptation": "Apply the NMS loss across the crack normal (orientation from label polyline) so the model gives one peak per crack; replace level sets with a 1D search of +-2 px along the normal for the best-scoring label position.",
+   "min_experiment": "Arm = PF + normal-NMS loss + 1D alignment on crack; baseline = PF; 5 seeds + CV; metrics relF1@2, crack IoU, predicted width. Kill if relF1@2 gain < 0.01 and IoU drops.",
+   "score": 55
+  },
+  {
+   "from": "D15",
+   "adaptation": "Every 2k steps move each crack label pixel to the argmax of p(crack) within 2 px along the local normal, preserving connectivity, and keep the updated label. SEAL bipartite matching (ECCV 2018) is a simpler implementation.",
+   "min_experiment": "Arm: house + active alignment on crack labels. Baseline: house. Metric: relF1@2 primary, strict IoU secondary. Kill if relF1@2 gain < +0.01 or strict IoU drop > 0.02. About 6 GPU-h.",
+   "score": 58
+  },
+  {
+   "from": "D16",
+   "adaptation": "Model-in-the-loop snapping: every 2k steps move each crack polyline along its normal within 2 px to the argmax of p(crack) blended with ridge strength, re-dilate to source width. Compare with fixed filter snapping.",
+   "min_experiment": "Only if the ridge-snap arm passes. Arm: model-in-the-loop snap; baseline: ridge-snap arm. Kill if n.d. vs ridge-snap.",
+   "score": 50
+  },
+  {
+   "from": "D16",
+   "adaptation": "Use the normal-direction max-response loss as an auxiliary crack loss: along each label skeleton normal (5 px profile) the predicted crack probability should peak once. Skip level-set alignment (covered by the snake arm).",
+   "min_experiment": "Arm: house + normal-max auxiliary loss on crack, 5 seeds. Baseline: house. Metric: clean-49 crack IoU and pixel precision. Kill: crack IoU under +0.012 with no precision gain.",
+   "score": 50
+  },
+  {
+   "from": "D26",
+   "adaptation": "Align jittered 1-2 px crack labels toward the dark ridge during training (half of label points are > 1 px off the ridge), keep each source's width; NMS loss to control predicted width. Test labels stay jittered, so judge on relF1@2 and width, not only strict IoU.",
+   "min_experiment": "Arm: house training with label alignment step every k iterations. Baseline: house. Metrics: crack relF1@2, crack IoU, predicted width per source on 5-fold CV. Kill: relF1@2 < +0.005 and IoU drop > 0.01.",
+   "score": 40
+  }
+ ],
+ "final": 66,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 52,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

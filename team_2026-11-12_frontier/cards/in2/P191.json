@@ -1,0 +1,45 @@
+{
+ "paper_id": "arxiv:2605.31048",
+ "title": "Rethinking Efficient Crack Segmentation with Task-Aligned Structural-Directional Modeling (RIFT)",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2605.31048",
+ "code_url": "https://github.com/xauat-liushipeng/RIFT",
+ "mechanism": "Treats crack segmentation as sparse structural recovery: local-evidence blocks, large directional strip kernels that aggregate continuity along orientations, and a light multi-scale decoder; 0.47 to 1.69 M parameters.",
+ "adaptation": "(a) Benchmark row: RIFT-B on crack + inactive + background, 1-channel stem, 512 px, BCE-Dice. (b) Model arm: fuse RIFT crack logits with the house model (heterogeneous ensemble) or graft the directional block as a crack branch at strides 1-2 of the U-Net++ decoder. Check strip kernels against busbars and fingers, which are long straight lines.",
+ "min_experiment": "Arm A RIFT-B alone; arm B PF + RIFT crack logit average; baselines PF single and PF 2-seed ensemble; 3 seeds. Metric: CV crack IoU, E1 crack relF1@2. Kill arm B if it does not beat the 2-seed PF ensemble by +0.01 CV crack IoU or +0.03 E1 relF1@2; keep arm A as a benchmark row.",
+ "evidence": "R: best or tied-best on 16 metrics across DeepCrack, CamCrack789, CrackMap, Crack500 (3 seeds); cross-dataset average 2-class mIoU 77.0 vs SCSegamba 74.6 and MixerCSeg 71.0; clDice 90.6.",
+ "prior_overlap": "none. No crack-specific architecture or heterogeneous ensemble has been run.",
+ "score": 50,
+ "bench_score": 80,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "e1_unseen",
+  "benchmark"
+ ],
+ "gpu_hours": 12,
+ "directions": [
+  "D09",
+  "D12"
+ ],
+ "scout_scores": [
+  50,
+  45
+ ],
+ "alt_notes": [
+  {
+   "from": "D12",
+   "adaptation": "Benchmark baseline with a 24-class head. Its directional-continuity block is a candidate drop-in for the U-Net++ decoder. Its protocol (reproduced baselines plus topology-aware evaluation) is a template for the EL benchmark.",
+   "min_experiment": "Benchmark row vs house, 3 seeds. Block-in-house arm: kill if crack relF1@2 and components found both gain < 0.012.",
+   "score": 45
+  }
+ ],
+ "final": 50,
+ "bench": 80,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 191,
+ "pid": "P191"
+}

@@ -1,0 +1,37 @@
+{
+ "paper_id": "arxiv:2401.10891",
+ "title": "Depth Anything: Unleashing the Power of Large-Scale Unlabeled Data",
+ "year": 2024,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2401.10891",
+ "code_url": "https://github.com/LiheYoung/Depth-Anything",
+ "mechanism": "With many labels, plain self-training gives nothing. It helps only with strong perturbation of the student's unlabelled inputs plus a 1-minus-cosine feature-alignment loss to a frozen DINOv2 (tolerance margin 0.85), applied to unlabelled images only, with the student re-initialised.",
+ "adaptation": "House U-Net++ R34 student. Align layer3 output through a 1x1 projector (weight warmed up from 0 to 0.1) to frozen DINOv3 ViT-L or ConvNeXt-L stride-16 features of the same pool cell (1-channel image replicated to 3 channels). Margin 0.85, applied only to pool cells, plus colour/blur/CutMix on the student view.",
+ "min_experiment": "Arm DA-feat (PF + pool pseudo-labels + strong perturbation + feature alignment) vs house PF, 5 seeds. Metrics: crack relF1@2, inactive IoU, E1 relF1@2. Kill if all are n.d.",
+ "score": 62,
+ "bench_score": 35,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "inactive",
+  "e1_unseen"
+ ],
+ "evidence": "R: 1.5M labelled + 62M unlabelled. Table 9 (ViT-L AbsRel): unlabelled without perturbation, no gain (KITTI 0.085 -> 0.085). With perturbation 0.081. Adding the feature loss 0.076. Gains on all 6 sets. Feature loss helps on unlabelled data, not on labelled. Margin 0.85 beats 1.0 (0.175 vs 0.188).",
+ "gpu_hours": 15,
+ "prior_overlap": "Our Mean Teacher had no feature anchor and the same architecture as its teacher, which is exactly the failure case the paper describes. D24 #16 proposes feature alignment on labelled data; this version is on pool data with a margin. Open.",
+ "directions": [
+  "D29"
+ ],
+ "scout_scores": [
+  62
+ ],
+ "final": 62,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 80,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P080"
+}

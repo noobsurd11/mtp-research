@@ -1,0 +1,46 @@
+{
+ "paper_id": "doi:10.1109/iccv51070.2023.00558",
+ "title": "Dynamic Snake Convolution based on Topological Geometric Constraints for Tubular Structure Segmentation",
+ "year": 2023,
+ "venue": "ICCV",
+ "url": "https://arxiv.org/abs/2307.08388",
+ "code_url": "https://github.com/YaoleiQi/DSCNet",
+ "mechanism": "Deformable offsets constrained to a continuous chain along x or y, so the kernel follows a thin curved line. x, y and standard kernels are fused across views, with a persistent-homology loss (TCLoss).",
+ "adaptation": "Put DSConv (x, y, standard, fused) in the two finest U-Net++ decoder stages only and keep the ResNet-34 encoder. Leave TCLoss out of the first arm. 76 to 88% of EL crack components are under 20 px, so expect gains mainly on long cracks and E1 long cracks.",
+ "min_experiment": "DSConv decoder vs house, 5 v 5 seeds. Metrics: test-clean crack relF1@2, components >= 20 px found, E1 relF1@2. Kill if no metric improves by >= 0.012.",
+ "evidence": "R (full text): DRIVE Dice 82.06, clDice 82.07. Massachusetts Roads Dice 78.21, clDice 87.64, at most +1.31 Dice and +0.77 clDice over U-Net. 3D coronary +3.40 Dice.",
+ "gpu_hours": 15,
+ "bet": "medium",
+ "prior_overlap": "None. BRIEF lists snake and deformable convolutions as never tried. Topology losses (clDice, Skeleton Recall) were run, but TCLoss was not.",
+ "score": 58,
+ "bench_score": 80,
+ "targets": [
+  "crack",
+  "e1_unseen",
+  "benchmark"
+ ],
+ "directions": [
+  "D12"
+ ],
+ "scout_scores": [
+  58,
+  57
+ ],
+ "alt_notes": [
+  {
+   "from": "D12",
+   "adaptation": "Replace the two highest-resolution U-Net++ decoder blocks (optionally encoder layer1) with DSConv-x + DSConv-y + 3x3 fused, 1-ch 512 px, 24 classes. Drop TCLoss initially (topology losses already run). Judge on detection and E1, not strict IoU, because labels are jittered.",
+   "min_experiment": "Arm: U-Net++ with DSConv decoder blocks, house and PF, 5 seeds; baseline house / PF 5 seeds. Metrics: crack relF1@2, components >=20 px found, E1 relF1@2, test crack IoU. Kill: relF1@2 and components-found gains both < 0.01 and E1 relF1@2 gain < 0.02.",
+   "score": 57
+  }
+ ],
+ "final": 58,
+ "bench": 80,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 104,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P104"
+}

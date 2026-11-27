@@ -1,0 +1,44 @@
+[2026-11-21 05:40:36] final opening read start (out /home/noob/work/bench_int_io/opening/chain_922927/reads/open_final; 30 dumps; REGISTERED 3ee347dd62cf8af726fd2c817323039f; script 91ca9129; rule e3b01655; R 82ea81cb34a400df0471c87f0278006d2f8b30dd; C1-D4 yes)
+manifest check: 30 dumps, device ['cpu']: OK
+[2026-11-21 05:40:50] records: 15 E1, 15 test50 v0, 15 test50 v11
+inputs: arm C3, seeds [5, 6, 7, 8, 9], 1 folds; writer bench_ens_dump.py 87addb3128d078dac5510e7c5cb16a6b; code 82ea81cb34a400df0471c87f0278006d2f8b30dd
+  manifest f6223a890e46e702f74a5ff22d5588e1 fNone s5 fin_hrnet_swad_v11_pool_s5.swad.tta_d4.e1_106 /home/noob/work/bench_int_io/opening/chain_922927/reads/open_final/links/elbench1/hrnet_w18_unetpp_swad_const_pf_v11/fin_hrnet_swad_v11_pool_s5.swad.tta_d4.e1_106/e1_106
+  manifest 75c62e322e55206a46e07b1b167af57a fNone s6 fin_hrnet_swad_v11_pool_s6.swad.tta_d4.e1_106 /home/noob/work/bench_int_io/opening/chain_922927/reads/open_final/links/elbench1/hrnet_w18_unetpp_swad_const_pf_v11/fin_hrnet_swad_v11_pool_s6.swad.tta_d4.e1_106/e1_106
+  manifest c5466a4cf6e60884f096139f389d1f2b fNone s7 fin_hrnet_swad_v11_pool_s7.swad.tta_d4.e1_106 /home/noob/work/bench_int_io/opening/chain_922927/reads/open_final/links/elbench1/hrnet_w18_unetpp_swad_const_pf_v11/fin_hrnet_swad_v11_pool_s7.swad.tta_d4.e1_106/e1_106
+  manifest d10f94ab35b2519124d7c49ea099f062 fNone s8 fin_hrnet_swad_v11_pool_s8.swad.tta_d4.e1_106 /home/noob/work/bench_int_io/opening/chain_922927/reads/open_final/links/elbench1/hrnet_w18_unetpp_swad_const_pf_v11/fin_hrnet_swad_v11_pool_s8.swad.tta_d4.e1_106/e1_106
+  manifest 4a2232062971da21b8b135c5758c1325 fNone s9 fin_hrnet_swad_v11_pool_s9.swad.tta_d4.e1_106 /home/noob/work/bench_int_io/opening/chain_922927/reads/open_final/links/elbench1/hrnet_w18_unetpp_swad_const_pf_v11/fin_hrnet_swad_v11_pool_s9.swad.tta_d4.e1_106/e1_106
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/multiprocessing/pool.py", line 48, in mapstar
+    return list(map(*args))
+           ^^^^^^^^^^^^^^^^
+  File "/home/noob/work/bench_wt_open/scripts/bench_ens_dump.py", line 52, in _cell
+    info = dumpfmt.write_cell(out_path, m["pred"], m["oth"], m["m_crack"], m["p_crack"], m["p_inact"], m.get("logp"))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/noob/work/bench_wt_open/bench/dumpfmt.py", line 122, in write_cell
+    info = check_cell(d)
+           ^^^^^^^^^^^^^
+  File "/home/noob/work/bench_wt_open/bench/dumpfmt.py", line 106, in check_cell
+    raise AssertionError(f"pred disagrees with where(m_crack > 0, 14, oth) at {int(hard.sum())} px with |m| >= {TIE_EPS}")
+AssertionError: pred disagrees with where(m_crack > 0, 14, oth) at 181 px with |m| >= 0.001
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/noob/work/bench_wt_open/scripts/bench_ens_dump.py", line 155, in <module>
+    main()
+  File "/home/noob/work/bench_wt_open/scripts/bench_ens_dump.py", line 134, in main
+    res = pool.map(_cell, jobs, chunksize=2) if pool else [_cell(j) for j in jobs]
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/multiprocessing/pool.py", line 367, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/multiprocessing/pool.py", line 774, in get
+    raise self._value
+AssertionError: pred disagrees with where(m_crack > 0, 14, oth) at 181 px with |m| >= 0.001
+C3 ensemble failed

@@ -1,0 +1,37 @@
+{
+ "paper_id": "doi:10.1109/iccv48922.2021.00125",
+ "title": "Better Aggregation in Test-Time Augmentation",
+ "year": 2021,
+ "venue": "ICCV",
+ "url": "https://arxiv.org/abs/2011.11156",
+ "code_url": "",
+ "mechanism": "Simple-mean TTA can turn correct predictions wrong; learn per-augmentation aggregation weights instead.",
+ "adaptation": "D4 group (flips x rot90, label-safe, already in training aug) mean TTA on singles and ensemble first; then per-class per-transform weights fitted in 5-fold CV (val too small alone).",
+ "min_experiment": "Arm: D4 mean TTA on 5 singles and the ensemble. Baseline: same checkpoints without TTA (paired). Metric: crack IoU, relF1@2, components >= 20 px, inactive IoU on clean 49 / CV. Kill: paired gain < 0.005 crack IoU on singles.",
+ "evidence": "R: consistent gains over mean TTA across models, datasets and augmentations (classification).",
+ "gpu_hours": 1,
+ "bet": "safe",
+ "targets": [
+  "crack",
+  "inactive",
+  "benchmark"
+ ],
+ "prior_overlap": "none; per-panel BN adaptation (failed) is test-time adaptation, not TTA; flip/rot/multi-scale TTA listed as open",
+ "score": 66,
+ "bench_score": 60,
+ "directions": [
+  "D34"
+ ],
+ "scout_scores": [
+  66
+ ],
+ "final": 66,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 47,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P047"
+}

@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1016/j.bspc.2026.111226",
+ "title": "Challenges in deep learning-based small organ segmentation: A benchmarking perspective for medical research with limited datasets",
+ "year": 2026,
+ "venue": "Biomedical Signal Processing and Control",
+ "url": "https://arxiv.org/abs/2509.05892",
+ "code_url": "",
+ "mechanism": "In low-data benchmarks, bootstrap CIs of the top models overlap and rankings change between ID and OOD and across datasets, so the paper argues for uncertainty-aware evaluation.",
+ "adaptation": "Our regime matches (478 cells, inactive decided by 3 cells). Require several seeds x several folds per method and report rank intervals.",
+ "min_experiment": "For house, PF and nnU-Net: seed x fold variance decomposition on OOF and E1. Decision: if the seed SD is > half the method gap, require 5 seeds per method in the protocol.",
+ "prior_overlap": "none",
+ "score": 15,
+ "bench_score": 75,
+ "bet": "safe",
+ "targets": [
+  "benchmark",
+  "measurement"
+ ],
+ "evidence": "R: 10 models on 9 training images plus an OOD set of N=153. Foundation models hold up OOD while classical models fail, and rankings are not stable.",
+ "gpu_hours": 0,
+ "directions": [
+  "D43"
+ ],
+ "scout_scores": [
+  15
+ ],
+ "final": 15,
+ "bench": 75,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 598,
+ "pid": "P598"
+}

@@ -1,0 +1,35 @@
+{
+ "paper_id": "arxiv:2601.17237",
+ "title": "C-RADIOv4 (Tech Report)",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2601.17237",
+ "code_url": "https://github.com/NVlabs/RADIO",
+ "mechanism": "Agglomerative ViT distilled from SigLIP2, DINOv3 and SAM3; any-resolution support and a ViTDet windowed mode for cheap high-resolution inference; permissive licence.",
+ "evidence": "R (abstract): improves over RADIOv2.5 at same cost. Web (unverified from paper): ADE20k linear probe 55.2 / 57.0 at 512 / 1024 px.",
+ "adaptation": "Backbone swap in VFM-H with no gated download; ViTDet mode at 1024 px; SO400M first.",
+ "min_experiment": "C-RADIOv4-SO400M vs DINOv3-L vs SAM2 Hiera-L in the best PEFT arm; drop a backbone if E1 relF1@2 is more than 0.02 below the best.",
+ "prior_overlap": "Not tested. Open.",
+ "score": 52,
+ "bench_score": 60,
+ "bet": "medium",
+ "targets": [
+  "e1_unseen",
+  "crack",
+  "benchmark"
+ ],
+ "gpu_hours": 80,
+ "directions": [
+  "D24"
+ ],
+ "scout_scores": [
+  52
+ ],
+ "final": 52,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 173,
+ "pid": "P173"
+}

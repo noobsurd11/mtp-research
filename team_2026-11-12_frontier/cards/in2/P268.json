@@ -1,0 +1,43 @@
+{
+ "paper_id": "doi:10.1109/cvpr.2018.00464",
+ "title": "The Lovasz-Softmax Loss: A Tractable Surrogate for the Optimization of the Intersection-Over-Union Measure in Neural Networks",
+ "year": 2018,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/1705.08790",
+ "code_url": "",
+ "mechanism": "Convex surrogate of the Jaccard loss via the Lovasz extension of sorted errors.",
+ "adaptation": "Lovasz hinge on crack and Lovasz-softmax over present classes, computed over the whole batch (not per image) to match pooled IoU; hard labels only (cannot take soft targets). smp, the house library, ships an implementation.",
+ "min_experiment": "Arm CE + Lovasz (crack + inactive) vs SUP100, 5 v 5. Kill if crack IoU < +0.012.",
+ "score": 45,
+ "bench_score": 65,
+ "bet": "safe",
+ "targets": [
+  "crack",
+  "benchmark"
+ ],
+ "evidence": "R: widely used IoU surrogate (1239 cites); JML paper App. E finds it equal to JML with hard labels (Cityscapes 75.53 vs 75.55).",
+ "gpu_hours": 6,
+ "prior_overlap": "none",
+ "directions": [
+  "D18"
+ ],
+ "scout_scores": [
+  45,
+  45
+ ],
+ "alt_notes": [
+  {
+   "from": "D18",
+   "adaptation": "Lovasz hinge on crack and Lovasz-softmax over present classes, per batch (per_image False) to match pooled IoU; smp LossLovasz already in the house library; hard labels only.",
+   "min_experiment": "Arm: CE + Lovasz (crack, per batch), 5 seeds; baseline SUP100. Kill: crack IoU < +0.012.",
+   "score": 45
+  }
+ ],
+ "final": 45,
+ "bench": 65,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 268,
+ "pid": "P268"
+}

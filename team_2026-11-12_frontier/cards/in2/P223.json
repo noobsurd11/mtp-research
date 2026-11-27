@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2402.19340",
+ "title": "Combining partially labelled binary datasets: other-class positives as negatives",
+ "year": 2024,
+ "venue": "IJCARS",
+ "url": "https://arxiv.org/abs/2402.19340",
+ "code_url": "",
+ "mechanism": "When combining single-class datasets, positives of other classes act as negatives and a binary dataset's background is excluded from loss for classes it does not label.",
+ "evidence": "+4.4% Dice over a per-class ensemble, 24% less stomach/colon confusion (2D DeepLabV3).",
+ "adaptation": "For MSS and PV-Vision: their busbar/non-cell positives are negatives for crack except where their crack overlaps; their background ignored for classes they do not label.",
+ "min_experiment": "Ablation inside the joint run: this masking rule vs naive background, 5 seeds each. Metric: clean-49 crack relP@2 and IoU. Kill if < +0.012 crack IoU. ~10 GPU-h.",
+ "prior_overlap": "none",
+ "score": 50,
+ "bench_score": 30,
+ "bet": "safe",
+ "gpu_hours": 10,
+ "targets": [
+  "crack"
+ ],
+ "directions": [
+  "D36"
+ ],
+ "scout_scores": [
+  50
+ ],
+ "final": 50,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 223,
+ "pid": "P223"
+}

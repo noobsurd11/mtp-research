@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.1609/aaai.v40i15.38290",
+ "title": "Causal-Tune: Mining Causal Factors from Vision Foundation Models for Domain Generalized Semantic Segmentation",
+ "year": 2026,
+ "venue": "AAAI",
+ "url": "https://arxiv.org/abs/2512.16567",
+ "code_url": "",
+ "mechanism": "PEFT that keeps VFM feature components linked to causal factors and suppresses spurious ones (details unverified).",
+ "adaptation": "E1 failures come from spurious cues (scuff streaks, half-cut layout); one arm on VFM-H in place of Rein.",
+ "min_experiment": "Arm: VFM-H + Causal-Tune. Baseline: VFM-H + Rein. Metric: E1 crack relF1@2. Kill: not +0.02.",
+ "score": 38,
+ "bench_score": 40,
+ "bet": "moonshot",
+ "targets": [
+  "e1_unseen"
+ ],
+ "evidence": "R: 5 citations; abstract fragment only.",
+ "gpu_hours": 40,
+ "prior_overlap": "none.",
+ "directions": [
+  "D24"
+ ],
+ "scout_scores": [
+  38
+ ],
+ "final": 38,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 415,
+ "pid": "P415"
+}

@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.1109/tpami.2023.3322735",
+ "title": "Rethinking Dual-Stream Super-Resolution Semantic Learning in Medical Image Segmentation (DS2F)",
+ "year": 2023,
+ "venue": "TPAMI",
+ "url": "https://doi.org/10.1109/tpami.2023.3322735",
+ "code_url": "",
+ "mechanism": "Shows DSRL feature affinity is too weak for small-proportion targets; adds a shared-feature module and a target-focused proxy loss.",
+ "adaptation": "Use as the DSRL variant for 0.19% crack pixels: weight SR/affinity on a dilated crack + gridline band only.",
+ "min_experiment": "Second arm of the DSRL experiment; same baseline, metric and kill.",
+ "evidence": "R: six public medical datasets in three scenarios; numbers not retrieved.",
+ "gpu_hours": 15,
+ "bet": "moonshot",
+ "prior_overlap": "Same as DSRL.",
+ "score": 35,
+ "bench_score": 20,
+ "targets": [
+  "crack"
+ ],
+ "directions": [
+  "D22"
+ ],
+ "scout_scores": [
+  35
+ ],
+ "final": 35,
+ "bench": 20,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 475,
+ "pid": "P475"
+}

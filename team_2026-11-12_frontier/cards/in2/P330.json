@@ -1,0 +1,45 @@
+{
+ "paper_id": "doi:10.1109/iccv48922.2021.00507",
+ "title": "Pixel Difference Networks for Efficient Edge Detection (PiDiNet)",
+ "year": 2021,
+ "venue": "ICCV",
+ "url": "https://arxiv.org/abs/2108.07009",
+ "code_url": "https://github.com/hellozhuo/pidinet",
+ "mechanism": "Pixel difference convolutions fold classic gradient operators into conv layers, giving an accurate edge detector under 1M params trained from scratch.",
+ "adaptation": "Swap the 3x3 convs in the first two ResNet-34 stages for PDC variants, or add a full-resolution PDC side branch fused into the U-Net++ decoder. Crack and gridline contrast are local intensity differences, and 7% of cracks are under 2% darker than their surroundings. Also a lightweight member of the benchmark suite.",
+ "min_experiment": "Arm: house + PDC side branch, 5 seeds. Baseline: house at 100% labels. Metrics: crack recall at fixed relP@2, gridline IoU, E1 relF1@2. Kill if all are n.d.",
+ "score": 42,
+ "bench_score": 60,
+ "bet": "medium",
+ "evidence": "R: BSDS500 ODS 0.807 at 100 FPS with under 1M params; a variant under 0.1M params runs at 200 FPS.",
+ "gpu_hours": 8,
+ "prior_overlap": "Only the ResNet-34/50 U-Net++ backbones were tested. Open.",
+ "targets": [
+  "crack",
+  "other_classes",
+  "deployment",
+  "benchmark"
+ ],
+ "directions": [
+  "D13"
+ ],
+ "scout_scores": [
+  42,
+  42
+ ],
+ "alt_notes": [
+  {
+   "from": "D13",
+   "adaptation": "PDC side branch on the raw 1-channel EL image fused into the U-Net++ decoder at full resolution, or PDC stem convs, to boost low-contrast cracks (7% under 2% darker) and gridlines. Also the light benchmark member.",
+   "min_experiment": "Arm: house + PDC full-res branch, 5 seeds; baseline house. Metrics crack IoU, gridline IoU, relF1@2. Kill if all n.d. About 8 GPU-h.",
+   "score": 42
+  }
+ ],
+ "final": 42,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 330,
+ "pid": "P330"
+}

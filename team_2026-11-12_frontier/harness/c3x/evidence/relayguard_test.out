@@ -1,0 +1,10 @@
+floor 5 GB (free above it): STOP c3x absent
+floor 100000 GB (free below it): STOP c3x set; STOP c3swad absent [not covered by this guard]
+dead relay, floor 100000: STOP c3x absent
+[2026-11-17 18:05:46] relay guard start pid 1900231 (floor 5 GB on the filesystem of /tmp/claude-1003/-home-yugma-mtp/e0fe0a1b-de27-464f-816b-2df6724d18f1/scratchpad/rg/relay; relays c3x)
+[2026-11-17 18:05:46] relay guard ends (stop file or ONCE)
+[2026-11-17 18:05:46] relay guard start pid 1900239 (floor 100000 GB on the filesystem of /tmp/claude-1003/-home-yugma-mtp/e0fe0a1b-de27-464f-816b-2df6724d18f1/scratchpad/rg/relay; relays c3x)
+[2026-11-17 18:05:46] STOP set for relay c3x: free 111 GB < 100000
+[2026-11-17 18:05:46] relay guard ends (stop file or ONCE)
+[2026-11-17 18:05:46] relay guard start pid 1900254 (floor 100000 GB on the filesystem of /tmp/claude-1003/-home-yugma-mtp/e0fe0a1b-de27-464f-816b-2df6724d18f1/scratchpad/rg/relay; relays c3x)
+[2026-11-17 18:05:46] relay guard ends (stop file or ONCE)

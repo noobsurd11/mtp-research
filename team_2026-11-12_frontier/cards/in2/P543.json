@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2607.22697",
+ "title": "Test-Time Coverage: Test-Conditioned Data Curation for Deployment-Aware Learning",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2607.22697",
+ "code_url": "",
+ "mechanism": "Select a budgeted training subset whose concept distribution matches unlabelled deployment samples.",
+ "adaptation": "Simple EL descriptors (half-cut, mono/multi, busbar count, scuff, contrast) from pool and F51/H36 (not E1); select matching pool cells, pseudo-label, train.",
+ "min_experiment": "Arm: 1,000 descriptor-matched pool cells pseudo-labelled. Baseline: 1,000 random pool cells, same teacher. Metric: E1 crack relF1@2. Kill: no gain vs random.",
+ "score": 28,
+ "bench_score": 25,
+ "bet": "moonshot",
+ "targets": [
+  "e1_unseen"
+ ],
+ "evidence": "R: better coverage and end-to-end driving performance than curation baselines; distant domain.",
+ "gpu_hours": 15,
+ "prior_overlap": "Pool SSL used uniform pool; target-matched curation not run. Open.",
+ "directions": [
+  "D37"
+ ],
+ "scout_scores": [
+  28
+ ],
+ "final": 28,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 543,
+ "pid": "P543"
+}

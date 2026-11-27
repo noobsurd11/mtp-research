@@ -1,0 +1,43 @@
+{
+ "paper_id": "arxiv:2303.07336",
+ "title": "MP-Former: Mask-Piloted Transformer for Image Segmentation",
+ "year": 2023,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2303.07336",
+ "code_url": "https://github.com/IDEA-Research/MP-Former",
+ "mechanism": "Feed noised ground-truth masks into Mask2Former's masked attention and train to reconstruct them, making masks consistent across decoder layers and speeding training.",
+ "evidence": "R: +2.3 AP and +1.6 mIoU on Cityscapes (R50); matches or beats Mask2Former with half the epochs on ADE20K; no inference cost.",
+ "adaptation": "For M2F on 478 cells: noise model = our known label jitter (1-2 px shifts, dilation of crack masks, random drops of small components); tests whether faster convergence helps with few images.",
+ "min_experiment": "Only if M2F arm B survives: arm C = + mask-piloted training; baseline M2F arm B; metrics mIoU_rob, inactive IoU at 10k and 20k steps; kill if no gain beyond noise.",
+ "score": 38,
+ "bench_score": 30,
+ "bet": "medium",
+ "gpu_hours": 15,
+ "targets": [
+  "inactive",
+  "other_classes"
+ ],
+ "prior_overlap": "none; unrelated to the offset-tolerant CE that was n.d.",
+ "directions": [
+  "D23"
+ ],
+ "scout_scores": [
+  38,
+  38
+ ],
+ "alt_notes": [
+  {
+   "from": "D23",
+   "adaptation": "Noise model = measured label jitter (1-2 px shifts, source-specific widths); training-efficiency add-on for M2F on 478 images.",
+   "min_experiment": "M2F arm B vs B + mask-piloted training at 10k and 20k steps; metric mIoU_rob and inactive IoU; kill if no gain > 0.01 mIoU_rob at either length.",
+   "score": 38
+  }
+ ],
+ "final": 38,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 425,
+ "pid": "P425"
+}

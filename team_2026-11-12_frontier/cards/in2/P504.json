@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2509.06467",
+ "title": "Does DINOv3 Set a New Medical Vision Standard? Benchmarking 2D and 3D Classification, Segmentation, and Registration",
+ "year": 2025,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2509.06467",
+ "code_url": "",
+ "mechanism": "Evidence paper: DINOv3 transfer across medical classification, segmentation and registration.",
+ "adaptation": "Caution for VFM-H: per D14's reading, DINOv3 did not follow scaling laws in several non-natural modalities. Size (ViT-B vs ViT-L) must be measured on CV, not assumed.",
+ "min_experiment": "Within the DINOv3 arm: ViT-B/16 vs ViT-L/16 on CV crack relF1@2; drop to ViT-B if L is not +0.01.",
+ "score": 30,
+ "bench_score": 55,
+ "bet": "safe",
+ "targets": [
+  "benchmark"
+ ],
+ "evidence": "R: 47 citations; abstract fragment only.",
+ "gpu_hours": 20,
+ "prior_overlap": "none.",
+ "directions": [
+  "D24"
+ ],
+ "scout_scores": [
+  30
+ ],
+ "final": 30,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 504,
+ "pid": "P504"
+}

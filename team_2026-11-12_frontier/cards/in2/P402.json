@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.1007/s44443-026-00566-0",
+ "title": "Geometry-aligned dual-branch detection with directional crack-aware attention for EL imaging of photovoltaic cells",
+ "year": 2026,
+ "venue": "Journal of King Saud University - Computer and Information Sciences",
+ "url": "https://doi.org/10.1007/s44443-026-00566-0",
+ "code_url": "",
+ "mechanism": "Directional crack-aware attention: pooling along H and W with 1-D convolutions to boost anisotropic thin structures, plus DCT high-frequency cues injected into the FPN.",
+ "adaptation": "Insert strip-attention blocks into the two finest U-Net++ decoder stages; add two diagonal strip directions because our cracks are often oblique while busbars and ribbons are axis aligned and would also be amplified.",
+ "min_experiment": "Arm: house + directional attention. Baseline: house, 5 v 5 seeds. Metrics: test crack IoU, components >= 20 px found. Kill if crack IoU < +0.012 and components found < +0.02.",
+ "score": 40,
+ "bench_score": 20,
+ "bet": "medium",
+ "targets": [
+  "crack"
+ ],
+ "evidence": "R: PVELAD EL2021, mAP50 76.3 v YOLO11 61.5 (+14.8), recall +18.0, single seed 42.",
+ "gpu_hours": 8,
+ "prior_overlap": "none.",
+ "directions": [
+  "D02"
+ ],
+ "scout_scores": [
+  40
+ ],
+ "final": 40,
+ "bench": 20,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 402,
+ "pid": "P402"
+}

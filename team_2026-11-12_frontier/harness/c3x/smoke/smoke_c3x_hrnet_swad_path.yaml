@@ -1,0 +1,79 @@
+# c3x PATH smoke card (not in the repo): the c3x card with total_steps 600, enc_probe_every 200, swad window 300 to 600, encoder_pf freeze 100 and ramp 100; written by c3x_smoke_card.py.
+# c3x (lead's rulings C1 to C6, 17 Nov 2026): HRNet-W18 U-Net++ with swad_const = the rows2 row hrnet_w18_unetpp_pf_v11 plus
+# exactly the changes that swad_const_pf_v11 makes to house_r34_unetpp_pf_v11: the 8 opts after training.encoder_pf.wd=0
+# (constant lr after warm-up, a uniform average of every iterate of steps 10,000 to 20,000, an EMA 0.9998 averager, BN
+# re-estimate on the training fold at the end, the encoder probe every 2,000 steps), weights_key swad_bn and the 6 readouts.
+# Primary readout swad_bn (the weights_key); declared secondary readout swad (cv02 queue: 10th job field 'swad').
+# The encoder probe logs one stage, 'model' (timm tensor names encoder.model.*), not layer1 to layer4; it is a log only.
+# Proof (tests/test_bench_c3x_card.py): the non-comment diff of this card against hrnet_w18_unetpp_pf_v11 equals that of
+# swad_const_pf_v11 against house_r34_unetpp_pf_v11 (the descriptive keys name, papers, memory, diff_ref, notes are checked
+# one by one), and the rendered config differs from an HRNet run's only in the 8 keys.
+# The header of hrnet_w18_unetpp_pf_v11 follows unchanged ('Card =' and 'deviations' there describe the HRNet row itself).
+# rows2 (benchmark rows tranche 2, WAVE3_REVIEW stage C2): T11 row 5 (P361 HRNet). Card = house_r34_unetpp_pf_v11 (PF recipe, label set v1.1, cv5v2,
+# 20k steps, batch 8, 512 px) with only the changes listed under 'deviations'. Spec: cards/T11_method_suite_spec.md row 5. Candidate rule applies (T11; inactive guard, WAVE3_REVIEW).
+# licence: timm/hrnet_w18.ms_aug_in1k HF tag mit; original github.com/HRNet/HRNet-Image-Classification, MIT (Microsoft 2019): commercial use allowed by the text
+#   (ImageNet data terms open as for every ImageNet weight; record bench_rows2_io/weights/WEIGHTS.tsv)
+# architecture: U-Net++ (smp 0.5.0 UnetPlusPlus, house decoder settings: channels 256/128/64/32/16, batchnorm, nearest upsampling, 3x3 head; output stride 1)
+#   on smp's timm-universal encoder tu-hrnet_w18 (timm features_only, feature_location incre: reductions 2/4/8/16/32, channels 64/128/256/512/1024)
+# encoder: hrnet_w18 (timm 1.0.30), ImageNet-1k, timm/hrnet_w18.ms_aug_in1k revision 7e2c5583 model.safetensors md5 e6bb005ddbe1b52bde05618fc6b4b8e3,
+#   loaded by timm from the offline HF cache (pretrained=True); unused file tensors (classifier, downsamp_modules, final_layer) are not built;
+#   1-channel stem conv1 = RGB sum (timm adapt_input_conv; unit test)
+# parameters: 20,795,692 total, 20,795,692 trainable, encoder.* 10,947,028; 218.0 GFLOPs at 1x1x512x512 (rows1 convention; house 148.0, 1.47x: below the G16 2x line)
+# deviations from house_r34_unetpp_pf_v11:
+#  - model.name smp_unetpp -> bench_smp with model.decoder=unetplusplus, model.encoder_name=tu-hrnet_w18, model.encoder_weights=imagenet (T11 row 5)
+#  - T11's model.encoder_weights_file=<local timm file> is NOT set: it would put a machine-specific path into the rendered config, and cv02 jobs render the
+#    gaint card (cq.sh); timm reads the same file (md5 above) from the HF cache on both machines instead, and cq.sh md5-checks it before every start.
+#    CPU check: 1,925 of 1,926 encoder tensors equal the file, the 1 other is conv1 = RGB sum. So the config has 3 of T11's 4 keys.
+#  - PF on HRNet (many BN layers; PF was written for ResNet): encoder group = exactly the encoder.* parameters (unit test + trainer group print)
+#  - code: none (bench_smp already builds tu- encoders with Unet++; T11's CPU build gate passes: reductions start at 2, output (1, 24, 512, 512))
+name: smoke_c3x_hrnet_swad_path
+version: 1
+family: cnn-hrnet-unetpp
+papers: [arXiv:1908.07919, "arXiv:2102.08604", "arXiv:2411.18704"]
+kind: harness
+config: configs/supervised.yaml
+opts:
+  - data.labeled_fraction=1.0
+  - training.total_steps=600
+  - data.split_seed=0
+  - training.labeled_batch_size=8
+  - data.mask_subdir=masks_v11
+  - data.mask_ignore_value=255
+  - model.name=bench_smp
+  - model.decoder=unetplusplus
+  - model.encoder_name=tu-hrnet_w18
+  - model.encoder_weights=imagenet
+  - data.augmentation=labelsafe
+  - loss.supervised=ce_dice
+  - training.val_every=20000
+  - training.encoder_pf.freeze=100
+  - training.encoder_pf.ramp=100
+  - training.encoder_pf.lr_mult=0.1
+  - training.encoder_pf.wd=0
+  - training.lr_scheduler=constant
+  - training.weight_avg.swad.mode=uniform
+  - training.weight_avg.swad.start=300
+  - training.weight_avg.swad.end=600
+  - training.weight_avg.ema_9998.mode=ema
+  - training.weight_avg.ema_9998.decay=0.9998
+  - training.bn_recal=true
+  - training.enc_probe_every=200
+weights:
+  - path: /home/noob/.cache/huggingface/hub/models--timm--hrnet_w18.ms_aug_in1k/snapshots/7e2c5583769f54514fd87e3ba9de408e33eaba0f/model.safetensors
+    md5: e6bb005ddbe1b52bde05618fc6b4b8e3
+weights_key: swad_bn
+readouts:
+  - {name: raw, weights_key: model}
+  - {name: raw_bn, weights_key: raw_bn}
+  - {name: swad, weights_key: swad}
+  - {name: swad_bn, weights_key: swad_bn}
+  - {name: ema_9998, weights_key: ema_9998}
+  - {name: ema_9998_bn, weights_key: ema_9998_bn}
+decision_rule: argmax24
+memory:
+  peak_mib: null
+  gate_mib: 11000
+  source: "smoke card: gate as the c3x card (11000). Its gaint peak enters P of the job gate rule (lead's ruling of 17 Nov 2026 17:35: job gate = max(11,000, P + 2,048), P = the highest peak of the c3x card over the memory and the path smoke)"
+external: null
+diff_ref: hrnet_w18_unetpp_pf_v11
+notes: "c3x PATH smoke only (ruling C5 b): 600 steps, probe every 200, swad 300 to 600, PF freeze 100 ramp 100; never a result."

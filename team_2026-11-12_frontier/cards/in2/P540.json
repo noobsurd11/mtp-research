@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2511.04288",
+ "title": "Vision Foundation Models in Agriculture: Toward Domain-Specific Adaptation for Weed Herbicide Trials Assessment",
+ "year": 2025,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2511.04288",
+ "code_url": "",
+ "mechanism": "Self-supervised adaptation of a general VFM on a curated domain set; gains concentrate on unseen conditions.",
+ "adaptation": "Evidence to make E1 crack recall / relF1@2 the primary metric of every SSL arm, with test / folds as non-inferiority.",
+ "min_experiment": "No standalone run; sets the metric for D32 arms.",
+ "evidence": "R: species F1 0.91 to 0.94 standard, 0.56 to 0.66 unseen; damage 0.17 to 0.27 unseen; +5.4% F1 with 80% fewer labels.",
+ "prior_overlap": "None.",
+ "score": 28,
+ "bench_score": 35,
+ "bet": "safe",
+ "gpu_hours": 0,
+ "targets": [
+  "e1_unseen",
+  "benchmark"
+ ],
+ "directions": [
+  "D32"
+ ],
+ "scout_scores": [
+  28
+ ],
+ "final": 28,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 540,
+ "pid": "P540"
+}

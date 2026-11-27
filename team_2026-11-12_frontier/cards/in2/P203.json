@@ -1,0 +1,45 @@
+{
+ "paper_id": "doi:10.1088/2631-8695/aea73d",
+ "title": "NWG-DETR: grid-line-aware wavelet-gated RT-DETR for photovoltaic electroluminescence defect detection",
+ "year": 2026,
+ "venue": "Engineering Research Express",
+ "url": "https://doi.org/10.1088/2631-8695/aea73d",
+ "code_url": "",
+ "mechanism": "Dark-contrast gating, cross-polarisation gating that attenuates repetitive grid-line artefacts, and learnable wavelet pool/unpool that keeps high-frequency defect detail.",
+ "adaptation": "Take the learnable wavelet pool for the U-Net++ stem and unpool for the decoder, and the grid-line gate on the two highest-resolution skips; detector parts discarded.",
+ "min_experiment": "Arm: PF + learnable wavelet pool + grid-line skip gate; baseline PF; kill if crack IoU < +0.012 and E1 relF1@2 < +0.02. Only after Seg-Aliasing or HWD passes.",
+ "evidence": "R: PVEL-AD mAP50 +3.77 over RT-DETR-r18, 45% fewer parameters.",
+ "prior_overlap": "none",
+ "targets": [
+  "crack",
+  "other_classes",
+  "benchmark"
+ ],
+ "bet": "medium",
+ "gpu_hours": 8,
+ "score": 50,
+ "bench_score": 45,
+ "directions": [
+  "D02",
+  "D28"
+ ],
+ "scout_scores": [
+  35,
+  50
+ ],
+ "alt_notes": [
+  {
+   "from": "D02",
+   "adaptation": "Replace the ResNet-34 stem max-pool and first stride with Haar wavelet downsampling (keep LH/HL/HH as channels) so 1 to 2 px cracks survive the 4x stem; gate using our own predicted gridline / busbar maps.",
+   "min_experiment": "Arm: house with wavelet stem. Baseline: house, 5 v 5 seeds. Metric: crack components >= 20 px found, crack IoU. Kill if components found gain < 0.02.",
+   "score": 35
+  }
+ ],
+ "final": 50,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 203,
+ "pid": "P203"
+}

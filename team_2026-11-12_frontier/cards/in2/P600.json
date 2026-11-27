@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1109/jphotov.2025.3562931",
+ "title": "Advanced Photovoltaic Module Characterization: Using Image Transformers for Current-Voltage Curve Prediction From Electroluminescence Images",
+ "year": 2025,
+ "venue": "IEEE Journal of Photovoltaics",
+ "url": "https://doi.org/10.1109/jphotov.2025.3562931",
+ "code_url": "",
+ "mechanism": "Swin transformer regresses the full I-V curve from module EL; single-diode parameters are then extracted from the predicted curve.",
+ "adaptation": "Use as the reference for the Sandia PV-IV-EL set (438 modules, 613 EL + flash I-V pairs, CC BY 4.0, OpenEI 8378) as a second external power check for our predicted inactive fraction. Not a method for our masks.",
+ "min_experiment": "Same as the ELPVPOWER check, on Sandia PV-IV-EL. Kill if Spearman < 0.3 for every model.",
+ "evidence": "R: MPP, Isc and Voc mean error < 1%; Rs error 5.19%; Rsh and I0 worse.",
+ "prior_overlap": "none",
+ "score": 15,
+ "bench_score": 70,
+ "bet": "safe",
+ "targets": [
+  "severity",
+  "benchmark"
+ ],
+ "gpu_hours": 3,
+ "directions": [
+  "D44"
+ ],
+ "scout_scores": [
+  15
+ ],
+ "final": 15,
+ "bench": 70,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 600,
+ "pid": "P600"
+}

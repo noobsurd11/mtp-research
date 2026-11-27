@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2512.08569",
+ "title": "Instance-Aware Test-Time Segmentation for Continual Domain Shifts (CoTICA)",
+ "year": 2025,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2512.08569",
+ "code_url": "",
+ "mechanism": "Pseudo-label thresholds adapt per class and per image from that image's own confidence distribution, and learning is re-weighted toward the classes most hurt by the shift.",
+ "adaptation": "Use per-cell crack and inactive thresholds from the cell's confidence quantiles instead of a global 0.95, as the pseudo-label rule inside the SGP-TTA or A3-TTA arms. This targets the 'confident background on faint cracks' failure seen in our SSL nulls.",
+ "min_experiment": "Arm: row 3 or 8 with quantile thresholds. Baseline: the same arm with a fixed threshold. Kill if E1 relF1@2 gains < +0.01 over the parent arm.",
+ "score": 28,
+ "bench_score": 35,
+ "bet": "medium",
+ "targets": [
+  "e1_unseen",
+  "crack"
+ ],
+ "evidence": "R: outperforms prior CTTA and TTA methods in eight segmentation scenarios, including synthetic-to-real and long-term shifts (numbers not retrieved).",
+ "gpu_hours": 2,
+ "prior_overlap": "None at test time. Class-aware thresholds were proposed in an earlier SSL null diagnosis but never run.",
+ "directions": [
+  "D31"
+ ],
+ "scout_scores": [
+  28
+ ],
+ "final": 28,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 539,
+ "pid": "P539"
+}

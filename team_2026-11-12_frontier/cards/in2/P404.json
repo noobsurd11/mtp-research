@@ -1,0 +1,42 @@
+{
+ "paper_id": "arxiv:2312.13116",
+ "title": "VSR-Net: Vessel-like Structure Rehabilitation Network with Graph Clustering",
+ "year": 2023,
+ "venue": "IEEE TIP vol 34 (2025)",
+ "url": "https://arxiv.org/abs/2312.13116",
+ "code_url": "",
+ "mechanism": "Takes a coarse vessel mask, groups broken segments into rupture clusters (curvilinear clustering), then merges them across gaps (curvilinear merging) to repair connectivity, with lower calibration error.",
+ "evidence": "R: five 2D/3D medical datasets; beats prior refinement methods and lowers calibration error (abstract, no numbers on page).",
+ "adaptation": "Crack channel of the ensemble only: cluster fragments, learn merges across gaps up to about 10 px along local direction; aimed at missed faint segments between detected pieces, scored by relR@2 and component recall. Implementation from paper (code not found).",
+ "min_experiment": "Arm: VSR-style cluster-and-merge on ensemble crack mask. Baseline: house ensemble. Metric: relR@2 at fixed relP@2, components>=20 px found. Kill: relR@2 < +0.01.",
+ "score": 40,
+ "bench_score": 20,
+ "bet": "medium",
+ "gpu_hours": 8,
+ "targets": [
+  "crack"
+ ],
+ "prior_overlap": "none. Skeleton Recall and clDice losses were run (training losses), not a post-hoc connectivity refiner.",
+ "directions": [
+  "D26"
+ ],
+ "scout_scores": [
+  40,
+  40
+ ],
+ "alt_notes": [
+  {
+   "from": "D26",
+   "adaptation": "Apply to crack components: 76-88% of crack components are < 20 px, many are pieces of one crack; merge collinear fragments; train on out-of-fold maps.",
+   "min_experiment": "Arm: house ensemble + VSR-Net. Baseline: house ensemble. Metrics: components found, relF1@2, ECE of crack probability on 5-fold CV. Kill: components found < +0.02.",
+   "score": 40
+  }
+ ],
+ "final": 40,
+ "bench": 20,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 404,
+ "pid": "P404"
+}

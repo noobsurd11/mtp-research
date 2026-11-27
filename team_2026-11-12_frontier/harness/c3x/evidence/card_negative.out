@@ -1,0 +1,5 @@
+untampered tree of the re-cut commit -> 27 passed in 0.96s
+tamper 's/swad.start=10000/swad.start=9000/' in bench/methods/hrnet_w18_unetpp_swad_const_pf_v11.yaml -> 5 failed, 2 passed in 0.10s
+tamper 's/  - training.bn_recal=true/  - training.bn_recal=true\n  - training.warmup_steps=100/' in bench/methods/hrnet_w18_unetpp_swad_const_pf_v11.yaml -> 5 failed, 2 passed in 0.10s
+tamper 's/weights_key: swad_bn/weights_key: swad/' in bench/methods/hrnet_w18_unetpp_swad_const_pf_v11.yaml -> 6 failed, 1 passed in 0.08s
+tamper 's/val_every=20000/val_every=10000/' in bench/methods_cv02/hrnet_w18_unetpp_swad_const_pf_v11.yaml -> 1 failed, 6 passed in 0.10s

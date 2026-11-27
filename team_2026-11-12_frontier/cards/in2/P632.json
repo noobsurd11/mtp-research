@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.1016/j.apenergy.2024.124187",
+ "title": "PVF-10: A high-resolution unmanned aerial vehicle thermal infrared image dataset for fine-grained photovoltaic fault classification",
+ "year": 2024,
+ "venue": "Applied Energy",
+ "url": "https://doi.org/10.1016/j.apenergy.2024.124187",
+ "code_url": "",
+ "mechanism": "Public UAV thermal dataset of module crops with 10 fault classes split by repairability, plus resampling / padding baselines.",
+ "evidence": "R: 5,579 crops, 8 plants; 5 DL models OA > 83 %, best 93.32 %; later work reports DINOv3 94.67 % and JEFFNet F1 93.21. Licence and download location unverified.",
+ "adaptation": "Training set for the drone deliverable's module classifier; evaluate cross-plant on A3 instead of the in-set split.",
+ "min_experiment": "ResNet-34 / ConvNeXt-T trained on PVF-10 + ISM, tested on A3 module crops (healthy vs induced fault); metric AUROC per fault type; kill the train-public-deploy-at-WattCycle claim if diode / interconnect AUROC < 0.7.",
+ "gpu_hours": 3,
+ "prior_overlap": "Desk study listed thermal-only sets (D1 to D12); nothing trained.",
+ "targets": [
+  "deployment"
+ ],
+ "bet": "safe",
+ "score": 10,
+ "bench_score": 30,
+ "directions": [
+  "D05"
+ ],
+ "scout_scores": [
+  10
+ ],
+ "final": 10,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 632,
+ "pid": "P632"
+}

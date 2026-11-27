@@ -1,0 +1,36 @@
+{
+ "paper_id": "doi:10.1016/j.patter.2023.100804",
+ "title": "Leakage and the reproducibility crisis in machine-learning-based science",
+ "year": 2023,
+ "venue": "Patterns",
+ "url": "https://arxiv.org/abs/2207.07048",
+ "code_url": "",
+ "mechanism": "A taxonomy of 8 leakage types, plus model info sheets that argue train/test independence.",
+ "adaptation": "Leakage audit for EL: the same module across splits, CFVS train twins, BMRK = ELPV cells, the leaky UCF-EL split, and pool images from test modules (SSL leakage). Publish a model info sheet with each split.",
+ "min_experiment": "Compare house scores on test cells with vs without a same-module or twin cell in train. E: CFVS without a twin scores 0.397 crack IoU vs 0.474 overall. Decision: if the gap is > 0.03, twins must sit inside one fold.",
+ "prior_overlap": "none as an audit; the twin effect has been observed but not formalised.",
+ "score": 22,
+ "bench_score": 88,
+ "bet": "safe",
+ "targets": [
+  "benchmark",
+  "measurement"
+ ],
+ "evidence": "R: survey of leakage across 294 papers in 17 fields; proposes model info sheets.",
+ "gpu_hours": 0,
+ "directions": [
+  "D43"
+ ],
+ "scout_scores": [
+  22
+ ],
+ "final": 22,
+ "bench": 88,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 570,
+ "pub_allowed": 0,
+ "selected_for": "bench",
+ "pid": "P570"
+}

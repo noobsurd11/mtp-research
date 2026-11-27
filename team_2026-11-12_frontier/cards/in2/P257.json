@@ -1,0 +1,43 @@
+{
+ "paper_id": "doi:10.1007/s41062-026-02792-x",
+ "title": "Synthetic crack generation using dynamic programming and elastic deformation to enhance segmentation of concrete and pavement defects",
+ "year": 2026,
+ "venue": "Innovative Infrastructure Solutions",
+ "url": "https://doi.org/10.1007/s41062-026-02792-x",
+ "code_url": "",
+ "mechanism": "Min/max cumulative-energy paths on random noise fields give 1 px crack strands. Variable-width dilation plus geometric and elastic deformation adds width, tortuosity and boundary irregularity.",
+ "evidence": "2.25M synthetic samples. Elastic deformation raised feature diversity from 0.17 to 0.31. Trained on synthetic data only: F1 up to 0.79 and mIoU above 0.80 on Cracks-200, CDLN and DeepCrack, comparable to human-annotated training (filter-based segmenter).",
+ "adaptation": "Deform the skeleton first, then rasterise the label at each source's measured width (ARTS 1.5, CFVS/CSIR 1.75, BMRK 3.0, SDLE 3.25 px). Render a dark profile of about 4 px FWHM with per-source contrast, including the 7% of cracks under 2% contrast. Paste onto labelled cells with full labels, and onto pool multi half-cut cells with loss on the strand and ring only, for E1. Labels are exact, with no jitter.",
+ "min_experiment": "PF+procedural strands vs PF, 5 seeds. Metrics: E1 relF1@2 and recall@2 (half-cut scuff subset reported), test crack IoU as a guard, recall on low-contrast cracks. Kill if E1 relF1@2 gain < +0.02 or test crack IoU drops by more than 0.012.",
+ "prior_overlap": "none. Procedural crack synthesis has not been run. Similar to the FreeCOS arm in D06.",
+ "score": 46,
+ "bench_score": 30,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "e1_unseen"
+ ],
+ "gpu_hours": 7,
+ "directions": [
+  "D21"
+ ],
+ "scout_scores": [
+  46,
+  46
+ ],
+ "alt_notes": [
+  {
+   "from": "D21",
+   "adaptation": "Deform skeleton, rasterise label at per-source width (ARTS 1.5, CFVS/CSIR 1.75, BMRK 3.0, SDLE 3.25 px), render ~4 px FWHM dark profile with per-source contrast incl. sub-2% contrast; onto labelled cells and pool multi half-cut cells (strand + ring loss) for E1.",
+   "min_experiment": "PF+PROC vs PF; E1 relF1@2 and recall@2 (scuff subset), test crack IoU guard, recall of low-contrast cracks. Kill: E1 relF1@2 < +0.02 or crack IoU drop > 0.012.",
+   "score": 46
+  }
+ ],
+ "final": 46,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 257,
+ "pid": "P257"
+}

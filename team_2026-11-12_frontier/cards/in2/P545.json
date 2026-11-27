@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.1007/978-3-031-72117-5_12",
+ "title": "Confidence Intervals Uncovered: Are We Ready for Real-World Medical Imaging AI?",
+ "year": 2024,
+ "venue": "MICCAI",
+ "url": "https://arxiv.org/abs/2409.17763",
+ "code_url": "",
+ "mechanism": "SD of Dice approximated by a quadratic in mean Dice, so CIs can be reconstructed for papers that report none.",
+ "adaptation": "Reconstruct approximate CIs for published EL segmentation numbers in the benchmark's related-work table.",
+ "min_experiment": "Arm: apply fit to published EL tables. Metric: share of claimed gains inside CI. Kill: reporting only.",
+ "score": 25,
+ "bench_score": 75,
+ "bet": "safe",
+ "targets": [
+  "benchmark"
+ ],
+ "evidence": "R: 221 MICCAI 2023 papers; >50% report no variability; median CI width 0.03, three times the median first-second gap; >60% of runners-up inside the winner's CI.",
+ "gpu_hours": 0,
+ "prior_overlap": "none",
+ "directions": [
+  "D41"
+ ],
+ "scout_scores": [
+  25
+ ],
+ "final": 25,
+ "bench": 75,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 545,
+ "pid": "P545"
+}

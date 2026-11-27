@@ -1,0 +1,9 @@
+elbench: model registry bench_smp / bench_timm (opt-in)
+
+bench_smp: any smp 0.5.0 architecture with any smp or tu-* encoder; a local timm-format file via
+pretrained_cfg_overlay. bench_timm: timm backbone from a local file (f8 build_backbone), stride-4 smp decoders
+(UPerNet, FPN, SegFormer) with an empty stride-2 skip, Unet / Unet++ via the f8 HR stem, DPT via smp.DPT.
+No existing model.name reaches the new branch. CPU build tests: house smp_unetpp == bench_smp unetplusplus R34
+and f8 hrstem_unetpp == bench_timm unetplusplus (state dicts equal at seed 0); stems = RGB sum; forward shape.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>

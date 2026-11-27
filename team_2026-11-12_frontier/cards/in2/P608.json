@@ -1,0 +1,42 @@
+{
+ "paper_id": "doi:10.1109/cvpr46437.2021.00294",
+ "title": "Simple Copy-Paste is a Strong Data Augmentation Method for Instance Segmentation",
+ "year": 2021,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2012.07177",
+ "code_url": "https://github.com/tensorflow/tpu",
+ "mechanism": "Paste object instances at random onto other images; this is a strong augmentation for instance segmentation.",
+ "evidence": "Gains at every COCO data fraction; a widely used baseline (1,464 citations per the index).",
+ "adaptation": "Use only as the benchmark's plain copy-paste baseline, reporting the decoy test alongside it.",
+ "min_experiment": "Plain random crack copy-paste vs house model, 5 seeds, with the decoy rate reported. Benchmark row only, no kill line.",
+ "prior_overlap": "Closed for scores: CP100 tested a stricter version (residual transfer) at 100% labels, n.d., with a decoy FLAG.",
+ "score": 15,
+ "bench_score": 55,
+ "bet": "safe",
+ "targets": [
+  "benchmark"
+ ],
+ "gpu_hours": 6,
+ "directions": [
+  "D21"
+ ],
+ "scout_scores": [
+  15,
+  15
+ ],
+ "alt_notes": [
+  {
+   "from": "D21",
+   "adaptation": "Already tested in our variant (CP100); include only as the benchmark's plain copy-paste baseline with the decoy test reported.",
+   "min_experiment": "Benchmark run with decoy rate; no kill.",
+   "score": 15
+  }
+ ],
+ "final": 15,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 608,
+ "pid": "P608"
+}

@@ -1,0 +1,46 @@
+{
+ "paper_id": "arxiv:2605.16393",
+ "title": "Vision Transformer-Conditioned UNet for Domain-Adaptive Semantic Segmentation",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2605.16393",
+ "code_url": "",
+ "mechanism": "A full UNet with local inductive bias and full-res decoding is conditioned on frozen pretrained ViT representations through learnable tokens and a two-way attention decoder, aimed at sparse, fine, low-SNR targets.",
+ "adaptation": "Keep the house U-Net++/ResNet-34 detail path; add cross-attention from its bottleneck and decoder nodes to frozen DINOv3 ViT-L tokens of the same cell. The ViT supplies context for half-cut layout and scuff streaks (E1); 1-2 px localisation stays with the CNN. PF schedule for the CNN.",
+ "min_experiment": "Arm: house PF + ViT-L token conditioning; baseline: house PF; 5-fold module-grouped CV crack IoU and inactive IoU, then E1 crack relF1@2 and inactive IoU. Kill if E1 crack relF1@2 < +0.03 or CV crack IoU drops > 0.012.",
+ "evidence": "R: abstract reports gains over baselines on MRI and CT semantic segmentation with frozen ViT; no numbers retrieved, no thin-line data.",
+ "gpu_hours": 25,
+ "bet": "medium",
+ "prior_overlap": "none; no ViT-conditioned CNN run exists.",
+ "score": 60,
+ "bench_score": 35,
+ "targets": [
+  "e1_unseen",
+  "crack",
+  "inactive"
+ ],
+ "directions": [
+  "D22"
+ ],
+ "scout_scores": [
+  60,
+  55
+ ],
+ "alt_notes": [
+  {
+   "from": "D22",
+   "adaptation": "Keep the house U-Net++ / ResNet-34 as the pixel path for 1 to 2 px localisation; add cross-attention from its bottleneck and decoder stages to frozen DINOv3 ViT-L tokens of the same cell so half-cut layout and scuff context come from the ViT. About 200 lines of our own code (official code not released).",
+   "min_experiment": "Arm: house PF + frozen DINOv3 ViT-L conditioning; baseline house PF; 5-fold CV crack IoU / relF1@2 / inactive IoU, then E1 crack relF1@2 and E1 inactive IoU. Kill: E1 crack relF1@2 gain < +0.03 or CV crack IoU drop > 0.012. About 20 GPU-h.",
+   "score": 55
+  }
+ ],
+ "final": 60,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 101,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P101"
+}

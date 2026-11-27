@@ -1,0 +1,53 @@
+{
+ "paper_id": "doi:10.1007/978-3-031-91672-4_12",
+ "title": "Do Vision Foundation Models Enhance Domain Generalization in Medical Image Segmentation?",
+ "year": 2025,
+ "venue": "LNCS",
+ "url": "https://arxiv.org/abs/2409.07960",
+ "code_url": "https://github.com/kerem-cekmeceli/Foundation-Models-for-Medical-Imagery",
+ "mechanism": "Frozen VFM (DINOv2, SAM, MAE) tuned with Rein / Rein-LoRA / Ladder plus a strong decoder head; VFMs match CNNs in-domain but generalise much better to unseen scanners.",
+ "evidence": "R (full text): 10 to 198 training volumes, greyscale MRI/CT. DINOv2 + Rein-LoRA DG Dice: brain 52-55 vs 44 for ResNet101-UNet; lumbar spine 31-41 vs 1-6 for U-Nets; in-domain about equal. Larger VFMs help DG slightly, not ID.",
+ "adaptation": "Use as a side branch on the house PF U-Net++ R34 (VFM-H): frozen DINOv2-L at 1024 px (grey to 3 channels) with Rein-LoRA, features added at stride 16/32 decoder inputs; house keeps the 1-2 px crack path. Target E1 (half-cut, scuff), plus leave-BMRK-out as a source-shift probe.",
+ "min_experiment": "Arm VFM-H (DINOv2-L + Rein-LoRA) vs house PF; module-grouped 5-fold CV + one E1 opening; metric E1 crack relF1@2 and E1 inactive IoU, CV crack relF1@2; kill if CV relF1@2 drops >0.005 AND E1 relF1@2 not +0.03 over about 0.42 AND E1 inactive IoU not above 0.24.",
+ "prior_overlap": "Section 5 foundation row tested only linear probes and a 4k-step ConvNeXt-T PF screen; no PEFT, no ViT-L, never judged on E1. Open.",
+ "score": 68,
+ "bench_score": 65,
+ "bet": "medium",
+ "targets": [
+  "e1_unseen",
+  "inactive",
+  "benchmark"
+ ],
+ "gpu_hours": 120,
+ "directions": [
+  "D14",
+  "D24"
+ ],
+ "scout_scores": [
+  50,
+  45,
+  68
+ ],
+ "alt_notes": [
+  {
+   "from": "D24",
+   "adaptation": "Use its ranking of VFM + PEFT pairs to pick VFM-H's backbone and tuning method before spending GPU time; the 5-source plus E1 split is our analogue of multi-site DG.",
+   "min_experiment": "No own arm: read the full text (open access) and choose the two VFM + PEFT pairs it ranks best for VFM-H; kill this item if its best pair is not one we already plan.",
+   "score": 45
+  },
+  {
+   "from": "D14",
+   "adaptation": "Template for our E1 study: same PEFT x head grid, our 5 sources as domains (leave-one-source-out), E1 as the external domain.",
+   "min_experiment": "Leave-one-source-out CV over the 5 sources for house vs best FM arm; metric held-out-source crack relF1@2; kill if mean gain < 0.02.",
+   "score": 50
+  }
+ ],
+ "final": 68,
+ "bench": 65,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 30,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

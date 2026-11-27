@@ -1,0 +1,8 @@
+MECHANICS ONLY (structure test of final_verdict.py on a real read.json of bench_read_w1.py fdb56b78). NOT A TTA RESULT.
+source: /home/noob/work/bench_reads/c3x/read/read.json md5 47ba200542e364937a3e687e47cf2216 (the registered c3x read, cv5v3)
+relabel (both cell-set blocks): arms PF<-PF, PF_D4<-COMBO_SWAD, CS<-SWADBN, CS_D4<-COMBO, CB<-HRNET, CB_D4<-COMBO_SWAD;
+  contrasts PF_D4 - PF<-COMBO_SWAD - PF, CS_D4 - CS<-COMBO - SWADBN, CS_D4 - PF<-COMBO - PF, CB_D4 - CB<-COMBO_SWAD - HRNET,
+  CB_D4 - PF<-COMBO_SWAD - PF, CS - PF<-COMBO_SWAD - PF, CS_D4 - PF_D4<-COMBO - HRNET; run ids prefixed MECH_.
+cross-check with results/C3X_READ.md: (a) here = COMBO_SWAD - PF -> 2 failing items, ARTS width OP-A/OP-W on 416 (C3X_READ: fails only ARTS width
+  on 416); (c) here = COMBO - PF -> 8 failing items (C3X_READ: 8); (b) here = COMBO - SWADBN -> NOT CONFIRMED, NO LOSS (C3X_READ: NO LOSS).
+without --mechanics the verdict refuses it (run ids not the registered patterns), rc 1.

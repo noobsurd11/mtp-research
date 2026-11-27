@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2604.00383",
+ "title": "Mine-JEPA: In-Domain Self-Supervised Learning for Mine-Like Object Classification in Side-Scan Sonar",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2604.00383",
+ "code_url": "",
+ "mechanism": "In-domain SIGReg SSL on 1,170 unlabelled sonar images beats fine-tuned DINOv3; in-domain SSL applied on top of a foundation model degrades it.",
+ "adaptation": "Evidence for training LeJEPA/FCMAE in-domain from scratch rather than continuing SSL on DINOv3; benchmark must report from-scratch in-domain and continued SSL as separate rows.",
+ "min_experiment": "No standalone arm; covered by the LeJEPA experiment.",
+ "evidence": "R: F1 0.935 vs DINOv3 0.922 (binary), 0.820 vs 0.810 (3-class); continued SSL on FMs -10 to -13 points.",
+ "prior_overlap": "none.",
+ "targets": [
+  "benchmark"
+ ],
+ "bet": "safe",
+ "gpu_hours": 0,
+ "score": 22,
+ "bench_score": 45,
+ "directions": [
+  "D32"
+ ],
+ "scout_scores": [
+  22
+ ],
+ "final": 22,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 576,
+ "pid": "P576"
+}

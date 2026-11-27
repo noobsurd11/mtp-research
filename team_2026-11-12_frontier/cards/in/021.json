@@ -1,0 +1,85 @@
+{
+ "paper_id": "doi:10.1016/j.solener.2026.114469",
+ "title": "MultiSolSegment: Multi-channel segmentation of overlapping features in electroluminescence images of photovoltaic cells",
+ "year": 2026,
+ "venue": "Solar Energy",
+ "url": "https://arxiv.org/pdf/2603.13337",
+ "code_url": "https://github.com/sandialabs/pvcracks",
+ "mechanism": "Per-channel sigmoid multi-label U-Net so one pixel can be crack and busbar, or crack and dark area, at the same time; trained with BCE on multi-hot masks.",
+ "adaptation": "Keep the 24-class softmax head of the house U-Net++ and add 2 sigmoid channels (crack, inactive). The crack target keeps the 20% of train crack pixels that single-label masks assign to inactive. Per-channel thresholds chosen on val; final crack map from the sigmoid channel.",
+ "min_experiment": "Arm: house PF + 2 sigmoid channels (BCE + Dice). Baseline: PF, 5 seeds each. Metric: test clean-49 crack IoU, inactive IoU, relF1@2. Kill if crack IoU < +0.012 and inactive IoU < +0.02.",
+ "evidence": "R: 2,340 augmented images, 4 classes; mean-over-class IoU 0.384, Dice 0.503; crack count per image 4.34 v GT 5.29 v PV-Vision 6.03 (PV-Vision fragments cracks at busbars). Nested 5-fold CV. No crack-only IoU reported.",
+ "prior_overlap": "none; multi-label heads are listed as never tried in BRIEF section 5",
+ "score": 70,
+ "bench_score": 75,
+ "bet": "safe",
+ "gpu_hours": 12,
+ "targets": [
+  "crack",
+  "inactive",
+  "benchmark"
+ ],
+ "directions": [
+  "D01",
+  "D02",
+  "D03",
+  "D27",
+  "D36",
+  "D44"
+ ],
+ "scout_scores": [
+  68,
+  65,
+  70,
+  68,
+  66,
+  60,
+  55
+ ],
+ "alt_notes": [
+  {
+   "from": "D02",
+   "adaptation": "Keep softmax for the 22 structural / other classes, add independent sigmoid channels for crack and inactive. Build overlap targets from our single-label masks: inactive channel = inactive label morphologically closed over the crack pixels it encloses (20% of train crack pixels lie in or at inactive), crack channel unchanged. Per-channel thresholds chosen on val. Optionally add the 585 MultiSolSegment cells with loss masked to the shared crack / dark channels and resampled to our crack width.",
+   "min_experiment": "Arm: house U-Net++ + sigmoid crack and inactive heads (BCE + Dice). Baseline: house, 5 v 5 seeds. Metrics: test clean-49 inactive IoU, crack IoU, crack relF1@2. Kill if inactive IoU gain < 0.02 and relF1@2 gain < 0.01.",
+   "score": 65
+  },
+  {
+   "from": "D01",
+   "adaptation": "Keep house U-Net++ R34; add sigmoid crack and inactive channels (BCE + soft Dice) next to the softmax head for the other 22 classes. Build multi-label targets: inactive = hole-filled inactive region including crack pixels inside it; crack = crack label even inside inactive. Thresholds chosen on val. Targets the 20% of train crack pixels in/at inactive regions that argmax must split.",
+   "min_experiment": "Arm house + multi-label crack/inactive heads vs house and PF, 5 seeds each; inactive IoU (clean 49, E1), crack IoU, relF1@2; kill if inactive IoU gain < 0.02 on both test and E1 and crack IoU not >= house.",
+   "score": 68
+  },
+  {
+   "from": "D27",
+   "adaptation": "Independent crack and inactive channels (shared run with the region head). Also let crack overlap busbar and ribbons, where crack labels are now broken. Optionally add its 585 cells with the loss masked to the shared channels (crack, busbar, dark ~ inactive).",
+   "min_experiment": "Same arm as the region-head run, plus a variant that adds MultiSolSegment cells with masked loss. Baseline: PF. Metrics: crack IoU, relF1@2, crack components >= 20 px found, inactive IoU. Kill if crack IoU gain < 0.012 and inactive CV IoU gain < 0.02.",
+   "score": 68
+  },
+  {
+   "from": "D27",
+   "adaptation": "EL precedent for the region head: independent crack and inactive channels, and let crack overlap busbar/ribbon. Optionally add its 585 cells with loss masked to shared channels (crack; dark area as weak inactive).",
+   "min_experiment": "Shared with the region-head run: PF + independent sigmoid crack/inactive (+ crack over busbar) vs PF; crack components >=20 px found and relF1@2 on clean 49; kill if relF1@2 gain < 0.01 and component recall gain < 0.02.",
+   "score": 66
+  },
+  {
+   "from": "D36",
+   "adaptation": "(a) 585 extra crack-labelled cells for joint runs, with own source flag. (b) Add crack and inactive sigmoid channels on top of the softmax head, since 20% of our train crack pixels lie in or at inactive regions where argmax drops one.",
+   "min_experiment": "Arm: house + 2 sigmoid channels, 20k steps, 5 seeds. Baseline: house 5-seed. Metric: clean-49 relR@2 at equal relP@2, inactive IoU. Kill if relR@2 < +0.02 and inactive IoU not up. ~6 GPU-h.",
+   "score": 60
+  },
+  {
+   "from": "D44",
+   "adaptation": "Three sigmoid channels (crack, inactive, dark) on PF, so the 20% of crack pixels lying in or at inactive regions are no longer lost to argmax. Its outputs are also the clean inputs for the isolated-area rules. The paper says the code is in the sandialabs/pvcracks repo; the repo was not opened.",
+   "min_experiment": "Shared with D27 experiment 1. Arm: PF + 3 sigmoid channels with BCE + soft Dice. Baseline: PF. Metrics: CV inactive IoU, crack IoU, relF1@2, E1 inactive IoU. Kill if inactive gain < 0.02 and crack IoU drop > 0.012. About 12 GPU-h.",
+   "score": 55
+  }
+ ],
+ "final": 70,
+ "bench": 75,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 21,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

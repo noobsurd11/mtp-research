@@ -1,0 +1,144 @@
+{
+ "paper_id": "arxiv:2608.01714",
+ "title": "STC-Net: Electroluminescence-Based Solar Cell Crack Segmentation for Power Loss Estimation",
+ "year": 2026,
+ "venue": "arXiv (MERCon 2026)",
+ "url": "https://arxiv.org/abs/2608.01714",
+ "code_url": "",
+ "mechanism": "Two fixed prior branches (Sobel gradient-magnitude pyramid and FFT radial high-pass residual pyramid) injected into the decoder of a U-Net-like crack segmenter, plus boundary-topology refinement and a crack-derived inactive-area proxy for power loss.",
+ "evidence": "R: PVEL-S (840 train / 360 test polycrystalline cells): test mIoU 72.52, mDice 80.16, recall 83.18, precision 84.23. No ablation of the priors found in the text.",
+ "adaptation": "Inject LoG (sigma about 1.5) instead of Sobel (Sobel fires on both flanks of a 4 px line while labels are 1 to 2 px on the ridge) and an FFT high-pass map into U-Net++ decoder stages. Use its inactive-area proxy for the severity track.",
+ "min_experiment": "Arm: house + LoG and high-pass prior pyramids in decoder, 5 seeds. Baseline: house. Metrics: test crack IoU, relF1@2, comp>=20 px recall. Kill: crack IoU < +0.012 and no relF1@2 gain.",
+ "gpu_hours": 12,
+ "prior_overlap": "none",
+ "targets": [
+  "crack",
+  "severity",
+  "benchmark"
+ ],
+ "bet": "safe",
+ "score": 52,
+ "bench_score": 50,
+ "directions": [
+  "D01",
+  "D02",
+  "D03",
+  "D04",
+  "D08",
+  "D10",
+  "D22",
+  "D27",
+  "D28",
+  "D44"
+ ],
+ "scout_scores": [
+  48,
+  42,
+  45,
+  25,
+  52,
+  52,
+  15,
+  12,
+  30,
+  30,
+  38,
+  38,
+  52,
+  42,
+  45
+ ],
+ "alt_notes": [
+  {
+   "from": "D02",
+   "adaptation": "Feed Sobel magnitude and a high-pass residual as extra input channels to U-Net++, with the cutoff set above finger pitch or a notch removing finger periodicity so gridlines do not light up; auxiliary head on 2 px dilated crack rather than edge labels. Reuse the inactive proxy only as a severity baseline.",
+   "min_experiment": "Arm: house + 2 prior channels + aux head. Baseline: house, 5 v 5 seeds. Metrics: test crack IoU, E1 crack recall. Kill if crack IoU < +0.012 and E1 recall < +0.03.",
+   "score": 42
+  },
+  {
+   "from": "D03",
+   "adaptation": "Cheap form: 3-channel input (EL, Sobel magnitude, high-pass residual) at 512 px. Full form: prior pyramids into U-Net++ skips, edge head target = 3 px dilated crack label to absorb 1 to 2 px jitter. Aimed at low-contrast cracks (7% are < 2% darker) and E1.",
+   "min_experiment": "Arm: house with priors (cheap, then full). Baseline: house, 5 seeds. Metric: test crack relF1@2, E1 crack recall. Kill if relF1@2 < +0.01 and E1 recall < +0.02.",
+   "score": 45
+  },
+  {
+   "from": "D04",
+   "adaptation": "Cheap arm: Sobel magnitude and high-pass maps as extra input channels to the house U-Net++; the inactive proxy is a simpler form of the crack-bounded region prior.",
+   "min_experiment": "Arm: house with 3-channel input (EL, Sobel, high-pass); baseline: house. Metrics: CV crack relF1@2 and crack IoU. Kill if < +0.01.",
+   "score": 25
+  },
+  {
+   "from": "D01",
+   "adaptation": "Minimal: Sobel magnitude + high-pass residual as 2 extra input channels to the house model; full: prior pyramids fused at U-Net++ decoder nodes. Source-independent contrast cue aimed at E1, where 70% of crack pixels get p < 0.001; risk of false alarms on scuff streaks and gridlines.",
+   "min_experiment": "Arm house + priors vs house, 5 seeds; E1 crack recall and relF1@2, test crack IoU; kill if E1 relF1@2 < +0.03 and test crack IoU drops > 0.01.",
+   "score": 48
+  },
+  {
+   "from": "D08",
+   "adaptation": "Inject the two prior pyramids into U-Net++ decoder stages; replace Sobel with a LoG ridge prior (sigma about 1.5) because Sobel fires on both flanks of a 4 px dark line while labels sit on one ridge.",
+   "min_experiment": "Arm: house + LoG and FFT high-pass pyramids in decoder, 5 seeds. Baseline: house. Metrics: test crack IoU, relF1@2, comp>=20 px recall. Kill: < +0.012 crack IoU and no relF1@2 gain.",
+   "score": 52
+  },
+  {
+   "from": "D10",
+   "adaptation": "Reference only. The topology head could become an auxiliary skeleton output on U-Net++, but there is no ablation showing it helps.",
+   "min_experiment": "None proposed until a topology-head ablation exists. At most, add a skeleton auxiliary head inside the DconnNet arm.",
+   "score": 15
+  },
+  {
+   "from": "D10",
+   "adaptation": "Only EL topology paper found; no ablation of the topology module, so no evidence it helps. Cite in benchmark related work and the severity discussion.",
+   "min_experiment": "None for scores.",
+   "score": 12
+  },
+  {
+   "from": "D22",
+   "adaptation": "Same modality and size (grey, 512 px): reimplement as a benchmark entry from the paper spec (base 32 ch, depths [2,2,4,2], 120 epochs, deep supervision); edge and spectral prior injection as a cheap ablation on the house model.",
+   "min_experiment": "Arm: house PF + Sobel and high-pass prior pyramids into decoder; baseline: house PF; CV crack IoU, E1 relF1@2. Kill if both n.d.",
+   "score": 30
+  },
+  {
+   "from": "D22",
+   "adaptation": "Same modality and task: reimplement from the paper spec (base 32 ch, depths [2,2,4,2], 120 epochs) as a benchmark entry on our splits; its power-loss proxy informs the severity extension; its edge / spectral priors as one cheap ablation on the house model.",
+   "min_experiment": "Bench run under the protocol vs house PF; score-arm ablation house PF + Sobel / FFT pyramid inputs, kill if 5-fold CV crack relF1@2 n.d. About 8 GPU-h.",
+   "score": 30
+  },
+  {
+   "from": "D27",
+   "adaptation": "Its auxiliary heads are a subset of the SBCB and distance-head arms. Its value here is as the only EL structured multi-head method. Reimplement it in the benchmark suite under our split, and reuse its inactive-area proxy only as a severity baseline.",
+   "min_experiment": "Benchmark run: STC-Net reimplementation v house under the fixed protocol. Metrics: crack IoU, relF1@2, inactive IoU. No kill line; it is a suite baseline.",
+   "score": 38
+  },
+  {
+   "from": "D27",
+   "adaptation": "Its auxiliary heads are a subset of the SBCB and distance arms; include in benchmark suite and reuse its proxy as a severity baseline only.",
+   "min_experiment": "Benchmark run: STC-Net reimplemented under our protocol vs house on clean 49 crack IoU, relF1@2 and E1; no kill line (suite member).",
+   "score": 38
+  },
+  {
+   "from": "D28",
+   "adaptation": "Compute the Sobel and radial high-pass maps on the 1-channel 512 px input, build small pyramids, and add them into the U-Net++ decoder skips with learned weights. The power-loss proxy is a candidate severity output.",
+   "min_experiment": "Arm: house + prior pyramids, 5 seeds. Baseline: house. Metric: crack IoU, relF1@2. Kill: < +0.012 crack IoU and no relF1@2 gain.",
+   "score": 52
+  },
+  {
+   "from": "D28",
+   "adaptation": "Benchmark row under our protocol; for our model, replace its radial high-pass (which boosts fingers too) with the periodic notch residual.",
+   "min_experiment": "Benchmark run under the fixed protocol (5 seeds, clean-49 + E1); as a prior arm, kill if crack IoU < +0.012.",
+   "score": 42
+  },
+  {
+   "from": "D44",
+   "adaptation": "Use only the proxy, as a second post-processing arm next to PV-Vision. Fit the percentile and dilation radius per source, because BMRK and SDLE contrast differ. Do not adopt the network: its PVEL-S binary results say nothing about our 1-2 px jittered labels.",
+   "min_experiment": "Same harness as PV-Vision. Arm: dark-in-dilated-crack rule ORed with model inactive, or ANDed with p(inactive) > 0.05. Baseline PF / PF ensemble. Metric: CV and E1 inactive IoU. Kill if gain < +0.02 or precision drop > 0.05.",
+   "score": 45
+  }
+ ],
+ "final": 52,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 177,
+ "pid": "P177"
+}

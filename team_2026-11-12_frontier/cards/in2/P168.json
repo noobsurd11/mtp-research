@@ -1,0 +1,45 @@
+{
+ "paper_id": "doi:10.1109/isbi56570.2024.10635696",
+ "title": "Deep Vessel Segmentation Based on a New Combination of Vesselness Filters",
+ "year": 2024,
+ "venue": "ISBI",
+ "url": "https://arxiv.org/abs/2402.14509",
+ "code_url": "",
+ "mechanism": "Train the segmentation net on stacked multi-scale vesselness filter responses instead of (or with) the raw image; helps small vessels.",
+ "adaptation": "Add Frangi / Sato / Jerman responses for dark ridges at sigma 1, 1.5, 2, 3 px as extra input channels to house U-Net++ (no training of the filters). Fingers and busbar edges will respond too.",
+ "min_experiment": "Arm: house with [EL, 4 ridge maps], 5 seeds; baseline house 5 seeds. Metrics: crack relF1@2, E1 relF1@2, gridline IoU. Kill: crack and E1 relF1@2 gains both < 0.01. Note HarmonySeg found plain concatenation gave no notable gain, so a null here then points to attention fusion.",
+ "evidence": "U-Net on vesselness hyper-volumes improved segmentation, mainly small vessels, on two vascular datasets (abstract). HarmonySeg ablation: simple CT+vesselness concatenation gave no notable gain.",
+ "gpu_hours": 7,
+ "prior_overlap": "none",
+ "score": 55,
+ "bench_score": 25,
+ "bet": "safe",
+ "targets": [
+  "crack",
+  "e1_unseen",
+  "other_classes"
+ ],
+ "directions": [
+  "D12",
+  "D28"
+ ],
+ "scout_scores": [
+  55,
+  50
+ ],
+ "alt_notes": [
+  {
+   "from": "D28",
+   "adaptation": "Input stack: raw, Sato dark-ridge sigma 1 and 2, Frangi dark-ridge, FFT residual. Use 4 to 5 channels, with the conv1 extra-channel weights zero-initialised.",
+   "min_experiment": "Arm: house with the 4-channel stack, 5 seeds. Baseline: house. Metric: test relF1@2, E1 crack recall. Kill: E1 recall < +0.03 and relF1@2 < +0.01.",
+   "score": 50
+  }
+ ],
+ "final": 55,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 168,
+ "pid": "P168"
+}

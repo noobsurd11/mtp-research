@@ -1,0 +1,34 @@
+Label set v1.1, 582 legacy cells (make_masks_v11.py). v1 = masks_escdd rebuilt from public files.
+cells whose mask changed: 18 ; change rows: 40
+
+per split | cells | changed cells | px -> ignore (scuff / star) | of which v1 crack / material / bckgnd / other | wrong-mask cell px changed
+  train | 478 | 16 | 3484 (3246 / 238) | 703 / 1390 / 1383 / 8 | 10556
+  val | 54 | 0 | 0 (0 / 0) | 0 / 0 / 0 / 0 | 0
+  test | 50 | 2 | 236 (236 / 0) | 236 / 0 / 0 / 0 | 0
+
+per split | crack cells v1 -> v1.1 | crack px v1 -> v1.1 | inactive cells v1 -> v1.1 | inactive px v1 -> v1.1 | cells with ignore px | ignore px
+  train | 209 -> 206 | 271805 -> 269608 | 42 -> 42 | 272743 -> 272743 | 15 | 3484
+  val | 23 -> 23 | 37938 -> 37938 | 6 -> 6 | 12277 -> 12277 | 0 | 0
+  test | 48 -> 46 | 92074 -> 91838 | 16 -> 16 | 92125 -> 92125 | 2 | 236
+
+cells that lose all crack in v1.1: [('ARTS_00047_r3_c1', 'test', 34), ('ARTS_00051_r3_c2', 'test', 202), ('ARTS_00051_r6_c2', 'train', 47), ('CSIR_00117_r8_c4', 'train', 260), ('CSIR_00176_r5_c2', 'train', 47)]
+E1 cells (stem, split, ignore px, of which v1 crack):
+  ARTS_00005_r10_c4	train	79	0
+  ARTS_00039_r10_c1	train	151	0
+  ARTS_00039_r6_c4	train	90	0
+  ARTS_00041_r9_c4	train	200	0
+  ARTS_00047_r3_c1	test	34	34
+  ARTS_00048_r2_c5	train	404	0
+  ARTS_00051_r3_c2	test	202	202
+  ARTS_00051_r6_c2	train	47	47
+  BMRK_00055_cell0115	train	1013	0
+  CFVS_00024_r3_c3	train	99	54
+  CFVS_00030_r3_c3	train	60	0
+  CSIR_00092_r11_c5	train	310	116
+  CSIR_00117_r8_c4	train	437	260
+  CSIR_00155_r5_c5	train	139	139
+  CSIR_00161_r4_c6	train	183	40
+  CSIR_00175_r8_c3	train	225	0
+  CSIR_00176_r5_c2	train	47	47
+E2 BMRK_00031_cell0091 (train): crack px 1560 -> 66; px changed 10556; v1.1 mask == dataset_20211104 mask: True; donor BMRK_00075_cell0255 (test) unchanged
+strict variant differs from v1 in cells: ['BMRK_00031_cell0091']

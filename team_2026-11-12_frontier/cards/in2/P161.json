@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2403.12036",
+ "title": "One-Step Image Translation with Text-to-Image Models (CycleGAN-Turbo)",
+ "year": 2024,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2403.12036",
+ "code_url": "https://github.com/GaParmar/img2img-turbo",
+ "mechanism": "One-step SD-Turbo generator with LoRA and encoder-decoder skip connections trained with cycle and adversarial losses on unpaired domains; skips keep the input structure.",
+ "adaptation": "Domain A = 478 train cells plus existing synthetic half-cut views; domain B = 1,152 half-cut multi pool cells plus scuffed CSIR cells. Translate train cells to B style and keep real labels; 1-ch replicated to 3. Latent 64x64 may erase low-contrast cracks, so drop samples where house-ensemble crack relF1@2 on the translated cell falls below 0.9 of the source value.",
+ "min_experiment": "PF + 478 translated cells vs PF, 5 seeds. Metric E1 crack relF1@2 and E1 inactive IoU, guard clean-49 crack IoU. Kill: both E1 gains < +0.03 or test crack IoU drop > 0.01. About 25 GPU-h.",
+ "evidence": "R: beats GAN and diffusion translators on day/night and weather translation (FID, structure preservation); 193 citations; no segmentation-on-translated numbers.",
+ "prior_overlap": "Synthetic half-cut views (geometry only) were n.d.; appearance translation toward half-cut/scuff style never run. Open.",
+ "score": 55,
+ "bench_score": 35,
+ "bet": "medium",
+ "targets": [
+  "e1_unseen",
+  "inactive"
+ ],
+ "gpu_hours": 25,
+ "directions": [
+  "D33"
+ ],
+ "scout_scores": [
+  55
+ ],
+ "final": 55,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 161,
+ "pid": "P161"
+}

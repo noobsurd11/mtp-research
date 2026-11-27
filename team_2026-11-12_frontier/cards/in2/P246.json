@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2510.23241",
+ "title": "Progressive growing of patch size: Curriculum learning for accelerated and improved medical image segmentation",
+ "year": 2026,
+ "venue": "Medical Image Analysis",
+ "url": "https://arxiv.org/abs/2510.23241",
+ "code_url": "",
+ "mechanism": "Start training with small patches and grow them, scaling batch size inversely to keep FLOPs; better convergence on severe foreground imbalance, lower seed variance.",
+ "adaptation": "2D: random crops 128 (batch 128) to 256 (batch 32) to 512 (batch 8), equal steps per stage, crops anywhere on the cell; last stage long because inactive and edge_dark need whole-cell context.",
+ "min_experiment": "Arm: PF with PGPS, 5 seeds. Baseline: SUP100-PF. Metric: crack relF1@2, crack IoU, inactive IoU, seed std. Kill: no co-primary gain and seed std not lower.",
+ "evidence": "R (abstract): +1.28% relative Dice over 15 3D tasks at equal FLOPs, better on all 15, largest on lesion tasks, lower variance. MICCAI 2024 version had code at github.com/compai-lab/2024-miccai-fischer per web search (contents not checked).",
+ "prior_overlap": "BRIEF section 5: 2x resolution tested, crop curricula never. Open.",
+ "score": 48,
+ "bench_score": 35,
+ "bet": "medium",
+ "gpu_hours": 8,
+ "targets": [
+  "crack",
+  "measurement"
+ ],
+ "directions": [
+  "D35"
+ ],
+ "scout_scores": [
+  48
+ ],
+ "final": 48,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 246,
+ "pid": "P246"
+}

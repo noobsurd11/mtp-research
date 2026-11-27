@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2112.11177",
+ "title": "Generalizable Cross-modality Medical Image Segmentation via Style Augmentation and Dual Normalization",
+ "year": 2022,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2112.11177",
+ "code_url": "https://github.com/zzzqzhou/Dual-Normalization",
+ "mechanism": "Separate BN for source-similar and source-dissimilar style augmentations; test-time style-distance selection of the BN path.",
+ "evidence": "Outperforms DG methods on BraTS, cross-modality cardiac and abdominal (abstract).",
+ "adaptation": "BN set A for label-safe augmentation, BN set B for GIN/BigAug-strong augmentation; route each cell by style distance.",
+ "min_experiment": "PF+DN vs PF+GIN-IPA; E1 relF1@2; kill if < +0.02.",
+ "prior_overlap": "Partial: separate BN used in SSL runs for another purpose; per-panel BN adaptation failed. Style-routed dual BN untested.",
+ "score": 35,
+ "bench_score": 30,
+ "bet": "medium",
+ "gpu_hours": 6,
+ "targets": [
+  "e1_unseen"
+ ],
+ "directions": [
+  "D30"
+ ],
+ "scout_scores": [
+  35
+ ],
+ "final": 35,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 464,
+ "pid": "P464"
+}

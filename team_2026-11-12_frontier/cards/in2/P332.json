@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1109/lsp.2026.3731530",
+ "title": "Boundary-Local Soft Supervision for Reliable Calibration in Defect Segmentation",
+ "year": 2026,
+ "venue": "IEEE Signal Processing Letters",
+ "url": "https://doi.org/10.1109/LSP.2026.3731530",
+ "code_url": "",
+ "mechanism": "Boundary-gated label smoothing: local-mean soft targets only inside a morphological boundary band, hard BCE + Dice elsewhere.",
+ "adaptation": "2 px band around crack and inactive labels gets local-mean soft targets; main use is calibrated crack probabilities for decoding, ensembling and severity, not raw IoU.",
+ "min_experiment": "Arm: house loss + BLSS band term, 5 seeds; baseline SUP100. Kill: 2 px band crack ECE on val not down 20%, or crack IoU drop > 0.012.",
+ "evidence": "R: 4 defect datasets incl. DeepCrack, 20 seeds: boundary-band ECE down 28-49%, no Dice or Boundary-Dice degradation; weaker on Magnetic Tile.",
+ "gpu_hours": 6,
+ "bet": "safe",
+ "prior_overlap": "none",
+ "score": 42,
+ "bench_score": 45,
+ "targets": [
+  "crack",
+  "severity"
+ ],
+ "directions": [
+  "D18"
+ ],
+ "scout_scores": [
+  42
+ ],
+ "final": 42,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 332,
+ "pid": "P332"
+}

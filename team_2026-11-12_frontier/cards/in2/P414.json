@@ -1,0 +1,44 @@
+{
+ "paper_id": "arxiv:2605.12430",
+ "title": "AOI-SSL: Self-Supervised Framework for Efficient Segmentation of Wire-bonded Semiconductors In Optical Inspection",
+ "year": 2026,
+ "venue": "CVPR-W 2026 (AI4RWC)",
+ "url": "https://arxiv.org/abs/2605.12430",
+ "code_url": "",
+ "mechanism": "MAE pretraining in a 7k-image industrial domain (beats DINO and iBOT); hybrid conv-ViT keeps thin wires; patch-level kNN retrieval over labelled patch embeddings adapts to a new device family with tens of images.",
+ "adaptation": "(b) first: kNN retrieval head on house encoder features with a memory from a few labelled half-cut cells (T3b few-shot track), fused with house logits for E1. (a) MAE on a hybrid conv-ViT only if a ConvNeXt MIM arm passes.",
+ "min_experiment": "Arm: house PF ensemble + retrieval head with T3b memory. Baseline: house PF ensemble. Metric: E1 crack recall at matched precision. Kill if < +0.02.",
+ "evidence": "R: FasterViT-0 MAE 60.3 mIoU vs ResNet18 U-Net++ ImageNet 52.4 (architectures differ); wire IoU 66.7 vs 43.0 for ViT-Tiny; retrieval 71.5 vs 47.5 mIoU on a single device family with a 42-image memory.",
+ "prior_overlap": "None.",
+ "score": 38,
+ "bench_score": 55,
+ "bet": "medium",
+ "gpu_hours": 5,
+ "targets": [
+  "e1_unseen",
+  "crack",
+  "benchmark"
+ ],
+ "directions": [
+  "D32"
+ ],
+ "scout_scores": [
+  38,
+  38
+ ],
+ "alt_notes": [
+  {
+   "from": "D32",
+   "adaptation": "(a) MAE on a hybrid conv-ViT on the pool, PF; (b) kNN patch-retrieval head on house encoder features with a memory from a few labelled half-cut cells, fused with house logits, as an E1 few-shot track.",
+   "min_experiment": "(b) kNN head vs house PF ensemble on E1 crack recall at matched precision; kill if < +0.02. ~2 GPU-h.",
+   "score": 38
+  }
+ ],
+ "final": 38,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 414,
+ "pid": "P414"
+}

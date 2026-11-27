@@ -1,0 +1,45 @@
+{
+ "paper_id": "arxiv:2608.09101",
+ "title": "Contrastive Mask Fidelity: Reference-Free Auditing of Ground-Truth Masks in Remote Sensing Semantic Segmentation",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2608.09101",
+ "code_url": "",
+ "mechanism": "Reference-free score of how well each ground-truth mask agrees with its image, to flag coarse, incomplete or misaligned masks.",
+ "adaptation": "Score all 582 + 106 crack and inactive masks; publish fidelity with the benchmark and report test scores with low-fidelity cells flagged (CSIR_00070 should rank bottom). Training: drop or down-weight the worst decile, an automatic B1 audit (24 of 239 flagged, never fixed).",
+ "min_experiment": "Arm: house trained without the lowest-fidelity 10% crack masks; baseline: house. Metric crack IoU, relF1@2. Kill if n.d. Audit itself is a benchmark deliverable.",
+ "evidence": "R: remote-sensing segmentation datasets (abstract); numbers not read.",
+ "score": 38,
+ "bench_score": 62,
+ "bet": "medium",
+ "targets": [
+  "benchmark",
+  "measurement",
+  "crack"
+ ],
+ "gpu_hours": 6,
+ "prior_overlap": "partial: B1 manual-flag audit done, nothing fixed or removed.",
+ "directions": [
+  "D16",
+  "D37"
+ ],
+ "scout_scores": [
+  38,
+  30
+ ],
+ "alt_notes": [
+  {
+   "from": "D37",
+   "adaptation": "EL-aware judge: image-level crack classifier (train + ELPV labels); inpaint the masked crack line and measure drop in p(crack); choose per segment between human and model line; mainly to audit test labels.",
+   "min_experiment": "Arm: judge on 100 train cells with synthetic 1-2 px shifts. Baseline: ridge-darkness heuristic. Metric: fraction choosing the darkest-ridge line. Kill: < 70%.",
+   "score": 30
+  }
+ ],
+ "final": 38,
+ "bench": 62,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 411,
+ "pid": "P411"
+}

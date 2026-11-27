@@ -1,0 +1,114 @@
+# SKR2C verdict D: E-SKR2' - E-SUPPF' (5-member ensembles s2c_*_s10..14; same 50 test and 106 E1 cells as #5 / #6, 3rd look). Labels: E-SUPPF = E-SUPPF' (s2c_SUPPF_100pct_s10..14), E-SKR2 = E-SKR2' (s2c_SKR01_100pct_s10..14).
+# Val (reported only; s2c_d_val_decisions.json): E-SUPPF D2 b 1.25 (max val relF1@2; val crack precision drop +0.0615; width flag ON); E-SKR2 D2 b 0.75 (smallest bias with val relR@2 >= 0.90 and relP@2 >= 0.90; val crack precision drop +0.0381; width flag off); b_mv -0.45 (val pred/GT 0.9909 vs E-SUPPF b 0 0.9865). Checks: {'anyhit_E-SUPPF': {'this_run': [114, 296], 'sweep': [114, 296], 'equal': True}, 'anyhit_E-SKR2': {'this_run': [124, 296], 'sweep': [124, 296], 'equal': True}, 'reads_val': {'stems': 54, 'equal_real_list': True}, 'reads_test': {'stems': 50, 'equal_real_list': True}, 'reads_ext': {'stems': 106, 'equal_real_list': True}, 'rc': 0}
+
+## VERDICT: both arms at b 0: E-SUPPF b 0.0 vs E-SKR2 b 0.0
+  [test] E-SUPPF b 0.0 vs E-SKR2 b 0.0; paired image bootstrap 2,000, seed 0 (Track M m1_analyze.boot)
+    all 50    | crack IoU +0.0004 [-0.0050, +0.0052] P>0 0.57 | relF1@2 +0.0008 [-0.0035, +0.0047] P>0 0.66 | inactive IoU -0.0269 [-0.0592, +0.0007] P>0 0.03 | mIoU_rob +0.0002 [-0.0096, +0.0135] P>0 0.56 | E-SUPPF crack IoU 0.4872 relF1 0.9004 inact 0.4746 | E-SKR2 0.4876 0.9012 0.4477
+              capture E-SUPPF -> E-SKR2: relR2 0.850->0.863 relP2 0.957->0.943 pix R 0.635->0.666 pix P 0.677->0.645 comp R 0.815->0.836 comp P 0.977->0.948 any-hit 0.905->0.921 (n 189) pred/GT 0.939->1.032
+    clean 49  | crack IoU +0.0016 [-0.0028, +0.0062] P>0 0.75 | relF1@2 +0.0020 [-0.0013, +0.0055] P>0 0.88 | inactive IoU -0.0283 [-0.0656, +0.0025] P>0 0.03 | mIoU_rob -0.0033 [-0.0108, +0.0091] P>0 0.31 | E-SUPPF crack IoU 0.4904 relF1 0.9045 inact 0.4901 | E-SKR2 0.4920 0.9065 0.4618
+              capture E-SUPPF -> E-SKR2: relR2 0.858->0.870 relP2 0.957->0.947 pix R 0.641->0.672 pix P 0.677->0.648 comp R 0.824->0.845 comp P 0.977->0.953 any-hit 0.914->0.925 (n 187) pred/GT 0.947->1.037
+    -twins    | crack IoU +0.0011 [-0.0052, +0.0074] P>0 0.61 | relF1@2 +0.0006 [-0.0060, +0.0064] P>0 0.59 | inactive IoU -0.0193 [-0.0357, +0.0086] P>0 0.07 | mIoU_rob +0.0020 [-0.0084, +0.0161] P>0 0.66 | E-SUPPF crack IoU 0.4116 relF1 0.8504 inact 0.4454 | E-SKR2 0.4127 0.8509 0.4262
+              capture E-SUPPF -> E-SKR2: relR2 0.776->0.792 relP2 0.940->0.920 pix R 0.535->0.564 pix P 0.641->0.606 comp R 0.759->0.786 comp P 0.988->0.963 any-hit 0.876->0.897 (n 145) pred/GT 0.835->0.929
+    -both     | crack IoU +0.0028 [-0.0022, +0.0088] P>0 0.84 | relF1@2 +0.0025 [-0.0019, +0.0080] P>0 0.86 | inactive IoU -0.0204 [-0.0375, +0.0092] P>0 0.07 | mIoU_rob -0.0015 [-0.0109, +0.0115] P>0 0.43 | E-SUPPF crack IoU 0.4161 relF1 0.8570 inact 0.4624 | E-SKR2 0.4189 0.8595 0.4421
+              capture E-SUPPF -> E-SKR2: relR2 0.787->0.802 relP2 0.940->0.925 pix R 0.543->0.572 pix P 0.641->0.611 comp R 0.769->0.797 comp P 0.988->0.969 any-hit 0.888->0.902 (n 143) pred/GT 0.847->0.936
+    => test: n.d.; passing: []
+    per source (E-SUPPF -> E-SKR2): ARTS n 13 crack IoU 0.449->0.477 relF1 0.900->0.927 inact 0.515->0.541; BMRK n 10 crack IoU 0.398->0.401 relF1 0.843->0.843 inact 0.383->0.361; CFVS n 18 crack IoU 0.547->0.550 relF1 0.937->0.938 inact 0.582->0.537; CSIR n 8 crack IoU 0.426->0.412 relF1 0.858->0.852 inact 0.385->0.386; SDLE n 1 crack IoU 0.000->0.000 relF1 0.000->0.000 inact nan->nan
+  [test_noscuff] E-SUPPF b 0.0 vs E-SKR2 b 0.0; paired image bootstrap 2,000, seed 0 (Track M m1_analyze.boot)
+    all 50    | crack IoU +0.0003 [-0.0051, +0.0052] P>0 0.56 | relF1@2 +0.0008 [-0.0035, +0.0047] P>0 0.65 | inactive IoU -0.0269 [-0.0592, +0.0007] P>0 0.03 | mIoU_rob +0.0002 [-0.0096, +0.0135] P>0 0.56 | E-SUPPF crack IoU 0.4882 relF1 0.9016 inact 0.4746 | E-SKR2 0.4885 0.9024 0.4477
+              capture E-SUPPF -> E-SKR2: relR2 0.853->0.865 relP2 0.957->0.943 pix R 0.637->0.668 pix P 0.677->0.645 comp R 0.828->0.849 comp P 0.977->0.948 any-hit 0.919->0.935 (n 186) pred/GT 0.941->1.035
+    clean 49  | crack IoU +0.0015 [-0.0029, +0.0062] P>0 0.74 | relF1@2 +0.0020 [-0.0013, +0.0055] P>0 0.88 | inactive IoU -0.0283 [-0.0656, +0.0025] P>0 0.03 | mIoU_rob -0.0033 [-0.0108, +0.0090] P>0 0.31 | E-SUPPF crack IoU 0.4914 relF1 0.9058 inact 0.4901 | E-SKR2 0.4929 0.9077 0.4618
+              capture E-SUPPF -> E-SKR2: relR2 0.860->0.872 relP2 0.957->0.947 pix R 0.642->0.674 pix P 0.677->0.648 comp R 0.837->0.859 comp P 0.977->0.953 any-hit 0.929->0.940 (n 184) pred/GT 0.949->1.040
+    -twins    | crack IoU +0.0010 [-0.0054, +0.0074] P>0 0.61 | relF1@2 +0.0005 [-0.0060, +0.0064] P>0 0.58 | inactive IoU -0.0193 [-0.0357, +0.0086] P>0 0.07 | mIoU_rob +0.0020 [-0.0084, +0.0161] P>0 0.66 | E-SUPPF crack IoU 0.4129 relF1 0.8523 inact 0.4454 | E-SKR2 0.4139 0.8529 0.4262
+              capture E-SUPPF -> E-SKR2: relR2 0.779->0.795 relP2 0.940->0.920 pix R 0.537->0.566 pix P 0.641->0.606 comp R 0.775->0.803 comp P 0.988->0.963 any-hit 0.894->0.915 (n 142) pred/GT 0.839->0.933
+    -both     | crack IoU +0.0027 [-0.0023, +0.0088] P>0 0.83 | relF1@2 +0.0025 [-0.0020, +0.0079] P>0 0.85 | inactive IoU -0.0204 [-0.0375, +0.0092] P>0 0.07 | mIoU_rob -0.0015 [-0.0109, +0.0115] P>0 0.43 | E-SUPPF crack IoU 0.4175 relF1 0.8590 inact 0.4624 | E-SKR2 0.4202 0.8615 0.4421
+              capture E-SUPPF -> E-SKR2: relR2 0.791->0.806 relP2 0.940->0.925 pix R 0.545->0.574 pix P 0.641->0.611 comp R 0.786->0.814 comp P 0.988->0.969 any-hit 0.907->0.921 (n 140) pred/GT 0.851->0.940
+    => test_noscuff: n.d.  (reported only)
+  [E1] 106 cells, 71 module clusters; paired module-cluster bootstrap 2,000, seed 0
+    E1 crack relF1@2 +0.0342 [+0.0115, +0.0544] P>0 1.00 (E-SUPPF 0.4385, E-SKR2 0.4727) | E1 any-hit +0.0338 [+0.0000, +0.0586] P>0 0.95 (E-SUPPF 0.3851, E-SKR2 0.4189; n 296) | E1 inactive IoU +0.0973 [-0.0681, +0.2054] P>0 0.89 (E-SUPPF 0.1959, E-SKR2 0.2932)
+    => E1 co-primaries: PASS (E1 crack relF1@2)
+    guards: G2a test relP@2 delta < -0.03: ok (delta -0.0133) | G2b E1 crack-free px > 1.5 x E-SUPPF: ok (E-SKR2 2539 vs E-SUPPF 2925 (bar 4388; x0.87)) | G1t test inactive delta <= -0.015 in both sets: TRIP (all 50 -0.0269, clean 49 -0.0283) | G1e E1 inactive CI wholly below 0: ok (+0.0973 [-0.0681, +0.2054])
+    width: pred/GT crack px test 0.939->1.032, E1 0.398->0.440; E1 relR2 0.361->0.392 relP2 0.560->0.594 pix R 0.188->0.219 pix P 0.473->0.497 comp R 0.220->0.257 comp P 0.576->0.597
+    crack px on crack-free test cells (2): E-SUPPF 0, E-SKR2 0
+    crack px on crack-free val cells (31): E-SUPPF 0, E-SKR2 26
+    crack px on crack-free ext cells (74): E-SUPPF 2925, E-SKR2 2539
+    E1 stratum scuff+half-cut n 29: relF1 0.351->0.387 any-hit 0.347->0.383 (n 274) inact IoU 0.583->0.552 relR2 0.238->0.274 relP2 0.666->0.662 crack R 0.125->0.148 pred/GT 0.231->0.276
+    E1 stratum half-cut w/o scuff n 29: relF1 0.875->0.842 any-hit 0.818->0.818 (n 11) inact IoU 0.604->0.635 relR2 0.809->0.767 relP2 0.953->0.934 crack R 0.472->0.461 pred/GT 0.524->0.521
+    E1 stratum full n 48: relF1 0.485->0.560 any-hit 0.909->0.909 (n 11) inact IoU 0.083->0.126 relR2 0.693->0.742 relP2 0.373->0.450 crack R 0.339->0.420 pred/GT 1.069->1.120
+    E1 stratum half-cut n 58: relF1 0.415->0.440 any-hit 0.365->0.400 (n 285) inact IoU 0.585->0.560 relR2 0.291->0.320 relP2 0.720->0.707 crack R 0.157->0.177 pred/GT 0.258->0.299
+    E1 stratum other n 77: relF1 0.577->0.623 any-hit 0.864->0.864 (n 22) inact IoU 0.096->0.153 relR2 0.729->0.750 relP2 0.477->0.534 crack R 0.380->0.433 pred/GT 0.900->0.935
+
+## SKR2C VERDICT D (protocol_SKR2C §3b; one pair, b 0 for both; guards at that pair)
+  test primaries: n.d. (passing: []) | E1 co-primaries: PASS (E1 crack relF1@2) | guard trips: ['G1t test inactive delta <= -0.015 in both sets']
+  => VERDICT D FAIL (guard trips: G1t test inactive delta <= -0.015 in both sets)
+  inactive guard alone: D's G1t null false-FAIL ~8%; with R's G1 ~9-15%, ~15% combined that a true null keeps SUP100-PF through an inactive guard alone (protocol_SKR2C §3c, judge L2).
+  every any-hit line carries the per-image concentration line: see 'E1 concentration' below.
+
+## reported: E1 concentration and robustness (b 0 pair)
+  E1 GT inactive px: total 9158, images with any 7, top 3 share 0.870, top 10 1.000, n_eff 3.3; top 3 = [('CSIR_01637', 3702), ('CSIR_01101', 3228), ('CSIR_01647', 1033)]
+  E1 GT crack comps >= 20 px: total 296, images with any 21, top 3 share 0.574, top 10 0.936, n_eff 7.1; top 3 = [('CSIR_01717', 70), ('CSIR_01637', 59), ('CSIR_01679', 41)]
+    any-hit comps in CSIR_01717: E-SUPPF 23/70, E-SKR2 29/70
+    any-hit comps in CSIR_01637: E-SUPPF 32/59, E-SKR2 33/59
+    any-hit comps in CSIR_01679: E-SUPPF 9/41, E-SKR2 12/41
+    any-hit comps in CSIR_02222: E-SUPPF 18/35, E-SKR2 19/35
+    any-hit comps in CSIR_02026: E-SUPPF 2/22, E-SKR2 2/22
+    any-hit comps in CSIR_02228: E-SUPPF 0/14, E-SKR2 0/14
+    any-hit comps in CSIR_01647: E-SUPPF 7/11, E-SKR2 6/11
+    any-hit comps in CSIR_01621: E-SUPPF 2/10, E-SKR2 2/10
+    any-hit comps in CSIR_02301: E-SUPPF 0/10, E-SKR2 0/10
+    any-hit comps in CSIR_01101: E-SUPPF 5/5, E-SKR2 5/5
+  leave-top-3-images-out (by GT inactive px; 99 cells): E1 relF1@2 +0.0401, any-hit +0.0452, inactive IoU +0.0525
+  leave-top-3-images-out (by GT crack comps; 92 cells): E1 relF1@2 +0.0318, any-hit +0.0000, inactive IoU +0.0822
+  leave-one-cluster-out range (71 drops): E1 relF1@2 [+0.0281, +0.0373], any-hit [+0.0177, +0.0386] (full +0.0342 / +0.0338)
+
+## reported: matched val volume (protocol §4): E-SUPPF b 0.0 vs E-SKR2 b_mv -0.45  (reported, not a verdict)
+  [test] E-SUPPF b 0.0 vs E-SKR2 b -0.45; paired image bootstrap 2,000, seed 0 (Track M m1_analyze.boot)
+    all 50    | crack IoU -0.0077 [-0.0137, -0.0029] P>0 0.00 | relF1@2 -0.0056 [-0.0133, -0.0002] P>0 0.02 | inactive IoU -0.0290 [-0.0611, -0.0007] P>0 0.02 | mIoU_rob -0.0006 [-0.0104, +0.0129] P>0 0.50 | E-SUPPF crack IoU 0.4872 relF1 0.9004 inact 0.4746 | E-SKR2 0.4795 0.8948 0.4455
+              capture E-SUPPF -> E-SKR2: relR2 0.850->0.841 relP2 0.957->0.955 pix R 0.635->0.626 pix P 0.677->0.672 comp R 0.815->0.820 comp P 0.977->0.962 any-hit 0.905->0.894 (n 189) pred/GT 0.939->0.931
+    clean 49  | crack IoU -0.0075 [-0.0134, -0.0030] P>0 0.00 | relF1@2 -0.0055 [-0.0130, -0.0001] P>0 0.02 | inactive IoU -0.0307 [-0.0672, +0.0001] P>0 0.03 | mIoU_rob -0.0041 [-0.0116, +0.0083] P>0 0.25 | E-SUPPF crack IoU 0.4904 relF1 0.9045 inact 0.4901 | E-SKR2 0.4829 0.8991 0.4595
+              capture E-SUPPF -> E-SKR2: relR2 0.858->0.849 relP2 0.957->0.956 pix R 0.641->0.631 pix P 0.677->0.673 comp R 0.824->0.829 comp P 0.977->0.962 any-hit 0.914->0.898 (n 187) pred/GT 0.947->0.939
+    -twins    | crack IoU -0.0132 [-0.0193, -0.0064] P>0 0.00 | relF1@2 -0.0101 [-0.0198, -0.0004] P>0 0.02 | inactive IoU -0.0216 [-0.0357, +0.0080] P>0 0.07 | mIoU_rob +0.0007 [-0.0097, +0.0152] P>0 0.57 | E-SUPPF crack IoU 0.4116 relF1 0.8504 inact 0.4454 | E-SKR2 0.3984 0.8402 0.4239
+              capture E-SUPPF -> E-SKR2: relR2 0.776->0.762 relP2 0.940->0.936 pix R 0.535->0.517 pix P 0.641->0.634 comp R 0.759->0.766 comp P 0.988->0.970 any-hit 0.876->0.862 (n 145) pred/GT 0.835->0.816
+    -both     | crack IoU -0.0130 [-0.0195, -0.0064] P>0 0.00 | relF1@2 -0.0099 [-0.0199, -0.0007] P>0 0.02 | inactive IoU -0.0229 [-0.0377, +0.0088] P>0 0.06 | mIoU_rob -0.0029 [-0.0119, +0.0098] P>0 0.35 | E-SUPPF crack IoU 0.4161 relF1 0.8570 inact 0.4624 | E-SKR2 0.4031 0.8471 0.4395
+              capture E-SUPPF -> E-SKR2: relR2 0.787->0.773 relP2 0.940->0.937 pix R 0.543->0.525 pix P 0.641->0.635 comp R 0.769->0.776 comp P 0.988->0.970 any-hit 0.888->0.867 (n 143) pred/GT 0.847->0.827
+    => test: FAIL (a primary's CI wholly below 0); passing: []  (reported, not a verdict)
+    per source (E-SUPPF -> E-SKR2): ARTS n 13 crack IoU 0.449->0.451 relF1 0.900->0.920 inact 0.515->0.540; BMRK n 10 crack IoU 0.398->0.382 relF1 0.843->0.834 inact 0.383->0.362; CFVS n 18 crack IoU 0.547->0.543 relF1 0.937->0.931 inact 0.582->0.531; CSIR n 8 crack IoU 0.426->0.417 relF1 0.858->0.854 inact 0.385->0.387; SDLE n 1 crack IoU 0.000->0.000 relF1 0.000->0.000 inact nan->nan
+  [test_noscuff] E-SUPPF b 0.0 vs E-SKR2 b -0.45; paired image bootstrap 2,000, seed 0 (Track M m1_analyze.boot)
+    all 50    | crack IoU -0.0077 [-0.0137, -0.0029] P>0 0.00 | relF1@2 -0.0056 [-0.0133, -0.0002] P>0 0.02 | inactive IoU -0.0290 [-0.0611, -0.0007] P>0 0.02 | mIoU_rob -0.0006 [-0.0104, +0.0129] P>0 0.50 | E-SUPPF crack IoU 0.4882 relF1 0.9016 inact 0.4746 | E-SKR2 0.4805 0.8960 0.4455
+              capture E-SUPPF -> E-SKR2: relR2 0.853->0.844 relP2 0.957->0.955 pix R 0.637->0.628 pix P 0.677->0.672 comp R 0.828->0.833 comp P 0.977->0.962 any-hit 0.919->0.909 (n 186) pred/GT 0.941->0.934
+    clean 49  | crack IoU -0.0075 [-0.0134, -0.0030] P>0 0.00 | relF1@2 -0.0055 [-0.0130, -0.0001] P>0 0.02 | inactive IoU -0.0307 [-0.0672, +0.0001] P>0 0.03 | mIoU_rob -0.0041 [-0.0116, +0.0083] P>0 0.25 | E-SUPPF crack IoU 0.4914 relF1 0.9058 inact 0.4901 | E-SKR2 0.4839 0.9003 0.4595
+              capture E-SUPPF -> E-SKR2: relR2 0.860->0.851 relP2 0.957->0.956 pix R 0.642->0.633 pix P 0.677->0.673 comp R 0.837->0.842 comp P 0.977->0.962 any-hit 0.929->0.913 (n 184) pred/GT 0.949->0.941
+    -twins    | crack IoU -0.0132 [-0.0193, -0.0065] P>0 0.00 | relF1@2 -0.0101 [-0.0198, -0.0004] P>0 0.02 | inactive IoU -0.0216 [-0.0357, +0.0080] P>0 0.07 | mIoU_rob +0.0007 [-0.0097, +0.0152] P>0 0.57 | E-SUPPF crack IoU 0.4129 relF1 0.8523 inact 0.4454 | E-SKR2 0.3997 0.8422 0.4239
+              capture E-SUPPF -> E-SKR2: relR2 0.779->0.765 relP2 0.940->0.936 pix R 0.537->0.520 pix P 0.641->0.634 comp R 0.775->0.782 comp P 0.988->0.970 any-hit 0.894->0.880 (n 142) pred/GT 0.839->0.819
+    -both     | crack IoU -0.0131 [-0.0195, -0.0064] P>0 0.00 | relF1@2 -0.0099 [-0.0199, -0.0007] P>0 0.02 | inactive IoU -0.0229 [-0.0377, +0.0088] P>0 0.06 | mIoU_rob -0.0029 [-0.0120, +0.0098] P>0 0.35 | E-SUPPF crack IoU 0.4175 relF1 0.8590 inact 0.4624 | E-SKR2 0.4044 0.8491 0.4395
+              capture E-SUPPF -> E-SKR2: relR2 0.791->0.776 relP2 0.940->0.937 pix R 0.545->0.527 pix P 0.641->0.635 comp R 0.786->0.793 comp P 0.988->0.970 any-hit 0.907->0.886 (n 140) pred/GT 0.851->0.830
+    => test_noscuff: FAIL (a primary's CI wholly below 0)  (reported only)  (reported, not a verdict)
+  [E1] 106 cells, 71 module clusters; paired module-cluster bootstrap 2,000, seed 0
+    E1 crack relF1@2 +0.0133 [-0.0106, +0.0463] P>0 0.85 (E-SUPPF 0.4385, E-SKR2 0.4518) | E1 any-hit -0.0135 [-0.0459, +0.0088] P>0 0.09 (E-SUPPF 0.3851, E-SKR2 0.3716; n 296) | E1 inactive IoU +0.0957 [-0.0717, +0.2032] P>0 0.89 (E-SUPPF 0.1959, E-SKR2 0.2916)
+    => E1 co-primaries: n.d.  (reported, not a verdict)
+    guards: G2a test relP@2 delta < -0.03: ok (delta -0.0012) | G2b E1 crack-free px > 1.5 x E-SUPPF: ok (E-SKR2 1638 vs E-SUPPF 2925 (bar 4388; x0.56)) | G1t test inactive delta <= -0.015 in both sets: TRIP (all 50 -0.0290, clean 49 -0.0307) | G1e E1 inactive CI wholly below 0: ok (+0.0957 [-0.0717, +0.2032])  (reported, not a verdict)
+    width: pred/GT crack px test 0.939->0.931, E1 0.398->0.342; E1 relR2 0.361->0.352 relP2 0.560->0.632 pix R 0.188->0.185 pix P 0.473->0.541 comp R 0.220->0.216 comp P 0.576->0.658
+    crack px on crack-free test cells (2): E-SUPPF 0, E-SKR2 0
+    crack px on crack-free val cells (31): E-SUPPF 0, E-SKR2 4
+    crack px on crack-free ext cells (74): E-SUPPF 2925, E-SKR2 1638
+    E1 stratum scuff+half-cut n 29: relF1 0.351->0.343 any-hit 0.347->0.336 (n 274) inact IoU 0.583->0.547 relR2 0.238->0.230 relP2 0.666->0.675 crack R 0.125->0.119 pred/GT 0.231->0.213
+    E1 stratum half-cut w/o scuff n 29: relF1 0.875->0.828 any-hit 0.818->0.818 (n 11) inact IoU 0.604->0.635 relR2 0.809->0.734 relP2 0.953->0.949 crack R 0.472->0.407 pred/GT 0.524->0.446
+    E1 stratum full n 48: relF1 0.485->0.595 any-hit 0.909->0.818 (n 11) inact IoU 0.083->0.125 relR2 0.693->0.712 relP2 0.373->0.511 crack R 0.339->0.375 pred/GT 1.069->0.859
+    E1 stratum half-cut n 58: relF1 0.415->0.400 any-hit 0.365->0.354 (n 285) inact IoU 0.585->0.555 relR2 0.291->0.277 relP2 0.720->0.723 crack R 0.157->0.146 pred/GT 0.258->0.235
+    E1 stratum other n 77: relF1 0.577->0.650 any-hit 0.864->0.818 (n 22) inact IoU 0.096->0.152 relR2 0.729->0.719 relP2 0.477->0.594 crack R 0.380->0.385 pred/GT 0.900->0.731
+
+## reported: E1 aggregate sweep (-1.5 .. 3, step 0.25) and E1 matched volume (E1-oracle, descriptive)
+  E-SUPPF: -1.5: pred/GT 0.159 relF1 0.3408 any-hit 0.2500 cf px 817, -1.25: pred/GT 0.200 relF1 0.3777 any-hit 0.2635 cf px 1063, -1: pred/GT 0.226 relF1 0.3891 any-hit 0.2838 cf px 1248, -0.75: pred/GT 0.253 relF1 0.4004 any-hit 0.3041 cf px 1468, -0.5: pred/GT 0.289 relF1 0.4110 any-hit 0.3209 cf px 1814, -0.25: pred/GT 0.354 relF1 0.4332 any-hit 0.3649 cf px 2425, 0: pred/GT 0.398 relF1 0.4385 any-hit 0.3851 cf px 2925, 0.25: pred/GT 0.447 relF1 0.4445 any-hit 0.4088 cf px 3459, 0.5: pred/GT 0.535 relF1 0.4614 any-hit 0.4426 cf px 4466, 0.75: pred/GT 0.612 relF1 0.4620 any-hit 0.4764 cf px 5671, 1: pred/GT 0.685 relF1 0.4624 any-hit 0.5101 cf px 6663, 1.25: pred/GT 0.774 relF1 0.4650 any-hit 0.5507 cf px 7892, 1.5: pred/GT 0.949 relF1 0.4781 any-hit 0.6149 cf px 10216, 1.75: pred/GT 1.025 relF1 0.4774 any-hit 0.6284 cf px 11261, 2: pred/GT 1.084 relF1 0.4763 any-hit 0.6520 cf px 12186, 2.25: pred/GT 1.136 relF1 0.4744 any-hit 0.6588 cf px 12989, 2.5: pred/GT 1.185 relF1 0.4719 any-hit 0.6655 cf px 13808, 2.75: pred/GT 1.233 relF1 0.4704 any-hit 0.6791 cf px 14586, 3: pred/GT 1.281 relF1 0.4676 any-hit 0.6791 cf px 15393
+  E-SKR2: -1.5: pred/GT 0.195 relF1 0.3776 any-hit 0.2601 cf px 773, -1.25: pred/GT 0.247 relF1 0.4198 any-hit 0.3074 cf px 1011, -1: pred/GT 0.274 relF1 0.4288 any-hit 0.3142 cf px 1174, -0.75: pred/GT 0.299 relF1 0.4380 any-hit 0.3277 cf px 1328, -0.5: pred/GT 0.331 relF1 0.4479 any-hit 0.3480 cf px 1548, -0.25: pred/GT 0.395 relF1 0.4686 any-hit 0.3986 cf px 2081, 0: pred/GT 0.440 relF1 0.4727 any-hit 0.4189 cf px 2539, 0.25: pred/GT 0.489 relF1 0.4803 any-hit 0.4426 cf px 3000, 0.5: pred/GT 0.584 relF1 0.4961 any-hit 0.4966 cf px 4033, 0.75: pred/GT 0.670 relF1 0.4897 any-hit 0.5135 cf px 5495, 1: pred/GT 0.758 relF1 0.4861 any-hit 0.5541 cf px 6819, 1.25: pred/GT 0.856 relF1 0.4862 any-hit 0.5811 cf px 8118, 1.5: pred/GT 1.044 relF1 0.4945 any-hit 0.6216 cf px 10362, 1.75: pred/GT 1.118 relF1 0.4947 any-hit 0.6453 cf px 11313, 2: pred/GT 1.172 relF1 0.4935 any-hit 0.6520 cf px 12045, 2.25: pred/GT 1.220 relF1 0.4915 any-hit 0.6520 cf px 12732, 2.5: pred/GT 1.263 relF1 0.4897 any-hit 0.6554 cf px 13389, 2.75: pred/GT 1.302 relF1 0.4882 any-hit 0.6554 cf px 13961, 3: pred/GT 1.343 relF1 0.4865 any-hit 0.6588 cf px 14535
+  matched volume (E1-oracle, descriptive): E-SKR2 b 0 E1 pred/GT 0.4402, relF1@2 0.4727, any-hit 0.4189; E-SUPPF pred/GT over b: -1.5:0.159, -1.25:0.200, -1:0.226, -0.75:0.253, -0.5:0.289, -0.25:0.354, 0:0.398, 0.25:0.447, 0.5:0.535, 0.75:0.612, 1:0.685, 1.25:0.774, 1.5:0.949, 1.75:1.025, 2:1.084, 2.25:1.136, 2.5:1.185, 2.75:1.233, 3:1.281
+    E-SUPPF at b 0.215 (linear between grid b 0 and 0.25): relF1@2 0.4437, any-hit 0.4054
+
+## reported: ensemble (b 0) vs single-seed mean +- sd (argmax, s10-14), descriptive
+  E-SUPPF test all 50: crack IoU 0.4872 vs 0.4692 +- 0.0030 | relF1@2 0.9004 vs 0.8902 +- 0.0018 | inactive IoU 0.4746 vs 0.4681 +- 0.0205 | any-hit 0.9048 vs 0.8974 +- 0.0138
+  E-SUPPF test clean 49: crack IoU 0.4904 vs 0.4722 +- 0.0030 | relF1@2 0.9045 vs 0.8942 +- 0.0018 | inactive IoU 0.4901 vs 0.4833 +- 0.0215 | any-hit 0.9144 vs 0.9059 +- 0.0159
+  E-SUPPF E1 106: crack IoU 0.1556 vs 0.1563 +- 0.0083 | relF1@2 0.4385 vs 0.4279 +- 0.0163 | inactive IoU 0.1959 vs 0.2255 +- 0.0765 | any-hit 0.3851 vs 0.4223 +- 0.0265
+  E-SKR2 test all 50: crack IoU 0.4876 vs 0.4438 +- 0.0568 | relF1@2 0.9012 vs 0.8551 +- 0.0777 | inactive IoU 0.4477 vs 0.4483 +- 0.0091 | any-hit 0.9206 vs 0.9037 +- 0.0102
+  E-SKR2 test clean 49: crack IoU 0.4920 vs 0.4744 +- 0.0058 | relF1@2 0.9065 vs 0.8955 +- 0.0054 | inactive IoU 0.4618 vs 0.4626 +- 0.0091 | any-hit 0.9251 vs 0.9091 +- 0.0065
+  E-SKR2 E1 106: crack IoU 0.1791 vs 0.1765 +- 0.0071 | relF1@2 0.4727 vs 0.4568 +- 0.0181 | inactive IoU 0.2932 vs 0.2930 +- 0.0940 | any-hit 0.4189 vs 0.4358 +- 0.0598
+
+FINAL (cv02, R34 5-seed ensemble, b +0.75) clean-test crack IoU 0.492: descriptive only (other machine and commits).
+B5 is not part of D (protocol_SKR2C §3b); B5 sits in R.

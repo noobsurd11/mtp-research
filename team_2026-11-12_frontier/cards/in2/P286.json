@@ -1,0 +1,35 @@
+{
+ "paper_id": "doi:10.64898/2026.10.30.763050",
+ "title": "Diffusion-Based Synthetic Pretraining for Root Segmentation in Rhizotron Images",
+ "year": 2026,
+ "venue": "bioRxiv",
+ "url": "https://www.biorxiv.org/content/10.64898/2026.10.30.763050",
+ "code_url": "",
+ "mechanism": "LoRA + ControlNet + inpainting generate root images with paired masks; segmenter pretrained on synthetic then fine-tuned on real; Soft Dice against 7-annotator consensus.",
+ "adaptation": "Copy the schedule: pretrain U-Net++ on generated EL pairs from the best generator, then PF fine-tune on 478 real. Its Soft Dice vs multi-annotator consensus is a template for the benchmark's crack metric using our double-annotated cells.",
+ "min_experiment": "Synthetic-pretrained then PF vs PF. Metric CV crack relF1@2 and E1 relF1@2. Kill: both < +0.01. About 10 GPU-h once pairs exist.",
+ "evidence": "R: synthetic-only Dice up to 0.60; pretrain + fine-tune 0.80; helped unseen crop species with few labels; models matched human agreement on low-ambiguity patches only.",
+ "prior_overlap": "none",
+ "score": 45,
+ "bench_score": 45,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "e1_unseen",
+  "benchmark"
+ ],
+ "gpu_hours": 10,
+ "directions": [
+  "D33"
+ ],
+ "scout_scores": [
+  45
+ ],
+ "final": 45,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 286,
+ "pid": "P286"
+}

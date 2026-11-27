@@ -1,0 +1,17 @@
+defaults:
+  - ucf_pvs3_v2
+
+# PV-S3 v2 with per-class pseudo-label thresholds (src/losses/class_threshold_ce.py):
+# start at t_pos 0.6; every 500 steps (logging.pseudo_label_every) each class's threshold
+# is raised so that its pseudo-label share of the unlabelled pixels in that window is at
+# most 2x its share in the labelled ground truth (the 1,912 labelled masks), then
+# EMA-smoothed with momentum 0.8.  Per-class counts, shares and thresholds go to
+# pseudo_labels.csv.  Everything else as ucf_pvs3_v2.yaml.
+loss:
+  consistency: class_threshold_ce
+  t_pos: 0.6
+  share_cap: 2.0
+  thr_momentum: 0.8
+
+logging:
+  pseudo_label_every: 500

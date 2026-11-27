@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2603.28297",
+ "title": "DinoDental: Benchmarking DINOv3 as a Unified Vision Encoder for Dental Image Analysis",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2603.28297",
+ "code_url": "",
+ "mechanism": "Benchmark of DINOv3 as a frozen or tuned encoder on greyscale dental images with scarce labels.",
+ "adaptation": "Greyscale, low-label transfer evidence; use its frozen vs tuned results to set how deep VFM-H tunes.",
+ "min_experiment": "No own arm: read results, then fix VFM-H tuning depth (frozen + PEFT vs last-k blocks tuned).",
+ "score": 32,
+ "bench_score": 45,
+ "bet": "safe",
+ "targets": [
+  "benchmark"
+ ],
+ "evidence": "R: abstract fragment only.",
+ "gpu_hours": 0,
+ "prior_overlap": "none.",
+ "directions": [
+  "D24"
+ ],
+ "scout_scores": [
+  32
+ ],
+ "final": 32,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 489,
+ "pid": "P489"
+}

@@ -1,0 +1,44 @@
+{
+ "paper_id": "doi:10.1038/s41598-022-09675-y",
+ "title": "State-of-the-art retinal vessel segmentation with minimalistic models (W-Net)",
+ "year": 2022,
+ "venue": "Scientific Reports",
+ "url": "https://arxiv.org/abs/2009.01907",
+ "code_url": "",
+ "mechanism": "A tiny carefully trained U-Net nearly matches complex SOTA; a cascade (second net sees image + first prediction) reaches SOTA; most complete cross-dataset study (10 sets).",
+ "adaptation": "W-Net cascade as the cheapest refinement stage: second small U-Net on [EL, 24-class softmax of the house model], trained on the frozen first stage or jointly. Compare against a 2-model ensemble to separate cascade from ensembling.",
+ "min_experiment": "Arm: house + second-stage refiner, 5 seeds; baseline: 2-model house ensemble (compute-matched). Metric crack relF1@2, inactive IoU, mIoU_rob. Kill: relF1@2 gain < 0.01 vs the matched ensemble.",
+ "evidence": "Minimal U-Net close to best methods; W-Net SOTA on several vessel sets with orders of magnitude fewer weights; cross-dataset performance drops a lot; self-labelling gave moderate cross-domain gain.",
+ "gpu_hours": 6,
+ "prior_overlap": "none; refinement networks listed as never tried",
+ "score": 52,
+ "bench_score": 75,
+ "bet": "safe",
+ "targets": [
+  "crack",
+  "inactive",
+  "benchmark"
+ ],
+ "directions": [
+  "D12"
+ ],
+ "scout_scores": [
+  30,
+  52
+ ],
+ "alt_notes": [
+  {
+   "from": "D12",
+   "adaptation": "Benchmark design: strong simple baselines, a rigorous protocol and a mandatory unseen-domain test (E1). For scores: a W-Net style second U-Net that takes the image and the first-stage probabilities.",
+   "min_experiment": "W-Net cascade on house vs house, 5 seeds. Metrics: crack relF1@2 and E1 recall. Kill if gains < 0.012.",
+   "score": 30
+  }
+ ],
+ "final": 52,
+ "bench": 75,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 171,
+ "pid": "P171"
+}

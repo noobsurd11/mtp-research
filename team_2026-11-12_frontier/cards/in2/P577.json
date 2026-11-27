@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.3390/app14072785",
+ "title": "A Methodology for Advanced Manufacturing Defect Detection through Self-Supervised Learning on X-ray Images",
+ "year": 2024,
+ "venue": "Applied Sciences",
+ "url": "https://doi.org/10.3390/app14072785",
+ "code_url": "",
+ "mechanism": "SimSiam and SimMIM pretraining on 27,901 unlabelled industrial X-ray images before Faster R-CNN defect detection.",
+ "adaptation": "Positive counter-evidence for greyscale industrial in-domain SSL (detection, not segmentation); cite with the dermoscopy and DINOv3-industrial papers when reporting the benchmark's SSL result.",
+ "min_experiment": "None.",
+ "evidence": "R: domain-pretrained models consistently beat ImageNet init; CNNs better at low data, Swin with many labels.",
+ "prior_overlap": "None.",
+ "score": 22,
+ "bench_score": 40,
+ "bet": "safe",
+ "gpu_hours": 0,
+ "targets": [
+  "benchmark"
+ ],
+ "directions": [
+  "D32"
+ ],
+ "scout_scores": [
+  22
+ ],
+ "final": 22,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 577,
+ "pid": "P577"
+}

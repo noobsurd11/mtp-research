@@ -1,0 +1,72 @@
+# Shared defaults. Override per run with:
+#   python scripts/train.py --config configs/supervised.yaml --opts seed=1 data.labeled_fraction=0.1
+run_name: null             # default: <config>_<model>_<frac>pct_s<seed>
+seed: 0                    # selects data/splits/seed<seed>/ and seeds training
+method: supervised         # supervised | mean_teacher | alhvr
+
+model:
+  name: unetpp             # unetpp | deeplabv3plus | smp_unet
+  sa_gating: false         # unetpp only: SA gate (tag v0-sa-failed) after every decoder node
+  in_channels: 1
+  num_classes: 24
+  input_size: 512
+  start_filters: 32        # filter progression 32-64-128-256-512
+  dropout_rate: 0.2
+  grad_checkpoint: false   # recompute decoder nodes in backward (same math, less memory)
+
+training:
+  total_steps: 20000       # optimizer steps; identical for supervised and SSL
+  val_every: 500
+  log_every: 50
+  labeled_batch_size: 4    # every method: 4 labelled images per step
+  unlabeled_batch_size: 4  # MT / ALHVR: + 4 unlabelled images per step
+  eval_batch_size: 8
+  optimizer: adam
+  lr: 0.001
+  weight_decay: 0.0001
+  lr_scheduler: cosine     # per-step cosine to 0 after warmup | constant
+  warmup_steps: 200
+  gradient_clip: 1.0
+  amp: true
+  amp_dtype: bfloat16      # bfloat16 | float16 (fp16 gave NaN in DeepLabV3+)
+  deterministic: true      # true: cudnn deterministic, benchmark off | strict: + use_deterministic_algorithms (tests; ~5x slower) | false
+  checkpoint_every: 2000   # latest.pth (full training state) every N steps and at the last step
+  num_workers: 4
+
+ssl:                       # mean_teacher only
+  ema_alpha: 0.999
+  lambda_final: 1.5
+  warmup_steps: 2000       # supervised-only steps (λ = 0)
+  ramp_steps: 2000         # linear ramp of λ to lambda_final
+  consistency_on_labeled: false  # consistency only on the unlabelled part
+
+loss:
+  supervised: weighted_ce  # weights computed at startup from the labelled subset
+  weight_cap_ratio: 10.0   # cap at 10x the median present-class weight
+  consistency: semi_ce
+  threshold_mode: data_driven
+  beta: 0.5
+  gamma: 0.5
+
+data:
+  root: data
+  labeled_fraction: 0.2    # 1.0 (train.txt) | 0.5 | 0.2 | 0.1
+  input_size: 512
+  mean: [0.5]
+  std: [0.25]
+
+alhvr:                     # alhvr only; defaults reproduce the reference code (docs/alhvr_port_notes.md)
+  cpcl: true                 # module switch: CG-CPCL on region 2
+  dtct: true                 # module switch: DTCT on region 3
+  proportion: 0.8            # beta for the adaptive threshold gamma
+  temperature: 0.1           # sharpening T
+  sharpening: elementwise    # elementwise (reference) | softmax
+  prototype_scale: 1.0       # 1 (reference) | 10
+  pull_all_prototypes: true  # reference cosine term on | off
+  dtct_detach_target: false  # reference off | on
+  feature_layer: deep        # deep = X[3][1] (reference-like) | penultimate = X[0][4] (paper)
+  lambda_max: 0.1            # lambda(t) = 0.1 exp(-5 (1 - t/total_steps)^2)
+
+logging:
+  experiments_dir: experiments
+  region_diag_every: 100     # alhvr: regions.csv row every N steps (hidden masks, logging only)

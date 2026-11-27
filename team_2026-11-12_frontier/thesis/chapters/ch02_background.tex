@@ -1,0 +1,220 @@
+% Chapter 2: Background. Draft for the lead, 23 Nov 2026. Every number is traced in ch02_background_NOTES.md.
+% Citation keys: refs_extra.bib, ch02_background.bib, ch03_related.bib. Placeholders: \CITE, \FIG (defined in main.tex).
+\chapter{Background: EL imaging, defect classes and crack label physics}\label{ch:background}
+
+This chapter explains what an electroluminescence (EL) image shows (Section~\ref{sec:bg_el}), describes the BenchmarkEL
+images, classes and sources (Section~\ref{sec:bg_classes}), and shows why crack and inactive labels behave so differently
+(Sections~\ref{sec:bg_crack} and~\ref{sec:bg_inactive}). It then defines the metrics (Section~\ref{sec:bg_metrics}) and
+links defect maps to module power (Section~\ref{sec:bg_severity}). Each measurement of our own names its label set and
+cells; Chapter~\ref{ch:data} gives the full audit.
+
+\section{Electroluminescence imaging of silicon solar cells}\label{sec:bg_el}
+
+EL images show defects that are invisible to the eye; factories use them before a module ships, and labs and plants over
+its life \citep{pratt2023benchmark}. A crystalline silicon module is a laminate of cells wired in series. Metal fingers on each cell collect the
+current, busbars on the cell gather it, and soldered interconnect ribbons carry it to the next cell
+\citep[Sec.~4.6]{kontges2014iea}. Cells are either mono-crystalline, with
+rounded corners and no visible grain boundaries, or multi-crystalline, with square corners and grain boundaries that appear
+as small dark regions \citep{pratt2023benchmark}.
+
+In an EL measurement the module is connected to a power supply and driven in forward bias. Electrons and holes that
+recombine radiatively emit photons near \SI{1100}{\nano\metre}, outside the visible range, and a camera optimised for
+that band records them \citep{pratt2023benchmark}. The local emission intensity follows the minority
+carrier diffusion length of the silicon \citep{fuyuki2005el}, and the highest EL signal of each cell in a module is
+proportional to its operating voltage \citep{potthoff2010voltage}. Bright regions are therefore connected silicon of good
+quality. Dark regions are
+of three kinds: regions that the current does not reach \citep{pratt2025ictas}, regions where carriers recombine without
+emitting light \citep{fuyuki2005el}, and regions covered by metal, such as the ribbons, which appear as dark lines in our
+images.
+
+Defects follow from this reading. A crack appears as a dark line. When a crack separates a part of the cell that has no
+remaining connection to a ribbon, that part no longer contributes to the module power \citep{haase2018crackwidth}; it
+receives no current and appears as a dark region, the inactive area. Interrupted fingers appear as short dark
+streaks; BenchmarkEL labels them as gridline defects \citep{pratt2023benchmark}.
+
+The physical crack is far narrower than anything the image resolves. Measured by digital image correlation in a standard
+module under loads comparable to the \SI{5400}{\pascal} test of IEC~61215, a single crack was \SI{3.4}{\micro\metre} wide
+\citep{haase2018crackwidth}, while a whole cell spans about 250~px in our images (Chapter~\ref{ch:data}). The camera records
+a dark line a few pixels wide around the crack (Section~\ref{sec:bg_crack}), and the width of a crack label is a drawing
+convention, not a measurement.
+
+\section{The BenchmarkEL images, classes and sources}\label{sec:bg_classes}
+
+BenchmarkEL \citep{pratt2023benchmark} is the main labelled set of this work. Its release \texttt{dataset\_20211104} holds
+582 cell images, split by its authors into 478 train, 54 validation and 50 test cells, with a pixel label for each of
+24 classes. A PV expert chose them from more than 80,000 images of five sources as a representative sample of mono- and
+multi-crystalline cells with common features and defects \citep{pratt2023benchmark}. Later releases and our corrected labels
+are described in Chapters~\ref{ch:related} and~\ref{ch:data}.
+
+Each image is 512 $\times$ 512~px and shows a full cell in the centre, surrounded by parts of the adjacent cells, the
+module edge or padding \citep{pratt2023benchmark}. For the three sources that supplied module images, the centre cell covers
+25 to 30\% of the non-padding pixels and the labels cover the whole window; the two public sources supplied single cells in
+about 75\% padding (Chapter~\ref{ch:data}). An image is thus a window of about 3 $\times$ 3 cells, and, following the
+protocol (Chapter~\ref{ch:protocol}), a ``cell'' in this thesis means such a window.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{The 24 BenchmarkEL classes (id and name as in the official class list of release \texttt{dataset\_20211104}).
+Features are components of a module; defects are extrinsic faults \citep{pratt2023benchmark}. The two focus classes of
+this work are in bold.}
+\label{tab:bg_classes}
+\begin{tabular}{>{\raggedright}p{2.0cm} >{\raggedright\arraybackslash}p{11.5cm}}
+\toprule
+Kind & Classes (id name) \\
+\midrule
+Features (12) & 0 background, 1 sp multi, 2 sp mono, 3 sp dogbone, 4 ribbons, 5 border, 6 text, 7 padding, 8 clamp,
+9 busbars, 21 frame edge, 22 jbox \\
+Defects (12) & 10 crack rbn edge, \textbf{11 inactive}, 12 rings, 13 material, \textbf{14 crack}, 15 gridline, 16 splice,
+17 dead cell, 18 corrosion, 19 belt mark, 20 edge dark, 23 meas artifact \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table~\ref{tab:bg_classes} lists the classes; a mask stores the class id of every pixel. On the release masks, background and padding together take 86.5\% of the train pixels, four classes
+(clamp, crack rbn edge, rings and meas artifact) have under 1,300 pixels in all 478 train images, and 7 classes are absent
+from the validation cells and 8 from the test cells. On the release masks crack takes 0.19\% of the train pixels; on the revised labels (label set v1,
+Chapter~\ref{ch:data}), crack occurs in 209 of the 478 train cells; inactive occurs in 42 of them. An all-class mean
+IoU is thus a mean over a different set of classes on each cell set, which is why Section~\ref{sec:bg_metrics} fixes the
+class set.
+
+The images come from three private sources, the CSIR Energy Centre (a South African module test laboratory), CFV Labs (a
+US test laboratory) and ARTsolar (a South African manufacturer), and two public ones, the CWRU SDLE collection and ZAE
+Bayern \citep{pratt2023benchmark}; the release holds ARTS 195, CFVS 187, CSIR 122, BMRK 60 and SDLE 18 images (Figure~\ref{fig:F1} shows one pool cell of each). The BMRK images are cells of the
+public ELPV dataset \citep{deitsch2019elpv}: each is the ELPV cell with the same number, rotated by 90 degrees and downscaled
+from 300 to 256~px inside the padded canvas (four of four cells checked, normalised cross-correlation 1.000).
+
+The sources differ in more than origin. CSIR images have the lowest contrast (median intensity standard deviation 24,
+against 34 to 48 for the other sources), crack labels have source-specific widths (Section~\ref{sec:bg_crack}), and on
+the training pool 10 of the 24 classes occur in one source only. A classifier on global image statistics names the source
+with balanced accuracy 0.94 against a chance level of 0.20 (Table~\ref{tab:T19a}), so a model can recognise the source,
+and with it the labelling convention, without looking at the defect.
+
+\FIG{F1}{One pool cell per source (ARTS, BMRK, CFVS, CSIR, SDLE), chosen by a fixed rule (median crack size) and not by eye, with the
+v1.1 crack (vermillion, drawn 1~px dilated) and inactive (blue) labels. ARTS, CFVS and CSIR images are windows of about 3 $\times$ 3
+cells; BMRK and SDLE are single cells on white padding. The release's one double-annotated image is excluded.}
+
+\section{Crack labels: physics, convention and geometry}\label{sec:bg_crack}
+
+Three widths meet in a crack label: the physical crack, micrometres wide (Section~\ref{sec:bg_el}); the dark line in the
+image; and the line the annotator drew. On the release masks, measured at 9,302 points of the label skeletons, the visible
+dark line has a median full width at half maximum of 4.0~px (interquartile range 3.0 to 4.75), while the label has a median
+width of 1.75~px (interquartile range 1.25 to 2.5). At 77\% of the points the visible line is at least 1~px wider than its
+label. The annotators traced a line of 1 to 2~px somewhere on a band about 4~px wide.
+
+Where on the band the line was drawn varies. At 61,176 label skeleton points, the darkest pixel along the normal lies within
+$\pm$1~px of the label at 48\% of the points (ARTS 75\%, BMRK 38\%) and within $\pm$2~px at 64\%, against 11\% and 21\%
+for random background points: the labels are on the cracks, but half of the label points are more than 1~px off the
+darkest ridge.
+
+The label width is a convention of each source: the median label width on the release masks is 1.5~px for ARTS, 1.75~px
+for CFVS and CSIR, 3.0~px for BMRK and 3.25~px for SDLE. On the training pool under label set v1.1, the audit finds the
+same order with its own width measure (pooled, ARTS 1.59 to BMRK 3.09~px per centreline pixel), and the source explains 29.6\% of
+the variance of the per-cell width (Table~\ref{tab:T19a}).
+
+Thin labels make strict pixel IoU fragile. Take a perfect crack mask, move it, and score it against the original. On the
+legacy test masks (release labels), a 1~px shift gives crack IoU 0.559 (mean of four directions), a diagonal 1~px shift
+0.434 and a 2~px shift 0.336. On the training pool under v1.1, pooled
+over its 229 crack cells, the 1~px shift gives 0.483 and the 2~px shift 0.249; the same label reduced to its 1~px
+centreline scores 0.465, and redrawn 3~px wide 0.605. The tolerance metric relF1@2 of Section~\ref{sec:bg_metrics} is 1.0
+for every one of these variants (Figure~\ref{fig:F2}). A label that is correct to within one pixel thus loses about half of its
+strict IoU.
+
+Annotators also disagree with each other. The two image pairs of the release whose copies were annotated independently
+reach crack IoU 0.257 and 0.210 but tolerance F1 at 2~px of 0.82 and 0.99; with two pairs this is an illustration, not an
+estimate. On the training pool under v1.1, the one double annotation agrees with itself at strict
+crack IoU 0.259 and relF1@2 0.829 (Table~\ref{tab:T19a}).
+
+Most cracks are small and some are faint. On the release masks, 76\% of the crack components in the train cells, 59\% in the
+validation cells and 88\% in the test cells are under 20~px, and 7.2\% of all crack components (16\% for CSIR) are less
+than 2\% darker than their surroundings. Some continuous cracks are labelled as dashed traces, so a model that predicts
+the whole crack is scored wrong on every gap, and some visible cracks are not labelled at all. Chapter~\ref{ch:data}
+counts such label-error candidates on the pool.
+
+These properties shape what a crack score measures. For the best model of the pre-protocol work, on the 49 clean legacy test
+cells (in-distribution, known leakage, context only), 70\% of the strict crack IoU loss, 0.358 of 0.508, came from pixels
+within 2~px of the ground truth; missed cracks made up 18\% of the loss and spurious predictions 11\%. PF's out-of-fold pool
+predictions (the baseline of Chapter~\ref{ch:methods}, not the model above) score strict crack IoU 0.233, 0.365 and 0.414 when the labels are redrawn as a 1~px centreline, kept as v1.1, or
+drawn 3~px wide, while relF1@2 moves only from 0.824 to 0.849 (Table~\ref{tab:T19a}). We read this as follows: strict crack
+IoU mixes detection with the line-width convention of the annotators, and a distance-tolerant metric separates the two
+better. Chapter~\ref{ch:protocol} turns this into the rule that relF1@2 decides every crack contrast and that strict IoU is
+printed with its convention band.
+
+\FIG{F2}{Crack label geometry on the training pool (v1.1, 229 crack cells): strict crack IoU of the label against itself shifted by
+1~px and by 2~px (mean of 8 directions), reduced to its 1~px centreline and redrawn 3~px wide. Bars are pooled values, markers per
+source (none for the 2~px shift). relF1@2 is 1.0 for every variant.}
+
+\section{Inactive area}\label{sec:bg_inactive}
+
+An inactive area is a part of a cell that a crack has cut off electrically. It produces no power
+\citep{haase2018crackwidth}, and regions darkened by partly or fully disconnecting cracks are the ones that go with module
+power loss \citep{pratt2025ictas}. Of all classes, it is the most directly tied to the electrical consequence of a defect.
+
+Its labels behave the opposite way to crack labels. On the release masks, inactive never occurs in an image without a crack
+label, in any split, and 99\% of the inactive components touch a crack label within 3~px (440 of 445 in the train cells,
+18 of 18 in the validation cells, 51 of 52 in the test cells): inactive regions are bounded by cracks. 20\% of the crack
+pixels of the train cells lie in or at inactive regions, so a single-label mask must give such pixels one of the two classes.
+The inactive labels are consistent where crack labels are not: on the legacy test masks, a perfect inactive mask shifted by
+1~px keeps IoU 0.943, and the duplicate pairs agree at inactive IoU 0.64 with tolerance F1 0.92 at 2~px.
+
+The difficulty is scarcity. Inactive occurs in 42 of the 478 train cells, 6 of the 54 validation cells and 16 of the 50 test
+cells (Table~\ref{tab:T3b}), and on the test cells three cells hold 59\% of the inactive pixels. Any inactive score on a
+legacy set is therefore decided by a handful of cells. In our reading, crack is limited by label noise and inactive by the
+number of examples; Chapters~\ref{ch:protocol} and~\ref{ch:methods} treat the two classes with different rules for this
+reason.
+
+\section{Metrics}\label{sec:bg_metrics}
+
+The metrics of the protocol are computed at a fixed operating point (argmax unless stated) from counts pooled over a cell
+set. Pixels marked ignore in the label set are not scored.
+
+\paragraph{IoU and mean IoU.} For a class $c$, one confusion matrix over all scored pixels of the cell set gives the true
+positives $\mathit{TP}_c$, false positives $\mathit{FP}_c$ and false negatives $\mathit{FN}_c$, and
+\begin{equation}
+  \mathrm{IoU}_c = \frac{\mathit{TP}_c}{\mathit{TP}_c + \mathit{FP}_c + \mathit{FN}_c}.
+\end{equation}
+We call crack $\mathrm{IoU}_c$ \emph{strict} crack IoU, to set it apart from the tolerance metrics below. A mean IoU is only
+defined together with its class set. A class without ground truth in the scored set is never scored as 0 or 1; an all-class
+mean is reported only as the mean over the $k$ classes with ground truth, with $k$. The balance metric of this thesis,
+mIoU-R13, is the mean IoU over 13 fixed classes: background, ribbons, padding, border, gridline, sp mono, crack, sp multi,
+material, frame edge, splice, inactive and edge dark. These are the classes that have ground truth in at least three of the
+legacy test cells.
+
+\paragraph{Tolerance metrics for crack.} Let $G$ be the set of ground-truth crack pixels and $P$ the set of predicted crack
+pixels, and let $d(p, S)$ be the Euclidean distance from pixel $p$ to the nearest pixel of $S$ in the same image (computed by
+a distance transform per image). With tolerance $r$ in pixels,
+\begin{equation}
+\begin{gathered}
+  \mathrm{relP@}r = \frac{\lvert\{p \in P : d(p, G) \le r\}\rvert}{\lvert P \rvert}, \qquad
+  \mathrm{relR@}r = \frac{\lvert\{g \in G : d(g, P) \le r\}\rvert}{\lvert G \rvert}, \\
+  \mathrm{relF1@}r = \frac{2\,\mathrm{relP@}r \cdot \mathrm{relR@}r}{\mathrm{relP@}r + \mathrm{relR@}r},
+\end{gathered}
+\end{equation}
+with the counts in each numerator and denominator summed over all cells of the set. Recall is never reported without
+precision. The tolerance of 2~px matches the 95th percentile of the distance
+between two drawings of one crack on the few such pairs we have (Chapter~\ref{ch:protocol}). A prediction drawn somewhat
+wider than the label stays within the tolerance, so these metrics do not see line width; the protocol prints the ratio of
+predicted to labelled crack pixels beside them as a width guard.
+
+Published EL papers aggregate differently: per image with the median over images, pooled with or without background, and
+with different rules for absent classes. Chapter~\ref{ch:related} shows how far this moves the numbers.
+
+\section{From defect maps to severity}\label{sec:bg_severity}
+
+A crack matters for module power mainly through the area it isolates. Köntges et al.\ grouped cell cracks by whether they
+separate parts of a cell: mode~A cracks isolate nothing, mode~B cracks partly disconnect a region and mode~C cracks
+disconnect it fully; in laboratory stress tests, power loss grew as mode~A cracks turned into modes B and C
+\citep{kontges2011risk}, as summarised by \citet{pratt2025ictas}. Greater power loss goes with more dark area in the EL image,
+including regions darkened by mode~B and mode~C cracks \citep{pratt2025ictas}. Learned models predict module power from EL
+images with inactive regions and cracks as the main defects \citep{hoffmann2021power}, and a crack segmentation can be
+turned into a worst-case inactive area per cell \citep{chen2022pvsc}. We read the cited work as saying that, for severity,
+the inactive map and whether a crack closes off an area matter more than the exact pixels of a crack line.
+
+Thermal imaging sees the electrical consequence rather than the crack line. In tests on 12 cells, Dhimish and Lazaridis
+found no hotspot on crack-free or micro-cracked cells, while cells with shaded or broken-down areas were likely to develop
+hotspots, with cell temperatures rising from 25\,$^{\circ}$C to 100\,$^{\circ}$C \citep{dhimish2021hotspots}. This matters
+for the industrial partner of this work, which offers drone thermal inspections and, as of November 2026, has no EL rig
+(Chapter~\ref{ch:intro}).
+
+No labelled cell in this work has an electrical measurement, so the thesis gives no watt figure or power band per cell.
+Chapter~\ref{ch:deployment} reports what the segmentation output can and cannot say about severity (Table~\ref{tab:T18}).

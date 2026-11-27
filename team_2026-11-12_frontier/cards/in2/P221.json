@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.3390/app13020826",
+ "title": "Balanced Loss Function for Accurate Surface Defect Segmentation",
+ "year": 2023,
+ "venue": "Applied Sciences",
+ "url": "https://www.mdpi.com/2076-3417/13/2/826",
+ "code_url": "",
+ "mechanism": "Dynamic class weighting, truncated cross-entropy that drops well-classified pixels, and label-confusion suppression that caps the very large loss at defect borders caused by ambiguous labels.",
+ "adaptation": "Apply border suppression to a 1 px band each side of crack labels (half of label points sit >1 px off the ridge), truncated CE at p > 0.9 on background, dynamic weights on the 12 defect classes to help gridline / splice / edge_dark.",
+ "evidence": "R: KSDD2, Severstal and an aluminium set across several CNNs, IoU +5% to +30% (abstract; single runs as far as visible). Exact thresholds not read.",
+ "min_experiment": "Arm: house with 1 px border suppression + truncated CE (0.9) + dynamic class weights; baseline: house; metric: CV crack IoU and mIoU_rob; kill if both gains < +0.01.",
+ "gpu_hours": 6,
+ "prior_overlap": "Partial: offset-tolerant CE (n.d.) also tolerates border error; truncation and dynamic class weighting untested.",
+ "score": 50,
+ "bench_score": 30,
+ "bet": "safe",
+ "targets": [
+  "crack",
+  "other_classes"
+ ],
+ "directions": [
+  "D40"
+ ],
+ "scout_scores": [
+  50
+ ],
+ "final": 50,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 221,
+ "pid": "P221"
+}

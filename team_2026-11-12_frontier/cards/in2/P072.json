@@ -1,0 +1,70 @@
+{
+ "paper_id": "arxiv:2611.13511",
+ "title": "TMAL: Topology-preserving Multi-offset Affinity Learning for Curvilinear Structure Segmentation",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2611.13511",
+ "code_url": "https://github.com/suho-han/TMAL",
+ "mechanism": "Predict soft directional affinities at several pixel offsets, fuse them with decoder-derived spatial weights, decode to an inverted distance map and threshold; auxiliary mask branch keeps overlap accuracy.",
+ "adaptation": "Published target (inverted EDT) is degenerate on 1-2 px cracks (every crack px has EDT 1). Replace with a Gaussian tube around the label skeleton (sigma about 1 px, the measured jitter) and build affinities as products of tube values at offsets s in {1,2}, so links bridge a 1 px gap. Crack channels only on the house encoder; 24-class CE head kept; crack read-out = TMAL map as crack logit or threshold chosen on val. Code link from abstract (github.com/suho-han/TMAL) not found by web search.",
+ "min_experiment": "Arm PF + TMAL crack branch vs PF, cv5v2 2 seeds x 5 folds then 5 seeds test; control with s={1} only (DconnNet-like); metric components >=20 px found and relF1@2, width ratio and strict IoU guards; kill if components +<0.02 and relF1@2 +<0.01, or strict IoU down >0.01.",
+ "evidence": "Full text read. Own 512 px protocol, baselines retrained: DeepCrack (300 train) IoU 0.743 vs DconnNet 0.713 vs U-Net 0.681, clDice 0.907 vs 0.893 vs 0.859, component error 1.98 vs 4.51 vs 4.93. DRIVE (20 train) IoU 0.709 vs 0.635, component error 24.5 vs 452.8. HD95 not best.",
+ "prior_overlap": "none; connectivity outputs never run (DconnNet parked in T2 for cost)",
+ "score": 62,
+ "bench_score": 60,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "e1_unseen",
+  "benchmark"
+ ],
+ "gpu_hours": 25,
+ "directions": [
+  "D09",
+  "D10",
+  "D11",
+  "D12"
+ ],
+ "scout_scores": [
+  45,
+  45,
+  40,
+  62,
+  50
+ ],
+ "alt_notes": [
+  {
+   "from": "D09",
+   "adaptation": "Crack-only affinity head on U-Net++ (offsets 1, 2, 4 px, 8 directions) fused with the seg branch; weight larger offsets more because 1 px offsets are dominated by label jitter.",
+   "min_experiment": "Arm: PF + multi-offset affinity head; baseline PF; 3 seeds. Metric: CV components >= 20 px found, relF1@2, strict crack IoU. Kill if components found gain < +0.02 and IoU n.d.",
+   "score": 45
+  },
+  {
+   "from": "D10",
+   "adaptation": "Affinity head for crack and gridline on U-Net++, offsets 1, 2 and 4 px so a 1 px jitter does not break the target; segmentation branch kept as is. Held by D09 / D12.",
+   "min_experiment": "PF + TMAL head vs PF, 5 seeds. Kill if crack relF1@2 gain < 0.01 and component recall gain < 0.02.",
+   "score": 40
+  },
+  {
+   "from": "D09",
+   "adaptation": "Crack-only affinity head on U-Net++ with offsets 1, 2, 4 px and 8 directions; weight larger offsets more because 1 px affinities inherit label jitter; fuse with the seg branch for the crack map.",
+   "min_experiment": "Arm: PF + affinity head; baseline: PF; 3 seeds. Metric: CV crack components >= 20 px found, relF1@2, strict IoU. Kill if components-found gain < +0.02 and IoU n.d.",
+   "score": 45
+  },
+  {
+   "from": "D12",
+   "adaptation": "Crack-only affinity head at offsets 1, 2, 4 px; larger offsets link pixels along the crack and should tolerate 1-2 px label jitter better than 1-px connectivity.",
+   "min_experiment": "Arm: house + multi-offset affinity head, 5 seeds; baseline house. Metrics: components found, crack relF1@2, E1 relF1@2. Kill: gains < 0.01 in-distribution and < 0.02 on E1.",
+   "score": 50
+  }
+ ],
+ "final": 62,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 72,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P072"
+}

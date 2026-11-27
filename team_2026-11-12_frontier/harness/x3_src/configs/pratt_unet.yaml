@@ -1,0 +1,25 @@
+defaults:
+  - base
+
+# Pratt et al. (2023) reproduction on BenchmarkEL: smp U-Net, ImageNet VGG16
+# encoder (23,750,424 parameters with a 1-channel input), weighted CE with
+# their fixed class-weight sets, flip augmentation only.  The paper gives no
+# optimizer, epochs or LR: the pilot protocol is used (Adam 1e-3, 200-step
+# warmup + cosine, 20k steps, batch 4, 512 input, best val defect_miou).
+method: supervised
+
+model:
+  name: smp_unet
+  encoder_name: vgg16
+  encoder_weights: imagenet
+  in_channels: 1
+
+data:
+  labeled_fraction: 1.0    # the full official train split (478 images)
+  augmentation: flips      # 180° rotation + h/v flips; no photometric
+  mean: [0.449]            # ImageNet RGB mean/std averaged (grey input, ImageNet encoder)
+  std: [0.226]
+
+loss:
+  supervised: weighted_ce
+  weight_set: C            # A: all 1 | C: bg 0.2, ribbons 3, gridline 10, inactive 10, crack 20, others 1

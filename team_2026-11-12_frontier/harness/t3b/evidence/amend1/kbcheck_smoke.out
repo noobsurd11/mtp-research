@@ -1,0 +1,10 @@
+t3b kb_check order smoke 2026-11-22 02:32:22: K cba7fbdf5df1579d6efb1168eb292e637bc9fad6, queue 51a96237, old cad952c0, script 61d0852b
+-- F2B CODE.md5 order 'en' (first paths: bench/aa.py bench/atlas.py ), KB C order (first: .gitignore Makefile )
+OK    registration-1 kb_check, order en: REFUSED (check): KB differs from F2B in other paths than K's: <.gitignore <Makefile <README.md <bench/__init__.py <bench/cellmeta.py <bench/derived.py
+OK    amended kb_check, order en: KB /tmp/noob_el/bench_cba7fbd: REVISION K, CODE.md5 OK, pins OK; differs from F2B only in K's paths (+ REVISION)
+-- F2B CODE.md5 order 'rev' (first paths: tests/test_x2_losses.py tests/test_x2_cards.py ), KB C order (first: .gitignore Makefile )
+OK    registration-1 kb_check, order rev: REFUSED (check): KB differs from F2B in other paths than K's: <Makefile <README.md <bench/__init__.py <bench/aa.py <bench/atlas.py <bench/cards.py <be
+OK    amended kb_check, order rev: KB /tmp/noob_el/bench_cba7fbd: REVISION K, CODE.md5 OK, pins OK; differs from F2B only in K's paths (+ REVISION)
+OK    amended kb_check, one extra path in KB: REFUSED (check): KB differs from F2B in other paths than K's: <bench/cellmeta.py <bench/derived.py <bench/dumpfmt.py <bench/q/cv02/cq.sh <bench/sets.p
+OK    amended kb_check, README.md changed in KB (outside K's paths): REFUSED (check): KB differs from F2B in other paths than K's: <README.md <bench/cellmeta.py <bench/derived.py <bench/dumpfmt.py <bench/q/cv02/cq.sh <b
+kb_check order smoke: 0 FAIL

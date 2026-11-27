@@ -1,0 +1,35 @@
+# Milestone 1 architecture (DESIGN.md s7): smp UPerNet decoder on a timm ConvNeXt-T backbone loaded from the local
+# torchvision ImageNet-1k file (no download), 1-channel stem by RGB sum, house recipe otherwise (no PF).
+# memory: not measured yet; the queue refuses non-smoke jobs until a smoke sets peak_mib and gate_mib.
+name: upernet_convnext_t_in1k
+version: 1
+family: convnext-upernet
+papers: []   # UPerNet and ConvNeXt ids to be added by a card agent from retrieved records (not retrieved here)
+kind: harness
+config: configs/supervised.yaml
+opts:
+  - data.labeled_fraction=1.0
+  - training.total_steps=20000
+  - data.split_seed=0
+  - training.labeled_batch_size=8
+  - data.mask_subdir=labeled/masks_escdd
+  - model.name=bench_timm
+  - model.decoder=upernet
+  - model.backbone=convnext_tiny
+  - model.backbone_weights=/home/noob/.cache/torch/hub/checkpoints/convnext_tiny-983f1562.pth
+  - model.backbone_weights_format=torchvision_convnext
+  - model.backbone_drop_path=0.0
+  - data.augmentation=labelsafe
+  - loss.supervised=ce_dice
+  - training.val_every=20000
+weights:
+  - path: /home/noob/.cache/torch/hub/checkpoints/convnext_tiny-983f1562.pth
+    md5: fcc1480a11e933010f4d7e0ccb7e33b1
+weights_key: model
+decision_rule: argmax24
+memory:
+  peak_mib: null
+  gate_mib: null
+  source: "not measured: run smoke_upernet_cnxt_f0 (1,000 steps, 1 s gpumem log) first; gate = peak + 2048"
+external: null
+diff_ref: house_r34_unetpp

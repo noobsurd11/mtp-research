@@ -1,0 +1,42 @@
+{
+ "paper_id": "arxiv:2401.17868",
+ "title": "Convolution Meets LoRA: Parameter Efficient Finetuning for Segment Anything Model",
+ "year": 2024,
+ "venue": "ICLR",
+ "url": "https://arxiv.org/abs/2401.17868",
+ "code_url": "https://github.com/autogluon/autogluon/tree/master/examples/automm/Conv-LoRA",
+ "mechanism": "LoRA bottleneck with lightweight convolution experts gated per scale (MoE), injecting a local image prior into SAM's plain ViT.",
+ "adaptation": "Conv-LoRA rank 8-32 in SAM ViT-B/L at 1024, prompt-free multi-class decoder; local conv prior targets the 16 px patch blind spot for 2 px cracks.",
+ "evidence": "R: beats LoRA and adapters across medical, natural, agriculture, remote sensing segmentation (ICLR 2024).",
+ "min_experiment": "Conv-LoRA vs plain LoRA on SAM ViT-L @1024, 3 seeds; metric crack IoU and recall on components < 20 px; kill if gain over LoRA < 0.012 crack IoU.",
+ "gpu_hours": 25,
+ "score": 55,
+ "bench_score": 50,
+ "bet": "medium",
+ "targets": [
+  "crack"
+ ],
+ "prior_overlap": "none; LoRA/adapters listed as not closed.",
+ "directions": [
+  "D14"
+ ],
+ "scout_scores": [
+  48,
+  55
+ ],
+ "alt_notes": [
+  {
+   "from": "D14",
+   "adaptation": "Same harness as TopoLoRA-SAM arm; swap LoRA for Conv-LoRA; local prior is what 1-2 px cracks on a 4 px dark line need.",
+   "min_experiment": "Conv-LoRA SAM vs LoRA SAM vs house PF, 5-fold CV; default kill line.",
+   "score": 48
+  }
+ ],
+ "final": 55,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 140,
+ "pid": "P140"
+}

@@ -1,0 +1,354 @@
+{
+ "seeds": [
+  5,
+  6
+ ],
+ "n": {
+  "clean_unmoved": 416,
+  "affected_moved": 47,
+  "affected_unmoved": 69
+ },
+ "units": 285,
+ "B": 2000,
+ "boot_seed": 0,
+ "targets": {
+  "affected_unmoved": {
+   "metrics": {
+    "crack_iou": {
+     "point": 0.004923297592136139,
+     "lo": -0.008013111825182934,
+     "hi": 0.012115164949789285,
+     "se": 0.005461652224785365,
+     "per_seed": {
+      "5": 0.004350662815576167,
+      "6": 0.00549593236869611
+     },
+     "reading": "not separated"
+    },
+    "relF1_2": {
+     "point": 0.0013787206573473987,
+     "lo": -0.008656606820714752,
+     "hi": 0.011761583636201677,
+     "se": 0.005166818033327264,
+     "per_seed": {
+      "5": 1.6390837699220562e-05,
+      "6": 0.002741050476995577
+     },
+     "reading": "not separated"
+    }
+   },
+   "levels": {
+    "5": {
+     "v3": {
+      "affected_unmoved": {
+       "crack_iou": 0.45735185866764816,
+       "relF1_2": 0.9118415510430267
+      },
+      "clean_unmoved": {
+       "crack_iou": 0.365521582047747,
+       "relF1_2": 0.8315937251802158
+      }
+     },
+     "v2": {
+      "affected_unmoved": {
+       "crack_iou": 0.45170166219355423,
+       "relF1_2": 0.9109594511556374
+      },
+      "clean_unmoved": {
+       "crack_iou": 0.3642220483892292,
+       "relF1_2": 0.8307280161305257
+      }
+     }
+    },
+    "6": {
+     "v3": {
+      "affected_unmoved": {
+       "crack_iou": 0.45335259015439044,
+       "relF1_2": 0.9063168230658873
+      },
+      "clean_unmoved": {
+       "crack_iou": 0.3649536927755176,
+       "relF1_2": 0.8307850674291308
+      }
+     },
+     "v2": {
+      "affected_unmoved": {
+       "crack_iou": 0.4496925817387807,
+       "relF1_2": 0.9047796758265735
+      },
+      "clean_unmoved": {
+       "crack_iou": 0.36678961672860394,
+       "relF1_2": 0.8319889706668125
+      }
+     }
+    }
+   }
+  },
+  "affected_moved": {
+   "metrics": {
+    "crack_iou": {
+     "point": 0.0006703509339060776,
+     "lo": -0.014957754963276363,
+     "hi": 0.025360156013235692,
+     "se": 0.011570439181755826,
+     "per_seed": {
+      "5": 0.010651902199545427,
+      "6": -0.009311200331733271
+     },
+     "reading": "not separated"
+    },
+    "relF1_2": {
+     "point": 0.01449045709907143,
+     "lo": -0.009965551544070549,
+     "hi": 0.050214772757290305,
+     "se": 0.014944767682411871,
+     "per_seed": {
+      "5": 0.014579106881393189,
+      "6": 0.01440180731674967
+     },
+     "reading": "not separated"
+    }
+   },
+   "levels": {
+    "5": {
+     "v3": {
+      "affected_moved": {
+       "crack_iou": 0.38583310973973706,
+       "relF1_2": 0.9232922956262852
+      },
+      "clean_unmoved": {
+       "crack_iou": 0.365521582047747,
+       "relF1_2": 0.8315937251802158
+      }
+     },
+     "v2": {
+      "affected_moved": {
+       "crack_iou": 0.37388167388167387,
+       "relF1_2": 0.907847479695202
+      },
+      "clean_unmoved": {
+       "crack_iou": 0.3642220483892292,
+       "relF1_2": 0.8307280161305257
+      }
+     }
+    },
+    "6": {
+     "v3": {
+      "affected_moved": {
+       "crack_iou": 0.37652770089000553,
+       "relF1_2": 0.9214140325827229
+      },
+      "clean_unmoved": {
+       "crack_iou": 0.3649536927755176,
+       "relF1_2": 0.8307850674291308
+      }
+     },
+     "v2": {
+      "affected_moved": {
+       "crack_iou": 0.38767482517482516,
+       "relF1_2": 0.908216128503655
+      },
+      "clean_unmoved": {
+       "crack_iou": 0.36678961672860394,
+       "relF1_2": 0.8319889706668125
+      }
+     }
+    }
+   }
+  }
+ },
+ "tool": "bench_leak_did.py",
+ "tool_md5": "ff66f26e2dfbdcba3eef3eaa0672fd8d",
+ "arm": "HOUSE",
+ "labels": "v11",
+ "groups_md5": "d880a769e3672b7dbc3614a33738a326",
+ "strata": "/home/yugma/mtp/research/team_2026-11-12_frontier/results/stageC/cv5v3/cv5v3_compare_cells.tsv",
+ "strata_md5": "4d38187847a99128b98113b8f7626f8f",
+ "n_stems": 532,
+ "dry": false,
+ "allow_partial": false,
+ "notes": [],
+ "runs": [
+  {
+   "split": "cv5v3",
+   "seed": 5,
+   "run_id": "c3_house_v11_f0_s5",
+   "set": "cv5v3_f0",
+   "manifest_md5": "f2936ff30d3b15749529ead5b493ea3b",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v3",
+   "seed": 6,
+   "run_id": "c3_house_v11_f0_s6",
+   "set": "cv5v3_f0",
+   "manifest_md5": "358daa076bcb86b38d376d350890b473",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v3",
+   "seed": 5,
+   "run_id": "c3_house_v11_f1_s5",
+   "set": "cv5v3_f1",
+   "manifest_md5": "7652a1b24794b3e244c92729fcb96200",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v3",
+   "seed": 6,
+   "run_id": "c3_house_v11_f1_s6",
+   "set": "cv5v3_f1",
+   "manifest_md5": "b5dd50f23e9bdce282a5b8c7133a500f",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v3",
+   "seed": 5,
+   "run_id": "c3_house_v11_f2_s5",
+   "set": "cv5v3_f2",
+   "manifest_md5": "c727779e6649c8e0786026f2d211b31f",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v3",
+   "seed": 6,
+   "run_id": "c3_house_v11_f2_s6",
+   "set": "cv5v3_f2",
+   "manifest_md5": "b42142fbf699875689b48986d591fd88",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v3",
+   "seed": 5,
+   "run_id": "c3_house_v11_f3_s5",
+   "set": "cv5v3_f3",
+   "manifest_md5": "6bfdd95d8de9c39f05dbaccf1203d8b3",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v3",
+   "seed": 6,
+   "run_id": "c3_house_v11_f3_s6",
+   "set": "cv5v3_f3",
+   "manifest_md5": "02c2f743552e70b17de6d33bf64693dd",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v3",
+   "seed": 5,
+   "run_id": "c3_house_v11_f4_s5",
+   "set": "cv5v3_f4",
+   "manifest_md5": "495487c013c6cbed4d68ae2cdf42609f",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v3",
+   "seed": 6,
+   "run_id": "c3_house_v11_f4_s6",
+   "set": "cv5v3_f4",
+   "manifest_md5": "011a826b80d65550ee7097f080152770",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v2",
+   "seed": 5,
+   "run_id": "w1c2_house_v11_f0_s5",
+   "set": "cv5v2_f0",
+   "manifest_md5": "9e7832d1407750fb10df315235e4ff16",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v2",
+   "seed": 6,
+   "run_id": "w1c2_house_v11_f0_s6",
+   "set": "cv5v2_f0",
+   "manifest_md5": "21055850de675789a49376737bb4afcb",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v2",
+   "seed": 5,
+   "run_id": "w1c2_house_v11_f1_s5",
+   "set": "cv5v2_f1",
+   "manifest_md5": "3de37d4127aac66859e447098db9537e",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v2",
+   "seed": 6,
+   "run_id": "w1c2_house_v11_f1_s6",
+   "set": "cv5v2_f1",
+   "manifest_md5": "0e7241ed071b5b6e6111f2f77add95d2",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v2",
+   "seed": 5,
+   "run_id": "w1c2_house_v11_f2_s5",
+   "set": "cv5v2_f2",
+   "manifest_md5": "2331a760e84a4aa2ec70440e74ae25d2",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v2",
+   "seed": 6,
+   "run_id": "w1c2_house_v11_f2_s6",
+   "set": "cv5v2_f2",
+   "manifest_md5": "dcd84c140810f98db1e2ba4307f21f59",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v2",
+   "seed": 5,
+   "run_id": "w1c2_house_v11_f3_s5",
+   "set": "cv5v2_f3",
+   "manifest_md5": "7260886844b481d35b9d22dcc1734cf6",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v2",
+   "seed": 6,
+   "run_id": "w1c2_house_v11_f3_s6",
+   "set": "cv5v2_f3",
+   "manifest_md5": "1c844d21bb2e85a96220dbd826389987",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v2",
+   "seed": 5,
+   "run_id": "w1c2_house_v11_f4_s5",
+   "set": "cv5v2_f4",
+   "manifest_md5": "ff12e2f37210847f882e878b289a8306",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  },
+  {
+   "split": "cv5v2",
+   "seed": 6,
+   "run_id": "w1c2_house_v11_f4_s6",
+   "set": "cv5v2_f4",
+   "manifest_md5": "18b66098ed3abfeae3dd331d14647d74",
+   "precision": "fp32",
+   "code_commit": "unknown"
+  }
+ ],
+ "seconds": 42
+}

@@ -1,0 +1,43 @@
+{
+ "paper_id": "doi:10.1109/cvpr52733.2024.01090",
+ "title": "Diversified and Personalized Multi-Rater Medical Image Segmentation (D-Persona)",
+ "year": 2024,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2403.13417",
+ "code_url": "https://github.com/ycwu1997/D-Persona",
+ "mechanism": "Stage 1 trains a Probabilistic U-Net on multi-rater labels to build a shared latent space. Stage 2 attention heads extract expert-specific prompts for personalized masks.",
+ "adaptation": "Use label versions as raters: the 2021 original and 2022 revised crack/inactive masks exist for the same cells. Train on both and output the revised-style persona, so the old labels add signal instead of being discarded.",
+ "min_experiment": "Arm = two-version D-Persona-style head (3 seeds) versus house PF on revised labels only. Metric: crack IoU clean-49 and relF1@2. Kill if < +0.012.",
+ "score": 45,
+ "bench_score": 40,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "inactive"
+ ],
+ "evidence": "R: NPC-170 (in-house) and LIDC-IDRI; better diversity and personalized accuracy than multi-rater baselines (abstract).",
+ "gpu_hours": 10,
+ "prior_overlap": "label version change gave +0.05 to +0.08 crack IoU, but no run trained on both versions jointly",
+ "directions": [
+  "D17"
+ ],
+ "scout_scores": [
+  45,
+  45
+ ],
+ "alt_notes": [
+  {
+   "from": "D17",
+   "adaptation": "Use label version as rater: 2021 original and 2022 revised BenchmarkEL crack / inactive masks give two raters per cell. Train on both, output the revised persona; the old masks become extra signal instead of being discarded.",
+   "min_experiment": "Arm: two-rater (version) model, 5 seeds, revised-persona output. Baseline: house PF on revised labels only. Metric: clean-49 crack and inactive IoU. Kill if crack IoU gain < +0.012 and inactive < +0.03.",
+   "score": 45
+  }
+ ],
+ "final": 45,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 293,
+ "pid": "P293"
+}

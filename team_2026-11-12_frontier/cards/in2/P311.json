@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.52202/075280-2785",
+ "title": "Towards In-context Scene Understanding (Hummingbird)",
+ "year": 2023,
+ "venue": "NeurIPS",
+ "url": "https://arxiv.org/abs/2306.01667",
+ "code_url": "",
+ "mechanism": "Dense in-context prediction by nearest-neighbour retrieval from a memory of annotated patch features; pretraining with within- and across-image attention makes features suited to retrieval.",
+ "evidence": "R: approaches finetuned specialists on scene understanding without modification; adapts to new tasks more efficiently than finetuning.",
+ "adaptation": "Retrieval head on the house model: memory of patch features (house decoder at 1/2-1/4 res or DINOv2) from the fold's train cells, kNN label votes fused with house logits by a val-tuned weight; same-source retrieval variant to model source label conventions; targets splice (never predicted), gridline (recall 0.33), inactive.",
+ "min_experiment": "cv5v2 house PF fold models with vs without kNN fusion (any-source and same-source); out-of-fold mIoU_rob and splice/gridline/inactive IoU; kill if mIoU_rob gain under margin M and no class above +0.02. No training, about 1 GPU-h.",
+ "prior_overlap": "none; no nonparametric or retrieval head was ever tried.",
+ "score": 45,
+ "bench_score": 30,
+ "bet": "medium",
+ "targets": [
+  "other_classes",
+  "inactive"
+ ],
+ "gpu_hours": 1,
+ "directions": [
+  "D38"
+ ],
+ "scout_scores": [
+  45
+ ],
+ "final": 45,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 311,
+ "pid": "P311"
+}

@@ -1,0 +1,63 @@
+{
+ "paper_id": "doi:10.1016/j.engappai.2026.115849",
+ "title": "Beyond prompt-only segmentation: Foundation model-guided trust-region label refinement for single-stage bone fracture instance segmentation",
+ "year": 2026,
+ "venue": "Engineering Applications of Artificial Intelligence",
+ "url": "https://doi.org/10.1016/j.engappai.2026.115849",
+ "code_url": "",
+ "mechanism": "Foundation-model masks are used only inside a narrow trust region around expert labels, gated by instance IoU, with minimal closing; the original annotation anchors everything.",
+ "adaptation": "For crack labels: inside a 2 px band, move each label line onto the FM (or SERD / dark-ridge) crack response, reject cells with large shifts, keep source width conventions (ARTS 1.5 px, BMRK 3 px).",
+ "min_experiment": "Refine train crack labels only; retrain house 5 seeds; score on original test labels. Kill if test crack IoU and relF1@2 both fall > 0.005; pass if crack IoU +0.01.",
+ "evidence": "R: 5-fold CV, constrained refinement modest gain in sample-matched ablations; unconstrained MedSAM pseudo-labels degraded; mAP@0.5 0.63. E: 2022 relabelling gave +0.05 to +0.08 crack IoU.",
+ "prior_overlap": "Section 5 Labels row: automatic label refinement never run; offset-tolerant CE (n.d.) is a loss, not label editing.",
+ "score": 62,
+ "bench_score": 55,
+ "bet": "medium",
+ "gpu_hours": 15,
+ "targets": [
+  "crack",
+  "measurement",
+  "benchmark"
+ ],
+ "directions": [
+  "D14",
+  "D15",
+  "D16",
+  "D36"
+ ],
+ "scout_scores": [
+  62,
+  52,
+  57,
+  58
+ ],
+ "alt_notes": [
+  {
+   "from": "D15",
+   "adaptation": "Proposal = 5-seed ensemble or SAM2 prompted from label skeleton points; accept refinements only within 2 px of each crack label, per-component gate IoU >= 0.3. Skeleton metric becomes a candidate benchmark metric next to relF1@2.",
+   "min_experiment": "Arm: house on trust-region refined crack labels. Baseline: house. Metric: relF1@2, strict IoU, skeleton coverage. Kill if relF1@2 gain < +0.01. About 6 GPU-h.",
+   "score": 52
+  },
+  {
+   "from": "D16",
+   "adaptation": "Proposal = 5-seed house ensemble or a SAM2 / DINOv3 refiner; accept a refined crack component only inside the 2 px band of the label and if IoU with the dilated label passes a gate; otherwise keep the original component.",
+   "min_experiment": "Arm: house trained on trust-region-refined crack labels, 5 seeds. Baseline: house. Metric: clean-49 crack IoU, relF1@2. Kill: crack IoU change under +0.012.",
+   "score": 57
+  },
+  {
+   "from": "D36",
+   "adaptation": "Convert UCF region-crack polygons and wide external crack masks to thin lines only within 2 px of the given label, gated by agreement with the EL dark ridge; never train on raw SAM crack masks.",
+   "min_experiment": "Arm: joint run where external crack labels are trust-region-thinned vs used raw; 5 seeds each, 30k steps. Baseline: joint run with raw labels and house 5-seed. Metric: clean-49 crack IoU and relP@2. Kill if thinning gives < +0.012 crack IoU over raw. ~15 GPU-h.",
+   "score": 58
+  }
+ ],
+ "final": 62,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 73,
+ "pub_allowed": 1,
+ "selected_for": "top",
+ "pid": "P073"
+}

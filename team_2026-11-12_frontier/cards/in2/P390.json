@@ -1,0 +1,43 @@
+{
+ "paper_id": "doi:10.1109/wacv57701.2024.00844",
+ "title": "Designing a Hybrid Neural System to Learn Real-world Crack Segmentation from Fractal-based Simulation (Cracktal / CAP-Net)",
+ "year": 2024,
+ "venue": "WACV",
+ "url": "https://arxiv.org/abs/2309.09637",
+ "code_url": "",
+ "mechanism": "Stochastic Koch-fractal crack simulator with exact labels. CAP-Net adds AdaIN style transfer and a pointwise-mutual-information branch with a consistency loss to bridge simulation and real data.",
+ "evidence": "On SegCODEBRIM, a U-Net trained on 950 real multi-source images (F1 25.6%) did worse than a U-Net trained on simulation, which the authors attribute to inconsistent annotation styles across sources. CAP-Net adds +7% F1 over the simulation-trained U-Net. All images at 256 px.",
+ "adaptation": "Our 5 sources with 5 label conventions are the same failure mode. Use fractal skeletons as a second generator alongside the dynamic-programming strands, and apply per-source intensity statistics (AdaIN-like) when rendering onto EL cells.",
+ "min_experiment": "Add Cracktal skeletons as a second skeleton source in the procedural arm, 5 seeds. Metric: E1 relF1@2. Kill if not above the procedural arm alone.",
+ "prior_overlap": "none",
+ "score": 40,
+ "bench_score": 30,
+ "bet": "moonshot",
+ "targets": [
+  "crack",
+  "e1_unseen"
+ ],
+ "gpu_hours": 7,
+ "directions": [
+  "D21"
+ ],
+ "scout_scores": [
+  40,
+  38
+ ],
+ "alt_notes": [
+  {
+   "from": "D21",
+   "adaptation": "Second skeleton source in the procedural arm; per-source AdaIN-style intensity statistics when rendering.",
+   "min_experiment": "Swap fractal skeletons into the procedural arm; kill if E1 relF1@2 not above DP skeletons.",
+   "score": 38
+  }
+ ],
+ "final": 40,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 390,
+ "pid": "P390"
+}

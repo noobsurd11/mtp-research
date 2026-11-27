@@ -1,0 +1,8 @@
+# coach: named-claim tier (3a), combination (3c) and the handbook line (7), from my own R and D outputs
+verdict R: FAIL (BETTER: ['E1 crack relF1@2']; WORSE: none; guards: ['G1', 'G2'])
+verdict D: FAIL (passing: ['E1 crack relF1@2']; failing: none; guards: ['G1t test inactive d <= -0.015 in both sets'])
+named claim (3a): condition 1 seed-aware CI above 0: False ([-0.0015, +0.0590]); condition 2 D E1 relF1@2 primary passes: True ([+0.0115, +0.0544]); condition 3 neither R nor D is FAIL: False
+  tier: "the fresh-seed ensemble pair differs on E1 relF1@2 (fixed-model CI; seed noise not included); replication at recipe level not shown"
+  R's rule-1 label for E1 relF1@2 (reported next to it): BETTER (+0.0289, thr 0.0281)
+3c: R FAIL or D FAIL -> the SUP100-PF ensemble stays (#6's E-PF at b 0). Caused by: R: G1, G2; D: G1t test inactive d <= -0.015 in both sets.
+      R FAIL carried by ['E1 crack relF1@2']; D FAIL carried by ['E1 crack relF1@2']

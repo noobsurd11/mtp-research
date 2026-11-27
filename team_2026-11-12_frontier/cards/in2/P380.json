@@ -1,0 +1,43 @@
+{
+ "paper_id": "doi:10.1016/j.eswa.2025.126986",
+ "title": "Faithful crack image synthesis from evolutionary pixel-level annotations via latent semantic diffusion model (LSDM)",
+ "year": 2025,
+ "venue": "Expert Systems with Applications",
+ "url": "https://doi.org/10.1016/j.eswa.2025.126986",
+ "code_url": "https://huggingface.co/spaces/QinLei086/LSDM",
+ "mechanism": "Latent semantic diffusion renders crack images from pixel-level annotations, and a heuristic crack-evolution step grows and branches existing annotations into richer new masks.",
+ "adaptation": "Evolve skeletonised crack labels; grown cracks that isolate a region from all busbars yield new inactive masks; render with a pixel renderer or on GDI canvases rather than the latent model for 1-2 px cracks. HF demo QinLei086/LSDM stated in abstract, not opened.",
+ "min_experiment": "PF + evolved masks rendered vs PF + original masks rendered by the same renderer. Metric CV inactive IoU and test crack relR@2. Kill: < +0.01 on both.",
+ "evidence": "R: crack segmentation datasets; LSDM + evolution beats traditional augmentation and other generators (no numbers in abstract).",
+ "gpu_hours": 20,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "inactive"
+ ],
+ "prior_overlap": "none",
+ "score": 40,
+ "bench_score": 40,
+ "directions": [
+  "D33"
+ ],
+ "scout_scores": [
+  40,
+  40
+ ],
+ "alt_notes": [
+  {
+   "from": "D33",
+   "adaptation": "Evolve skeletonised crack labels; grown cracks isolating regions from busbars give new inactive masks; render with a pixel-space generator, not the latent model.",
+   "min_experiment": "Evolved vs original masks through the same renderer. Metric CV inactive, test relR@2. Kill: < +0.01 on both. About 20 GPU-h.",
+   "score": 40
+  }
+ ],
+ "final": 40,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 380,
+ "pid": "P380"
+}

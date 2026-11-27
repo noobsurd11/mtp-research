@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.1109/tii.2023.3327572",
+ "title": "SSN: Shift Suppression Network for Endogenous Shift of Photovoltaic Defect Detection",
+ "year": 2023,
+ "venue": "IEEE Transactions on Industrial Informatics",
+ "url": "https://doi.org/10.1109/tii.2023.3327572",
+ "code_url": "",
+ "mechanism": "Background style suppression module aligns channel statistics during training to remove background style shift without target-domain data.",
+ "adaptation": "Insert a BSS-style instance-statistics alignment (with style mixing across our 5 sources) into ResNet layer1-2 of the PF model, aiming at E1 contrast and scuff-streak shift.",
+ "min_experiment": "Arm: PF + BSS in layer1-2. Baseline: PF, 5 seeds. Metric: E1 crack relF1@2; leave-one-source-out crack IoU on val folds. Kill if E1 relF1@2 < +0.03.",
+ "evidence": "R: 16,323 EL images collected at three different times; SSN beats SOTA detectors under endogenous shift (detection, numbers not retrieved).",
+ "prior_overlap": "Test-time per-panel BN adaptation and intensity normalisation failed; train-time style statistics suppression not tested. Open.",
+ "score": 42,
+ "bench_score": 30,
+ "bet": "medium",
+ "gpu_hours": 8,
+ "targets": [
+  "e1_unseen"
+ ],
+ "directions": [
+  "D03"
+ ],
+ "scout_scores": [
+  42
+ ],
+ "final": 42,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 346,
+ "pid": "P346"
+}

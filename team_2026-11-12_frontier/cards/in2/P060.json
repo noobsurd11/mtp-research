@@ -1,0 +1,46 @@
+{
+ "paper_id": "arxiv:2503.05541",
+ "title": "Disconnect to Connect: A Data Augmentation Method for Improving Topology Accuracy in Image Segmentation (CoLeTra)",
+ "year": 2025,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2503.05541",
+ "code_url": "https://github.com/jmlipman/CoLeTra",
+ "mechanism": "Augmentation that paints background-like patches over parts of thin structures and keeps the original label, so the model learns that structures that look broken are connected.",
+ "adaptation": "Paste local background texture (same cell, same source) over 3 to 10 px stretches of crack and gridline labels, label unchanged. Aims at faint cracks (7% under 2% contrast) and E1 misses. No width bias because labels are untouched. Do not cover inactive regions or busbars.",
+ "min_experiment": "Arm: PF + CoLeTra on crack and gridline, 5 seeds. Baseline: PF. Metrics: E1 crack relF1@2, test crack component recall (>= 20 px), relP@2. Kill if E1 relF1@2 and component recall both gain < 0.02, or relP@2 falls > 0.02.",
+ "score": 64,
+ "bench_score": 45,
+ "bet": "safe",
+ "targets": [
+  "crack",
+  "e1_unseen",
+  "other_classes"
+ ],
+ "evidence": "R (abstract): across architectures, losses and datasets, more accurate topology, often better Dice and HD, robust to its hyperparameters, works with topologically inaccurate labels.",
+ "gpu_hours": 6,
+ "prior_overlap": "Crack copy-paste onto pool cells (n.d.) added cracks. CoLeTra removes image evidence under a kept label, a different mechanism. Open.",
+ "directions": [
+  "D10"
+ ],
+ "scout_scores": [
+  64,
+  62
+ ],
+ "alt_notes": [
+  {
+   "from": "D10",
+   "adaptation": "Paste same-cell, same-source local background over 3 to 10 px stretches of crack and gridline only, never over inactive. Targets faint cracks (7% under 2% contrast) and E1 misses where 70% of crack pixels get p < 0.001. Labels untouched, so no width bias. Otherwise keep label-safe augmentation.",
+   "min_experiment": "PF + CoLeTra (crack + gridline) vs PF, 5 seeds. Kill if E1 crack relF1@2 and test component recall (>= 20 px) both gain < +0.02, or relP@2 falls > 0.02.",
+   "score": 62
+  }
+ ],
+ "final": 64,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 60,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P060"
+}

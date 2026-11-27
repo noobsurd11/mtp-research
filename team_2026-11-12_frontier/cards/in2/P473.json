@@ -1,0 +1,45 @@
+{
+ "paper_id": "arxiv:2512.06870",
+ "title": "Towards Robust Pseudo-Label Learning in Semantic Segmentation: An Encoding Perspective (ECOCSeg)",
+ "year": 2025,
+ "venue": "NeurIPS",
+ "url": "https://arxiv.org/abs/2512.06870",
+ "code_url": "https://github.com/Woof6/ECOCSeg",
+ "mechanism": "Replace one-hot classes with error-correcting output codes and denoise labels bit by bit, so partly wrong pseudo-labels cost only some bits.",
+ "adaptation": "Design bits shared across our 24 classes (dark defect, thin, structural, metal). A crack vs inactive confusion, where 20% of crack pixels sit in inactive regions, then costs one bit. Also usable with jittered GT in the supervised house model.",
+ "min_experiment": "House PF with an ECOC head vs a one-hot head, 5 seeds. Metrics: crack IoU, inactive IoU, mIoU_rob. Kill if n.d.",
+ "score": 35,
+ "bench_score": 25,
+ "bet": "moonshot",
+ "targets": [
+  "crack",
+  "inactive",
+  "other_classes"
+ ],
+ "evidence": "R: plugs into existing UDA and SSL methods with gains across architectures; numbers not on the abstract page.",
+ "gpu_hours": 8,
+ "prior_overlap": "Multi-label and structured heads are on the 'never tried' list. Open.",
+ "directions": [
+  "D29",
+  "D42"
+ ],
+ "scout_scores": [
+  35,
+  28
+ ],
+ "alt_notes": [
+  {
+   "from": "D42",
+   "adaptation": "Encode the 24 classes so related classes share bits (crack and inactive share a defect bit; busbar, ribbon and splice share a metallisation bit). This gives a multi-label-like head and a softer penalty for crack-versus-inactive confusion where the labels overlap.",
+   "min_experiment": "Arm: house with a 32-bit ECOC head, 5 seeds. Baseline: house. Metrics: crack IoU, inactive IoU, mIoU_rob. Kill: all three n.d.",
+   "score": 28
+  }
+ ],
+ "final": 35,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 473,
+ "pid": "P473"
+}

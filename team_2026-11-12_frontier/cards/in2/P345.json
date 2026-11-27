@@ -1,0 +1,35 @@
+{
+ "paper_id": "doi:10.1007/s11704-024-40462-2",
+ "title": "Shape-intensity knowledge distillation for robust medical image segmentation (SIKD)",
+ "year": 2025,
+ "venue": "Frontiers of Computer Science",
+ "url": "https://arxiv.org/abs/2409.17503",
+ "code_url": "https://github.com/whdong-whu/SIKD",
+ "mechanism": "A teacher trained on class-wise averaged training images (each labelled region set to its mean intensity) learns texture-free shape-intensity cues and distils them into a same-size student.",
+ "adaptation": "Class-average EL cells over all 24 classes (removes grain, finger texture and source gain); distil into the house student; effect expected on structural classes, inactive and E1 texture shift rather than 1-2 px cracks.",
+ "min_experiment": "Arm: house student + SIKD teacher distillation, 5 seeds. Baseline: house. Metrics: mIoU_rob, E1 crack relF1@2. Kill: mIoU_rob < +0.01 and E1 relF1@2 < +0.02.",
+ "score": 42,
+ "bench_score": 30,
+ "bet": "medium",
+ "targets": [
+  "other_classes",
+  "e1_unseen",
+  "inactive"
+ ],
+ "evidence": "R (web summary): improves baselines on five medical segmentation tasks and generalises better to unseen datasets.",
+ "gpu_hours": 12,
+ "prior_overlap": "none. Distillation listed as never tried.",
+ "directions": [
+  "D08"
+ ],
+ "scout_scores": [
+  42
+ ],
+ "final": 42,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 345,
+ "pid": "P345"
+}

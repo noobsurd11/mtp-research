@@ -1,0 +1,34 @@
+# House model with the encoder-preserving fine-tune (PF): encoder frozen 1k steps, linear ramp 1k, 0.1x lr, no encoder wd.
+# = pf2_SUPPF_100pct_s5 (pf2_jobs.txt 210d0d6f) minus seed / run_name.
+name: house_r34_unetpp_pf
+version: 1
+family: cnn-unetpp
+papers: []
+kind: harness
+config: configs/supervised.yaml
+opts:
+  - data.labeled_fraction=1.0
+  - training.total_steps=20000
+  - data.split_seed=0
+  - training.labeled_batch_size=8
+  - data.mask_subdir=labeled/masks_escdd
+  - model.name=smp_unetpp
+  - data.augmentation=labelsafe
+  - loss.supervised=ce_dice
+  - training.val_every=20000
+  - training.encoder_pf.freeze=1000
+  - training.encoder_pf.ramp=1000
+  - training.encoder_pf.lr_mult=0.1
+  - training.encoder_pf.wd=0
+weights:
+  - path: /home/noob/.cache/huggingface/hub/models--smp-hub--resnet34.imagenet/snapshots/7a57b34f723329ff020b3f8bc41771163c519d0c/model.safetensors
+    md5: f57b430554b18e1238c4f92eac566544
+weights_key: model
+decision_rule: argmax24
+memory:
+  peak_mib: 6830
+  gate_mib: 9000
+  source: "pf2 smoke SUP100-PF 6,826 MiB / SUPPF real runs 6,830 (handbook 14 s1.2e); gate rule peak + 2048"
+external: null
+diff_ref: house_r34_unetpp
+notes: "PF = training.encoder_pf (e544133)."

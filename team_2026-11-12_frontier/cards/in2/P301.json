@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1016/j.media.2025.103615",
+ "title": "Rethinking boundary detection in deep learning-based medical image segmentation (CTO)",
+ "year": 2025,
+ "venue": "Medical Image Analysis",
+ "url": "https://arxiv.org/abs/2505.04652",
+ "code_url": "https://github.com/xiaofang007/CTO",
+ "mechanism": "Boundary-guided decoder: fixed edge operators produce a binary boundary map that supervises a boundary-extraction module whose output is injected back into the decoder.",
+ "evidence": "R (read): ISIC 2016 IoU 84.92 -> 86.60 vs Boundary loss 85.25 and Boundary DoU 85.70 on the same base; ISIC 2018 ablation BEM +0.5 IoU, BIM +0.4.",
+ "adaptation": "Use only BEM/BIM on U-Net++ (no ViT stream). Sobel responses on EL fire on busbars, gridlines, cell edges and the 4 px crack ridge, independent of the jittered crack label.",
+ "min_experiment": "Only if SBCB arm is positive: house + BEM/BIM vs house; gridline, edge_dark IoU, crack relF1@2; kill if mIoU_rob gain < 0.01 over the SBCB arm.",
+ "prior_overlap": "none",
+ "score": 45,
+ "bench_score": 35,
+ "bet": "medium",
+ "gpu_hours": 6,
+ "targets": [
+  "other_classes",
+  "crack"
+ ],
+ "directions": [
+  "D27"
+ ],
+ "scout_scores": [
+  45
+ ],
+ "final": 45,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 301,
+ "pid": "P301"
+}

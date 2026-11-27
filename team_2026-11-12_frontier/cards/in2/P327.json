@@ -1,0 +1,36 @@
+{
+ "paper_id": "doi:10.1016/j.optlastec.2025.114078",
+ "title": "Exploring few-shot defect segmentation in general industrial scenarios with metric learning and vision foundation models (GFDS / FM-SAM)",
+ "year": 2025,
+ "venue": "Optics & Laser Technology",
+ "url": "https://arxiv.org/abs/2502.01216",
+ "code_url": "https://github.com/liutongkun/GFDS",
+ "mechanism": "Training-free few-shot defect segmentation; SAM2 run in video-tracking mode with the support image+mask as the previous frame and the query as the current frame, plus a DINO feature-matching variant refined by FastSAM.",
+ "evidence": "R: 1-shot over 54 industrial defect classes, SAM2-s video mode 47.9 mIoU at 1024 px, 38.8 at 512, 23.9 at 256; FM-l 36.5 (39.3 with FastSAM); PerSAM 8.0, Matcher 5.0; meta-learning FSS ill-suited to defects.",
+ "adaptation": "Upsample 512 px cells to 1024, replicate 1 channel to 3; supports = k nearest labelled train cells by DINOv2 global feature, same cell type when known; one binary pass per class (inactive, crack, splice, ribbons); labeller for the 1,152 pool multi half-cells and K-shot benchmark baseline; crack judged only by relF1@2 since the 1/4-res decoder thickens lines.",
+ "min_experiment": "G0 gate: K=1/4/16 retrieved supports predict val54+F51+H36; baseline house PF 5-seed ensemble on same cells; metrics inactive IoU, crack relF1@2, splice/gridline IoU, fraction of house misses recovered; kill if below house on every class and recovers <10% of house misses on H36 inactive. If pass: PF on 478 + labeller pseudo-labelled half-cells vs PF + house-labelled half-cells, H36 inactive IoU and F51 crack relF1@2, kill under margin M.",
+ "prior_overlap": "Partial: pseudo-label SSL with the house teacher was n.d. at 100% labels on the 11.9k pool; a foundation-model in-context labeller (different, possibly decorrelated errors) was never tested, and half-cell-targeted distillation was not.",
+ "score": 42,
+ "bench_score": 70,
+ "bet": "medium",
+ "targets": [
+  "inactive",
+  "e1_unseen",
+  "other_classes",
+  "benchmark"
+ ],
+ "gpu_hours": 10,
+ "directions": [
+  "D38"
+ ],
+ "scout_scores": [
+  42
+ ],
+ "final": 42,
+ "bench": 70,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 327,
+ "pid": "P327"
+}

@@ -1,0 +1,14 @@
+[2026-11-18 19:23:00] c3x read start (out /home/noob/work/bench_reads/c3x; 100 runs, 125 dump folders linked; script 060e24a2; C3X 03375d4c5e9ddde040603230eaca2b1c1139e14c)
+manifest check: 125 dumps, device ['NVIDIA RTX A6000'], writer ['bench_infer.py afd9164264de4d91e43e258e6f8b1836']: OK
+command (cwd /home/noob/work/bench_wt_final, nice -n 19): scripts/bench_read_w1.py --arm PF=/home/noob/work/bench_reads/c3x/links/elbench1/house_r34_unetpp_pf_v11:c3_pf_v11_f[0-4]_s[5-9] --arm HRNET=/home/noob/work/bench_reads/c3x/links/elbench1/hrnet_w18_unetpp_pf_v11:c3h_hrnet_w18_unetpp_pf_f[0-4]_s[5-9] --arm SWADBN=/home/noob/work/bench_reads/c3x/links/elbench1/swad_const_pf_v11:c3s_swad_v11_f[0-4]_s[5-9] --arm COMBO=/home/noob/work/bench_reads/c3x/links/elbench1/hrnet_w18_unetpp_swad_const_pf_v11:c3x_hrnet_swad_v11_f[0-4]_s[5-9] --arm COMBO_SWAD=/home/noob/work/bench_reads/c3x/links/elbench1/hrnet_w18_unetpp_swad_const_pf_v11:c3x_hrnet_swad_v11_f[0-4]_s[5-9]\.swad --pair PF=COMBO --pair PF=COMBO_SWAD --pair HRNET=COMBO --pair HRNET=COMBO_SWAD --pair SWADBN=COMBO --pair SWADBN=COMBO_SWAD --labels v11 --workers 8 --cache /home/noob/work/bench_reads/c3x/cache_c --baseline PF --aa PF:5,6:7,8 --groups /home/noob/work/bench_data_v3b/meta/cv5v3_groups.tsv --score-exclude /home/yugma/mtp/research/team_2026-11-12_frontier/benchmark/splits/score_exclude_v3.txt --out /home/noob/work/bench_reads/c3x/read
+[312s] argmax records + bias sweeps: 125 runs
+[498s] operating points and their records (532 stems)
+score-exclude /home/yugma/mtp/research/team_2026-11-12_frontier/benchmark/splits/score_exclude_v3.txt md5 6d48dfbd56ba8140ed20ecb21bf349dc: 532 -> 416 stems
+[701s] operating points and their records (416 stems)
+[791s] wave 1 read: 5 arms, 532 OOF stems, 6 contrasts, A/A yes -> /home/noob/work/bench_reads/c3x/read/read.txt
+[2026-11-18 19:36:12] read rc=0
+wrote /home/noob/work/bench_reads/c3x/class_guard.txt (45 lines; arms ['PF', 'HRNET', 'SWADBN', 'COMBO', 'COMBO_SWAD']; classes [13, 16, 20, 11])
+class guard rc=0
+wrote /home/noob/work/bench_reads/c3x/verdict.txt (155 lines): NOT CONFIRMED, reported as a gain with the failing guards named: COMBO | COMBO IS NOT THE FINAL-MODEL CANDIDATE (the primary claim is
+verdict rc=0
+[2026-11-18 19:36:21] C3X READ ALL DONE (rc 0); tracked changes: bench_wt_final 0

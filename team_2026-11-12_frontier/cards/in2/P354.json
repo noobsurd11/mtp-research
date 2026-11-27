@@ -1,0 +1,53 @@
+{
+ "paper_id": "doi:10.1109/cvpr52734.2025.02738",
+ "title": "SCSegamba: Lightweight Structure-Aware Vision Mamba for Crack Segmentation in Structures",
+ "year": 2025,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2503.01113",
+ "code_url": "https://github.com/Karl1109/SCSegamba",
+ "mechanism": "Lightweight vision Mamba (2.8M params) with gated bottleneck convolution for crack morphology and a structure-aware scanning strategy for continuity between crack pixels.",
+ "adaptation": "Must-have benchmark row. Train with official code on 512 px EL, 3-class (bg, crack, inactive) and 24-class versions; gray to 3 channels; needs mamba-ssm CUDA kernels (install needs the user's OK).",
+ "min_experiment": "Arm: SCSegamba 3-class and 24-class; baseline: PF; 3 seeds. Metric: CV crack IoU, relF1@2, inactive IoU. Kill as a model if CV crack IoU < PF minus 0.02; keep as benchmark row.",
+ "score": 40,
+ "bench_score": 90,
+ "bet": "safe",
+ "targets": [
+  "benchmark",
+  "crack"
+ ],
+ "evidence": "R: F1 0.8390, mIoU 0.8479 on a multi-scenario dataset with 2.8M params; 104 citations. Tolerance in metrics unverified.",
+ "gpu_hours": 10,
+ "prior_overlap": "none (no Mamba segmenter tried). Also listed in D12.",
+ "directions": [
+  "D09",
+  "D12"
+ ],
+ "scout_scores": [
+  40,
+  40,
+  40
+ ],
+ "alt_notes": [
+  {
+   "from": "D09",
+   "adaptation": "Must-have benchmark entry. Official code, 1-channel stem, 512 px, crack + inactive + background and 24-class variants, house loss. Needs mamba-ssm CUDA kernels (install needs the user's OK).",
+   "min_experiment": "Arm: SCSegamba official recipe on our folds; baseline PF; 3 seeds. Metric: CV crack IoU, relF1@2, E1 relF1@2. Kill as a model if CV crack IoU < PF minus 0.02; keep as benchmark row.",
+   "score": 40
+  },
+  {
+   "from": "D12",
+   "adaptation": "Use a 24-class head, 1-channel input and 512 px, under the same 20k-step protocol and metrics as house. It needs a mamba-ssm CUDA build on cv02, which needs the user's OK.",
+   "min_experiment": "Benchmark row: SCSegamba vs house, 3 seeds, full protocol (crack IoU, relF1@2, inactive, mIoU_rob, E1). As a score arm, kill if crack relF1@2 is below house.",
+   "score": 40
+  }
+ ],
+ "final": 40,
+ "bench": 90,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 354,
+ "pub_allowed": 0,
+ "selected_for": "bench",
+ "pid": "P354"
+}

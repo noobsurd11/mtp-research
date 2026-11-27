@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2410.10105",
+ "title": "High-Precision Dichotomous Image Segmentation via Probing Diffusion Capacity (DiffDIS)",
+ "year": 2025,
+ "venue": "ICLR",
+ "url": "https://arxiv.org/abs/2410.10105",
+ "code_url": "",
+ "mechanism": "Fine-tunes the Stable Diffusion 2.1 U-Net for one-step mask denoising with an auxiliary edge-generation task for fine-grained high-resolution segmentation.",
+ "evidence": "R: SOTA on DIS5K (abstract, no numbers on page).",
+ "adaptation": "Moonshot: condition SD on [EL replicated, house p(crack)] at 512 px, one step; tests whether a large generative prior recovers faint cracks; needs weight download approval.",
+ "min_experiment": "Arm: DiffDIS-style refiner. Baseline: house ensemble. Metric: relR@2 at fixed relP@2. Kill: relR@2 < +0.01.",
+ "score": 28,
+ "bench_score": 35,
+ "bet": "moonshot",
+ "gpu_hours": 40,
+ "targets": [
+  "crack"
+ ],
+ "prior_overlap": "none",
+ "directions": [
+  "D26"
+ ],
+ "scout_scores": [
+  28
+ ],
+ "final": 28,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 538,
+ "pid": "P538"
+}

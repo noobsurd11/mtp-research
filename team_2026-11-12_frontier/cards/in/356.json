@@ -1,0 +1,44 @@
+{
+ "paper_id": "doi:10.1007/978-3-031-72980-5_13",
+ "title": "Skeleton Recall Loss for Connectivity Conserving and Resource Efficient Segmentation of Thin Tubular Structures",
+ "year": 2024,
+ "venue": "ECCV 2024",
+ "url": "https://arxiv.org/abs/2404.03010",
+ "code_url": "",
+ "mechanism": "Soft recall loss on a tubed label skeleton. Cheap and GPU-friendly.",
+ "adaptation": "Already run here. Open item: score the trained w 0.1 fresh-seed replication and add the width diagnostic. Keep it as a benchmark baseline loss.",
+ "min_experiment": "Score the existing w 0.1 replication seeds against PF (E1 relF1@2, clean-49 crack IoU, width). Kill the line if the E1 relF1@2 gain does not replicate (< 0.02).",
+ "score": 40,
+ "bench_score": 85,
+ "bet": "safe",
+ "targets": [
+  "e1_unseen",
+  "benchmark"
+ ],
+ "evidence": "R (TopoMortar): best topology under noisy labels, but CrackTree Dice 0.32 vs 0.78 for CEDice. E: w 1.0 widened predictions and lowered test IoU while raising E1 detection. w 0.1 narrow E1 pass.",
+ "gpu_hours": 0,
+ "prior_overlap": "Same mechanism and conditions run (Loss row). Only the replication scoring is open.",
+ "directions": [
+  "D10"
+ ],
+ "scout_scores": [
+  40,
+  40
+ ],
+ "alt_notes": [
+  {
+   "from": "D10",
+   "adaptation": "Already run. Open item: score the trained w 0.1 fresh-seed replication with the width diagnostic; optionally wrap it with SCNP (SCNP paper shows SkelRecall beta0 12.45 to 5.07 with equal Dice).",
+   "min_experiment": "Score the existing w 0.1 replication on clean-49 and E1 (0 GPU-h). Close the line if E1 relF1@2 gain < 0.02 again.",
+   "score": 40
+  }
+ ],
+ "final": 40,
+ "bench": 85,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 356,
+ "pub_allowed": 0,
+ "selected_for": "bench"
+}

@@ -1,0 +1,51 @@
+defaults:
+  - base
+
+# UCF-EL supervised, Fioresi et al. recipe: smp DeepLabV3+ (ResNet-50,
+# ImageNet; no aux head), SGD momentum 0.9 (no Nesterov), wd 1e-4, poly
+# (1 - step/total)^0.9 stepped every iteration, batch 16, shorter side resized
+# to 295 then a random 256 crop, h/v flips, plain CE (ignore 128), argmax at
+# eval.  Test at the final step only (no val, no checkpoint selection);
+# secondary decision rule: background if P(bg) >= 0.52.
+method: supervised
+
+model:
+  name: deeplabv3plus
+  encoder_name: resnet50
+  encoder_weights: imagenet
+  in_channels: 3
+  num_classes: 5
+
+data:
+  dataset: ucf_el
+  root: data/ucf_el            # symlink to the UCF-EL-Defect repo's training/ folder
+  splits: data/splits/ucf_el   # committed split files + manifest.json
+  split_seed: 0
+  labeled_subset: sl20         # sl20 (1,912) | full (9,562)
+  resize_size: 295
+  input_size: 256              # random crop
+  random_rescale: null         # [0.6, 1.5]: UCF code's random shorter-side rescale (off in the reproduction arms)
+  rot90: false                 # true: UCF code's random 90° rotation (off in the reproduction arms)
+
+training:
+  total_steps: 12000
+  labeled_batch_size: 16
+  unlabeled_batch_size: 8
+  optimizer: sgd
+  momentum: 0.9
+  nesterov: false
+  lr: 0.005
+  weight_decay: 0.0001
+  lr_scheduler: poly
+  poly_power: 0.9
+  warmup_steps: 0
+  gradient_clip: 0.0
+  num_workers: 10
+
+loss:
+  supervised: ce
+  ignore_index: 128
+  consistency: none
+
+evaluation:
+  bg_thresholds: [0.52]

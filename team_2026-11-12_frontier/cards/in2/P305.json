@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.1109/cvpr.2019.00906",
+ "title": "Improving Semantic Segmentation via Video Propagation and Label Relaxation",
+ "year": 2019,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/1812.01593",
+ "code_url": "",
+ "mechanism": "Boundary label relaxation: at boundary pixels maximise the summed probability of all classes in a small window, so small misplacements are not punished.",
+ "adaptation": "Within a 3x3 window of crack label pixels the target is crack OR neighbour class (log of summed probabilities); elsewhere standard CE; tolerates 1 px jitter without widening the target.",
+ "min_experiment": "Arm: relaxed CE on crack, 5 seeds; baseline SUP100. Kill: crack IoU < +0.012 at equal relP@2.",
+ "evidence": "R: Cityscapes 83.5 mIoU, robustness to boundary annotation noise and propagation artefacts.",
+ "gpu_hours": 6,
+ "bet": "medium",
+ "prior_overlap": "Partial: offset-tolerant CE (P14) at 10% labels used a min over shifts and was n.d.; summed-probability relaxation at 100% labels is untested.",
+ "score": 45,
+ "bench_score": 30,
+ "targets": [
+  "crack"
+ ],
+ "directions": [
+  "D18"
+ ],
+ "scout_scores": [
+  45
+ ],
+ "final": 45,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 305,
+ "pid": "P305"
+}

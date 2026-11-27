@@ -1,0 +1,46 @@
+{
+ "paper_id": "arxiv:2304.13615",
+ "title": "Domain Adaptive and Generalizable Network Architectures and Training Strategies for Semantic Image Segmentation (DAFormer / HRDA)",
+ "year": 2023,
+ "venue": "TPAMI",
+ "url": "https://arxiv.org/abs/2304.13615",
+ "code_url": "",
+ "mechanism": "Training strategies against source overfitting in segmentation: Rare Class Sampling, Thing-Class ImageNet Feature Distance (L2 between bottleneck features and a frozen ImageNet copy on selected classes), lr warmup; plus multi-resolution crops.",
+ "adaptation": "FD: frozen ImageNet ResNet-34 copy, L2 on layer4 features masked to crack and inactive pixels. RCS: sample cells by rarest class present (temperature 0.01-0.1) so the 42 inactive cells and BMRK crack cells appear more. Multi-res crops left to D22.",
+ "evidence": "DAFormer and HRDA improve UDA and DG segmentation SOTA by more than 10 mIoU on 5 benchmarks (abstract); per-strategy ablation numbers not retrieved.",
+ "min_experiment": "Arms FD and FD+RCS vs SUP100-PF, seeds 5-9. Metric: test inactive IoU, E1 inactive IoU, test crack relF1@2. Kill if inactive IoU gain < +0.02 on test and E1 not better.",
+ "gpu_hours": 20,
+ "targets": [
+  "inactive",
+  "e1_unseen",
+  "other_classes"
+ ],
+ "bet": "medium",
+ "prior_overlap": "none. Feature-space preservation and class-frequency sampling never run (long-tail methods listed as never tried).",
+ "score": 65,
+ "bench_score": 40,
+ "directions": [
+  "D35"
+ ],
+ "scout_scores": [
+  65,
+  62
+ ],
+ "alt_notes": [
+  {
+   "from": "D35",
+   "adaptation": "FD: frozen ImageNet ResNet-34, L2 on layer4 features masked to crack + inactive pixels. RCS: sample whole cells by class frequency (temperature 0.01 to 0.1) over 42 inactive and 209 crack cells; whole-cell input keeps all area reachable.",
+   "min_experiment": "Arm: PF + FD, PF + RCS, PF + both, 5 seeds. Baseline: SUP100-PF. Metric: inactive IoU (test, E1), BMRK inactive IoU, crack relF1@2. Kill: inactive IoU gain < 0.02 on test and E1.",
+   "score": 62
+  }
+ ],
+ "final": 65,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 58,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P058"
+}

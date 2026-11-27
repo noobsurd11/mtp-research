@@ -1,0 +1,153 @@
+% Chapter 5: Before the protocol: the legacy-split work (10 Oct to 14 Nov). Draft 23 Nov 2026.
+% Every number is traced in ch05_legacy_NOTES.md. Tables are in the appendix and referenced only by \ref{tab:...}.
+\chapter{Before the protocol: the legacy-split work (10 Oct to 14 Nov)}\label{ch:legacy}
+
+This chapter reports the work done before the benchmark protocol existed. It is short because its numbers decide nothing in this
+thesis, and it is here because its measurement failures are the reasons for the protocol of Chapter~\ref{ch:protocol}.
+Table~\ref{tab:T21} lists all 38 arms and decisions of the period, and Table~\ref{tab:T17} the seven registered openings of E1
+before the final one. Figure~\ref{fig:F8} shows how the project's working beliefs changed over the period.
+
+\FIG{F8}{What the project believed and what the evidence said, 7 Oct to 21 Nov 2026 (pre-protocol rows from Table~\ref{tab:T21}, E1
+openings from Table~\ref{tab:T17}); rows in date order, not to scale. Markers give the lane: legacy-split SSL and recipe work,
+registered E1 openings, benchmark protocol. Legacy-split rows are not comparable with Chapters~\ref{ch:methods} and~\ref{ch:e1_result};
+test50 values are in-distribution, known leakage, context only; opening \#8: C2 recipe averaged over seeds 5 to 9; OP-A; 101 of 106
+cells CSIR.}
+
+\section{Conditions of every number in this chapter}\label{sec:legacy-conditions}
+
+All work of the period used the legacy split (478 train, 54 validation, 50 test cells), trained on label set v1 unless stated
+(Section~\ref{sec:data-labels}), and took its primary contrasts on the 50 test50 cells. E1 was read without registration during the P-series (Table~\ref{tab:T21}),
+and from 1 Nov some protocols registered E1 co-primaries. Arms were compared under a locked rule fixed before each run: a difference passes if it exceeds
+$\max(0.01,\, 2\sqrt{(s_A^2 + s_B^2)/3})$ on any primary with no primary worse, where $s_A$ and $s_B$ are the standard deviations over
+seeds; a difference is called \emph{robust} if its 95\% image-bootstrap interval excludes 0 and its sign survives removing the top 3
+cells. Outcome words in Table~\ref{tab:T21} (supported, n.d., WORSE) are the words of that rule.
+
+These numbers can show the direction of a paired contrast between two arms trained on the same split and scored on the same cells
+under the rule in force. They cannot show four things, and we do not use them for any of them.
+\begin{enumerate}
+  \item \textbf{Comparable levels.} Split, label set, recipe and rule differ from Chapters~\ref{ch:methods} and~\ref{ch:e1_result}; no
+    level here can be set beside a level there.
+  \item \textbf{Generalisation beyond the scored cells.} test50 overlaps the training pool: 8 test cells are the same physical cell as
+    a training cell and 7 more are neighbouring crops (Section~\ref{sec:data-split}). Every test50 number is in-distribution with
+    known leakage, context only.
+  \item \textbf{A blind result.} test50 was scored in every run of the period, and E1 was read many times (Section~\ref{sec:legacy-taught}).
+    No P-series model was selected on test50 (final weights, validation-only choices), but both sets were seen so often that later
+    choices cannot be called blind to them.
+  \item \textbf{Small effects.} With 50 test cells, the smallest detectable crack IoU change was about 0.012 at five against five
+    seeds, and inactive results were decided by 3 cells. The rule itself was lenient: about 2 standard errors, roughly a one-sided
+    $p \approx 0.06$ at 3 seeds, where a two-sided 95\% test needs 2.8. ``Supported'' under this rule is not ``confirmed'' under the
+    protocol.
+\end{enumerate}
+
+\section{The semi-supervised period (10 to 13 Oct)}\label{sec:legacy-ssl}
+
+The project began as a study of semi-supervised learning (SSL): pseudo-label methods in the Mean Teacher family
+\citep{tarvainen2017meanteacher} that use unlabelled EL cells beside a small labelled fraction. At first the supervised
+baseline beat every SSL arm. An audit of the design, not of the decision rule, found five causes:
+\begin{enumerate}
+  \item \textbf{Regime.} The runs used 5 to 10\% labels, where inactive occurs in only 2 or 4 labelled cells and the teacher is weakest.
+  \item \textbf{A built-in handicap.} Every SSL arm until P13 carried one: first a stronger labelled view, then batch-norm statistics
+    shared between labelled and unlabelled images. With shared statistics the loss-off control already lost crack IoU against plain
+    supervision ($-0.017$ $[-0.024, -0.010]$ at 5\% labels) before the
+    unlabelled loss did anything.
+  \item \textbf{Seeds.} Three seeds were used for effects of 0.01 to 0.02.
+  \item \textbf{Tuning asymmetry.} The supervised recipe was chosen by a four-step ladder on validation; the SSL hyperparameters were
+    fixed in advance and never tuned.
+  \item \textbf{Data.} The in-domain unlabelled pool was 239 to 455 cells; the external pool came from two sources, half of it low in contrast.
+\end{enumerate}
+The audit also found the perturbation weak: the unlabelled loss was about 10 $\times$ smaller than the supervised loss, and CutMix
+\citep{yun2019cutmix} raised the ratio to 0.77.
+
+With separate batch-norm statistics and CutMix, the P13 primary at 5\% labels (five against five seeds) passed: inactive IoU
+$+0.117$ $[+0.042, +0.189]$ and crack relF1@2 $+0.033$ $[+0.006, +0.055]$, with crack IoU $+0.014$ n.d.; a secondary arm with hard
+pseudo-labels gained $+0.029$ $[+0.014, +0.041]$ crack IoU (two of its five seeds added after a three-seed result). The
+separate-statistics recipe (with CutMix dropped by a validation pick) was n.d. at 20\%, 50\% and 100\% labels (P16). With the
+external pool of 11,938 unlabelled CSIR and ARTS cells, the pseudo-label loss did not help against its loss-off control at 5\%
+labels: crack IoU $-0.012$ $[-0.026, -0.001]$ (robust over cells, n.d. by seeds) and relF1@2 $-0.027$, worse by the rule (P10, still
+with shared batch-norm statistics). Encoder pretraining on the related UCF-EL dataset was worse on all three primaries at 10\% labels (P15, 3 seeds, under the
+house fine-tune that Section~\ref{sec:legacy-pf} shows to erase the deep encoder), and an
+adapted region-routing SSL method \citep{lei2025alhvr} was WORSE on all three primaries in all four cell sets (AL1).
+
+Our reading: SSL helped this model at 5\% labels and no gain was detectable from 20\% labels up, for the recipe that was run. This
+closes only those conditions (shared or separate batch-norm statistics, a ResNet-34 U-Net++, an unlabelled pool of these two
+sources, three to five seeds). It does not show that SSL fails on EL images. The work then turned to models trained on all labels (from 24 Oct),
+which is what the goal of this thesis concerns (Chapter~\ref{ch:intro}), and the SSL framing was later dropped.
+
+\section{Labels moved the numbers more than the SSL losses}\label{sec:legacy-labels}
+
+The clearest pattern of the period was that the label version moved crack scores more than any SSL effect did. Re-scoring old models on
+the revised labels raised crack IoU by $+0.05$ to $+0.07$ (P3, exploratory). Training on revised rather than old labels at 10\%
+labels raised it by $+0.082$ $[+0.046, +0.129]$ on test50 (in-distribution, known leakage, context only), and by $+0.030$ $[+0.012, +0.048]$ on the E1 cells (P14). A loss that tolerates
+offsets of the human labels recovered none of the label-noise gap ($-0.004$). On the supervised side, label-safe augmentation (flips,
+quarter turns, brightness and contrast only) helped (crack AP $+0.020$, inactive AP $+0.028$; P6), and going from 10\% to 100\% of
+the labels raised crack IoU by $+0.075$ and inactive IoU by $+0.135$. Choosing which cells to label also mattered: 12 crack cells
+added to a 5\% base gained $+0.030$ $[+0.020, +0.042]$ relF1@2 over 12 random cells, but the crack cells were chosen with the labels
+known (oracle-selected). The audit of Chapter~\ref{ch:data} later measured the same effect on the pool: the label release moves PF's
+relF1@2 by more than the final recipe gains over PF on CV5 (selection-biased; Section~\ref{sec:data-labels}).
+
+\section{The encoder-erasing fine-tune and PF (30 Oct to 1 Nov)}\label{sec:legacy-pf}
+
+The house recipe trains U-Net++ \citep{zhou2018unetpp} with an ImageNet ResNet-34 encoder by Adam at learning rate $10^{-3}$ with
+coupled weight decay $10^{-4}$ for 20,000 steps. A direct measurement of the weights showed that this fine-tune erases the deep
+encoder: the per-tensor cosine between the final and the initial convolution weights is 0.005 to 0.018 in layer3 and $-0.001$ to
+0.001 in layer4, for ImageNet and for masked-image-modelling initialisations, at 5\% and 100\% labels. The direction is lost within
+the first 2,000 steps (layer3 and layer4 at 0.070 and 0.003). This finding changed the reading of earlier nulls. Pretraining on the
+unlabelled pool by masked image modelling or decoder denoising \citep{brempong2022ddep} had been n.d. at 5\% labels (MIM5, DDeP5),
+but under this fine-tune the masked-image run could only test the transfer of the first encoder layers.
+
+The encoder-preserving fine-tune (PF) freezes the encoder for 1,000 steps, then ramps it to 0.1 times the learning
+rate over the next 1,000 steps, with no encoder weight decay; layer3 and layer4 stay at cosine 0.996 and 0.997 to their initial weights after 2,000 steps. Under PF,
+on new seeds 5 to 9 (E1 opening \#1), E1 inactive IoU rose from 0.0481 to 0.2371 ($+0.1890$ against the rule's threshold 0.0433),
+replicating an earlier result on the same 106 E1 cells. On test50 (in-distribution, known leakage, context only) the crack relF1@2
+gain was $+0.0117$ on all 50 cells and $+0.0120$ on the clean 49, a pass by 0.0017 and 0.0020 that rests on a few cells; E1 crack
+recall was n.d. As five-member ensembles (E1 opening \#4, not independent of \#1), PF raised E1 inactive IoU by $+0.2141$
+$[+0.0303, +0.3820]$, with test50 n.d. (context only). A module-grouped five-fold read on the pool (B6, 2 seeds) found no detectable in-distribution inactive difference
+($-0.0144$ $[-0.0977, +0.0570]$) and excluded an in-distribution gain as large as the E1 gain. ResNet-50 under PF was worse than
+ResNet-34 on test50 inactive IoU ($-0.0289$, threshold 0.0251; context only, as above).
+
+PF became the baseline of the protocol and of the final comparison (C1 in Chapter~\ref{ch:e1_result}) because of these E1 reads.
+The choice of the baseline was therefore informed by E1, which is one of the prior looks that Chapter~\ref{ch:e1_result} lists.
+
+\section{Other arms of the period}\label{sec:legacy-arms}
+
+\begin{itemize}
+  \item \textbf{Skeleton Recall} \citep{kirchhoff2024skeletonrecall} at weight 1 (E1 opening \#2) raised E1 crack relF1@2 by $+0.0590$
+    (threshold 0.0392) but lowered test50 crack IoU by $-0.0136$ (threshold 0.0100; in-distribution, known leakage, context
+    only), and failed its pre-registered rule. At weight
+    0.1 (opening \#5) it passed one E1 co-primary narrowly ($+0.0364$ against 0.0351, about 10\% family-wise chance of a false pass
+    over 7 co-primaries); as an ensemble it failed two guards (opening \#6, not independent of \#5); on fresh seeds 10 to 14 (opening
+    \#7, 14 Nov) the E1 difference appeared again, but replication at recipe level was not shown (seed-aware interval
+    $[-0.0015, +0.0590]$). Soft clDice failed; scuff as a class of its own was not learned (train scuff IoU 0.000 in all 5 seeds).
+  \item \textbf{Synthetic half-cut cells} (opening \#3) were n.d. on test50 (context only) and E1 (E1 relF1@2 $+0.0135$ against 0.0429).
+  \item \textbf{A foundation encoder.} DINOv3 ConvNeXt-T \citep{simeoni2025dinov3} against ImageNet ConvNeXt-T under PF (2 seeds,
+    no test50, no E1; crack AP on 51 E-SCDD full cells) gave $-0.0243$ with a lower bound of $-0.0463$, where continuing needed a
+    positive bound: stopped, with ``no sign of a gain'', not ``worse''.
+  \item \textbf{Single-model changes at 100\% labels} (Track M; test50, in-distribution, known leakage, context only): Dice on 12 classes was worse on crack ($-0.0106$), ResNet-50 worse on
+    inactive ($-0.0251$), 107 extra E-SCDD cells and twice the input resolution n.d.; under PF, masked-image pretraining and crack
+    copy-paste were n.d. at 100\% labels.
+  \item \textbf{The five-seed ensemble} with a crack bias beat its single members by $+0.018$ $[+0.013, +0.025]$ crack IoU on the clean
+    49 test50 cells, under a locked protocol with validation-only choices (in-distribution, known leakage, context only). This was the
+    one clear win of the period.
+\end{itemize}
+
+\section{What the period taught}\label{sec:legacy-taught}
+
+Four lessons of this period became rules of the protocol (Chapter~\ref{ch:protocol}).
+\begin{enumerate}
+  \item \textbf{The test set was used up.} test50 was scored in every experiment before 24 Oct without being counted, then opened 18
+    counted times up to 14 Nov. It overlaps the training pool (Section~\ref{sec:data-split}), 3 of its cells hold 59\% of its inactive
+    pixels, and one very noisy cell wrecked about one run in six unless excluded. The protocol therefore develops on module-grouped
+    cross-validation of the pool and keeps test50 for continuity only.
+  \item \textbf{E1 was read too often.} Seven registered openings on the same 106 cells (1 to 14 Nov; Table~\ref{tab:T17}), three of
+    them looks at one contrast and two not independent of an earlier one, came on top of reads before the 31 Oct policy that were not
+    counted. The protocol allows one registered opening with candidates fixed before any number.
+  \item \textbf{The instrument was too weak.} With 50 cells and a lenient rule, a crack IoU change below about 0.012 could not be seen,
+    inactive was decided by 3 cells, and seven co-primaries gave a false pass about one chance in ten. The protocol uses 532 pool cells out of fold,
+    five seeds, a margin from an A/A split and one primary per arm.
+  \item \textbf{Strict crack IoU and the label version dominated.} Label changes moved crack IoU by more than any SSL effect did, and
+    70\% of the best model's crack IoU loss lay within 2 px of the label. The protocol lets relF1@2 decide and reports strict IoU with its
+    convention band (Section~\ref{sec:data-f1}).
+\end{enumerate}
+What survives from the period are mechanisms and directions, each measured under its own conditions: label quality matters, the
+house fine-tune erases the deep encoder, PF raises inactive IoU on E1, and an ensemble helps on test50 (context only). Chapters~\ref{ch:methods}
+and~\ref{ch:e1_result} re-test what mattered under the protocol.

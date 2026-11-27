@@ -1,0 +1,69 @@
+{
+ "paper_id": "doi:10.1007/978-3-031-72114-4_47",
+ "title": "nnU-Net Revisited: A Call for Rigorous Validation in 3D Medical Image Segmentation",
+ "year": 2024,
+ "venue": "MICCAI (LNCS)",
+ "url": "https://arxiv.org/abs/2404.09556",
+ "code_url": "https://github.com/MIC-DKFZ/nnUNet",
+ "mechanism": "Residual-encoder U-Net presets (ResEnc M/L/XL) scaled to a VRAM budget inside nnU-Net, plus validation rules: isolate confounders, equal compute, 5-fold CV, and keep only datasets whose inter-method SD exceeds their intra-method SD.",
+ "adaptation": "Run ResEnc M and L (XL fits in 48 GB) in the 2D configuration at 512 px with label-safe augmentation on the module-grouped folds. For the benchmark, compute the inter/intra SD ratio for strict crack IoU, relF1@2 and inactive IoU on test-49, E1 and CV folds to pick headline metrics that separate methods beyond seed noise.",
+ "min_experiment": "ResEnc L against ResEnc M against nnU-Net org, same folds and recipe (label-safe), CV-mean crack relF1@2, inactive IoU and E1 relF1@2; best preset also ensembled on test-49 against the house 5-seed ensemble. Kill: L not above M by 0.01 crack IoU or 0.02 inactive IoU in CV mean.",
+ "evidence": "R (3D, from scratch, 6 datasets): KiTS DSC 86.04 org, 86.79 ResEnc M, 88.17 L, 88.67 XL; MedNeXt best on 5/6; transformers below original nnU-Net; U-Mamba Bot 91.79 against No-Mamba Base 91.89 on ACDC, so the Mamba layers had no effect. BTCV noise exceeded method signal.",
+ "prior_overlap": "ResNet-50 U-Net++ was worse on inactive, but that was an ImageNet encoder, a U-Net++ decoder, the 20k-step Adam recipe and a fine-tune that erases layers 3 and 4. A residual encoder trained under the nnU-Net recipe is untested.",
+ "score": 70,
+ "bench_score": 95,
+ "bet": "safe",
+ "targets": [
+  "crack",
+  "inactive",
+  "measurement",
+  "benchmark"
+ ],
+ "gpu_hours": 150,
+ "directions": [
+  "D23",
+  "D25",
+  "D43"
+ ],
+ "scout_scores": [
+  25,
+  25,
+  68,
+  70,
+  68
+ ],
+ "alt_notes": [
+  {
+   "from": "D23",
+   "adaptation": "Every transformer arm must beat the tuned house U-Net++ under the same schedule on module-grouped 5-fold CV, not only the 50-cell test; nnU-Net 2D as a suite entry.",
+   "min_experiment": "Protocol rule, not a run: apply 5-fold CV + 5 seeds and paired tests to all D23 arms; include nnU-Net 2D once.",
+   "score": 25
+  },
+  {
+   "from": "D23",
+   "adaptation": "Benchmark rule: each transformer arm must beat a tuned house U-Net++ at matched compute on module-grouped 5-fold CV, not only on the 50-cell test; include nnU-Net 2D in the suite.",
+   "min_experiment": "Protocol only; plus one nnU-Net 2D run on the 5 folds as a suite entry.",
+   "score": 25
+  },
+  {
+   "from": "D23",
+   "adaptation": "nnUNetPlannerResEncL (and XL, A6000 has 48 GB) in 2D on our 1-channel 512 px data with label-safe aug and module-grouped folds. Its validation rules (5-fold CV with rotating val plus independent test pool, size-matched baselines, no cherry-picked classes) define our benchmark protocol: CV over 532 cells + frozen test + E1, all 24 classes reported.",
+   "min_experiment": "ResEnc-L 2D v the nnU-Net default 2D winner (arm A), same 5 folds; baseline also house 5-seed ensemble. Metric: CV crack IoU, relF1@2, inactive IoU, E1 relF1@2. Kill if within 0.012 crack IoU and inactive IoU on CV and E1 relF1@2 not up 0.03.",
+   "score": 68
+  },
+  {
+   "from": "D43",
+   "adaptation": "Run nnU-Net v2 2D ResEnc-M on 1-channel 512 px PNGs with all 24 labels, using splits_final.json = our module-grouped folds. One arm with nnU-Net default augmentation (it resamples 1-2 px cracks through rotation, scaling and elastic deformation) and one with label-safe augmentation. In the benchmark, every method is compared at matched compute, without ensembles, and the ensemble/TTA results go in a separate table.",
+   "min_experiment": "Arm: nnU-Net 2D ResEnc-M 5-fold ensemble (default aug and label-safe aug). Baseline: house fold ensemble on the same folds. Metric: clean-49 crack IoU, inactive IoU, mIoU_rob, E1 relF1@2. Kill: crack IoU more than 0.01 below the baseline AND inactive more than 0.02 below (it stays as a benchmark baseline regardless). Needs the user's OK to install nnunetv2.",
+   "score": 68
+  }
+ ],
+ "final": 70,
+ "bench": 95,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 20,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

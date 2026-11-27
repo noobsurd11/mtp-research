@@ -1,0 +1,44 @@
+{
+ "paper_id": "doi:10.26599/air.2024.9150038",
+ "title": "Bilateral Reference for High-Resolution Dichotomous Image Segmentation (BiRefNet)",
+ "year": 2024,
+ "venue": "CAAI Artificial Intelligence Research",
+ "url": "https://arxiv.org/abs/2401.03407",
+ "code_url": "https://github.com/ZhengPeng7/BiRefNet",
+ "mechanism": "Reconstruction module re-injects hierarchical raw image patches at each decoder stage (source reference) and uses gradient maps as target reference with auxiliary gradient supervision, for very thin high-res structures.",
+ "adaptation": "Cheap: pixel-unshuffle the raw 512 px EL cell into each decoder scale of U-Net++ and add a gradient-map auxiliary loss restricted to a 3 px band around crack and gridline labels. Bench: BiRefNet as a binary crack segmenter at 512 px.",
+ "min_experiment": "Arm: house PF + image re-injection + band gradient loss; baseline: house PF; CV gridline IoU and crack IoU. Kill if gridline IoU < +0.03 and crack IoU n.d.",
+ "evidence": "R: abstract claims best results on four tasks (DIS, HRSOD, COD, etc.); numbers not retrieved.",
+ "gpu_hours": 12,
+ "bet": "medium",
+ "prior_overlap": "R5 (2x input) n.d. covers more pixels per crack, not raw-image re-injection or gradient supervision. Open.",
+ "score": 50,
+ "bench_score": 55,
+ "targets": [
+  "other_classes",
+  "crack",
+  "benchmark"
+ ],
+ "directions": [
+  "D22"
+ ],
+ "scout_scores": [
+  50,
+  50
+ ],
+ "alt_notes": [
+  {
+   "from": "D22",
+   "adaptation": "Pixel-unshuffle the raw 512 px EL cell into each decoder scale of U-Net++; gradient-map auxiliary loss only in a 3 px band around crack and gridline labels so it does not learn grain texture. Also run full BiRefNet as a binary crack bench entry.",
+   "min_experiment": "Arm house PF + image re-injection + banded gradient loss vs house PF; 5-fold CV crack relF1@2, gridline IoU; kill: gridline < +0.03 and crack n.d. About 12 GPU-h.",
+   "score": 50
+  }
+ ],
+ "final": 50,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 198,
+ "pid": "P198"
+}

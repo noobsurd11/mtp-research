@@ -1,0 +1,70 @@
+{
+ "paper_id": "doi:10.1016/j.solener.2026.114943",
+ "title": "A generative approach for improving multi-label defect classification in photovoltaic modules (Generative Defect Isolation)",
+ "year": 2026,
+ "venue": "Solar Energy",
+ "url": "https://arxiv.org/abs/2608.12725",
+ "code_url": "https://github.com/mueez-overflow/generative-defect-isolation",
+ "mechanism": "Remove selected defects from EL images with LaMa inpainting guided by the annotation masks, producing single-defect and defect-free training samples (subtractive rather than additive augmentation).",
+ "adaptation": "For labelled crack cells, inpaint chosen crack components (mask dilated to cover the ~4 px dark line + 3 px) and relabel background, keeping other defects; also remove inactive while keeping its crack. Never remove a crack while keeping its inactive. Creates exact-location hard negatives, the counter to CP100's decoys.",
+ "min_experiment": "Pre-check: 30 inpainted cells inspected, house ensemble p(crack) on inpainted spots < 0.1. Then PF+GDI vs PF, 5 seeds; test crack relP@2 and IoU, false crack px on val, E1 relF1@2. Kill: relP@2 < +0.01 and crack IoU < +0.012.",
+ "evidence": "UCF-EL multi-label classification: beat mask-exact random copy-paste on 3 backbones; copy-paste dropped EfficientNetV2-L F1 0.767 to 0.746, GDI raised it to 0.774; rare-class F1 up to +63.6%.",
+ "prior_overlap": "none; defect removal never tried. CP100 (additive paste onto pool cells) is the opposite operation.",
+ "score": 62,
+ "bench_score": 50,
+ "bet": "medium",
+ "gpu_hours": 7,
+ "targets": [
+  "crack",
+  "e1_unseen",
+  "inactive"
+ ],
+ "directions": [
+  "D02",
+  "D03",
+  "D21",
+  "D33"
+ ],
+ "scout_scores": [
+  42,
+  50,
+  62,
+  55,
+  55
+ ],
+ "alt_notes": [
+  {
+   "from": "D02",
+   "adaptation": "Fine-tune LaMa on pool cells, then (a) inpaint inactive regions to normal brightness to make crack-only twins, breaking the 'inactive never without crack' coupling, and (b) inpaint cracks out to make clean negatives with identical context; masks edited accordingly.",
+   "min_experiment": "Arm: house + inpainted twins (1:1). Baseline: house, 5 v 5 seeds. Metrics: test inactive IoU, crack precision. Kill if inactive IoU < +0.02 and crack pixel precision flat.",
+   "score": 42
+  },
+  {
+   "from": "D02",
+   "adaptation": "Erase 3 to 5 px dilated crack masks (and, separately, inactive regions) in the 209 crack train cells to make paired clean twins with relabelled masks; train on originals plus twins to sharpen crack v decoy decisions and decouple crack from inactive.",
+   "min_experiment": "Arm: house + paired LaMa twins. Baseline: house, 5 seeds. Metric: crack relP@2 and crack IoU. Kill if relP@2 < +0.01 and IoU < +0.012.",
+   "score": 50
+  },
+  {
+   "from": "D33",
+   "adaptation": "Inpaint the crack label dilated 3 px on the 209 crack cells (and inactive on 42) to make crack-free twins: paired hard negatives sharing every decoy, clean canvases for procedural or generated cracks drawn at a known place (labels aligned by construction), and crack-only / inactive-only variants for the argmax conflict. Verify no dark residue (house p(crack) < 0.01 inside old mask).",
+   "min_experiment": "PF + 209 twins as in-batch paired negatives vs PF. Metric test crack relP@2 and E1 false-positive px per cell; guard relR@2. Kill: relP@2 gain < +0.01 with relR@2 drop > 0.01. Second arm: procedural crack on twins, kill if E1 relF1@2 gain < +0.02.",
+   "score": 55
+  },
+  {
+   "from": "D33",
+   "adaptation": "Inpaint dilated crack labels on the 209 crack cells (inactive on 42) to make crack-free twins: paired hard negatives with identical decoys, clean canvases for procedural cracks at known places (aligned by construction), and crack-only / inactive-only variants for the argmax conflict. Check no dark residue.",
+   "min_experiment": "PF + 209 twins paired in batch vs PF. Metric test crack relP@2 and E1 crack FP px per cell, guard relR@2. Kill: relP@2 < +0.01 with relR@2 drop > 0.01. Second arm procedural cracks on twins, kill E1 relF1@2 < +0.02. About 8 GPU-h.",
+   "score": 55
+  }
+ ],
+ "final": 62,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 75,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P075"
+}

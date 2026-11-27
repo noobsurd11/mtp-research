@@ -1,0 +1,27 @@
+# label-free read (bench_labelfree.py ca9af858); set pool_half_p3; 235 cells; baseline PF
+run	n	crack_px_mean	share_ge50	comp20_sum	unsure_px_mean	d4_relf1
+PF|w1g_pf_v11_f0_s5	235	7.8	0.043	25	7.5	n/a
+PF|w1g_pf_v11_f1_s5	235	9.0	0.038	25	10.1	n/a
+EMA|w2a_ema_f0_s5	235	7.8	0.043	25	7.5	n/a
+EMA|w2a_ema_f1_s5	235	9.0	0.038	25	10.1	n/a
+EMABN|w2a_ema_f0_s5.ema_9998_bn	235	5.7	0.034	19	4.6	n/a
+EMABN|w2a_ema_f1_s5.ema_9998_bn	235	8.8	0.047	25	10.7	n/a
+JMLHARD|w2a_jmlhard_f0_s5	235	8.3	0.038	27	11.0	n/a
+JMLHARD|w2a_jmlhard_f1_s5	235	10.0	0.038	22	8.6	n/a
+RCS|w2a_rcs_f0_s5	235	25.0	0.128	88	46.4	n/a
+RCS|w2a_rcs_f1_s5	235	8.9	0.072	33	15.9	n/a
+SOFTBAND|w2a_softband_f0_s5	235	8.3	0.038	27	32.4	n/a
+SOFTBAND|w2a_softband_f1_s5	235	8.4	0.043	20	26.0	n/a
+SWAD|w2a_swad_f0_s5	235	30.9	0.209	94	35.1	n/a
+SWAD|w2a_swad_f1_s5	235	13.6	0.085	46	23.6	n/a
+SWADBN|w2a_swad_f0_s5.swad_bn	235	13.7	0.072	35	12.7	n/a
+SWADBN|w2a_swad_f1_s5.swad_bn	235	10.3	0.068	29	11.6	n/a
+arm	mean crack px per cell	ratio to baseline (label-free volume; no test)
+EMA	8.4	1.000
+EMABN	7.3	0.859
+JMLHARD	9.2	1.083
+PF	8.4	1.000
+RCS	16.9	2.004
+SOFTBAND	8.3	0.985
+SWAD	22.3	2.637
+SWADBN	12.0	1.419

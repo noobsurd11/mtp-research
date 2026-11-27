@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2006.10726",
+ "title": "Tent: Fully Test-time Adaptation by Entropy Minimization",
+ "year": 2020,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2006.10726",
+ "code_url": "https://github.com/qinenergy/cotta",
+ "mechanism": "Minimises prediction entropy by updating BN affine parameters while using test-batch statistics.",
+ "adaptation": "Run with batch = one E1 module (or one cell), BN affine only. It is the canonical baseline and closes the thesis question that was dropped by expectation.",
+ "min_experiment": "Arm: Tent on FINAL and SUP100-PF. Baseline: no TTA. Benchmark row; record whether crack recall collapses on E1 and test.",
+ "score": 12,
+ "bench_score": 60,
+ "bet": "safe",
+ "targets": [
+  "benchmark"
+ ],
+ "evidence": "R: gains on CIFAR-C/ImageNet-C and on GTA-to-Cityscapes segmentation (numbers not retrieved). SGP-TTA reports Tent falling from 85.56 to 62.67 Dice on a thin-structure set where the source model was already good.",
+ "gpu_hours": 1,
+ "prior_overlap": "Never run (handbook doc 20: dropped by expectation). BN-statistics adaptation (T9, BN-HC) failed, which supports a low score but does not close entropy updates.",
+ "directions": [
+  "D31"
+ ],
+ "scout_scores": [
+  12
+ ],
+ "final": 12,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 619,
+ "pid": "P619"
+}

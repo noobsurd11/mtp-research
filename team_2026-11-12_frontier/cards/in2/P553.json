@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2107.06278",
+ "title": "Per-Pixel Classification is Not All You Need for Semantic Segmentation (MaskFormer)",
+ "year": 2021,
+ "venue": "NeurIPS",
+ "url": "https://arxiv.org/abs/2107.06278",
+ "code_url": "",
+ "mechanism": "Recasts semantic segmentation as predicting a set of binary masks each with one class label.",
+ "evidence": "R: outperforms per-pixel baselines when the number of classes is large.",
+ "adaptation": "Guides judgement: at 24 classes (13 with test support) little gain expected overall; judge mask classifiers on inactive and rare region classes, not on crack.",
+ "min_experiment": "No own run; its question is answered by the M2F/EoMT arms (per-class comparison against house).",
+ "score": 25,
+ "bench_score": 60,
+ "bet": "safe",
+ "gpu_hours": 0,
+ "targets": [
+  "benchmark",
+  "other_classes"
+ ],
+ "prior_overlap": "none.",
+ "directions": [
+  "D23"
+ ],
+ "scout_scores": [
+  25
+ ],
+ "final": 25,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 553,
+ "pid": "P553"
+}

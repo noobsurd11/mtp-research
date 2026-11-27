@@ -1,0 +1,4 @@
+83c83
+<   ignore (E, results/e1/README.md), so the class map acts only on ignore px in practice (S).
+---
+>   ignore (E, results/e1/README.md); label = where(ignore==0, mask, 255); the class map changes no output px.

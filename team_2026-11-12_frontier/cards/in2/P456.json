@@ -1,0 +1,35 @@
+{
+ "paper_id": "doi:10.1109/tii.2025.3538070",
+ "title": "Small Object Few-Shot Segmentation for Vision-Based Industrial Inspection (SOFS)",
+ "year": 2025,
+ "venue": "IEEE Transactions on Industrial Informatics",
+ "url": "https://arxiv.org/abs/2407.21351",
+ "code_url": "https://github.com/zhangzilongc/SOFS",
+ "mechanism": "FSS for small defects: no image resizing, prototype intensity downsampling of support masks, an abnormal prior map, and a mixed normal Dice loss that penalises false positives on defect-free supports.",
+ "evidence": "R: outperforms FSS baselines on industrial small-defect benchmarks; also does few-shot anomaly detection.",
+ "adaptation": "Run at native 512 px, episodic training on 478 cells by class, K-shot on half-cells; the mixed normal Dice idea can separately penalise crack false alarms on scuff streaks.",
+ "min_experiment": "G0 entry for crack: SOFS K=16 vs house PF on H36/F51 crack relF1@2 and false-alarm rate on defect-free half-cells; kill if below house PF and no reduction of false alarms.",
+ "prior_overlap": "none",
+ "score": 35,
+ "bench_score": 45,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "e1_unseen",
+  "benchmark"
+ ],
+ "gpu_hours": 16,
+ "directions": [
+  "D38"
+ ],
+ "scout_scores": [
+  35
+ ],
+ "final": 35,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 456,
+ "pid": "P456"
+}

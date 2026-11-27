@@ -1,0 +1,311 @@
+{
+ "tool": "bench_udev_read.py",
+ "tool_md5": "ff033a620b670d0994568f3713397da4",
+ "name": "U1",
+ "stems_file": "/home/noob/work/bench_reads/stageB/U1_stems.txt",
+ "stems_md5": "99b300db27804d4b4f73bacf51781cd8",
+ "labels": "v11",
+ "baseline": "PF",
+ "eff": {
+  "cells": 164,
+  "source_cells": 164,
+  "groups": 126,
+  "folds": [
+   0,
+   1
+  ],
+  "crack_cells": 81,
+  "inactive_cells": 17,
+  "eff_n_crack": 17.67182782200845,
+  "eff_n_inactive": 8.524287412780733
+ },
+ "runs": [
+  {
+   "arm": "PF",
+   "seed": 5,
+   "run_id": "udev_pf_loso_f0_s5",
+   "set": "cvloso2_f0",
+   "manifest_md5": "645c71c11c14628dadbfc234d2453974",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "PF",
+   "seed": 6,
+   "run_id": "udev_pf_loso_f0_s6",
+   "set": "cvloso2_f0",
+   "manifest_md5": "6e3d700675032a70ea34bef661931835",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "PF",
+   "seed": 7,
+   "run_id": "udev_pf_loso_f0_s7",
+   "set": "cvloso2_f0",
+   "manifest_md5": "890e28c6100f7548002fdf4325b60647",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "PF",
+   "seed": 8,
+   "run_id": "udev_pf_loso_f0_s8",
+   "set": "cvloso2_f0",
+   "manifest_md5": "386bfbafd865b18d09b4386e3ee7ad5c",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "PF",
+   "seed": 5,
+   "run_id": "udev_pf_loso_f1_s5",
+   "set": "cvloso2_f1",
+   "manifest_md5": "208f401afc6117101745eef175190da3",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "PF",
+   "seed": 6,
+   "run_id": "udev_pf_loso_f1_s6",
+   "set": "cvloso2_f1",
+   "manifest_md5": "759af672a8d62520baf59e1daac49cb3",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "PF",
+   "seed": 7,
+   "run_id": "udev_pf_loso_f1_s7",
+   "set": "cvloso2_f1",
+   "manifest_md5": "2cb1435a7ecfbe9ac06efa9a06afeed8",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "PF",
+   "seed": 8,
+   "run_id": "udev_pf_loso_f1_s8",
+   "set": "cvloso2_f1",
+   "manifest_md5": "9347539a7d422376d9ce766a2fe1f7ca",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "SKR01",
+   "seed": 5,
+   "run_id": "udev_skr01_loso_f0_s5",
+   "set": "cvloso2_f0",
+   "manifest_md5": "4e9eb199d7070659a5d7a1eab1f2a1da",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "SKR01",
+   "seed": 6,
+   "run_id": "udev_skr01_loso_f0_s6",
+   "set": "cvloso2_f0",
+   "manifest_md5": "84b200c6a4f3ebdefb089dd9efe0633a",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "SKR01",
+   "seed": 5,
+   "run_id": "udev_skr01_loso_f1_s5",
+   "set": "cvloso2_f1",
+   "manifest_md5": "ac1d3037f593bcbc5693cd32d98a17d7",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "SKR01",
+   "seed": 6,
+   "run_id": "udev_skr01_loso_f1_s6",
+   "set": "cvloso2_f1",
+   "manifest_md5": "d35b9a46e1777ac3b67a41875a77dd8e",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  }
+ ],
+ "summary": {
+  "PF": {
+   "crack_iou": 0.29282093090025907,
+   "relF1_2": 0.7333208717720133,
+   "relP2": 0.8920616432098292,
+   "relR2": 0.6231993200718658,
+   "relF1_1": 0.6462116124117611,
+   "width_ratio": 0.6134468698561607,
+   "fa_px": 1726.0,
+   "fa_share50": 0.06626506024096386,
+   "cc_recany_20": 0.7404153354632588,
+   "inact_iou": 0.19667227889047698,
+   "matched_relR2_at_P90": 0.6084496132370819,
+   "seeds": [
+    5,
+    6,
+    7,
+    8
+   ]
+  },
+  "SKR01": {
+   "crack_iou": 0.3115582710234198,
+   "relF1_2": 0.7443753393287966,
+   "relP2": 0.9018550698448484,
+   "relR2": 0.6338662305946143,
+   "relF1_1": 0.6602140580779113,
+   "width_ratio": 0.6969586126023388,
+   "fa_px": 465.5,
+   "fa_share50": 0.030120481927710843,
+   "cc_recany_20": 0.7316293929712461,
+   "inact_iou": 0.2140009610341937,
+   "matched_relR2_at_P90": 0.6350066163892804,
+   "seeds": [
+    5,
+    6
+   ]
+  }
+ },
+ "contrasts": {
+  "SKR01 - PF": {
+   "opA": {
+    "crack_iou": {
+     "delta": 0.01873734012316075,
+     "lo": -0.005726833375519775,
+     "hi": 0.046503194057904845,
+     "se": 0.013405433036107861
+    },
+    "relF1_2": {
+     "delta": 0.011054467556783298,
+     "lo": -0.020573843936097458,
+     "hi": 0.05266702347727308,
+     "se": 0.019065955588386668
+    },
+    "inact_iou": {
+     "delta": 0.017328682143716717,
+     "lo": -0.060214242189918665,
+     "hi": 0.1013498849945083,
+     "se": 0.04244854124364938
+    },
+    "miou_rob": {
+     "delta": -0.0003363370614842265,
+     "lo": -0.014766426699215622,
+     "hi": 0.01507264943834339,
+     "se": 0.0073834951394745
+    },
+    "relP2": {
+     "delta": 0.009793426635019253,
+     "lo": -0.04222351236332488,
+     "hi": 0.09043679880532333,
+     "se": 0.03404278329087862
+    },
+    "relR2": {
+     "delta": 0.010666910522748485,
+     "lo": -0.02792616788107218,
+     "hi": 0.055782682342896205,
+     "se": 0.02218923547483874
+    },
+    "relF1_1": {
+     "delta": 0.014002445666150276,
+     "lo": -0.016622649169830656,
+     "hi": 0.05401070785010676,
+     "se": 0.018192499163986135
+    },
+    "width_ratio": {
+     "delta": 0.08351174274617812,
+     "lo": -0.018933192885388375,
+     "hi": 0.18150732189158209,
+     "se": 0.051374670833779675
+    },
+    "fa_share50": {
+     "delta": -0.03614457831325302,
+     "lo": -0.11595045500505562,
+     "hi": 0.04349020544672712,
+     "se": 0.041060498027502064
+    }
+   },
+   "frontier": {
+    "delta_relR2_at_refP": 0.020554165230843413,
+    "lo": -0.051814834393816706,
+    "hi": 0.07437136170544031,
+    "se": 0.03167813121474329,
+    "n_finite": 1907,
+    "width_rel": 1.2217839414022675,
+    "width_lo": 0.7860161283125261,
+    "width_hi": 1.5783831413104312
+   }
+  }
+ },
+ "aa": {
+  "opA": {
+   "crack_iou": {
+    "delta": 0.0028908072041140542,
+    "lo": -0.02452664689980348,
+    "hi": 0.03272970268829435,
+    "se": 0.016140574094618346
+   },
+   "relF1_2": {
+    "delta": 0.004788417557114122,
+    "lo": -0.03562297539255052,
+    "hi": 0.04997436059345984,
+    "se": 0.022172444814684604
+   },
+   "inact_iou": {
+    "delta": 0.018248645986543244,
+    "lo": -0.05898967793663987,
+    "hi": 0.09817312037458091,
+    "se": 0.03833607549093483
+   },
+   "miou_rob": {
+    "delta": 0.0026594250861645685,
+    "lo": -0.013908609933501282,
+    "hi": 0.018282759511123604,
+    "se": 0.00817591685911311
+   },
+   "relP2": {
+    "delta": 0.03771657169067577,
+    "lo": -0.011386513400724926,
+    "hi": 0.13300587359571486,
+    "se": 0.036916585393674976
+   },
+   "relR2": {
+    "delta": -0.01064001463136488,
+    "lo": -0.057564452726813854,
+    "hi": 0.03244393247075123,
+    "se": 0.025358545398524744
+   },
+   "relF1_1": {
+    "delta": 0.004282441222388633,
+    "lo": -0.03301715335019576,
+    "hi": 0.04778989305754812,
+    "se": 0.0212271677045437
+   },
+   "width_ratio": {
+    "delta": -0.023550042495508405,
+    "lo": -0.11838107276063838,
+    "hi": 0.06685194823723456,
+    "se": 0.04863734871881093
+   },
+   "fa_share50": {
+    "delta": -0.024096385542168676,
+    "lo": -0.10589486858573216,
+    "hi": 0.06411290322580639,
+    "se": 0.043372017226574223
+   }
+  },
+  "frontier": {
+   "delta_relR2_at_refP": 0.026852799936031624,
+   "lo": -0.04880846638564007,
+   "hi": 0.07451256972412001,
+   "se": 0.03202233186649989,
+   "n_finite": 1874,
+   "width_rel": 1.2481011959962653,
+   "width_lo": 0.8374868038118678,
+   "width_hi": 1.5169878700731938
+  },
+  "M": {
+   "crack_iou": 0.03228114818923669,
+   "relF1_2": 0.04434488962936921,
+   "inact_iou": 0.07667215098186966,
+   "miou_rob": 0.01635183371822622,
+   "relP2": 0.07383317078734995,
+   "relR2": 0.05071709079704949,
+   "relF1_1": 0.0424543354090874,
+   "width_ratio": 0.09727469743762186,
+   "fa_share50": 0.08674403445314845
+  },
+  "M_frontier": 0.06404466373299977
+ },
+ "aa_spec": "PF:5,6:7,8",
+ "boot": 2000,
+ "seconds": 41
+}

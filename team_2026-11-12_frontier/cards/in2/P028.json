@@ -1,0 +1,45 @@
+{
+ "paper_id": "doi:10.1109/tmm.2022.3203870",
+ "title": "Focal Inverse Distance Transform Maps for Crowd Localization",
+ "year": 2022,
+ "venue": "IEEE Transactions on Multimedia",
+ "url": "https://arxiv.org/abs/2102.07925",
+ "code_url": "",
+ "mechanism": "Regress a focal inverse distance transform map (sharp peak at each label, smooth fall-off) instead of a binary or Gaussian map, then read out by local-maximum detection.",
+ "adaptation": "Crack-only extra regression head on the U-Net++ decoder with target 1/(d^(a d+b)+c), d = distance to nearest crack label skeleton pixel, so a 1 px label shift changes the target smoothly. Read-out: ridge NMS along predicted normal, draw at per-source width chosen on val (ARTS 1.5, CFVS/CSIR 1.75, BMRK 3, SDLE 3.25 px). 24-class CE head kept for all other classes.",
+ "min_experiment": "E0 first (no GPU): skeletonise house-ensemble crack predictions on CV folds and redraw at width 1-4 px per source to measure IoU headroom. Then arm = PF + FIDT crack head (MSE + I-SSIM), two read-outs (ridge-drawn vs CE logit with FIDT as auxiliary); baseline = PF house, 5 seeds, clean-49 test + module-grouped 5-fold CV; metrics relF1@2, components >=20 px, crack IoU, E1 relF1@2. Kill if CV relF1@2 gain < 0.01 and E1 relF1@2 gain < 0.03.",
+ "score": 70,
+ "bench_score": 40,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "e1_unseen"
+ ],
+ "evidence": "R: SOTA crowd localisation on six crowd datasets and one vehicle set; more robust on negative and very dense scenes. No thin-line test.",
+ "gpu_hours": 20,
+ "prior_overlap": "Partial: offset-tolerant CE (n.d.) and Skeleton Recall (wider, IoU worse) also tolerate shift, but neither changed the output to a regressed distance field with a ridge read-out. Open.",
+ "directions": [
+  "D11"
+ ],
+ "scout_scores": [
+  70,
+  68
+ ],
+ "alt_notes": [
+  {
+   "from": "D11",
+   "adaptation": "Crack-only auxiliary head on the U-Net++ decoder; target from distance to the crack label skeleton (1.0 at 0 px, 0.5 at 1 px, 0 beyond 20 px), computed after augmentation; 24-class CE head unchanged. Team CPU pre-check: FIDT of a mask and its 1 px shift correlate at median 0.919 vs binary IoU 0.548. Optional read-out: ridge NMS then draw at per-source width.",
+   "min_experiment": "Arm PF + FIDT aux (stacked with orientation, as T5 arm 4) vs PF, cv5v2 2 seeds x 5 folds; metric crack components >=20 px found and relF1@2, width ratio guard; kill if components +<0.02 and relF1@2 +<0.01, or strict crack IoU down >0.01.",
+   "score": 68
+  }
+ ],
+ "final": 70,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 28,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P028"
+}

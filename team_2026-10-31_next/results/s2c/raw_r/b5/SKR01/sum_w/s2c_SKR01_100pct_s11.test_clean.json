@@ -1,0 +1,96 @@
+{
+ "set": "test",
+ "n_cells": 49,
+ "gt_comp20": 187,
+ "op_comp": {
+  "b": 5.8,
+  "j": 139,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.88,
+  "val_P": 0.9224806201550387
+ },
+ "op_rel": {
+  "b": 2.0,
+  "j": 101,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.884205809478623,
+  "val_P": 0.900502127487951
+ },
+ "comp_recall_at_opc": 0.8716577540106952,
+ "comp_prec_at_opc": 0.8457943925233645,
+ "relR_at_opr": 0.86884222287949,
+ "relP_at_opr": 0.918909417239497,
+ "speck_guard": {
+  "opc": {
+   "compP_all": 0.618421052631579,
+   "speck_share": 0.007985253401195548
+  },
+  "opr": {
+   "compP_all": 0.7620578778135049,
+   "speck_share": 0.007225527111917031
+  }
+ },
+ "deployed_b": 0.0,
+ "at_deployed": {
+  "P": 0.6279873428262137,
+  "R": 0.660904619496752,
+  "IoU": 0.4749541436072646,
+  "relP": 0.9331959363810476,
+  "relR": 0.8524324383537634,
+  "compR": 0.839572192513369,
+  "compP": 0.9478672985781991,
+  "compP_all": 0.8193548387096774,
+  "speck_share": 0.007431926055458406,
+  "inactIoU": 0.45527698344084594
+ },
+ "cell_deployed": {
+  "b": 0.0,
+  "n_pos": 47,
+  "n_neg": 2,
+  "n_ambiguous": 0,
+  "recall": 0.9361702127659575,
+  "fa_rate": 0.0,
+  "precision": 1.0,
+  "auroc": 0.9787234042553191
+ },
+ "cell_at_opc": {
+  "b": 5.8,
+  "n_pos": 47,
+  "n_neg": 2,
+  "n_ambiguous": 0,
+  "recall": 0.9574468085106383,
+  "fa_rate": 0.0,
+  "precision": 1.0,
+  "auroc": 0.9787234042553191
+ },
+ "cell_b0": {
+  "b": 0.0,
+  "n_pos": 47,
+  "n_neg": 2,
+  "n_ambiguous": 0,
+  "recall": 0.9361702127659575,
+  "fa_rate": 0.0,
+  "precision": 1.0,
+  "auroc": 0.9787234042553191
+ },
+ "inactive_area_err": {
+  "b": 0.0,
+  "mae_all": 1.1886872896133367,
+  "mae_inactive_cells": 4.789892832438151,
+  "n_inactive_cells": 12,
+  "mae_other": 0.020728735183667257,
+  "signed_mean": -0.5808120077773451,
+  "max_err": 27.0751953125
+ },
+ "excluded": [
+  "CSIR_00070_r8_c4"
+ ],
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": false,
+ "el_metrics_md5": "45b1df03a8fb2959272534b2ab6b237f"
+}

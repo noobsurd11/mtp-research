@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1109/iccv48922.2021.00721",
+ "title": "Exploring Cross-Image Pixel Contrast for Semantic Segmentation",
+ "year": 2021,
+ "venue": "ICCV",
+ "url": "https://arxiv.org/abs/2101.11939",
+ "code_url": "https://github.com/tfzhou/ContrastiveSeg",
+ "mechanism": "Supervised pixel-to-pixel and pixel-to-region contrast across images using class memory banks.",
+ "adaptation": "Cross-source memory bank pulls BMRK / CFVS / CSIR crack embeddings together (source invariance for weak sources); full-res projection head. Run this or ReCo, not both.",
+ "min_experiment": "Arm: contrast loss weight 0.1, 3 seeds; baseline SUP100; metric per-source crack IoU (BMRK) and mIoU_rob; kill if BMRK crack gain < 0.02 and mIoU_rob n.d.",
+ "score": 45,
+ "bench_score": 55,
+ "bet": "medium",
+ "evidence": "R: gains on Cityscapes and other benchmarks with DeepLabV3 and HRNet (abstract level).",
+ "gpu_hours": 5,
+ "prior_overlap": "none",
+ "targets": [
+  "crack",
+  "other_classes"
+ ],
+ "directions": [
+  "D19"
+ ],
+ "scout_scores": [
+  45
+ ],
+ "final": 45,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 275,
+ "pid": "P275"
+}

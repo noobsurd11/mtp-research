@@ -1,0 +1,35 @@
+{
+ "paper_id": "arxiv:2609.21412",
+ "title": "When Online Adaptation Hurts: Parameter-Frozen Test-Time Ensembling for Continual Medical Image Segmentation",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2609.21412",
+ "code_url": "",
+ "mechanism": "Weights and BN stay frozen. The method averages softmax over scale and flip views after mapping each view back to native geometry; adapting the weights online was worse than this frozen ensemble.",
+ "adaptation": "The flip part is already closed for us (E: +0.01 single model, 0 on the ensemble). The new part is scale views at 0.75/1.0/1.25/1.5 x D4 with logits resized back before softmax. A second arm retrains the house and PF models with label-safe 0.8 to 1.25 scale jitter so the scale views are in distribution. BMRK (downscaled ELPV, 3 px labels) is the source most likely to gain.",
+ "min_experiment": "Arm A: FINAL and SUP100-PF with 32-view scale x D4 TTA. Arm B: retrain with scale jitter (5 seeds each), then the same TTA. Baselines: the same checkpoints with D4 TTA and with no TTA. Metrics: test clean-49 crack IoU, component recall >=20 px, BMRK crack IoU, E1 relF1@2. Kill if gain is < +0.01 crack IoU single model or < +0.005 on the ensemble, and E1 relF1@2 is < +0.02.",
+ "score": 48,
+ "bench_score": 70,
+ "bet": "safe",
+ "targets": [
+  "crack",
+  "e1_unseen",
+  "benchmark"
+ ],
+ "evidence": "R: M&Ms cardiac MRI vendor stream, PIE 0.7786 mean Dice vs source 0.7680 vs five online CTTA methods 0.7388 to 0.7416. Saturates at 28 views. Confidence weighting, class-prior correction, CC filtering and morphology gave no gain or hurt. Qualitatively keeps thinner structures.",
+ "gpu_hours": 13,
+ "prior_overlap": "Partial. BRIEF s5 lists flip/rot/multi-scale TTA as open, but handbook doc 18 R1 ran D4 flip+rot TTA (+0.0104 single model, -0.0001 on the ensemble). Multi-scale views and scale-jitter training were never run, so those parts are open.",
+ "directions": [
+  "D31"
+ ],
+ "scout_scores": [
+  48
+ ],
+ "final": 48,
+ "bench": 70,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 231,
+ "pid": "P231"
+}

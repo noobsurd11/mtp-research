@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.1109/jphotov.2021.3099739",
+ "title": "Photoluminescence for Defect Detection on Full-Sized Photovoltaic Modules",
+ "year": 2021,
+ "venue": "IEEE Journal of Photovoltaics",
+ "url": "https://doi.org/10.1109/jphotov.2021.3099739",
+ "code_url": "",
+ "mechanism": "Outdoor PL on full modules, with the same defects compared across PL, IR, EL and UVF.",
+ "adaptation": "Physics reference for WattCycle deployment and the benchmark's modality notes: thin cracks need EL; thermal or PL alone will not replace EL for crack segmentation.",
+ "min_experiment": "No training arm.",
+ "evidence": "R: 5 of 7 defect types detected well in PL; cracks only under certain conditions; interconnection failures not at all.",
+ "prior_overlap": "Agrees with the BRIEF thermal desk study; nothing new to test.",
+ "score": 5,
+ "bench_score": 25,
+ "bet": "safe",
+ "targets": [
+  "deployment"
+ ],
+ "gpu_hours": 0,
+ "directions": [
+  "D04"
+ ],
+ "scout_scores": [
+  5
+ ],
+ "final": 5,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 638,
+ "pid": "P638"
+}

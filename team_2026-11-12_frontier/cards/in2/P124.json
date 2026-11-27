@@ -1,0 +1,42 @@
+{
+ "paper_id": "arxiv:2203.10507",
+ "title": "Soft-CP: A Credible and Effective Data Augmentation for Semantic Segmentation of Medical Lesions",
+ "year": 2022,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2203.10507",
+ "code_url": "",
+ "mechanism": "Copy-paste of lesions with an object-blend that keeps edge information, applied offline at a 3:1 real to synthetic ratio.",
+ "evidence": "Abstract: +26.5% DSC with 10% of the data and +10.2% DSC with all data on KiTS19 and other modalities. Beats other lesion-synthesis methods on KiTS19.",
+ "adaptation": "Build a library of the inactive regions from the 42 train cells, each cut together with the crack pixels that bound it. Paste onto labelled train cells of the same source and cell type, at a spot where the region touches the cell edge or a crack-free busbar side. Match intensity to the per-source inactive/active ratio and use a soft 3 px edge. The target cell keeps its full labels and the pasted region overrides them. Inactive is blobby and well labelled, so pastes avoid the label-jitter problem that 1.75 px crack pastes have.",
+ "min_experiment": "PF+inactive copy-paste vs PF, 5 seeds plus 5-fold CV. Metrics: CV inactive IoU, false inactive pixels on crack-only cells, test crack IoU as a guard. Kill if CV inactive gain < +0.02 or if inactive false positives on the 167 crack-only train-fold cells rise by more than 50%.",
+ "prior_overlap": "none. CP100 pasted only crack, onto unlabelled pool cells; inactive copy-paste has never been run.",
+ "score": 58,
+ "bench_score": 35,
+ "bet": "safe",
+ "targets": [
+  "inactive"
+ ],
+ "gpu_hours": 31,
+ "directions": [
+  "D21"
+ ],
+ "scout_scores": [
+  58,
+  58
+ ],
+ "alt_notes": [
+  {
+   "from": "D21",
+   "adaptation": "Inactive library from the 42 train cells, each cut with its bounding crack; paste onto labelled cells of the same source/cell type where the region meets a cell edge or busbar; intensity matched by per-source inactive/active ratio; 3 px soft edge. TumorCP (arxiv:2107.09843, code github.com/YaoZhang93/TumorCP) is the same family.",
+   "min_experiment": "PF+ICP vs PF, module-grouped CV; CV inactive IoU, false inactive px on crack-only cells, crack IoU guard. Kill: CV inactive < +0.02 or false inactive px up > 50%. Pre-check 32 composites.",
+   "score": 58
+  }
+ ],
+ "final": 58,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 124,
+ "pid": "P124"
+}

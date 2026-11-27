@@ -1,0 +1,85 @@
+% refs_extra.bib: 5 references for the thesis, plus the TTA arm's source paper.
+% Written 22 Nov 2026 by related_work for the lead.
+% Every field below was checked against the arXiv API and against Crossref
+% (publisher-deposited metadata). Each DOI resolves to the publisher page via doi.org.
+% LNCS volume numbers were NOT checked (Springer and DBLP returned bot checks;
+% Crossref has no volume field for these chapters), so they are left out.
+% See RELATED_WORK.md section 7.
+
+@article{wang2021hrnet,
+  author        = {Wang, Jingdong and Sun, Ke and Cheng, Tianheng and Jiang, Borui and Deng, Chaorui and Zhao, Yang and Liu, Dong and Mu, Yadong and Tan, Mingkui and Wang, Xinggang and Liu, Wenyu and Xiao, Bin},
+  title         = {Deep High-Resolution Representation Learning for Visual Recognition},
+  journal       = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  volume        = {43},
+  number        = {10},
+  pages         = {3349--3364},
+  year          = {2021},
+  doi           = {10.1109/TPAMI.2020.2983686},
+  eprint        = {1908.07919},
+  archivePrefix = {arXiv}
+}
+
+@inproceedings{zhou2018unetpp,
+  author        = {Zhou, Zongwei and Rahman Siddiquee, Md Mahfuzur and Tajbakhsh, Nima and Liang, Jianming},
+  title         = {{UNet++}: A Nested {U-Net} Architecture for Medical Image Segmentation},
+  booktitle     = {Deep Learning in Medical Image Analysis and Multimodal Learning for Clinical Decision Support (DLMIA 2018 and ML-CDS 2018, held in conjunction with MICCAI 2018)},
+  series        = {Lecture Notes in Computer Science},
+  publisher     = {Springer, Cham},
+  pages         = {3--11},
+  year          = {2018},
+  doi           = {10.1007/978-3-030-00889-5_1},
+  eprint        = {1807.10165},
+  archivePrefix = {arXiv}
+}
+
+@article{zhou2020unetpp,
+  author        = {Zhou, Zongwei and Siddiquee, Md Mahfuzur Rahman and Tajbakhsh, Nima and Liang, Jianming},
+  title         = {{UNet++}: Redesigning Skip Connections to Exploit Multiscale Features in Image Segmentation},
+  journal       = {IEEE Transactions on Medical Imaging},
+  volume        = {39},
+  number        = {6},
+  pages         = {1856--1867},
+  year          = {2020},
+  doi           = {10.1109/TMI.2019.2959609},
+  eprint        = {1912.05074},
+  archivePrefix = {arXiv}
+}
+
+@inproceedings{kirchhoff2024skeletonrecall,
+  author        = {Kirchhoff, Yannick and Rokuss, Maximilian R. and Roy, Saikat and Kovacs, Balint and Ulrich, Constantin and Wald, Tassilo and Zenk, Maximilian and Vollmuth, Philipp and Kleesiek, Jens and Isensee, Fabian and Maier-Hein, Klaus},
+  title         = {Skeleton Recall Loss for Connectivity Conserving and Resource Efficient Segmentation of Thin Tubular Structures},
+  booktitle     = {Computer Vision -- {ECCV} 2024, Part {LXXVII}},
+  series        = {Lecture Notes in Computer Science},
+  publisher     = {Springer, Cham},
+  pages         = {218--234},
+  year          = {2024},
+  doi           = {10.1007/978-3-031-72980-5_13},
+  eprint        = {2404.03010},
+  archivePrefix = {arXiv}
+}
+
+@inproceedings{chen2018deeplabv3plus,
+  author        = {Chen, Liang-Chieh and Zhu, Yukun and Papandreou, George and Schroff, Florian and Adam, Hartwig},
+  title         = {Encoder-Decoder with Atrous Separable Convolution for Semantic Image Segmentation},
+  booktitle     = {Computer Vision -- {ECCV} 2018, Part {VII}},
+  series        = {Lecture Notes in Computer Science},
+  publisher     = {Springer, Cham},
+  pages         = {833--851},
+  year          = {2018},
+  doi           = {10.1007/978-3-030-01234-2_49},
+  eprint        = {1802.02611},
+  archivePrefix = {arXiv}
+}
+
+% D4 (flip / rot90) test-time augmentation: our D4 step cites no paper (handbook 18 section M1;
+% results/stageB/B5_tta_module.md). The entry below is the source of the T7 msc_tta arm
+% (ledger P231), which added scale views on top of D4. It is not a D4 reference.
+% Checked: arXiv id, title, author. Content is known from the abstract only.
+@misc{huang2026pie,
+  author        = {Huang, Ruijie},
+  title         = {When Online Adaptation Hurts: Parameter-Frozen Test-Time Ensembling for Continual Medical Image Segmentation},
+  year          = {2026},
+  eprint        = {2609.21412},
+  archivePrefix = {arXiv},
+  note          = {arXiv preprint, v1 18 Sep 2026}
+}

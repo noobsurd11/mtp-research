@@ -1,0 +1,60 @@
+{
+ "paper_id": "arxiv:2102.08604",
+ "title": "SWAD: Domain Generalization by Seeking Flat Minima",
+ "year": 2021,
+ "venue": "NeurIPS",
+ "url": "https://arxiv.org/abs/2102.08604",
+ "code_url": "https://github.com/khanrc/swad",
+ "mechanism": "Dense stochastic weight averaging over a loss-plateau window of training gives flatter minima and better unseen-domain accuracy.",
+ "adaptation": "Average weights every 100 steps from about 8k to 20k in house and PF runs; window chosen on F51 / val loss, never on test. Recompute BN stats on train after averaging. Targets E1 (new modules, half-cut, scuff).",
+ "evidence": "+1.6 points average out-of-domain accuracy over prior SOTA on PACS, VLCS, OfficeHome, TerraIncognita, DomainNet (classification).",
+ "min_experiment": "In-run arm: same PF runs s5-9 save raw and SWAD weights (paired within run). Metric: val relF1@2 and F51 crack AP, then E1 crack relF1@2 and E1 inactive IoU at an opening. Kill if SWAD - raw < +0.005 val relF1@2 paired and E1 not better.",
+ "gpu_hours": 6,
+ "targets": [
+  "e1_unseen",
+  "crack"
+ ],
+ "bet": "safe",
+ "prior_overlap": "none. Ensembling 5 seeds was tested (only clear win); weight averaging within a run was never run (BRIEF section 5 lists EMA / SWA as never varied).",
+ "score": 68,
+ "bench_score": 40,
+ "directions": [
+  "D30",
+  "D34",
+  "D35"
+ ],
+ "scout_scores": [
+  55,
+  56,
+  68,
+  68
+ ],
+ "alt_notes": [
+  {
+   "from": "D30",
+   "adaptation": "Average PF weights every 200 steps from 10k to 20k, recompute BN on train. Near-free; may also reduce the 1-in-6 wrecked-run variance.",
+   "min_experiment": "PF + SWAD vs PF final checkpoint, same 3 seeds. Kill if test crack IoU gain < +0.01 and E1 relF1@2 gain < +0.02.",
+   "score": 55
+  },
+  {
+   "from": "D30",
+   "adaptation": "PF recipe + dense averaging every step from ~8k to 20k at constant or cyclic lr; window chosen on F51 / H36, never on E1.",
+   "min_experiment": "Arm: PF + SWAD, 5 seeds. Baseline: PF single. Metric: E1 relF1@2 and E1 inactive IoU; test crack IoU guard. Kill: E1 relF1@2 < +0.02 or test crack IoU loss > 0.005.",
+   "score": 56
+  },
+  {
+   "from": "D35",
+   "adaptation": "Average weights every 100 steps from about 8k to 20k, window chosen on F51/CV val loss; recompute BN on train after averaging. E1 (new modules, half-cut, scuff) is the DG target.",
+   "min_experiment": "Arm: PF + SWAD (same run, raw vs averaged, 5 seeds). Baseline: SUP100-PF raw weights. Metric: E1 crack relF1@2 and E1 inactive IoU, test crack relF1@2. Kill: averaged minus raw < +0.005 val relF1@2 and E1 not better.",
+   "score": 68
+  }
+ ],
+ "final": 68,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 39,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

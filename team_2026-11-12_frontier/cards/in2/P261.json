@@ -1,0 +1,37 @@
+{
+ "paper_id": "doi:10.1109/jphotov.2024.3450009",
+ "title": "Using SegFormer for Effective Semantic Cell Segmentation for Fault Detection in Photovoltaic Arrays",
+ "year": 2024,
+ "venue": "IEEE Journal of Photovoltaics",
+ "url": "https://doi.org/10.1109/jphotov.2024.3450009",
+ "code_url": "",
+ "mechanism": "SegFormer (hierarchical transformer encoder + all-MLP decoder) for EL defect segmentation; beat CNN segmenters on UCF-EL.",
+ "adaptation": "MiT-B2/B3 with ADE20K weights, 1-ch stem, 512 px; add a full-res conv skip before the head because SegFormer predicts at 1/4 resolution; lower encoder lr (PF-style).",
+ "min_experiment": "Arm SegFormer-B2 + full-res skip, 3-seed screen vs house; mIoU_rob, crack relF1@2, E1 crack recall; kill if all three below house.",
+ "evidence": "R: UCF-EL 5 classes; pixel acc 96.24%, weighted F1 96.22%, unweighted F1 81.96%, mIoU 56.54%, above DeepLabv3, U-Net, DeepLabv3+, PAN, PSPNet, FPN.",
+ "prior_overlap": "none: transformer segmenters never tried.",
+ "score": 45,
+ "bench_score": 85,
+ "bet": "medium",
+ "gpu_hours": 10,
+ "targets": [
+  "other_classes",
+  "e1_unseen",
+  "benchmark"
+ ],
+ "directions": [
+  "D01"
+ ],
+ "scout_scores": [
+  45
+ ],
+ "final": 45,
+ "bench": 85,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 261,
+ "pub_allowed": 1,
+ "selected_for": "bench",
+ "pid": "P261"
+}

@@ -1,0 +1,11 @@
+--- commit without a git identity (fails after git add)
+fatal: no email was given and auto-detection is disabled
+REFUSED: commit failed
+status: A  bench/methods/hrnet_w18_unetpp_swad_const_pf_v11.yaml A  bench/methods_cv02/hrnet_w18_unetpp_swad_const_pf_v11.yaml A  tests/test_bench_c3x_card.py 
+--- re-run without recovery
+REFUSED: tracked changes in /tmp/claude-1003/-home-yugma-mtp/e0fe0a1b-de27-464f-816b-2df6724d18f1/scratchpad/clone2, or one of the three files exists
+--- recovery of the header (reset, then rm), then re-run with an identity
+status: ''
+27 passed in 0.95s
+commit eaf99dcc5008a8c86b2368635b07b98138fbc184 on branch bench_c3s in /tmp/claude-1003/-home-yugma-mtp/e0fe0a1b-de27-46
+tree c860f1bc243ff5262f8c23ffb1e551cfaea5ea79

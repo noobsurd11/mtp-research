@@ -1,0 +1,35 @@
+{
+ "paper_id": "doi:10.3390/en16237726",
+ "title": "SEiPV-Net: An Efficient Deep Learning Framework for Autonomous Multi-Defect Segmentation in Electroluminescence Images of Solar Photovoltaic Modules",
+ "year": 2023,
+ "venue": "Energies",
+ "url": "https://doi.org/10.3390/en16237726",
+ "code_url": "",
+ "mechanism": "Lightweight encoder-decoder on the 24-class Pratt data; compares weighted CE, weighted squared Dice and weighted Tanimoto losses with custom vs equal class weights.",
+ "adaptation": "Replace the house soft Dice on crack/inactive with weighted Tanimoto, optionally extend to weak classes; keep architecture.",
+ "min_experiment": "Arm house + weighted Tanimoto vs house, 5 seeds; crack IoU, inactive IoU, mIoU_rob; kill if no metric moves beyond noise.",
+ "evidence": "R: abstract only (full text unavailable): custom class weights beat equal; claims better mIoU, F1, Dice than DeepLabv3+, PSPNet, U-Net on 24 classes. Per-class numbers not retrieved.",
+ "prior_overlap": "Lovasz/Jaccard metric losses listed as untested; Tanimoto is in that family. Open.",
+ "score": 35,
+ "bench_score": 55,
+ "bet": "safe",
+ "gpu_hours": 11,
+ "targets": [
+  "crack",
+  "inactive",
+  "other_classes"
+ ],
+ "directions": [
+  "D01"
+ ],
+ "scout_scores": [
+  35
+ ],
+ "final": 35,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 448,
+ "pid": "P448"
+}

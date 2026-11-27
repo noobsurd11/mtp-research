@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1016/j.media.2024.103098",
+ "title": "CF-Loss: Clinically-relevant feature optimised loss function for retinal multi-class vessel segmentation and vascular feature measurement",
+ "year": 2024,
+ "venue": "Medical Image Analysis",
+ "url": "https://discovery.ucl.ac.uk/id/eprint/10188133/1/CF-Loss-accepted.pdf",
+ "code_url": "",
+ "mechanism": "Adds to the pixel loss a loss on downstream measurement features (vessel density, box-count fractal dimension) computed from the soft mask, so the segmentation gets the measured quantity right.",
+ "adaptation": "Per-cell L1 between the soft predicted inactive fraction and GT (w 0.3) and between the soft crack density and GT (w 0.1), on top of PF. Targets the amount of inactive in BMRK and E1 cells, where the model under-calls inactive.",
+ "min_experiment": "Arm: PF + feature loss, 5 seeds. Baseline: PF, 5 seeds. Metrics: CV inactive IoU, per-cell inactive-fraction MAE, clean-49 crack IoU. Kill if inactive IoU gain < 0.015 and fraction MAE not reduced by >= 20%, or crack IoU drops > 0.012. About 6 GPU-h.",
+ "evidence": "R (web summary, secondary): vessel density + fractal dimension loss combined with pixel loss, tested on 2 networks and 3 public datasets; numbers not retrieved.",
+ "prior_overlap": "none; BRIEF section 5 losses (Dice, clDice, Skeleton Recall, offset-tolerant CE) do not include a per-image measurement loss",
+ "score": 38,
+ "bench_score": 30,
+ "bet": "moonshot",
+ "targets": [
+  "inactive",
+  "severity"
+ ],
+ "gpu_hours": 6,
+ "directions": [
+  "D44"
+ ],
+ "scout_scores": [
+  38
+ ],
+ "final": 38,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 423,
+ "pid": "P423"
+}

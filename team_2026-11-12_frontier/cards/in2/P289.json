@@ -1,0 +1,58 @@
+{
+ "paper_id": "doi:10.1109/iccv51701.2025.02236",
+ "title": "TopoTTA: Topology-Enhanced Test-Time Adaptation for Tubular Structure Segmentation",
+ "year": 2025,
+ "venue": "ICCV 2025",
+ "url": "https://arxiv.org/abs/2508.00442",
+ "code_url": "",
+ "mechanism": "Test-time adaptation for thin structures: topological meta difference convolutions adapt without changing pretrained weights, then pseudo-break hard samples with prediction alignment restore continuity.",
+ "adaptation": "Aims at E1 (half-cut, scuff). Adapt on unlabelled pool half-cells (1,152 multi half-cells), not on E1. Weak where 70% of E1 crack pixels get p < 0.001, because the pseudo-breaks need partial detection.",
+ "min_experiment": "Arm: PF ensemble + TopoTTA on pool half-cells. Baseline: PF ensemble. Metric: E1 crack relF1@2 and recall. Kill if E1 relF1@2 gain < 0.03.",
+ "score": 45,
+ "bench_score": 45,
+ "bet": "medium",
+ "targets": [
+  "e1_unseen"
+ ],
+ "evidence": "R (abstract): 4 scenarios, 10 datasets, average clDice +31.81% under domain shift. Code only via an anonymous link (unverified).",
+ "gpu_hours": 8,
+ "prior_overlap": "Per-panel BN adaptation (a TTA) failed. TopoTTA uses different machinery (difference convolutions plus topology hard samples), so it is open.",
+ "directions": [
+  "D10",
+  "D12",
+  "D31"
+ ],
+ "scout_scores": [
+  45,
+  40,
+  45,
+  35
+ ],
+ "alt_notes": [
+  {
+   "from": "D12",
+   "adaptation": "Adapt on the 1,152 unlabelled half-cut multi cells from the pool instead of on E1, so E1 stays a clean test. Difference convolutions may separate thin dark cracks from wider scuff streaks.",
+   "min_experiment": "TopoTTA-style adaptation of the PF ensemble members on pool half-cuts vs the unadapted PF ensemble. Metrics: E1 crack IoU and recall, E1 inactive. Kill if E1 crack recall gains < 0.03.",
+   "score": 40
+  },
+  {
+   "from": "D12",
+   "adaptation": "Adapt the trained PF model on unlabelled CSIR multi half-cut pool cells (same source family as E1, not E1 itself), then score E1 once.",
+   "min_experiment": "Arm: PF + TopoTTA on 1,152 half-cut pool cells; baseline PF ensemble. Metric E1 crack relF1@2 and recall. Kill: E1 relF1@2 gain < 0.03.",
+   "score": 45
+  },
+  {
+   "from": "D31",
+   "adaptation": "Put the difference-conv adapters in the U-Net++ decoder only. Pseudo-breaks: mask 5 to 15 px segments of predicted crack skeletons on E1 cells and align predictions on these hard samples. This targets fragmented crack predictions on scuffed half-cuts. It needs our own implementation.",
+   "min_experiment": "Arm: SUP100-PF + TopoTTA adapters per E1 module. Baseline: SUP100-PF. Metrics: E1 component recall and relF1@2, with test crack IoU as a guard. Kill if E1 relF1@2 gains < +0.02 or test crack IoU drops by 0.005.",
+   "score": 35
+  }
+ ],
+ "final": 45,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 289,
+ "pid": "P289"
+}

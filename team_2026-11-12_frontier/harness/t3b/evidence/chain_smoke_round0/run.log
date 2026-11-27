@@ -1,0 +1,36 @@
+[2026-11-21 15:39:57] T3b chain smoke in /home/noob/work/bench_int_io/t3b/chain_1493548 (K cba7fbdf5df1579d6efb1168eb292e637bc9fad6; script eee81ea1)
+synthetic ext117 in /home/noob/work/bench_int_io/t3b/chain_1493548/ext117: 106 cells
+3 tiny runs in /home/noob/work/bench_int_io/t3b/chain_1493548/noob_el/bench_9967d59 (REVISION 9967d59), LATEST.md5 in /home/noob/work/bench_int_io/t3b/chain_1493548/relay_fin2
+zero-shot stand-ins: 3 relayed units in /home/noob/work/bench_int_io/t3b/chain_1493548/relay_open (G's bench_infer), 3 records by R's scorer
+register rc 0 (REGISTERED.txt md5 5601ca748348f0bd73aa8b7400b9234d  (IO /home/noob/work/bench_i)
+build rc 0 (ROOTS_t3b.md5 f9a4d24b5f3e4bc8d4c1fd356e04634f  MANIFEST.md5 eb5e3797f13ef7e5850ca03efdcbf24b (1354 files, 13188 links); 11 roots; CHECK OK ROOTS_t3b.md5 f9a4d24b5f3e4bc8d)
+stage rc 0 (DT /tmp/noob_el/bench_data_t3b: MANIFEST.md5, ROOTS_t3b.md5 and the link list = IO/data (B DS /tmp/noob_el/bench_data_sealed: 107 files + MANIFEST.md5 (7cecdbe2bf991525ceca320950b0b )
+negative stage twice: rc 1 (REFUSED (stage): /tmp/noob_el/bench_data_sealed or /tmp/noob_el/bench_data_t3b exists on cv02)
+30 tiny runs in /home/noob/work/bench_int_io/t3b/chain_1493548/noob_el/bench_cba7fbd (REVISION cba7fbd), LATEST.md5 in /home/noob/work/bench_int_io/t3b/chain_1493548/relay_t3b
+T3b dumps: 30 of 30 in 277 s; manifests marked trained_on_e1: 30
+negative regmd5: rc 1 (REFUSED: REGISTERED.txt md5 != REG_MD5); out dir created: no
+negative manifest_e1count: rc 1 (manifest check: 33 dumps (30 T3b, 3 zero-shot), device ['cpu']: FAIL); out dir created: no
+negative zs_changed: rc 1 (REFUSED: zero-shot unit fin_hrnet_swad_v11_pool_s6.swad.tta_d4.e1_106: md5sum -c of its relayed files failed); out dir created: no
+negative e1_mask_changed: rc 1 (REFUSED: E1 image / mask / ignore files differ from the registration); out dir created: no
+negative overrides without TEST_MODE: rc 1 (REFUSED: test-only overrides set: IO=/home/noob/work/bench_int_io/t3b/chain_1493548/io RD1); out dir created: no
+negative unstage before the read: rc 1 (REFUSED (unstage): the registered read has not ended (/home/noob/work/bench_int_io/t3b/chain_1493548); DT kept
+read rc 0
+manifest check: 33 dumps (30 T3b, 3 zero-shot), device ['cpu']: OK
+[2026-11-21 15:52:10] records: 30 T3b fold records, 3 zero-shot records
+zero-shot re-score vs opening #8 fin_hrnet_swad_v11_pool_s5.swad.tta_d4.e1_106: IDENTICAL: 106 cells, 10 shared fields ['conf', 'crack_cc', 'crack_h1000_neg', 'crack_h1000_pos', 'crack_pband_gt', 'cra
+zero-shot re-score vs opening #8 fin_hrnet_swad_v11_pool_s6.swad.tta_d4.e1_106: IDENTICAL: 106 cells, 10 shared fields ['conf', 'crack_cc', 'crack_h1000_neg', 'crack_h1000_pos', 'crack_pband_gt', 'cra
+zero-shot re-score vs opening #8 fin_hrnet_swad_v11_pool_s7.swad.tta_d4.e1_106: IDENTICAL: 106 cells, 10 shared fields ['conf', 'crack_cc', 'crack_h1000_neg', 'crack_h1000_pos', 'crack_pband_gt', 'cra
+oof t3b_all_s5.oof: 106 cells from 5 folds (22, 22, 20, 21, 21) -> /home/noob/work/bench_int_io/t3b/chain_1493548/reads/t3b_open9/records/oof/t3b_all_s5.oof.json
+oof t3b_all_s6.oof: 106 cells from 5 folds (22, 22, 20, 21, 21) -> /home/noob/work/bench_int_io/t3b/chain_1493548/reads/t3b_open9/records/oof/t3b_all_s6.oof.json
+oof t3b_all_s7.oof: 106 cells from 5 folds (22, 22, 20, 21, 21) -> /home/noob/work/bench_int_io/t3b/chain_1493548/reads/t3b_open9/records/oof/t3b_all_s7.oof.json
+oof t3b_half_s5.oof: 106 cells from 5 folds (22, 22, 20, 21, 21) -> /home/noob/work/bench_int_io/t3b/chain_1493548/reads/t3b_open9/records/oof/t3b_half_s5.oof.json
+oof t3b_half_s6.oof: 106 cells from 5 folds (22, 22, 20, 21, 21) -> /home/noob/work/bench_int_io/t3b/chain_1493548/reads/t3b_open9/records/oof/t3b_half_s6.oof.json
+oof t3b_half_s7.oof: 106 cells from 5 folds (22, 22, 20, 21, 21) -> /home/noob/work/bench_int_io/t3b/chain_1493548/reads/t3b_open9/records/oof/t3b_half_s7.oof.json
+strata (lists/t3b_strata.tsv): full 44, half-cut 62 (of which hard = half-cut + scuff 29, half-cut without scuff 33)
+T3B VERDICT: P (ALL - ZS pooled out-of-fold crack relF1@2) NOT CONFIRMED (the interval holds 0; Delta <= 0); Delta -0.0000 [-0.0001, +0.0000]; width ratio ALL / ZS 0.000 (reported).
+[2026-11-21 15:53:01] T3B READ ALL DONE (verdict rc 0); tracked changes in /home/noob/work/bench_wt_t3b: 0
+negative existing output: rc 1 (REFUSED: output folder exists: /home/noob/work/bench_int_io/t3b/chain_1493548/re)
+unstage rc 0 (REMOVED_DUMPS 30 REMOVED /home/noob/work/bench_int_io/t3b/chain_1493548/noob_el/bench_data_sealed REMOVED /home/noob/work/bench_int_io/t3b/chain_1493548/noob_el/bench_data_t3b [2026-11-21 15:53:31] unstage: removed the 30 sealed dump dirs from /tmp/noob_el/bench_cba7fbd/dumps (each = its verifie )
+  after unstage: dump dirs left 0; runs/*/RUN.md5 kept 30; DS removed; DT removed; removal log lines 30
+[2026-11-21 15:53:31] chain smoke done (read rc 0); scratch removed
+exit 0

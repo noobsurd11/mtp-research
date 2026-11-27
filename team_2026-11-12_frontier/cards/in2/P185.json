@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2410.17146",
+ "title": "LiNeS: Post-training Layer Scaling Prevents Forgetting and Enhances Model Merging",
+ "year": 2024,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2410.17146",
+ "code_url": "https://github.com/wang-kee/LiNeS",
+ "mechanism": "Post-training edit: scale each layer's fine-tuning delta linearly with depth, shallow layers near pretrained, deep layers keep the task update.",
+ "adaptation": "Zero training on house and PF checkpoints; scale encoder deltas by depth, plus the inverse ordering because our erasure sits in layer3/4; BN stats recomputed; scale chosen on val.",
+ "evidence": "Reduces forgetting and improves OOD generalisation and multi-task merging in vision and NLP benchmarks (abstract; numbers not retrieved).",
+ "min_experiment": "Existing checkpoints, val-chosen scale; kill if no setting beats raw by +0.005 val relF1@2.",
+ "gpu_hours": 1,
+ "targets": [
+  "e1_unseen"
+ ],
+ "bet": "medium",
+ "prior_overlap": "none",
+ "score": 52,
+ "bench_score": 25,
+ "directions": [
+  "D35"
+ ],
+ "scout_scores": [
+  52
+ ],
+ "final": 52,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 185,
+ "pid": "P185"
+}

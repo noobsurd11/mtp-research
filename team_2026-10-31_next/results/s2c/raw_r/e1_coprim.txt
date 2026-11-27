@@ -1,0 +1,36 @@
+## E1 co-primaries (protocol_SKR2C §3a.3; same 106 E1 cells as #5 / #6, 3rd look), all 106 cells pooled per run, argmax; seeds 10-14
+SUPPF  E1 crack relF1@2        0.4310 0.4136 0.4280 0.4531 0.4135 | mean 0.4279 sd 0.0163
+SUPPF  E1 any-hit comp recall  0.4088 0.4595 0.3885 0.4223 0.4324 | mean 0.4223 sd 0.0265
+SUPPF  E1 inactive IoU         0.3241 0.1806 0.2803 0.2085 0.1340 | mean 0.2255 sd 0.0765
+SUPPF  (reported) relP@2 / relR@2 0.5235/0.3663 0.4780/0.3645 0.5306/0.3587 0.5794/0.3720 0.4514/0.3814 | pred/GT crack px 0.469 0.486 0.448 0.423 0.568 | crack px on 74 crack-free cells 3813 4370 3890 3235 5745 | comps >= 20 px 296
+SKR01  E1 crack relF1@2        0.4703 0.4312 0.4445 0.4728 0.4652 | mean 0.4568 sd 0.0181
+SKR01  E1 any-hit comp recall  0.5304 0.3919 0.3919 0.4054 0.4595 | mean 0.4358 sd 0.0598
+SKR01  E1 inactive IoU         0.2747 0.1951 0.4004 0.3807 0.2143 | mean 0.2930 sd 0.0940  (reported)
+SKR01  (reported) relP@2 / relR@2 0.5064/0.4391 0.4900/0.3851 0.5300/0.3827 0.6047/0.3882 0.5498/0.4031 | pred/GT crack px 0.628 0.577 0.517 0.430 0.486 | crack px on 74 crack-free cells 4539 6076 3359 2465 3216 | comps >= 20 px 296
+
+## rule 1 (/3) vs SUPPF: delta > max(0.01, 2*sqrt((sdA^2+sdB^2)/3)) BETTER, < -thr WORSE, else n.d.
+SKR01 - SUPPF | CO-PRIMARY E1 crack relF1@2 | SKR01 0.4568±0.0181 | SUPPF 0.4279±0.0163 | delta +0.0289 | thr 0.0281 | BETTER
+SKR01 - SUPPF | CO-PRIMARY E1 any-hit comp recall | SKR01 0.4358±0.0598 | SUPPF 0.4223±0.0265 | delta +0.0135 | thr 0.0755 | n.d.
+SKR01 - SUPPF | (reported, not a co-primary) E1 inactive IoU | delta +0.0675 | thr 0.1399
+SKR01 - SUPPF | (reported, next to any-hit) E1 relP@2 +0.0236 relR@2 +0.0310 pred/GT +0.049 crack-free px x0.93
+(E1 part only. Verdict R also needs the test co-primaries (two-set rule), B5 and the guards.)
+
+## reference rows (already opened; NOT contrasts; protocol §4)
+SUPPF_s5-9 E1 crack relF1@2 0.4202±0.0272 | relP 0.5245±0.0441 | relR 0.3515±0.0273 | E1 any-hit comp recall 0.3811±0.0320 | E1 inactive IoU 0.2371±0.0271 | pred_over_gt 0.4659±0.0602 | crackfree_px 3930.6000±1012.4015
+SKR01_s5-9 E1 crack relF1@2 0.4567±0.0135 | relP 0.5393±0.0136 | relR 0.3962±0.0154 | E1 any-hit comp recall 0.4250±0.0318 | E1 inactive IoU 0.2393±0.0725 | pred_over_gt 0.5463±0.0162 | crackfree_px 3819.0000±546.9685
+
+## 10-seed view (REPORTED ONLY; s5-14 single means; 5 of 10 seeds opened before)
+SUPPF  s5-14 E1 crack relF1@2 0.4240±0.0215 | relP 0.5185±0.0447 | relR 0.3601±0.0211 | E1 any-hit comp recall 0.4017±0.0352 | E1 inactive IoU 0.2313±0.0544 | pred_over_gt 0.4723±0.0549 | crackfree_px 4070.6000±936.2030
+SKR01  s5-14 E1 crack relF1@2 0.4567±0.0151 | relP 0.5377±0.0311 | relR 0.3979±0.0188 | E1 any-hit comp recall 0.4304±0.0455 | E1 inactive IoU 0.2661±0.0841 | pred_over_gt 0.5368±0.0535 | crackfree_px 3875.0000±1010.2976
+
+## E1 strata (REPORTED ONLY, never a verdict; protocol §4): group | n | arm | relF1@2 mean±sd | inactive IoU mean±sd | any-hit mean±sd
+scuff+half-cut              |  29 | SUPPF  | 0.3682±0.0171 | 0.5457±0.0176 | 0.3891±0.0266
+scuff+half-cut              |  29 | SKR01  | 0.3915±0.0312 | 0.4924±0.0669 | 0.4029±0.0624
+half-cut without scuff      |  29 | SUPPF  | 0.8112±0.0087 | 0.3857±0.2825 | 0.8000±0.0407
+half-cut without scuff      |  29 | SKR01  | 0.8154±0.0328 | 0.3063±0.2813 | 0.8182±0.1286
+full                        |  48 | SUPPF  | 0.4299±0.0427 | 0.1108±0.0534 | 0.8727±0.0498
+full                        |  48 | SKR01  | 0.4978±0.0439 | 0.1782±0.1450 | 0.8727±0.0498
+half-cut                    |  58 | SUPPF  | 0.4218±0.0141 | 0.5315±0.0318 | 0.4049±0.0260
+half-cut                    |  58 | SKR01  | 0.4404±0.0237 | 0.4778±0.0552 | 0.4189±0.0610
+other (not scuff+half-cut)  |  77 | SUPPF  | 0.5168±0.0391 | 0.1202±0.0574 | 0.8364±0.0407
+other (not scuff+half-cut)  |  77 | SKR01  | 0.5646±0.0487 | 0.1892±0.1550 | 0.8455±0.0761

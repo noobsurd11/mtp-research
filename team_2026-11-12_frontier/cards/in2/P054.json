@@ -1,0 +1,37 @@
+{
+ "paper_id": "arxiv:2502.19177",
+ "title": "Knowledge Distillation for Semantic Segmentation: A Label Space Unification Approach",
+ "year": 2025,
+ "venue": "IROS",
+ "url": "https://arxiv.org/abs/2502.19177",
+ "code_url": "",
+ "mechanism": "A teacher in the target taxonomy pseudo-labels other datasets, with each dataset's own GT (mapped) constraining which classes are allowed per pixel; students trained on the union beat the teacher.",
+ "evidence": "12 urban and 7 off-road datasets; students outperform teachers (exact numbers not read).",
+ "adaptation": "Teacher = house 5-seed ensemble. Pseudo-label UCF, MSS, PV-Vision cells in 24 classes: inside UCF crack polygon only crack/inactive allowed; inside MSS/PV-Vision crack mask crack forced; outside any defect GT crack and inactive forbidden.",
+ "min_experiment": "Arm: student on BenchmarkEL + constrained pseudo-labels, 30k steps, 5 seeds. Baseline: house 5-seed (and ensemble teacher). Kill if crack IoU < +0.012 AND E1 relF1@2 < +0.03 AND inactive not up. ~15 GPU-h.",
+ "prior_overlap": "BRIEF 5 pseudo-label SSL used unconstrained pseudo-labels on unlabelled pool cells (n.d. at 100%); GT-constrained labels on external labelled sets are a different mechanism",
+ "score": 66,
+ "bench_score": 40,
+ "bet": "medium",
+ "gpu_hours": 15,
+ "targets": [
+  "crack",
+  "inactive",
+  "e1_unseen"
+ ],
+ "directions": [
+  "D36"
+ ],
+ "scout_scores": [
+  66
+ ],
+ "final": 66,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 54,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P054"
+}

@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.52202/075280-0780",
+ "title": "What Makes Good Examples for Visual In-Context Learning?",
+ "year": 2023,
+ "venue": "NeurIPS",
+ "url": "https://arxiv.org/abs/2301.13670",
+ "code_url": "",
+ "mechanism": "In-context example choice drives VICL quality; unsupervised and supervised prompt retrieval by feature similarity.",
+ "evidence": "R: retrieval-chosen prompts beat random prompts for in-context segmentation and detection.",
+ "adaptation": "Fixes the K-shot benchmark protocol (declared support retrieval rule: random vs nearest vs same-module vs same-source) and the labeller's support selection.",
+ "min_experiment": "In the K-shot track: random vs nearest vs same-source supports for SAM2 video mode; metric H36 inactive IoU spread; result defines the protocol, no kill.",
+ "prior_overlap": "none",
+ "score": 20,
+ "bench_score": 45,
+ "bet": "safe",
+ "targets": [
+  "benchmark"
+ ],
+ "gpu_hours": 2,
+ "directions": [
+  "D38"
+ ],
+ "scout_scores": [
+  20
+ ],
+ "final": 20,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 588,
+ "pid": "P588"
+}

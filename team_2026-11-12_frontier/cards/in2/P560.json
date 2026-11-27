@@ -1,0 +1,35 @@
+{
+ "paper_id": "arxiv:2609.21743",
+ "title": "Balanced Prompt Adaptation against Entropy-Induced Collapse for Test-Time Binary Segmentation (BAPA)",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2609.21743",
+ "code_url": "",
+ "mechanism": "The paper proves that entropy minimisation collapses imbalanced binary segmentation toward the majority class. The fix uses class-balanced high-confidence anchors with equal total loss per class and updates only the prompts.",
+ "adaptation": "The VLM prompt part does not apply to our CNN. The CBA rule does: every self-training TTA arm must select crack anchors separately and give crack equal total loss weight to background.",
+ "min_experiment": "Ablation inside rows 3, 8 and 9: class-balanced anchors on vs off. Kill if E1 crack recall differs by < +0.02.",
+ "score": 25,
+ "bench_score": 40,
+ "bet": "medium",
+ "targets": [
+  "e1_unseen",
+  "crack",
+  "benchmark"
+ ],
+ "evidence": "R: theory of entropy-induced collapse in a shared-shift model. BAPA has the highest mean Dice across four domains and improves zero-shot Dice on all four datasets.",
+ "gpu_hours": 1,
+ "prior_overlap": "None. Tent was dropped without a run; this paper gives the reason entropy TTA would fail on crack and a fix.",
+ "directions": [
+  "D31"
+ ],
+ "scout_scores": [
+  25
+ ],
+ "final": 25,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 560,
+ "pid": "P560"
+}

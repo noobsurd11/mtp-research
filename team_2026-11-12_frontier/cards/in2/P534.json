@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.1109/tmi.2020.3002417",
+ "title": "Optimization for Medical Image Segmentation: Theory and Practice When Evaluating With Dice Score or Jaccard Index",
+ "year": 2020,
+ "venue": "IEEE TMI",
+ "url": "https://arxiv.org/abs/2010.13499",
+ "code_url": "",
+ "mechanism": "Theory and six tasks: Dice and Jaccard losses approximate each other, weighted CE has no weighting that optimises them, Tversky drifts from the optimum as weights move.",
+ "adaptation": "Guides the benchmark loss axis (CE vs CE+Dice vs CE+JML vs Lovasz under one protocol) and warns that Tversky trades IoU for recall.",
+ "min_experiment": "No separate run; read as design guidance for the benchmark loss baselines.",
+ "score": 28,
+ "bench_score": 55,
+ "bet": "safe",
+ "targets": [
+  "benchmark"
+ ],
+ "evidence": "R: metric-sensitive losses beat CE-based losses on six medical tasks, across object sizes and class ratios.",
+ "gpu_hours": 0,
+ "prior_overlap": "none",
+ "directions": [
+  "D18"
+ ],
+ "scout_scores": [
+  28
+ ],
+ "final": 28,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 534,
+ "pid": "P534"
+}

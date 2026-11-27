@@ -1,0 +1,19 @@
+[2026-11-17 10:17:09] start; latest.pth 940330165 bytes
+[2026-11-17 10:17:13] slim old (unpatched, all keys) rc=0: slim w2a_swad_f0_s5 step 20000 keys ['ema_9998', 'ema_9998_bn', 'model', 'raw_bn', 'swad', 'swad_bn'] latest_md5 1f0fdb30e87e81551e611856f8f3df75 slim_md5 6fac3b9aeae11dafdd0cf32e68057013
+[2026-11-17 10:17:16] slim new (patched, no --keys) rc=0: slim w2a_swad_f0_s5 step 20000 keys ['ema_9998', 'ema_9998_bn', 'model', 'raw_bn', 'swad', 'swad_bn'] latest_md5 1f0fdb30e87e81551e611856f8f3df75 slim_md5 6fac3b9aeae11dafdd0cf32e68057013
+[2026-11-17 10:17:19] slim new --keys swad_bn,swad rc=0: slim w2a_swad_f0_s5 step 20000 keys ['swad', 'swad_bn'] latest_md5 1f0fdb30e87e81551e611856f8f3df75 slim_md5 6ed280fadda57f994f3725d8c97cc2c6
+[2026-11-17 10:17:20] slim old: 626981021 bytes md5 6fac3b9aeae11dafdd0cf32e68057013
+[2026-11-17 10:17:20] slim new: 626981021 bytes md5 6fac3b9aeae11dafdd0cf32e68057013
+[2026-11-17 10:17:21] slim keys: 208990665 bytes md5 6ed280fadda57f994f3725d8c97cc2c6
+[2026-11-17 10:17:23] slim --keys swad_bn,nokey (a key that does not exist) rc=1 (must be non-zero); slim.pth written: 0 (must be 0); last line: AssertionError: (['swad_bn', 'nokey'], ['ema_9998', 'ema_9998_bn', 'model', 'raw_bn', 'swad', 'swad_bn'])
+[2026-11-17 10:17:26] slim --keys swad,swad (a key twice) rc=1 (must be non-zero); slim.pth written: 0 (must be 0); last line: AssertionError: (['swad', 'swad'], ['ema_9998', 'ema_9998_bn', 'model', 'raw_bn', 'swad', 'swad_bn'])
+[2026-11-17 10:18:24] dump usual (key auto) rc=0 Traceback 0: dumped w2a_swad_f0_s5 cv5v2_f0: 107 cells, 132.6 MiB, ties 0, key swad_bn, step 20000, cpu/fp32, 55s -> /tmp/claude-1003/-home-yugma-mtp/580c6627-c3a2
+[2026-11-17 10:19:22] dump further (key swad) rc=0 Traceback 0: dumped w2a_swad_f0_s5.swad cv5v2_f0: 107 cells, 132.2 MiB, ties 0, key swad, step 20000, cpu/fp32, 55s -> /tmp/claude-1003/-home-yugma-mtp/580c6627-c3
+[2026-11-17 10:19:22] manifest w2a_swad_f0_s5: {'run_id': 'w2a_swad_f0_s5', 'weights_key': 'swad_bn', 'step': 20000, 'seed': 5, 'fold': 0, 'set': 'cv5v2_f0', 'device': 'cpu', 'precision': 'fp32', 'n_cells': 107} | 133 MB, BENCH_START line: 
+[2026-11-17 10:19:22] manifest w2a_swad_f0_s5.swad: {'run_id': 'w2a_swad_f0_s5.swad', 'weights_key': 'swad', 'step': 20000, 'seed': 5, 'fold': 0, 'set': 'cv5v2_f0', 'device': 'cpu', 'precision': 'fp32', 'n_cells': 107} | 133 MB, BENCH_START line: 
+[2026-11-17 10:19:22] BENCH_START lines: BENCH_START: run=dump_w2a_swad_f0_s5 | BENCH_START: run=dump_w2a_swad_f0_s5.swad
+[2026-11-17 10:19:23] pred px equal, CPU dump w2a_swad_f0_s5 vs GPU dump w2a_swad_f0_s5.swad_bn: 1.000000 of 28049408
+[2026-11-17 10:19:23] pred px equal, CPU dump w2a_swad_f0_s5 vs GPU dump w2a_swad_f0_s5.swad: 0.991670 of 28049408
+[2026-11-17 10:19:23] pred px equal, CPU dump w2a_swad_f0_s5.swad vs GPU dump w2a_swad_f0_s5.swad_bn: 0.991670 of 28049408
+[2026-11-17 10:19:23] pred px equal, CPU dump w2a_swad_f0_s5.swad vs GPU dump w2a_swad_f0_s5.swad: 1.000000 of 28049408
+[2026-11-17 10:19:23] ALL DONE

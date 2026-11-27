@@ -1,0 +1,36 @@
+{
+ "paper_id": "arxiv:2007.03868",
+ "title": "Marginal loss and exclusion loss for partially supervised multi-organ segmentation",
+ "year": 2021,
+ "venue": "Medical Image Analysis",
+ "url": "https://arxiv.org/abs/2007.03868",
+ "code_url": "",
+ "mechanism": "Marginal loss sums predicted probabilities over the classes a partially labelled dataset merges into one label; exclusion loss pushes labelled pixels away from mutually exclusive classes.",
+ "evidence": "Multi-organ CT from several partially labelled datasets; marginal + exclusion beat naive merging (numbers not re-read in this pass).",
+ "adaptation": "UCF crack polygon supervised as log(p_crack + p_inactive); UCF background as marginal over all 24-class structural classes UCF does not label; UCF contact/corrosion/interconnect pixels excluded from crack. Single house softmax head, no new heads.",
+ "min_experiment": "Arm B of joint run: single softmax + marginal/exclusion on UCF and MSS, 30k steps, 5 seeds. Baseline: house 5-seed. Metrics and kill line as MultiTalent arm. ~15 GPU-h.",
+ "prior_overlap": "none; cross-dataset joint training never tried",
+ "score": 68,
+ "bench_score": 45,
+ "bet": "medium",
+ "gpu_hours": 15,
+ "targets": [
+  "crack",
+  "inactive",
+  "e1_unseen"
+ ],
+ "directions": [
+  "D36"
+ ],
+ "scout_scores": [
+  68
+ ],
+ "final": 68,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 37,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

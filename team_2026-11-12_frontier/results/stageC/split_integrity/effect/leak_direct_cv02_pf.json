@@ -1,0 +1,81 @@
+{
+ "arm": "PF",
+ "seeds": [
+  5,
+  6,
+  7,
+  8,
+  9
+ ],
+ "n_affected": 91,
+ "n_unaffected": 441,
+ "affected_by_relation": {
+  "same_cell": 4,
+  "neighbour_crop": 38,
+  "no_shared_area": 49
+ },
+ "share_of_crack_px_affected": 0.22675632263141124,
+ "share_of_inactive_px_affected": 0.13202933127499825,
+ "stratified_contrast_affected_minus_unaffected": {
+  "crack_iou": {
+   "weighted_diff": 0.07173874087878425,
+   "weight": "crack_px",
+   "strata": [
+    "ARTS:multi (0.339 v 0.291, weight 2914)",
+    "CFVS:mono (0.397 v 0.362, weight 52135)",
+    "CSIR:mono (0.553 v 0.339, weight 14263)",
+    "CSIR:multi (0.197 v 0.174, weight 426)"
+   ]
+  },
+  "relF1_2": {
+   "weighted_diff": 0.0590610701943582,
+   "weight": "crack_px",
+   "strata": [
+    "ARTS:multi (0.867 v 0.811, weight 2914)",
+    "CFVS:mono (0.887 v 0.836, weight 52135)",
+    "CSIR:mono (0.966 v 0.878, weight 14263)",
+    "CSIR:multi (0.606 v 0.531, weight 426)"
+   ]
+  },
+  "relR2": {
+   "weighted_diff": 0.07657477387946189,
+   "weight": "crack_px",
+   "strata": [
+    "ARTS:multi (0.793 v 0.702, weight 2914)",
+    "CFVS:mono (0.865 v 0.805, weight 52135)",
+    "CSIR:mono (0.966 v 0.833, weight 14263)",
+    "CSIR:multi (0.515 v 0.408, weight 426)"
+   ]
+  },
+  "relP2": {
+   "weighted_diff": 0.03824086778121971,
+   "weight": "crack_px",
+   "strata": [
+    "ARTS:multi (0.957 v 0.962, weight 2914)",
+    "CFVS:mono (0.910 v 0.869, weight 52135)",
+    "CSIR:mono (0.967 v 0.929, weight 14263)",
+    "CSIR:multi (0.774 v 0.761, weight 426)"
+   ]
+  },
+  "inact_iou": {
+   "weighted_diff": -0.01491627064316377,
+   "weight": "inactive_px",
+   "strata": [
+    "ARTS:multi (0.000 v 0.023, weight 381)",
+    "CFVS:mono (0.609 v 0.542, weight 27001)",
+    "CSIR:mono (0.104 v 0.336, weight 10249)"
+   ]
+  },
+  "miou_rob": {
+   "weighted_diff": 0.05444635165491591,
+   "weight": "cells",
+   "strata": [
+    "ARTS:mono (0.445 v 0.464, weight 3)",
+    "ARTS:multi (0.542 v 0.487, weight 45)",
+    "CFVS:mono (0.677 v 0.600, weight 32)",
+    "CSIR:mono (0.562 v 0.585, weight 9)",
+    "CSIR:multi (0.593 v 0.459, weight 2)"
+   ]
+  }
+ }
+}

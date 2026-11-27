@@ -1,0 +1,16 @@
+ROOTS_t3b.md5 d58d73106c915d358b53fae8c07dca61  MANIFEST.md5 1eecc62884216863398e39b6db1cee55 (1354 files, 13188 links)
+asserts: OK (pool and monitor = pool532_v11's lists and bytes; E1 the only forbidden stems, each root only its own; no held-out or legacy test stem listed or linked; E1 labels = the scoring view)
+wrote /home/noob/work/bench_int_io/t3b/render_2870380/jobs_train.txt: 33 training lines (30 fold models, 3 deployable); /home/noob/work/bench_int_io/t3b/render_2870380/jobs_dump.txt: 30 sealed dump lines (--dumpof /tmp/noob_el/bench_cba7fbd/experiments)
+train: cq.sh rc 1; last line: cv02 q: gpumem logger (cq_gpumem.sh) not running; not starting
+render compare: 0 FAIL (33 rendered train lines; 33 expected)
+cfgcheck calls (train): 
+dump: cq.sh rc 1; last line: cv02 q: gpumem logger (cq_gpumem.sh) not running; not starting
+render compare: 0 FAIL (30 rendered dump lines; 30 expected)
+cfgcheck calls (dump): 30
+repair: cq.sh rc 1; last line: cv02 q: gpumem logger (cq_gpumem.sh) not running; not starting
+render compare: 0 FAIL (2 rendered repair lines; 2 expected)
+rendered --resume lines: 1
+negative resume line without latest.pth: cq.sh rc 1; last line: cv02 q: t3b_deploy_s7: --resume needs /home/noob/work/bench_int_io/t3b/render_2870380/noob_el/bench_cba7fbd/experiments/t3b_deploy_s7 with config_used.yaml and checkpoints/latest.pth; not starting
+negative dump list without SEALED: cq.sh rc 1; last line: cv02 q: t3b_all_f0_s5.swad.tta_d4.e1t3b_f0: dump-only extra must be '--dumpof <run dir> --key <key> --tta <mode>'; not starting
+negative training list with SEALED: cq.sh rc 1; last line: cv02 q: t3b_all_f0_s5: a sealed-opening queue (Q/SEALED) takes only sealed dump-only lines; not starting
+render smoke rc 0

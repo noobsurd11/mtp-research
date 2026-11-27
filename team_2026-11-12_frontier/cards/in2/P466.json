@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2401.12736",
+ "title": "ShiftwiseConv: Small Convolutional Kernel with Large Kernel Effect",
+ "year": 2025,
+ "venue": "CVPR 2025",
+ "url": "https://arxiv.org/abs/2401.12736",
+ "code_url": "https://github.com/lidc54/shift-wiseConv",
+ "mechanism": "Gets a large-kernel effect from multi-path shifted small kernels with sparse long-range dependencies; pure CNN that beats SLaK and UniRepLKNet.",
+ "adaptation": "Use the ImageNet-pretrained SW backbone as the U-Net++ encoder with a 1-channel stem and PF fine-tune. Long sparse context may separate scuff streaks from cracks on E1 half-cut cells.",
+ "min_experiment": "Arm: SW encoder U-Net++ PF, 3 then 5 seeds. Baseline: PF ResNet-34. Metrics: E1 crack relF1@2, test crack IoU, inactive IoU. Kill: both E1 relF1@2 and test crack IoU within noise after 3 seeds.",
+ "evidence": "R: beats SLaK and UniRepLKNet in classification, segmentation and detection (ADE20K etc.; numbers not read).",
+ "prior_overlap": "none. Only ResNet-34/50 encoders were tested.",
+ "score": 35,
+ "bench_score": 30,
+ "bet": "medium",
+ "gpu_hours": 5,
+ "targets": [
+  "e1_unseen",
+  "crack"
+ ],
+ "directions": [
+  "D42"
+ ],
+ "scout_scores": [
+  35
+ ],
+ "final": 35,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 466,
+ "pid": "P466"
+}

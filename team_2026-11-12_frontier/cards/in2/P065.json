@@ -1,0 +1,52 @@
+{
+ "paper_id": "doi:10.1109/cvpr52733.2024.00312",
+ "title": "RankED: Addressing Imbalance and Uncertainty in Edge Detection Using Ranking-based Losses",
+ "year": 2024,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2403.01795",
+ "code_url": "https://ranked-cvpr24.github.io",
+ "mechanism": "Ranking loss that ranks positive over negative pixels (AP-style, handles extreme imbalance) plus a second ranking term that orders positive pixels by label certainty.",
+ "adaptation": "Crack is 0.19% of pixels: replace soft Dice on crack with the ranking term. Certainty from agreement between the 2021 and 2022 crack label versions, or from distance to the label skeleton.",
+ "min_experiment": "Arm = PF with RankED crack loss in place of crack Dice; baseline = PF; 5 seeds + 5-fold CV; metrics crack AP, relP/relR@2, IoU. Kill if CV crack AP not up and IoU drops > 0.01.",
+ "score": 63,
+ "bench_score": 45,
+ "bet": "medium",
+ "targets": [
+  "crack"
+ ],
+ "evidence": "R: new SOTA on NYUD-v2, BSDS500 and Multicue edge detection.",
+ "gpu_hours": 20,
+ "prior_overlap": "None; ranking/AP losses never tried (BRIEF loss row lists Lovasz and others as open).",
+ "directions": [
+  "D11",
+  "D13"
+ ],
+ "scout_scores": [
+  63,
+  58,
+  62
+ ],
+ "alt_notes": [
+  {
+   "from": "D13",
+   "adaptation": "Crack is 0.19% of pixels, so the ranking term fits. Build the certainty map from the two label versions we already have, the BenchmarkEL 2021 original and 2022 revised crack masks, with d = 2 px. Cells with only one version get c = 1. Add L_Rank + L_Sort on the crack logit alongside CE + Dice.",
+   "min_experiment": "Arm: house + RankED losses on crack, 5 seeds, with a sub-arm using UAED-style weighting. Baseline: house at 100% labels. Metrics: crack AP, relF1@2, crack IoU. Kill if AP and relF1@2 are both n.d.",
+   "score": 58
+  },
+  {
+   "from": "D13",
+   "adaptation": "Apply L_Rank + L_Sort on the crack logit next to CE + Dice. Certainty from the two label versions on the same cells (BenchmarkEL 2021 original vs 2022 revised) with 2 px tolerance; single-version cells get certainty 1. AP is threshold-free, replacing the val-tuned crack logit bias.",
+   "min_experiment": "Arm: house + L_Rank (+ L_Sort; UAED weighting as sub-arm), 5 seeds; baseline house 5 seeds. Metrics crack AP, relF1@2 at val-chosen threshold, strict IoU at argmax. Kill if crack AP and relF1@2 both n.d. About 15 GPU-h.",
+   "score": 62
+  }
+ ],
+ "final": 63,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 65,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P065"
+}

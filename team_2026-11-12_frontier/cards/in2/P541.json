@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1109/iccv51701.2025.00406",
+ "title": "DIP: Unsupervised Dense In-Context Post-Training of Visual Representations",
+ "year": 2025,
+ "venue": "ICCV",
+ "url": "https://arxiv.org/abs/2506.18463",
+ "code_url": "https://github.com/sirkosophia/DIP",
+ "mechanism": "Unsupervised post-training of a pretrained ViT on automatically generated pseudo in-context tasks (diffusion model + encoder) so dense features work better for kNN / in-context segmentation.",
+ "evidence": "R: beats the initial encoder and prior methods on in-context scene understanding; under 9 h on one A100.",
+ "adaptation": "Post-train DINOv2-B on the 12k EL pool (1 channel replicated) and use it as the memory feature for the retrieval head and as matcher for SAM2/DINO labellers.",
+ "min_experiment": "Retrieval-head experiment with DIP-post-trained DINOv2 vs plain DINOv2 memory; metric out-of-fold mIoU_rob and inactive IoU; kill if no gain over plain DINOv2 memory.",
+ "prior_overlap": "Partial: MIM and DDeP pool pretraining on ResNet-34 were n.d.; DIP is a ViT with an in-context objective, not tested.",
+ "score": 28,
+ "bench_score": 25,
+ "bet": "moonshot",
+ "targets": [
+  "other_classes",
+  "inactive"
+ ],
+ "gpu_hours": 12,
+ "directions": [
+  "D38"
+ ],
+ "scout_scores": [
+  28
+ ],
+ "final": 28,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 541,
+ "pid": "P541"
+}

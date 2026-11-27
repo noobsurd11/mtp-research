@@ -1,0 +1,33 @@
+t3b_train_smoke 2026-11-22 01:30:11: K cba7fbdf5df1579d6efb1168eb292e637bc9fad6, F2 9967d59abaab03cef83c1e3014840b2359ef45d7, script b999f996, ckcmp 24392110
+synthetic ext117 in /home/noob/work/bench_int_io/t3b/train_2101763/ext117: 106 cells
+t3b_deploy: train 638 (pool 532 + E1 106), val = test 107 (monitor, in-sample), held out 0
+ROOTS_t3b.md5 d58d73106c915d358b53fae8c07dca61  MANIFEST.md5 1eecc62884216863398e39b6db1cee55 (1354 files, 13188 links)
+asserts: OK (pool and monitor = pool532_v11's lists and bytes; E1 the only forbidden stems, each root only its own; no held-out or legacy test stem listed or linked; E1 labels = the scoring view)
+deleted the files of fold 0's 22 held-out E1 cells from DT/files (616 masks left of 638)
+== T1 (K cba7fbdf5df1579d6efb1168eb292e637bc9fad6): rc 0 in 144 s
+   Labelled: 616 (...)  val: 107  test: 107
+   WAVG: [('ema_9998', {'mode': 'ema', 'decay': 0.9998, 'start': 0, 'end': None, 'n': 0}), ('swad', {'mode': 'uniform', 'decay': None, 'start':
+   step 4/8  loss=4.162  loss_sup=4.162  loss_con=0  lambda=0  lr=2.5e-05  steps_per_sec=1.716
+   saved latest.pth at step 4
+   step 8/8  loss=4.169  loss_sup=4.169  loss_con=0  lambda=0  lr=4.5e-05  steps_per_sec=1.911
+   WAVG BN recal: ['ema_9998_bn', 'raw_bn', 'swad_bn'] on 616 train cells (77 batches) in 117 s
+   saved latest.pth at step 8
+   latest.pth step 8 models ['ema_9998', 'ema_9998_bn', 'model', 'raw_bn', 'swad', 'swad_bn']
+== T2 (F2 9967d59abaab03cef83c1e3014840b2359ef45d7): rc 0 in 144 s
+   Labelled: 616 (...)  val: 107  test: 107
+   WAVG: [('ema_9998', {'mode': 'ema', 'decay': 0.9998, 'start': 0, 'end': None, 'n': 0}), ('swad', {'mode': 'uniform', 'decay': None, 'start':
+   step 4/8  loss=4.162  loss_sup=4.162  loss_con=0  lambda=0  lr=2.5e-05  steps_per_sec=1.763
+   saved latest.pth at step 4
+   step 8/8  loss=4.169  loss_sup=4.169  loss_con=0  lambda=0  lr=4.5e-05  steps_per_sec=1.949
+   WAVG BN recal: ['ema_9998_bn', 'raw_bn', 'swad_bn'] on 616 train cells (77 batches) in 117 s
+   saved latest.pth at step 8
+   latest.pth step 8 models ['ema_9998', 'ema_9998_bn', 'model', 'raw_bn', 'swad', 'swad_bn']
+-- compare T2 (F2) with T1 (K), latest.pth:
+step A 8 B 8; models keys A ['ema_9998', 'ema_9998_bn', 'model', 'raw_bn', 'swad', 'swad_bn'] B ['ema_9998', 'ema_9998_bn', 'model', 'raw_bn', 'swad', 'swad_bn']
+tensors compared per top-level key: best_payload 2060, consistency 2, models 12360, optimizers 3093, rng 1
+differing paths: 3 (3 allowed, 0 not allowed)
+  allowed: /trainer/train_curve[0]/steps_per_sec
+  allowed: /trainer/train_curve[1]/steps_per_sec
+  allowed: /trainer/train_time
+   rc 0
+t3b_train_smoke end 2026-11-22 01:35:13

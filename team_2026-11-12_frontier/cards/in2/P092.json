@@ -1,0 +1,56 @@
+{
+ "paper_id": "doi:10.1109/infinitys69204.2026.11666283",
+ "title": "Fracture-Informed CNN-Transformer Ensemble for Multiclass Photovoltaic Defect Segmentation in Electroluminescence Images",
+ "year": 2026,
+ "venue": "IEEE INFINITYS",
+ "url": "https://doi.org/10.1109/infinitys69204.2026.11666283",
+ "code_url": "",
+ "mechanism": "SegFormer-B0 with an edge-guided residual-logit refiner (probability, uncertainty, Sobel cues) soft-fused with a compact U-Net++ branch (weights 0.55/0.45).",
+ "adaptation": "Heterogeneous ensemble: house 5-seed U-Net++ ensemble plus a SegFormer-B2 (1024 px) or EoMT member; fusion weight chosen on val per class group (crack, inactive, rest); refiner idea optional.",
+ "min_experiment": "Arm house 5-seed ensemble + SegFormer-B2 member vs house 5-seed ensemble; metrics crack IoU, relF1@2, inactive IoU, mIoU_rob, E1 relF1@2; kill if no metric improves beyond its noise floor fold-paired (crack IoU 0.012).",
+ "score": 60,
+ "bench_score": 50,
+ "bet": "safe",
+ "targets": [
+  "crack",
+  "inactive",
+  "other_classes",
+  "e1_unseen"
+ ],
+ "evidence": "R: 5-class EL set (dataset unverified), ensemble mIoU 0.840, non-background mIoU 0.804, defect mIoU 0.779 internal test; gains over refined SegFormer confirmed by paired bootstrap.",
+ "gpu_hours": 30,
+ "prior_overlap": "none: BRIEF lists heterogeneous ensembles as never tried; only same-architecture 5-seed ensembles were run (the one clear win).",
+ "directions": [
+  "D03",
+  "D23",
+  "D34"
+ ],
+ "scout_scores": [
+  50,
+  60,
+  55
+ ],
+ "alt_notes": [
+  {
+   "from": "D03",
+   "adaptation": "Train a tiny refiner on out-of-fold 5-seed ensemble probabilities, entropy, Sobel magnitude and the image, using the existing module-grouped 5-fold roots so the refiner never sees in-fold predictions.",
+   "min_experiment": "Arm: 5-seed ensemble + OOF-trained refiner. Baseline: 5-seed ensemble at argmax (crack IoU 0.485 to 0.488). Metric: crack IoU, mIoU_rob. Kill if crack IoU < +0.01 or mIoU_rob drops.",
+   "score": 50
+  },
+  {
+   "from": "D34",
+   "adaptation": "Add one non-RN34 member (SegFormer / ConvNeXt / DINOv3 from D23-D24) to the 5-seed ensemble with per-class fusion weights fitted in CV; diversity by architecture since more RN34 seeds saturate (E1 +0.001 when doubled).",
+   "min_experiment": "Arm: 5 house + 5 transformer (or 3+3 at equal compute), CV-fitted per-class weights. Baseline: 10-seed RN34 ensemble. Metric: crack IoU, E1 relF1@2, inactive IoU. Kill: < +0.008 crack IoU and < +0.02 E1 relF1@2.",
+   "score": 55
+  }
+ ],
+ "final": 60,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 92,
+ "pub_allowed": 1,
+ "selected_for": "top",
+ "pid": "P092"
+}

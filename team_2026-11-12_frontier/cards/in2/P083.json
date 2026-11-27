@@ -1,0 +1,46 @@
+{
+ "paper_id": "arxiv:2607.10841",
+ "title": "Align and Segment: Unsupervised Learning for Building Segmentation From Misaligned Labels",
+ "year": 2026,
+ "venue": "arXiv (LNCS per D15)",
+ "url": "https://arxiv.org/abs/2607.10841",
+ "code_url": "https://github.com/venkanna37/align-and-segment",
+ "mechanism": "A spatial transformer warps the misaligned label during training so the warped label is the target, with a self-supervised regulariser plus augmentation that stops the segmenter from learning the misalignment; no clean labels needed.",
+ "adaptation": "Replace the affine warp with a learned per-source label renderer: the net predicts a 1 px crack centreline; a differentiable renderer (Gaussian blur with learnable width and learnable sub-pixel shift per source, 5 sources x 3 numbers) maps it to what that source's annotator draws; loss against the human label. Test: render with the cell's source parameters for strict IoU, or output the centreline for relF1@2. E1 labels are about 1.5x wider than train, so the E1 render width is a stated val-free choice.",
+ "min_experiment": "Arm: centreline head + per-source renderer on house U-Net++, 5 seeds; baseline: house. Metrics: pooled crack IoU and per-source crack IoU (BMRK 0.379, CFVS-no-twin 0.397). Kill if pooled crack IoU gain < 0.012 and no source gains >= 0.02.",
+ "evidence": "R: synthetic and real misaligned building labels from several cities; numbers not read (abstract-level via web listing). Code link from the same listing, not opened.",
+ "score": 62,
+ "bench_score": 30,
+ "bet": "moonshot",
+ "targets": [
+  "crack",
+  "benchmark"
+ ],
+ "gpu_hours": 10,
+ "prior_overlap": "none: source-conditional prediction and learned label offsets are listed as never tried in BRIEF section 5. D13 rejected AnS as affine-only; this adaptation changes the transform to per-source width and shift.",
+ "directions": [
+  "D15",
+  "D16"
+ ],
+ "scout_scores": [
+  50,
+  62
+ ],
+ "alt_notes": [
+  {
+   "from": "D15",
+   "adaptation": "Learn a small per-cell deformation field (+/-3 px, smooth) that warps crack labels to agree with the segmenter under flips and rot90; train the segmenter on the warped labels. Inactive labels are kept fixed (well labelled).",
+   "min_experiment": "Try only after STEAL. Arm: learned warp field + house, 5 seeds. Baseline: house. Metrics: crack IoU, relF1@2. Kill if there is no detectable difference.",
+   "score": 50
+  }
+ ],
+ "final": 62,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 83,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P083"
+}

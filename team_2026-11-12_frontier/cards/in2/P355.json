@@ -1,0 +1,46 @@
+{
+ "paper_id": "doi:10.1016/j.media.2026.104349",
+ "title": "Performance uncertainty in medical image analysis: A large-scale investigation of confidence intervals",
+ "year": 2027,
+ "venue": "Medical Image Analysis",
+ "url": "https://arxiv.org/abs/2601.17103",
+ "code_url": "",
+ "mechanism": "Large-scale CI coverage study: required sample size, metric, macro vs micro aggregation and CI method all change coverage; decision tree for CI choice.",
+ "adaptation": "Pick CI method and aggregation (pooled vs per-cell) per metric with their decision tree; flag inactive on test (16 cells) as below reliable coverage.",
+ "min_experiment": "Arm: pooled vs per-cell aggregation on OOF house vs PF. Metric: paired-delta t. Kill: keep the higher-t aggregation; if within 10% keep pooled.",
+ "score": 40,
+ "bench_score": 85,
+ "bet": "safe",
+ "targets": [
+  "measurement",
+  "benchmark"
+ ],
+ "evidence": "R: 24 segmentation and classification tasks, 19 models per task group; sample size for reliable CIs ranges from dozens to thousands; macro needs more cases than micro.",
+ "gpu_hours": 0,
+ "prior_overlap": "none",
+ "directions": [
+  "D41",
+  "D43"
+ ],
+ "scout_scores": [
+  40,
+  30
+ ],
+ "alt_notes": [
+  {
+   "from": "D43",
+   "adaptation": "Crack IoU here is pooled over pixels (micro), and inactive is decided by 3 cells. Report both pooled and per-cell (macro) scores with the CI method the decision tree picks, and fix the aggregation in the protocol.",
+   "min_experiment": "Compute micro and macro crack/inactive IoU and their CIs for the house seeds. Keep the aggregation with fewer seed-to-seed rank flips between house and PF.",
+   "score": 30
+  }
+ ],
+ "final": 40,
+ "bench": 85,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 355,
+ "pub_allowed": 0,
+ "selected_for": "bench",
+ "pid": "P355"
+}

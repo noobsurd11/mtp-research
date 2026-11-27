@@ -1,0 +1,17 @@
+[2026-11-22 02:32:35] T3b repair smoke in /home/noob/work/bench_int_io/t3b/repair_2866150 (K cba7fbdf5df1579d6efb1168eb292e637bc9fad6; script 3f374125)
+relay train with 2 failed runs: rc 0 ( RELAY DONE: cv02 queue ended; 31 of 33 runs relayed (the rest wrote no RUN.md5))
+gate with 2 failed runs: rc 1 (REFUSED (gate): t3b is not complete: t3b_half_f2_s6 (t3b 0, repair 0, RUN.md5 -); t3b_deploy_s7 (t3b 0, repair 0, RUN.md5 -); no 'RELAY ALL DONE: 33 of 33' in /home/noob/)
+repair_register 1 (t3b_half_f2_s6, fresh): rc 0 (jobs 152e3c8644e7d6ac2c873a6bf1496bd5 1 lines)
+negative repair_aside 1 before its ledger line: rc 1 (REFUSED (repair_aside): repair 1 (REPAIR.txt a99b9d7f4f9ac40a870777a1d9f8d58d) is not in the ledger /home/noob/work/bench_int_io/t)
+negative repair of a run that succeeded: rc 1 (REFUSED (repair_register): t3b_all_f0_s5 has a 'trained rc=0' line or a RUN.md5: nothing to repair); repair3 dir: no
+repair_register 2 (t3b_deploy_s7, resume): rc 0 (jobs 213804a3df5509992693be66c87c63a3 1 lines); its line ends '|6200|0|--resume|swad'
+negative gate with an unregistered repair queue dir t3brep4: rc 1 (unregistered repair queue /tmp/noob_el/bench_q/t3brep4)
+repair_aside 1 (fresh): rc 0 (2 moved: t3b_half_f2_s6.failed1 t3b_half_f2_s6.stdout.failed1 )
+repair_aside 2 (resume): rc 0 (1 moved: t3b_deploy_s7 t3b_deploy_s7.stdout.failed2 )
+place_r 1: rc 0 ( place_r: placed /tmp/noob_el/bench_q/t3brep1 (repair 1): jobs.txt 152e3c8644e7d6ac2c873a6bf1496bd5, LPG 1, S)
+place_r 2: rc 0 ( place_r: placed /tmp/noob_el/bench_q/t3brep2 (repair 2): jobs.txt 213804a3df5509992693be66c87c63a3, LPG 1, S)
+gate after the repairs, before the relay: rc 1 (REFUSED (gate): t3b is not complete: no 'RELAY ALL DONE: 33 of 33' in /home/noob/work/bench_int_io/t3b/repair_2866150/relay_t3b/relay.log; t3b_deploy_)
+relay trainrep 1: rc 0 ( RELAY ALL DONE: 33 of 33 runs relayed); units in RD1 33
+relay deploy: rc 0 ( DEPLOY LATEST DONE: 3 of 3)
+gate after the repairs and the relay: rc 0 (t3b complete: 33 of 33 trained rc=0 with RUN.md5 (registered repairs: 1:t3b_half_f2_s6 2:t3b_deploy_s7 ); queues ended; relay 33 of 33; the 3 deployable units and their latest.pth verified on gaint)
+[2026-11-22 02:32:39] repair smoke done (final gate rc 0); scratch removed

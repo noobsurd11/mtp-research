@@ -1,0 +1,126 @@
+[2026-11-17 13:59:57] start; cq old 02d5ba5f, base 5222150b, new 4fc8d2c0, rescue 8710a732
+--- D rescue tool: refusals (the waiting chain of rb must stay untouched)
+PASS D0 setting: ra finished with RUN.md5, the chain of rb waits for GPU 1 (strict rule of the old queue)
+PASS D refusal name
+PASS D refusal notrained
+PASS D refusal rc1
+PASS D refusal nofinal
+PASS D refusal ended
+PASS D refusal runsdir
+PASS D refusal slim
+PASS D refusal dumpdir
+PASS D refusal hold
+PASS D refusal notchild
+PASS D refusal chaindead
+PASS D refusal maindead
+PASS D refusal nosibling
+PASS D refusal siblingdiff
+PASS D refusal no rescue dir
+PASS D refusal lock
+PASS D refusal 10-field swad line (cq 5222150b queue): refused, its chain untouched
+PASS D after all refusals: chain of rb alive, no HOLD, no dump started, launch.log of the old queue unchanged
+--- D rescue of rb: own GPU, shared-dump rule
+PASS D rb done, one line, shared on its own GPU 1
+PASS D rb: the old chain was stopped (verified pid), HOLD removed, markers written
+PASS D rb: exactly one dump, command byte-equal to the old queue's rendered line, run in the old B on GPU 1
+PASS D rb: slim by the old queue's own slim tool, without --keys
+PASS D rb: RUN.md5 = the sibling's form (paths with the name swapped), and it checks
+PASS D rb: the usual log lines of the dump, slim and RUN.md5 are those of the old chain (ra), names aside
+PASS D rb: marker lines in the old launch.log, in order
+PASS D rb: pid, cmdline, rc and stdout files as the chain writes them
+PASS D rb: the old queue's main process ended when its last chain was stopped: its end line comes BEFORE the rescued dump and counts 1 dump (note for rows2 in the tool header)
+PASS D rb again: refused (the chain has ended)
+--- D rescue of rd: HOLD in the rescue dir is honoured; own GPU does not qualify, another GPU of the same model is taken (strict)
+PASS D rd with HOLD: chain stopped, no dump started, the tool waits
+PASS D rd done on GPU 0 by the strict rule (own GPU 1: 5,000 MiB free, below the floor); no SHARED line
+--- D rescue of rj: an old queue that ran with its queue code in QC (as c3all2: B 89b9ea5, QC 5437778)
+PASS D rj done; the slim tool is the old queue's own (from its QC dir, read from its armed line), the dump ran in B
+--- D race: the old chain starts the dump itself while the tool holds it (slow deploy check of the old queue)
+PASS D race: the tool starts no dump and reports that the old chain ran it
+PASS D race: the tool had set HOLD and removed it; no rescue marker, chain not signalled, run complete
+Terminated
+--- A chain test of c3swad on the new tree (strict rule; sharing off)
+PASS A 34 of 34
+--- B sharing off: cq 5222150b against the new cq, same two jobs (one plain, one with the swad readout)
+PASS B both queues ended: 2 trained, 2 dumped, 2 RUN.md5
+PASS B e_p_f2_s5: log lines equal (time, pids, md5 of cmdline aside)
+PASS B e_p_f2_s5: RUN.md5 byte-equal
+PASS B e_swad_f2_s5: log lines equal (time, pids, md5 of cmdline aside)
+PASS B e_swad_f2_s5: RUN.md5 byte-equal
+PASS B stub calls equal
+PASS B rendered commands equal
+PASS B no SHARED line, no shared candidate; the armed line of the new cq names sharing as off
+--- C shared training start (SHARE_TRAIN 20480 unless said; one job; another user holds 30,000 MiB on GPU 0)
+PASS C s1 free 20479 (below the floor): no start, no candidate
+PASS C s2 at the floor at one look only (then 20000): candidate seen and lost, no start
+PASS C s3 at the floor at two looks 30 s apart: shared start, marked, usual start line unchanged after it
+PASS C s3 the start came at least 30 s after the first look
+PASS C s4 an owner above 4,096 MiB is our own login: no start, no candidate
+PASS C s5 unknown owner: no start, no candidate
+PASS C s6 unreadable memory: no start, no candidate
+PASS C s7 LPG 1: the first job starts shared, the second does not start while the first holds the lane (its dump waits: SHARE_DUMP is off)
+PASS C s8 job gate 30000 not met (free 25000 >= floor): no start, no candidate
+PASS C s9 a strict lane exists (GPU 1) beside a shared one (GPU 0): strict taken at once, no SHARED line
+PASS C s9b a strict lane appears between the two looks: it is taken, not the shared GPU
+PASS C s10 three shared candidates (21000, 30000, 25000 free): the one with most free memory
+PASS C l1 SHARE_TRAIN removed between the two looks: no start
+PASS C l2 SHARE_TRAIN 20479 (below the user's floor) = off
+PASS C l3 no SHARE files, another user on the GPU: strict rule, no start
+PASS C l4 SHARE_TRAIN not a plain number ('20480 MiB') = off
+PASS C armed line prints the floors in use
+--- C shared dump (SHARE_DUMP 10240; the run started on a free GPU, then another user took 30,000 MiB)
+PASS C d1 free 10239: the dump waits; at 10240 it runs, marked, usual lines unchanged
+PASS C d1 the dump did not start before the free memory reached the floor (50 s)
+PASS C d2 unknown owner: the dump waits although 30,000 MiB are free; it runs by the strict rule when that owner is gone
+PASS C d3 SHARE_DUMP 10239 (below the user's floor) = off: the dump waits
+PASS C f1 a --fixture job takes its lane by the dump rule (12,000 MiB free, SHARE_TRAIN off) and dumps shared
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/603905/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/603979/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/604072/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/603182/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/603190/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/604161/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/603663/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/603721/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/603767/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/603835/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/604402/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/604447/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/604508/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/604615/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/604710/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/603615/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/603213/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/603240/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/603274/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/603307/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/603331/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/603375/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/603425/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/603462/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/603546/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/603496/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/608646/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/608668/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/608669/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/608384/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/613405/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/608460/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/613423/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/607768/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/608791/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/613482/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/608798/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/613509/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/608810/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/613505/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/608892/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/613504/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/608985/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/613559/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/620765/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/619270/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/619625/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/620155/cmdline: No such file or directory
+/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3lane/c3lane_test.sh: line 106: /proc/608647/cmdline: No such file or directory
+[2026-11-17 14:02:18] C3LANE TEST: 65 checks, 65 passed, 0 failed

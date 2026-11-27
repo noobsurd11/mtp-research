@@ -1,0 +1,35 @@
+{
+ "paper_id": "doi:10.5281/zenodo.21549572",
+ "title": "MSPS: Monocrystalline Silicon Photovoltaic Cell Defect Segmentation Dataset",
+ "year": 2026,
+ "venue": "Zenodo (dataset)",
+ "url": "https://doi.org/10.5281/zenodo.21549572",
+ "code_url": "https://github.com/wch313/MSPS-Dataset",
+ "mechanism": "1,500 production-line mono EL cells (640x590, 1,000 train / 500 test) with pixel masks for crack, busbar break and black spot, each annotated by two experts and adjudicated by a third.",
+ "adaptation": "Joint training with a separate output head per dataset (MSPS 4-class head, BenchmarkEL 24-class head) on a shared U-Net++ encoder-decoder, so label conventions never mix; rescale MSPS so crack line width in px matches ours (about 1.75 px), 1-channel input as is. Its double annotation also gives an inter-annotator reference for the benchmark's tolerant crack metric.",
+ "min_experiment": "Arm: PF + MSPS joint (own head, 1:1 batch mix). Baseline: PF, 5 v 5 seeds. Metrics: E1 crack relF1@2 and recall, test crack IoU. Kill if E1 relF1@2 gain < 0.03 or test crack IoU drops > 0.012.",
+ "score": 55,
+ "bench_score": 70,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "e1_unseen",
+  "benchmark"
+ ],
+ "evidence": "R: dataset record only; associated paper (DACN) not found, no model numbers seen.",
+ "gpu_hours": 20,
+ "prior_overlap": "Partial: +107 E-SCDD cells n.d. and UCF-EL pretraining erased by fine-tune. Joint multi-dataset training with separate heads, and a new source, are untested.",
+ "directions": [
+  "D02"
+ ],
+ "scout_scores": [
+  55
+ ],
+ "final": 55,
+ "bench": 70,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 136,
+ "pid": "P136"
+}

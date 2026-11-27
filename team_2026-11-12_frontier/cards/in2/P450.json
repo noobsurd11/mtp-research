@@ -1,0 +1,52 @@
+{
+ "paper_id": "doi:10.1109/tii.2022.3228680",
+ "title": "A Scalable Framework for Annotating Photovoltaic Cell Defects in Electroluminescence Images",
+ "year": 2022,
+ "venue": "IEEE Transactions on Industrial Informatics",
+ "url": "https://arxiv.org/abs/2212.07768",
+ "code_url": "",
+ "mechanism": "Combine data-driven models and public datasets to produce golden-standard EL anomaly masks at reduced annotation cost.",
+ "adaptation": "Human-free label refinement: ensemble predictions plus snapping to the darkest ridge propose corrected crack masks for the 24 audit-flagged train cells; accept by a fixed agreement rule.",
+ "min_experiment": "Arm: house trained on refined crack masks. Baseline: house on revised masks, 5 seeds. Metric: test crack IoU on unchanged test labels, relF1@2. Kill if both < +0.012.",
+ "evidence": "R: 60% annotation-cost reduction claimed on a widely used dataset (abstract only).",
+ "prior_overlap": "none; label refinement listed as untried (audit flagged 24 of 239 cells, nothing fixed)",
+ "score": 35,
+ "bench_score": 50,
+ "bet": "moonshot",
+ "gpu_hours": 8,
+ "targets": [
+  "crack",
+  "benchmark"
+ ],
+ "directions": [
+  "D02",
+  "D03",
+  "D07"
+ ],
+ "scout_scores": [
+  30,
+  35,
+  30
+ ],
+ "alt_notes": [
+  {
+   "from": "D02",
+   "adaptation": "Without manual labelling: take house-ensemble and PV-Vision predictions on pool cells, keep cells where both agree within 2 px, add them as down-weighted extra training targets.",
+   "min_experiment": "Arm: house + agreement-filtered pseudo masks (1:1). Baseline: house, 5 v 5 seeds. Metric: E1 crack relF1@2, test crack IoU. Kill if E1 relF1@2 gain < 0.03.",
+   "score": 30
+  },
+  {
+   "from": "D07",
+   "adaptation": "Use AD maps plus house ensemble disagreement to flag missing / misplaced crack and inactive labels in the 24 audited train cells and beyond, for a refined-label arm without manual labelling.",
+   "min_experiment": "Arm train on AD-refined labels vs PF on current labels, 5 seeds; metric 5-fold CV crack IoU and inactive IoU; kill if CV crack IoU gain < +0.012.",
+   "score": 30
+  }
+ ],
+ "final": 35,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 450,
+ "pid": "P450"
+}

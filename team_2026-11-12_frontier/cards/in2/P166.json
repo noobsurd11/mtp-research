@@ -1,0 +1,43 @@
+{
+ "paper_id": "arxiv:2210.11466",
+ "title": "Surgical Fine-Tuning Improves Adaptation to Distribution Shifts",
+ "year": 2023,
+ "venue": "ICLR",
+ "url": "https://arxiv.org/abs/2210.11466",
+ "code_url": "",
+ "mechanism": "Tuning only a subset of layers matches or beats full fine-tuning; the best block depends on shift type (input-level shifts favour early layers); tuning more parameters on small data forgets pretrained information.",
+ "adaptation": "Arms: train stem+layer1-2 with layer3-4 frozen at ImageNet; and the reverse. Decoder always trained. E1 shift (scuff streaks, half-cut layout, contrast) is input-level, so early-layer tuning is predicted to help E1.",
+ "evidence": "Seven real-world tasks, three shift types; first-layer tuning best for image corruptions (abstract).",
+ "min_experiment": "Two arms vs SUP100-PF on module-grouped 5-fold CV, 2 seeds, then 5 seeds for the winner. Metric: CV inactive IoU and crack relF1@2, E1 inactive IoU. Kill if neither arm beats PF on CV by +0.01 inactive IoU or +0.005 relF1@2.",
+ "gpu_hours": 25,
+ "targets": [
+  "e1_unseen",
+  "inactive"
+ ],
+ "bet": "medium",
+ "prior_overlap": "Partial: PF freezes the whole encoder for 1k steps only. Block-wise permanent freezing never run.",
+ "score": 55,
+ "bench_score": 30,
+ "directions": [
+  "D35"
+ ],
+ "scout_scores": [
+  55,
+  55
+ ],
+ "alt_notes": [
+  {
+   "from": "D35",
+   "adaptation": "Arms: tune stem + layer1-2 with layer3-4 frozen at ImageNet, and the reverse; decoder always trained. E1's shifts (scuff, half-cut, contrast) are input-level, so early-layer tuning is the prediction.",
+   "min_experiment": "Arm: two surgical freezes, 5-fold CV x 2 seeds, then 5 seeds on full train. Baseline: SUP100-PF. Metric: E1 crack relF1@2, E1 inactive IoU, test crack relF1@2. Kill: neither freeze beats PF on E1 by +0.02 relF1@2 or +0.03 inactive IoU.",
+   "score": 55
+  }
+ ],
+ "final": 55,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 166,
+ "pid": "P166"
+}

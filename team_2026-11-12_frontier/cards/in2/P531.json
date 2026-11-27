@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.3390/s26175602",
+ "title": "TDRPFormer: Texture-Debiased Reliable Prototype Transformer for Pixel-Level Steel Surface Defect Segmentation",
+ "year": 2026,
+ "venue": "Sensors",
+ "url": "https://doi.org/10.3390/s26175602",
+ "code_url": "",
+ "mechanism": "Build normal-texture prototypes from high-confidence background and subtract them from defect features, route a few reliable prototypes to mask queries, and add a continuity module for slender defects.",
+ "adaptation": "Multi-crystalline grain boundaries mimic cracks: average layer2 features over confident sp_multi / sp_mono background per image and subtract a learned projection from decoder features; no query head needed.",
+ "evidence": "R: best saliency metrics on ESDIs-SOD (MAE 0.0185, weighted F 0.882) and NEU-DET; no IoU on thin defects; no code.",
+ "min_experiment": "Arm: house + background-prototype subtraction; baseline: house; metric: CV crack relP@2 on multi cells and material IoU; kill if multi-cell relP@2 gain < +0.02.",
+ "gpu_hours": 8,
+ "prior_overlap": "none: mask-classification / prototype decoders never tried; D23 holds mask transformers generally.",
+ "score": 30,
+ "bench_score": 20,
+ "bet": "moonshot",
+ "targets": [
+  "crack",
+  "other_classes"
+ ],
+ "directions": [
+  "D40"
+ ],
+ "scout_scores": [
+  30
+ ],
+ "final": 30,
+ "bench": 20,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 531,
+ "pid": "P531"
+}

@@ -1,0 +1,37 @@
+{
+ "paper_id": "arxiv:2604.08015",
+ "title": "Component-Adaptive and Lesion-Level Supervision for Improved Small Structure Segmentation in Brain MRI (CATMIL)",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2604.08015",
+ "code_url": "https://github.com/luumsk/SmallLesionMRI",
+ "mechanism": "Adds a lesion-level multiple-instance term (per lesion, -log of the max probability inside it) and a component-adaptive Tversky term (voxel weight 1/(size+5)) to DiceCE, so every lesion gets a detection signal independent of size.",
+ "adaptation": "Bags = crack instances after merging fragments (closing r 2-3 px, drop specks < 3 px), dilated by 2 px so one pixel anywhere on the 4 px dark line satisfies the bag (jitter tolerant); same for inactive components. lambda_MIL 0.2, MIL-only first. Targets the E1 failure where 70% of crack pixels get p < 0.001.",
+ "min_experiment": "Arm: house + MIL on merged dilated crack/inactive instances (also PF variant), 5 seeds. Baseline: house and PF 5-seed. Metrics: E1 crack relF1@2 / relR@2; test clean-49 component recall <20 and >=20 px at relP@2 >= 0.90; crack IoU. Kill: E1 relF1@2 gain < +0.02, or test crack IoU drop > 0.012 without relF1@2 gain.",
+ "evidence": "MSLesSeg (nnU-Net): small-lesion recall 0.873 vs 0.796 DiceCE, missed lesions -48%, DSC comparable; ablation: MIL alone 0.871 (all of the gain), CAT alone 0.823 n.s.; more small FPs removed by a size filter; second dataset 3D-MR-MS same direction with more FPs.",
+ "gpu_hours": 12,
+ "bet": "medium",
+ "prior_overlap": "Skeleton Recall (w 1.0 / 0.1) shares the aim (thin-structure recall) but is a different mechanism; it widened predictions. MIL acts on one pixel per instance. No MIL or instance loss was run.",
+ "targets": [
+  "crack",
+  "e1_unseen",
+  "inactive"
+ ],
+ "score": 72,
+ "bench_score": 55,
+ "directions": [
+  "D20"
+ ],
+ "scout_scores": [
+  72
+ ],
+ "final": 72,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 13,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P013"
+}

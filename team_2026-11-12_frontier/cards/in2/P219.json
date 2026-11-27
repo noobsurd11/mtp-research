@@ -1,0 +1,43 @@
+{
+ "paper_id": "doi:10.1016/j.cacaie.2026.100204",
+ "title": "UAV-based pavement distress segmentation via controllable synthetic data augmentation and a lightweight selective fusion network under limited annotations",
+ "year": 2026,
+ "venue": "Computer-Aided Civil and Infrastructure Engineering",
+ "url": "https://doi.org/10.1016/j.cacaie.2026.100204",
+ "code_url": "",
+ "mechanism": "A label generator produces multiclass structural label maps and a fine-tuned ControlNet renders spatially aligned image-mask pairs for training.",
+ "adaptation": "Label generator = edited train masks (inactive from crack isolation logic, splice/gridline layouts from train statistics); ControlNet fine-tuned on 478 cells, 1-ch replicated; cracks only with ridge-snapped labels. Targets inactive and weak other classes.",
+ "min_experiment": "PF + 3x synthetic (1,434 cells) vs PF. Metric mIoU_rob and module-grouped CV inactive IoU. Kill: mIoU_rob gain < +0.01 and CV inactive gain < +0.02.",
+ "evidence": "R: own UAV-Road set, limited labels; mIoU 83.43 without, 87.92 with 3x synthetic augmentation.",
+ "gpu_hours": 30,
+ "bet": "safe",
+ "targets": [
+  "inactive",
+  "other_classes"
+ ],
+ "prior_overlap": "none (generative synthesis never tried)",
+ "score": 50,
+ "bench_score": 35,
+ "directions": [
+  "D33"
+ ],
+ "scout_scores": [
+  50,
+  50
+ ],
+ "alt_notes": [
+  {
+   "from": "D33",
+   "adaptation": "Label generator = edited train masks (inactive from crack-isolation logic, splice/gridline layouts from train stats); ControlNet on 478 cells; other classes and inactive; cracks only with snapped labels.",
+   "min_experiment": "PF + 1,434 synthetic vs PF. Metric mIoU_rob and CV inactive IoU. Kill: mIoU_rob < +0.01 and CV inactive < +0.02. About 30 GPU-h.",
+   "score": 50
+  }
+ ],
+ "final": 50,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 219,
+ "pid": "P219"
+}

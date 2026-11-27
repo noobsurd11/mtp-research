@@ -1,0 +1,58 @@
+[2026-11-17 10:30:20] fake tree /tmp/claude-1003/-home-yugma-mtp/580c6627-c3a2-4289-90a4-aa6292c67e0d/scratchpad/fix1b/fake ready (B 770 files, QC 772); live fake queues: c3all (MAXC 8, 33 started), c3base 0, c3hrnet 0, rows2 (all dispatched)
+--- T1 freeze refuses while another queue could start training (F1.2), and writes nothing
+PASS T1 refused, names the queue
+PASS T1 c3all/MAXC still 8, no MAXC.new, no freeze recorded
+PASS T1 a live queue without a MAXC file (default 16) is also seen as able to start
+--- T2 freeze refuses when the queue to freeze has no live process
+PASS T2 refused, nothing written
+--- T3 freeze with a waiting fixture-only dump test queue (F1.1): passes; write by rename (F10)
+PASS T3 DRY freeze prints the write and changes nothing
+PASS T3 freeze done: fixture-only queue counted ok, MAXC 0, no MAXC.new left, freeze recorded
+PASS T3 a second freeze is harmless (MAXC stays 0)
+--- T4 build, place, guard (steps that were only dry-run before)
+PASS T4 build: 62 lines = 37 carried + 25 swad, default order, md5 recorded
+PASS T4 build twice is refused
+PASS T4 place: queue dir with read-only jobs.txt (md5 equal), LPG 1, MAXC 8, nothing else
+PASS T4 place twice is refused
+PASS T4 guard: reviewed diskguard3.sh placed, session started
+--- T5 arm (F1.1, F4): every pre-check runs in the fake tree; cq_setup.sh of QC is the real file, tmux is the stub
+PASS T5 DRY arm: fixture-only queue ok, all pre-checks pass (queue dir, deploy, card, QC pins and QC against B, disk, guard), nothing started
+PASS T5 arm with the 'cv02 q armed:' line in launch.log: reports armed
+PASS T5 a second arm is refused (queue dir used)
+PASS T5 arm when cq.sh logs 'not starting': REFUSED and says so (F4)
+PASS T5 arm when launch.log gets no line at all: REFUSED after the wait (F4)
+PASS T5 arm with another queue able to start: REFUSED at step 1, nothing started
+PASS T5 a dump test queue that also holds a training line is NOT counted as fixture only
+--- T6 check.sh items 5 and 6 (F2, F1.1) on the fake tree
+PASS T6 after a dump test (its dump folders in QC, its queue still alive): item 5 OK
+PASS T6 fixture-only queue not counted: one queue (c3all2 would be the next; here none can start) 
+PASS T6 a swad_const dump folder in the live deploy B: item 5 FAIL
+PASS T6 two queues able to start (one without a MAXC file): item 6 FAIL and both named
+--- T7 dumptest stop (F1.3)
+PASS T7 DRY stop prints the command, changes nothing
+PASS T7 the fixture has a lane: nothing stopped, no HOLD left
+PASS T7 the fixture takes a lane during the 20 s: nothing stopped, the HOLD is removed again
+PASS T7 no lane taken: only the test's own session is ended, by exact name; HOLD removed
+PASS T7 stop without a live session is refused
+--- T8 dumptest clean (F11)
+PASS T8 the test's queue process is alive: refused, nothing removed
+PASS T8 DRY clean: prints the five folders and the command, removes nothing
+PASS T8 a path of QC/CODE.md5 inside a folder of the list: refused, nothing removed
+PASS T8 clean: the five folders are gone, list printed first, QC/CODE.md5 still checks
+PASS T8 every other file of QC and all of B unchanged
+PASS T8 clean again: nothing to remove
+--- T9 MAXC window copy for c3all2 (F12)
+PASS T9 DRY: reads only
+PASS T9 window: 1 while waiting, 8 restored, c3all/MAXC never touched (still 0), no MAXC.new left
+PASS T9 MAXC not 8: nothing changed
+--- T10 read script (F7): a refused manifest check leaves no output folder
+PASS T10 one wrong weights key: refused by the manifest check, output folder NOT created
+PASS T10 one run without enc_probe.jsonl: refused as not complete, no output folder
+PASS T10 complete and correct: folder created, 75 links, manifest line in run.log, the read is started (stub)
+PASS T10 a second run is refused (output folder exists)
+--- T11 gaint relay guard (F5)
+PASS T11 free space above the floor: no STOP anywhere
+PASS T11 below the floor: STOP only for live relays among the four names (c3base, c3swad); dead (c3hrnet), no pid (rows2) and other dirs untouched
+PASS T11 nothing else written in the relay dirs
+PASS T11 the stop file ends the guard at once
+[2026-11-17 10:32:52] FIX1 TEST: 45 checks, 45 passed, 0 failed

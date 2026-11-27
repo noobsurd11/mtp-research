@@ -1,0 +1,37 @@
+{
+ "paper_id": "doi:10.1109/tip.2026.3659337",
+ "title": "Accurate Industrial Anomaly Detection and Localization Using Weakly-Supervised Residual Transformers (WeakREST)",
+ "year": 2026,
+ "venue": "IEEE TIP",
+ "url": "https://arxiv.org/abs/2306.03492",
+ "code_url": "https://github.com/BeJane/Semi_REST",
+ "mechanism": "Residual between each test patch feature and its nearest normal patch feature (PosFAR) is fed to a supervised Swin segmenter; works with pixel, box or image labels.",
+ "adaptation": "Memory banks from house-clean pool cells per source x layout (mono, multi, multi half-cut from 1,152 pool half-cells). Features from house ResNet-34 layer1/layer2 (stride 4/8) so residuals align with U-Net++ skips; residual 1x1-projected to 16 ch and added to decoder at 1/4 and 1/8. 24-class labels unchanged. Half-cut banks make scuff 'normal' in the residual, so the prior targets cracks on E1.",
+ "evidence": "R: MVTec AD supervised AP 87.6 (prior best 86.0); box-only labels AP 87.1; also MVTec 3D, KSDD2, Real-IAD. No thin-label evidence.",
+ "min_experiment": "Offline: fraction of crack components >=20 px missed by PF ensemble (p<0.001) that fall in top 1% residual norm on F51 + CV val; kill if <30%. Then arm PF + residual injection vs PF, 5 seeds, module-grouped 5-fold CV then E1 once. Metrics: CV crack relF1@2, inactive IoU, E1 crack relF1@2 and recall in 20 scuff half-cut cells. Kill: E1 relF1@2 gain < +0.03 and CV inactive gain < +0.02, or CV crack IoU drop > 0.01. Extra arm: bank without half-cells.",
+ "gpu_hours": 40,
+ "prior_overlap": "none. BRIEF section 5 lists anomaly-detection priors as never tried; pool feature learning (MIM, DDeP) is a different mechanism.",
+ "score": 58,
+ "bench_score": 55,
+ "bet": "medium",
+ "targets": [
+  "e1_unseen",
+  "inactive",
+  "crack"
+ ],
+ "directions": [
+  "D39"
+ ],
+ "scout_scores": [
+  58
+ ],
+ "final": 58,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 112,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P112"
+}

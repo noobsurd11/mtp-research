@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1109/cvpr52688.2022.00706",
+ "title": "Continual Test-Time Domain Adaptation (CoTTA)",
+ "year": 2022,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2203.13591",
+ "code_url": "https://github.com/qinenergy/cotta",
+ "mechanism": "The student learns from weight-averaged and augmentation-averaged teacher pseudo-labels, and source weights are stochastically restored to avoid forgetting.",
+ "adaptation": "Port the loss to U-Net++ (their segmentation code is Segformer, non-commercial licence). Run per E1 module and episodically on test. It is the standard CTTA baseline the benchmark needs.",
+ "min_experiment": "Arm: CoTTA on FINAL and SUP100-PF. Baseline: the same checkpoints without TTA. All metrics. This is a benchmark row; no kill line is needed, and the expected outcome is a crack recall loss.",
+ "score": 22,
+ "bench_score": 65,
+ "bet": "safe",
+ "targets": [
+  "benchmark",
+  "e1_unseen"
+ ],
+ "evidence": "R: Cityscapes-to-ACDC continual segmentation and CIFAR/ImageNet-C gains over Tent and source.",
+ "gpu_hours": 2,
+ "prior_overlap": "None. The Mean Teacher SSL was a training-time method; CoTTA at test time was never run.",
+ "directions": [
+  "D31"
+ ],
+ "scout_scores": [
+  22
+ ],
+ "final": 22,
+ "bench": 65,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 573,
+ "pid": "P573"
+}

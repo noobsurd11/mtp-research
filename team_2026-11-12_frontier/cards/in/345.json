@@ -1,0 +1,35 @@
+{
+ "paper_id": "arxiv:2510.07041",
+ "title": "U-Bench: A Comprehensive Understanding of U-Net through 100-Variant Benchmarking",
+ "year": 2025,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2510.07041",
+ "code_url": "https://github.com/FengheTan9/U-Bench",
+ "mechanism": "Statistically rigorous benchmark of 100 U-Net variants over 28 datasets and 10 modalities, with robustness tests, zero-shot generalisation and an accuracy-efficiency U-Score.",
+ "adaptation": "Template for the EL benchmark: paired significance tests across seeds and folds, a zero-shot column (E1 and F51), an efficiency column; pick 5-8 suite members from its families via its 2D trainers.",
+ "min_experiment": "Benchmark design, not a score arm: run U-Bench's statistical test on existing house v PF seed results; adopt if it reproduces the BRIEF minimum detectable difference (~0.012 crack IoU).",
+ "evidence": "R: 100 variants, 28 datasets; third-party summary reports over 80% of variants not significantly better than U-Net in-domain (unverified).",
+ "gpu_hours": 5,
+ "bet": "safe",
+ "prior_overlap": "none",
+ "score": 25,
+ "bench_score": 92,
+ "targets": [
+  "benchmark",
+  "measurement"
+ ],
+ "directions": [
+  "D25"
+ ],
+ "scout_scores": [
+  25
+ ],
+ "final": 25,
+ "bench": 92,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 345,
+ "pub_allowed": 0,
+ "selected_for": "bench"
+}

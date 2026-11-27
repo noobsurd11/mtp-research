@@ -1,0 +1,45 @@
+{
+ "paper_id": "arxiv:2301.00808",
+ "title": "ConvNeXt V2: Co-designing and Scaling ConvNets with Masked Autoencoders",
+ "year": 2023,
+ "venue": "CVPR 2023",
+ "url": "https://arxiv.org/abs/2301.00808",
+ "code_url": "https://github.com/facebookresearch/ConvNeXt-V2",
+ "mechanism": "Fully convolutional masked autoencoder (sparse conv on visible patches) plus GRN layer, so ConvNets gain from masked image modeling.",
+ "adaptation": "On the de-duplicated pool, 1-ch stem, 512 px random crops without rescaling: (a) continue FCMAE from ImageNet V2-Nano/Tiny; (b) from-scratch FCMAE on Pico/Nano as in the SEM paper. Mask 0.5, 32 px patches. Encoder in smp U-Net++ with a stride-2 skip, PF fine-tune.",
+ "min_experiment": "Arm A continued FCMAE V2-Nano on 11.9k (~40 GPU-h) and arm B from-scratch Pico/Nano; baseline = same backbone with ImageNet weights under PF. Metrics: out-of-fold crack relF1@2 (cv5v2), E1 crack recall, inactive IoU, 2 seeds. Kill if all three below +0.01.",
+ "evidence": "R: FCMAE lets ConvNeXt V2 gain from MIM on ImageNet/ADE20K; in-domain evidence comes from the SEM paper (+0.8 to +5.9 AJI+ over ImageNet on 25k greyscale images).",
+ "prior_overlap": "Partial: our SparK MIM on ResNet-34 (11.9k, PF, 100% labels) was n.d. ConvNeXt V2 backbone, FCMAE recipe and from-scratch in-domain training are untested, still open.",
+ "targets": [
+  "crack",
+  "inactive",
+  "e1_unseen",
+  "benchmark"
+ ],
+ "bet": "medium",
+ "gpu_hours": 120,
+ "score": 52,
+ "bench_score": 60,
+ "directions": [
+  "D32"
+ ],
+ "scout_scores": [
+  42,
+  52
+ ],
+ "alt_notes": [
+  {
+   "from": "D32",
+   "adaptation": "Continue FCMAE from ImageNet ConvNeXt V2-N/T on the de-duplicated pool, 1-ch stem, 512 px, mask 0.5 on 16 px patches (finer than our 32 px). Encoder into smp U-Net++ with an added stride-2 skip; PF fine-tune.",
+   "min_experiment": "Arm: ConvNeXt V2-T U-Net++ init from continued FCMAE, PF. Baseline: ConvNeXt V2-T ImageNet FCMAE+FT weights, PF, same steps. Metrics: out-of-fold crack relF1@2, E1 crack recall, inactive IoU, 2 seeds x 5 folds. Kill if all < +0.01.",
+   "score": 42
+  }
+ ],
+ "final": 52,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 174,
+ "pid": "P174"
+}

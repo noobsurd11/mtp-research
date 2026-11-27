@@ -1,0 +1,5 @@
+inputs: split 441d118f865d5642dd6a5e2be80ec753, pairs_labelled 0fb4c040de9e01da9db0f31e1f7163ab, cells.tsv pinned; samecell.py 0dba3f1193001bd00f4ea140e070d808, tool dea725efe98eea0dcecce0fbf40e6b07; params {'EDGE': 10, 'AREA_FRAC': 0.5, 'OPEN': 21, 'LINE': 41, 'LINE_THR': 18, 'LINE_BAND': 2, 'NFEAT': 4000, 'CONTRAST': 0.02, 'RATIO': 0.75, 'RANSAC_PX': 3.0, 'SMAX': 1.15}; 30974 cross-fold same-source pairs {'ARTS': 13243, 'BMRK': 1000, 'CFVS': 11418, 'CSIR': 5198, 'SDLE': 115}; 35 known same-cell pool pairs
+[59s] features: keypoints per image min 114 median 1392 max 3434
+[1577s] matched 31016 pairs
+[1579s] known recall at (5, 10, 15, 20, 30, 50): [0.857, 0.829, 0.829, 0.829, 0.829, 0.743]; pairs at or above: [397, 92, 47, 30, 23, 19]; lead yes {'ARTS_00165_r12_c5|ARTS_00166_r12_c5': 216, 'CFVS_00076_r1_c1|CFVS_00082_r1_c1': 37}; lead no {'ARTS_00102_r1_c6|ARTS_00118_r1_c6': 0, 'ARTS_00009_r1_c6|ARTS_00102_r1_c6': 4, 'ARTS_00102_r1_c6|ARTS_00171_r1_c6': 0, 'CFVS_00045_r4_c3|CFVS_00059_r4_c3': 0, 'CSIR_00147_r8_c6|CSIR_00227_r8_c6': 0} -> /home/yugma/mtp/research/team_2026-11-12_frontier/results/stageB/samecell_audit
+rc=0

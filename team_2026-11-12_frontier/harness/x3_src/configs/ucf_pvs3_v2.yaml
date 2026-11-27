@@ -1,0 +1,14 @@
+defaults:
+  - ucf_pvs3
+
+# PV-S3 v2: identical to ucf_pvs3.yaml (the s0 recipe) except
+#  * the supervised CE sees the weak view of the labelled images, i.e. exactly the
+#    augmentation of the SL arms (shorter side 295, random 256 crop, h/v flips);
+#  * the strong view is used only for the student on unlabelled images, photometric
+#    only, with probabilities: colour jitter p 0.8 (±50 %), grey p 0.2, blur p 0.5.
+# The geometry is still drawn once and shared by the teacher's and the student's views.
+data:
+  strong_aug: v2
+
+ssl:
+  labeled_view: weak

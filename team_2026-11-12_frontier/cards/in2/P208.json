@@ -1,0 +1,43 @@
+{
+ "paper_id": "arxiv:2407.14651",
+ "title": "Improving Representation of High-frequency Components for Medical Visual Foundation Models (Frepa)",
+ "year": 2024,
+ "venue": "IEEE TMI 2025",
+ "url": "https://arxiv.org/abs/2407.14651",
+ "code_url": "",
+ "mechanism": "MAE-style pretraining with high-frequency masking, low-frequency perturbation and embedding consistency so the encoder represents fine high-frequency detail; extended to Swin and ConvNets.",
+ "adaptation": "Cracks are high-frequency dark lines; scuffs, source contrast and style are low-frequency. Run Frepa's ConvNeXt variant on the de-duplicated pool at 512 px 1-ch; the low-frequency perturbation doubles as source/scuff invariance for E1. PF fine-tune in U-Net++. Code reported by web search at github.com/arturia-pendragon-iris/frepa (not opened).",
+ "min_experiment": "ConvNeXt Frepa pretraining on 11.9k (~40 GPU-h) + PF vs ConvNeXt ImageNet PF; out-of-fold relF1@2, E1 crack recall, inactive IoU; kill if all below +0.01.",
+ "evidence": "R: 9 modalities, 32 downstream tasks; up to +15% Dice on retinal vessels over other SSL.",
+ "prior_overlap": "none: our MIM used pixel targets on R34; frequency-targeted pretraining untested.",
+ "targets": [
+  "crack",
+  "e1_unseen"
+ ],
+ "bet": "medium",
+ "gpu_hours": 70,
+ "score": 50,
+ "bench_score": 40,
+ "directions": [
+  "D32"
+ ],
+ "scout_scores": [
+  48,
+  50
+ ],
+ "alt_notes": [
+  {
+   "from": "D32",
+   "adaptation": "Cracks are high-frequency dark lines a few px wide; scuff, contrast and source effects are low-frequency. Pretrain ConvNeXt-T (and R34 as a cheap control) on the de-duplicated 11.9k pool at 512 px, 1-ch; low-frequency perturbation doubles as source / scuff invariance for E1. PF fine-tune in smp U-Net++.",
+   "min_experiment": "Arm: ConvNeXt-T U-Net++ from Frepa-style continued pretraining (~100 epochs, 11.9k), PF. Baseline: ConvNeXt-T ImageNet init, PF. Metrics: cv5v2 out-of-fold crack relF1@2, E1 crack recall, inactive IoU, 2 seeds. Kill if all three < +0.01.",
+   "score": 48
+  }
+ ],
+ "final": 50,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 208,
+ "pid": "P208"
+}

@@ -1,0 +1,43 @@
+{
+ "paper_id": "arxiv:2312.03048",
+ "title": "DGInStyle: Domain-Generalizable Semantic Segmentation with Image Diffusion Models and Stylized Semantic Control",
+ "year": 2024,
+ "venue": "ECCV",
+ "url": "https://arxiv.org/abs/2312.03048",
+ "code_url": "https://github.com/prs-eth/dginstyle",
+ "mechanism": "Style Swap (train semantic ControlNet on a source-tuned diffusion model, then swap in the general model) plus multi-resolution latent fusion, to render diverse images from source masks.",
+ "evidence": "Raises several DG methods; 57.8 avg mIoU GTAV to Cityscapes/BDD/Mapillary in the Rein++ table.",
+ "adaptation": "Train ControlNet on an EL-tuned diffusion model, swap to a pool-tuned model to render half-cut and scuffed styles from train masks. Overlaps D06.",
+ "min_experiment": "PF + rendered set vs PF; E1 relF1@2. Kill: < +0.03.",
+ "prior_overlap": "None; generative synthesis untested.",
+ "score": 30,
+ "bench_score": 45,
+ "bet": "moonshot",
+ "gpu_hours": 80,
+ "targets": [
+  "e1_unseen",
+  "benchmark"
+ ],
+ "directions": [
+  "D30"
+ ],
+ "scout_scores": [
+  30,
+  30
+ ],
+ "alt_notes": [
+  {
+   "from": "D30",
+   "adaptation": "Fine-tune SD/ControlNet on 478 labelled + pool EL cells; multi-resolution fusion is needed for thin cracks; generate half-cut and scuff variants from edited masks. Likely shared with the generative-data direction.",
+   "min_experiment": "Only after the CrackSegFlow-style arm shows synthetic half-cuts help: PF + DGInStyle data vs PF, 3 seeds; kill if E1 relF1@2 gain < +0.03.",
+   "score": 30
+  }
+ ],
+ "final": 30,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 512,
+ "pid": "P512"
+}

@@ -1,0 +1,36 @@
+{
+ "paper_id": "arxiv:2403.09065",
+ "title": "When Semantic Segmentation Meets Frequency Aliasing",
+ "year": 2024,
+ "venue": "ICLR 2024",
+ "url": "https://arxiv.org/abs/2403.09065",
+ "code_url": "https://github.com/Linwei-Chen/Seg-Aliasing",
+ "mechanism": "De-aliasing filter zeroes feature-map frequencies above the equivalent Nyquist frequency before each downsampling (parameter free); FreqMix learns channel x spatial weights for below/above-Nyquist bands inside encoder blocks.",
+ "adaptation": "Put DAF before the ResNet-34 max-pool and the stride-2 convs of layer2/3/4 (not before conv1, so stride-2 skips keep crack detail); FreqMix in layer1/2. EL fingers (pitch likely 4 to 6 px at 512, unverified) alias into moire from stride 4 onward; moire depends on source rescaling, a plausible cause of BMRK and E1 weakness. Keeps ImageNet weights.",
+ "min_experiment": "Arm: house + DAF + FreqMix; baseline house and PF; 5 seeds, CV then test/E1; metrics crack IoU, relF1@2, per-source crack IoU, E1 relF1@2; kill if crack IoU < +0.012 and E1 relF1@2 < +0.02. Precede with a 1 h CPU diagnostic of finger pitch and encoder aliasing score.",
+ "evidence": "R: UPerNet-R50 Cityscapes 78.1 to 79.7 mIoU, boundary IoU 61.8 to 63.2; PASCAL VOC 74.3 to 76.1; ADE20K 38.9 to 40.4. Large datasets, not thin structures.",
+ "prior_overlap": "none; section 5 never varied downsampling or anti-aliasing. 2x resolution n.d. is a different mechanism (compute, not aliasing).",
+ "targets": [
+  "crack",
+  "e1_unseen",
+  "other_classes"
+ ],
+ "bet": "medium",
+ "gpu_hours": 6,
+ "score": 66,
+ "bench_score": 30,
+ "directions": [
+  "D28"
+ ],
+ "scout_scores": [
+  66
+ ],
+ "final": 66,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 56,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

@@ -1,0 +1,93 @@
+HEAD 491e4605e11e4e8858b93f0c2cc2e259376c4b5e start 2026-11-19 01:28:14
+........................................................................ [  8%]
+........................................................................ [ 17%]
+...........................F............................................ [ 26%]
+.FF..................................................................... [ 35%]
+........................................................................ [ 44%]
+........................................................................ [ 53%]
+........................................................................ [ 61%]
+......................s................s................................ [ 70%]
+........................................................................ [ 79%]
+.............................s.s..............s......................... [ 88%]
+........................................................................ [ 97%]
+.....................                                                    [100%]
+=================================== FAILURES ===================================
+_____________________________ test_variants_exist ______________________________
+
+    def test_variants_exist():
+>       assert {p.stem for p in CV} == W1 | ROWS1 | ROWS2   # rows1: + the 5 tranche-1 suite rows; rows2: + 3 tranche-2 rows
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: assert {'dlv3p_r34_p...tpp_v11', ...} == {'dlv3p_r34_p...tpp_v11', ...}
+E         
+E         Extra items in the left set:
+E         'hrnet_w18_unetpp_swad_const_pf_v11'
+E         'swad_const_pf_v11'
+E         Use -v to get more diff
+
+tests/test_bench_cards_cv02.py:22: AssertionError
+_________ test_cv5v3_root_must_be_v11_of_the_jobs_fold[cv5v3_v11_f2-3] _________
+
+tmp_path = PosixPath('/tmp/pytest-of-noob/pytest-198/test_cv5v3_root_must_be_v11_of0')
+rootname = 'cv5v3_v11_f2', fold = 3
+
+    @pytest.mark.skipif(shutil.which("bash") is None, reason="needs bash")
+    @pytest.mark.parametrize("rootname,fold", [("cv5v3_v11_f2", 3), ("cv5v3_v1_f2", 2)])
+    def test_cv5v3_root_must_be_v11_of_the_jobs_fold(tmp_path, rootname, fold):
+        s = _sandbox(tmp_path)
+        rc, log, rend = _run(s, tmp_path, [_job("c3", f"{s['V']}/roots/{rootname}", fold)])
+        assert rc == 1 and rend is None
+>       assert f"is not DATA/roots/cv5v2_*_f{fold} or DATA_V3/roots/cv5v3_v11_f{fold}; not starting" in log
+E       AssertionError: assert 'is not DATA/roots/cv5v2_*_f3 or DATA_V3/roots/cv5v3_v11_f3; not starting' in '[2026-11-19 01:29:25] cv02 q: c3: root /tmp/pytest-of-noob/pytest-198/test_cv5v3_root_must_be_v11_of0/data_v3/roots/cv5v3_v11_f2 is not DATA/roots/cv5v2_*_f3, DATA_V3/roots/cv5v3_v11_f3 or DATA_F/roots/pool532_v11; not starting\n'
+
+tests/test_bench_cq_cv5v3.py:147: AssertionError
+_________ test_cv5v3_root_must_be_v11_of_the_jobs_fold[cv5v3_v1_f2-2] __________
+
+tmp_path = PosixPath('/tmp/pytest-of-noob/pytest-198/test_cv5v3_root_must_be_v11_of1')
+rootname = 'cv5v3_v1_f2', fold = 2
+
+    @pytest.mark.skipif(shutil.which("bash") is None, reason="needs bash")
+    @pytest.mark.parametrize("rootname,fold", [("cv5v3_v11_f2", 3), ("cv5v3_v1_f2", 2)])
+    def test_cv5v3_root_must_be_v11_of_the_jobs_fold(tmp_path, rootname, fold):
+        s = _sandbox(tmp_path)
+        rc, log, rend = _run(s, tmp_path, [_job("c3", f"{s['V']}/roots/{rootname}", fold)])
+        assert rc == 1 and rend is None
+>       assert f"is not DATA/roots/cv5v2_*_f{fold} or DATA_V3/roots/cv5v3_v11_f{fold}; not starting" in log
+E       AssertionError: assert 'is not DATA/roots/cv5v2_*_f2 or DATA_V3/roots/cv5v3_v11_f2; not starting' in '[2026-11-19 01:29:25] cv02 q: c3: root /tmp/pytest-of-noob/pytest-198/test_cv5v3_root_must_be_v11_of1/data_v3/roots/cv5v3_v1_f2 is not DATA/roots/cv5v2_*_f2, DATA_V3/roots/cv5v3_v11_f2 or DATA_F/roots/pool532_v11; not starting\n'
+
+tests/test_bench_cq_cv5v3.py:147: AssertionError
+=============================== warnings summary ===============================
+tests/test_absh.py::test_ssl_aux_pl_uses_the_confidence_rule
+  /home/noob/work/bench_wt_fin/tests/test_absh.py:195: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+  Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:820.)
+    assert float(tr._absh_out["aux_keep_u"]) == 0.0 and float(tr._absh_out["loss_aux_con"]) == 0.0
+
+tests/test_bench_aa.py::test_fold_stage_equals_boot_pair
+tests/test_bench_bfix2.py::test_compute_on_kept_stems_equals_the_read_without_those_cells
+tests/test_bench_bfix2.py::test_reports_without_and_with_extras
+tests/test_bench_bfix2.py::test_classbias_read_analyze_restricts_every_table_to_the_kept_stems
+tests/test_bench_classbias.py::test_boot_classes_same_draws_as_boot_pair
+tests/test_bench_x3.py::test_bootstrap_identical_arms_zero_and_margin_floor
+  /home/noob/work/bench_wt_fin/bench/crossfit_op.py:281: RuntimeWarning: Mean of empty slice
+    return {k: float(np.nanmean([p[k] for p in per])) for k in BOOT_KEYS}
+
+tests/test_bench_bfix.py: 2 warnings
+tests/test_stream.py: 4 warnings
+tests/test_trainer_utils.py: 8 warnings
+  /usr/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=3517551) is multi-threaded, use of fork() may lead to deadlocks in the child.
+    self.pid = os.fork()
+
+tests/test_bench_bfix2.py::test_classbias_read_analyze_restricts_every_table_to_the_kept_stems
+  /home/noob/work/bench_wt_fin/bench/classbias.py:260: RuntimeWarning: Mean of empty slice
+    pa = np.nanmean([iou(XA[sd].sum(0)) for sd in sA], 0)
+
+tests/test_bench_bfix2.py::test_classbias_read_analyze_restricts_every_table_to_the_kept_stems
+  /home/noob/work/bench_wt_fin/bench/classbias.py:261: RuntimeWarning: Mean of empty slice
+    pb = np.nanmean([iou(XB[sd].sum(0)) for sd in sA], 0)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_bench_cards_cv02.py::test_variants_exist - AssertionError: ...
+FAILED tests/test_bench_cq_cv5v3.py::test_cv5v3_root_must_be_v11_of_the_jobs_fold[cv5v3_v11_f2-3]
+FAILED tests/test_bench_cq_cv5v3.py::test_cv5v3_root_must_be_v11_of_the_jobs_fold[cv5v3_v1_f2-2]
+3 failed, 805 passed, 5 skipped, 23 warnings in 163.82s (0:02:43)
+rc 1 end 2026-11-19 01:31:00

@@ -1,0 +1,84 @@
+{
+ "paper_id": "doi:10.1109/tip.2023.3289296",
+ "title": "Delving Into Crispness: Guided Label Refinement for Crisp Edge Detection",
+ "year": 2023,
+ "venue": "IEEE TIP",
+ "url": "https://arxiv.org/abs/2306.15172",
+ "code_url": "",
+ "mechanism": "Over-detect Canny edges at a very low threshold, keep the subset that agrees with the human labels and fill the gaps, then train any detector on the refined labels. A controlled study shows label offset, not the loss, causes thick predictions.",
+ "adaptation": "Use a multi-scale Hessian dark-ridge detector in place of Canny (sigma about 1.5 to 2 px, since crack FWHM is about 4 px), thinned to 1 px. Snap each crack label pixel to a ridge within 2 px. Keep the original pixel where no ridge exists (the 7% of cracks with low contrast). Never snap onto gridline, busbar or ribbon label pixels. Then re-dilate to each source's label width (ARTS 1.5, CFVS/CSIR 1.75, BMRK 3.0, SDLE 3.25) so strict IoU is not lost to a width mismatch. Apply the same recipe to gridline (IoU 0.283).",
+ "min_experiment": "Arm: house U-Net++ trained on ridge-snapped, width-restored crack labels, 5 seeds. Baselines: house and PF, 100% labels. Metrics: clean-49 crack IoU, relF1@2, recall of components >= 20 px, E1 relF1@2, and also the score against ridge-snapped test GT. Kill if crack IoU falls by more than 0.012 and relF1@2 gains less than 0.01.",
+ "score": 80,
+ "bench_score": 65,
+ "bet": "safe",
+ "evidence": "R: on BSDS500, crisp predictions appear only when more than about 90% of training labels are offset-free (elastic-shift study with PiDiNet). Refined labels raised Average Crispness from 17.4% to 30.6% and gave PiDiNet ODS +12.2% and OIS +12.6% on Multicue without NMS. Datasets of a few hundred images (BSDS, Multicue).",
+ "gpu_hours": 12,
+ "prior_overlap": "BRIEF 5 Labels row: automatic label refinement is listed as not tested. Human relabelling gave +0.05 to +0.08 crack IoU, so the lever is proven. Offset-tolerant CE (n.d.) changes the loss, not the labels. Open.",
+ "targets": [
+  "crack",
+  "other_classes",
+  "benchmark"
+ ],
+ "directions": [
+  "D11",
+  "D13",
+  "D15",
+  "D16"
+ ],
+ "scout_scores": [
+  66,
+  60,
+  80,
+  76,
+  65,
+  78,
+  74
+ ],
+ "alt_notes": [
+  {
+   "from": "D11",
+   "adaptation": "Replace Canny with a multi-scale dark-ridge detector (Hessian/Frangi) on 1-channel EL; snap each crack label segment to the nearest ridge within 2 px, keep unmatched px (do not delete, under-annotation hurts more); redraw at the source's width. Also produce ridge-snapped CV and test labels as a second scoring view for the benchmark.",
+   "min_experiment": "Arm PF trained on ridge-snapped crack labels vs PF; score on original and snapped CV labels; metric strict crack IoU and relF1@2; kill if CV IoU on original labels drops >0.01 with no relF1@2 gain >=0.01.",
+   "score": 60
+  },
+  {
+   "from": "D11",
+   "adaptation": "Replace Canny with a multi-scale dark-ridge detector (Hessian/Frangi) on 1-channel EL; snap each crack label segment to the nearest ridge within 2 px, keep unmatched pixels. Train on snapped crack labels. Also produces ridge-snapped test labels as a second scoring view for the benchmark.",
+   "min_experiment": "Arm = PF trained on ridge-snapped crack labels; baseline = PF on revised labels; 5 seeds + 5-fold CV; score on original labels and on ridge-snapped labels; metrics crack IoU, relF1@2, E1 relF1@2. Kill if CV crack IoU on original labels drops > 0.01 with no relF1@2 or E1 gain.",
+   "score": 66
+  },
+  {
+   "from": "D13",
+   "adaptation": "Replace Canny with a multi-scale Hessian valley detector (sigma 1.5 to 2 px, crack FWHM about 4 px), thin to 1 px, snap each crack label pixel to the ridge within 2 px, keep original pixel where no ridge (low-contrast cracks), forbid snapping onto gridline/busbar/ribbon, then re-dilate to each source's label width (ARTS 1.5, CFVS/CSIR 1.75, BMRK 3.0, SDLE 3.25). Geodesic ridge path replaces the inpainting net. Same for gridline.",
+   "min_experiment": "Arm: house model trained on ridge-snapped, width-restored crack labels, 5 seeds; baseline house and PF, 5 seeds. Metrics clean-49 crack IoU, relF1@2, components>=20px found, E1 relF1@2, AC crispness. Kill if crack IoU < baseline - 0.012 and relF1@2 not up >= 0.01. About 12 GPU-h.",
+   "score": 76
+  },
+  {
+   "from": "D15",
+   "adaptation": "Replace Canny with a multi-scale Hessian/Frangi dark-ridge detector on inverted EL; snap each crack label pixel to the nearest ridge pixel within 2 px, keep original where no ridge (faint cracks), then re-dilate to the source's median width. CPU preprocessing only.",
+   "min_experiment": "Arm: house on ridge-snapped crack labels. Baseline: house. Metric: relF1@2 and relP@2 primary, strict crack IoU vs original test labels secondary. Kill if relF1@2 gain < +0.01 or strict IoU drops > 0.02. About 6 GPU-h.",
+   "score": 65
+  },
+  {
+   "from": "D16",
+   "adaptation": "Replace Canny with a multi-scale dark-ridge Hessian detector (sigma 1 to 2 px, crack FWHM about 4 px) on 1-channel EL. Snap each crack label skeleton point along its normal to the ridge maximum within 2 px; keep the original point where ridge strength is below a per-source floor (7% invisible cracks, CSIR 16%); bridge gaps under 6 px (dotted labels in 22 cells); forbid snapping onto gridline/busbar/ribbon; re-dilate to each source's measured width (ARTS 1.5, CFVS/CSIR 1.75, BMRK 3.0, SDLE 3.25). CPU preprocessing only.",
+   "min_experiment": "Arm: house U-Net++ trained on snapped + width-restored crack labels, 5 seeds, 100% labels; baseline: house (and PF pair). Metrics: crack IoU, relF1@2, comp>=20px recall on clean-49 against ORIGINAL test labels; E1 relF1@2. Pre-check: snapped train labels agree with 2022 labels >= 0.95 within 2 px. Kill if crack IoU < baseline - 0.012 and relF1@2 gain < 0.012.",
+   "score": 78
+  },
+  {
+   "from": "D16",
+   "adaptation": "Replace Canny with a dark-ridge map (Hessian or min-intensity along the label normal, 1 to 3 px scales). Move each crack skeleton point to the darkest pixel along its normal within 2 px, reconnect, redraw at each source's median width (ARTS 1.5, CFVS/CSIR 1.75, BMRK 3.0, SDLE 3.25). Keep the original label where ridge support is weak (7% of cracks are under 2% darker) instead of deleting it.",
+   "min_experiment": "Arm: house U-Net++ trained on ridge-snapped crack labels, 5 seeds, 100% labels. Baseline: house model. Metric: crack IoU on original clean-49 test labels and relF1@2; secondary crack IoU on snapped test labels. Kill: original-label crack IoU below baseline by more than 0.012 and relF1@2 not up by at least 0.01.",
+   "score": 74
+  }
+ ],
+ "final": 80,
+ "bench": 65,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 1,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P001"
+}

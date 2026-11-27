@@ -1,0 +1,44 @@
+{
+ "paper_id": "arxiv:2312.15273",
+ "title": "Benefit from public unlabeled data: A Frangi filtering-based pretraining network for 3D cerebrovascular segmentation",
+ "year": 2023,
+ "venue": "arXiv (under review)",
+ "url": "https://arxiv.org/abs/2312.15273",
+ "code_url": "https://github.com/shigen-StoneRoot/FFPN",
+ "mechanism": "Multi-task pretraining of the whole segmentation network on unlabeled data, with Frangi-filter-derived thin-structure maps as targets.",
+ "adaptation": "Pretrain the full U-Net++ (decoder included) on the 11.9k pool, then the 159k, to regress multi-scale dark-ridge maps and the FFT periodic residual. Fine-tune with PF so the pretrained layers survive.",
+ "min_experiment": "Arm: ridge-target pretraining 40k steps, then PF fine-tune, 5 seeds. Baseline: PF from ImageNet. Metric: crack IoU (CV), E1 relF1@2. Kill: < +0.012 crack IoU and < +0.02 on E1.",
+ "evidence": "R: 1,510 unlabeled TOF-MRA plus 113 labelled subjects across 4 datasets; about +3% over SOTA semi- and self-supervised methods.",
+ "gpu_hours": 25,
+ "prior_overlap": "MIM and DDeP pool pretraining were n.d.; section 5 explicitly leaves dense or thin-structure-aware objectives open.",
+ "score": 52,
+ "bench_score": 20,
+ "bet": "moonshot",
+ "targets": [
+  "crack",
+  "e1_unseen"
+ ],
+ "directions": [
+  "D28",
+  "D32"
+ ],
+ "scout_scores": [
+  52,
+  50
+ ],
+ "alt_notes": [
+  {
+   "from": "D32",
+   "adaptation": "Dark-ridge filter (Frangi on inverted EL, sigma 1 to 2 px, plus black top-hat) on the de-duplicated pool; pretrain full U-Net++ R34 to regress the ridge map plus reconstruct the image; suppress busbar/finger ridges using house structural-class predictions; then house PF fine-tune.",
+   "min_experiment": "Ridge-target pretraining on 11.9k (~20 GPU-h) then PF vs house PF and vs our MIM checkpoint; out-of-fold relF1@2 and E1 crack recall, 2 seeds; kill if relF1@2 < +0.005 and E1 recall < +0.02.",
+   "score": 50
+  }
+ ],
+ "final": 52,
+ "bench": 20,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 186,
+ "pid": "P186"
+}

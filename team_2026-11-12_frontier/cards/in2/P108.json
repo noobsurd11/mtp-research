@@ -1,0 +1,55 @@
+{
+ "paper_id": "doi:10.1109/pvsc48317.2022.9938503",
+ "title": "Automatic Crack Segmentation in Electroluminescence Images of Solar Modules and Maximum Inactive Area Prediction",
+ "year": 2022,
+ "venue": "IEEE PVSC",
+ "url": "https://doi.org/10.1109/pvsc48317.2022.9938503",
+ "code_url": "https://github.com/hackingmaterials/pv-vision",
+ "mechanism": "After segmenting cracks and busbars, compute the worst-case inactive area: cell regions that cracks cut off from every busbar (a circuit prior on where inactive can occur).",
+ "adaptation": "From house/PF predictions of crack + ribbons + border, close crack gaps, then mark cell components not connected to any ribbon as 'isolatable'. Use as a post-hoc gate on inactive (suppress outside, lower threshold inside) and, if it helps, as input to a small second-stage inactive head. Fits E: 99% of inactive regions touch a crack. Half-cut E1 ribbon geometry handled natively.",
+ "min_experiment": "Step 1, no training: apply the gate to existing PF 5-seed ensemble predictions on val and the module-grouped 5-fold CV roots; metric inactive IoU/precision/recall; kill if CV inactive IoU gain < +0.02; read E1 inactive IoU once at the end. Step 2: second-stage head with the isolatable map as input vs PF baseline, same kill line on top of step 1.",
+ "score": 58,
+ "bench_score": 60,
+ "bet": "medium",
+ "targets": [
+  "inactive",
+  "e1_unseen",
+  "severity"
+ ],
+ "evidence": "R: UNet on 1,272 train / 206 val / 359 test cells, test F1 0.875, IoU 0.782 for crack lines, cross cracks, busbars, dark areas; isolated-area algorithm given, no accuracy figure for it in the abstract.",
+ "gpu_hours": 4,
+ "prior_overlap": "none. BRIEF lists refinement networks and physics priors as never tried; no circuit-consistency rule on inactive was tested.",
+ "directions": [
+  "D01",
+  "D04",
+  "D08"
+ ],
+ "scout_scores": [
+  20,
+  35,
+  58
+ ],
+ "alt_notes": [
+  {
+   "from": "D01",
+   "adaptation": "Post-evaluation layer on our crack + ribbon/busbar predictions; compare predicted isolated area with labelled inactive fraction per cell on test and E1 to define power-loss bands.",
+   "min_experiment": "Zero training: run on existing predictions; Spearman correlation of isolated area vs labelled inactive fraction; keep as a severity metric if rho > 0.6.",
+   "score": 20
+  },
+  {
+   "from": "D01",
+   "adaptation": "Severity output for the benchmark: per-cell potential inactive fraction from predicted crack + busbar masks, reported next to measured inactive fraction; also the region generator for the crack-bounded inactive prior.",
+   "min_experiment": "Same arm as the PV-Vision inactive prior (post-processing, CV inactive IoU, kill < +0.02); for the benchmark, report correlation of potential vs labelled inactive fraction on CV.",
+   "score": 35
+  }
+ ],
+ "final": 58,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 108,
+ "pub_allowed": 1,
+ "selected_for": "top",
+ "pid": "P108"
+}

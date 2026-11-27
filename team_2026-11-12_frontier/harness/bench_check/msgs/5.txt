@@ -1,0 +1,8 @@
+elbench: queue smoke-only extra args, job env, milestone card, card build test
+
+bench_q.sh: optional 7th job field (only --exit_after_step N, only smoke_* jobs). bench_lib.sh launch_run exports
+HF_HUB_OFFLINE=1 and OMP_NUM_THREADS (s2c had them inline). Card upernet_convnext_t_in1k (bench_timm UPerNet,
+ConvNeXt-T torchvision IN-1k, gate null until a smoke). Test: every harness card builds on CPU, weights md5 = card.
+Dry harness: a smoke_* job in part Q.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>

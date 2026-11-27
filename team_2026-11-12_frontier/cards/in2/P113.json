@@ -1,0 +1,61 @@
+{
+ "paper_id": "doi:10.1109/wacv56688.2023.00323",
+ "title": "Automated Detection of Label Errors in Semantic Segmentation Datasets via Deep Learning and Uncertainty Quantification",
+ "year": 2023,
+ "venue": "WACV",
+ "url": "https://arxiv.org/abs/2207.06104",
+ "code_url": "",
+ "mechanism": "Component-level uncertainty meta-classifier flags predicted connected components without labels (missing labels) and unsupported labels.",
+ "adaptation": "Component features for tiny crack segments: size, mean p(crack), ridge contrast, distance to nearest label, source, inactive adjacency; train meta-classifier on val, apply out-of-fold on train to find under-annotated crack segments that 1-IoU confuses with jitter.",
+ "min_experiment": "Arm: ignore (or soft 0.5) flagged unlabelled crack components in train. Baseline: house, 5 seeds. Metric: crack relR@2, components >= 20 px found, strict IoU. Kill: flagged-set precision < 30% on an automatic ridge-darkness check, or no relR@2 gain.",
+ "score": 58,
+ "bench_score": 55,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "benchmark"
+ ],
+ "evidence": "R: detects most dropped labels on Cityscapes and CARLA while controlling false detections; collection of real label errors released.",
+ "gpu_hours": 20,
+ "prior_overlap": "none (no label-error detection run in BRIEF section 5).",
+ "directions": [
+  "D15",
+  "D16",
+  "D37"
+ ],
+ "scout_scores": [
+  45,
+  35,
+  40,
+  58
+ ],
+ "alt_notes": [
+  {
+   "from": "D15",
+   "adaptation": "Run on out-of-fold predictions over train+val and the test set to rank suspected crack/inactive label errors per source; defines the 'clean' test subset objectively for the benchmark.",
+   "min_experiment": "Arm: label-error ranking; relabel nothing, drop top-ranked cells' crack loss. Baseline: house. Metric: crack IoU; for benchmark, per-source estimated label error rate. Kill (model use) if crack IoU < house + 0.008.",
+   "score": 35
+  },
+  {
+   "from": "D16",
+   "adaptation": "Run with the existing ensemble on train, val and the benchmark test set to rank missing / spurious crack and inactive components; output an audit list, auto-flag cells like CSIR_00070_r8_c4 for a clean benchmark subset.",
+   "min_experiment": "Arm: audit list on train + val; drop or ignore top-ranked components and retrain house, 5 seeds. Baseline: house. Metric: crack IoU and recall of the 24 audit-flagged cells among the top-50 ranked. Kill: fewer than 10 of 24 flagged cells recovered.",
+   "score": 40
+  },
+  {
+   "from": "D15",
+   "adaptation": "Score every train crack and inactive component with out-of-fold models and drop or down-weight the flagged ones, with no manual labelling. For the benchmark, audit the test and E1 labels in a later phase and publish clean subsets with the reasons.",
+   "min_experiment": "Arm: drop the top 5% error-scored train crack components, 5 seeds. Baseline: house. Metrics: crack IoU, relF1@2. Kill if there is no detectable difference. The benchmark audit is separate.",
+   "score": 45
+  }
+ ],
+ "final": 58,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 113,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P113"
+}

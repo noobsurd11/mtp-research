@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.1109/tits.2024.3488656",
+ "title": "A Directional Connectivity Feature Enhancement Network for Pavement Crack Detection",
+ "year": 2024,
+ "venue": "IEEE Transactions on Intelligent Transportation Systems",
+ "url": "https://doi.org/10.1109/tits.2024.3488656",
+ "code_url": "",
+ "mechanism": "Multi-directional enhanced convolution plus a directional-connectivity loss on neighbouring pixels for cracks.",
+ "adaptation": "Port only the directional-connectivity loss to the crack head of the house model; closest-domain evidence for DconnNet-style outputs.",
+ "min_experiment": "Arm = PF + directional connectivity loss on crack; baseline = PF; 5 seeds; components found, relF1@2. Kill if gain < 0.01.",
+ "score": 45,
+ "bench_score": 25,
+ "bet": "medium",
+ "targets": [
+  "crack"
+ ],
+ "evidence": "R: +2.2% ODS and +1.8% mIoU on DeepCrack; +1.2 ODS, +0.9 mIoU on Crack500; six crack datasets.",
+ "gpu_hours": 10,
+ "prior_overlap": "None.",
+ "directions": [
+  "D11"
+ ],
+ "scout_scores": [
+  45
+ ],
+ "final": 45,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 313,
+ "pid": "P313"
+}

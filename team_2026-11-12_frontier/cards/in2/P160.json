@@ -1,0 +1,51 @@
+{
+ "paper_id": "doi:10.52202/085713-3316",
+ "title": "JAFAR: Jack up Any Feature at Any Resolution",
+ "year": 2025,
+ "venue": "NeurIPS 2025",
+ "url": "https://arxiv.org/abs/2506.11136",
+ "code_url": "https://github.com/PaulCouairon/JAFAR",
+ "mechanism": "Attention upsampler with high-res queries from low-level image features and SFT-modulated low-res semantic keys; trained only at low ratios without high-res supervision, generalises to large upsampling.",
+ "adaptation": "Train JAFAR label-free on the 11.9k EL pool for the chosen DINOv3 encoder so it learns busbar, finger and crack texture; compare with off-the-shelf AnyUp in the same probe.",
+ "min_experiment": "Same probe as AnyUp (X1): JAFAR-pool-trained arm vs AnyUp vs bilinear-1024; metric CV crack AP and gridline AP. Kill if it does not beat AnyUp by >= 0.01 crack AP.",
+ "evidence": "R: AnyUp's comparison: VOC linear probe 84.36 mIoU (best), COCO 61.82, ADE20k 42.06 vs bilinear 81.43/59.48/40.54.",
+ "gpu_hours": 8,
+ "bet": "medium",
+ "prior_overlap": "none; label-free pool training of an upsampler was never run (pool MIM/DDeP trained the encoder, not an upsampler).",
+ "score": 55,
+ "bench_score": 35,
+ "targets": [
+  "crack",
+  "e1_unseen"
+ ],
+ "directions": [
+  "D14",
+  "D22"
+ ],
+ "scout_scores": [
+  42,
+  55,
+  50
+ ],
+ "alt_notes": [
+  {
+   "from": "D14",
+   "adaptation": "Upsample frozen DINOv3 ViT-L features to 512 x 512 and concatenate them into the house U-Net++ decoder as a side branch; keeps the house encoder that already works.",
+   "min_experiment": "House + JAFAR-DINOv3 side branch, 3 seeds; crack IoU, inactive IoU, E1 relF1@2; kill if all within 0.012.",
+   "score": 42
+  },
+  {
+   "from": "D22",
+   "adaptation": "Train label-free on the 11.9k EL pool for the chosen DINOv3 encoder (its training command takes any timm backbone) so the upsampler learns EL texture (fingers, busbars, grain, cracks) before any labels are used.",
+   "min_experiment": "Pool-trained JAFAR vs zero-shot NAF / AnyUp in the same frozen probe; metric CV crack AP, gridline AP; kill if it does not beat the better zero-shot upsampler by +0.01 AP. About 8 GPU-h including training.",
+   "score": 50
+  }
+ ],
+ "final": 55,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 160,
+ "pid": "P160"
+}

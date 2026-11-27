@@ -1,0 +1,38 @@
+{
+ "paper_id": "arxiv:1901.08394",
+ "title": "Application of Decision Rules for Handling Class Imbalance in Semantic Segmentation",
+ "year": 2019,
+ "venue": "arXiv / ESREL 2020",
+ "url": "https://arxiv.org/abs/1901.08394",
+ "code_url": "",
+ "mechanism": "Replace argmax-of-posterior by a prior-corrected decision rule (posterior divided by class prior, globally or per pixel position) so rare classes are not ignored at inference.",
+ "adaptation": "Zero training. Fit one logit bias per class (13 mIoU_rob classes plus splice) on out-of-fold logits from the existing module-grouped 5-fold roots, apply to the 5-seed ensemble. Position priors only for edge classes (edge_dark, frame_edge, border), not crack. Main target: splice (0.000, 4 test cells, worth +0.023 mIoU_rob at IoU 0.3).",
+ "min_experiment": "Arm: per-class bias vector fitted by coordinate ascent on OOF mIoU_rob, applied to 5-seed ensemble; baseline: same ensemble with crack-only bias; metric test clean-49 mIoU_rob and splice IoU; kill if mIoU_rob gain < +0.01 or splice IoU < 0.05. Precede with per-class AP diagnostic on OOF logits.",
+ "score": 72,
+ "bench_score": 45,
+ "bet": "safe",
+ "evidence": "R: street scenes, 20k frames: pedestrian instance recall +25%, info signs +23.4%, non-detection -61% / -38%.",
+ "gpu_hours": 0.5,
+ "prior_overlap": "Partial: crack-only val-chosen logit bias already used in best ensemble; per-module thresholds failed. Per-class bias for all classes, chosen on OOF folds, never tested.",
+ "targets": [
+  "other_classes",
+  "crack",
+  "inactive",
+  "benchmark"
+ ],
+ "directions": [
+  "D19"
+ ],
+ "scout_scores": [
+  72
+ ],
+ "final": 72,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 15,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P015"
+}

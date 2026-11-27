@@ -1,0 +1,43 @@
+{
+ "paper_id": "doi:10.1609/aaai.v39i5.32491",
+ "title": "U-KAN Makes Strong Backbone for Medical Image Segmentation and Generation",
+ "year": 2025,
+ "venue": "AAAI",
+ "url": "https://arxiv.org/abs/2406.02918",
+ "code_url": "https://github.com/CUHK-AIM-Group/U-KAN",
+ "mechanism": "Conv U-Net whose deeper stages tokenize features and process them with Kolmogorov-Arnold layers (learnable spline activations), giving higher accuracy at lower compute.",
+ "adaptation": "1-channel, 512 px. Use as the efficient-model member of the benchmark (edge deployment for WattCycle). Little expected effect on 1 px cracks, because the KAN blocks sit at low resolution.",
+ "min_experiment": "One run per fold in the shared benchmark protocol; report test-49 and E1 metrics plus FLOPs/FPS against the house model. Kill: below house on crack relF1@2 by more than 0.02, then keep only for the efficiency axis.",
+ "evidence": "R: better accuracy at lower compute than U-Net/UNeXt baselines on BUSI, GlaS and CVC. U-Bench ranks it in the U-Score top 10 (in-domain #8, zero-shot #3).",
+ "prior_overlap": "none",
+ "score": 25,
+ "bench_score": 65,
+ "bet": "moonshot",
+ "targets": [
+  "benchmark",
+  "deployment"
+ ],
+ "gpu_hours": 10,
+ "directions": [
+  "D25"
+ ],
+ "scout_scores": [
+  20,
+  25
+ ],
+ "alt_notes": [
+  {
+   "from": "D25",
+   "adaptation": "Suite member, 1-channel 2D 512 px, same folds; shallow stages that carry 1-2 px crack detail are unchanged, so expected crack gain near zero.",
+   "min_experiment": "U-KAN 5 folds v house; benchmark row only; kill for score if no CV metric +0.01.",
+   "score": 20
+  }
+ ],
+ "final": 25,
+ "bench": 65,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 550,
+ "pid": "P550"
+}

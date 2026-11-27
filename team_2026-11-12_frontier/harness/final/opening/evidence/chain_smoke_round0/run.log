@@ -1,0 +1,18 @@
+[2026-11-21 05:43:27] chain smoke in /home/noob/work/bench_int_io/opening/chain_934867 (G 8bd1c2761c85f4721e444a8bf7124d2e5804973a, R 19764b255ac29f3834bd2c5b1b53f85bc374ff58)
+synthetic data and 10 tiny runs made
+register rc 0
+| 8 | OPENING_RULE.md 69f0c0f382083f049e676221e9d8daac (harness/final/opening) | C1 fin_pf_v11_pool_s5..9 (model, plain); C2 fin_hrnet_swad_v11_pool_s5..9 (swad, D4) = the final model; C3 = mean softm
+ledger row, benchmark/test_openings.md section B:
+| 19 | final opening (harness/final/opening, rule 69f0c0f382083f049e676221e9d8daac) | C1 fin_pf_v11_pool_s5..9 (plain), C2 fin_hrnet_swad_v11_pool_s5..9 (swad, D4), C1-D4 | public table only, decides 
+dumps: 30 of 30 in 875 s
+negative wrong REG_MD5: rc 1 (REFUSED: REGISTERED.txt md5 != REG_MD5); out dir created: no
+negative tampered manifest: rc 1 (  fin_pf_v11_pool_s7.test50: weights_key = 'swad', expected 'model'); out dir created: no
+read rc 0
+manifest check: 30 dumps, device ['cpu']: OK
+[2026-11-21 05:58:21] records: 15 E1, 15 test50 v0, 15 test50 v11
+arms: E1 C1 5 C2 5 C1-D4 5; test50 v11 C1 5 C2 5
+FINAL OPENING VERDICT: E1 P (C2 - C1 relF1@2) NOT CONFIRMED (the interval holds 0; Delta > 0); Delta +0.0016 [+0.0000, +0.0048]; test50: public table only.
+[2026-11-21 06:01:32] FINAL OPENING READ ALL DONE (verdict rc 0); tracked changes in /home/noob/work/bench_wt_open: 0
+negative existing output: rc 1 (REFUSED: output folder exists: /home/noob/work/bench_int_io/opening/chain_934867/reads/open_final)
+[2026-11-21 06:01:32] chain smoke done (read rc 0); scratch removed
+smoke rc 0

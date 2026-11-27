@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1109/cvprw63382.2024.00123",
+ "title": "How to Benchmark Vision Foundation Models for Semantic Segmentation?",
+ "year": 2024,
+ "venue": "CVPRW",
+ "url": "https://arxiv.org/abs/2404.12172",
+ "code_url": "",
+ "mechanism": "Benchmark protocol study: ViT-B, patch 16, linear decoder ranks VFMs like costlier settings; linear probing does not predict fine-tune ranking; rankings shift across datasets and domain shifts.",
+ "evidence": "R (abstract): settings cut training time over 13x with representative rankings; promptable-segmentation pretraining not beneficial, MIM with abstract targets important.",
+ "adaptation": "Use to (a) argue our frozen linear-probe nulls do not close fine-tune or PEFT arms, and (b) define the VFM part of the EL benchmark protocol, testing whether a linear decoder is representative for 1-2 px cracks.",
+ "min_experiment": "Rank 3 VFMs with ViT-B linear-decoder fine-tune and with VFM-H; check rank agreement on CV crack relF1@2; no kill, protocol check.",
+ "prior_overlap": "Not a method; informs reading of the closed probe row.",
+ "score": 30,
+ "bench_score": 80,
+ "bet": "safe",
+ "targets": [
+  "benchmark",
+  "measurement"
+ ],
+ "gpu_hours": 30,
+ "directions": [
+  "D24"
+ ],
+ "scout_scores": [
+  30
+ ],
+ "final": 30,
+ "bench": 80,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 497,
+ "pid": "P497"
+}

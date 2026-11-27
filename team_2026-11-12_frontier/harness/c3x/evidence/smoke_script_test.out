@@ -1,0 +1,28 @@
+--- place
+placed /tmp/claude-1003/-home-yugma-mtp/e0fe0a1b-de27-464f-816b-2df6724d18f1/scratchpad/sq: jobs.txt md5 251605f4bf1ff91ea4b5dc467f2aa302 (3 lines), dump/jobs.txt md5 4fda4fa7ddc2e236ab1d3d6390550867 (2 lines), MAXC 1 / 1
+rc 0
+smoke_c3x_mem_hrnet|bench/methods/hrnet_w18_unetpp_pf_v11.yaml|5|/home/noob/work/bench_data_v3b/roots/cv5v3_v11_f0|11000||--exit_after_step 300
+smoke_c3x_mem_combo|bench/methods/hrnet_w18_unetpp_swad_const_pf_v11.yaml|5|/home/noob/work/bench_data_v3b/roots/cv5v3_v11_f0|11000||--exit_after_step 300
+smoke_c3x_path|/home/yugma/mtp/research/team_2026-11-12_frontier/harness/c3x/smoke/smoke_c3x_hrnet_swad_path.yaml|5|/home/noob/work/bench_data_v3b/roots/cv5v3_v11_f0|11000||
+dump_smoke_c3x_path|-|5|/home/noob/work/bench_data_v3b/roots/cv5v3_v11_f0|6200|/home/noob/work/el-fault-detection/.venv/bin/python -u scripts/bench_infer.py --run /home/noob/work/bench_wt_c3s/experiments/smoke_c3x_path --set cv5v3_f0 --dumps /home/noob/work/bench_dumps/c3x_smoke --method smoke_c3x_h
+dump_smoke_c3x_path.swad|-|5|/home/noob/work/bench_data_v3b/roots/cv5v3_v11_f0|6200|/home/noob/work/el-fault-detection/.venv/bin/python -u scripts/bench_infer.py --run /home/noob/work/bench_wt_c3s/experiments/smoke_c3x_path --set cv5v3_f0 --dumps /home/noob/work/bench_dumps/c3x_smoke --method smoke_
+--- place again
+REFUSED (place): /tmp/claude-1003/-home-yugma-mtp/e0fe0a1b-de27-464f-816b-2df6724d18f1/scratchpad/sq exists
+rc 1
+--- arm wrong X
+REFUSED (arm): /tmp/claude-1003/-home-yugma-mtp/e0fe0a1b-de27-464f-816b-2df6724d18f1/scratchpad/clone HEAD 4e9cbdbef37edae021a39a507403b441b7ee6628 != X 852ed5c411b967d7ea758ef2cd5dbe70ae4e50a1
+rc 1
+--- arm DRY
+note: other gaint queue sessions alive: bench_q_udev_loso2 (the gate and the outside wait serialise them with the smoke)
+DRY, pre-checks passed; not run: Q=/tmp/claude-1003/-home-yugma-mtp/e0fe0a1b-de27-464f-816b-2df6724d18f1/scratchpad/sq SES=bench_q_c3x_smoke DEPLOY=4e9cbdbef37edae021a39a507403b441b7ee6628 JOBS_MD5=251605f4bf1ff91ea4b5dc467f2aa302 DJOBS_MD5=4fda4fa7ddc2e236ab1d3d6390550867 REPO=/tmp/claude-1003/-home-yugma-mtp/e0fe0a1b-de27-464f-816b-2df6724d18f1/scratchpad/clone MAXH=6 bash /tmp/claude-1003/-home-yugma-mtp/e0fe0a1b-de27-464f-816b-2df6724d18f1/scratchpad/clone/bench/q/bench_setup.sh
+rc 0
+--- check before chain
+REFUSED (check): no 'chain done' in /tmp/claude-1003/-home-yugma-mtp/e0fe0a1b-de27-464f-816b-2df6724d18f1/scratchpad/sq/chain.log yet
+rc 1
+--- slim before chain
+REFUSED (slim): no 'chain done' in /tmp/claude-1003/-home-yugma-mtp/e0fe0a1b-de27-464f-816b-2df6724d18f1/scratchpad/sq/chain.log yet
+rc 1
+--- clean DRY
+to remove:
+
+rc 0

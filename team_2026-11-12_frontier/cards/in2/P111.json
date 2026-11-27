@@ -1,0 +1,45 @@
+{
+ "paper_id": "doi:10.1007/978-3-031-43898-1_68",
+ "title": "Robust T-Loss for Medical Image Segmentation",
+ "year": 2023,
+ "venue": "MICCAI (journal version doi:10.1016/j.media.2025.103735, MedIA 2025)",
+ "url": "https://arxiv.org/abs/2306.00753",
+ "code_url": "https://github.com/Digital-Dermatology/t-loss",
+ "mechanism": "Negative log-likelihood of a Student-t on the per-pixel residual. A learnable degrees-of-freedom parameter sets how far large residuals (likely label errors) are down-weighted.",
+ "adaptation": "Drop-in on the crack channel (one-vs-rest), replacing or adding to CE + Dice, with nu learnt per class. Keep CE for the 22 structural classes. Check that it does not down-weight genuine low-contrast cracks (7% of components).",
+ "min_experiment": "Arm: house with T-Loss on crack, a 2-seed screen, then 5 seeds. Baseline: house. Metrics: crack IoU, relF1@2, components found. Kill if both crack IoU and relF1@2 show no detectable difference after 5 v 5.",
+ "score": 58,
+ "bench_score": 60,
+ "bet": "safe",
+ "targets": [
+  "crack",
+  "benchmark"
+ ],
+ "evidence": "R (abstract): beats traditional losses on Dice for ISIC skin lesions and the Shenzhen lung set under simulated mask noise. Blobby targets, not thin ones.",
+ "gpu_hours": 9,
+ "prior_overlap": "none. Robust-loss families are not in section 5; offset-tolerant CE and Dice variants are different mechanisms.",
+ "directions": [
+  "D15"
+ ],
+ "scout_scores": [
+  58,
+  45
+ ],
+ "alt_notes": [
+  {
+   "from": "D15",
+   "adaptation": "Replace CE on crack and inactive with T-Loss (separate learnable nu per class), keep soft Dice.",
+   "min_experiment": "Arm: house with T-Loss, 3 seeds on 5-fold CV. Baseline: house folds. Metric: fold-mean crack IoU. Promote if >= +0.01. About 15 GPU-h.",
+   "score": 45
+  }
+ ],
+ "final": 58,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 111,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P111"
+}

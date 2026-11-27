@@ -1,0 +1,46 @@
+{
+ "paper_id": "arxiv:2211.14805",
+ "title": "Rethinking Data Augmentation for Single-Source Domain Generalization in Medical Image Segmentation (SLAug)",
+ "year": 2023,
+ "venue": "AAAI",
+ "url": "https://arxiv.org/abs/2211.14805",
+ "code_url": "https://github.com/Kaiseem/SLAug",
+ "mechanism": "Global plus class-wise random Bezier intensity curves (location-scale per class region), fused via a gradient saliency map so augmentation targets regions the model relies on.",
+ "adaptation": "Apply class-wise curves only to structural classes (busbar, ribbon, gridline, border, background, padding, frame); never to crack or inactive, because a class-wise transform on 1 px jittered labels paints a line at the label rather than the dark ridge and creates a shortcut. Forces crack detection under any busbar/background contrast, which CSIR half-cuts change.",
+ "min_experiment": "PF + SLAug (crack/inactive excluded) vs PF, 3 seeds. E1 crack relF1@2 primary, test crack IoU and mIoU_rob guard. Kill if E1 gain < +0.03 or test crack IoU drops > 0.01.",
+ "score": 65,
+ "bench_score": 50,
+ "bet": "safe",
+ "targets": [
+  "e1_unseen",
+  "crack",
+  "other_classes"
+ ],
+ "evidence": "R: exceeds prior SDG methods by a large margin on two medical SDG tasks (abstract; numbers not read). Code public.",
+ "gpu_hours": 5,
+ "prior_overlap": "none: no class-wise or non-linear intensity augmentation was run.",
+ "directions": [
+  "D30"
+ ],
+ "scout_scores": [
+  52,
+  65
+ ],
+ "alt_notes": [
+  {
+   "from": "D30",
+   "adaptation": "Class-wise curves only on structural classes (busbar, ribbons, border, frame_edge, gridline, sp_mono/sp_multi, background); keep crack and inactive darker than their neighbours. Mimics source contrast conventions and new module types.",
+   "min_experiment": "PF+SLAug vs PF+GIN-IPA and PF, 5 seeds. Metric: E1 crack relF1@2, E1 inactive IoU. Kill: < +0.02 E1 relF1@2 over GIN-IPA.",
+   "score": 52
+  }
+ ],
+ "final": 65,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 57,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P057"
+}

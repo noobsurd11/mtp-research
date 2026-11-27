@@ -1,0 +1,54 @@
+{
+ "paper_id": "arxiv:2310.19252",
+ "title": "Revisiting Evaluation Metrics for Semantic Segmentation: Optimization and Evaluation of Fine-grained Intersection over Union",
+ "year": 2023,
+ "venue": "arXiv (NeurIPS 2023, unverified)",
+ "url": "https://arxiv.org/abs/2310.19252",
+ "code_url": "https://github.com/zifuwanggg/JDTLosses",
+ "mechanism": "Per-image and per-class-per-image mIoU plus worst-case (lowest k%) variants reduce bias to large objects and expose failure cases.",
+ "adaptation": "Report per-cell crack and inactive IoU means and worst-10% next to dataset-level IoU so the 3 cells with 59% of inactive pixels cannot decide inactive; worst-case crack metric matches the 'almost all cracks' goal; mIoU over 24 classes computed per image ignores classes absent in a cell.",
+ "min_experiment": "Arm: per-cell mean and worst-10% IoU on OOF predictions of house vs PF. Baseline: dataset-level IoU. Metric: paired-delta SE/|delta|. Kill: neither cuts that ratio by >= 20%.",
+ "score": 55,
+ "bench_score": 85,
+ "bet": "safe",
+ "targets": [
+  "measurement",
+  "benchmark",
+  "inactive",
+  "other_classes"
+ ],
+ "evidence": "R: 15 networks on 12 natural and aerial datasets; fine-grained mIoUs reduce large-object bias; architecture and loss choices change fine-grained ranking.",
+ "gpu_hours": 0,
+ "prior_overlap": "none",
+ "directions": [
+  "D18",
+  "D41"
+ ],
+ "scout_scores": [
+  40,
+  40,
+  55
+ ],
+ "alt_notes": [
+  {
+   "from": "D18",
+   "adaptation": "Benchmark: report pooled IoU plus per-cell IoU and worst-k cells per source; loss arm JML per-image vs per-batch.",
+   "min_experiment": "No training: rescore val predictions of SUP100, PF, FINAL with per-cell and worst-k IoU; keep as secondary benchmark metrics if they reorder models or narrow CIs.",
+   "score": 40
+  },
+  {
+   "from": "D18",
+   "adaptation": "Benchmark: report pooled IoU plus per-cell IoU and worst-k cells per source; loss arm JML per-image vs per-batch.",
+   "min_experiment": "No training: rescore existing val predictions of SUP100, PF and FINAL with fine-grained and worst-case IoU; adopt as benchmark secondaries if model ranking changes or CIs narrow.",
+   "score": 40
+  }
+ ],
+ "final": 55,
+ "bench": 85,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 134,
+ "pub_allowed": 0,
+ "selected_for": "bench"
+}

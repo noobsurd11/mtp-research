@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2310.18961",
+ "title": "AnomalyCLIP: Object-agnostic Prompt Learning for Zero-shot Anomaly Detection",
+ "year": 2023,
+ "venue": "arXiv (ICLR 2024 per index, unverified)",
+ "url": "https://arxiv.org/abs/2310.18961",
+ "code_url": "",
+ "mechanism": "Object-agnostic normal / abnormal text prompts learned on auxiliary data give zero-shot anomaly maps for unseen objects.",
+ "adaptation": "Zero-shot benchmark row only: run on EL with no EL training, report gap to supervised and to AA-CLIP trained on E-SCDD (pixel AP 0.55, D07).",
+ "evidence": "R: zero-shot on many industrial and medical datasets (257 citations).",
+ "min_experiment": "Benchmark row, inference only; no kill line.",
+ "gpu_hours": 1,
+ "prior_overlap": "none",
+ "score": 12,
+ "bench_score": 55,
+ "bet": "safe",
+ "targets": [
+  "benchmark"
+ ],
+ "directions": [
+  "D39"
+ ],
+ "scout_scores": [
+  12
+ ],
+ "final": 12,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 620,
+ "pid": "P620"
+}

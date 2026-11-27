@@ -1,0 +1,46 @@
+{
+ "paper_id": "arxiv:2510.07041",
+ "title": "U-Bench: A Comprehensive Understanding of U-Net through 100-Variant Benchmarking",
+ "year": 2025,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2510.07041",
+ "code_url": "https://github.com/FengheTan9/U-Bench",
+ "mechanism": "One protocol for 100 U-Net variants on 28 2D datasets, with paired t-tests against U-Net, a zero-shot axis (train on one dataset, test on an unseen same-modality dataset) and an accuracy-efficiency U-Score.",
+ "adaptation": "Use the harness and model zoo to run 10 to 15 variants at 512 px, 1 channel, on our module-grouped folds. Test-49 is the in-domain axis and E1 the zero-shot axis. FLOPs/FPS go in as the deployment axis for WattCycle.",
+ "min_experiment": "U-Net, Swin-UMamba, RWKV-UNet, MEGANet, UTANet, U-KAN and VM-UNet under one recipe, one seed per fold; rank by test crack relF1@2 and E1 relF1@2 against the house model. Kill for the score line: no variant beats the house model on E1 relF1@2 by more than 0.03.",
+ "evidence": "R: over 80% of variants not significantly better than U-Net in-domain; average in-domain top-1 gain 1 to 2% IoU, zero-shot more than 3% and more often significant; fundus/nuclei (thin, local) stagnate; RWKV-UNet top-1 IoU in-domain and zero-shot, Swin-UMamba #3 zero-shot; Mamba family weaker on fine detail; blurry boundaries are the main difficulty factor.",
+ "prior_overlap": "none (BRIEF: no transformer or Mamba segmenter tried)",
+ "score": 55,
+ "bench_score": 95,
+ "bet": "medium",
+ "targets": [
+  "e1_unseen",
+  "benchmark",
+  "deployment"
+ ],
+ "gpu_hours": 110,
+ "directions": [
+  "D25"
+ ],
+ "scout_scores": [
+  25,
+  55
+ ],
+ "alt_notes": [
+  {
+   "from": "D25",
+   "adaptation": "Template for the EL benchmark: paired significance tests across seeds and folds, a zero-shot column (E1 and F51), an efficiency column; pick 5-8 suite members from its families via its 2D trainers.",
+   "min_experiment": "Benchmark design, not a score arm: run U-Bench's statistical test on existing house v PF seed results; adopt if it reproduces the BRIEF minimum detectable difference (~0.012 crack IoU).",
+   "score": 25
+  }
+ ],
+ "final": 55,
+ "bench": 95,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 132,
+ "pub_allowed": 0,
+ "selected_for": "bench",
+ "pid": "P132"
+}

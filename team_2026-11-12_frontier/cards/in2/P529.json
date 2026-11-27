@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.3390/rs17132125",
+ "title": "IUR-Net: A Multi-Stage Framework for Label Refinement Tasks in Noisy Remote Sensing Samples",
+ "year": 2025,
+ "venue": "Remote Sensing",
+ "url": "https://doi.org/10.3390/rs17132125",
+ "code_url": "",
+ "mechanism": "Multi-stage label refinement for remote-sensing samples with image-label mismatch and inconsistent annotation quality (abstract-level).",
+ "adaptation": "Candidate recipe for cleaning the 24-class structural labels drawn with different conventions per source; details unread.",
+ "min_experiment": "Read method; if usable, arm: refined structural-class labels; baseline: house; metric mIoU_rob; kill if gain < 0.01.",
+ "evidence": "unverified beyond abstract.",
+ "score": 30,
+ "bench_score": 20,
+ "bet": "medium",
+ "targets": [
+  "other_classes"
+ ],
+ "gpu_hours": 8,
+ "prior_overlap": "none.",
+ "directions": [
+  "D16"
+ ],
+ "scout_scores": [
+  30
+ ],
+ "final": 30,
+ "bench": 20,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 529,
+ "pid": "P529"
+}

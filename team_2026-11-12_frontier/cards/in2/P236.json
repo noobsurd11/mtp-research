@@ -1,0 +1,44 @@
+{
+ "paper_id": "arxiv:2504.04034",
+ "title": "UCS: A Universal Model for Curvilinear Structure Segmentation",
+ "year": 2025,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2504.04034",
+ "code_url": "https://github.com/kylechuuuuu/UCS",
+ "mechanism": "Sparse adapters in a SAM encoder, an FFT high-pass prompt generator for curve-specific prompts, and a prompt-free decoder with hierarchical feature compression; tuned for cross-domain curvilinear segmentation.",
+ "adaptation": "Crack-only branch fused with house multi-class output; high-pass prompts will also fire on gridlines, busbar edges and scuffs, so keep the multi-class context and check false alarms on half-cut E1 cells.",
+ "evidence": "R: SOTA generalisation and open-set curvilinear segmentation across medical, engineering, natural, plant imagery (abstract).",
+ "min_experiment": "UCS crack branch, 3 seeds, crack logits replace house crack logits; metric crack IoU, relF1@2, E1 relF1@2; kill if both < house + 0.012.",
+ "gpu_hours": 20,
+ "score": 48,
+ "bench_score": 50,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "e1_unseen"
+ ],
+ "prior_overlap": "none.",
+ "directions": [
+  "D12",
+  "D14"
+ ],
+ "scout_scores": [
+  40,
+  48
+ ],
+ "alt_notes": [
+  {
+   "from": "D12",
+   "adaptation": "Replicate the 1-channel EL image to 3 channels and upsample 512 to 1024. Fine-tune a crack-only head first, then add other classes.",
+   "min_experiment": "UCS crack-only vs house crack-only, 2 seeds, 20k steps. Metrics: test crack relF1@2 and E1 relF1@2. Kill if both are below house.",
+   "score": 40
+  }
+ ],
+ "final": 48,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 236,
+ "pid": "P236"
+}

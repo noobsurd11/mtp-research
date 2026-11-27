@@ -1,0 +1,35 @@
+{
+ "paper_id": "arxiv:2608.01663",
+ "title": "Few-Shot Concept Prompt Learning for Segmentation Foundation Models via Visual Grounding (FS-CPL)",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2608.01663",
+ "code_url": "",
+ "mechanism": "Learn a continuous concept-prompt embedding from K support image-mask pairs by mask supervision with SAM3 / Medical SAM3 frozen.",
+ "evidence": "R: up to +0.62 Dice over text prompts on BUSI, HC18, TN3K, CVC-Clinic; backbone-agnostic.",
+ "adaptation": "One learned prompt per EL class trained on all 478 cells (not K) turns frozen SAM3 into a cheap parametric labeller/second-opinion model for inactive and structural classes; gated weights need the user's OK.",
+ "min_experiment": "Learned prompts on 478 train cells vs house PF on val54+F51; metrics inactive IoU, splice/gridline IoU, crack relF1@2; kill if below house PF on all and no decorrelated recovery of house misses (>10%).",
+ "prior_overlap": "none; SAM3 prompt learning not tried.",
+ "score": 35,
+ "bench_score": 40,
+ "bet": "medium",
+ "targets": [
+  "inactive",
+  "other_classes",
+  "e1_unseen"
+ ],
+ "gpu_hours": 8,
+ "directions": [
+  "D38"
+ ],
+ "scout_scores": [
+  35
+ ],
+ "final": 35,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 458,
+ "pid": "P458"
+}

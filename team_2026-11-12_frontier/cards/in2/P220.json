@@ -1,0 +1,43 @@
+{
+ "paper_id": "arxiv:2407.05848",
+ "title": "Wavelet Convolutions for Large Receptive Fields",
+ "year": 2024,
+ "venue": "ECCV 2024",
+ "url": "https://arxiv.org/abs/2407.05848",
+ "code_url": "https://github.com/BGU-CS-VIL/WTConv",
+ "mechanism": "Convolution applied to wavelet subbands, giving very large receptive fields with log-growing parameters, more shape bias and more robustness to corruption.",
+ "adaptation": "WTConvNeXt-T (timm) encoder in U-Net++, or WTConv2d replacing the 3x3 convs in ResNet-34 layer3/4. A whole-cell receptive field should help the half-cut layout and long scuff streaks on E1.",
+ "min_experiment": "Arm: WTConvNeXt-T U-Net++ under PF, 5 seeds. Baseline: ImageNet ConvNeXt-T U-Net++ under PF and the house model. Metric: E1 crack relF1@2, test crack IoU. Kill: E1 relF1@2 < +0.03.",
+ "evidence": "R: ImageNet-1K top-1 82.5 / 83.6 / 84.1 (T/S/B, README); better corruption robustness and shape bias.",
+ "gpu_hours": 12,
+ "prior_overlap": "Only the DINOv3 vs ImageNet ConvNeXt-T 2-seed F51 screen was run; WTConv was never tested.",
+ "score": 50,
+ "bench_score": 35,
+ "bet": "medium",
+ "targets": [
+  "e1_unseen",
+  "crack"
+ ],
+ "directions": [
+  "D28"
+ ],
+ "scout_scores": [
+  50,
+  45
+ ],
+ "alt_notes": [
+  {
+   "from": "D28",
+   "adaptation": "WTConvNeXt-T as U-Net++ encoder or WTConv2d in ResNet-34 layer3/4; whole-cell context for half-cut layout and long scuffs on E1.",
+   "min_experiment": "Arm: WTConvNeXt-T U-Net++ under PF vs ImageNet ConvNeXt-T under PF, 5 seeds, test + E1; kill if E1 relF1@2 < +0.03.",
+   "score": 45
+  }
+ ],
+ "final": 50,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 220,
+ "pid": "P220"
+}

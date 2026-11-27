@@ -1,0 +1,10 @@
+[2026-11-17 19:37:27] w2a read start (out /home/noob/work/bench_reads/w2a_softband; DRY=0; ARMS=jmlhard softband -> jmlhard softband; GATE_ACK=''; PF4=0; script 5aac565d)
+manifest check: 20 wave 2a dumps, device ['NVIDIA RTX PRO 4500 Blackwell']: OK
+command (cwd /home/noob/work/bench_wt_b, nice -n 19): scripts/bench_read_w1.py --arm PF=/home/noob/work/bench_dumps/w1g/elbench1/house_r34_unetpp_pf_v11:w1g_pf_v11_f[0-4]_s[56] --arm PFAA=/home/noob/work/bench_dumps/w1g/elbench1/house_r34_unetpp_pf_v11:w1g_pf_v11_f[0-4]_s[5-8] --arm JMLHARD=/home/noob/work/bench_dumps/w2a/elbench1/jml_hard:w2a_jmlhard_f[0-4]_s[56] --arm SOFTBAND=/home/noob/work/bench_dumps/w2a/elbench1/soft_band_jml:w2a_softband_f[0-4]_s[56] --pair PF=JMLHARD --pair JMLHARD=SOFTBAND --labels v11 --workers 8 --cache /home/noob/work/bench_reads/w2a_softband/cache_c --baseline PF --aa PFAA:5,6:7,8 --score-exclude /home/yugma/mtp/research/team_2026-11-12_frontier/benchmark/splits/score_exclude_v3.txt --out /home/noob/work/bench_reads/w2a_softband/read
+[151s] argmax records + bias sweeps: 50 runs
+[235s] operating points and their records (532 stems)
+score-exclude /home/yugma/mtp/research/team_2026-11-12_frontier/benchmark/splits/score_exclude_v3.txt md5 6d48dfbd56ba8140ed20ecb21bf349dc: 532 -> 416 stems
+[307s] operating points and their records (416 stems)
+[344s] wave 1 read: 4 arms, 532 OOF stems, 2 contrasts, A/A yes -> /home/noob/work/bench_reads/w2a_softband/read/read.txt
+[2026-11-17 19:43:12] read rc=0
+[2026-11-17 19:43:12] W2A READ ALL DONE (rc 0); tracked changes: bench_wt_b 0, bench_wt_w2 0

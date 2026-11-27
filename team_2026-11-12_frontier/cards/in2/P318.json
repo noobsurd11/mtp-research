@@ -1,0 +1,43 @@
+{
+ "paper_id": "doi:10.1007/s12652-021-03422-3",
+ "title": "DPN: detail-preserving network with high resolution representation for efficient segmentation of retinal vessels",
+ "year": 2021,
+ "venue": "Journal of Ambient Intelligence and Humanized Computing",
+ "url": "https://arxiv.org/abs/2009.12053",
+ "code_url": "",
+ "mechanism": "Stacked detail-preserving blocks with no downsampling keep full resolution throughout; about 120k parameters.",
+ "adaptation": "Add a DPN-style full-res branch (8 blocks, 16-32 ch, on the 1-ch input) concatenated into the last U-Net++ decoder node; about +10% compute. Also usable as a structurally different ensemble member.",
+ "min_experiment": "Arm: house PF + DPN branch; baseline: house PF; CV gridline IoU, crack IoU; also add as 6th member to the 5-seed PF ensemble. Kill if gridline IoU < +0.03, crack IoU n.d., and ensemble crack IoU < +0.005.",
+ "evidence": "R: comparable accuracy on DRIVE (20 training images), CHASE_DB1, HRF; 20-160x faster than other methods on DRIVE; ~120k params.",
+ "gpu_hours": 12,
+ "bet": "safe",
+ "prior_overlap": "Partly R5 (2x input, n.d. on test crack IoU under house optimizer). R5 did not add a full-res path at native receptive field, did not target gridline, and did not use PF or ensemble diversity.",
+ "score": 45,
+ "bench_score": 25,
+ "targets": [
+  "other_classes",
+  "crack"
+ ],
+ "directions": [
+  "D22"
+ ],
+ "scout_scores": [
+  45,
+  45
+ ],
+ "alt_notes": [
+  {
+   "from": "D22",
+   "adaptation": "Add a DPN-style full-resolution branch (8 blocks, 16 to 32 ch) on the 1-ch input, concatenated into the house decoder's last block, which in smp likely has no stride-1 skip.",
+   "min_experiment": "Arm house PF + DPN branch + raw-image pixel-unshuffle re-injection vs house PF; 5-fold CV gridline IoU, crack IoU; also as a 6th ensemble member. Kill: gridline IoU < +0.03 and crack IoU n.d.; ensemble crack IoU < +0.005. About 15 GPU-h.",
+   "score": 45
+  }
+ ],
+ "final": 45,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 318,
+ "pid": "P318"
+}

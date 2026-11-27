@@ -1,0 +1,13 @@
+BENCH_START: run=dump_fin_pf_v11_pool_s6.e1_106
+Traceback (most recent call last):
+  File "/home/noob/work/bench_wt_openg/scripts/bench_infer.py", line 235, in <module>
+    main()
+  File "/home/noob/work/bench_wt_openg/scripts/bench_infer.py", line 209, in main
+    cells[s] = dumpfmt.write_cell(out_dir / f"{s}.npz", pi, oth, mg, p[i, CRACK].numpy(),
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/noob/work/bench_wt_openg/bench/dumpfmt.py", line 122, in write_cell
+    info = check_cell(d)
+           ^^^^^^^^^^^^^
+  File "/home/noob/work/bench_wt_openg/bench/dumpfmt.py", line 106, in check_cell
+    raise AssertionError(f"pred disagrees with where(m_crack > 0, 14, oth) at {int(hard.sum())} px with |m| >= {TIE_EPS}")
+AssertionError: pred disagrees with where(m_crack > 0, 14, oth) at 1 px with |m| >= 0.001

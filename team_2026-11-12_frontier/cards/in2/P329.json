@@ -1,0 +1,43 @@
+{
+ "paper_id": "doi:10.1016/j.autcon.2024.105960",
+ "title": "Hybrid-Segmentor: Hybrid approach for automated fine-grained crack segmentation in civil infrastructure",
+ "year": 2025,
+ "venue": "Automation in Construction",
+ "url": "https://arxiv.org/abs/2409.02866",
+ "code_url": "https://github.com/junegoo94/Hybrid-Segmentor",
+ "mechanism": "Parallel CNN path for fine local features and transformer path for global crack pattern with a fused decoder, trained on a large merge of public crack datasets.",
+ "adaptation": "Benchmark row with public crack weights; for our scores, init from their merged-data weights and add a 24-class head (or crack + inactive), gray to 3 channels, house loss and schedule.",
+ "min_experiment": "Arm: Hybrid-Segmentor from their weights, fine-tuned; baseline: PF; 3 seeds. Metric: CV crack IoU, relF1@2. Kill as a model if CV crack IoU < PF minus 0.02; keep as benchmark row.",
+ "score": 42,
+ "bench_score": 65,
+ "bet": "safe",
+ "targets": [
+  "benchmark",
+  "crack"
+ ],
+ "evidence": "R: accuracy 0.971, precision 0.807, recall 0.756, F1 0.774, IoU 0.631 on their merged dataset; a third-party repo reports mIoU 67.10 vs UNet 67.39 on another dataset (web, unverified).",
+ "gpu_hours": 10,
+ "prior_overlap": "none (no transformer segmenter tried).",
+ "directions": [
+  "D09"
+ ],
+ "scout_scores": [
+  42,
+  42
+ ],
+ "alt_notes": [
+  {
+   "from": "D09",
+   "adaptation": "Benchmark baseline with public crack weights: initialise from their CrackVision12K weights, gray to 3 channels, crack + inactive + background head or 24-class head, fine-tune on our folds.",
+   "min_experiment": "Arm: Hybrid-Segmentor fine-tuned; baseline PF crack channel; 3 seeds. Metric: CV crack IoU and relF1@2. Kill as a model if CV crack IoU < PF minus 0.02; keep as benchmark row.",
+   "score": 42
+  }
+ ],
+ "final": 42,
+ "bench": 65,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 329,
+ "pid": "P329"
+}

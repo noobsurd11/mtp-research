@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2411.16719",
+ "title": "Learn2Synth: Learning Optimal Data Synthesis Using Hypergradients for Brain Image Segmentation",
+ "year": 2025,
+ "venue": "ICCV 2025",
+ "url": "https://arxiv.org/abs/2411.16719",
+ "code_url": "https://github.com/HuXiaoling/Learn2Synth",
+ "mechanism": "Learn the parameters of a synthesis or augmentation engine by hypergradients, so a segmenter trained on synthetic or augmented data is optimal on a small real labelled set that is never trained on directly.",
+ "adaptation": "Engine = about 10 parametric EL augmentations (crack-region contrast, blur matching the 4 px FWHM, scuff-streak overlay, half-cut masking, per-source gamma). Outer objective = soft crack IoU on val 54 + F51 (+ H36 for half-cut). After the search, fix the parameters and run a full house training.",
+ "min_experiment": "Arm: house net trained with the learned augmentation parameters, 5 seeds. Baseline: house with label-safe augmentation. Metrics: E1 crack relF1@2 (primary), test crack IoU. Kill: E1 relF1@2 below house + 0.02, or test crack IoU down by more than 0.012.",
+ "evidence": "R: brain MRI synthetic-to-real; learned parametric and nonparametric synthesis beat hand-tuned domain randomization on synthetic and real scans (numbers not read; abstract only).",
+ "prior_overlap": "none. BRIEF lists physics-based and generative synthesis as untried. Synthetic half-cut views were tried with hand-set parameters (n.d.); learned parameters are open.",
+ "score": 45,
+ "bench_score": 30,
+ "bet": "moonshot",
+ "gpu_hours": 30,
+ "targets": [
+  "e1_unseen",
+  "crack"
+ ],
+ "directions": [
+  "D42"
+ ],
+ "scout_scores": [
+  45
+ ],
+ "final": 45,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 306,
+ "pid": "P306"
+}

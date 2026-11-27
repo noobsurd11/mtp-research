@@ -1,0 +1,46 @@
+{
+ "paper_id": "arxiv:2411.01713",
+ "title": "Rethinking Weight Decay for Robust Fine-Tuning of Foundation Models (Selective Projection Decay, SPD)",
+ "year": 2024,
+ "venue": "NeurIPS",
+ "url": "https://arxiv.org/abs/2411.01713",
+ "code_url": "https://github.com/GT-RIPL/Selective-Projection-Decay",
+ "mechanism": "Adam with an L2-SP style pull toward pretrained weights, applied per layer only when the layer's gradient opposes its drift from init (c_t < 0), scaled by a deviation ratio; strong pull on some layers, free movement on others.",
+ "adaptation": "Apply SPD to the ResNet-34 encoder only (decoder is random init, no reference); conv1 reference = ImageNet RGB kernel summed to 1 channel as the house does. lambda grid {0.5,1,2.2}, house lr, 20k steps, CE + Dice. Replaces PF's freeze + 0.1x lr. Log per-layer cosine to init to confirm layer3/4 are kept.",
+ "evidence": "PASCAL semantic seg, Swin-T IN21k, 60 epochs (read in full text, Table 4): mIoU ID / OOD-corruption avg: vanilla FT 66.03/44.00, L2-SP 73.47/56.70, LLRD 72.09/54.47, TPGM 72.56/56.96, FTP 73.79/58.45, Adam-SPD 74.27/60.06. Also DomainNet, ImageNet, LLaMA PEFT, VQA.",
+ "min_experiment": "Arm SPD (encoder) vs SUP100-PF, seeds 5-9, 20k steps. Co-primaries: test clean crack relF1@2, test inactive IoU, E1 inactive IoU, E1 crack relF1@2; screen first on module-grouped 5-fold CV. Kill if no co-primary improves over PF and layer3/4 cosine to init is not higher than PF's.",
+ "gpu_hours": 17,
+ "targets": [
+  "e1_unseen",
+  "inactive",
+  "crack"
+ ],
+ "bet": "medium",
+ "prior_overlap": "Partial: PF (freeze 1k + 0.1x encoder lr, no encoder wd) is a crude form of the same idea and helped E1 inactive. A per-layer selective pull toward init was never run; BRIEF section 5 lists the optimizer as never varied.",
+ "score": 72,
+ "bench_score": 45,
+ "directions": [
+  "D35"
+ ],
+ "scout_scores": [
+  72,
+  72
+ ],
+ "alt_notes": [
+  {
+   "from": "D35",
+   "adaptation": "Apply SPD to the ResNet-34 encoder only (decoder has no pretrained reference); lambda in {0.5, 1, 2.2}; keep 20k steps, CE + Dice; replaces PF's freeze + 0.1x lr; log per-layer cosine to init to confirm layer3/4 are no longer erased.",
+   "min_experiment": "Arm: house lr schedule + encoder SPD (3 lambdas, 5 seeds best lambda). Baseline: SUP100-PF. Metric: test clean crack relF1@2, inactive IoU, E1 crack relF1@2, E1 inactive IoU. Kill: no co-primary better than PF and layer3/4 cosine to init not above PF's.",
+   "score": 72
+  }
+ ],
+ "final": 72,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 18,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P018"
+}

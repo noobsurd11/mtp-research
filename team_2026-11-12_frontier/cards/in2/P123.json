@@ -1,0 +1,43 @@
+{
+ "paper_id": "arxiv:2109.01903",
+ "title": "Robust fine-tuning of zero-shot models (WiSE-FT)",
+ "year": 2022,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2109.01903",
+ "code_url": "",
+ "mechanism": "Linearly interpolate pretrained and fine-tuned weights; large OOD gains at small or no ID cost.",
+ "adaptation": "Post hoc, zero training: interpolate encoder only between ImageNet and fine-tuned weights (a in 0.3..0.9), keep the decoder, recompute BN stats on train. Also interpolate house and PF checkpoints of the same seed.",
+ "evidence": "+4 to 6 pp under distribution shift on ImageNet shifts, +2 to 23 pp on six other shifts, +0.8 to 3.3 pp on seven transfer datasets (CLIP classification).",
+ "min_experiment": "Existing checkpoints house s5-9, PF s5-9: pick a on val relF1@2, then read E1 at an opening. Kill if no a beats both endpoints by +0.005 val relF1@2.",
+ "gpu_hours": 1,
+ "targets": [
+  "e1_unseen",
+  "inactive"
+ ],
+ "bet": "medium",
+ "prior_overlap": "none. Weight interpolation never tested.",
+ "score": 58,
+ "bench_score": 35,
+ "directions": [
+  "D35"
+ ],
+ "scout_scores": [
+  58,
+  58
+ ],
+ "alt_notes": [
+  {
+   "from": "D35",
+   "adaptation": "Post hoc on existing checkpoints: encoder theta = (1-a) ImageNet + a fine-tuned, a in 0.3 to 0.9, decoder kept, BN recomputed on train; also house-to-PF interpolation of the same seed and LiNeS (arxiv:2410.17146) depth scaling. Choose a on val/CV only.",
+   "min_experiment": "Arm: interpolated house s5-9 and PF s5-9. Baseline: the endpoints. Metric: val relF1@2 and F51 crack AP, then E1 at an opening. Kill: no coefficient beats both endpoints on val by +0.005 relF1@2.",
+   "score": 58
+  }
+ ],
+ "final": 58,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 123,
+ "pid": "P123"
+}

@@ -1,0 +1,45 @@
+{
+ "paper_id": "doi:10.3390/s24051479",
+ "title": "Methodology for Calculating the Damaged Surface and Its Relationship with Power Loss in Photovoltaic Modules by Electroluminescence Inspection for Corrective Maintenance",
+ "year": 2024,
+ "venue": "Sensors",
+ "url": "https://www.mdpi.com/1424-8220/24/5/1479",
+ "code_url": "",
+ "mechanism": "Method following IEC TS 60904-13: the per-cell percentage of Type-C crack area is mapped to module power loss; the most damaged cell dominates module performance.",
+ "adaptation": "Per-cell severity = predicted inactive fraction. Module-level E1 severity = max over cells, not the mean. Use for the E1 module-level severity score (67 modules).",
+ "min_experiment": "Benchmark-only: compute max-cell inactive band per E1 module from GT and predictions; report weighted kappa per model.",
+ "evidence": "R: one polycrystalline module, repeated impacts, I-V after each; cell-level estimates beat substring or module level; applied to 4 field modules.",
+ "prior_overlap": "none",
+ "score": 12,
+ "bench_score": 70,
+ "bet": "safe",
+ "targets": [
+  "severity",
+  "benchmark",
+  "e1_unseen"
+ ],
+ "gpu_hours": 0,
+ "directions": [
+  "D08",
+  "D44"
+ ],
+ "scout_scores": [
+  10,
+  12
+ ],
+ "alt_notes": [
+  {
+   "from": "D08",
+   "adaptation": "Our predicted inactive masks give the per-cell inactive area fraction directly; use to define a power-loss band metric for severity post-evaluation.",
+   "min_experiment": "No training: compute inactive-area fraction from GT and predictions on test / E1, report band agreement (e.g. 0, <5%, 5 to 20%, >20%).",
+   "score": 10
+  }
+ ],
+ "final": 12,
+ "bench": 70,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 615,
+ "pid": "P615"
+}

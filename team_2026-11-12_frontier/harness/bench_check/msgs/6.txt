@@ -1,0 +1,9 @@
+elbench: bench_make_roots.py, data roots from a split definition JSON
+
+b6_make_roots.py fe70fbaf generalised: folds from benchmark/splits/<name>.json (el_bench_split/1), pinned md5s for
+cv5v2.json, cv5v2_groups.tsv, forbidden_v1.txt and the legacy split files; same asserts (no group cut, 0 forbidden,
+held-outs partition the pool, re-read after write, no overwrite); optional per-root mask link folder (train stems ->
+one mask dir, held-out stems -> another) for label set v1.1; --check re-verifies existing roots.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01Wi4ZqFN13pWYd2FWeXAPNX

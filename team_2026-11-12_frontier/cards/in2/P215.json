@@ -1,0 +1,42 @@
+{
+ "paper_id": "doi:10.1007/978-3-031-19803-8_22",
+ "title": "PointScatter: Point Set Representation for Tubular Structure Extraction",
+ "year": 2022,
+ "venue": "ECCV",
+ "url": "https://arxiv.org/abs/2209.05774",
+ "code_url": "https://github.com/zhangzhao2022/pointscatter",
+ "mechanism": "Split the image into scatter regions, each predicting a small point set, trained by greedy region-wise bipartite matching; points rendered as mask or centreline.",
+ "adaptation": "Crack only on stride-4 features (16x16 regions); L1 point regression after matching lands at the mean of jittered labels (sub-pixel); render at source width.",
+ "min_experiment": "Arm = PF + PointScatter crack head; baseline = PF; 5 seeds; metrics relF1@2, components found. Kill if relF1@2 gain < 0.01.",
+ "score": 50,
+ "bench_score": 35,
+ "bet": "moonshot",
+ "targets": [
+  "crack"
+ ],
+ "evidence": "R: four public tubular datasets, segmentation and centreline extraction tasks.",
+ "gpu_hours": 25,
+ "prior_overlap": "None.",
+ "directions": [
+  "D11"
+ ],
+ "scout_scores": [
+  50,
+  42
+ ],
+ "alt_notes": [
+  {
+   "from": "D11",
+   "adaptation": "Crack only on stride-4 features (16x16 regions); L1-regressed matched points land at the mean of jittered labels (sub-pixel); render at per-source width; other classes from the house CE head.",
+   "min_experiment": "Arm PF encoder + PointScatter crack head vs PF; metric relF1@2 and strict IoU after per-source rendering; kill if relF1@2 +<0.01.",
+   "score": 42
+  }
+ ],
+ "final": 50,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 215,
+ "pid": "P215"
+}

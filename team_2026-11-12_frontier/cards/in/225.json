@@ -1,0 +1,35 @@
+{
+ "paper_id": "arxiv:2310.19252",
+ "title": "Revisiting Evaluation Metrics for Semantic Segmentation: Optimization and Evaluation of Fine-grained Intersection over Union",
+ "year": 2023,
+ "venue": "arXiv (Oxford ORA)",
+ "url": "https://arxiv.org/abs/2310.19252",
+ "code_url": "https://github.com/zifuwanggg/JDTLosses",
+ "mechanism": "Per-image and per-class-per-image mIoU plus worst-case metrics reduce large-object bias; the loss must be computed to match the chosen metric variant.",
+ "adaptation": "Benchmark: report pooled IoU plus per-cell IoU and worst-k cells per source; loss arm JML per-image vs per-batch.",
+ "min_experiment": "No training: rescore existing val predictions of SUP100, PF and FINAL with fine-grained and worst-case IoU; adopt as benchmark secondaries if model ranking changes or CIs narrow.",
+ "score": 40,
+ "bench_score": 82,
+ "bet": "safe",
+ "targets": [
+  "benchmark",
+  "measurement"
+ ],
+ "evidence": "R: 15 networks on 12 natural and aerial datasets; fine-grained mIoUs reduce large-object bias.",
+ "gpu_hours": 0,
+ "prior_overlap": "none",
+ "directions": [
+  "D18"
+ ],
+ "scout_scores": [
+  40
+ ],
+ "final": 40,
+ "bench": 82,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 225,
+ "pub_allowed": 0,
+ "selected_for": "bench"
+}

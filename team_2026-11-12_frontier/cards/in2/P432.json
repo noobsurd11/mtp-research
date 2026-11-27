@@ -1,0 +1,42 @@
+{
+ "paper_id": "arxiv:2410.13822",
+ "title": "Multi-style conversion for semantic segmentation of lesions in fundus images by adversarial attacks",
+ "year": 2024,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2410.13822",
+ "code_url": "",
+ "mechanism": "A linear probe on encoder features detects dataset origin. An adversarial input perturbation toward a chosen dataset makes the frozen model segment in that dataset's annotation style, with no retraining.",
+ "adaptation": "Train a source probe on the frozen house encoder, then at test take a few PGD steps that push each cell toward its own source (or toward ARTS for thin output). Measure the change in crack width and IoU.",
+ "min_experiment": "Arm = PGD style steering on the existing 5-seed ensemble versus the unmodified ensemble. Metric: crack IoU clean-49. Kill if < +0.005. Under 2 GPU-h.",
+ "score": 38,
+ "bench_score": 25,
+ "bet": "moonshot",
+ "targets": [
+  "crack"
+ ],
+ "evidence": "R: diabetic retinopathy lesion datasets with different annotation protocols; continuous style conversion shown (numbers not retrieved).",
+ "gpu_hours": 2,
+ "prior_overlap": "none",
+ "directions": [
+  "D17"
+ ],
+ "scout_scores": [
+  38,
+  35
+ ],
+ "alt_notes": [
+  {
+   "from": "D17",
+   "adaptation": "No retraining: probe source on frozen house encoder features, then at test push each image toward its own source (or toward ARTS for thin output) with a few PGD steps on the probe; measure crack width and IoU.",
+   "min_experiment": "Arm: PGD style push on existing house checkpoints (5 seeds). Baseline: same checkpoints without push. Metric: clean-49 crack IoU and per-source predicted width. Kill if IoU gain < +0.008 or widths do not move by >= 0.2 px.",
+   "score": 35
+  }
+ ],
+ "final": 38,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 432,
+ "pid": "P432"
+}

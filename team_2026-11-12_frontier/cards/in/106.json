@@ -1,0 +1,53 @@
+{
+ "paper_id": "doi:10.1109/tpami.2026.3681631",
+ "title": "Rein++: Efficient Generalization and Adaptation for Semantic Segmentation With Vision Foundation Models",
+ "year": 2026,
+ "venue": "TPAMI",
+ "url": "https://arxiv.org/abs/2508.01667",
+ "code_url": "https://github.com/wloves/Rein",
+ "mechanism": "Rein-style learnable tokens on a frozen VFM for generalisation (Rein-G), plus an adaptation stage (Rein-A) that uses unlabelled target-domain images.",
+ "adaptation": "1024 px input (EL grey to 3 channels), frozen DINOv2-L or DINOv3-L, ResNet-34 stem as a stride-2/4 detail branch, 24-class head, house loss. Rein-G trained on the 5 labelled sources; Rein-A run on the 1,152 unlabelled multi half-cells from the pool (target-like for E1), never on E1 cells.",
+ "min_experiment": "Arm: VFM-H + Rein-G, then + Rein-A. Baseline: house PF. Metric: E1 crack relF1@2 and E1 inactive IoU (one pre-registered opening), module-grouped 5-fold CV crack relF1@2. Kill: CV crack relF1@2 more than 0.005 below PF and E1 relF1@2 not at least +0.03 over PF (about 0.42) and E1 inactive IoU not above 0.24; Rein-A killed if it adds less than +0.02 E1 relF1@2 over Rein-G.",
+ "score": 58,
+ "bench_score": 70,
+ "bet": "medium",
+ "targets": [
+  "e1_unseen",
+  "inactive",
+  "crack"
+ ],
+ "evidence": "R: abstract only (TPAMI 2026, 5 citations); Rein-A / Rein-G split stated in abstract; numbers not read.",
+ "gpu_hours": 80,
+ "prior_overlap": "none: no adapter, no target-domain adaptation and no ViT-L was ever tested (BRIEF section 5 lists UDA aimed at E1 as open).",
+ "directions": [
+  "D24",
+  "D29"
+ ],
+ "scout_scores": [
+  58,
+  58,
+  48
+ ],
+ "alt_notes": [
+  {
+   "from": "D24",
+   "adaptation": "Rein-G on the 5 labelled sources; Rein-A on unlabelled pool cells resembling E1 (1,152 multi half-cells, CSIR), never E1 itself; drop the SAM boundary module for cracks.",
+   "min_experiment": "Add Rein-A to the winning Rein arm; baseline Rein-G alone and house PF; metric E1 crack relF1@2; kill if not +0.02 over Rein-G.",
+   "score": 58
+  },
+  {
+   "from": "D29",
+   "adaptation": "Rein-G on DINOv2-L or DINOv3 with a high-resolution CNN skip for cracks, trained on 478 cells. Rein-A with the half-cell pool as the unlabelled target. Overlaps the adapters direction; included for its UDA part.",
+   "min_experiment": "Arm: Rein-G (+ Rein-A) with CNN skip, 3 seeds. Baseline: PF house. Metrics: E1 crack relF1@2 and inactive IoU, clean-49 crack IoU and mIoU_rob. Kill: E1 relF1@2 < PF + 0.03 and test crack IoU more than 0.02 below PF.",
+   "score": 48
+  }
+ ],
+ "final": 58,
+ "bench": 70,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 106,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

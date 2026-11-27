@@ -1,0 +1,46 @@
+{
+ "paper_id": "arxiv:2106.05237",
+ "title": "Knowledge distillation: A good teacher is patient and consistent",
+ "year": 2022,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2106.05237",
+ "code_url": "",
+ "mechanism": "Function matching: teacher and student see the identical augmented view, with aggressive mixup and very long schedules.",
+ "adaptation": "Online ensemble teacher on the same rot90/flip/crop/brightness view as the student, CutMix or mixup across labelled and pool cells (label-free since the teacher labels the mix), 100k steps on A6000s.",
+ "min_experiment": "Arm: online function-matching KD, 100k steps, 3 seeds. Baseline: cached fixed-view KD student (Noothout arm). Metric: crack IoU / relF1@2 on CV and clean 49. Kill: below baseline or < +0.01 crack IoU.",
+ "evidence": "R: ImageNet ResNet-50 student 82.8% top-1; implicit design choices (consistent views, long training) drive KD success across many vision datasets.",
+ "gpu_hours": 20,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "inactive"
+ ],
+ "prior_overlap": "none; CutMix only used inside Mean Teacher SSL",
+ "score": 64,
+ "bench_score": 45,
+ "directions": [
+  "D29",
+  "D34"
+ ],
+ "scout_scores": [
+  60,
+  64
+ ],
+ "alt_notes": [
+  {
+   "from": "D29",
+   "adaptation": "Distil the 5-seed ensemble, our only clear win (+0.014 to +0.018 crack IoU), into one U-Net++ R34. Per-pixel KL on the same augmented view of labelled + pool cells, mixup/CutMix between cells, about 100k steps. Gives single-model deployment.",
+   "min_experiment": "Arm KD-ens vs house PF single model and the 5-seed ensemble. Metric: clean-49 crack IoU and relF1@2. Kill if less than 50% of the single-to-ensemble gap is closed.",
+   "score": 60
+  }
+ ],
+ "final": 64,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 61,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P061"
+}

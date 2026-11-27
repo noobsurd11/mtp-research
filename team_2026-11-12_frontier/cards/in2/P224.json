@@ -1,0 +1,42 @@
+{
+ "paper_id": "doi:10.59275/j.melba.2025-79a2",
+ "title": "ContourDiff: Unpaired Medical Image Translation with Structural Consistency",
+ "year": 2025,
+ "venue": "MELBA",
+ "url": "https://arxiv.org/pdf/2403.10786",
+ "code_url": "https://github.com/mazurowski-lab/ContourDiff",
+ "mechanism": "A diffusion model trained only on the target domain maps contour maps to target images, enforcing the contour at every sampling step, so source structure and masks are preserved under translation.",
+ "adaptation": "Train on unlabelled half-cut multi pool cells (1,152) plus CSIR mono pool; contour = busbar/finger/cell-border edges plus the crack label drawn in (edge detectors miss the 7% of cracks under 2% contrast). Translate the 478 train cells into half-cut CSIR style and reuse labels; crack is forced by its own label so pairs are aligned.",
+ "min_experiment": "PF + 478 translated cells vs PF, 5 seeds. Metric E1 crack relF1@2 and E1 inactive IoU. Kill: both gains < +0.02 or test crack IoU drop > 0.01.",
+ "evidence": "R: CT to MRI (lumbar spine, hip-thigh); segmentation trained on translated images beats other unpaired translators on real MRI; zero-shot to unseen anatomy.",
+ "gpu_hours": 36,
+ "bet": "medium",
+ "targets": [
+  "e1_unseen"
+ ],
+ "prior_overlap": "Synthetic half-cut views changed geometry only; appearance translation untested. Open.",
+ "score": 50,
+ "bench_score": 30,
+ "directions": [
+  "D33"
+ ],
+ "scout_scores": [
+  50,
+  50
+ ],
+ "alt_notes": [
+  {
+   "from": "D33",
+   "adaptation": "Train on unlabelled half-cut multi and CSIR mono pool cells; contour = busbar, finger, border edges plus the crack label drawn in. Translate 478 train cells to half-cut CSIR style, keep labels.",
+   "min_experiment": "PF + 478 translated cells vs PF. Kill: E1 relF1@2 and E1 inactive gains both < +0.02. About 36 GPU-h.",
+   "score": 50
+  }
+ ],
+ "final": 50,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 224,
+ "pid": "P224"
+}

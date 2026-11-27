@@ -1,0 +1,43 @@
+{
+ "paper_id": "doi:10.1016/j.media.2026.104130",
+ "title": "From noisy labels to intrinsic structure: A geometric-structural dual-guided framework for noise-robust medical image segmentation (GSD-Net)",
+ "year": 2026,
+ "venue": "Medical Image Analysis",
+ "url": "https://arxiv.org/abs/2509.02419",
+ "code_url": "https://github.com/ortonwang/GSD-Net",
+ "mechanism": "Geometric distance-aware pixel weights, structure-guided label refinement, and region swapping between image pairs for diversity.",
+ "adaptation": "Distance weights from the crack distance transform down-weight the uncertain 1-2 px label edge. Region swaps pair cells from different sources. It is the most recent noise-robust baseline for the benchmark suite.",
+ "min_experiment": "Arm: distance weights only (the cheapest component), 5 seeds. Baseline: house. Metrics: crack IoU, relF1@2. Kill if there is no detectable difference; run the full GSD-Net only for the benchmark.",
+ "score": 45,
+ "bench_score": 60,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "benchmark"
+ ],
+ "evidence": "R (web abstract): with simulated noise, +2.52% on Kvasir, +22.76% on Shenzhen, +8.87% on BU-SUC and +4.59% on BraTS2020; also tested on LIDC and MMIS-2024 with real multi-expert labels.",
+ "gpu_hours": 8,
+ "prior_overlap": "none",
+ "directions": [
+  "D15"
+ ],
+ "scout_scores": [
+  45,
+  40
+ ],
+ "alt_notes": [
+  {
+   "from": "D15",
+   "adaptation": "Invert for cracks: down-weight background pixels 1 to 2 px from crack labels (likely true crack mislabelled as background) instead of crack boundary pixels.",
+   "min_experiment": "Arm: house + distance-weighted CE near crack. Baseline: house. Metric: crack IoU and relR@2. Kill if crack IoU < house + 0.005. About 6 GPU-h.",
+   "score": 40
+  }
+ ],
+ "final": 45,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 270,
+ "pid": "P270"
+}

@@ -1,0 +1,70 @@
+PASS	A1 all pass: (a), (b), (c) CONFIRMED	
+PASS	A2 decisions: replicated (C1 also with D4), D4 supported, C2 passes its CV5 check; no CS - PF information section	
+PASS	A3 every line of the (c) section carries 'selection-biased'	
+PASS	A4 (b) has false_alarm against CS and false_alarm_pf against PF; (a), (c) no false_alarm_pf	
+PASS	A5 per-source width judged only for sources with >= 40 cells (SDLE 17 not judged; type:mono not judged)	
+PASS	A6 rule md5 and sections printed	
+PASS	A7 swad vs swad_bn not re-decided	
+PASS	A8 section 7 wording: (b) interval line; rule sections	
+PASS	a1 (a) delta < M at 416 OP-W -> NOT CONFIRMED, NO LOSS; not replicated; C1 not shown with D4; (b), (c) unaffected	
+PASS	a2 (a) CI low < -M -> NOT CONFIRMED, LOSS	
+PASS	a3 (a) GAIN with ARTS width failing -> not replicated, failing part named	
+PASS	a4 headline delta = M exactly, CI low > 0 -> passes (inclusive)	
+PASS	a5 headline CI low = 0 -> fails (strict)	
+PASS	b1 (b) GAIN, only a per-source width fails -> D4 supported, item named, re-read on E1; no information section	
+PASS	b2 (b) GAIN, pooled width fails only -> D4 supported	
+PASS	b2e width ratio exactly 1.15 passes (inclusive band; (b) and (c))	
+PASS	b3 (b) GAIN, false alarm against CS fails (2.0 x) -> FLAG D4, item named; CS - PF printed as information (meets the criteria); C2 passes	
+PASS	b3e false alarm 400 > 1.5 x 266 = 399 -> FAIL	
+PASS	b3f false alarm exactly 1.5 x passes (inclusive; against CS, PF, and in (c))	
+PASS	b4 (b) false alarm against CS passes (0.7 x) but false_alarm_pf fails (1.75 x) -> FLAG D4; (c) fails its false-alarm guard -> FLAG C2; CS - PF (2.5 x) does not meet the criteria	
+PASS	b5 (b) inactive delta < -M -> FLAG D4	
+PASS	b6 (b) mIoU delta < -M -> FLAG D4	
+PASS	b6e mIoU delta = -M exactly passes (inclusive)	
+PASS	b7 (b) width and inactive fail -> FLAG D4, both named	
+PASS	b8 (b) NOT CONFIRMED, NO LOSS -> FLAG D4 (8x cost); C2 check still on (c) CS_D4 - PF	
+PASS	b9 (b) NOT CONFIRMED, LOSS -> FLAG D4	
+PASS	c1 (c) GAIN with ARTS width (416) failing -> C2 passes its CV5 check, width items named	
+PASS	c2 (c) headline fails -> FLAG C2	
+PASS	c3 (c) inactive fails -> FLAG C2	
+PASS	c4 (c) mIoU fails -> FLAG C2	
+PASS	c5 (c) false alarm 4 x PF -> FLAG C2; (a) not replicated; false_alarm_pf of (b) -> FLAG D4	
+PASS	c6 FLAG D4 and FLAG C2 together; CS - PF meets the criteria but replaces nothing (C2 still flagged on (c))	
+PASS	f1 FLAG D4, CS - PF passes headline and guards -> information line, all lines selection-biased; guards against PF, no false_alarm_pf	
+PASS	f1b FLAG D4: CS - PF stays in the descriptive section; its strict IoU and per-seed lines marked as information	
+PASS	f2 FLAG D4, CS - PF delta < M at 416 OP-W -> 'does not meet the (c) criteria (headline fails)'; C2 check unchanged	
+PASS	f3 FLAG D4, CS - PF false alarm 1.75 x PF -> item named in the information line; C2 check unchanged	
+PASS	f4 FLAG D4, CS - PF inactive < -M -> named	
+PASS	f5 FLAG D4, CS - PF mIoU < -M -> named	
+PASS	f6 FLAG D4, CS - PF only ARTS width (416) fails -> meets the criteria, width items named	
+PASS	f7 FLAG D4, CS - PF LOSS -> information only, C2 check unchanged	
+PASS	f8 FLAG D4, a null in CS - PF is refused, nothing written	
+PASS	k1 D4 supported, CS - PF LOSS and 2.25 x false alarm -> no information section, nothing flagged; CS - PF descriptive	
+PASS	k2 D4 supported, a null in CS - PF is not read by the rule: no refusal, printed n/a	
+PASS	s1 strict IoU 0.019 inside, 0.027 outside the band; null strict IoU and NaN descriptive relF1 print n/a, no refusal	
+PASS	s2 strict IoU lines of (c) carry selection-biased	
+PASS	s3 per-seed lines X - R per seed; (c) lines selection-biased	
+PASS	rvB3 every line carrying a CS / CS_D4 number is labelled (317 lines: 'selection-biased' against PF / PF_D4 and on CS / CS_D4 levels, else the (b) label) and every arm-contrast crack_iou line carries the convention band (116 lines)	
+PASS	R r01_aa_spec: refused (A/A spec of the 532 cells block is 'PF:5,6:7,9')	
+PASS	R r02_contrast: refused (the 416 clean cells block lacks the contrasts ['CS_D4 - PF_D)	
+PASS	R r03_24_runs: refused (arm CB_D4 has 24 runs with 24 different run ids)	
+PASS	R r04_seeds: refused (arm PF_D4 has seeds [4, 5, 6, 7, 8])	
+PASS	R r05_sets: refused (arm CS holds sets that are not cv5v3_f<k>)	
+PASS	R r06_run_id_pattern: refused (arm PF_D4 holds run ids that are not)	
+PASS	R r07_extra_arm: refused (arms ['D4MS'] are not arms of the registered read)	
+PASS	R r08_null_delta_b: refused (contrast CS_D4 - CS, OP-W, inact_iou: delta is None in the 4)	
+PASS	R r09_nan_M: refused (the A/A margin M(relF1_2) of the 532 cells block is nan)	
+PASS	R r10_nan_lo_c: refused (contrast CS_D4 - PF, OP-A, relF1_2: lo is nan)	
+PASS	R r11_null_hi_a: refused (contrast PF_D4 - PF, OP-W, miou_rob: hi is None)	
+PASS	R r12_null_width_ref: refused (width ratio undefined for a judged subset (src:ARTS, OP-W, 4)	
+PASS	R r13_null_fa: refused (false crack px undefined (OP-A, 532 cells))	
+PASS	R r14_no_x_block: refused (expected one kept-cells block in read.json)	
+PASS	R r15_no_M: refused (no A/A margin in the 532 cells block)	
+PASS	R r16_arm_missing: refused (arm CB missing in the 416 clean cells block)	
+PASS	R r17_out_exists: refused (exists)	
+PASS	R r18_null_under_mechanics: refused under --mechanics too	
+PASS	m1 --mechanics: non-registered read accepted; first line and every verdict/decision line marked	
+PASS	m2 the same read without --mechanics is refused	
+PASS	m3 --mechanics still refuses a missing contrast	
+
+final verdict test: 68 of 68 PASS

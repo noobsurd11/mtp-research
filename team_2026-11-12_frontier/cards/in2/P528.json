@@ -1,0 +1,43 @@
+{
+ "paper_id": "doi:10.1111/mice.13290",
+ "title": "A rendering-based lightweight network for segmentation of high-resolution crack images (RLCSN)",
+ "year": 2024,
+ "venue": "Computer-Aided Civil and Infrastructure Engineering",
+ "url": "https://doi.org/10.1111/mice.13290",
+ "code_url": "",
+ "mechanism": "Transformer encoder plus a super-resolution boundary-guided branch and point-wise refined rendering for thin cracks.",
+ "adaptation": "Crack-domain evidence for the PointRend arm and SR boundary branch; no separate run.",
+ "min_experiment": "Covered by the PointRend arm.",
+ "evidence": "R: detects cracks as narrow as 0.15 mm from 3 m in UAV field tests; ablations per component.",
+ "gpu_hours": 0,
+ "bet": "medium",
+ "prior_overlap": "none.",
+ "score": 30,
+ "bench_score": 20,
+ "targets": [
+  "crack"
+ ],
+ "directions": [
+  "D22",
+  "D26"
+ ],
+ "scout_scores": [
+  30,
+  28
+ ],
+ "alt_notes": [
+  {
+   "from": "D26",
+   "adaptation": "Crack-domain variant of the PointRend arm; same test.",
+   "min_experiment": "Same as PointRend arm; kill crack IoU < +0.012 and relF1@2 < +0.01.",
+   "score": 28
+  }
+ ],
+ "final": 30,
+ "bench": 20,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 528,
+ "pid": "P528"
+}

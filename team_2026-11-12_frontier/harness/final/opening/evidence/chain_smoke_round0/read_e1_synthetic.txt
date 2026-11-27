@@ -1,0 +1,129 @@
+# Opening read: set e1_106, labels set, 106 cells, 71 clusters, device cpu, fp32, OP-A only; bootstrap 2000 draws, seed 0
+
+## subset all: 106 cells, 71 clusters
+| arm | models | relF1@2 | relP@2 | relR@2 | strict crack IoU | inactive IoU | mIoU-R13 | width ratio | false crack px (crack-free cells) |
+|---|---|---|---|---|---|---|---|---|---|
+| C1 | 5 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.000 | 0 |
+| C2 | 5 | 0.0016 [0.0000, 0.0079] | 0.0008 | 0.1557 | 0.0002 | 0.0016 | 0.0062 | 45.440 | 396233 |
+| C3 | 1 | 0.0004 [0.0004, 0.0004] | 0.0076 | 0.0002 | 0.0000 | 0.0000 | 0.0001 | 0.013 | 111 |
+| EPF | 1 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.000 | 0 |
+| C2S5 | 1 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.000 | 0 |
+| C1D4 | 5 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.000 | 0 |
+- C2 - C1: relF1@2 0.0016 seed-aware [0.0000, 0.0048] (SE 0.0014), fixed-model [0.0013, 0.0019]; strict crack IoU 0.0002 [0.0000, 0.0005]; inactive IoU 0.0016 [0.0000, 0.0046]; mIoU-R13 0.0062; width ratio B / A n/a; false crack px B / A n/a
+- C3 - C1: relF1@2 0.0004 seed-aware [0.0000, 0.0009] (SE 0.0003), fixed-model [0.0000, 0.0010]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 0.0001; width ratio B / A n/a; false crack px B / A n/a
+- C3 - EPF: relF1@2 0.0004 seed-aware [0.0000, 0.0010] (SE 0.0003), fixed-model [0.0000, 0.0010]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 0.0001; width ratio B / A n/a; false crack px B / A n/a
+- C3 - C2: relF1@2 -0.0012 seed-aware [-0.0047, 0.0008] (SE 0.0014), fixed-model [-0.0017, -0.0006]; strict crack IoU -0.0002 [-0.0005, 0.0000]; inactive IoU -0.0016 [-0.0048, 0.0000]; mIoU-R13 -0.0061; width ratio B / A 0.000; false crack px B / A 0.000
+- C2S5 - C1: relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0000; width ratio B / A n/a; false crack px B / A n/a
+- EPF - C1: relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0000; width ratio B / A n/a; false crack px B / A n/a
+- C1D4 - C1: relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0000; width ratio B / A n/a; false crack px B / A n/a
+- C2 - C1D4: relF1@2 0.0016 seed-aware [0.0000, 0.0048] (SE 0.0014), fixed-model [0.0013, 0.0019]; strict crack IoU 0.0002 [0.0000, 0.0005]; inactive IoU 0.0016 [0.0000, 0.0046]; mIoU-R13 0.0062; width ratio B / A n/a; false crack px B / A n/a
+
+## subset src:BMRK: 5 cells, 5 clusters
+| arm | models | relF1@2 | relP@2 | relR@2 | strict crack IoU | inactive IoU | mIoU-R13 | width ratio | false crack px (crack-free cells) |
+|---|---|---|---|---|---|---|---|---|---|
+| C1 | 5 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.000 | 0 |
+| C2 | 5 | 0.0017 [0.0000, 0.0087] | 0.0009 | 0.1602 | 0.0002 | 0.0011 | 0.0061 | 43.181 | 17753 |
+| C3 | 1 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0001 | 0.015 | 5 |
+| EPF | 1 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.000 | 0 |
+| C2S5 | 1 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.000 | 0 |
+| C1D4 | 5 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.000 | 0 |
+- C2 - C1: relF1@2 0.0017 seed-aware [0.0000, 0.0058] (SE 0.0018), fixed-model [0.0006, 0.0029]; strict crack IoU 0.0002 [0.0000, 0.0006]; inactive IoU 0.0011 [0.0000, 0.0058]; mIoU-R13 0.0061; width ratio B / A n/a; false crack px B / A n/a
+- C3 - C1: relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 0.0001; width ratio B / A n/a; false crack px B / A n/a
+- C3 - EPF: relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 0.0001; width ratio B / A n/a; false crack px B / A n/a
+- C3 - C2: relF1@2 -0.0017 seed-aware [-0.0058, 0.0000] (SE 0.0018), fixed-model [-0.0029, -0.0006]; strict crack IoU -0.0002 [-0.0006, 0.0000]; inactive IoU -0.0011 [-0.0043, 0.0000]; mIoU-R13 -0.0061; width ratio B / A 0.000; false crack px B / A 0.000
+- C2S5 - C1: relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 0.0000; width ratio B / A n/a; false crack px B / A n/a
+- EPF - C1: relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 0.0000; width ratio B / A n/a; false crack px B / A n/a
+- C1D4 - C1: relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 0.0000; width ratio B / A n/a; false crack px B / A n/a
+- C2 - C1D4: relF1@2 0.0017 seed-aware [0.0000, 0.0058] (SE 0.0018), fixed-model [0.0006, 0.0029]; strict crack IoU 0.0002 [0.0000, 0.0006]; inactive IoU 0.0011 [0.0000, 0.0058]; mIoU-R13 0.0061; width ratio B / A n/a; false crack px B / A n/a
+
+## subset src:CSIR: 101 cells, 66 clusters
+| arm | models | relF1@2 | relP@2 | relR@2 | strict crack IoU | inactive IoU | mIoU-R13 | width ratio | false crack px (crack-free cells) |
+|---|---|---|---|---|---|---|---|---|---|
+| C1 | 5 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.000 | 0 |
+| C2 | 5 | 0.0016 [0.0000, 0.0078] | 0.0008 | 0.1555 | 0.0002 | 0.0016 | 0.0062 | 45.558 | 378480 |
+| C3 | 1 | 0.0004 [0.0004, 0.0004] | 0.0080 | 0.0002 | 0.0000 | 0.0000 | 0.0001 | 0.013 | 106 |
+| EPF | 1 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.000 | 0 |
+| C2S5 | 1 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.000 | 0 |
+| C1D4 | 5 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.000 | 0 |
+- C2 - C1: relF1@2 0.0016 seed-aware [0.0000, 0.0048] (SE 0.0014), fixed-model [0.0013, 0.0019]; strict crack IoU 0.0002 [0.0000, 0.0005]; inactive IoU 0.0016 [0.0000, 0.0048]; mIoU-R13 0.0062; width ratio B / A n/a; false crack px B / A n/a
+- C3 - C1: relF1@2 0.0004 seed-aware [0.0000, 0.0010] (SE 0.0003), fixed-model [0.0000, 0.0010]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 0.0001; width ratio B / A n/a; false crack px B / A n/a
+- C3 - EPF: relF1@2 0.0004 seed-aware [0.0000, 0.0010] (SE 0.0003), fixed-model [0.0000, 0.0010]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 0.0001; width ratio B / A n/a; false crack px B / A n/a
+- C3 - C2: relF1@2 -0.0012 seed-aware [-0.0045, 0.0008] (SE 0.0015), fixed-model [-0.0017, -0.0006]; strict crack IoU -0.0002 [-0.0005, 0.0000]; inactive IoU -0.0016 [-0.0050, 0.0000]; mIoU-R13 -0.0061; width ratio B / A 0.000; false crack px B / A 0.000
+- C2S5 - C1: relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0000; width ratio B / A n/a; false crack px B / A n/a
+- EPF - C1: relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0000; width ratio B / A n/a; false crack px B / A n/a
+- C1D4 - C1: relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0000; width ratio B / A n/a; false crack px B / A n/a
+- C2 - C1D4: relF1@2 0.0016 seed-aware [0.0000, 0.0048] (SE 0.0014), fixed-model [0.0013, 0.0019]; strict crack IoU 0.0002 [0.0000, 0.0005]; inactive IoU 0.0016 [0.0000, 0.0048]; mIoU-R13 0.0062; width ratio B / A n/a; false crack px B / A n/a
+
+## subset type:halfcut: 27 cells, 24 clusters
+| arm | models | relF1@2 | relP@2 | relR@2 | strict crack IoU | inactive IoU | mIoU-R13 | width ratio | false crack px (crack-free cells) |
+|---|---|---|---|---|---|---|---|---|---|
+| C1 | 5 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.000 | 0 |
+| C2 | 5 | 0.0016 [0.0000, 0.0079] | 0.0008 | 0.1558 | 0.0002 | 0.0017 | 0.0062 | 45.322 | 96620 |
+| C3 | 1 | 0.0011 [0.0011, 0.0011] | 0.0137 | 0.0006 | 0.0000 | 0.0000 | 0.0001 | 0.014 | 33 |
+| EPF | 1 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.000 | 0 |
+| C2S5 | 1 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.000 | 0 |
+| C1D4 | 5 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.000 | 0 |
+- C2 - C1: relF1@2 0.0016 seed-aware [0.0000, 0.0050] (SE 0.0014), fixed-model [0.0011, 0.0020]; strict crack IoU 0.0002 [0.0000, 0.0005]; inactive IoU 0.0017 [0.0000, 0.0054]; mIoU-R13 0.0062; width ratio B / A n/a; false crack px B / A n/a
+- C3 - C1: relF1@2 0.0011 seed-aware [0.0000, 0.0035] (SE 0.0011), fixed-model [0.0000, 0.0035]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 0.0001; width ratio B / A n/a; false crack px B / A n/a
+- C3 - EPF: relF1@2 0.0011 seed-aware [0.0000, 0.0034] (SE 0.0010), fixed-model [0.0000, 0.0035]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 0.0001; width ratio B / A n/a; false crack px B / A n/a
+- C3 - C2: relF1@2 -0.0005 seed-aware [-0.0042, 0.0030] (SE 0.0018), fixed-model [-0.0019, 0.0019]; strict crack IoU -0.0002 [-0.0005, 0.0000]; inactive IoU -0.0017 [-0.0051, 0.0000]; mIoU-R13 -0.0061; width ratio B / A 0.000; false crack px B / A 0.000
+- C2S5 - C1: relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0000; width ratio B / A n/a; false crack px B / A n/a
+- EPF - C1: relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0000; width ratio B / A n/a; false crack px B / A n/a
+- C1D4 - C1: relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0000; width ratio B / A n/a; false crack px B / A n/a
+- C2 - C1D4: relF1@2 0.0016 seed-aware [0.0000, 0.0050] (SE 0.0014), fixed-model [0.0011, 0.0020]; strict crack IoU 0.0002 [0.0000, 0.0005]; inactive IoU 0.0017 [0.0000, 0.0054]; mIoU-R13 0.0062; width ratio B / A n/a; false crack px B / A n/a
+
+## subset type:full: 79 cells, 59 clusters
+| arm | models | relF1@2 | relP@2 | relR@2 | strict crack IoU | inactive IoU | mIoU-R13 | width ratio | false crack px (crack-free cells) |
+|---|---|---|---|---|---|---|---|---|---|
+| C1 | 5 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.000 | 0 |
+| C2 | 5 | 0.0016 [0.0000, 0.0079] | 0.0008 | 0.1557 | 0.0002 | 0.0016 | 0.0062 | 45.481 | 299613 |
+| C3 | 1 | 0.0001 [0.0001, 0.0001] | 0.0052 | 0.0001 | 0.0000 | 0.0000 | 0.0001 | 0.012 | 78 |
+| EPF | 1 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.000 | 0 |
+| C2S5 | 1 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.000 | 0 |
+| C1D4 | 5 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.000 | 0 |
+- C2 - C1: relF1@2 0.0016 seed-aware [0.0000, 0.0049] (SE 0.0014), fixed-model [0.0013, 0.0019]; strict crack IoU 0.0002 [0.0000, 0.0005]; inactive IoU 0.0016 [0.0000, 0.0048]; mIoU-R13 0.0062; width ratio B / A n/a; false crack px B / A n/a
+- C3 - C1: relF1@2 0.0001 seed-aware [0.0000, 0.0004] (SE 0.0001), fixed-model [0.0000, 0.0005]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 0.0001; width ratio B / A n/a; false crack px B / A n/a
+- C3 - EPF: relF1@2 0.0001 seed-aware [0.0000, 0.0004] (SE 0.0001), fixed-model [0.0000, 0.0005]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 0.0001; width ratio B / A n/a; false crack px B / A n/a
+- C3 - C2: relF1@2 -0.0014 seed-aware [-0.0045, 0.0003] (SE 0.0014), fixed-model [-0.0018, -0.0010]; strict crack IoU -0.0002 [-0.0005, 0.0000]; inactive IoU -0.0016 [-0.0046, 0.0000]; mIoU-R13 -0.0061; width ratio B / A 0.000; false crack px B / A 0.000
+- C2S5 - C1: relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0000; width ratio B / A n/a; false crack px B / A n/a
+- EPF - C1: relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0000; width ratio B / A n/a; false crack px B / A n/a
+- C1D4 - C1: relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0000; width ratio B / A n/a; false crack px B / A n/a
+- C2 - C1D4: relF1@2 0.0016 seed-aware [0.0000, 0.0049] (SE 0.0014), fixed-model [0.0013, 0.0019]; strict crack IoU 0.0002 [0.0000, 0.0005]; inactive IoU 0.0016 [0.0000, 0.0048]; mIoU-R13 0.0062; width ratio B / A n/a; false crack px B / A n/a
+
+## subset crack_cells: 61 cells, 45 clusters
+| arm | models | relF1@2 | relP@2 | relR@2 | strict crack IoU | inactive IoU | mIoU-R13 | width ratio | false crack px (crack-free cells) |
+|---|---|---|---|---|---|---|---|---|---|
+| C1 | 5 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.000 | 0 |
+| C2 | 5 | 0.0027 [0.0000, 0.0136] | 0.0014 | 0.1557 | 0.0003 | 0.0015 | 0.0062 | 26.149 | 0 |
+| C3 | 1 | 0.0004 [0.0004, 0.0004] | 0.0131 | 0.0002 | 0.0000 | 0.0000 | 0.0001 | 0.007 | 0 |
+| EPF | 1 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.000 | 0 |
+| C2S5 | 1 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.000 | 0 |
+| C1D4 | 5 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.000 | 0 |
+- C2 - C1: relF1@2 0.0027 seed-aware [0.0000, 0.0082] (SE 0.0024), fixed-model [0.0027, 0.0028]; strict crack IoU 0.0003 [0.0000, 0.0008]; inactive IoU 0.0015 [0.0000, 0.0046]; mIoU-R13 0.0062; width ratio B / A n/a; false crack px B / A n/a
+- C3 - C1: relF1@2 0.0004 seed-aware [0.0000, 0.0010] (SE 0.0003), fixed-model [0.0000, 0.0010]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 0.0001; width ratio B / A n/a; false crack px B / A n/a
+- C3 - EPF: relF1@2 0.0004 seed-aware [0.0000, 0.0010] (SE 0.0003), fixed-model [0.0000, 0.0010]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 0.0001; width ratio B / A n/a; false crack px B / A n/a
+- C3 - C2: relF1@2 -0.0023 seed-aware [-0.0080, 0.0008] (SE 0.0024), fixed-model [-0.0028, -0.0018]; strict crack IoU -0.0003 [-0.0008, 0.0000]; inactive IoU -0.0015 [-0.0045, 0.0000]; mIoU-R13 -0.0061; width ratio B / A 0.000; false crack px B / A n/a
+- C2S5 - C1: relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0000; width ratio B / A n/a; false crack px B / A n/a
+- EPF - C1: relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0000; width ratio B / A n/a; false crack px B / A n/a
+- C1D4 - C1: relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0000; width ratio B / A n/a; false crack px B / A n/a
+- C2 - C1D4: relF1@2 0.0027 seed-aware [0.0000, 0.0082] (SE 0.0024), fixed-model [0.0027, 0.0028]; strict crack IoU 0.0003 [0.0000, 0.0008]; inactive IoU 0.0015 [0.0000, 0.0046]; mIoU-R13 0.0062; width ratio B / A n/a; false crack px B / A n/a
+
+## subset crack_free_cells: 45 cells, 35 clusters
+| arm | models | relF1@2 | relP@2 | relR@2 | strict crack IoU | inactive IoU | mIoU-R13 | width ratio | false crack px (crack-free cells) |
+|---|---|---|---|---|---|---|---|---|---|
+| C1 | 5 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | n/a | 0.0000 | 0.0000 | n/a | 0 |
+| C2 | 5 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0018 | 0.0074 | n/a | 396233 |
+| C3 | 1 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0002 | n/a | 111 |
+| EPF | 1 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | n/a | 0.0000 | 0.0000 | n/a | 0 |
+| C2S5 | 1 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | n/a | 0.0000 | 0.0000 | n/a | 0 |
+| C1D4 | 5 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | n/a | 0.0000 | 0.0000 | n/a | 0 |
+- C2 - C1: relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU n/a [n/a, n/a]; inactive IoU 0.0018 [0.0000, 0.0054]; mIoU-R13 0.0074; width ratio B / A n/a; false crack px B / A n/a
+- C3 - C1: relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU n/a [n/a, n/a]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 0.0002; width ratio B / A n/a; false crack px B / A n/a
+- C3 - EPF: relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU n/a [n/a, n/a]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 0.0002; width ratio B / A n/a; false crack px B / A n/a
+- C3 - C2: relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU 0.0000 [0.0000, 0.0000]; inactive IoU -0.0018 [-0.0052, 0.0000]; mIoU-R13 -0.0073; width ratio B / A n/a; false crack px B / A 0.000
+- C2S5 - C1: relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU n/a [n/a, n/a]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0000; width ratio B / A n/a; false crack px B / A n/a
+- EPF - C1: relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU n/a [n/a, n/a]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0000; width ratio B / A n/a; false crack px B / A n/a
+- C1D4 - C1: relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU n/a [n/a, n/a]; inactive IoU 0.0000 [0.0000, 0.0000]; mIoU-R13 -0.0000; width ratio B / A n/a; false crack px B / A n/a
+- C2 - C1D4: relF1@2 0.0000 seed-aware [0.0000, 0.0000] (SE 0.0000), fixed-model [0.0000, 0.0000]; strict crack IoU n/a [n/a, n/a]; inactive IoU 0.0018 [0.0000, 0.0054]; mIoU-R13 0.0074; width ratio B / A n/a; false crack px B / A n/a
+
+A/A C1 ['7', '8'] - ['5', '6'] (descriptive): relF1@2 0.0000 [0.0000, 0.0000], SE 0.0000

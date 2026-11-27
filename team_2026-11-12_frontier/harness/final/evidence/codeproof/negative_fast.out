@@ -1,0 +1,34 @@
+final code proof: 03375d4 -> b548b6423b74cec69aef8dbbb430a7f399be8392 (2026-11-21 01:27:45; script e7c299e5; scratch /tmp/claude-1003/-home-noob/72e5944a-6b2b-4807-a45d-84138b3413e5/scratchpad/neg/s1)
+FAIL (1) git diff 03375d4 F differs from the expected 10 paths:
+     M	bench/q/cv02/cq.sh
+     M	bench/q/cv02/cq_setup.sh
+     M	bench/tta.py
+     M	scripts/bench_infer.py
+     A	scripts/bench_make_pool_root.py
+     M	src/models/model_factory.py
+     M	tests/test_bench_cards_cv02.py
+     M	tests/test_bench_cq_cv5v3.py
+     A	tests/test_bench_cq_final.py
+     A	tests/test_bench_pool_root.py
+     A	tests/test_bench_tta_pred.py
+FAIL (1) changed: src/models/model_factory.py 
+OK   (1) 03375d4's bench/tta.py and scripts/bench_infer.py = ae4dd10's (gaint udev_tta deploy, pre-ttafix)
+FAIL (1) F TTA code differs from 2933146: bench/tta.py scripts/bench_infer.py 
+FAIL (1) train.py trace: 39 modules, differing: src.models.model_factory; hits ''
+OK   (1) old-style queue lines render byte-equal to 03375d4's cq.sh (sandbox test in the archive of F: 1 passed in 0.24s)
+FAIL (2) CODE.md5 differs in: <bench/q/cv02/cq.sh <bench/q/cv02/cq_setup.sh <bench/tta.py <scripts/bench_infer.py <src/models/model_factory.py <tests/test_bench_cards_cv02.py <tests/test_bench_cq_cv5v3.py >bench/q/cv02/cq.sh >bench/q/cv02/cq_setup.sh >bench/tta.py >scripts/bench_infer.py >scripts/bench_make_pool_root.py >src/models/model_factory.py >tests/test_bench_cards_cv02.py >tests/test_bench_cq_cv5v3.py >tests/test_bench_cq_final.py >tests/test_bench_pool_root.py >tests/test_bench_tta_pred.py 
+     F deploy CODE.md5 md5 32ee2f876110e00d1bb848f2fb4ea070 (780 lines; c3_deploy.sh F must print the same)
+SKIP (2) cv02 CODE.md5 of bench_03375d4 (set CV02=1)
+OK   (3) run dir c3_pf_v11_f0_s5: config = relayed one with data.root moved to the gaint root (1 line), gaint train.txt md5 = the cv02 dump's split_md5 d7069b3493f637e73350e21f20ff5a9f, slim step/keys '20000 model'
+OK   (3) run dir c3x_hrnet_swad_v11_f0_s5: config = relayed one with data.root moved to the gaint root (1 line), gaint train.txt md5 = the cv02 dump's split_md5 d7069b3493f637e73350e21f20ff5a9f, slim step/keys '20000 swad,swad_bn'
+OK   (3) gaint cv5v3 roots: ROOTS_cv5v3_v11.md5 checks (vs cv02 only MASKLINKS.tsv differ: absolute link paths)
+     dump old c3_pf_v11_f0_s5 key model tta none: rc 0, 58 s wall: dumped c3_pf_v11_f0_s5 cv5v3_f0: 107 cells, 133.9 MiB, ties 0, key model, step 20000, cpu/fp32, 55s -> /tmp/claude-1003/-home-noob/72e5944a-6b2b-4807-
+     dump new c3_pf_v11_f0_s5 key model tta none: rc 0, 56 s wall: dumped c3_pf_v11_f0_s5 cv5v3_f0: 107 cells, 108.5 MiB, ties 0, key model, step 20000, cpu/fp32, 53s -> /tmp/claude-1003/-home-noob/72e5944a-6b2b-4807-
+     {"cells": 107, "npz_identical": 0, "bytes": 140388811, "manifest_keys_differ": ["bytes_total", "cells", "code_repo", "writer", "written"]}
+FAIL (3i) --tta none c3_pf_v11_f0_s5 key model: not byte-identical (rc 0 / 0): {"cells": 107, "npz_identical": 0, "bytes": 140388811, "manifest_keys_differ": ["bytes_total", "cells", "code_repo", "writer", "written"]}
+     dump old c3_pf_v11_f0_s5 key model tta d4: rc 0, 383 s wall: dumped c3_pf_v11_f0_s5.tta_d4 cv5v3_f0: 107 cells, 130.8 MiB, ties 0, key model, step 20000, cpu/fp32, 380s -> /tmp/claude-1003/-home-noob/72e5944a-6b
+     dump new c3_pf_v11_f0_s5 key model tta d4: rc 0, 387 s wall: dumped c3_pf_v11_f0_s5.tta_d4 cv5v3_f0: 107 cells, 107.6 MiB, ties 0, key model, step 20000, cpu/fp32, 384s -> /tmp/claude-1003/-home-noob/72e5944a-6b
+     {"cells": 107, "npz_identical": 0, "bytes": 137148943, "manifest_keys_differ": ["bytes_total", "cells", "code_repo", "writer", "written"], "oth_bit_equal": 107, "m_crack_bit_equal": 0, "p_crack_bit_equal": 107, "p_inact_bit_equal": 107, "pred_px_differ": 0, "pred_px_differ_intended": 0, "new_pred_vs_logargmax_px": 0, "tta_old": {"mode": "d4", "scales": [1.0], "d4": true, "views": 8}, "tta_new": {"mode": "d4", "scales": [1.0], "d4": true, "views": 8}}
+FAIL (3ii) --tta d4 c3_pf_v11_f0_s5 key model (rc 0 / 0): {"cells": 107, "npz_identical": 0, "bytes": 137148943, "manifest_keys_differ": ["bytes_total", "cells", "code_repo", "writer", "written"], "oth_bit_equal": 107, "m_crack_bit_equal": 0, "p_crack_bit_equal": 107, "p_inact_bit_equal": 107, "pred_px_differ": 0, "pred_px_differ_intended": 0, "new_pred_vs_logargmax_px": 0, "tta_old": {"mode": "d4", "scales": [1.0], "d4": true, "views": 8}, "tta_new": {"mode": "d4", "scales": [1.0], "d4": true, "views": 8}}
+SKIP (3) FAST=1: the c3x run (swad_bn plain, swad d4, swad_bn d4) not dumped
+final code proof: 7 FAIL

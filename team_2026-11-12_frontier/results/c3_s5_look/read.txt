@@ -1,0 +1,233 @@
+# wave 1 read (bench_read_w1.py fdb56b78); labels v11; 532 OOF stems; folds [0, 1, 2, 3, 4]; baseline PF
+NOTE A/A PF:5,6:7,8: seeds missing (have [5]); no margin M from this read
+
+## headline and guards, mean (sd) over seeds, all OOF cells
+arm	op	seeds	crack_iou	relF1_2	inact_iou	miou_rob	relP2	relR2	relF1_1	width_ratio	mean_width	fa_share50	fa_px	cc_rec50_20	cc_recany_20	cc_prec_20	inact_prec	inact_rec	in_cc_prec
+PF	OP-A	1	0.3658 (0.000)	0.8485 (0.000)	0.5046 (0.000)	0.6151 (0.000)	0.8946 (0.000)	0.8069 (0.000)	0.7588 (0.000)	1.0346 (0.000)	2.6844 (0.000)	0.0000 (0.000)	144.0000 (0.000)	0.8160 (0.000)	0.8847 (0.000)	0.9050 (0.000)	0.7963 (0.000)	0.5794 (0.000)	0.8095 (0.000)
+PF	OP-F	1	0.3697 (0.000)	0.8476 (0.000)	0.4981 (0.000)	0.6149 (0.000)	0.8752 (0.000)	0.8216 (0.000)	0.7584 (0.000)	1.1699 (0.000)	2.9408 (0.000)	0.0000 (0.000)	197.0000 (0.000)	0.8261 (0.000)	0.8928 (0.000)	0.8987 (0.000)	0.7999 (0.000)	0.5691 (0.000)	0.7846 (0.000)
+PF	OP-W	1	0.3658 (0.000)	0.8485 (0.000)	0.5046 (0.000)	0.6151 (0.000)	0.8946 (0.000)	0.8069 (0.000)	0.7588 (0.000)	1.0346 (0.000)	2.6844 (0.000)	0.0000 (0.000)	144.0000 (0.000)	0.8160 (0.000)	0.8847 (0.000)	0.9050 (0.000)	0.7963 (0.000)	0.5794 (0.000)	0.8095 (0.000)
+hrnet_w18_unetpp_pf	OP-A	1	0.3628 (0.000)	0.8590 (0.000)	0.5203 (0.000)	0.6138 (0.000)	0.9048 (0.000)	0.8176 (0.000)	0.7661 (0.000)	0.9596 (0.000)	2.4620 (0.000)	0.0033 (0.000)	298.0000 (0.000)	0.8362 (0.000)	0.9151 (0.000)	0.9130 (0.000)	0.7885 (0.000)	0.6047 (0.000)	0.8154 (0.000)
+hrnet_w18_unetpp_pf	OP-F	1	0.3707 (0.000)	0.8597 (0.000)	0.5143 (0.000)	0.6140 (0.000)	0.8847 (0.000)	0.8362 (0.000)	0.7682 (0.000)	1.0959 (0.000)	2.6816 (0.000)	0.0066 (0.000)	516.0000 (0.000)	0.8443 (0.000)	0.9211 (0.000)	0.8842 (0.000)	0.7926 (0.000)	0.5942 (0.000)	0.8062 (0.000)
+hrnet_w18_unetpp_pf	OP-W	1	0.3690 (0.000)	0.8611 (0.000)	0.5177 (0.000)	0.6141 (0.000)	0.8954 (0.000)	0.8294 (0.000)	0.7693 (0.000)	1.0331 (0.000)	2.5822 (0.000)	0.0066 (0.000)	398.0000 (0.000)	0.8392 (0.000)	0.9191 (0.000)	0.8955 (0.000)	0.7909 (0.000)	0.5997 (0.000)	0.8154 (0.000)
+
+## per source and cells.tsv subsets (OP-A and OP-W): crack IoU, relF1@2, relP@2, relR@2, width, FA share50
+PF	OP-A	src:ARTS	n=182	0.3051	0.8314	0.9655	0.7300	0.8939	0.0000
+PF	OP-A	src:BMRK	n=50	0.3973	0.8376	0.9080	0.7773	0.8693	0.0000
+PF	OP-A	src:CFVS	n=169	0.3711	0.8636	0.8889	0.8397	1.0868	0.0000
+PF	OP-A	src:CSIR	n=114	0.3441	0.8028	0.8947	0.7280	0.9764	0.0000
+PF	OP-A	src:SDLE	n=17	0.3365	0.9491	0.9176	0.9827	2.1284	0.0000
+PF	OP-A	type:dogbone	n=3	0.0033	0.0194	0.0215	0.0177	0.5290	0.0000
+PF	OP-A	type:mono	n=241	0.3836	0.8683	0.8929	0.8450	1.1043	0.0000
+PF	OP-A	type:multi	n=229	0.2966	0.7976	0.9185	0.7048	0.8672	0.0000
+PF	OP-A	type:no_spacing	n=59	0.3710	0.8153	0.8962	0.7478	0.8404	0.0000
+PF	OP-A	crackfree	n=303	0.0000	0.0000	0.0000	0.0000	n/a	0.0000
+PF	OP-A	crack	n=229	0.3659	0.8487	0.8950	0.8069	1.0341	n/a
+PF	OP-A	-flagged	n=496	0.3599	0.8501	0.9046	0.8017	1.0446	0.0000
+PF	OP-A	flag:dropped_from_20221008	n=4	0.0477	0.2021	0.8052	0.1156	0.1765	0.0000
+PF	OP-A	flag:dup_image	n=2	0.2510	0.6835	0.5794	0.8332	1.9490	n/a
+PF	OP-A	flag:mask_copy_exact	n=3	0.4877	0.9420	0.9572	0.9272	0.9238	n/a
+PF	OP-A	flag:mask_copy_near	n=6	0.3994	0.8554	0.8423	0.8689	1.0636	n/a
+PF	OP-A	flag:noisy	n=2	0.0137	0.1035	0.7667	0.0555	0.0260	n/a
+PF	OP-A	flag:not_in_escdd	n=5	0.0477	0.2021	0.8052	0.1156	0.1765	0.0000
+PF	OP-A	flag:scuff_or_star_as_crack_v1	n=7	0.2171	0.6164	0.6737	0.5680	1.2027	0.0000
+PF	OP-A	flag:scuff_or_star_v1	n=15	0.2393	0.6778	0.7477	0.6199	1.1495	0.0000
+PF	OP-A	flag:twin_train_d7	n=7	0.4582	0.9154	0.9493	0.8837	0.8964	n/a
+PF	OP-A	flag:wrong_mask_v1	n=1	0.2672	0.7308	1.0000	0.5758	1.2273	n/a
+PF	OP-W	src:ARTS	n=182	0.3051	0.8314	0.9655	0.7300	0.8939	0.0000
+PF	OP-W	src:BMRK	n=50	0.3973	0.8376	0.9080	0.7773	0.8693	0.0000
+PF	OP-W	src:CFVS	n=169	0.3711	0.8636	0.8889	0.8397	1.0868	0.0000
+PF	OP-W	src:CSIR	n=114	0.3441	0.8028	0.8947	0.7280	0.9764	0.0000
+PF	OP-W	src:SDLE	n=17	0.3365	0.9491	0.9176	0.9827	2.1284	0.0000
+PF	OP-W	type:dogbone	n=3	0.0033	0.0194	0.0215	0.0177	0.5290	0.0000
+PF	OP-W	type:mono	n=241	0.3836	0.8683	0.8929	0.8450	1.1043	0.0000
+PF	OP-W	type:multi	n=229	0.2966	0.7976	0.9185	0.7048	0.8672	0.0000
+PF	OP-W	type:no_spacing	n=59	0.3710	0.8153	0.8962	0.7478	0.8404	0.0000
+PF	OP-W	crackfree	n=303	0.0000	0.0000	0.0000	0.0000	n/a	0.0000
+PF	OP-W	crack	n=229	0.3659	0.8487	0.8950	0.8069	1.0341	n/a
+PF	OP-W	-flagged	n=496	0.3599	0.8501	0.9046	0.8017	1.0446	0.0000
+PF	OP-W	flag:dropped_from_20221008	n=4	0.0477	0.2021	0.8052	0.1156	0.1765	0.0000
+PF	OP-W	flag:dup_image	n=2	0.2510	0.6835	0.5794	0.8332	1.9490	n/a
+PF	OP-W	flag:mask_copy_exact	n=3	0.4877	0.9420	0.9572	0.9272	0.9238	n/a
+PF	OP-W	flag:mask_copy_near	n=6	0.3994	0.8554	0.8423	0.8689	1.0636	n/a
+PF	OP-W	flag:noisy	n=2	0.0137	0.1035	0.7667	0.0555	0.0260	n/a
+PF	OP-W	flag:not_in_escdd	n=5	0.0477	0.2021	0.8052	0.1156	0.1765	0.0000
+PF	OP-W	flag:scuff_or_star_as_crack_v1	n=7	0.2171	0.6164	0.6737	0.5680	1.2027	0.0000
+PF	OP-W	flag:scuff_or_star_v1	n=15	0.2393	0.6778	0.7477	0.6199	1.1495	0.0000
+PF	OP-W	flag:twin_train_d7	n=7	0.4582	0.9154	0.9493	0.8837	0.8964	n/a
+PF	OP-W	flag:wrong_mask_v1	n=1	0.2672	0.7308	1.0000	0.5758	1.2273	n/a
+hrnet_w18_unetpp_pf	OP-A	src:ARTS	n=182	0.3322	0.8653	0.9556	0.7906	0.9624	0.0074
+hrnet_w18_unetpp_pf	OP-A	src:BMRK	n=50	0.4131	0.8618	0.9295	0.8034	0.8440	0.0000
+hrnet_w18_unetpp_pf	OP-A	src:CFVS	n=169	0.3689	0.8732	0.8975	0.8503	1.0189	0.0000
+hrnet_w18_unetpp_pf	OP-A	src:CSIR	n=114	0.3203	0.8025	0.9068	0.7198	0.8185	0.0000
+hrnet_w18_unetpp_pf	OP-A	src:SDLE	n=17	0.3037	0.9232	0.9750	0.8765	1.6815	0.0000
+hrnet_w18_unetpp_pf	OP-A	type:dogbone	n=3	0.0000	0.0000	0.0000	0.0000	0.1926	0.0000
+hrnet_w18_unetpp_pf	OP-A	type:mono	n=241	0.3771	0.8746	0.9005	0.8502	1.0169	0.0000
+hrnet_w18_unetpp_pf	OP-A	type:multi	n=229	0.2969	0.8140	0.9202	0.7298	0.8297	0.0077
+hrnet_w18_unetpp_pf	OP-A	type:no_spacing	n=59	0.3896	0.8456	0.9285	0.7763	0.8057	0.0000
+hrnet_w18_unetpp_pf	OP-A	crackfree	n=303	0.0000	0.0000	0.0000	0.0000	n/a	0.0033
+hrnet_w18_unetpp_pf	OP-A	crack	n=229	0.3630	0.8594	0.9057	0.8176	0.9587	n/a
+hrnet_w18_unetpp_pf	OP-A	-flagged	n=496	0.3592	0.8600	0.9113	0.8142	0.9701	0.0034
+hrnet_w18_unetpp_pf	OP-A	flag:dropped_from_20221008	n=4	0.0437	0.1866	0.7097	0.1074	0.1758	0.0000
+hrnet_w18_unetpp_pf	OP-A	flag:dup_image	n=2	0.2663	0.7444	0.6706	0.8366	1.6696	n/a
+hrnet_w18_unetpp_pf	OP-A	flag:mask_copy_exact	n=3	0.4521	0.9360	0.9594	0.9137	0.8597	n/a
+hrnet_w18_unetpp_pf	OP-A	flag:mask_copy_near	n=6	0.3907	0.8707	0.8641	0.8774	0.9728	n/a
+hrnet_w18_unetpp_pf	OP-A	flag:noisy	n=2	0.0000	0.0000	0.0000	0.0000	0.0494	n/a
+hrnet_w18_unetpp_pf	OP-A	flag:not_in_escdd	n=5	0.0437	0.1866	0.7097	0.1074	0.1758	0.0000
+hrnet_w18_unetpp_pf	OP-A	flag:scuff_or_star_as_crack_v1	n=7	0.2372	0.6873	0.7675	0.6222	1.0862	0.0000
+hrnet_w18_unetpp_pf	OP-A	flag:scuff_or_star_v1	n=15	0.2571	0.7522	0.8132	0.6997	1.1211	0.0000
+hrnet_w18_unetpp_pf	OP-A	flag:twin_train_d7	n=7	0.4433	0.9217	0.9548	0.8909	0.8441	n/a
+hrnet_w18_unetpp_pf	OP-A	flag:wrong_mask_v1	n=1	0.2690	0.9004	0.9404	0.8636	2.2879	n/a
+hrnet_w18_unetpp_pf	OP-W	src:ARTS	n=182	0.3374	0.8688	0.9503	0.8002	1.0280	0.0074
+hrnet_w18_unetpp_pf	OP-W	src:BMRK	n=50	0.4201	0.8622	0.9191	0.8120	0.8973	0.0500
+hrnet_w18_unetpp_pf	OP-W	src:CFVS	n=169	0.3750	0.8752	0.8877	0.8632	1.1002	0.0000
+hrnet_w18_unetpp_pf	OP-W	src:CSIR	n=114	0.3272	0.8059	0.8991	0.7302	0.8785	0.0000
+hrnet_w18_unetpp_pf	OP-W	src:SDLE	n=17	0.2982	0.9234	0.9725	0.8790	1.7951	0.0000
+hrnet_w18_unetpp_pf	OP-W	type:dogbone	n=3	0.0000	0.0000	0.0000	0.0000	0.2254	0.0000
+hrnet_w18_unetpp_pf	OP-W	type:mono	n=241	0.3832	0.8769	0.8909	0.8632	1.0976	0.0071
+hrnet_w18_unetpp_pf	OP-W	type:multi	n=229	0.3032	0.8163	0.9131	0.7381	0.8856	0.0077
+hrnet_w18_unetpp_pf	OP-W	type:no_spacing	n=59	0.3973	0.8467	0.9182	0.7856	0.8588	0.0000
+hrnet_w18_unetpp_pf	OP-W	crackfree	n=303	0.0000	0.0000	0.0000	0.0000	n/a	0.0066
+hrnet_w18_unetpp_pf	OP-W	crack	n=229	0.3694	0.8617	0.8965	0.8294	1.0318	n/a
+hrnet_w18_unetpp_pf	OP-W	-flagged	n=496	0.3652	0.8622	0.9021	0.8257	1.0440	0.0068
+hrnet_w18_unetpp_pf	OP-W	flag:dropped_from_20221008	n=4	0.0489	0.2070	0.7068	0.1212	0.2091	0.0000
+hrnet_w18_unetpp_pf	OP-W	flag:dup_image	n=2	0.2603	0.7375	0.6478	0.8561	1.8357	n/a
+hrnet_w18_unetpp_pf	OP-W	flag:mask_copy_exact	n=3	0.4644	0.9404	0.9557	0.9256	0.9174	n/a
+hrnet_w18_unetpp_pf	OP-W	flag:mask_copy_near	n=6	0.3988	0.8722	0.8547	0.8905	1.0480	n/a
+hrnet_w18_unetpp_pf	OP-W	flag:noisy	n=2	0.0000	0.0000	0.0000	0.0000	0.0867	n/a
+hrnet_w18_unetpp_pf	OP-W	flag:not_in_escdd	n=5	0.0489	0.2070	0.7068	0.1212	0.2091	0.0000
+hrnet_w18_unetpp_pf	OP-W	flag:scuff_or_star_as_crack_v1	n=7	0.2403	0.6852	0.7498	0.6309	1.1848	0.0000
+hrnet_w18_unetpp_pf	OP-W	flag:scuff_or_star_v1	n=15	0.2579	0.7520	0.7958	0.7129	1.2361	0.0000
+hrnet_w18_unetpp_pf	OP-W	flag:twin_train_d7	n=7	0.4568	0.9267	0.9499	0.9046	0.9073	n/a
+hrnet_w18_unetpp_pf	OP-W	flag:wrong_mask_v1	n=1	0.2626	0.9122	0.9313	0.8939	2.4242	n/a
+
+## cross-fitted choices (per seed: fold -> candidate)
+PF|5	OP-F {0: 'b+2.75', 1: 'b+2.25', 2: 'b+1.00', 3: 'b+1.00', 4: 'b+2.75'}	OP-W {0: 'argmax', 1: 'argmax', 2: 'argmax', 3: 'argmax', 4: 'argmax'}
+hrnet_w18_unetpp_pf|5	OP-F {0: 'b+3.00', 1: 'b+3.00', 2: 'b+1.75', 3: 'b+1.75', 4: 'b+2.75'}	OP-W {0: 'b+1.25', 1: 'b+1.25', 2: 'b+1.25', 3: 'b+1.50', 4: 'b+1.50'}
+
+## frontier (bias curve, all OOF cells): relR@2 at the baseline's argmax relP@2 / relP@2 at its relR@2
+PF	s5	0.8069 @P 0.8946	0.8946 @R 0.8069
+hrnet_w18_unetpp_pf	s5	0.8300 @P 0.8946	0.9134 @R 0.8069
+
+## contrasts (B - A), two-stage group bootstrap 95% CI; no M yet (A/A seeds missing)
+hrnet_w18_unetpp_pf - PF	OP-A	crack_iou	-0.0030 [-0.0103, 0.0055]
+hrnet_w18_unetpp_pf - PF	OP-A	relF1_2	0.0105 [0.0040, 0.0180]
+hrnet_w18_unetpp_pf - PF	OP-A	inact_iou	0.0157 [-0.0172, 0.0466]
+hrnet_w18_unetpp_pf - PF	OP-A	miou_rob	-0.0012 [-0.0056, 0.0031]
+hrnet_w18_unetpp_pf - PF	OP-A	relF1_1	0.0073 [0.0003, 0.0157]
+hrnet_w18_unetpp_pf - PF	OP-A	width_ratio	-0.0749 [-0.1160, -0.0361]
+hrnet_w18_unetpp_pf - PF	OP-A	relP2	0.0102 [0.0027, 0.0181]
+hrnet_w18_unetpp_pf - PF	OP-A	relR2	0.0108 [-0.0001, 0.0231]
+hrnet_w18_unetpp_pf - PF	OP-F	crack_iou	0.0010 [-0.0057, 0.0086]
+hrnet_w18_unetpp_pf - PF	OP-F	relF1_2	0.0122 [0.0052, 0.0200]
+hrnet_w18_unetpp_pf - PF	OP-F	inact_iou	0.0161 [-0.0167, 0.0476]
+hrnet_w18_unetpp_pf - PF	OP-F	miou_rob	-0.0009 [-0.0052, 0.0035]
+hrnet_w18_unetpp_pf - PF	OP-F	relF1_1	0.0098 [0.0027, 0.0184]
+hrnet_w18_unetpp_pf - PF	OP-F	width_ratio	-0.0740 [-0.1233, -0.0279]
+hrnet_w18_unetpp_pf - PF	OP-F	relP2	0.0094 [0.0002, 0.0189]
+hrnet_w18_unetpp_pf - PF	OP-F	relR2	0.0146 [0.0036, 0.0269]
+hrnet_w18_unetpp_pf - PF	OP-W	crack_iou	0.0033 [-0.0045, 0.0124]
+hrnet_w18_unetpp_pf - PF	OP-W	relF1_2	0.0126 [0.0054, 0.0209]
+hrnet_w18_unetpp_pf - PF	OP-W	inact_iou	0.0131 [-0.0198, 0.0438]
+hrnet_w18_unetpp_pf - PF	OP-W	miou_rob	-0.0010 [-0.0053, 0.0034]
+hrnet_w18_unetpp_pf - PF	OP-W	relF1_1	0.0104 [0.0027, 0.0199]
+hrnet_w18_unetpp_pf - PF	OP-W	width_ratio	-0.0014 [-0.0398, 0.0375]
+hrnet_w18_unetpp_pf - PF	OP-W	relP2	0.0008 [-0.0077, 0.0086]
+hrnet_w18_unetpp_pf - PF	OP-W	relR2	0.0225 [0.0110, 0.0356]
+
+Rules (WAVE2_REVIEW X3, X4): a crack gain counts only if present at OP-A and OP-W; width ratio must stay within 0.85 to 1.15 x the baseline's, pooled and per source with >= 40 cells. PASS* is a screen flag, not a result.
+
+## false-alarm guard: crack-free cells = GT crack px == 0 over the scored (non-ignore) px of label set v11: n = 303 of 532
+
+## score-exclude (/home/yugma/mtp/research/team_2026-11-12_frontier/benchmark/splits/score_exclude_v3.txt, md5 6d48dfbd; left out of fits and scores: ARTS_00002_r3_c2, ARTS_00002_r4_c2, ARTS_00002_r6_c1, ARTS_00006_r10_c3, ARTS_00007_r12_c1, ARTS_00007_r4_c5, ARTS_00008_r3_c6, ARTS_00008_r4_c1, ARTS_00008_r6_c4, ARTS_00011_r1_c1, ARTS_00011_r1_c4, ARTS_00011_r6_c2, ARTS_00013_r1_c3, ARTS_00013_r2_c6, ARTS_00019_r1_c6, ARTS_00020_r10_c1, ARTS_00020_r4_c6, ARTS_00020_r7_c1, ARTS_00020_r8_c6, ARTS_00020_r9_c6, ARTS_00021_r1_c6, ARTS_00021_r2_c6, ARTS_00021_r6_c2, ARTS_00024_r11_c6, ARTS_00024_r2_c1, ARTS_00025_r8_c1, ARTS_00026_r1_c6, ARTS_00029_r2_c5, ARTS_00029_r4_c3, ARTS_00031_r2_c6, ARTS_00032_r12_c3, ARTS_00062_r5_c4, ARTS_00062_r8_c3, ARTS_00063_r5_c3, ARTS_00081_r5_c1, ARTS_00081_r9_c6, ARTS_00106_r1_c5, ARTS_00107_r10_c4, ARTS_00107_r1_c4, ARTS_00107_r8_c4, ARTS_00111_r1_c4, ARTS_00114_r1_c6, ARTS_00117_r2_c6, ARTS_00117_r7_c2, ARTS_00118_r1_c6, ARTS_00119_r1_c4, ARTS_00165_r12_c5, ARTS_00166_r12_c5, ARTS_00171_r1_c3, ARTS_00171_r1_c6, ARTS_00171_r7_c2, CFVS_00017_r4_c4, CFVS_00019_r1_c4, CFVS_00020_r4_c4, CFVS_00022_r11_c1, CFVS_00022_r4_c4, CFVS_00027_r2_c4, CFVS_00031_r4_c4, CFVS_00031_r5_c5, CFVS_00065_r1_c3, CFVS_00070_r1_c4, CFVS_00076_r1_c1, CFVS_00082_r1_c1, CFVS_00086_r1_c3, CFVS_00088_r10_c1, CFVS_00098_r1_c6, CFVS_00101_r5_c1, CFVS_00102_r1_c6, CFVS_00102_r2_c1, CFVS_00102_r4_c1, CFVS_00102_r6_c6, CFVS_00103_r6_c6, CFVS_00103_r9_c3, CFVS_00106_r12_c1, CFVS_00109_r11_c1, CFVS_00109_r1_c2, CFVS_00112_r10_c1, CFVS_00112_r4_c3, CFVS_00132_r1_c2, CFVS_00132_r7_c4, CFVS_00134_r6_c3, CFVS_00150_r1_c3, CFVS_00150_r2_c2, CFVS_00151_r3_c1, CFVS_00156_r5_c6, CFVS_00160_r5_c5, CFVS_00168_r1_c5, CFVS_00170_r2_c4, CSIR_00104_r4_c5, CSIR_00106_r6_c1, CSIR_00107_r9_c3, CSIR_00116_r9_c1, CSIR_00117_r8_c1, CSIR_00117_r8_c4, CSIR_00135_r3_c2, CSIR_00135_r4_c2, CSIR_00135_r9_c3, CSIR_00178_r7_c1, CSIR_00207_r7_c5, SDLE_00189_A1-DH3000-3000h-PT-cell19, SDLE_00195_A1-DH3000-3000h-PT-cell25, SDLE_00198_A1-DH3000-3000h-PT-cell28, SDLE_00213_A1-DH3000-3000h-PT-cell42, SDLE_00218_A1-DH3000-3000h-PT-cell47, SDLE_00224_A1-DH3000-3000h-PT-cell52, SDLE_00234_A1-DH3000-3000h-PT-cell7, SDLE_00514_A10-DH3000-3000h-PT-cell46, SDLE_00533_A10-DH3000-3000h-PT-cell9, SDLE_00764_A11-DH3000-2500h-PT-cell33, SDLE_00776_A11-DH3000-3000h-PT-cell10, SDLE_00779_A11-DH3000-3000h-PT-cell13, SDLE_00781_A11-DH3000-3000h-PT-cell15, SDLE_00796_A11-DH3000-3000h-PT-cell30, SDLE_00822_A11-DH3000-3000h-PT-cell54, SDLE_00849_A11-DH3000-500h-PT-cell24, SDLE_00852_A11-DH3000-500h-PT-cell27): every headline value on 416 cells beside 532 cells
+crack-free n (scoring label set): 303 of 532 | 226 of 416
+arm	op	metric	532 cells	416 cells	difference
+PF	OP-A	crack_iou	0.3658	0.3471	-0.0187
+PF	OP-A	relF1_2	0.8485	0.8276	-0.0209
+PF	OP-A	inact_iou	0.5046	0.4998	-0.0048
+PF	OP-A	miou_rob	0.6151	0.6086	-0.0064
+PF	OP-A	relP2	0.8946	0.8867	-0.0079
+PF	OP-A	relR2	0.8069	0.7758	-0.0311
+PF	OP-A	relF1_1	0.7588	0.7378	-0.0211
+PF	OP-A	width_ratio	1.0346	0.9637	-0.0709
+PF	OP-A	fa_px	144.0000	106.0000	-38.0000
+PF	OP-A	fa_share50	0.0000	0.0000	0.0000
+PF	OP-F	crack_iou	0.3697	0.3569	-0.0128
+PF	OP-F	relF1_2	0.8476	0.8288	-0.0188
+PF	OP-F	inact_iou	0.4981	0.4915	-0.0066
+PF	OP-F	miou_rob	0.6149	0.6088	-0.0061
+PF	OP-F	relP2	0.8752	0.8601	-0.0151
+PF	OP-F	relR2	0.8216	0.7996	-0.0220
+PF	OP-F	relF1_1	0.7584	0.7406	-0.0179
+PF	OP-F	width_ratio	1.1699	1.1569	-0.0130
+PF	OP-F	fa_px	197.0000	168.0000	-29.0000
+PF	OP-F	fa_share50	0.0000	0.0000	0.0000
+PF	OP-W	crack_iou	0.3658	0.3471	-0.0187
+PF	OP-W	relF1_2	0.8485	0.8276	-0.0209
+PF	OP-W	inact_iou	0.5046	0.4998	-0.0048
+PF	OP-W	miou_rob	0.6151	0.6086	-0.0064
+PF	OP-W	relP2	0.8946	0.8867	-0.0079
+PF	OP-W	relR2	0.8069	0.7758	-0.0311
+PF	OP-W	relF1_1	0.7588	0.7378	-0.0211
+PF	OP-W	width_ratio	1.0346	0.9637	-0.0709
+PF	OP-W	fa_px	144.0000	106.0000	-38.0000
+PF	OP-W	fa_share50	0.0000	0.0000	0.0000
+hrnet_w18_unetpp_pf	OP-A	crack_iou	0.3628	0.3476	-0.0151
+hrnet_w18_unetpp_pf	OP-A	relF1_2	0.8590	0.8421	-0.0169
+hrnet_w18_unetpp_pf	OP-A	inact_iou	0.5203	0.5138	-0.0065
+hrnet_w18_unetpp_pf	OP-A	miou_rob	0.6138	0.6065	-0.0074
+hrnet_w18_unetpp_pf	OP-A	relP2	0.9048	0.9008	-0.0040
+hrnet_w18_unetpp_pf	OP-A	relR2	0.8176	0.7905	-0.0271
+hrnet_w18_unetpp_pf	OP-A	relF1_1	0.7661	0.7486	-0.0175
+hrnet_w18_unetpp_pf	OP-A	width_ratio	0.9596	0.9049	-0.0547
+hrnet_w18_unetpp_pf	OP-A	fa_px	298.0000	257.0000	-41.0000
+hrnet_w18_unetpp_pf	OP-A	fa_share50	0.0033	0.0044	0.0011
+hrnet_w18_unetpp_pf	OP-F	crack_iou	0.3707	0.3572	-0.0135
+hrnet_w18_unetpp_pf	OP-F	relF1_2	0.8597	0.8432	-0.0166
+hrnet_w18_unetpp_pf	OP-F	inact_iou	0.5143	0.5075	-0.0067
+hrnet_w18_unetpp_pf	OP-F	miou_rob	0.6140	0.6067	-0.0073
+hrnet_w18_unetpp_pf	OP-F	relP2	0.8847	0.8793	-0.0054
+hrnet_w18_unetpp_pf	OP-F	relR2	0.8362	0.8099	-0.0263
+hrnet_w18_unetpp_pf	OP-F	relF1_1	0.7682	0.7519	-0.0163
+hrnet_w18_unetpp_pf	OP-F	width_ratio	1.0959	1.0391	-0.0568
+hrnet_w18_unetpp_pf	OP-F	fa_px	516.0000	446.0000	-70.0000
+hrnet_w18_unetpp_pf	OP-F	fa_share50	0.0066	0.0088	0.0022
+hrnet_w18_unetpp_pf	OP-W	crack_iou	0.3690	0.3530	-0.0161
+hrnet_w18_unetpp_pf	OP-W	relF1_2	0.8611	0.8438	-0.0173
+hrnet_w18_unetpp_pf	OP-W	inact_iou	0.5177	0.5115	-0.0061
+hrnet_w18_unetpp_pf	OP-W	miou_rob	0.6141	0.6067	-0.0074
+hrnet_w18_unetpp_pf	OP-W	relP2	0.8954	0.8925	-0.0029
+hrnet_w18_unetpp_pf	OP-W	relR2	0.8294	0.8002	-0.0292
+hrnet_w18_unetpp_pf	OP-W	relF1_1	0.7693	0.7514	-0.0179
+hrnet_w18_unetpp_pf	OP-W	width_ratio	1.0331	0.9610	-0.0721
+hrnet_w18_unetpp_pf	OP-W	fa_px	398.0000	329.0000	-69.0000
+hrnet_w18_unetpp_pf	OP-W	fa_share50	0.0066	0.0088	0.0022
+
+contrast	op	metric	532: delta [95% CI] flag	416: delta [95% CI] flag
+hrnet_w18_unetpp_pf - PF	OP-A	crack_iou	-0.0030 [-0.0103, 0.0055]	0.0005 [-0.0081, 0.0109]
+hrnet_w18_unetpp_pf - PF	OP-A	relF1_2	0.0105 [0.0040, 0.0180]	0.0145 [0.0064, 0.0232]
+hrnet_w18_unetpp_pf - PF	OP-A	inact_iou	0.0157 [-0.0172, 0.0466]	0.0140 [-0.0208, 0.0494]
+hrnet_w18_unetpp_pf - PF	OP-A	miou_rob	-0.0012 [-0.0056, 0.0031]	-0.0022 [-0.0070, 0.0033]
+hrnet_w18_unetpp_pf - PF	OP-A	relF1_1	0.0073 [0.0003, 0.0157]	0.0109 [0.0020, 0.0208]
+hrnet_w18_unetpp_pf - PF	OP-A	width_ratio	-0.0749 [-0.1160, -0.0361]	-0.0587 [-0.0960, -0.0162]
+hrnet_w18_unetpp_pf - PF	OP-A	relP2	0.0102 [0.0027, 0.0181]	0.0141 [0.0040, 0.0235]
+hrnet_w18_unetpp_pf - PF	OP-A	relR2	0.0108 [-0.0001, 0.0231]	0.0147 [0.0012, 0.0297]
+hrnet_w18_unetpp_pf - PF	OP-F	crack_iou	0.0010 [-0.0057, 0.0086]	0.0003 [-0.0081, 0.0090]
+hrnet_w18_unetpp_pf - PF	OP-F	relF1_2	0.0122 [0.0052, 0.0200]	0.0144 [0.0055, 0.0229]
+hrnet_w18_unetpp_pf - PF	OP-F	inact_iou	0.0161 [-0.0167, 0.0476]	0.0160 [-0.0198, 0.0533]
+hrnet_w18_unetpp_pf - PF	OP-F	miou_rob	-0.0009 [-0.0052, 0.0035]	-0.0021 [-0.0071, 0.0034]
+hrnet_w18_unetpp_pf - PF	OP-F	relF1_1	0.0098 [0.0027, 0.0184]	0.0113 [0.0018, 0.0204]
+hrnet_w18_unetpp_pf - PF	OP-F	width_ratio	-0.0740 [-0.1233, -0.0279]	-0.1178 [-0.1663, -0.0672]
+hrnet_w18_unetpp_pf - PF	OP-F	relP2	0.0094 [0.0002, 0.0189]	0.0192 [0.0049, 0.0319]
+hrnet_w18_unetpp_pf - PF	OP-F	relR2	0.0146 [0.0036, 0.0269]	0.0103 [-0.0036, 0.0241]
+hrnet_w18_unetpp_pf - PF	OP-W	crack_iou	0.0033 [-0.0045, 0.0124]	0.0058 [-0.0033, 0.0169]
+hrnet_w18_unetpp_pf - PF	OP-W	relF1_2	0.0126 [0.0054, 0.0209]	0.0163 [0.0075, 0.0255]
+hrnet_w18_unetpp_pf - PF	OP-W	inact_iou	0.0131 [-0.0198, 0.0438]	0.0117 [-0.0235, 0.0475]
+hrnet_w18_unetpp_pf - PF	OP-W	miou_rob	-0.0010 [-0.0053, 0.0034]	-0.0020 [-0.0068, 0.0035]
+hrnet_w18_unetpp_pf - PF	OP-W	relF1_1	0.0104 [0.0027, 0.0199]	0.0136 [0.0042, 0.0243]
+hrnet_w18_unetpp_pf - PF	OP-W	width_ratio	-0.0014 [-0.0398, 0.0375]	-0.0027 [-0.0413, 0.0431]
+hrnet_w18_unetpp_pf - PF	OP-W	relP2	0.0008 [-0.0077, 0.0086]	0.0058 [-0.0052, 0.0153]
+hrnet_w18_unetpp_pf - PF	OP-W	relR2	0.0225 [0.0110, 0.0356]	0.0244 [0.0100, 0.0402]
+
+frontier relR@2 at the baseline's argmax relP@2, per arm and seed, 532 | 416 cells:
+PF	s5 0.8069 | 0.7758
+hrnet_w18_unetpp_pf	s5 0.8300 | 0.8060

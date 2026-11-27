@@ -1,0 +1,990 @@
+el_metrics 45b1df03a8fb2959272534b2ab6b237f records selfcheck at b = 0, tol profile exact
+dump /home/noob/work/s2c/post_work/b5/SUPPF/dump/s2c_SUPPF_100pct_s10.val.npz
+m0 /home/noob/work/s2c/post/m0/SUPPF/s2c_SUPPF_100pct_s10.json md5 79fa8dce07a012f6d73daf1845cc370c set val
+  IoU: records 0.4146 m0 0.4146 delta +0.00000 (tol 0.0005)
+  relP: records 0.9299 m0 0.9299 delta +0.00000 (tol 0.0005)
+  relR: records 0.8356 m0 0.8356 delta +0.00000 (tol 0.0005)
+  inactIoU: records 0.4992 m0 0.4992 delta +0.00000 (tol 0.0005)
+  compR: records 0.8160 m0 0.8160 delta +0.00000 (tol 0.0005)
+  compP: records 0.9545 m0 0.9545 delta +0.00000 (tol 0.0005)
+SELFCHECK PASS
+
+[Sat Nov 14 03:22:54 AM IST 2026] b5w records+selfcheck s2c_SUPPF_100pct_s10 val rc=0
+el_metrics 45b1df03a8fb2959272534b2ab6b237f records selfcheck at b = 0, tol profile exact
+dump /home/noob/work/s2c/post_work/b5/SUPPF/dump/s2c_SUPPF_100pct_s10.test.npz
+m0 /home/noob/work/s2c/post/m0/SUPPF/s2c_SUPPF_100pct_s10.json md5 79fa8dce07a012f6d73daf1845cc370c set test
+  IoU: records 0.4681 m0 0.4681 delta +0.00000 (tol 0.0005)
+  relP: records 0.9464 m0 0.9464 delta +0.00000 (tol 0.0005)
+  relR: records 0.8368 m0 0.8368 delta +0.00000 (tol 0.0005)
+  inactIoU: records 0.4418 m0 0.4418 delta +0.00000 (tol 0.0005)
+  compR: records 0.8095 m0 0.8095 delta +0.00000 (tol 0.0005)
+  compP: records 0.9635 m0 0.9635 delta +0.00000 (tol 0.0005)
+SELFCHECK PASS
+
+[Sat Nov 14 03:22:56 AM IST 2026] b5w records+selfcheck s2c_SUPPF_100pct_s10 test rc=0
+el_metrics 45b1df03a8fb2959272534b2ab6b237f records selfcheck at b = 0, tol profile exact
+dump /home/noob/work/s2c/post_work/b5/SUPPF/dump/s2c_SUPPF_100pct_s10.ext.npz
+m0 /home/noob/work/s2c/post/m0/SUPPF/s2c_SUPPF_100pct_s10.json md5 79fa8dce07a012f6d73daf1845cc370c set ext
+  IoU: records 0.1577 m0 0.1577 delta +0.00000 (tol 0.0005)
+  relP: records 0.5235 m0 0.5235 delta +0.00000 (tol 0.0005)
+  relR: records 0.3663 m0 0.3663 delta +0.00000 (tol 0.0005)
+  inactIoU: records 0.3241 m0 0.3241 delta +0.00000 (tol 0.0005)
+  compR: records 0.2500 m0 0.2500 delta +0.00000 (tol 0.0005)
+  compP: records 0.5143 m0 0.5143 delta +0.00000 (tol 0.0005)
+SELFCHECK PASS
+
+[Sat Nov 14 03:23:01 AM IST 2026] b5w records+selfcheck s2c_SUPPF_100pct_s10 ext rc=0
+{
+ "set": "test",
+ "op_comp": {
+  "b": 0.8,
+  "j": 89,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.832,
+  "val_P": 0.9264705882352942
+ },
+ "op_rel": {
+  "b": 4.1,
+  "j": 122,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.865016606041436,
+  "val_P": 0.9011914119058454
+ },
+ "comp_recall_at_opc": 0.8148148148148148,
+ "relR_at_opr": 0.8736342507113843,
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": false
+}
+[Sat Nov 14 03:23:01 AM IST 2026] b5w summary s2c_SUPPF_100pct_s10 test rc=0
+{
+ "set": "ext",
+ "op_comp": {
+  "b": 0.8,
+  "j": 89,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.832,
+  "val_P": 0.9264705882352942
+ },
+ "op_rel": {
+  "b": 4.1,
+  "j": 122,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.865016606041436,
+  "val_P": 0.9011914119058454
+ },
+ "comp_recall_at_opc": 0.2702702702702703,
+ "relR_at_opr": 0.414194587229826,
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": true
+}
+[Sat Nov 14 03:23:01 AM IST 2026] b5w summary s2c_SUPPF_100pct_s10 ext rc=0
+{
+ "set": "test",
+ "op_comp": {
+  "b": 0.8,
+  "j": 89,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.832,
+  "val_P": 0.9264705882352942
+ },
+ "op_rel": {
+  "b": 4.1,
+  "j": 122,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.865016606041436,
+  "val_P": 0.9011914119058454
+ },
+ "comp_recall_at_opc": 0.8235294117647058,
+ "relR_at_opr": 0.8809030858720299,
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": false
+}
+[Sat Nov 14 03:23:02 AM IST 2026] b5w summary s2c_SUPPF_100pct_s10 test_clean rc=0
+el_metrics 45b1df03a8fb2959272534b2ab6b237f records selfcheck at b = 0, tol profile exact
+dump /home/noob/work/s2c/post_work/b5/SUPPF/dump/s2c_SUPPF_100pct_s11.val.npz
+m0 /home/noob/work/s2c/post/m0/SUPPF/s2c_SUPPF_100pct_s11.json md5 fd4ca65f4584c79102203f768e2b7260 set val
+  IoU: records 0.4250 m0 0.4250 delta +0.00000 (tol 0.0005)
+  relP: records 0.9310 m0 0.9310 delta +0.00000 (tol 0.0005)
+  relR: records 0.8479 m0 0.8479 delta +0.00000 (tol 0.0005)
+  inactIoU: records 0.5080 m0 0.5080 delta +0.00000 (tol 0.0005)
+  compR: records 0.8160 m0 0.8160 delta +0.00000 (tol 0.0005)
+  compP: records 0.9403 m0 0.9403 delta +0.00000 (tol 0.0005)
+SELFCHECK PASS
+
+[Sat Nov 14 03:25:00 AM IST 2026] b5w records+selfcheck s2c_SUPPF_100pct_s11 val rc=0
+el_metrics 45b1df03a8fb2959272534b2ab6b237f records selfcheck at b = 0, tol profile exact
+dump /home/noob/work/s2c/post_work/b5/SUPPF/dump/s2c_SUPPF_100pct_s11.test.npz
+m0 /home/noob/work/s2c/post/m0/SUPPF/s2c_SUPPF_100pct_s11.json md5 fd4ca65f4584c79102203f768e2b7260 set test
+  IoU: records 0.4711 m0 0.4711 delta +0.00000 (tol 0.0005)
+  relP: records 0.9482 m0 0.9482 delta +0.00000 (tol 0.0005)
+  relR: records 0.8368 m0 0.8368 delta +0.00000 (tol 0.0005)
+  inactIoU: records 0.4831 m0 0.4831 delta +0.00000 (tol 0.0005)
+  compR: records 0.7989 m0 0.7989 delta +0.00000 (tol 0.0005)
+  compP: records 0.9605 m0 0.9605 delta +0.00000 (tol 0.0005)
+SELFCHECK PASS
+
+[Sat Nov 14 03:25:03 AM IST 2026] b5w records+selfcheck s2c_SUPPF_100pct_s11 test rc=0
+el_metrics 45b1df03a8fb2959272534b2ab6b237f records selfcheck at b = 0, tol profile exact
+dump /home/noob/work/s2c/post_work/b5/SUPPF/dump/s2c_SUPPF_100pct_s11.ext.npz
+m0 /home/noob/work/s2c/post/m0/SUPPF/s2c_SUPPF_100pct_s11.json md5 fd4ca65f4584c79102203f768e2b7260 set ext
+  IoU: records 0.1479 m0 0.1479 delta +0.00000 (tol 0.0005)
+  relP: records 0.4780 m0 0.4780 delta +0.00000 (tol 0.0005)
+  relR: records 0.3645 m0 0.3645 delta +0.00000 (tol 0.0005)
+  inactIoU: records 0.1806 m0 0.1806 delta +0.00000 (tol 0.0005)
+  compR: records 0.2264 m0 0.2264 delta +0.00000 (tol 0.0005)
+  compP: records 0.5029 m0 0.5029 delta +0.00000 (tol 0.0005)
+SELFCHECK PASS
+
+[Sat Nov 14 03:25:08 AM IST 2026] b5w records+selfcheck s2c_SUPPF_100pct_s11 ext rc=0
+{
+ "set": "test",
+ "op_comp": {
+  "b": 4.8,
+  "j": 129,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.856,
+  "val_P": 0.9296875
+ },
+ "op_rel": {
+  "b": 3.6,
+  "j": 117,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.8769834993937476,
+  "val_P": 0.9003198615944799
+ },
+ "comp_recall_at_opc": 0.8571428571428571,
+ "relR_at_opr": 0.8754045658926516,
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": false
+}
+[Sat Nov 14 03:25:08 AM IST 2026] b5w summary s2c_SUPPF_100pct_s11 test rc=0
+{
+ "set": "ext",
+ "op_comp": {
+  "b": 4.8,
+  "j": 129,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.856,
+  "val_P": 0.9296875
+ },
+ "op_rel": {
+  "b": 3.6,
+  "j": 117,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.8769834993937476,
+  "val_P": 0.9003198615944799
+ },
+ "comp_recall_at_opc": 0.3310810810810811,
+ "relR_at_opr": 0.42664272000990894,
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": true
+}
+[Sat Nov 14 03:25:08 AM IST 2026] b5w summary s2c_SUPPF_100pct_s11 ext rc=0
+{
+ "set": "test",
+ "op_comp": {
+  "b": 4.8,
+  "j": 129,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.856,
+  "val_P": 0.9296875
+ },
+ "op_rel": {
+  "b": 3.6,
+  "j": 117,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.8769834993937476,
+  "val_P": 0.9003198615944799
+ },
+ "comp_recall_at_opc": 0.8663101604278075,
+ "relR_at_opr": 0.8829515703221708,
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": false
+}
+[Sat Nov 14 03:25:09 AM IST 2026] b5w summary s2c_SUPPF_100pct_s11 test_clean rc=0
+el_metrics 45b1df03a8fb2959272534b2ab6b237f records selfcheck at b = 0, tol profile exact
+dump /home/noob/work/s2c/post_work/b5/SUPPF/dump/s2c_SUPPF_100pct_s12.val.npz
+m0 /home/noob/work/s2c/post/m0/SUPPF/s2c_SUPPF_100pct_s12.json md5 9c131b4bfce315ebfe792487003ed51c set val
+  IoU: records 0.4104 m0 0.4104 delta +0.00000 (tol 0.0005)
+  relP: records 0.9264 m0 0.9264 delta +0.00000 (tol 0.0005)
+  relR: records 0.8452 m0 0.8452 delta +0.00000 (tol 0.0005)
+  inactIoU: records 0.4447 m0 0.4447 delta +0.00000 (tol 0.0005)
+  compR: records 0.8320 m0 0.8320 delta +0.00000 (tol 0.0005)
+  compP: records 0.9189 m0 0.9189 delta +0.00000 (tol 0.0005)
+SELFCHECK PASS
+
+[Sat Nov 14 03:27:07 AM IST 2026] b5w records+selfcheck s2c_SUPPF_100pct_s12 val rc=0
+el_metrics 45b1df03a8fb2959272534b2ab6b237f records selfcheck at b = 0, tol profile exact
+dump /home/noob/work/s2c/post_work/b5/SUPPF/dump/s2c_SUPPF_100pct_s12.test.npz
+m0 /home/noob/work/s2c/post/m0/SUPPF/s2c_SUPPF_100pct_s12.json md5 9c131b4bfce315ebfe792487003ed51c set test
+  IoU: records 0.4704 m0 0.4704 delta +0.00000 (tol 0.0005)
+  relP: records 0.9401 m0 0.9401 delta +0.00000 (tol 0.0005)
+  relR: records 0.8505 m0 0.8505 delta +0.00000 (tol 0.0005)
+  inactIoU: records 0.4626 m0 0.4626 delta +0.00000 (tol 0.0005)
+  compR: records 0.8201 m0 0.8201 delta +0.00000 (tol 0.0005)
+  compP: records 0.9605 m0 0.9605 delta +0.00000 (tol 0.0005)
+SELFCHECK PASS
+
+[Sat Nov 14 03:27:10 AM IST 2026] b5w records+selfcheck s2c_SUPPF_100pct_s12 test rc=0
+el_metrics 45b1df03a8fb2959272534b2ab6b237f records selfcheck at b = 0, tol profile exact
+dump /home/noob/work/s2c/post_work/b5/SUPPF/dump/s2c_SUPPF_100pct_s12.ext.npz
+m0 /home/noob/work/s2c/post/m0/SUPPF/s2c_SUPPF_100pct_s12.json md5 9c131b4bfce315ebfe792487003ed51c set ext
+  IoU: records 0.1558 m0 0.1558 delta +0.00000 (tol 0.0005)
+  relP: records 0.5306 m0 0.5306 delta +0.00000 (tol 0.0005)
+  relR: records 0.3587 m0 0.3587 delta +0.00000 (tol 0.0005)
+  inactIoU: records 0.2803 m0 0.2803 delta +0.00000 (tol 0.0005)
+  compR: records 0.2162 m0 0.2162 delta +0.00000 (tol 0.0005)
+  compP: records 0.5202 m0 0.5202 delta +0.00000 (tol 0.0005)
+SELFCHECK PASS
+
+[Sat Nov 14 03:27:15 AM IST 2026] b5w records+selfcheck s2c_SUPPF_100pct_s12 ext rc=0
+{
+ "set": "test",
+ "op_comp": {
+  "b": 4.3,
+  "j": 124,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.856,
+  "val_P": 0.9064748201438849
+ },
+ "op_rel": {
+  "b": 3.4,
+  "j": 115,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.8708418999420107,
+  "val_P": 0.9000818119187047
+ },
+ "comp_recall_at_opc": 0.8624338624338624,
+ "relR_at_opr": 0.8802484957751374,
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": false
+}
+[Sat Nov 14 03:27:15 AM IST 2026] b5w summary s2c_SUPPF_100pct_s12 test rc=0
+{
+ "set": "ext",
+ "op_comp": {
+  "b": 4.3,
+  "j": 124,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.856,
+  "val_P": 0.9064748201438849
+ },
+ "op_rel": {
+  "b": 3.4,
+  "j": 115,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.8708418999420107,
+  "val_P": 0.9000818119187047
+ },
+ "comp_recall_at_opc": 0.2635135135135135,
+ "relR_at_opr": 0.39471728494457176,
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": true
+}
+[Sat Nov 14 03:27:15 AM IST 2026] b5w summary s2c_SUPPF_100pct_s12 ext rc=0
+{
+ "set": "test",
+ "op_comp": {
+  "b": 4.3,
+  "j": 124,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.856,
+  "val_P": 0.9064748201438849
+ },
+ "op_rel": {
+  "b": 3.4,
+  "j": 115,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.8708418999420107,
+  "val_P": 0.9000818119187047
+ },
+ "comp_recall_at_opc": 0.8716577540106952,
+ "relR_at_opr": 0.887837260508068,
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": false
+}
+[Sat Nov 14 03:27:16 AM IST 2026] b5w summary s2c_SUPPF_100pct_s12 test_clean rc=0
+el_metrics 45b1df03a8fb2959272534b2ab6b237f records selfcheck at b = 0, tol profile exact
+dump /home/noob/work/s2c/post_work/b5/SUPPF/dump/s2c_SUPPF_100pct_s13.val.npz
+m0 /home/noob/work/s2c/post/m0/SUPPF/s2c_SUPPF_100pct_s13.json md5 318b63f1edca4c2f3d45a744eb52acf1 set val
+  IoU: records 0.4162 m0 0.4162 delta +0.00000 (tol 0.0005)
+  relP: records 0.9242 m0 0.9242 delta +0.00000 (tol 0.0005)
+  relR: records 0.8469 m0 0.8469 delta +0.00000 (tol 0.0005)
+  inactIoU: records 0.5493 m0 0.5493 delta +0.00000 (tol 0.0005)
+  compR: records 0.8400 m0 0.8400 delta +0.00000 (tol 0.0005)
+  compP: records 0.9655 m0 0.9655 delta +0.00000 (tol 0.0005)
+SELFCHECK PASS
+
+[Sat Nov 14 03:29:23 AM IST 2026] b5w records+selfcheck s2c_SUPPF_100pct_s13 val rc=0
+el_metrics 45b1df03a8fb2959272534b2ab6b237f records selfcheck at b = 0, tol profile exact
+dump /home/noob/work/s2c/post_work/b5/SUPPF/dump/s2c_SUPPF_100pct_s13.test.npz
+m0 /home/noob/work/s2c/post/m0/SUPPF/s2c_SUPPF_100pct_s13.json md5 318b63f1edca4c2f3d45a744eb52acf1 set test
+  IoU: records 0.4718 m0 0.4718 delta +0.00000 (tol 0.0005)
+  relP: records 0.9387 m0 0.9387 delta +0.00000 (tol 0.0005)
+  relR: records 0.8470 m0 0.8470 delta +0.00000 (tol 0.0005)
+  inactIoU: records 0.4938 m0 0.4938 delta +0.00000 (tol 0.0005)
+  compR: records 0.8201 m0 0.8201 delta +0.00000 (tol 0.0005)
+  compP: records 0.9464 m0 0.9464 delta +0.00000 (tol 0.0005)
+SELFCHECK PASS
+
+[Sat Nov 14 03:29:25 AM IST 2026] b5w records+selfcheck s2c_SUPPF_100pct_s13 test rc=0
+el_metrics 45b1df03a8fb2959272534b2ab6b237f records selfcheck at b = 0, tol profile exact
+dump /home/noob/work/s2c/post_work/b5/SUPPF/dump/s2c_SUPPF_100pct_s13.ext.npz
+m0 /home/noob/work/s2c/post/m0/SUPPF/s2c_SUPPF_100pct_s13.json md5 318b63f1edca4c2f3d45a744eb52acf1 set ext
+  IoU: records 0.1694 m0 0.1694 delta +0.00000 (tol 0.0005)
+  relP: records 0.5794 m0 0.5794 delta +0.00000 (tol 0.0005)
+  relR: records 0.3720 m0 0.3720 delta +0.00000 (tol 0.0005)
+  inactIoU: records 0.2085 m0 0.2085 delta +0.00000 (tol 0.0005)
+  compR: records 0.2500 m0 0.2500 delta +0.00000 (tol 0.0005)
+  compP: records 0.5783 m0 0.5783 delta +0.00000 (tol 0.0005)
+SELFCHECK PASS
+
+[Sat Nov 14 03:29:33 AM IST 2026] b5w records+selfcheck s2c_SUPPF_100pct_s13 ext rc=0
+{
+ "set": "test",
+ "op_comp": {
+  "b": 3.4,
+  "j": 115,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.856,
+  "val_P": 0.9104477611940298
+ },
+ "op_rel": {
+  "b": 3.4,
+  "j": 115,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.8796193789867679,
+  "val_P": 0.9001274257901444
+ },
+ "comp_recall_at_opc": 0.8571428571428571,
+ "relR_at_opr": 0.8786953971805287,
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": false
+}
+[Sat Nov 14 03:29:33 AM IST 2026] b5w summary s2c_SUPPF_100pct_s13 test rc=0
+{
+ "set": "ext",
+ "op_comp": {
+  "b": 3.4,
+  "j": 115,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.856,
+  "val_P": 0.9104477611940298
+ },
+ "op_rel": {
+  "b": 3.4,
+  "j": 115,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.8796193789867679,
+  "val_P": 0.9001274257901444
+ },
+ "comp_recall_at_opc": 0.2972972972972973,
+ "relR_at_opr": 0.42342230754939,
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": true
+}
+[Sat Nov 14 03:29:34 AM IST 2026] b5w summary s2c_SUPPF_100pct_s13 ext rc=0
+{
+ "set": "test",
+ "op_comp": {
+  "b": 3.4,
+  "j": 115,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.856,
+  "val_P": 0.9104477611940298
+ },
+ "op_rel": {
+  "b": 3.4,
+  "j": 115,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.8796193789867679,
+  "val_P": 0.9001274257901444
+ },
+ "comp_recall_at_opc": 0.8663101604278075,
+ "relR_at_opr": 0.8862707723991368,
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": false
+}
+[Sat Nov 14 03:29:34 AM IST 2026] b5w summary s2c_SUPPF_100pct_s13 test_clean rc=0
+el_metrics 45b1df03a8fb2959272534b2ab6b237f records selfcheck at b = 0, tol profile exact
+dump /home/noob/work/s2c/post_work/b5/SUPPF/dump/s2c_SUPPF_100pct_s14.val.npz
+m0 /home/noob/work/s2c/post/m0/SUPPF/s2c_SUPPF_100pct_s14.json md5 965adffefdb145c66be1425a787863e5 set val
+  IoU: records 0.4128 m0 0.4128 delta +0.00000 (tol 0.0005)
+  relP: records 0.9323 m0 0.9323 delta +0.00000 (tol 0.0005)
+  relR: records 0.8350 m0 0.8350 delta +0.00000 (tol 0.0005)
+  inactIoU: records 0.5148 m0 0.5148 delta +0.00000 (tol 0.0005)
+  compR: records 0.8320 m0 0.8320 delta +0.00000 (tol 0.0005)
+  compP: records 0.9110 m0 0.9110 delta +0.00000 (tol 0.0005)
+SELFCHECK PASS
+
+[Sat Nov 14 03:31:37 AM IST 2026] b5w records+selfcheck s2c_SUPPF_100pct_s14 val rc=0
+el_metrics 45b1df03a8fb2959272534b2ab6b237f records selfcheck at b = 0, tol profile exact
+dump /home/noob/work/s2c/post_work/b5/SUPPF/dump/s2c_SUPPF_100pct_s14.test.npz
+m0 /home/noob/work/s2c/post/m0/SUPPF/s2c_SUPPF_100pct_s14.json md5 965adffefdb145c66be1425a787863e5 set test
+  IoU: records 0.4645 m0 0.4645 delta +0.00000 (tol 0.0005)
+  relP: records 0.9470 m0 0.9470 delta +0.00000 (tol 0.0005)
+  relR: records 0.8398 m0 0.8398 delta +0.00000 (tol 0.0005)
+  inactIoU: records 0.4592 m0 0.4592 delta +0.00000 (tol 0.0005)
+  compR: records 0.7989 m0 0.7989 delta +0.00000 (tol 0.0005)
+  compP: records 0.9489 m0 0.9489 delta +0.00000 (tol 0.0005)
+SELFCHECK PASS
+
+[Sat Nov 14 03:31:40 AM IST 2026] b5w records+selfcheck s2c_SUPPF_100pct_s14 test rc=0
+el_metrics 45b1df03a8fb2959272534b2ab6b237f records selfcheck at b = 0, tol profile exact
+dump /home/noob/work/s2c/post_work/b5/SUPPF/dump/s2c_SUPPF_100pct_s14.ext.npz
+m0 /home/noob/work/s2c/post/m0/SUPPF/s2c_SUPPF_100pct_s14.json md5 965adffefdb145c66be1425a787863e5 set ext
+  IoU: records 0.1508 m0 0.1508 delta +0.00000 (tol 0.0005)
+  relP: records 0.4514 m0 0.4514 delta +0.00000 (tol 0.0005)
+  relR: records 0.3814 m0 0.3814 delta +0.00000 (tol 0.0005)
+  inactIoU: records 0.1340 m0 0.1340 delta +0.00000 (tol 0.0005)
+  compR: records 0.2838 m0 0.2838 delta +0.00000 (tol 0.0005)
+  compP: records 0.4510 m0 0.4510 delta +0.00000 (tol 0.0005)
+SELFCHECK PASS
+
+[Sat Nov 14 03:31:46 AM IST 2026] b5w records+selfcheck s2c_SUPPF_100pct_s14 ext rc=0
+{
+ "set": "test",
+ "op_comp": {
+  "b": 3.3,
+  "j": 114,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.856,
+  "val_P": 0.9029850746268657
+ },
+ "op_rel": {
+  "b": 4.7,
+  "j": 128,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.8696557541251516,
+  "val_P": 0.9000268856120613
+ },
+ "comp_recall_at_opc": 0.8201058201058201,
+ "relR_at_opr": 0.8879705454308491,
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": false
+}
+[Sat Nov 14 03:31:47 AM IST 2026] b5w summary s2c_SUPPF_100pct_s14 test rc=0
+{
+ "set": "ext",
+ "op_comp": {
+  "b": 3.3,
+  "j": 114,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.856,
+  "val_P": 0.9029850746268657
+ },
+ "op_rel": {
+  "b": 4.7,
+  "j": 128,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.8696557541251516,
+  "val_P": 0.9000268856120613
+ },
+ "comp_recall_at_opc": 0.32432432432432434,
+ "relR_at_opr": 0.4512293305257943,
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": true
+}
+[Sat Nov 14 03:31:47 AM IST 2026] b5w summary s2c_SUPPF_100pct_s14 ext rc=0
+{
+ "set": "test",
+ "op_comp": {
+  "b": 3.3,
+  "j": 114,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.856,
+  "val_P": 0.9029850746268657
+ },
+ "op_rel": {
+  "b": 4.7,
+  "j": 128,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.8696557541251516,
+  "val_P": 0.9000268856120613
+ },
+ "comp_recall_at_opc": 0.8288770053475936,
+ "relR_at_opr": 0.8952643859476158,
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": false
+}
+[Sat Nov 14 03:31:47 AM IST 2026] b5w summary s2c_SUPPF_100pct_s14 test_clean rc=0
+{
+ "set": "test",
+ "op_comp": {
+  "b": 0.8,
+  "j": 89,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.832,
+  "val_P": 0.9264705882352942
+ },
+ "op_rel": {
+  "b": 4.1,
+  "j": 122,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.865016606041436,
+  "val_P": 0.9011914119058454
+ },
+ "comp_recall_at_opc": 0.8148148148148148,
+ "relR_at_opr": 0.8736342507113843,
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": false
+}
+[Sat Nov 14 03:31:53 AM IST 2026] b5w pooled summary s2c_SUPPF_100pct_s10 test rc=0
+{
+ "set": "ext",
+ "op_comp": {
+  "b": 0.8,
+  "j": 89,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.832,
+  "val_P": 0.9264705882352942
+ },
+ "op_rel": {
+  "b": 4.1,
+  "j": 122,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.865016606041436,
+  "val_P": 0.9011914119058454
+ },
+ "comp_recall_at_opc": 0.2702702702702703,
+ "relR_at_opr": 0.414194587229826,
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": true
+}
+[Sat Nov 14 03:31:53 AM IST 2026] b5w pooled summary s2c_SUPPF_100pct_s10 ext rc=0
+{
+ "set": "test",
+ "op_comp": {
+  "b": 0.8,
+  "j": 89,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.832,
+  "val_P": 0.9264705882352942
+ },
+ "op_rel": {
+  "b": 4.1,
+  "j": 122,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.865016606041436,
+  "val_P": 0.9011914119058454
+ },
+ "comp_recall_at_opc": 0.8235294117647058,
+ "relR_at_opr": 0.8809030858720299,
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": false
+}
+[Sat Nov 14 03:31:54 AM IST 2026] b5w pooled summary s2c_SUPPF_100pct_s10 test_clean rc=0
+{
+ "set": "test",
+ "op_comp": {
+  "b": 4.8,
+  "j": 129,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.856,
+  "val_P": 0.9296875
+ },
+ "op_rel": {
+  "b": 3.6,
+  "j": 117,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.8769834993937476,
+  "val_P": 0.9003198615944799
+ },
+ "comp_recall_at_opc": 0.8571428571428571,
+ "relR_at_opr": 0.8754045658926516,
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": false
+}
+[Sat Nov 14 03:31:54 AM IST 2026] b5w pooled summary s2c_SUPPF_100pct_s11 test rc=0
+{
+ "set": "ext",
+ "op_comp": {
+  "b": 4.8,
+  "j": 129,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.856,
+  "val_P": 0.9296875
+ },
+ "op_rel": {
+  "b": 3.6,
+  "j": 117,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.8769834993937476,
+  "val_P": 0.9003198615944799
+ },
+ "comp_recall_at_opc": 0.3310810810810811,
+ "relR_at_opr": 0.42664272000990894,
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": true
+}
+[Sat Nov 14 03:31:54 AM IST 2026] b5w pooled summary s2c_SUPPF_100pct_s11 ext rc=0
+{
+ "set": "test",
+ "op_comp": {
+  "b": 4.8,
+  "j": 129,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.856,
+  "val_P": 0.9296875
+ },
+ "op_rel": {
+  "b": 3.6,
+  "j": 117,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.8769834993937476,
+  "val_P": 0.9003198615944799
+ },
+ "comp_recall_at_opc": 0.8663101604278075,
+ "relR_at_opr": 0.8829515703221708,
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": false
+}
+[Sat Nov 14 03:31:55 AM IST 2026] b5w pooled summary s2c_SUPPF_100pct_s11 test_clean rc=0
+{
+ "set": "test",
+ "op_comp": {
+  "b": 4.3,
+  "j": 124,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.856,
+  "val_P": 0.9064748201438849
+ },
+ "op_rel": {
+  "b": 3.4,
+  "j": 115,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.8708418999420107,
+  "val_P": 0.9000818119187047
+ },
+ "comp_recall_at_opc": 0.8624338624338624,
+ "relR_at_opr": 0.8802484957751374,
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": false
+}
+[Sat Nov 14 03:31:55 AM IST 2026] b5w pooled summary s2c_SUPPF_100pct_s12 test rc=0
+{
+ "set": "ext",
+ "op_comp": {
+  "b": 4.3,
+  "j": 124,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.856,
+  "val_P": 0.9064748201438849
+ },
+ "op_rel": {
+  "b": 3.4,
+  "j": 115,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.8708418999420107,
+  "val_P": 0.9000818119187047
+ },
+ "comp_recall_at_opc": 0.2635135135135135,
+ "relR_at_opr": 0.39471728494457176,
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": true
+}
+[Sat Nov 14 03:31:55 AM IST 2026] b5w pooled summary s2c_SUPPF_100pct_s12 ext rc=0
+{
+ "set": "test",
+ "op_comp": {
+  "b": 4.3,
+  "j": 124,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.856,
+  "val_P": 0.9064748201438849
+ },
+ "op_rel": {
+  "b": 3.4,
+  "j": 115,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.8708418999420107,
+  "val_P": 0.9000818119187047
+ },
+ "comp_recall_at_opc": 0.8716577540106952,
+ "relR_at_opr": 0.887837260508068,
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": false
+}
+[Sat Nov 14 03:31:56 AM IST 2026] b5w pooled summary s2c_SUPPF_100pct_s12 test_clean rc=0
+{
+ "set": "test",
+ "op_comp": {
+  "b": 3.4,
+  "j": 115,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.856,
+  "val_P": 0.9104477611940298
+ },
+ "op_rel": {
+  "b": 3.4,
+  "j": 115,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.8796193789867679,
+  "val_P": 0.9001274257901444
+ },
+ "comp_recall_at_opc": 0.8571428571428571,
+ "relR_at_opr": 0.8786953971805287,
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": false
+}
+[Sat Nov 14 03:31:56 AM IST 2026] b5w pooled summary s2c_SUPPF_100pct_s13 test rc=0
+{
+ "set": "ext",
+ "op_comp": {
+  "b": 3.4,
+  "j": 115,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.856,
+  "val_P": 0.9104477611940298
+ },
+ "op_rel": {
+  "b": 3.4,
+  "j": 115,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.8796193789867679,
+  "val_P": 0.9001274257901444
+ },
+ "comp_recall_at_opc": 0.2972972972972973,
+ "relR_at_opr": 0.42342230754939,
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": true
+}
+[Sat Nov 14 03:31:56 AM IST 2026] b5w pooled summary s2c_SUPPF_100pct_s13 ext rc=0
+{
+ "set": "test",
+ "op_comp": {
+  "b": 3.4,
+  "j": 115,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.856,
+  "val_P": 0.9104477611940298
+ },
+ "op_rel": {
+  "b": 3.4,
+  "j": 115,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.8796193789867679,
+  "val_P": 0.9001274257901444
+ },
+ "comp_recall_at_opc": 0.8663101604278075,
+ "relR_at_opr": 0.8862707723991368,
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": false
+}
+[Sat Nov 14 03:31:57 AM IST 2026] b5w pooled summary s2c_SUPPF_100pct_s13 test_clean rc=0
+{
+ "set": "test",
+ "op_comp": {
+  "b": 3.3,
+  "j": 114,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.856,
+  "val_P": 0.9029850746268657
+ },
+ "op_rel": {
+  "b": 4.7,
+  "j": 128,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.8696557541251516,
+  "val_P": 0.9000268856120613
+ },
+ "comp_recall_at_opc": 0.8201058201058201,
+ "relR_at_opr": 0.8879705454308491,
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": false
+}
+[Sat Nov 14 03:31:57 AM IST 2026] b5w pooled summary s2c_SUPPF_100pct_s14 test rc=0
+{
+ "set": "ext",
+ "op_comp": {
+  "b": 3.3,
+  "j": 114,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.856,
+  "val_P": 0.9029850746268657
+ },
+ "op_rel": {
+  "b": 4.7,
+  "j": 128,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.8696557541251516,
+  "val_P": 0.9000268856120613
+ },
+ "comp_recall_at_opc": 0.32432432432432434,
+ "relR_at_opr": 0.4512293305257943,
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": true
+}
+[Sat Nov 14 03:31:57 AM IST 2026] b5w pooled summary s2c_SUPPF_100pct_s14 ext rc=0
+{
+ "set": "test",
+ "op_comp": {
+  "b": 3.3,
+  "j": 114,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.856,
+  "val_P": 0.9029850746268657
+ },
+ "op_rel": {
+  "b": 4.7,
+  "j": 128,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.8696557541251516,
+  "val_P": 0.9000268856120613
+ },
+ "comp_recall_at_opc": 0.8288770053475936,
+ "relR_at_opr": 0.8952643859476158,
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": false
+}
+[Sat Nov 14 03:31:58 AM IST 2026] b5w pooled summary s2c_SUPPF_100pct_s14 test_clean rc=0

@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1109/wacv61041.2025.00412",
+ "title": "Image-Level Regression for Uncertainty-Aware Retinal Image Segmentation (SAUNA)",
+ "year": 2025,
+ "venue": "WACV",
+ "url": "https://arxiv.org/abs/2405.16815",
+ "code_url": "https://github.com/Oulu-IMEDS/SAUNA",
+ "mechanism": "Convert hard thin-structure masks to soft targets from distance to the annotation boundary and local thickness, then train as regression with a generalised JML plus a stable Focal-L1 loss.",
+ "adaptation": "Crack only: SAUNA transform of the 1-2 px crack labels, thickness term normalises source width (ARTS 1.5 px to SDLE 3.25 px); separate sigmoid crack head with GJML + SF-L1 next to the 24-class softmax trained with house CE; crack threshold re-picked on val. BMRK (downscaled ELPV) is the aliasing case where the paper's evidence is strongest.",
+ "min_experiment": "Arm: SAUNA crack targets + GJML + SF-L1, 5 seeds; baseline SUP100. Metric crack IoU at val-chosen threshold, relP@2, relR@2, BMRK crack IoU. Kill: crack IoU < SUP100 + 0.012 or relP@2 drop > 0.05.",
+ "evidence": "R: FIVES, low-res input, UNet++ BCE+Dice hard 74.05 IoU; JML+BLS 81.77; SAUNA+GJML+SF-L1 84.75; UNet++ high-res hard 81.70. +0.4 to +2.3 IoU over BLS on STARE, DRIVE, CHASEDB1, HRF.",
+ "gpu_hours": 6,
+ "bet": "medium",
+ "prior_overlap": "none: soft-label regression targets never run; offset-tolerant CE and Skeleton Recall are different mechanisms.",
+ "score": 68,
+ "bench_score": 55,
+ "targets": [
+  "crack"
+ ],
+ "directions": [
+  "D18"
+ ],
+ "scout_scores": [
+  68
+ ],
+ "final": 68,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 31,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

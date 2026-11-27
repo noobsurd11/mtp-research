@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.3389/frai.2026.1841639",
+ "title": "Label tree semantic losses for rich multi-class medical image segmentation",
+ "year": 2026,
+ "venue": "Frontiers in Artificial Intelligence",
+ "url": "https://arxiv.org/abs/2507.15777",
+ "code_url": "",
+ "mechanism": "Tree-based losses (Wasserstein over a label tree, hierarchy-weighted top-level supervision) penalise confusions by tree distance.",
+ "evidence": "R: consistent improvements over task baselines on whole-brain parcellation (full labels) and neurosurgical hyperspectral imaging (sparse labels).",
+ "adaptation": "Same 2-level EL tree as HSSN; loss-only change so confusing gridline with busbar costs less than with background; cheaper than HSSN, run first.",
+ "min_experiment": "Arm house + Wasserstein tree loss; baseline house; metrics gridline/splice/edge_dark IoU and mIoU_rob; kill if mIoU_rob gain < 0.01 and splice still 0.",
+ "prior_overlap": "none; Dice-on-12-classes in section 5 is a different loss",
+ "score": 42,
+ "bench_score": 25,
+ "bet": "medium",
+ "gpu_hours": 6,
+ "targets": [
+  "other_classes"
+ ],
+ "directions": [
+  "D27"
+ ],
+ "scout_scores": [
+  42
+ ],
+ "final": 42,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 351,
+ "pid": "P351"
+}

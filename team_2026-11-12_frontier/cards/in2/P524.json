@@ -1,0 +1,51 @@
+{
+ "paper_id": "doi:10.1002/advs.202300206",
+ "title": "Deep Learning Model to Denoise Luminescence Images of Silicon Solar Cells",
+ "year": 2023,
+ "venue": "Advanced Science",
+ "url": "https://doi.org/10.1002/advs.202300206",
+ "code_url": "",
+ "mechanism": "Supervised deep denoiser for luminescence images of silicon cells, replacing longer exposure or better cameras.",
+ "evidence": "R: PSNR +30% and SSIM +39%, better than classical denoisers.",
+ "adaptation": "Targets noisy CSIR cells (one test cell wrecks 1 run in 6). Use as a second channel or test-time variant only, since 7% of crack components are under 2% darker than surroundings.",
+ "min_experiment": "Arm: two-channel (raw, denoised) at train and test, 5 seeds. Baseline: house. Metrics: comp>=20 px recall, crack IoU on CSIR cells. Kill: any drop in comp recall or no CSIR gain.",
+ "gpu_hours": 13,
+ "prior_overlap": "none",
+ "targets": [
+  "crack",
+  "measurement"
+ ],
+ "bet": "safe",
+ "score": 30,
+ "bench_score": 25,
+ "directions": [
+  "D04",
+  "D08"
+ ],
+ "scout_scores": [
+  15,
+  30,
+  30
+ ],
+ "alt_notes": [
+  {
+   "from": "D04",
+   "adaptation": "Benchmark robustness split (simulated low-exposure / daylight EL on test cells) and optional denoising of noisy sources such as the CSIR_00070-type cells before inference.",
+   "min_experiment": "Benchmark use: noise-degraded copy of the test set, report each method's drop. Optional arm: denoise then house inference vs raw on CV crack relF1@2; kill if < +0.005.",
+   "score": 15
+  },
+  {
+   "from": "D08",
+   "adaptation": "Second input channel or test-time variant for noisy CSIR cells; risk of erasing the 7% of crack components that are less than 2% darker than surroundings.",
+   "min_experiment": "Arm: test-time two-channel (raw, denoised) model. Baseline: house. Metrics: comp>=20 px recall, crack IoU on noisy CSIR cells. Kill: any drop in comp>=20 px recall or no gain on noisy CSIR cells.",
+   "score": 30
+  }
+ ],
+ "final": 30,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 524,
+ "pid": "P524"
+}

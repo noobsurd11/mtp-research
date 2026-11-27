@@ -1,0 +1,35 @@
+{
+ "paper_id": "doi:10.1109/tmi.2020.2973595",
+ "title": "Generalizing Deep Learning for Medical Image Segmentation to Unseen Domains via Deep Stacked Transformation (BigAug)",
+ "year": 2020,
+ "venue": "IEEE TMI",
+ "url": "https://doi.org/10.1109/tmi.2020.2973595",
+ "code_url": "",
+ "mechanism": "Nine stacked random transforms (blur, sharpen, noise, brightness, contrast, gamma, elastic, rotation, scale) on a single source simulate unseen-domain shift.",
+ "evidence": "Trained on 10 to 32 volumes: unseen-domain Dice drop 11% vs 39% with conventional augmentation and 25% with CycleGAN DA; with 465 volumes it matches in-domain models.",
+ "adaptation": "Widen the label-safe policy: blur sigma <= 0.7 px, sharpen, Gaussian noise, gamma 0.7 to 1.5, scale 0.85 to 1.15 with nearest-neighbour labels, small elastic. No large blur (it would erase 1 px cracks).",
+ "min_experiment": "PF+BigAug-lite vs PF, 5 seeds. Metrics: E1 crack relF1@2, E1 inactive IoU; guard test crack IoU. Kill: E1 relF1@2 gain < +0.03 or test crack IoU drop > 0.01.",
+ "prior_overlap": "None: only flips, rot90 and brightness/contrast were ever used.",
+ "score": 58,
+ "bench_score": 60,
+ "bet": "safe",
+ "gpu_hours": 6,
+ "targets": [
+  "e1_unseen",
+  "benchmark"
+ ],
+ "directions": [
+  "D30"
+ ],
+ "scout_scores": [
+  58
+ ],
+ "final": 58,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 110,
+ "pub_allowed": 1,
+ "selected_for": "top"
+}

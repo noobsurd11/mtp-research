@@ -1,0 +1,46 @@
+{
+ "paper_id": "doi:10.52202/075280-3289",
+ "title": "Jaccard Metric Losses: Optimizing the Jaccard Index with Soft Labels",
+ "year": 2023,
+ "venue": "NeurIPS",
+ "url": "https://arxiv.org/abs/2302.05666",
+ "code_url": "https://github.com/zifuwanggg/JDTLosses",
+ "mechanism": "An IoU loss that is a true metric on [0,1], so it is minimised at prediction = soft target; this lets label smoothing and knowledge distillation be combined with an IoU loss, which the L1 soft Jaccard / soft Dice cannot do (they push soft-label predictions to 0/1).",
+ "adaptation": "Distil the 5-seed FINAL (or PF) ensemble into one U-Net++ R34: CE + JML on hard labels plus CE + JML on teacher soft maps, over the 478 train cells and the 11.9k pool. JML only on crack and inactive (paper warns class-wise JML amplifies extreme minority classes), computed over the whole batch so it matches our pooled IoU (paper warns per-GPU small batches optimise per-image IoU), active classes PRESENT. House soft Dice must be replaced, since it breaks on soft targets.",
+ "min_experiment": "Arm JML-KD student (5 seeds) vs SUP100 single (and SUP100-PF). Metrics clean-49 crack IoU, relF1@2, inactive IoU; E1 secondary. Kill if 5-seed mean crack IoU < SUP100 + 0.009 (half the ensemble gap) and relF1@2 n.d.",
+ "score": 72,
+ "bench_score": 45,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "inactive",
+  "deployment"
+ ],
+ "evidence": "R: CE+JML beats CE alone by typically > 2% mIoU on Cityscapes, VOC, ADE20K over 13 models; JML-KD beats SOTA segmentation KD (e.g. DL3-R18 VOC 74.42 hard JML vs 75.89 JML-KD); BLS best at k=3, eps 0.5; with soft labels L1 soft Jaccard underperforms hard labels on VOC (74.13 vs 74.42).",
+ "gpu_hours": 8,
+ "prior_overlap": "Partial: pseudo-label SSL at 100% with the 11.9k pool was n.d., but it used an EMA teacher of the same model, hard / tolerant labels and the old Dice. A 5-model ensemble teacher with soft targets and a soft-compatible IoU loss is untested.",
+ "directions": [
+  "D18"
+ ],
+ "scout_scores": [
+  72,
+  72
+ ],
+ "alt_notes": [
+  {
+   "from": "D18",
+   "adaptation": "Distil the 5-seed FINAL (or PF) ensemble into one U-Net++ R34 with CE + JML on teacher soft maps over the 478 train cells plus the 11.9k pool; JML only on crack + inactive, computed per batch to match pooled IoU; active classes filtered by teacher confidence (LABEL). House soft Dice must be replaced, since it breaks on soft targets.",
+   "min_experiment": "Arm: CE+JML hard + (CE+JML) on FINAL ensemble soft maps, train+pool, 5 seeds; control: same teacher with plain KL; baseline SUP100 single (repeat on PF). Metric crack IoU (clean 49, val bias), relF1@2, inactive IoU, E1 inactive. Kill: crack IoU < SUP100 + 0.009 (half the ensemble gap) and relF1@2 n.d.",
+   "score": 72
+  }
+ ],
+ "final": 72,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 17,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P017"
+}

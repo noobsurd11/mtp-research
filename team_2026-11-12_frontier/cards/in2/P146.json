@@ -1,0 +1,35 @@
+{
+ "paper_id": "arxiv:2512.09307",
+ "title": "From SAM to DINOv2: Towards Distilling Foundation Models to Lightweight Baselines for Generalized Polyp Segmentation (PolypDiFoM)",
+ "year": 2025,
+ "venue": "WACV 2026",
+ "url": "https://arxiv.org/abs/2512.09307",
+ "code_url": "",
+ "mechanism": "Distil semantic priors of SAM / DINOv2 into U-Net / U-Net++ encoders with frequency-domain encoding, keeping the cheap model for deployment.",
+ "adaptation": "House U-Net++ R34 + cosine feature-alignment loss at layer3/layer4 to frozen DINOv3-L or SAM2 features computed at 1024 and pooled to encoder stride; labelled + 11.9k pool cells.",
+ "min_experiment": "House PF + distillation (weights 0.1 and 1.0) vs house PF, 5 seeds; pass if E1 crack relF1@2 +0.03 with CV loss <= 0.005.",
+ "evidence": "R: beats U-Net / U-Net++ baselines and SOTA on 5 polyp sets with about 9x less compute.",
+ "prior_overlap": "SSL with foundation-model teachers listed as not closed; distillation never tried.",
+ "score": 55,
+ "bench_score": 45,
+ "bet": "medium",
+ "gpu_hours": 30,
+ "targets": [
+  "e1_unseen",
+  "crack",
+  "deployment"
+ ],
+ "directions": [
+  "D14"
+ ],
+ "scout_scores": [
+  55
+ ],
+ "final": 55,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 146,
+ "pid": "P146"
+}

@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2602.02471",
+ "title": "Multi-head automated segmentation by incorporating detection head into the contextual layer neural network",
+ "year": 2026,
+ "venue": "OA J Applied Sci Technol (arXiv)",
+ "url": "https://arxiv.org/abs/2602.02471",
+ "code_url": "",
+ "mechanism": "A parallel detection head gives a presence probability that gates segmentation, either soft (scale probabilities) or hard (threshold mask).",
+ "adaptation": "Use it only as the soft or hard setting of the UNet 3+ presence-gate arm on inactive and crack. It does not need a separate run.",
+ "min_experiment": "Run as the hard-gate setting inside the presence-head arm. Baseline: PF. Metric: inactive IoU and precision. Kill if hard gate < soft gate.",
+ "evidence": "R: Dice loss 0.013 +/- 0.036 gated v 0.732 +/- 0.314 non-gated on Prostate-Anatomical-Edge-Cases (TCIA).",
+ "prior_overlap": "none",
+ "score": 40,
+ "bench_score": 20,
+ "bet": "medium",
+ "gpu_hours": 2,
+ "targets": [
+  "inactive"
+ ],
+ "directions": [
+  "D27"
+ ],
+ "scout_scores": [
+  40
+ ],
+ "final": 40,
+ "bench": 20,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 403,
+ "pid": "P403"
+}

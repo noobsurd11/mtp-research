@@ -1,0 +1,33 @@
+--- T1 build
+PASS T1 build without GATE is refused (no default)
+PASS T1 GATE 11000 against the smoke RULE line 11798 is refused
+PASS T1 without the smoke check file build is refused
+PASS T1 build with GATE = the RULE line (11798): 25 lines, that gate, md5 file
+PASS T1 a second build is refused
+PASS T1 a name in use on cv02 is refused and no list is left
+PASS T1 another smoke result (RULE 11048) with GATE=11048 gives that job gate
+--- T2 render (DRY) and the XB checks
+PASS T2 DRY render: XB checks pass, command printed
+PASS T2 wrong XB name refused
+PASS T2 XB with a changed training file (CODE.md5 renewed) is refused
+PASS T2 XB with another cq.sh is refused (pins)
+PASS T2 XB with a file not in CODE.md5 changed is refused (CODE.md5)
+PASS T2 restored XB passes again
+--- T3 place, guard
+PASS T3 place: queue dir with jobs (read-only), LPG 1, MAXC 8, SHARE 20480 / 10240
+PASS T3 a second place is refused
+PASS T3 guard: script placed, session started
+PASS T3 a second guard is refused
+--- T4 arm
+PASS T4 arm without a passed render is refused
+PASS T4 c3all3 not dispatched all: refused, nothing started
+PASS T4 another live queue can start (c3all2 MAXC 8): refused
+PASS T4 a HOLD in a queue dir: refused
+PASS T4 free 50 GB < need (25 x 1.03 + 3.3 .swad + 8 x 0.27 + 2 open x 1.2 + 20 = 54): refused
+PASS T4 DRY with DISK_OK=1: pre-checks pass, command printed
+PASS T4 cq.sh refuses at arming (played): REFUSED
+PASS T4 arm: real cq_setup.sh of XB, armed line seen, sharing shown
+PASS T4 a second arm is refused (session or queue dir used)
+--- T5 status
+PASS T5 status lists c3all3 and c3x
+c3x queue test: 27 PASS, 0 FAIL

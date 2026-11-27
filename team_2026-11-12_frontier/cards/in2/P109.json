@@ -1,0 +1,77 @@
+{
+ "paper_id": "arxiv:2603.13659",
+ "title": "FMS2: Unified Flow Matching for Segmentation and Synthesis of Thin Structures",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2603.13659",
+ "code_url": "",
+ "mechanism": "SynFlow renders pixel-aligned image-mask pairs with multi-scale mask injection, Lite-SPADE GroupNorm and a boundary-gating module, driven by a mask generator that controls sparsity, width and branching; SegFlow casts segmentation as image-to-mask flow transport.",
+ "adaptation": "Use SynFlow blocks inside the row-1 renderer; sample crack widths per source (ARTS 1.5, CFVS/CSIR 1.75, BMRK 3.0, SDLE 3.25 px) so synthetic labels follow each source's convention; SegFlow is a thin-structure method for the benchmark suite (outside D06 scope).",
+ "min_experiment": "Arm: renderer with LSGN + boundary gate + width-controlled masks. Baseline: plain mask-concat renderer at matched steps. Metric: house-ensemble crack IoU on rendered pairs (mask adherence), then E1 relF1@2 of PF trained with each. Kill: adherence gain < 0.05 IoU.",
+ "score": 58,
+ "bench_score": 60,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "e1_unseen",
+  "benchmark"
+ ],
+ "evidence": "R: 0.25 of real labels + SynFlow pairs largely closes the gap to full labels on CRACK500, CrackTree260, CrackLS315; cross-domain IoU +0.11 average; SegFlow mIoU 0.511 -> 0.599 over best baseline on 5 crack/vessel sets; 256 px, about 400 train crops; SynFlow 150k iterations on 2 A100.",
+ "gpu_hours": 30,
+ "prior_overlap": "None.",
+ "directions": [
+  "D06",
+  "D11",
+  "D12",
+  "D26"
+ ],
+ "scout_scores": [
+  58,
+  42,
+  38,
+  35,
+  38,
+  45
+ ],
+ "alt_notes": [
+  {
+   "from": "D11",
+   "adaptation": "Crack-only binary SegFlow head on our encoder (2.96M-param model in paper); later the synthesis module for half-cut / scuff-like EL pairs.",
+   "min_experiment": "Arm = SegFlow crack head; baseline = PF; 3 seeds first; metrics crack IoU, relF1@2. Kill if IoU below PF by > 0.02.",
+   "score": 42
+  },
+  {
+   "from": "D11",
+   "adaptation": "Crack-only binary SegFlow head conditioned on house encoder features; or use the synthesis half to make crack training images from E1-like half-cut backgrounds.",
+   "min_experiment": "Arm SegFlow crack head vs PF on cv5v2 2 seeds; metric relF1@2 and components found; kill if relF1@2 +<0.01.",
+   "score": 38
+  },
+  {
+   "from": "D12",
+   "adaptation": "Put a SegFlow crack head on our encoder. Train SynFlow on the 478 cells to render cracks on EL backgrounds, varying width to match each source's labelling convention, and add the pairs to training.",
+   "min_experiment": "SegFlow crack head vs house, 2 seeds. Metrics: crack relF1@2 and components found. Kill if below house. The SynFlow arm runs only if SegFlow passes.",
+   "score": 35
+  },
+  {
+   "from": "D12",
+   "adaptation": "Crack-only SegFlow head on the house encoder, ODE integration 10-20 steps; SynFlow overlaps with the generative-data direction.",
+   "min_experiment": "Arm: house encoder + SegFlow crack head, 3 seeds screen then 5; baseline house. Metric crack relF1@2, components found, E1 relF1@2. Kill: relF1@2 gain < 0.015.",
+   "score": 38
+  },
+  {
+   "from": "D26",
+   "adaptation": "Bold use as a refiner: start the flow at house logits instead of noise (coarse-to-fine transport), condition on 1-ch EL, crack and inactive channels only, 4 to 8 Euler steps, trained on OOF predictions. Also a standalone thin-structure baseline for the benchmark at 512 px.",
+   "min_experiment": "Arm: flow-matching refiner on house ensemble output. Baseline: house ensemble, and rNCA if it passes. Metrics: relR@2 at relP@2>=0.93, component recall, crack IoU. Kill: relR@2 < +0.01 or no gain over rNCA.",
+   "score": 45
+  }
+ ],
+ "final": 58,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 109,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P109"
+}

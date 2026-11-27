@@ -1,0 +1,138 @@
+== 2026-11-14 00:22:46 realsplits pre --wt /home/noob/work/el_f3 --wt /home/noob/work/el_thin --ext /home/noob/work/el_f1/reports/f1/ext117 --root-splits /home/noob/work/s2c_root/SPLITS.md5 24568cdb4ad0764924660e448cef6a37
+/home/noob/work/el_f3/data/splits: test.txt a31fad14 (real a31fad14), val.txt 9dcccf00 (real 9dcccf00) -> True
+/home/noob/work/el_thin/data/splits: test.txt a31fad14 (real a31fad14), val.txt 9dcccf00 (real 9dcccf00) -> True
+/home/noob/work/el_f1/reports/f1/ext117/stems_eval.txt 5266806b (real 5266806b) -> True
+S2C training root /home/noob/work/s2c_root/SPLITS.md5 24568cdb (expected 24568cdb; its test.txt = val, NOT read by any pass) -> True
+REALSPLITS pre PASS
+== 2026-11-14 02:37:17 realsplits rescore --wt /home/noob/work/el_thin /home/noob/work/s2c/post/rescore/SKR01 s2c_SKR01_100pct_s10 s2c_SKR01_100pct_s11 s2c_SKR01_100pct_s12 s2c_SKR01_100pct_s13 s2c_SKR01_100pct_s14
+rescore s2c_SKR01_100pct_s10.json: test/s2c_SKR01_100pct_s10 n 50 (50), val/s2c_SKR01_100pct_s10 n 54 (54) -> True
+rescore s2c_SKR01_100pct_s11.json: test/s2c_SKR01_100pct_s11 n 50 (50), val/s2c_SKR01_100pct_s11 n 54 (54) -> True
+rescore s2c_SKR01_100pct_s12.json: test/s2c_SKR01_100pct_s12 n 50 (50), val/s2c_SKR01_100pct_s12 n 54 (54) -> True
+rescore s2c_SKR01_100pct_s13.json: test/s2c_SKR01_100pct_s13 n 50 (50), val/s2c_SKR01_100pct_s13 n 54 (54) -> True
+rescore s2c_SKR01_100pct_s14.json: test/s2c_SKR01_100pct_s14 n 50 (50), val/s2c_SKR01_100pct_s14 n 54 (54) -> True
+REALSPLITS rescore PASS
+== 2026-11-14 02:49:07 realsplits rescore --wt /home/noob/work/el_f3 /home/noob/work/s2c/post/rescore/SUPPF s2c_SUPPF_100pct_s10 s2c_SUPPF_100pct_s11 s2c_SUPPF_100pct_s12 s2c_SUPPF_100pct_s13 s2c_SUPPF_100pct_s14
+rescore s2c_SUPPF_100pct_s10.json: test/s2c_SUPPF_100pct_s10 n 50 (50), val/s2c_SUPPF_100pct_s10 n 54 (54) -> True
+rescore s2c_SUPPF_100pct_s11.json: test/s2c_SUPPF_100pct_s11 n 50 (50), val/s2c_SUPPF_100pct_s11 n 54 (54) -> True
+rescore s2c_SUPPF_100pct_s12.json: test/s2c_SUPPF_100pct_s12 n 50 (50), val/s2c_SUPPF_100pct_s12 n 54 (54) -> True
+rescore s2c_SUPPF_100pct_s13.json: test/s2c_SUPPF_100pct_s13 n 50 (50), val/s2c_SUPPF_100pct_s13 n 54 (54) -> True
+rescore s2c_SUPPF_100pct_s14.json: test/s2c_SUPPF_100pct_s14 n 50 (50), val/s2c_SUPPF_100pct_s14 n 54 (54) -> True
+REALSPLITS rescore PASS
+== 2026-11-14 02:59:10 realsplits m0 --wt /home/noob/work/el_thin --ext /home/noob/work/el_f1/reports/f1/ext117 /home/noob/work/s2c/post/m0/SKR01 s2c_SKR01_100pct_s10 s2c_SKR01_100pct_s11 s2c_SKR01_100pct_s12 s2c_SKR01_100pct_s13 s2c_SKR01_100pct_s14
+m0 s2c_SKR01_100pct_s10.json: val 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c), val_tta 54 (9dcccf00) -> True
+m0 s2c_SKR01_100pct_s10.tau0.json: val 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c), val_tta 54 (9dcccf00) -> True
+m0 s2c_SKR01_100pct_s10.tau1.json: val 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c), val_tta 54 (9dcccf00) -> True
+m0 s2c_SKR01_100pct_s11.json: val 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c), val_tta 54 (9dcccf00) -> True
+m0 s2c_SKR01_100pct_s11.tau0.json: val 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c), val_tta 54 (9dcccf00) -> True
+m0 s2c_SKR01_100pct_s11.tau1.json: val 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c), val_tta 54 (9dcccf00) -> True
+m0 s2c_SKR01_100pct_s12.json: val 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c), val_tta 54 (9dcccf00) -> True
+m0 s2c_SKR01_100pct_s12.tau0.json: val 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c), val_tta 54 (9dcccf00) -> True
+m0 s2c_SKR01_100pct_s12.tau1.json: val 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c), val_tta 54 (9dcccf00) -> True
+m0 s2c_SKR01_100pct_s13.json: val 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c), val_tta 54 (9dcccf00) -> True
+m0 s2c_SKR01_100pct_s13.tau0.json: val 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c), val_tta 54 (9dcccf00) -> True
+m0 s2c_SKR01_100pct_s13.tau1.json: val 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c), val_tta 54 (9dcccf00) -> True
+m0 s2c_SKR01_100pct_s14.json: val 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c), val_tta 54 (9dcccf00) -> True
+m0 s2c_SKR01_100pct_s14.tau0.json: val 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c), val_tta 54 (9dcccf00) -> True
+m0 s2c_SKR01_100pct_s14.tau1.json: val 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c), val_tta 54 (9dcccf00) -> True
+REALSPLITS m0 PASS
+== 2026-11-14 03:07:15 realsplits m0 --wt /home/noob/work/el_f3 --ext /home/noob/work/el_f1/reports/f1/ext117 /home/noob/work/s2c/post/m0/SUPPF s2c_SUPPF_100pct_s10 s2c_SUPPF_100pct_s11 s2c_SUPPF_100pct_s12 s2c_SUPPF_100pct_s13 s2c_SUPPF_100pct_s14
+m0 s2c_SUPPF_100pct_s10.json: val 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c), val_tta 54 (9dcccf00) -> True
+m0 s2c_SUPPF_100pct_s10.tau0.json: val 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c), val_tta 54 (9dcccf00) -> True
+m0 s2c_SUPPF_100pct_s10.tau1.json: val 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c), val_tta 54 (9dcccf00) -> True
+m0 s2c_SUPPF_100pct_s11.json: val 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c), val_tta 54 (9dcccf00) -> True
+m0 s2c_SUPPF_100pct_s11.tau0.json: val 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c), val_tta 54 (9dcccf00) -> True
+m0 s2c_SUPPF_100pct_s11.tau1.json: val 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c), val_tta 54 (9dcccf00) -> True
+m0 s2c_SUPPF_100pct_s12.json: val 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c), val_tta 54 (9dcccf00) -> True
+m0 s2c_SUPPF_100pct_s12.tau0.json: val 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c), val_tta 54 (9dcccf00) -> True
+m0 s2c_SUPPF_100pct_s12.tau1.json: val 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c), val_tta 54 (9dcccf00) -> True
+m0 s2c_SUPPF_100pct_s13.json: val 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c), val_tta 54 (9dcccf00) -> True
+m0 s2c_SUPPF_100pct_s13.tau0.json: val 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c), val_tta 54 (9dcccf00) -> True
+m0 s2c_SUPPF_100pct_s13.tau1.json: val 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c), val_tta 54 (9dcccf00) -> True
+m0 s2c_SUPPF_100pct_s14.json: val 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c), val_tta 54 (9dcccf00) -> True
+m0 s2c_SUPPF_100pct_s14.tau0.json: val 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c), val_tta 54 (9dcccf00) -> True
+m0 s2c_SUPPF_100pct_s14.tau1.json: val 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c), val_tta 54 (9dcccf00) -> True
+REALSPLITS m0 PASS
+== 2026-11-14 03:09:14 realsplits la --wt /home/noob/work/el_thin /home/noob/work/s2c/post/la_SKR01.json s2c_SKR01_100pct_s10 s2c_SKR01_100pct_s11 s2c_SKR01_100pct_s12 s2c_SKR01_100pct_s13 s2c_SKR01_100pct_s14
+LA la_SKR01.json: 40 test / val entries, n 50 / 54 and per_cell stems == real lists; runs present True -> True
+REALSPLITS la PASS
+== 2026-11-14 03:11:41 realsplits la --wt /home/noob/work/el_f3 /home/noob/work/s2c/post/la_SUPPF.json s2c_SUPPF_100pct_s10 s2c_SUPPF_100pct_s11 s2c_SUPPF_100pct_s12 s2c_SUPPF_100pct_s13 s2c_SUPPF_100pct_s14
+LA la_SUPPF.json: 40 test / val entries, n 50 / 54 and per_cell stems == real lists; runs present True -> True
+REALSPLITS la PASS
+== 2026-11-14 03:32:01 realsplits b5 --wt /home/noob/work/el_thin --ext /home/noob/work/el_f1/reports/f1/ext117 /home/noob/work/s2c/post_work/b5/SKR01/dump /home/noob/work/s2c/post_work/b5/SKR01/rec_w s2c_SKR01_100pct_s10 s2c_SKR01_100pct_s11 s2c_SKR01_100pct_s12 s2c_SKR01_100pct_s13 s2c_SKR01_100pct_s14
+b5 dump s2c_SKR01_100pct_s10.val.npz stems 54 (9dcccf00) -> True
+b5 records rec_w/s2c_SKR01_100pct_s10.val.json: val 54 (9dcccf00) -> True
+b5 dump s2c_SKR01_100pct_s10.test.npz stems 50 (a31fad14) -> True
+b5 records rec_w/s2c_SKR01_100pct_s10.test.json: test 50 (a31fad14) -> True
+b5 dump s2c_SKR01_100pct_s10.ext.npz stems 106 (1cd3374c) -> True
+b5 records rec_w/s2c_SKR01_100pct_s10.ext.json: ext 106 (1cd3374c) -> True
+b5 dump s2c_SKR01_100pct_s11.val.npz stems 54 (9dcccf00) -> True
+b5 records rec_w/s2c_SKR01_100pct_s11.val.json: val 54 (9dcccf00) -> True
+b5 dump s2c_SKR01_100pct_s11.test.npz stems 50 (a31fad14) -> True
+b5 records rec_w/s2c_SKR01_100pct_s11.test.json: test 50 (a31fad14) -> True
+b5 dump s2c_SKR01_100pct_s11.ext.npz stems 106 (1cd3374c) -> True
+b5 records rec_w/s2c_SKR01_100pct_s11.ext.json: ext 106 (1cd3374c) -> True
+b5 dump s2c_SKR01_100pct_s12.val.npz stems 54 (9dcccf00) -> True
+b5 records rec_w/s2c_SKR01_100pct_s12.val.json: val 54 (9dcccf00) -> True
+b5 dump s2c_SKR01_100pct_s12.test.npz stems 50 (a31fad14) -> True
+b5 records rec_w/s2c_SKR01_100pct_s12.test.json: test 50 (a31fad14) -> True
+b5 dump s2c_SKR01_100pct_s12.ext.npz stems 106 (1cd3374c) -> True
+b5 records rec_w/s2c_SKR01_100pct_s12.ext.json: ext 106 (1cd3374c) -> True
+b5 dump s2c_SKR01_100pct_s13.val.npz stems 54 (9dcccf00) -> True
+b5 records rec_w/s2c_SKR01_100pct_s13.val.json: val 54 (9dcccf00) -> True
+b5 dump s2c_SKR01_100pct_s13.test.npz stems 50 (a31fad14) -> True
+b5 records rec_w/s2c_SKR01_100pct_s13.test.json: test 50 (a31fad14) -> True
+b5 dump s2c_SKR01_100pct_s13.ext.npz stems 106 (1cd3374c) -> True
+b5 records rec_w/s2c_SKR01_100pct_s13.ext.json: ext 106 (1cd3374c) -> True
+b5 dump s2c_SKR01_100pct_s14.val.npz stems 54 (9dcccf00) -> True
+b5 records rec_w/s2c_SKR01_100pct_s14.val.json: val 54 (9dcccf00) -> True
+b5 dump s2c_SKR01_100pct_s14.test.npz stems 50 (a31fad14) -> True
+b5 records rec_w/s2c_SKR01_100pct_s14.test.json: test 50 (a31fad14) -> True
+b5 dump s2c_SKR01_100pct_s14.ext.npz stems 106 (1cd3374c) -> True
+b5 records rec_w/s2c_SKR01_100pct_s14.ext.json: ext 106 (1cd3374c) -> True
+REALSPLITS b5 PASS
+== 2026-11-14 03:32:01 realsplits b5 --wt /home/noob/work/el_f3 --ext /home/noob/work/el_f1/reports/f1/ext117 /home/noob/work/s2c/post_work/b5/SUPPF/dump /home/noob/work/s2c/post_work/b5/SUPPF/rec_w s2c_SUPPF_100pct_s10 s2c_SUPPF_100pct_s11 s2c_SUPPF_100pct_s12 s2c_SUPPF_100pct_s13 s2c_SUPPF_100pct_s14
+b5 dump s2c_SUPPF_100pct_s10.val.npz stems 54 (9dcccf00) -> True
+b5 records rec_w/s2c_SUPPF_100pct_s10.val.json: val 54 (9dcccf00) -> True
+b5 dump s2c_SUPPF_100pct_s10.test.npz stems 50 (a31fad14) -> True
+b5 records rec_w/s2c_SUPPF_100pct_s10.test.json: test 50 (a31fad14) -> True
+b5 dump s2c_SUPPF_100pct_s10.ext.npz stems 106 (1cd3374c) -> True
+b5 records rec_w/s2c_SUPPF_100pct_s10.ext.json: ext 106 (1cd3374c) -> True
+b5 dump s2c_SUPPF_100pct_s11.val.npz stems 54 (9dcccf00) -> True
+b5 records rec_w/s2c_SUPPF_100pct_s11.val.json: val 54 (9dcccf00) -> True
+b5 dump s2c_SUPPF_100pct_s11.test.npz stems 50 (a31fad14) -> True
+b5 records rec_w/s2c_SUPPF_100pct_s11.test.json: test 50 (a31fad14) -> True
+b5 dump s2c_SUPPF_100pct_s11.ext.npz stems 106 (1cd3374c) -> True
+b5 records rec_w/s2c_SUPPF_100pct_s11.ext.json: ext 106 (1cd3374c) -> True
+b5 dump s2c_SUPPF_100pct_s12.val.npz stems 54 (9dcccf00) -> True
+b5 records rec_w/s2c_SUPPF_100pct_s12.val.json: val 54 (9dcccf00) -> True
+b5 dump s2c_SUPPF_100pct_s12.test.npz stems 50 (a31fad14) -> True
+b5 records rec_w/s2c_SUPPF_100pct_s12.test.json: test 50 (a31fad14) -> True
+b5 dump s2c_SUPPF_100pct_s12.ext.npz stems 106 (1cd3374c) -> True
+b5 records rec_w/s2c_SUPPF_100pct_s12.ext.json: ext 106 (1cd3374c) -> True
+b5 dump s2c_SUPPF_100pct_s13.val.npz stems 54 (9dcccf00) -> True
+b5 records rec_w/s2c_SUPPF_100pct_s13.val.json: val 54 (9dcccf00) -> True
+b5 dump s2c_SUPPF_100pct_s13.test.npz stems 50 (a31fad14) -> True
+b5 records rec_w/s2c_SUPPF_100pct_s13.test.json: test 50 (a31fad14) -> True
+b5 dump s2c_SUPPF_100pct_s13.ext.npz stems 106 (1cd3374c) -> True
+b5 records rec_w/s2c_SUPPF_100pct_s13.ext.json: ext 106 (1cd3374c) -> True
+b5 dump s2c_SUPPF_100pct_s14.val.npz stems 54 (9dcccf00) -> True
+b5 records rec_w/s2c_SUPPF_100pct_s14.val.json: val 54 (9dcccf00) -> True
+b5 dump s2c_SUPPF_100pct_s14.test.npz stems 50 (a31fad14) -> True
+b5 records rec_w/s2c_SUPPF_100pct_s14.test.json: test 50 (a31fad14) -> True
+b5 dump s2c_SUPPF_100pct_s14.ext.npz stems 106 (1cd3374c) -> True
+b5 records rec_w/s2c_SUPPF_100pct_s14.ext.json: ext 106 (1cd3374c) -> True
+REALSPLITS b5 PASS
+== 2026-11-14 03:36:20 realsplits scuffign --wt /home/noob/work/el_thin --ext /home/noob/work/el_f1/reports/f1/ext117 /home/noob/work/s2c/post/m0_scuffign/SKR01 s2c_SKR01_100pct_s10 s2c_SKR01_100pct_s11 s2c_SKR01_100pct_s12 s2c_SKR01_100pct_s13 s2c_SKR01_100pct_s14
+scuffign s2c_SKR01_100pct_s10: val 54 (9dcccf00), val_tta 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c) -> True
+scuffign s2c_SKR01_100pct_s11: val 54 (9dcccf00), val_tta 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c) -> True
+scuffign s2c_SKR01_100pct_s12: val 54 (9dcccf00), val_tta 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c) -> True
+scuffign s2c_SKR01_100pct_s13: val 54 (9dcccf00), val_tta 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c) -> True
+scuffign s2c_SKR01_100pct_s14: val 54 (9dcccf00), val_tta 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c) -> True
+REALSPLITS scuffign PASS
+== 2026-11-14 03:36:20 realsplits scuffign --wt /home/noob/work/el_f3 --ext /home/noob/work/el_f1/reports/f1/ext117 /home/noob/work/s2c/post/m0_scuffign/SUPPF s2c_SUPPF_100pct_s10 s2c_SUPPF_100pct_s11 s2c_SUPPF_100pct_s12 s2c_SUPPF_100pct_s13 s2c_SUPPF_100pct_s14
+scuffign s2c_SUPPF_100pct_s10: val 54 (9dcccf00), val_tta 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c) -> True
+scuffign s2c_SUPPF_100pct_s11: val 54 (9dcccf00), val_tta 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c) -> True
+scuffign s2c_SUPPF_100pct_s12: val 54 (9dcccf00), val_tta 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c) -> True
+scuffign s2c_SUPPF_100pct_s13: val 54 (9dcccf00), val_tta 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c) -> True
+scuffign s2c_SUPPF_100pct_s14: val 54 (9dcccf00), val_tta 54 (9dcccf00), test 50 (a31fad14), ext 106 (1cd3374c) -> True
+REALSPLITS scuffign PASS

@@ -1,0 +1,145 @@
+% ch01_intro.tex: Chapter 1, Introduction.
+% Every number is traced in ch01_intro_NOTES.md. Framing per OUTLINE s7 risk 1: a benchmark plus one confirmed recipe gain.
+\chapter{Introduction}\label{ch:intro}
+
+\section{Electroluminescence inspection and the task}\label{sec:intro-task}
+
+Electroluminescence (EL) images show defects in solar cells that are invisible to the eye, and they are used both before a module
+ships and over its life \citep{pratt2023benchmark}. A module driven in forward bias emits light where its silicon is connected and
+of good quality; cracks appear as dark lines, and a part of a cell that a crack cuts off from the current no longer contributes
+power and appears as a dark region, the inactive area \citep{haase2018crackwidth,kontges2011risk}.
+
+This thesis studies pixel-level semantic segmentation of EL images of crystalline silicon cells: each image is grayscale, 512
+$\times$ 512~px, and shows one cell plus parts of its neighbours, and each pixel receives one of 24 classes, 12 structural and 12
+defects. The main labelled data are the BenchmarkEL release \texttt{20211104} \citep{pratt2023benchmark}, 582 cells split 478 /
+54 / 50 into train, validation and test, from five sources with different contrast and labelling conventions. Crack and inactive
+are the focus: crack because it occurs in many cells (206 of the 478 training cells under our label set) and is hard to label,
+inactive because of all classes it is the most directly tied to lost power. The work was done with WattCycle, a PV recycling and
+inspection company; its EL rig was still 2 to 3 months away as of 4 November 2026, so every model here is built and tested on public
+data.
+
+The two focus classes are hard in opposite ways (Chapter~\ref{ch:background}). A physical crack is micrometres wide; the camera
+shows a dark line with a median full width at half maximum of 4.0~px; the annotators traced a line of median width 1.75~px somewhere on
+it, and half of the label points sit more than 1~px off the darkest ridge. A perfect crack mask shifted by 1~px therefore scores
+crack IoU 0.559 on the legacy test masks. Inactive regions are blobby and consistently labelled but rare: inactive occurs in 42 of
+the 478 training cells.
+
+\section{The goal and what was reached}\label{sec:intro-goal}
+
+The goal set at the start of this work was, in its original wording, ``highest scores, a model which captures almost all of the
+cracks, inactive and other important defects balancing the miou for other classes as well''. We made it operational for cracks as
+a relaxed recall of at least 0.90 at a relaxed precision of at least 0.90, both within 2~px (relR@2 and relP@2;
+Chapter~\ref{ch:background}). That target is not reached. On the sealed set of unseen modules, the final recipe, averaged over
+seeds 5 to 9, reaches relP@2 0.5995 and relR@2 0.4157 at argmax; even in distribution, on the cross-validated pool and with the
+recipe chosen on the same cells, it reaches 0.9216 and 0.8211. Inactive gains are not detected, and several of the other classes stay weak.
+
+The first obstacle was not a model but a measurement. To know whether a change helps, one needs a number that means the same thing
+before and after the change and can be set beside published numbers. For EL segmentation no such number existed, and the aim of
+this work widened from a better model to setting ``a benchmark for this very unorganised field''. This thesis therefore reports a
+benchmark first, and one model gain measured under it.
+
+\section{Why published EL segmentation numbers do not compare}\label{sec:intro-why}
+
+We read 22 papers that report pixel-level EL segmentation numbers in full text (Chapter~\ref{ch:related}). Their numbers cannot be
+compared with each other or with ours, for six reasons that we measured or counted.
+\begin{itemize}
+  \item \textbf{Releases.} The main dataset exists in three releases (582, 642 and 695 cells) with reshuffled splits: 186 of the 582
+  cells change split between the first two, and the test sets of the later releases each hold 51 cells of our training pool.
+  \item \textbf{Leakage.} The legacy test set (test50) is not independent of training: 8 of its 50 cells are the same physical
+  cell as a pool cell (7 confirmed by pixels, 1 by the cell-table link only), 7 more are neighbouring crops of pool images, and 19
+  more share a module with pool cells.
+  \item \textbf{Classes and averaging.} Class lists differ (one dataset's ``crack'' is a region class close to crack plus inactive),
+  and so does averaging. On test50 (in-distribution, known leakage, context only), the same predictions of our baseline give a
+  per-image mean of defect medians of 0.202, 0.405 or 0.541, depending only on how cells without the class are counted; on what are
+  presumably the same 50 cells, published crack values are 0.25 \citep{pratt2023benchmark} and 0.58 \citep{jha2025pvs3}, under
+  different metrics.
+  \item \textbf{Line width.} Strict IoU on 1 to 2~px crack labels measures the annotators' line-width convention: the same baseline
+  predictions on our pool score strict crack IoU 0.233, 0.365 and 0.414 against 1-px centreline, v1.1 and 3-px labels, while the
+  2~px tolerance metric relF1@2 reads 0.824, 0.846 and 0.849.
+  \item \textbf{Label releases.} The same models score strict crack IoU 0.320 on the 2021 labels and 0.365 on the corrected labels
+  we use, and relF1@2 0.822 and 0.846.
+  \item \textbf{No uncertainty.} 18 of the 22 papers give no interval, seed count or repeat on any number; none states a
+  module-disjoint split, uses a distance-tolerant crack metric or reports a number on unseen modules; 2 state release, split and
+  metric together.
+\end{itemize}
+Our reading (judgement): a comparable number must state seven things together, namely dataset release, label set, split, class
+list, metric convention, operating-point rule and seed count, and no published EL number we found states all seven.
+
+\section{Approach}\label{sec:intro-approach}
+
+The work began as a study of semi-supervised learning on the legacy split; under the rule of that time, pseudo-labels helped only
+at 5\% and 10\% labels, and the framing was dropped. The measurement failures of that period (a test set scored in every run and overlapping
+the training pool, effects near the noise, inactive decided by a few cells) motivated the protocol (Chapter~\ref{ch:legacy}). We
+then built the instrument before judging methods with it. A dataset audit measured the faults that move scores: the line-width
+convention, label errors, the image window, the label release and a module leak across the folds of our earlier split. A protocol
+then fixed the seven elements, with five rules that follow from the audit: a cross-validation split of the 532 pool cells grouped
+by physical module; crack relF1@2 (tolerance 2~px) as the deciding metric, with strict IoU printed only beside its convention band;
+guards against gains bought by wider cracks or more false alarms; margins from an A/A contrast; and sealed test sets opened once,
+under a rule registered before any prediction. Under that protocol we ran a suite of published models and recent methods, chose a final recipe on pool cells, and
+tested it once on E1, 106 cells of unseen modules (supported, not proven) from a later release. A few-shot track then asked what
+labelled cells of E1's layouts add, and a deployment chapter measured cost, severity output and licences.
+
+\section{Contributions}\label{sec:intro-contrib}
+
+\begin{enumerate}
+  \item \textbf{A benchmark protocol and its release} (Chapter~\ref{ch:protocol}). The split cv5v3 groups the 532 pool cells by
+  physical module into five folds over 285 groups, none of which spans folds; it replaces a split in which 24 modules (91 cells)
+  spanned two folds. Crack relF1@2 decides, with a tolerance of 2~px, the 95th percentile of the distance between two annotations of one crack;
+  strict crack IoU is printed with a convention band of $\pm$0.019 and decides nothing; the margin is $M=0.010$; every entry fills
+  an info sheet with its entry class, cost and seed count. The benchmark is prepared for release as lists and code only, without images, masks
+  or weights.
+  \item \textbf{A dataset audit} (Chapter~\ref{ch:data}). The audit shows that strict crack IoU measures the line-width convention,
+  that 57\% of crack pixels and 71\% of inactive pixels lie outside the centre cell of each image, that crack label errors exist but
+  are a minority of the image-supported candidates (corrected share 0.244 [0.105, 0.436]) and move no contrast by more than 0.003,
+  that relF1@2 contrasts move by at most 0.0031 under the label variants tried, and that the label release moves the baseline's
+  strict crack IoU by +0.045, more than any method gain over it on the pool.
+  \item \textbf{A method suite under one protocol} (Chapter~\ref{ch:methods}). Under equal training, two models of the EL papers sit
+  below the baseline on crack relF1@2 ($-$0.0773 [$-$0.0892, $-$0.0594] and $-$0.0932 [$-$0.1113, $-$0.0774], 2-seed screens).
+  Of the three trained arms read at five seeds (HRNet-W18, weight averaging and their combination), none was confirmed under its
+  registered rule; D4 test-time augmentation on the baseline is confirmed on the pool (+0.0134 [+0.0066, +0.0207]), for known
+  modules only.
+  \item \textbf{One confirmed recipe gain on a sealed set} (Chapter~\ref{ch:e1_result}). On E1, the final recipe C2 (HRNet-W18
+  U-Net++ with SWAD weight averaging and D4 test-time augmentation) beats the encoder-preserving baseline on crack relF1@2 by +0.0430
+  [+0.0013, +0.1043], CONFIRMED under a rule registered before any prediction, with all guards passing. Its scope travels with it:
+  the recipe averaged over seeds 5 to 9, not one checkpoint; argmax only; 101 of the 106 cells from one source (CSIR); the full
+  cells carry it (+0.1464 [+0.0420, +0.2278]), while on the half-cut cells it is not detected (+0.0110 [$-$0.0289, +0.0722]). The
+  lower end is near 0 and the smallest detectable effect of the read is about 0.074. Most of the gain is the model (+0.0451
+  [+0.0173, +0.0699] with the same eight views on both sides); the D4 part is not resolved on E1. C2's readout and views were
+  chosen on pool cells, and E1 had seven earlier registered openings for other models.
+  \item \textbf{Cost and severity} (Chapter~\ref{ch:deployment}). C2 costs 1,744 GFLOPs per cell, $11.8\times$ the baseline, and
+  about 0.17~s of network time per cell on one GPU at batch 1; its five-seed ensemble (8,722 GFLOPs per cell) adds nothing
+  measurable over its members on E1 ($-$0.0025 [$-$0.0254, +0.0157]; OP-A, recipe means over seeds 5 to 9; 101 of 106 cells
+  CSIR). The severity output (inactive area fraction per cell) is validated
+  only for the baseline on pool cells, and the claim that predicted inactive area predicts power loss better than crack length is
+  not supported.
+  \item \textbf{A few-shot track} (Chapter~\ref{ch:t3b}). A registered out-of-fold test inside E1 asks how much labelled cells of
+  its layouts add to the same recipe. It is CONFIRMED: out of fold over 5 folds of E1 (seeds 5 to 7, OP-A, 106 cells, 101 of them
+  CSIR), the recipe trained with the labelled E1 cells of the other folds beats the same recipe zero-shot on crack relF1@2 by
+  +0.2213 [+0.0977, +0.3504], with both guards passing. The half-cut cells carry it (+0.2530 [+0.0878, +0.3885]), but not those
+  without scuff ($-$0.0701 [$-$0.3019, +0.0517]), and half of the labelled images give about the same gain (ALL $-$ HALF +0.0171
+  [$-$0.0246, +0.0625], not separated). It shows that labelled cells of a layout help, not that the model handles a new layout
+  without them.
+\end{enumerate}
+
+\section{What this thesis does not claim}\label{sec:intro-not}
+
+The headline is a benchmark plus one confirmed zero-shot recipe gain, not a model that finds almost all cracks: on E1 the final recipe
+finds about 0.42 of the labelled crack pixels within 2~px (relR@2 0.4157, mean over seeds 5 to 9, argmax). We do not claim to beat
+any published model; test50 overlaps our training pool, and its numbers are in-distribution, with known leakage, and context
+only. We do not claim an inactive gain, a gain for one deployable checkpoint, a zero-shot gain on half-cut cells, or a solution for
+the weak classes. The few-shot gain needs labelled cells of the layout and is measured inside E1 only. ``Unseen modules'' is
+supported, not proven. From the few-shot opening on, E1 is training data, so the zero-shot
+result of Chapter~\ref{ch:e1_result} is the last on these cells. Chapter~\ref{ch:limitations} lists every limit.
+
+\section{Thesis map}\label{sec:intro-map}
+
+Chapter~\ref{ch:background} explains EL imaging, the 24 classes and why crack and inactive labels behave so differently, and
+defines the metrics. Chapter~\ref{ch:related} reviews the public EL data and published numbers and shows why they do not compare.
+Chapter~\ref{ch:data} describes the data, the label sets and the dataset audit, whose findings are the reasons for the protocol.
+Chapter~\ref{ch:legacy} summarises the work done before the protocol, whose measurement failures motivated it.
+Chapter~\ref{ch:protocol} states the benchmark protocol. Chapter~\ref{ch:methods} reports the baselines and methods run under it
+and the choice of the final recipe. Chapter~\ref{ch:e1_result} gives the sealed E1 result and the public test-set table.
+Chapter~\ref{ch:t3b} reports the few-shot track. Chapter~\ref{ch:deployment} covers severity, inference cost and licences.
+Chapter~\ref{ch:limitations} collects the limitations, and Chapter~\ref{ch:conclusion} reads the claims table and names future
+work. Appendix~\ref{app:tables} holds the tables, Appendix~\ref{app:related} the related-work table, and
+Appendix~\ref{app:t21} a note on reading the pre-protocol table.

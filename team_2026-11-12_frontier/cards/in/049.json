@@ -1,0 +1,54 @@
+{
+ "paper_id": "arxiv:2411.18704",
+ "title": "Exponential Moving Average of Weights in Deep Learning: Dynamics and Benefits",
+ "year": 2024,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2411.18704",
+ "code_url": "",
+ "mechanism": "EMA of weights as a plug-in gives solutions that generalise better, are more robust to noisy labels, more consistent and better calibrated, with less need for lr decay.",
+ "adaptation": "Add EMA (decay 0.999 and 0.9998, BN recomputed) to house and PF runs; evaluate EMA vs last iterate from the same runs; targets positional noise in crack labels.",
+ "min_experiment": "Arm: EMA weights of 5 runs. Baseline: last iterate of the same 5 runs (paired). Metric: crack IoU, relF1@2, inactive IoU on clean 49 / CV; E1 relF1@2. Kill: paired diff < 0.005 crack IoU and < 0.01 E1 relF1@2.",
+ "evidence": "R: systematic study on image classification; EMA improves generalisation, noisy-label robustness, prediction consistency, calibration and transfer.",
+ "gpu_hours": 5,
+ "bet": "safe",
+ "targets": [
+  "crack",
+  "inactive",
+  "e1_unseen",
+  "benchmark"
+ ],
+ "prior_overlap": "partial: EMA teacher in Mean Teacher runs was within +-0.005 of the student, under SSL losses; supervised EMA on house/PF never varied (BRIEF optimizer row)",
+ "score": 66,
+ "bench_score": 50,
+ "directions": [
+  "D34",
+  "D35"
+ ],
+ "scout_scores": [
+  66,
+  66,
+  66
+ ],
+ "alt_notes": [
+  {
+   "from": "D35",
+   "adaptation": "Add EMA (decay 0.999 and 0.9998) to house and PF; recompute or EMA BN stats. Crack labels are 1-2 px jittered, i.e. label noise, which is where the paper reports EMA helps. Paired raw vs EMA from the same run reduces seed noise (problem 5).",
+   "min_experiment": "Arm PF+EMA vs PF raw weights of the same runs, seeds 5-9. Metric: test clean crack IoU and relF1@2, inactive IoU, E1 crack relF1@2. Kill if EMA - raw < +0.005 relF1@2 paired over 5 seeds and inactive not better.",
+   "score": 66
+  },
+  {
+   "from": "D35",
+   "adaptation": "EMA decay 0.999 and 0.9998 on house and PF runs; EMA BN buffers or recompute them; raw vs EMA is paired within a run, which removes seed variance. Crack label jitter is the label noise case.",
+   "min_experiment": "Arm: PF + EMA (0.999, 0.9998), 5 seeds. Baseline: same runs' raw weights and SUP100-PF. Metric: val relF1@2, then test clean crack relF1@2, crack IoU, E1 relF1@2. Kill: EMA minus raw < +0.005 val relF1@2 paired over 5 seeds.",
+   "score": 66
+  }
+ ],
+ "final": 66,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 49,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

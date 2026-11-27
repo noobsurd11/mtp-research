@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.1016/j.solener.2026.115300",
+ "title": "A novel reconstruction-based method for unsupervised photovoltaic cell defect detection using electroluminescence images (PV-ReAD)",
+ "year": 2026,
+ "venue": "Solar Energy",
+ "url": "https://doi.org/10.1016/j.solener.2026.115300",
+ "code_url": "",
+ "mechanism": "EL-specific reconstruction AD with multi-layer adaptive fusion, adaptive noisy bottleneck against identity shortcut, and a global cosine focal loss.",
+ "adaptation": "EL-native AD baseline for the benchmark; reimplement as Dinomaly plus their loss if no code; check whether U-PVEL-AD-seg masks are public as extra pixel labels.",
+ "min_experiment": "Benchmark AD track only: train once on clean pool cells, report pixel AUROC / AU-PRO / relF1@2 per class; no kill line.",
+ "score": 25,
+ "bench_score": 60,
+ "bet": "safe",
+ "evidence": "R: on new U-PVEL-AD-seg, image AUROC 95.2, pixel AUROC 99.7, AP 98.7, F1-max 93.6, AUPRO 77.8.",
+ "gpu_hours": 8,
+ "prior_overlap": "none",
+ "targets": [
+  "benchmark"
+ ],
+ "directions": [
+  "D07"
+ ],
+ "scout_scores": [
+  25
+ ],
+ "final": 25,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 551,
+ "pid": "P551"
+}

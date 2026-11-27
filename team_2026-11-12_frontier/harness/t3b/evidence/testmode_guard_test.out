@@ -1,0 +1,42 @@
+== t3b_register.sh
+PASS  R1 OPEN_REG left at its default: REFUSED (TEST_MODE guard): OPEN_REG must be set explicitly to a path under /home/noob/work/bench_int_io (its default is a production path)
+PASS  R2 EXT_DIR inside the real tree: REFUSED (TEST_MODE guard): /home/noob/work/ext117/__no_such__ resolves to /home/noob/work/ext117/__no_such__, outside /home/noob/work/bench_int_io
+PASS  R3 scratch EXT_DIR whose masks dir links into the real tree: REFUSED (TEST_MODE guard): /home/noob/work/bench_int_io/t3b/tmguard_2865196/ext2/masks resolves to /home/noob/work/ext117/__no_such__, outside /home/noob/work/b
+PASS  R4 RD_OPEN on the real relay tree: REFUSED (TEST_MODE guard): /mnt/nas/noob_el_archive/bench_relay/__no_such__ resolves to /mnt/nas/noob_el_archive/bench_relay/__no_such__, outside /home/noob/wor
+PASS  R5 a relative EXT_DIR (run from the scratch dir): REFUSED (TEST_MODE guard): ext is not an absolute path
+PASS  R6 overrides without TEST_MODE: REFUSED (register): test-only overrides set: IO=/home/noob/work/bench_int_io/t3b/tmguard_2865196/io_reg EXT_DIR=/home/noob/work/bench_int_io/t3b/tmguard_2865196
+PASS  R7 control: all paths scratch -> the guard passes, a later check refuses: REFUSED (register): E1 stems_eval.txt is not 5266806b559f74bcf9eae167bb076b95
+   IO made by any register case: no
+== t3b_queue.sh
+PASS  Q1 READ_OUT left at its default: REFUSED (TEST_MODE guard): READ_OUT must be set explicitly to a path under /home/noob/work/bench_int_io (its default is a production path)
+PASS  Q2 RD2 on the real relay tree: REFUSED (TEST_MODE guard): /mnt/nas/noob_el_archive/bench_relay/__no_such__ resolves to /mnt/nas/noob_el_archive/bench_relay/__no_such__, outside /home/noob/wor
+PASS  Q3 a cv02 step with the real ssh in PATH: REFUSED (TEST_MODE guard): /usr/bin/ssh resolves to /usr/bin/ssh, outside /home/noob/work/bench_int_io
+PASS  Q4 a relative IO: REFUSED (TEST_MODE guard): io_q is not an absolute path
+PASS  Q5 overrides without TEST_MODE: REFUSED (build): test-only overrides set: IO=/home/noob/work/bench_int_io/t3b/tmguard_2865196/io_q EXT_DIR=/home/noob/work/bench_int_io/t3b/tmguard_2865196/ext 
+PASS  Q6 TEST_MODE against a real (non TEST MODE) registration: REFUSED (build): TEST_MODE=1 against a real registration
+PASS  Q7 control build: the guard passes, a later check refuses: REFUSED (build): no registration in /home/noob/work/bench_int_io/t3b/tmguard_2865196/io_q (run t3b_register.sh first)
+PASS  Q8 control check with the stub ssh: the guard passes, a later check refuses: REFUSED (check): no registration in /home/noob/work/bench_int_io/t3b/tmguard_2865196/io_q (run t3b_register.sh first)
+PASS  Q9 LEDGER left at its default (round 1 N6): REFUSED (TEST_MODE guard): LEDGER must be set explicitly to a path under /home/noob/work/bench_int_io (its default is a production path)
+== t3b_relay.sh (round 1 B1 / B2)
+PASS  L1 IO left at its default: REFUSED (TEST_MODE guard): IO must be set explicitly to a path under /home/noob/work/bench_int_io (its default is a production path)
+PASS  L2 RD2 on the real relay tree: REFUSED (TEST_MODE guard): /mnt/nas/noob_el_archive/bench_relay/__no_such__ resolves to /mnt/nas/noob_el_archive/bench_relay/__no_such__, outside /home/noob/wor
+PASS  L3 the real ssh in PATH: REFUSED (TEST_MODE guard): /usr/bin/ssh resolves to /usr/bin/ssh, outside /home/noob/work/bench_int_io
+PASS  L4 overrides without TEST_MODE: REFUSED: test-only overrides set: IO=/home/noob/work/bench_int_io/t3b/tmguard_2865196/io_rel RD1=/home/noob/work/bench_int_io/t3b/tmguard_2865196/r1 RD2=/home/n
+PASS  L5 TEST_MODE against a real (non TEST MODE) registration: REFUSED: TEST_MODE=1 against a real registration
+PASS  L6 control: the guard passes, a later check refuses: REFUSED: no registration 0 in /home/noob/work/bench_int_io/t3b/tmguard_2865196/io_rel
+== run_t3b_read.sh
+PASS  D1 READ_ROOT left at its default: REFUSED (TEST_MODE guard): READ_ROOT must be set explicitly to a path under /home/noob/work/bench_int_io (its default is a production path)
+PASS  D2 OPEN8_RECORDS left at its default: REFUSED (TEST_MODE guard): OPEN8_RECORDS must be set explicitly to a path under /home/noob/work/bench_int_io (its default is a production path)
+PASS  D3 BENCH_EXT inside the real tree: REFUSED (TEST_MODE guard): /home/noob/work/el_f1/reports/f1/__no_such__ resolves to /home/noob/work/el_f1/reports/f1/__no_such__, outside /home/noob/work/bench_
+PASS  D4 RD_OPEN on the real relay tree: REFUSED (TEST_MODE guard): /mnt/nas/noob_el_archive/bench_relay/__no_such__ resolves to /mnt/nas/noob_el_archive/bench_relay/__no_such__, outside /home/noob/wor
+PASS  D5 a scratch RD2 holding a link into the real relay tree: REFUSED (TEST_MODE guard): /home/noob/work/bench_int_io/t3b/tmguard_2865196/r2b/unit resolves to /mnt/nas/noob_el_archive/bench_relay/__no_such__, outside /home
+PASS  D6 a relative READ_ROOT: REFUSED (TEST_MODE guard): reads is not an absolute path
+PASS  D7 overrides without TEST_MODE: REFUSED: test-only overrides set: IO=/home/noob/work/bench_int_io/t3b/tmguard_2865196/io_read RD1=/home/noob/work/bench_int_io/t3b/tmguard_2865196/r1 RD2=/home/
+PASS  D8 TEST_MODE against a real (non TEST MODE) registration: REFUSED: TEST_MODE=1 against a real registration
+PASS  D10 a PINS_FILE that sets BENCH_EXT (round 1 N4): REFUSED: PINS_FILE holds other lines than K=, F2=, W_K=, W_G=
+PASS  D11 a PINS_FILE outside the scratch root: REFUSED (TEST_MODE guard): /home/noob/work/__no_such__/pins.sh resolves to /home/noob/work/__no_such__/pins.sh, outside /home/noob/work/bench_int_io
+PASS  D12 TAG with a path (round 1 N5): REFUSED: TAG must be [a-z0-9_]+
+PASS  D13 control: a PINS_FILE with a K= line only passes, a later check refuses: REFUSED: no /home/noob/work/bench_int_io/t3b/tmguard_2865196/io_read/REGISTERED.txt
+PASS  D9 control: all paths scratch -> the guard passes, a later check refuses: REFUSED: no /home/noob/work/bench_int_io/t3b/tmguard_2865196/io_read/REGISTERED.txt
+   output folder made by any read case: no
+guard test: 0 FAIL

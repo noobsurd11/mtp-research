@@ -1,0 +1,36 @@
+{
+ "paper_id": "doi:10.1016/j.neucom.2026.134891",
+ "title": "Data-centric benchmark for label noise estimation and ranking in remote sensing Binary building segmentation",
+ "year": 2026,
+ "venue": "Neurocomputing",
+ "url": "https://arxiv.org/abs/2603.00604",
+ "code_url": "",
+ "mechanism": "Rank training images by label noise with an augmented or cross-validated ensemble: noise score = 1 - IoU(prediction, given label), optionally variance-weighted; train on the least-noisy part.",
+ "adaptation": "Use module-grouped 5-fold roots to get out-of-fold 3-5 seed predictions for all 532 cells; crack noise = 1 - relF1@2 plus missed-component count (tolerant so 1 px jitter does not dominate), inactive noise = 1 - IoU. Do not drop cells (209 crack, 42 inactive): ignore crack loss on worst-ranked cells/components, keep all other classes. First check overlap with the 24 audit-flagged cells.",
+ "min_experiment": "Arm: house model with crack loss ignored near label segments and on predicted-unlabelled components in worst 10% of cells by OOF crack noise. Baseline: house and PF, 5 seeds. Metric: clean-49 crack relF1@2 and IoU, 5-fold CV crack IoU, F51 AP. Kill: audit-cell overlap no better than random, or < +0.01 relF1@2 on CV and < +0.012 test crack IoU.",
+ "score": 72,
+ "bench_score": 65,
+ "bet": "safe",
+ "targets": [
+  "crack",
+  "measurement",
+  "benchmark"
+ ],
+ "evidence": "R: Kendall tau 0.61 / Spearman 0.77 vs CleanLab 0.17 / 0.24; U-Net on top-ranked 50% F1 80.34 vs 78.26 on all noisy data (oracle 80.98); boundary shrink/expand noise hardest for all methods. SpaceNet8-derived building set.",
+ "gpu_hours": 35,
+ "prior_overlap": "BRIEF Labels row: audit flagged 24/239 cells, nothing fixed; automatic label refinement never run. Open.",
+ "directions": [
+  "D37"
+ ],
+ "scout_scores": [
+  72
+ ],
+ "final": 72,
+ "bench": 65,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 9,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

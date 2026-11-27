@@ -1,0 +1,35 @@
+{
+ "paper_id": "arxiv:2104.04465",
+ "title": "Bootstrapping Semantic Segmentation with Regional Contrast (ReCo)",
+ "year": 2021,
+ "venue": "ICLR 2022",
+ "url": "https://arxiv.org/abs/2104.04465",
+ "code_url": "https://github.com/lorenmt/reco",
+ "mechanism": "Supervised pixel-level contrastive loss on a sparse set of hard negative pixels with small memory footprint.",
+ "adaptation": "Projection head on the full-res decoder stage (1/4 res would erase 1-2 px cracks); class-balanced anchor sampling with per-class caps; hard negatives for crack drawn from scuff, gridline and busbar pixels.",
+ "min_experiment": "Arm: ReCo loss weight 0.1 on top of the best loss/sampling arm, 3 seeds; baseline that arm; metric crack relF1@2, mIoU_rob, E1 crack recall; kill if no metric gains >= 0.01.",
+ "score": 50,
+ "bench_score": 50,
+ "bet": "medium",
+ "evidence": "R: consistent gains in supervised and semi-supervised seg; strongest with very few labels (5 examples per class).",
+ "gpu_hours": 5,
+ "prior_overlap": "none: pixel contrast never tried (MIM/DDeP pretraining is a different objective).",
+ "targets": [
+  "crack",
+  "other_classes",
+  "e1_unseen"
+ ],
+ "directions": [
+  "D19"
+ ],
+ "scout_scores": [
+  50
+ ],
+ "final": 50,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 200,
+ "pid": "P200"
+}

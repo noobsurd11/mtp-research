@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.1109/cvpr52733.2024.01656",
+ "title": "Infrared Small Target Detection with Scale and Location Sensitivity (SLS loss, MSHNet)",
+ "year": 2024,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2403.19366",
+ "code_url": "https://github.com/ying-fu/MSHNet",
+ "mechanism": "Scale-weighted IoU loss plus a centre-point location penalty, applied at every decoder scale via a multi-scale head.",
+ "adaptation": "Scale weight per merged crack instance; drop the centre term for cracks (jitter), keep for inactive blobs; add deep supervision at each U-Net++ level.",
+ "min_experiment": "Arm: house + SLS-style multi-scale scale-weighted IoU on crack, 5 seeds. Baseline: house. Metric: component recall < 20 px, relF1@2. Kill: no gain >= 0.02 component recall.",
+ "evidence": "IRSTD-1K / NUDT-SIRST: plain U-Net with SLS + multi-scale head beats prior SOTA; SLS also improves other detectors.",
+ "gpu_hours": 7,
+ "bet": "moonshot",
+ "prior_overlap": "none",
+ "targets": [
+  "crack"
+ ],
+ "score": 36,
+ "bench_score": 35,
+ "directions": [
+  "D20"
+ ],
+ "scout_scores": [
+  36
+ ],
+ "final": 36,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 438,
+ "pid": "P438"
+}

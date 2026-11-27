@@ -1,0 +1,20 @@
+wrote /home/noob/work/bench_int_io/t3b/chain_2865203/io/jobs_train.txt: 33 training lines (30 fold models, 3 deployable); /home/noob/work/bench_int_io/t3b/chain_2865203/io/jobs_dump.txt: 30 sealed dump lines (--dumpof /tmp/noob_el/bench_cba7fbd/experiments)
+TEST MODE (dry run, NOT a registration; overrides: IO=/home/noob/work/bench_int_io/t3b/chain_2865203/io EXT_DIR=/home/noob/work/bench_int_io/t3b/chain_2865203/ext117 RD_OPEN=/home/noob/work/bench_int_io/t3b/chain_2865203/relay_open OPEN_REG=/home/noob/work/bench_int_io/t3b/chain_2865203/open_reg/REGISTERED.txt)
+registered 2026-11-22 02:37:42 IST by noob@giant
+opening_e1 E1 opening #9 e1_open9_t3b (T3b few-shot layout adaptation; E1 is training data of T3b models from this date)
+rule T3B_RULE.md 0c006d4466f0312f4ca01184ea52a95a
+lists LISTS.md5 5c86318a0d3c628bf3f9711fe7081fb5
+jobs_train d77f3a94123a3411e51c1ca4b37801d7 33 lines
+jobs_dump 9423cb91fe968be1bd4a263b729b28d2 30 lines
+commits K cba7fbdf5df1579d6efb1168eb292e637bc9fad6 F2 9967d59abaab03cef83c1e3014840b2359ef45d7 G 8bd1c2761c85f4721e444a8bf7124d2e5804973a R 0c72cf942a5cc89accfcd02e1d2b443a033549d9
+stage_manifest 3bad2692921dce08eeaadbc1dd2341a4
+e1_files c0e3cf3d46098e793d7d668ab2241e53
+zs 72d9749d802638e7be4208db19aed33b (opening #8 REGISTERED 4c783a779208979ccbed8c13802950b2; C2 seeds 5 6 7 on e1_106; relay /home/noob/work/bench_int_io/t3b/chain_2865203/relay_open)
+lists_e1 5266806b559f74bcf9eae167bb076b95
+scripts run_t3b_read.sh=e4cda97aca7c3d2539bd3eecd14c845c t3b_verdict.py=7dee83d6634baba74c85df448d84f42f t3b_queue.sh=51a962379bd0399c2ae5a4c90b85bb7b t3b_relay.sh=2870fd4365c5d8b642119a37261d8b08 t3b_rendercmp.py=d6eec93f53818d3dbb0151845dac1ef4 diskguard8.sh=0fe96ad9b0208bf6381f2bc5ee7b60b4 t3b_label_precheck.py=214d087dbcca133768c1846913567113 
+
+REGISTERED.txt md5 27e1bd685d5b350ead61e83697dd83aa  (IO /home/noob/work/bench_int_io/t3b/chain_2865203/io; nothing sealed is read beyond file hashes and the image copies)
+ledger row (7 columns), team_2026-10-31_next/e1_openings.md, 'Registered E1 openings' (after row 8):
+| 9 | T3B_RULE.md 0c006d4466f0312f4ca01184ea52a95a (harness/t3b) | T3b: ALL = t3b_all_f0..4_s5..7, HALF = t3b_half_f0..4_s5..7 (C2 recipe HRNet-W18 U-Net++ + SWAD, swad, D4; trained on pool532_v11 + the E1 cells of the other 4 folds / a fixed half of them; out-of-fold dumps); beside: ZS = opening #8 C2 seeds 5 to 7 (zero-shot); t3b_deploy_s5..7 (532 + 106) never scored | primary: pooled OOF crack relF1@2 ALL - ZS, seed-aware two-stage bootstrap (71 clusters x 3 seeds), M 0.010; guards false crack px x1.5, mIoU-R13 -0.010; width reported | registered 22 Nov 2026 02:37 (REGISTERED.txt 27e1bd685d5b350ead61e83697dd83aa, jobs d77f3a94123a3411e51c1ca4b37801d7 / 9423cb91fe968be1bd4a263b729b28d2) | **registered, NOT opened** | |
+ledger bullet (after the #8 bullets):
+- **#9 registered, NOT opened** (lead, 22 Nov 2026 02:37 IST): `team_2026-11-12_frontier/harness/t3b/t3b_register.sh` (8cecc851); gaint `/home/noob/work/bench_int_io/t3b/chain_2865203/io/REGISTERED.txt` **27e1bd685d5b350ead61e83697dd83aa**; rule T3B_RULE.md 0c006d4466f0312f4ca01184ea52a95a. **From this date E1 is training data for T3b models** (user, 21 Nov 2026 about 14:35 IST: "run T3b on free GPUs"); no later zero-shot claim on E1 by this team. Same 106 E1 cells: 5th look at the set; the zero-shot comparator is opening #8's C2 (seeds 5 to 7), re-scored, not re-dumped.

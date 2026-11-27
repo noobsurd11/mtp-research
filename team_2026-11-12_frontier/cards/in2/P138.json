@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2204.01969",
+ "title": "Region Rebalance for Long-Tailed Semantic Segmentation",
+ "year": 2022,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2204.01969",
+ "code_url": "",
+ "mechanism": "Pool pixel features per class per image into region features and train an auxiliary rebalanced region classifier; region-level counts are far less imbalanced than pixel counts.",
+ "adaptation": "Region imbalance in our data is mild (splice 53/478 cells) while pixel imbalance is extreme, matching the premise. Pool full-res U-Net++ decoder features per class per cell; auxiliary balanced linear classifier; drop at test. About 50 lines.",
+ "min_experiment": "Arm: RR auxiliary branch weight 0.5, 3 seeds; baseline SUP100 (or best loss/sampling arm); metric mIoU_rob and splice/edge_dark IoU; kill if mIoU_rob < +0.01.",
+ "score": 55,
+ "bench_score": 55,
+ "bet": "medium",
+ "evidence": "R: consistent gains on ADE20K and COCO-Stuff; BEiT +0.7 mIoU on ADE20K val.",
+ "gpu_hours": 5,
+ "prior_overlap": "none",
+ "targets": [
+  "other_classes",
+  "inactive"
+ ],
+ "directions": [
+  "D19"
+ ],
+ "scout_scores": [
+  55
+ ],
+ "final": 55,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 138,
+ "pid": "P138"
+}

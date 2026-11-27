@@ -1,0 +1,42 @@
+{
+ "paper_id": "arxiv:2102.00221",
+ "title": "ObjectAug: Object-level Data Augmentation for Semantic Image Segmentation",
+ "year": 2021,
+ "venue": "IJCNN",
+ "url": "https://arxiv.org/abs/2102.00221",
+ "code_url": "",
+ "mechanism": "Split the image into objects and background using the labels, transform each object, inpaint the holes, and recombine.",
+ "evidence": "Abstract: clear gains on natural and medical segmentation datasets; no numbers on the arXiv page.",
+ "adaptation": "Within one labelled cell: lift a crack component, inpaint its old place (a row-wise finger and grain background model, or a small inpainting net trained on crack-free train patches), and re-place it with a dihedral move inside the same cell. The labelled-background hole carries the same edit signature as the moved crack, which penalises the 'paste seam = crack' shortcut that CP100 learned. The cell keeps its own source and texture.",
+ "min_experiment": "PF+ObjectAug vs PF, and paste-on-labelled+ObjectAug vs paste-on-labelled alone (Synth4Seg arm). Metrics: decoy rate and test crack relP@2. Kill if the decoy rate is not below the paste-only arm or crack relP@2 drops by more than 0.01.",
+ "prior_overlap": "none. In-cell moves with inpainted negatives have not been run. CP100 is the closest and differs in where pastes go and in having no negative counterpart.",
+ "score": 48,
+ "bench_score": 25,
+ "bet": "medium",
+ "targets": [
+  "crack"
+ ],
+ "gpu_hours": 12,
+ "directions": [
+  "D21"
+ ],
+ "scout_scores": [
+  48,
+  30
+ ],
+ "alt_notes": [
+  {
+   "from": "D21",
+   "adaptation": "Only as the move half of the GDI arm: lift a crack, inpaint with the GDI inpainter, re-place by a dihedral move in the same cell.",
+   "min_experiment": "GDI+move vs GDI; kill if decoy rate not below GDI or crack relP@2 drop > 0.01.",
+   "score": 30
+  }
+ ],
+ "final": 48,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 255,
+ "pid": "P255"
+}

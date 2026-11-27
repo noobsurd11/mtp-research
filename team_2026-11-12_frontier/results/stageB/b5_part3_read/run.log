@@ -1,0 +1,151 @@
+[2026-11-19 01:21:17] start pid 3507689; bench_wt_b b5bf0ae; bench_labelfree ca9af858
+input 682180883a9a175d7200786474510d5e  /home/noob/work/bench_udev/sets/lists/h36cf.txt
+run PLAIN w1g_pf_v11_f0_s5 manifest 7ba31f9f683fa07ba9882872736ff4b9
+run PLAIN w1g_pf_v11_f0_s6 manifest 3f9d5fed46907abcc91e2792b90fdac1
+run PLAIN w1g_pf_v11_f1_s5 manifest 57fbea66bc1be365b7aa2c7b12d8fd7a
+run PLAIN w1g_pf_v11_f1_s6 manifest fdfb7b07fe0235a12f7378e950c1a639
+run PLAIN w1g_pf_v11_f2_s5 manifest c227bb7927bccae965e05a81aca353a1
+run PLAIN w1g_pf_v11_f2_s6 manifest a2479104c97855af761da7ffde4fc924
+run PLAIN w1g_pf_v11_f3_s5 manifest 898b15d7dd361f5d4c810b1971cf258c
+run PLAIN w1g_pf_v11_f3_s6 manifest 48abee5f2473b4c2068efb5fba4bd7b8
+run PLAIN w1g_pf_v11_f4_s5 manifest 74827a83e8d6794c6e1b25436331067e
+run PLAIN w1g_pf_v11_f4_s6 manifest 663526ee32cce42b9aaaa9b8b3534eba
+run D4 w1g_pf_v11_f0_s5.tta_d4 manifest 64c2728b9b2e56e1daef82c00d484b9f
+run D4 w1g_pf_v11_f0_s6.tta_d4 manifest bc3ae37a9198f1261dc93dc03861ef13
+run D4 w1g_pf_v11_f1_s5.tta_d4 manifest 7cd35c4381c2cc0953fe1cddd03a568a
+run D4 w1g_pf_v11_f1_s6.tta_d4 manifest 46faf8bbff1735f240cea54a01133e1c
+run D4 w1g_pf_v11_f2_s5.tta_d4 manifest d300294fbde95efde2a67635cf8592ce
+run D4 w1g_pf_v11_f2_s6.tta_d4 manifest a93b50b2f56a178fc2fd44e0abbef693
+run D4 w1g_pf_v11_f3_s5.tta_d4 manifest ee401cb46e325dd363ef4f641463cb10
+run D4 w1g_pf_v11_f3_s6.tta_d4 manifest 230fbf4d589fcfadef74db106ea21ee0
+run D4 w1g_pf_v11_f4_s5.tta_d4 manifest 019e76aad87cbfcf221f74dba097a52b
+run D4 w1g_pf_v11_f4_s6.tta_d4 manifest fc31f08386d3ed180b7dea5d1baeadd3
+run D4MS w1g_pf_v11_f0_s5.tta_d4ms manifest 7b4eed8090e8230ed28aa804c41da519
+run D4MS w1g_pf_v11_f0_s6.tta_d4ms manifest a7084bdf3788cbde8229b8e9b706575e
+run D4MS w1g_pf_v11_f1_s5.tta_d4ms manifest 6b510c76b16df38aea13084e9208143f
+run D4MS w1g_pf_v11_f1_s6.tta_d4ms manifest a4d141471b4bfe1ee4fe0094ac4517e0
+run D4MS w1g_pf_v11_f2_s5.tta_d4ms manifest b51863c44704238934a7f9d503337a8b
+run D4MS w1g_pf_v11_f2_s6.tta_d4ms manifest 00633796fde04bf71fdc504f87bcd46a
+run D4MS w1g_pf_v11_f3_s5.tta_d4ms manifest 272b433caa23ed7b4d533ba96d9f0fe5
+run D4MS w1g_pf_v11_f3_s6.tta_d4ms manifest d11a1f04e11e3812e2a233a6817c7da9
+run D4MS w1g_pf_v11_f4_s5.tta_d4ms manifest 39dfb11dd15169f6065bfd3b0695a486
+run D4MS w1g_pf_v11_f4_s6.tta_d4ms manifest aeacb05c1ca413b6672f787671d230c4
+# label-free read (bench_labelfree.py ca9af858); set h36; 36 cells; baseline PLAIN
+run	n	crack_px_mean	share_ge50	comp20_sum	unsure_px_mean	d4_relf1	fa_cells	fa_px_mean	fa_share50
+PLAIN|w1g_pf_v11_f0_s5	36	3.7	0.028	2	4.1	n/a	19	0.8	0.000
+PLAIN|w1g_pf_v11_f0_s6	36	8.6	0.056	4	10.3	n/a	19	8.7	0.053
+PLAIN|w1g_pf_v11_f1_s5	36	3.0	0.028	2	4.4	n/a	19	1.7	0.000
+PLAIN|w1g_pf_v11_f1_s6	36	3.2	0.028	2	4.9	n/a	19	0.9	0.000
+PLAIN|w1g_pf_v11_f2_s5	36	9.1	0.056	6	9.3	n/a	19	4.5	0.000
+PLAIN|w1g_pf_v11_f2_s6	36	7.0	0.028	4	8.6	n/a	19	2.6	0.000
+PLAIN|w1g_pf_v11_f3_s5	36	4.3	0.056	2	4.6	n/a	19	4.1	0.053
+PLAIN|w1g_pf_v11_f3_s6	36	4.4	0.028	2	7.7	n/a	19	1.8	0.000
+PLAIN|w1g_pf_v11_f4_s5	36	3.7	0.028	2	7.9	n/a	19	2.6	0.000
+PLAIN|w1g_pf_v11_f4_s6	36	1.7	0.000	1	5.0	n/a	19	3.2	0.000
+D4|w1g_pf_v11_f0_s5.tta_d4	36	2.0	0.028	2	53.5	n/a	19	0.0	0.000
+D4|w1g_pf_v11_f0_s6.tta_d4	36	1.8	0.000	2	67.8	n/a	19	1.7	0.000
+D4|w1g_pf_v11_f1_s5.tta_d4	36	1.5	0.028	1	38.6	n/a	19	0.0	0.000
+D4|w1g_pf_v11_f1_s6.tta_d4	36	1.8	0.028	1	33.1	n/a	19	0.0	0.000
+D4|w1g_pf_v11_f2_s5.tta_d4	36	2.2	0.028	1	35.4	n/a	19	0.0	0.000
+D4|w1g_pf_v11_f2_s6.tta_d4	36	2.3	0.028	1	47.0	n/a	19	0.0	0.000
+D4|w1g_pf_v11_f3_s5.tta_d4	36	2.0	0.028	1	54.9	n/a	19	0.0	0.000
+D4|w1g_pf_v11_f3_s6.tta_d4	36	1.4	0.028	1	36.6	n/a	19	0.0	0.000
+D4|w1g_pf_v11_f4_s5.tta_d4	36	0.4	0.000	0	36.6	n/a	19	0.0	0.000
+D4|w1g_pf_v11_f4_s6.tta_d4	36	0.1	0.000	0	24.7	n/a	19	0.0	0.000
+D4MS|w1g_pf_v11_f0_s5.tta_d4ms	36	0.8	0.000	1	191.6	n/a	19	0.0	0.000
+D4MS|w1g_pf_v11_f0_s6.tta_d4ms	36	0.8	0.000	1	292.9	n/a	19	1.1	0.000
+D4MS|w1g_pf_v11_f1_s5.tta_d4ms	36	1.0	0.000	1	123.1	n/a	19	0.0	0.000
+D4MS|w1g_pf_v11_f1_s6.tta_d4ms	36	1.1	0.000	1	100.5	n/a	19	0.0	0.000
+D4MS|w1g_pf_v11_f2_s5.tta_d4ms	36	1.4	0.028	1	84.2	n/a	19	0.0	0.000
+D4MS|w1g_pf_v11_f2_s6.tta_d4ms	36	1.7	0.028	1	121.4	n/a	19	0.0	0.000
+D4MS|w1g_pf_v11_f3_s5.tta_d4ms	36	1.2	0.000	1	153.2	n/a	19	0.0	0.000
+D4MS|w1g_pf_v11_f3_s6.tta_d4ms	36	0.6	0.000	1	149.6	n/a	19	0.0	0.000
+D4MS|w1g_pf_v11_f4_s5.tta_d4ms	36	0.1	0.000	0	250.3	n/a	19	0.0	0.000
+D4MS|w1g_pf_v11_f4_s6.tta_d4ms	36	0.1	0.000	0	102.4	n/a	19	0.0	0.000
+arm	mean crack px per cell	ratio to baseline (label-free volume; no test)
+D4	1.6	0.319
+D4MS	0.9	0.179
+PLAIN	4.9	1.000
+[5s] -> /home/noob/work/bench_reads/stageB/B5/h36
+[2026-11-19 01:21:22] h36 rc=0
+run PLAIN w1g_pf_v11_f0_s5 manifest 288a051651b69902795e76de59ba73a8
+run PLAIN w1g_pf_v11_f1_s5 manifest e6a1ef7f81c464138838df6857843700
+run D4 w1g_pf_v11_f0_s5.tta_d4 manifest 30b279415d9ff7ceab14ef731baee03e
+run D4 w1g_pf_v11_f1_s5.tta_d4 manifest e593411eefbd5303c2e9d13377773bb4
+run D4MS w1g_pf_v11_f0_s5.tta_d4ms manifest d1261357f97b1b86d9ba0d84e14624a5
+run D4MS w1g_pf_v11_f1_s5.tta_d4ms manifest 20fd746dfc71c6293fdd17590fe392f3
+# label-free read (bench_labelfree.py ca9af858); set pool_half_p0; 236 cells; baseline PLAIN
+run	n	crack_px_mean	share_ge50	comp20_sum	unsure_px_mean	d4_relf1
+PLAIN|w1g_pf_v11_f0_s5	236	10.5	0.081	46	14.1	n/a
+PLAIN|w1g_pf_v11_f1_s5	236	11.2	0.068	42	17.0	n/a
+D4|w1g_pf_v11_f0_s5.tta_d4	236	6.4	0.064	28	91.9	n/a
+D4|w1g_pf_v11_f1_s5.tta_d4	236	4.7	0.034	20	80.8	n/a
+D4MS|w1g_pf_v11_f0_s5.tta_d4ms	236	3.4	0.030	15	223.9	n/a
+D4MS|w1g_pf_v11_f1_s5.tta_d4ms	236	2.5	0.017	11	179.4	n/a
+arm	mean crack px per cell	ratio to baseline (label-free volume; no test)
+D4	5.6	0.513
+D4MS	3.0	0.276
+PLAIN	10.8	1.000
+[5s] -> /home/noob/work/bench_reads/stageB/B5/pool_p0
+[2026-11-19 01:21:27] pool_p0 rc=0
+run PLAIN w1g_pf_v11_f0_s5 manifest b4905ee51a757f968a11d0a38ea2baa2
+run PLAIN w1g_pf_v11_f1_s5 manifest 58543d360c08d4b60905b92438e201dc
+run D4 w1g_pf_v11_f0_s5.tta_d4 manifest 9d7ee5ee06605b5dcb2b1049506395aa
+run D4 w1g_pf_v11_f1_s5.tta_d4 manifest 34a7fada013815210cb2475774fa9ba4
+run D4MS w1g_pf_v11_f0_s5.tta_d4ms manifest 63134f3f9977b16f228b6814d2bdb753
+run D4MS w1g_pf_v11_f1_s5.tta_d4ms manifest 00c52ba028d6654a0297036439e9e233
+# label-free read (bench_labelfree.py ca9af858); set pool_half_p1; 236 cells; baseline PLAIN
+run	n	crack_px_mean	share_ge50	comp20_sum	unsure_px_mean	d4_relf1
+PLAIN|w1g_pf_v11_f0_s5	236	18.2	0.131	57	22.1	n/a
+PLAIN|w1g_pf_v11_f1_s5	236	8.4	0.064	32	12.2	n/a
+D4|w1g_pf_v11_f0_s5.tta_d4	236	4.2	0.038	16	117.8	n/a
+D4|w1g_pf_v11_f1_s5.tta_d4	236	3.6	0.030	13	74.5	n/a
+D4MS|w1g_pf_v11_f0_s5.tta_d4ms	236	2.4	0.021	9	348.9	n/a
+D4MS|w1g_pf_v11_f1_s5.tta_d4ms	236	2.3	0.025	10	175.8	n/a
+arm	mean crack px per cell	ratio to baseline (label-free volume; no test)
+D4	3.9	0.295
+D4MS	2.3	0.176
+PLAIN	13.3	1.000
+[5s] -> /home/noob/work/bench_reads/stageB/B5/pool_p1
+[2026-11-19 01:21:33] pool_p1 rc=0
+run PLAIN w1g_pf_v11_f0_s5 manifest 92d5e3d6e967bc2764f1c9bd59adb3c9
+run PLAIN w1g_pf_v11_f1_s5 manifest e27d2021f239ac87638f67079ab879b0
+run D4 w1g_pf_v11_f0_s5.tta_d4 manifest 30bca77f25b57a0ae74b9f4b218df93e
+run D4 w1g_pf_v11_f1_s5.tta_d4 manifest 1929d543e6072cf57c6191117f3d6447
+run D4MS w1g_pf_v11_f0_s5.tta_d4ms manifest ae61455495062c93f9dea12c688c8da0
+run D4MS w1g_pf_v11_f1_s5.tta_d4ms manifest a3251d21e1a6880fb4758f4f571ac55e
+# label-free read (bench_labelfree.py ca9af858); set pool_half_p2; 236 cells; baseline PLAIN
+run	n	crack_px_mean	share_ge50	comp20_sum	unsure_px_mean	d4_relf1
+PLAIN|w1g_pf_v11_f0_s5	236	9.4	0.085	32	10.7	n/a
+PLAIN|w1g_pf_v11_f1_s5	236	5.3	0.034	23	6.8	n/a
+D4|w1g_pf_v11_f0_s5.tta_d4	236	2.6	0.021	9	68.5	n/a
+D4|w1g_pf_v11_f1_s5.tta_d4	236	2.7	0.030	11	36.2	n/a
+D4MS|w1g_pf_v11_f0_s5.tta_d4ms	236	1.7	0.013	7	179.5	n/a
+D4MS|w1g_pf_v11_f1_s5.tta_d4ms	236	1.8	0.004	9	91.3	n/a
+arm	mean crack px per cell	ratio to baseline (label-free volume; no test)
+D4	2.7	0.360
+D4MS	1.7	0.236
+PLAIN	7.4	1.000
+[5s] -> /home/noob/work/bench_reads/stageB/B5/pool_p2
+[2026-11-19 01:21:38] pool_p2 rc=0
+run PLAIN w1g_pf_v11_f0_s5 manifest 2b17e58a3de79e455918bf438238b4ad
+run PLAIN w1g_pf_v11_f1_s5 manifest f8ba37b708eb4059c8fea6f04d4aca2b
+run D4 w1g_pf_v11_f0_s5.tta_d4 manifest f16fd6b846a0f7b8768354b480572e79
+run D4 w1g_pf_v11_f1_s5.tta_d4 manifest a69267c0103f3fd03b3f744757bc4797
+run D4MS w1g_pf_v11_f0_s5.tta_d4ms manifest f336db7e9e746fa8a59f758d06bba4ce
+run D4MS w1g_pf_v11_f1_s5.tta_d4ms manifest e458f63d76c5019f80d6e23079dc3a31
+# label-free read (bench_labelfree.py ca9af858); set pool_half_p3; 235 cells; baseline PLAIN
+run	n	crack_px_mean	share_ge50	comp20_sum	unsure_px_mean	d4_relf1
+PLAIN|w1g_pf_v11_f0_s5	235	7.8	0.043	25	7.5	n/a
+PLAIN|w1g_pf_v11_f1_s5	235	9.0	0.038	25	10.1	n/a
+D4|w1g_pf_v11_f0_s5.tta_d4	235	3.1	0.026	12	47.5	n/a
+D4|w1g_pf_v11_f1_s5.tta_d4	235	4.3	0.026	13	45.7	n/a
+D4MS|w1g_pf_v11_f0_s5.tta_d4ms	235	2.2	0.026	9	146.1	n/a
+D4MS|w1g_pf_v11_f1_s5.tta_d4ms	235	3.2	0.026	12	110.5	n/a
+arm	mean crack px per cell	ratio to baseline (label-free volume; no test)
+D4	3.7	0.434
+D4MS	2.7	0.316
+PLAIN	8.4	1.000
+[5s] -> /home/noob/work/bench_reads/stageB/B5/pool_p3
+[2026-11-19 01:21:44] pool_p3 rc=0
+[2026-11-19 01:21:44] done; tracked changes in bench_wt_b: 0

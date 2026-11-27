@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2302.12400",
+ "title": "Towards Stable Test-Time Adaptation in Dynamic Wild World (SAR)",
+ "year": 2023,
+ "venue": "ICLR",
+ "url": "https://arxiv.org/abs/2302.12400",
+ "code_url": "https://github.com/mr-eggplant/SAR",
+ "mechanism": "Entropy minimisation runs only on reliable low-entropy samples, with a sharpness-aware update and a model reset on collapse; designed for batch size 1 and mixed shifts.",
+ "adaptation": "Batch-1 per cell on E1 with BN affine parameters, a per-pixel reliability mask and a collapse reset. It is the entropy-family baseline for the benchmark.",
+ "min_experiment": "Arm: SAR on FINAL/SUP100-PF. Baseline: no TTA. Benchmark row; report the E1 and test deltas.",
+ "score": 18,
+ "bench_score": 55,
+ "bet": "safe",
+ "targets": [
+  "benchmark"
+ ],
+ "evidence": "R: stable on ImageNet-C with batch 1, mixed shifts and label shift, where Tent collapses.",
+ "gpu_hours": 1,
+ "prior_overlap": "None run. BN-statistics TTA failed (T9), but entropy updates of BN affine parameters were never run.",
+ "directions": [
+  "D31"
+ ],
+ "scout_scores": [
+  18
+ ],
+ "final": 18,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 594,
+ "pid": "P594"
+}

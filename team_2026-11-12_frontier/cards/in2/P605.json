@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.5281/zenodo.21930927",
+ "title": "Auditing Connectivity Claims in Tubular Structure Segmentation: Code, Evaluation Artifacts, and Audit Scorecards",
+ "year": 2026,
+ "venue": "Zenodo",
+ "url": "https://doi.org/10.5281/zenodo.21930927",
+ "code_url": "",
+ "mechanism": "Audits published connectivity claims with two-annotator adjudication, 44 per-paper scorecards, 325 multi-seed evaluation files and a loss-regime interaction study.",
+ "adaptation": "Benchmark design only. It is a template for auditing published EL numbers (seeds, provenance, annotator agreement) and matches our two-annotator IoU of 0.21 to 0.26.",
+ "min_experiment": "No training. Adapt its scorecard rubric to 10 published EL segmentation papers and report how many claims survive a multi-seed, leakage-free protocol.",
+ "evidence": "R: artifact description only (325 multi-seed JSON files, 240-segment two-annotator adjudication).",
+ "gpu_hours": 0,
+ "bet": "safe",
+ "prior_overlap": "None.",
+ "score": 15,
+ "bench_score": 55,
+ "targets": [
+  "benchmark",
+  "measurement"
+ ],
+ "directions": [
+  "D12"
+ ],
+ "scout_scores": [
+  15
+ ],
+ "final": 15,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 605,
+ "pid": "P605"
+}

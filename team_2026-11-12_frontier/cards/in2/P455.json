@@ -1,0 +1,42 @@
+{
+ "paper_id": "doi:10.1007/978-3-031-19821-2_27",
+ "title": "Natural Synthetic Anomalies for Self-supervised Anomaly Detection and Localization (NSA)",
+ "year": 2022,
+ "venue": "ECCV",
+ "url": "https://arxiv.org/abs/2109.15222",
+ "code_url": "https://github.com/hmsch/natural-synthetic-anomalies",
+ "mechanism": "Poisson image editing blends scaled patches from other images into normal images, making natural-looking anomalies. A localiser trained on them generalises to real defects.",
+ "evidence": "MVTec AD detection AUROC 97.2, best among methods without extra data. Also tested on medical images.",
+ "adaptation": "Add an auxiliary head on pool cells (including the 1,152 multi half-cut cells) that predicts NSA patches made from other pool cells of the same cell type, sharing the encoder with the segmenter. The goal is a defect prior that transfers to E1. NSA patches are never labelled as background in the segmentation loss.",
+ "min_experiment": "PF + NSA auxiliary head vs PF, 5 seeds. Metrics: E1 crack recall@2 and relF1@2, with test crack IoU as a guard. Kill if E1 relF1@2 gain < +0.02.",
+ "prior_overlap": "none. Anomaly-detection priors are listed as never tried. Pool MIM and DDeP were different objectives.",
+ "score": 35,
+ "bench_score": 45,
+ "bet": "moonshot",
+ "targets": [
+  "e1_unseen"
+ ],
+ "gpu_hours": 10,
+ "directions": [
+  "D21"
+ ],
+ "scout_scores": [
+  35,
+  35
+ ],
+ "alt_notes": [
+  {
+   "from": "D21",
+   "adaptation": "Auxiliary NSA head on pool cells (incl. 1,152 multi half-cut), patches from same cell type, shared encoder with the segmenter; aim is a defect prior that transfers to E1.",
+   "min_experiment": "PF+NSA-aux vs PF; E1 crack recall@2 and relF1@2. Kill: E1 relF1@2 < +0.02.",
+   "score": 35
+  }
+ ],
+ "final": 35,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 455,
+ "pid": "P455"
+}

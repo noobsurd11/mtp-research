@@ -1,0 +1,26 @@
+## Source A, 2021 vs revised crack masks, pool 532: crack cells 234, identical crack mask 142 (60.7%, excluded), crack only in 2021 2 (excluded), used 90 (cells with revised crack and a change)
+set	cells	r(1)	r(sqrt2)	r(2)	r(sqrt5)	r(2sqrt2)	fit_a	fit_sigma
+A_ALL	90	0.0054	0.0012	0.0014	0.0012	0.0009	0.005	1.171
+A_ARTS	15	0.0028	0.0009	0.0034	0.0024	0.0000	nan	nan
+A_BMRK	16	0.0044	0.0024	0.0043	0.0027	0.0021	nan	nan
+A_CFVS	38	0.0063	0.0009	0.0010	0.0009	0.0007	0.006	0.977
+A_CSIR	21	0.0023	0.0014	0.0006	0.0010	0.0011	0.003	1.079
+
+## Source B, same-cell image pairs in the pool: pairs with >= 100 crack px each 22, kept 12 (NCC >= 0.9, not copies); rings both directions
+set	cells	r(1)	r(sqrt2)	r(2)	r(sqrt5)	r(2sqrt2)	fit_a	fit_sigma
+B_stage_pairs	12	0.3144	0.1427	0.0425	0.0364	0.0287	0.576	0.871
+  pair CFVS_00012_r7_c4 CFVS_00013_r7_c4 0.934 -1 0 0.299
+  pair CFVS_00012_r7_c4 CFVS_00015_r7_c4 0.913 0 -1 0.127
+  pair CFVS_00012_r7_c4 CFVS_00016_r7_c4 0.913 0 -1 0.197
+  pair CFVS_00013_r7_c4 CFVS_00015_r7_c4 0.977 0 -1 0.225
+  pair CFVS_00013_r7_c4 CFVS_00016_r7_c4 0.977 0 -1 0.395
+  pair CFVS_00015_r7_c4 CFVS_00016_r7_c4 1.0 0 0 0.259
+  pair CFVS_00020_r4_c4 CFVS_00022_r4_c4 0.969 1 -1 0.56
+  pair CFVS_00020_r4_c4 CFVS_00031_r4_c4 0.921 0 -1 0.517
+  pair CFVS_00022_r4_c4 CFVS_00031_r4_c4 0.925 -1 -1 0.476
+  pair CFVS_00037_r8_c4 CFVS_00046_r8_c4 0.953 0 0 0.896
+  pair CFVS_00102_r6_c6 CFVS_00103_r6_c6 0.931 -1 1 0.162
+  pair CFVS_00119_r1_c2 CFVS_00128_r1_c2 0.984 -1 1 0.358
+
+## Rule: r(1) A 0.0054, B 0.3144 (threshold 0.02) -> RUN with the default a 0.5, sigma 1.0 (only source B has r(1) >= 0.02)
+rc=0

@@ -1,0 +1,35 @@
+{
+ "paper_id": "arxiv:2210.09184",
+ "title": "Packed-Ensembles for Efficient Uncertainty Estimation",
+ "year": 2022,
+ "venue": "HAL / arXiv",
+ "url": "https://arxiv.org/abs/2210.09184",
+ "code_url": "https://github.com/ENSTA-U2IS/torch-uncertainty",
+ "mechanism": "Grouped convolutions pack M ensemble subnetworks into one network and one forward pass while keeping deep-ensemble diversity.",
+ "adaptation": "Packed U-Net++ decoder (M=4, alpha=2) on RN34; one run gives an ensemble for deployment and an uncertainty baseline for the benchmark.",
+ "min_experiment": "Arm: packed U-Net++, 3 seeds. Baseline: house single and 4-seed ensemble. Metric: crack IoU, ECE. Kill: below house single.",
+ "evidence": "R: matches deep ensembles on accuracy, calibration, OOD detection and shift robustness within one network's memory.",
+ "gpu_hours": 5,
+ "bet": "medium",
+ "targets": [
+  "deployment",
+  "benchmark",
+  "crack"
+ ],
+ "prior_overlap": "none",
+ "score": 45,
+ "bench_score": 50,
+ "directions": [
+  "D34"
+ ],
+ "scout_scores": [
+  45
+ ],
+ "final": 45,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 282,
+ "pid": "P282"
+}

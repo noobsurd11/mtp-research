@@ -1,0 +1,76 @@
+{
+ "paper_id": "arxiv:2007.15963",
+ "title": "Disentangling Human Error from the Ground Truth in Segmentation of Medical Images",
+ "year": 2020,
+ "venue": "NeurIPS 2020",
+ "url": "https://arxiv.org/abs/2007.15963",
+ "code_url": "https://github.com/moucheng2017/Learn_Noisy_Labels_Medical_Images",
+ "mechanism": "Two coupled CNNs: a true-label segmentation head and per-annotator pixel-wise confusion matrices, with a trace regulariser that pushes annotator matrices to be maximally unreliable so the clean head stays clean.",
+ "adaptation": "Treat the 5 image sources (ARTS, CFVS, CSIR, BMRK, SDLE) as annotators with confusion heads over {bg, crack, inactive, other}; source id is known at test, so score both the clean head and the source-specific head (learns BMRK/SDLE 3 px width vs ARTS 1.5 px).",
+ "min_experiment": "Arm: house + 5 source confusion heads. Baseline: house 5 seeds. Metric: clean-49 crack IoU, relF1@2, per-source crack IoU (BMRK, CFVS). Kill if clean-head IoU < house - 0.005 and source-head IoU < house + 0.012. About 6 GPU-h.",
+ "evidence": "R: MSLSC, BraTS, LIDC-IDRI with real and simulated multi-annotator labels; beats baselines most when annotations are few and disagreement large (abstract).",
+ "prior_overlap": "none; annotator / source-style modelling and source-conditional prediction are listed as never tried.",
+ "score": 70,
+ "bench_score": 55,
+ "bet": "medium",
+ "gpu_hours": 8,
+ "targets": [
+  "crack",
+  "inactive",
+  "benchmark"
+ ],
+ "directions": [
+  "D15",
+  "D16",
+  "D17",
+  "D36"
+ ],
+ "scout_scores": [
+  55,
+  70,
+  62,
+  62,
+  55,
+  52
+ ],
+ "alt_notes": [
+  {
+   "from": "D15",
+   "adaptation": "Per-source pixel confusion matrices over a reduced 4-class space (bg, crack, inactive, other) conditioned on source id. They can absorb BMRK widening and the crack/inactive overlap that a single-label argmax must resolve. The true head is used at test.",
+   "min_experiment": "Run only if PADL shows any gain. Arm: house + CM head per source, 5 seeds. Baseline: house. Metrics: crack IoU, inactive IoU, BMRK. Kill if there is no detectable difference versus house.",
+   "score": 55
+  },
+  {
+   "from": "D16",
+   "adaptation": "Treat each of the 5 sources as one annotator. The per-source spatial confusion head learns how each source widens or shifts crack labels. Source is known from the filename for test and E1, so score both the latent output and the source-styled output.",
+   "min_experiment": "Arm: house + per-source confusion head (crack and inactive channels), 5 seeds; report source-styled output. Baseline: house. Metric: clean-49 crack IoU per source (BMRK, CFVS), overall crack IoU. Kill: overall crack IoU gain under 0.012 and no source gains more than 0.03. First run a no-GPU check: predicted vs label crack width per source on val.",
+   "score": 62
+  },
+  {
+   "from": "D17",
+   "adaptation": "Annotator = source, with 5 confusion matrices restricted to crack / inactive / background to save memory. Score the source-specific output on strict IoU and the latent output on relF1@2 and E1.",
+   "min_experiment": "Arm = house PF + CM head (5 seeds) versus house PF. Metrics: crack IoU (source output) and relF1@2 / E1 relF1@2 (latent output). Kill if both are under the +0.012 IoU / +0.01 relF1 line.",
+   "score": 62
+  },
+  {
+   "from": "D17",
+   "adaptation": "Annotator = source; CMs over {background, crack, inactive, other} only to keep memory low. Score the source-CM output with strict IoU against source labels and the latent output with relF1@2 and on E1.",
+   "min_experiment": "Arm: CM model on house backbone, 5 seeds. Baseline: house PF. Metrics: clean-49 crack IoU (source output), relF1@2 and E1 relF1@2 (latent output). Kill if neither beats the baseline by +0.012 IoU or +0.02 relF1@2.",
+   "score": 55
+  },
+  {
+   "from": "D36",
+   "adaptation": "Each source and external dataset is an 'annotator'; restrict confusion to crack/inactive/background (3x3); score the clean head.",
+   "min_experiment": "Arm: house + annotator branch, BenchmarkEL only then with external data, 20k steps, 5 seeds. Baseline: house 5-seed and source-conditioned arm. Metric: clean-49 crack IoU and relF1@2. Kill if crack IoU < +0.012. ~8 GPU-h.",
+   "score": 52
+  }
+ ],
+ "final": 70,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 25,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

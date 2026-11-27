@@ -1,0 +1,45 @@
+{
+ "paper_id": "doi:10.1109/pvsc59419.2025.11132985",
+ "title": "Benchmarking Power Loss Simulation Models for Cracked Photovoltaic Cells Using Electroluminescence Images: The Effect of Daylight and Image Resolution",
+ "year": 2025,
+ "venue": "IEEE PVSC",
+ "url": "https://doi.org/10.1109/pvsc59419.2025.11132985",
+ "code_url": "",
+ "mechanism": "Benchmarks an analytic (bELMO) and an ML (DTU) power-loss model for cracked cells across dark lab vs daylight EL and two camera resolutions.",
+ "adaptation": "Benchmark protocol: severity errors reported per severity band; daylight / low-resolution as a robustness axis for WattCycle's future drone EL.",
+ "min_experiment": "No training arm; adopt the per-band reporting in the severity protocol.",
+ "evidence": "R: both models good for low-loss cells, error grows for severe cracks and high-irradiance daylight; bELMO lower average error.",
+ "prior_overlap": "none",
+ "score": 10,
+ "bench_score": 55,
+ "bet": "safe",
+ "targets": [
+  "severity",
+  "benchmark",
+  "deployment"
+ ],
+ "gpu_hours": 0,
+ "directions": [
+  "D04",
+  "D44"
+ ],
+ "scout_scores": [
+  10,
+  8
+ ],
+ "alt_notes": [
+  {
+   "from": "D44",
+   "adaptation": "Design rule for our severity track: report error per severity band and per source. BMRK (downscaled ELPV) is our low-resolution case.",
+   "min_experiment": "None. Design input: stratify severity metrics by band and by source.",
+   "score": 8
+  }
+ ],
+ "final": 10,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 627,
+ "pid": "P627"
+}

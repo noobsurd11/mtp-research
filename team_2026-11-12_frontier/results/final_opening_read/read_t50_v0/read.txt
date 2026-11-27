@@ -1,0 +1,71 @@
+# Opening read: set test50, labels v0, 50 cells, 48 clusters, device NVIDIA RTX A6000, fp32, OP-A only; bootstrap 2000 draws, seed 0
+
+## subset all: 50 cells, 48 clusters
+| arm | models | relF1@2 | relP@2 | relR@2 | strict crack IoU | inactive IoU | mIoU-R13 | width ratio | false crack px (crack-free cells) |
+|---|---|---|---|---|---|---|---|---|---|
+| C1 | 5 | 0.8831 [0.8785, 0.8859] | 0.9072 | 0.8604 | 0.4179 | 0.4839 | 0.5734 | 1.256 | 0 |
+| C2 | 5 | 0.8974 [0.8960, 0.8993] | 0.9267 | 0.8699 | 0.4409 | 0.4728 | 0.5767 | 1.239 | 0 |
+| C2S5 | 1 | 0.8993 [0.8993, 0.8993] | 0.9264 | 0.8738 | 0.4420 | 0.4654 | 0.5802 | 1.239 | 0 |
+| C1D4 | 5 | 0.8957 [0.8937, 0.8965] | 0.9213 | 0.8714 | 0.4343 | 0.4869 | 0.5728 | 1.289 | 0 |
+- C2 - C1: relF1@2 0.0143 seed-aware [0.0056, 0.0250] (SE 0.0049), fixed-model [0.0065, 0.0242]; strict crack IoU 0.0230 [0.0105, 0.0336]; inactive IoU -0.0111 [-0.0465, 0.0334]; mIoU-R13 0.0034; width ratio B / A 0.986; false crack px B / A n/a
+
+## subset src:ARTS: 13 cells, 12 clusters
+| arm | models | relF1@2 | relP@2 | relR@2 | strict crack IoU | inactive IoU | mIoU-R13 | width ratio | false crack px (crack-free cells) |
+|---|---|---|---|---|---|---|---|---|---|
+| C1 | 5 | 0.8023 [0.7670, 0.8265] | 0.9527 | 0.6935 | 0.3200 | 0.8504 | 0.5889 | 0.916 | 0 |
+| C2 | 5 | 0.8387 [0.8282, 0.8471] | 0.9710 | 0.7383 | 0.3774 | 0.4297 | 0.5468 | 0.999 | 0 |
+| C2S5 | 1 | 0.8409 [0.8409, 0.8409] | 0.9745 | 0.7396 | 0.3747 | 0.8154 | 0.5793 | 0.991 | 0 |
+| C1D4 | 5 | 0.7980 [0.7813, 0.8297] | 0.9690 | 0.6787 | 0.3292 | 0.8422 | 0.5789 | 0.878 | 0 |
+- C2 - C1: relF1@2 0.0364 seed-aware [0.0014, 0.0900] (SE 0.0229), fixed-model [0.0073, 0.0837]; strict crack IoU 0.0573 [0.0290, 0.0964]; inactive IoU -0.4207 [-0.7181, -0.1380]; mIoU-R13 -0.0421; width ratio B / A 1.091; false crack px B / A n/a
+
+## subset src:BMRK: 10 cells, 10 clusters
+| arm | models | relF1@2 | relP@2 | relR@2 | strict crack IoU | inactive IoU | mIoU-R13 | width ratio | false crack px (crack-free cells) |
+|---|---|---|---|---|---|---|---|---|---|
+| C1 | 5 | 0.8030 [0.7937, 0.8087] | 0.8689 | 0.7466 | 0.3392 | 0.3974 | 0.5297 | 0.998 | 0 |
+| C2 | 5 | 0.8304 [0.8259, 0.8374] | 0.9037 | 0.7682 | 0.3549 | 0.4011 | 0.5335 | 0.987 | 0 |
+| C2S5 | 1 | 0.8374 [0.8374, 0.8374] | 0.9058 | 0.7786 | 0.3579 | 0.3747 | 0.5302 | 0.981 | 0 |
+| C1D4 | 5 | 0.8310 [0.8257, 0.8330] | 0.8887 | 0.7805 | 0.3621 | 0.4012 | 0.5351 | 1.047 | 0 |
+- C2 - C1: relF1@2 0.0274 seed-aware [-0.0035, 0.0510] (SE 0.0136), fixed-model [-0.0005, 0.0480]; strict crack IoU 0.0157 [-0.0071, 0.0340]; inactive IoU 0.0037 [-0.0658, 0.0534]; mIoU-R13 0.0038; width ratio B / A 0.989; false crack px B / A n/a
+
+## subset src:CFVS: 18 cells, 17 clusters
+| arm | models | relF1@2 | relP@2 | relR@2 | strict crack IoU | inactive IoU | mIoU-R13 | width ratio | false crack px (crack-free cells) |
+|---|---|---|---|---|---|---|---|---|---|
+| C1 | 5 | 0.9383 [0.9356, 0.9405] | 0.9288 | 0.9480 | 0.4966 | 0.5834 | 0.6688 | 1.323 | 0 |
+| C2 | 5 | 0.9469 [0.9455, 0.9479] | 0.9456 | 0.9481 | 0.5279 | 0.5552 | 0.6721 | 1.290 | 0 |
+| C2S5 | 1 | 0.9474 [0.9474, 0.9474] | 0.9461 | 0.9487 | 0.5290 | 0.5559 | 0.6832 | 1.293 | 0 |
+| C1D4 | 5 | 0.9426 [0.9401, 0.9458] | 0.9369 | 0.9484 | 0.5102 | 0.5823 | 0.6687 | 1.348 | 0 |
+- C2 - C1: relF1@2 0.0086 seed-aware [0.0033, 0.0135] (SE 0.0026), fixed-model [0.0039, 0.0125]; strict crack IoU 0.0313 [0.0139, 0.0425]; inactive IoU -0.0282 [-0.0595, 0.0857]; mIoU-R13 0.0033; width ratio B / A 0.975; false crack px B / A n/a
+
+## subset src:CSIR: 8 cells, 8 clusters
+| arm | models | relF1@2 | relP@2 | relR@2 | strict crack IoU | inactive IoU | mIoU-R13 | width ratio | false crack px (crack-free cells) |
+|---|---|---|---|---|---|---|---|---|---|
+| C1 | 5 | 0.8076 [0.7952, 0.8221] | 0.8701 | 0.7537 | 0.2684 | 0.3784 | 0.4278 | 1.830 | 0 |
+| C2 | 5 | 0.8234 [0.8190, 0.8287] | 0.8763 | 0.7766 | 0.2755 | 0.4108 | 0.4418 | 1.863 | 0 |
+| C2S5 | 1 | 0.8218 [0.8218, 0.8218] | 0.8671 | 0.7809 | 0.2729 | 0.4124 | 0.4422 | 1.865 | 0 |
+| C1D4 | 5 | 0.8312 [0.8214, 0.8376] | 0.9039 | 0.7695 | 0.2861 | 0.3981 | 0.4384 | 1.884 | 0 |
+- C2 - C1: relF1@2 0.0158 seed-aware [-0.0063, 0.0415] (SE 0.0120), fixed-model [-0.0047, 0.0342]; strict crack IoU 0.0071 [-0.0068, 0.0295]; inactive IoU 0.0324 [0.0000, 0.0698]; mIoU-R13 0.0140; width ratio B / A 1.018; false crack px B / A n/a
+
+## subset src:SDLE: 1 cells, 1 clusters
+| arm | models | relF1@2 | relP@2 | relR@2 | strict crack IoU | inactive IoU | mIoU-R13 | width ratio | false crack px (crack-free cells) |
+|---|---|---|---|---|---|---|---|---|---|
+| C1 | 5 | 0.1585 [0.0000, 0.7926] | 0.2000 | 0.1313 | 0.0569 | n/a | 0.5657 | 0.069 | 0 |
+| C2 | 5 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | n/a | 0.5589 | 0.000 | 0 |
+| C2S5 | 1 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | n/a | 0.5877 | 0.000 | 0 |
+| C1D4 | 5 | 0.0000 [0.0000, 0.0000] | 0.0000 | 0.0000 | 0.0000 | n/a | 0.5519 | 0.000 | 0 |
+- C2 - C1: relF1@2 -0.1585 seed-aware [-0.4755, 0.0000] (SE 0.1429), fixed-model [-0.1585, -0.1585]; strict crack IoU -0.0569 [-0.1706, 0.0000]; inactive IoU n/a [n/a, n/a]; mIoU-R13 -0.0067; width ratio B / A 0.000; false crack px B / A n/a
+
+## subset crack_cells: 50 cells, 48 clusters
+| arm | models | relF1@2 | relP@2 | relR@2 | strict crack IoU | inactive IoU | mIoU-R13 | width ratio | false crack px (crack-free cells) |
+|---|---|---|---|---|---|---|---|---|---|
+| C1 | 5 | 0.8831 [0.8785, 0.8859] | 0.9072 | 0.8604 | 0.4179 | 0.4839 | 0.5734 | 1.256 | 0 |
+| C2 | 5 | 0.8974 [0.8960, 0.8993] | 0.9267 | 0.8699 | 0.4409 | 0.4728 | 0.5767 | 1.239 | 0 |
+| C2S5 | 1 | 0.8993 [0.8993, 0.8993] | 0.9264 | 0.8738 | 0.4420 | 0.4654 | 0.5802 | 1.239 | 0 |
+| C1D4 | 5 | 0.8957 [0.8937, 0.8965] | 0.9213 | 0.8714 | 0.4343 | 0.4869 | 0.5728 | 1.289 | 0 |
+- C2 - C1: relF1@2 0.0143 seed-aware [0.0056, 0.0250] (SE 0.0049), fixed-model [0.0065, 0.0242]; strict crack IoU 0.0230 [0.0105, 0.0336]; inactive IoU -0.0111 [-0.0465, 0.0334]; mIoU-R13 0.0034; width ratio B / A 0.986; false crack px B / A n/a
+
+
+## public metrics (label set of this read), mean over the arm's models [min, max]
+- C1: Pratt median IoU rule A crack 0.337, gridline 0.308, inactive 0.570, avg 0.405; rule B avg 0.202; rule C avg 0.541; PV-S3 mean IoU all px 0.403 / bg dropped 0.518; SEiPV pixel acc 0.9421, fw-IoU 0.8997, F1w 0.9417, per-image absent=1 0.8546
+- C2: Pratt median IoU rule A crack 0.383, gridline 0.301, inactive 0.588, avg 0.424; rule B avg 0.204; rule C avg 0.555; PV-S3 mean IoU all px 0.400 / bg dropped 0.512; SEiPV pixel acc 0.9452, fw-IoU 0.9025, F1w 0.9432, per-image absent=1 0.8800
+- C2S5: Pratt median IoU rule A crack 0.381, gridline 0.329, inactive 0.656, avg 0.455; rule B avg 0.201; rule C avg 0.556; PV-S3 mean IoU all px 0.400 / bg dropped 0.512; SEiPV pixel acc 0.9461, fw-IoU 0.9040, F1w 0.9442, per-image absent=1 0.8795
+- C1D4: Pratt median IoU rule A crack 0.370, gridline 0.309, inactive 0.599, avg 0.426; rule B avg 0.207; rule C avg 0.553; PV-S3 mean IoU all px 0.409 / bg dropped 0.524; SEiPV pixel acc 0.9438, fw-IoU 0.9014, F1w 0.9427, per-image absent=1 0.8721

@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1109/cvpr52729.2023.01873",
+ "title": "Understanding Imbalanced Semantic Segmentation Through Neural Collapse (CeCo)",
+ "year": 2023,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2301.01100",
+ "code_url": "https://github.com/dvlab-research/Imbalanced-Learning",
+ "mechanism": "Regularize class feature centers toward a simplex equiangular tight frame, which imbalance and context otherwise break, to improve minor-class discrimination.",
+ "adaptation": "Class centers from a >=32-dim projection of the full-res decoder features (17 present classes); same plumbing as region rebalance. Could separate crack vs inactive vs scuff.",
+ "min_experiment": "Arm: CeCo regularizer on best loss/sampling arm, 3 seeds; baseline that arm; metric mIoU_rob and E1 crack recall; kill if no gain >= 0.01.",
+ "score": 48,
+ "bench_score": 50,
+ "bet": "medium",
+ "evidence": "R: improvements on 2D and 3D seg benchmarks; ScanNet200 test 1st place, +6.8 mIoU.",
+ "gpu_hours": 5,
+ "prior_overlap": "none",
+ "targets": [
+  "other_classes",
+  "e1_unseen"
+ ],
+ "directions": [
+  "D19"
+ ],
+ "scout_scores": [
+  48
+ ],
+ "final": 48,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 237,
+ "pid": "P237"
+}

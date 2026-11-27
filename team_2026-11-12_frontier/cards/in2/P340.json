@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.1186/s12880-026-02245-y",
+ "title": "Dilated Balanced cross entropy loss for medical image segmentation",
+ "year": 2026,
+ "venue": "BMC Medical Imaging",
+ "url": "https://arxiv.org/abs/2412.06045",
+ "code_url": "",
+ "mechanism": "Class-balancing CE weights computed on dilated class masks, so each class and its surrounding band share the balancing weight.",
+ "adaptation": "Dilate crack by 2 px (and inactive by 2 px) for the weight computation so the jitter band is not punished as hard background; replace CE in the house loss.",
+ "min_experiment": "Arm: DBCE + house Dice, 5 seeds. Baseline: house. Metrics: crack IoU, relF1@2, pixel P/R. Kill: crack IoU and relF1@2 both within noise (< 0.012 / < 0.005).",
+ "evidence": "Several medical datasets: beats balanced CE by a large margin; similar or better than Dice + CE.",
+ "gpu_hours": 6,
+ "bet": "safe",
+ "prior_overlap": "Offset-tolerant CE (n.d.) is related but changes target placement, not class balance; not the same mechanism.",
+ "targets": [
+  "crack"
+ ],
+ "score": 42,
+ "bench_score": 30,
+ "directions": [
+  "D20"
+ ],
+ "scout_scores": [
+  42
+ ],
+ "final": 42,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 340,
+ "pid": "P340"
+}

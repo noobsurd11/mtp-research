@@ -1,0 +1,46 @@
+{
+ "paper_id": "arxiv:2112.01527",
+ "title": "Masked-attention Mask Transformer for Universal Image Segmentation (Mask2Former)",
+ "year": 2022,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2112.01527",
+ "code_url": "",
+ "mechanism": "Mask classification with masked cross-attention restricted to each query's predicted region over a multi-scale pixel decoder; point-sampled mask loss.",
+ "evidence": "R: SOTA on ADE20K semantic, COCO panoptic/instance at publication; authors state small-object performance is poor.",
+ "adaptation": "Semantic mode, Swin-B or R50 from ADE20K weights, 512 and 1024 px, grey replicated; target inactive and region classes (splice, material, edge_dark); raise num_points and add dense CE+Dice aux for crack; keep label-safe augmentation.",
+ "min_experiment": "Arm A M2F Swin-B 512; arm B + dense aux head; 5-fold CV; baseline house; metrics inactive IoU, splice/material/edge_dark IoU, mIoU_rob; kill B if mIoU_rob < house - 0.01 and inactive IoU not above house.",
+ "score": 50,
+ "bench_score": 95,
+ "bet": "safe",
+ "gpu_hours": 30,
+ "targets": [
+  "inactive",
+  "other_classes",
+  "benchmark"
+ ],
+ "prior_overlap": "none; mask-classification decoders listed as never tried. Also proposed as a baseline by D01/D03.",
+ "directions": [
+  "D23"
+ ],
+ "scout_scores": [
+  50,
+  50
+ ],
+ "alt_notes": [
+  {
+   "from": "D23",
+   "adaptation": "Semantic mode, Swin-B or R50 from ADE20K weights, 512 and 1024 px, 1-ch replicated; target inactive and region classes (splice, material, edge_dark); raise num_points, add dense aux head and high-res conv branch for crack.",
+   "min_experiment": "Same as GOOSE-M2F arms; arm A plain M2F vs house; metric inactive IoU, mIoU_rob, splice IoU; kill A+B if mIoU_rob < house - 0.01 and inactive not above house.",
+   "score": 50
+  }
+ ],
+ "final": 50,
+ "bench": 95,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 187,
+ "pub_allowed": 0,
+ "selected_for": "bench",
+ "pid": "P187"
+}

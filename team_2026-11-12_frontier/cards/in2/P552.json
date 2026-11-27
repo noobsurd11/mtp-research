@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1016/j.solener.2026.114801",
+ "title": "A unified large language model-based framework for heterogeneous PV image diagnosis",
+ "year": 2026,
+ "venue": "Solar Energy",
+ "url": "https://doi.org/10.1016/j.solener.2026.114801",
+ "code_url": "",
+ "mechanism": "Task-aware diagnostic prompting of multimodal LLMs (zero- and few-shot) for visible, EL and IR PV images in one pipeline.",
+ "evidence": "R: GPT-5.1 few-shot > 97.3 % accuracy; zero-shot 83.5 % on full ELPV, 2.8 points under a supervised CNN; open models (Qwen, CLIP) weaker on EL and IR; benchmark set of labelled PV images released.",
+ "adaptation": "Benchmark: an image-level MLLM baseline (crack present / inactive present per cell) under our fixed split; deliverable: zero-label thermal triage; possible helper for the 24 audit-flagged train cells.",
+ "min_experiment": "Arm open-weight VLM few-shot crack / inactive presence on F51 val cells; baseline house model image-level max probability; metric AUROC per class; kill as a scorer if AUROC < house minus 0.10 (keep as benchmark row).",
+ "gpu_hours": 2,
+ "prior_overlap": "none.",
+ "targets": [
+  "benchmark",
+  "deployment"
+ ],
+ "bet": "medium",
+ "score": 25,
+ "bench_score": 60,
+ "directions": [
+  "D05"
+ ],
+ "scout_scores": [
+  25
+ ],
+ "final": 25,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 552,
+ "pid": "P552"
+}

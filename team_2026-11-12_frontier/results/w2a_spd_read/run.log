@@ -1,0 +1,17 @@
+[2026-11-17 08:23:57] w2a read start (out /home/noob/work/bench_reads/w2a_spd; DRY=0; ARMS=spd -> spd; GATE_ACK='spd'; PF4=0; script 5aac565d)
+DESCRIPTIVE ONLY, NOT A SCREEN VERDICT: the arms below are read under GATE_ACK although their gate (LAUNCH_REQUEST_w2a.md section 8) did not pass.
+spd: gate gate_spd_mech FAIL (/home/noob/work/bench_reads/w2a_gates/gate_spd_mech_r2/VERDICT)
+notes:
+GATE NOT PASSED BUT ACKNOWLEDGED (GATE_ACK): spd: gate gate_spd_mech FAIL (/home/noob/work/bench_reads/w2a_gates/gate_spd_mech_r2/VERDICT)
+manifest check: 10 wave 2a dumps, device ['NVIDIA RTX PRO 4500 Blackwell']: OK
+command (cwd /home/noob/work/bench_wt_b, nice -n 19): scripts/bench_read_w1.py --arm PF=/home/noob/work/bench_dumps/w1g/elbench1/house_r34_unetpp_pf_v11:w1g_pf_v11_f[0-4]_s[56] --arm PFAA=/home/noob/work/bench_dumps/w1g/elbench1/house_r34_unetpp_pf_v11:w1g_pf_v11_f[0-4]_s[5-8] --arm SPD=/home/noob/work/bench_dumps/w2a/elbench1/encoder_spd_pf_v11:w2a_spd_f[0-4]_s[56] --pair PF=SPD --labels v11 --workers 8 --cache /home/noob/work/bench_reads/w2a_spd/cache_c --baseline PF --aa PFAA:5,6:7,8 --score-exclude /home/yugma/mtp/research/team_2026-11-12_frontier/benchmark/splits/score_exclude_v3.txt --out /home/noob/work/bench_reads/w2a_spd/read
+[131s] argmax records + bias sweeps: 40 runs
+[210s] operating points and their records (532 stems)
+score-exclude /home/yugma/mtp/research/team_2026-11-12_frontier/benchmark/splits/score_exclude_v3.txt md5 6d48dfbd56ba8140ed20ecb21bf349dc: 532 -> 416 stems
+[270s] operating points and their records (416 stems)
+[300s] wave 1 read: 3 arms, 532 OOF stems, 1 contrasts, A/A yes -> /home/noob/work/bench_reads/w2a_spd/read/read.txt
+[2026-11-17 08:28:59] read rc=0
+[2026-11-17 08:28:59] W2A READ ALL DONE (rc 0); tracked changes: bench_wt_b 0, bench_wt_w2 0
+DESCRIPTIVE ONLY, NOT A SCREEN VERDICT: the arms below are read under GATE_ACK although their gate (LAUNCH_REQUEST_w2a.md section 8) did not pass.
+spd: gate gate_spd_mech FAIL (/home/noob/work/bench_reads/w2a_gates/gate_spd_mech_r2/VERDICT)
+(file /home/noob/work/bench_reads/w2a_spd/GATE_ACK.txt)

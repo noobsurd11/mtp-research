@@ -1,0 +1,96 @@
+{
+ "set": "test",
+ "n_cells": 49,
+ "gt_comp20": 187,
+ "op_comp": {
+  "b": -1.3,
+  "j": 67,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.84,
+  "val_P": 0.9266666666666666
+ },
+ "op_rel": {
+  "b": 1.3,
+  "j": 94,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.8765881174547947,
+  "val_P": 0.9000554139421478
+ },
+ "comp_recall_at_opc": 0.8342245989304813,
+ "comp_prec_at_opc": 0.9344978165938864,
+ "relR_at_opr": 0.8883959380853791,
+ "relP_at_opr": 0.9180469387367902,
+ "speck_guard": {
+  "opc": {
+   "compP_all": 0.8290598290598291,
+   "speck_share": 0.00941362141015382
+  },
+  "opr": {
+   "compP_all": 0.7436708860759493,
+   "speck_share": 0.0057203028060788886
+  }
+ },
+ "deployed_b": 0.0,
+ "at_deployed": {
+  "P": 0.6258818477394025,
+  "R": 0.6705774097078445,
+  "IoU": 0.4786984469572561,
+  "relP": 0.927223278735456,
+  "relR": 0.8789531915825912,
+  "compR": 0.8449197860962567,
+  "compP": 0.9247787610619469,
+  "compP_all": 0.7916666666666666,
+  "speck_share": 0.007964746539067133,
+  "inactIoU": 0.4710238829473132
+ },
+ "cell_deployed": {
+  "b": 0.0,
+  "n_pos": 47,
+  "n_neg": 2,
+  "n_ambiguous": 0,
+  "recall": 0.9361702127659575,
+  "fa_rate": 0.0,
+  "precision": 1.0,
+  "auroc": 0.9574468085106383
+ },
+ "cell_at_opc": {
+  "b": -1.3,
+  "n_pos": 47,
+  "n_neg": 2,
+  "n_ambiguous": 0,
+  "recall": 0.9361702127659575,
+  "fa_rate": 0.0,
+  "precision": 1.0,
+  "auroc": 0.9574468085106383
+ },
+ "cell_b0": {
+  "b": 0.0,
+  "n_pos": 47,
+  "n_neg": 2,
+  "n_ambiguous": 0,
+  "recall": 0.9361702127659575,
+  "fa_rate": 0.0,
+  "precision": 1.0,
+  "auroc": 0.9574468085106383
+ },
+ "inactive_area_err": {
+  "b": 0.0,
+  "mae_all": 1.2082826873991037,
+  "mae_inactive_cells": 4.843425750732422,
+  "n_inactive_cells": 12,
+  "mae_other": 0.029317369561270783,
+  "signed_mean": -0.4492669228901751,
+  "max_err": 27.79388427734375
+ },
+ "excluded": [
+  "CSIR_00070_r8_c4"
+ ],
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": false,
+ "el_metrics_md5": "45b1df03a8fb2959272534b2ab6b237f"
+}

@@ -1,0 +1,43 @@
+{
+ "paper_id": "doi:10.1109/tip.2021.3117076",
+ "title": "CoANet: Connectivity Attention Network for Road Extraction From Satellite Imagery",
+ "year": 2021,
+ "venue": "IEEE TIP",
+ "url": "https://doi.org/10.1109/tip.2021.3117076",
+ "code_url": "https://github.com/mj129/CoANet",
+ "mechanism": "Decoder built from strip convolutions in 4 directions (horizontal, vertical, two diagonals) plus a connectivity attention module predicting 8-neighbour links, for long thin occluded roads.",
+ "adaptation": "Replace U-Net++ decoder blocks with 4-direction strip-conv blocks. EL cells are axis-aligned, so h/v strips match fingers (gridline), busbars, ribbons, splice, borders; diagonals serve cracks.",
+ "min_experiment": "Arm: strip-conv decoder, 5 seeds; baseline house. Metrics: gridline IoU, splice IoU, mIoU_rob, crack relF1@2. Kill: gridline IoU gain < 0.03 and mIoU_rob gain < 0.005.",
+ "evidence": "Improved road connectivity on DeepGlobe and SpaceNet (abstract; numbers not read; snippet search rate-limited).",
+ "gpu_hours": 8,
+ "prior_overlap": "none",
+ "score": 55,
+ "bench_score": 50,
+ "bet": "medium",
+ "targets": [
+  "other_classes",
+  "crack"
+ ],
+ "directions": [
+  "D12"
+ ],
+ "scout_scores": [
+  50,
+  55
+ ],
+ "alt_notes": [
+  {
+   "from": "D12",
+   "adaptation": "Add strip blocks to the U-Net++ decoder for gridline, splice and crack. Add an auxiliary 8-channel connectivity target derived from the crack and gridline masks. Connectivity of a 1-2 px line is unchanged by a 1 px shift.",
+   "min_experiment": "Strip blocks + connectivity head vs house, 5 seeds. Metrics: gridline IoU (CV), crack components found, crack relF1@2. Kill if gridline gains < 0.03 and crack is flat.",
+   "score": 50
+  }
+ ],
+ "final": 55,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 139,
+ "pid": "P139"
+}

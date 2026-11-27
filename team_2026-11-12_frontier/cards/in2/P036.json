@@ -1,0 +1,53 @@
+{
+ "paper_id": "doi:10.1109/cvpr52688.2022.00969",
+ "title": "DAFormer: Improving Network Architectures and Training Strategies for Domain-Adaptive Semantic Segmentation (Rare Class Sampling)",
+ "year": 2022,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2111.14887",
+ "code_url": "https://github.com/lhoyer/DAFormer",
+ "mechanism": "Rare Class Sampling: draw a class c with P(c)=softmax((1-f_c)/T), T=0.01, then draw a uniform image containing c, so images with rare classes are seen far more often.",
+ "evidence": "Table 5 ablation, GTA to Cityscapes, SegFormer: no RCS 58.2, class-balanced (T=inf) 62.0, RCS T=0.01 64.0 mIoU (+5.8). Largest gains on rare classes rider, train, motorcycle, bicycle. Source set is about 25k synthetic images.",
+ "adaptation": "Compute f_c from the 478 train masks over the 24 classes, using only classes present in at least 3 cells. Cap any single cell at 10x its uniform draw rate so the 42 inactive cells do not overfit. Keep label-safe augmentation and the 20k steps. This should mainly lift inactive, splice, gridline, edge_dark and material, plus the BMRK cells that carry inactive.",
+ "min_experiment": "PF+RCS vs PF, 5 seeds each. Metrics: module-grouped 5-fold CV inactive IoU, test mIoU_rob, splice and gridline IoU, with test crack IoU as a guard. Kill if CV inactive gain < +0.02 and mIoU_rob gain < +0.005, or if crack IoU drops by more than 0.012. About 31 GPU-h.",
+ "prior_overlap": "none. The handbook records no oversampling or class-aware sampling run; the house sampler is uniform.",
+ "score": 68,
+ "bench_score": 45,
+ "bet": "safe",
+ "targets": [
+  "inactive",
+  "other_classes"
+ ],
+ "gpu_hours": 31,
+ "directions": [
+  "D19",
+  "D21"
+ ],
+ "scout_scores": [
+  63,
+  68,
+  68
+ ],
+ "alt_notes": [
+  {
+   "from": "D19",
+   "adaptation": "f_c = fraction of the 478 train cells containing class c (splice 53, inactive 42, edge_dark 41). T in {0.1, 0.01}. Fixed 20k steps so the iteration budget is matched. Also usable later to oversample half-cut synthetic views for E1.",
+   "min_experiment": "Arm: RCS T=0.01, 5 seeds, 20k steps; baseline SUP100; metric mIoU_rob and inactive IoU; kill if mIoU_rob < +0.01 and inactive n.d.",
+   "score": 63
+  },
+  {
+   "from": "D21",
+   "adaptation": "f_c over 24 classes from the 478 train masks; candidates only classes in >= 3 train cells; cap any cell's draw rate at 10x uniform so the 42 inactive cells are not memorised; same 20k steps, label-safe augmentation unchanged.",
+   "min_experiment": "PF+RCS vs PF, 5 seeds; metrics module-grouped CV inactive IoU, test mIoU_rob, splice/gridline IoU, crack IoU guard. Kill: CV inactive < +0.02 and mIoU_rob < +0.005, or crack IoU drop > 0.012.",
+   "score": 68
+  }
+ ],
+ "final": 68,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 36,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P036"
+}

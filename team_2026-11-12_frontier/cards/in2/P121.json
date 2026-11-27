@@ -1,0 +1,66 @@
+{
+ "paper_id": "arxiv:2004.05498",
+ "title": "FDA: Fourier Domain Adaptation for Semantic Segmentation",
+ "year": 2020,
+ "venue": "CVPR 2020 (from memory; the arXiv page lists no venue)",
+ "url": "https://arxiv.org/abs/2004.05498",
+ "code_url": "https://github.com/YanchaoYang/FDA",
+ "mechanism": "Replace the low-frequency Fourier amplitude of a labelled source image with that of an unlabelled target image; the alignment needs no training.",
+ "adaptation": "Targets: the pool's 1,152 multi half-cells and CSIR cells (E1 is 101 CSIR, 58 half-cut). Small beta 0.005 to 0.02 so only illumination profile and contrast move; masks unchanged. Training time only.",
+ "min_experiment": "Arm: house + FDA (beta 0.01, p 0.5), 5 seeds. Baseline: house and PF. Metric: E1 crack relF1@2 and inactive IoU; test crack IoU must not fall by more than 0.01. Kill: E1 relF1@2 < +0.03.",
+ "evidence": "R: state of the art on synthetic-to-real segmentation benchmarks at the time (abstract). No EL evidence.",
+ "gpu_hours": 7,
+ "prior_overlap": "Not closed: section 5 lists UDA-style methods aimed at E1 as open. Inference-time intensity normalisation (fail) is a different mechanism.",
+ "score": 58,
+ "bench_score": 40,
+ "bet": "medium",
+ "targets": [
+  "e1_unseen",
+  "inactive"
+ ],
+ "directions": [
+  "D08",
+  "D28",
+  "D30"
+ ],
+ "scout_scores": [
+  48,
+  48,
+  58,
+  58,
+  52
+ ],
+ "alt_notes": [
+  {
+   "from": "D08",
+   "adaptation": "Target styles from the CSIR half-cell pool; beta 0.01 to 0.05 so finger periodicity is untouched; expected small effect because the E1 gap is mostly content (half-cut, scuff).",
+   "min_experiment": "Arm: house + FDA (beta 0.01 / 0.05), 3-seed screen. Baseline: house. Metric: E1 crack relF1@2. Kill: < +0.02.",
+   "score": 48
+  },
+  {
+   "from": "D08",
+   "adaptation": "Targets drawn from the CSIR half-cell pool; small beta (0.01 to 0.05) so finger periodicity and crack frequencies stay untouched. S: E1 gap is mostly content (half-cut layout, scuffs), so expect a small effect.",
+   "min_experiment": "Arm: house + FDA (beta 0.01 and 0.05), 3-seed screen then 5. Baseline: house. Metric: E1 crack relF1@2. Kill: < +0.02.",
+   "score": 48
+  },
+  {
+   "from": "D28",
+   "adaptation": "Targets: 1,152 pool half-cut multi cells and CSIR pool cells (E1 is 101 CSIR); beta 0.005 to 0.02 so only illumination profile and contrast transfer; labels unchanged.",
+   "min_experiment": "Arm: house + FDA (beta 0.01, p 0.5); baselines house and PF; 5 seeds; E1 relF1@2 and inactive IoU, test crack IoU drop <= 0.01; kill if E1 relF1@2 < +0.03.",
+   "score": 58
+  },
+  {
+   "from": "D30",
+   "adaptation": "Beta 0.01 to 0.05; target spectra from pool half-cells and CSIR cells. Cracks are high-frequency so labels stay valid. Handles illumination, vignetting, global contrast; does not model scuff streaks.",
+   "min_experiment": "PF + FDA (beta 0.01, 0.03) vs PF, 3 seeds. Kill if E1 inactive IoU and crack relF1@2 gains are both < +0.02.",
+   "score": 52
+  }
+ ],
+ "final": 58,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 121,
+ "pid": "P121"
+}

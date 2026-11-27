@@ -1,0 +1,46 @@
+{
+ "paper_id": "doi:10.1038/s41598-021-82017-6",
+ "title": "Methods and open-source toolkit for analyzing and visualizing challenge results",
+ "year": 2021,
+ "venue": "Scientific Reports",
+ "url": "https://arxiv.org/abs/1910.05121",
+ "code_url": "https://github.com/wiesenfa/challengeR",
+ "mechanism": "Bootstrap ranking stability, significance maps and blob plots for ranking many algorithms on per-case scores.",
+ "adaptation": "Rank benchmark methods by per-cell scores on the sealed test plus E1. Publish rank intervals and call methods tied when their ranks flip often.",
+ "min_experiment": "With 5 or more suite methods: 1000 bootstrap resamples over cells, Kendall tau, and pairwise significance. Methods whose ranks swap in more than 30% of resamples are reported as tied.",
+ "prior_overlap": "none",
+ "score": 20,
+ "bench_score": 85,
+ "bet": "safe",
+ "targets": [
+  "benchmark",
+  "measurement"
+ ],
+ "evidence": "R: toolkit used for biomedical challenge reporting (challengeR R package).",
+ "gpu_hours": 0,
+ "directions": [
+  "D41",
+  "D43"
+ ],
+ "scout_scores": [
+  15,
+  20
+ ],
+ "alt_notes": [
+  {
+   "from": "D41",
+   "adaptation": "Rank the benchmark method suite per metric with bootstrap over cells (modules for E1) and publish stability plots.",
+   "min_experiment": "Arm: bootstrap ranks of the method suite. Kill: reporting only (R install needs user OK).",
+   "score": 15
+  }
+ ],
+ "final": 20,
+ "bench": 85,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 578,
+ "pub_allowed": 0,
+ "selected_for": "bench",
+ "pid": "P578"
+}

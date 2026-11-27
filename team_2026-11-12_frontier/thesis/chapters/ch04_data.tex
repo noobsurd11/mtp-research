@@ -1,0 +1,247 @@
+% Chapter 4: Data, labels and the dataset audit. Draft 23 Nov 2026. Every number is traced in ch04_data_NOTES.md.
+% Tables are in the appendix (thesis_tables.tex); they are referenced only by \ref{tab:...}.
+\chapter{Data, labels and the dataset audit}\label{ch:data}
+
+This chapter describes the images, the cell sets, the label sets and the splits used in the thesis, and then the audit of the
+development pool that we ran before fixing the protocol. The audit comes before the protocol on purpose: its findings on the
+line-width convention, on split integrity and on the label release are the reasons for the rules of Chapter~\ref{ch:protocol}.
+All tables of this chapter are in the appendix: the cell sets in Table~\ref{tab:T1}, split integrity in Table~\ref{tab:T2}, the
+label sets in Tables~\ref{tab:T3a}, \ref{tab:T3b} and~\ref{tab:T3c}, and the audit in Tables~\ref{tab:T19a} and~\ref{tab:T19b}.
+Table~\ref{tab:T3b} counts label changes; it is unrelated to the few-shot track of Chapter~\ref{ch:t3b}.
+
+Several model recipes appear here before Chapter~\ref{ch:methods} describes them. PF is the baseline: U-Net++
+\citep{zhou2018unetpp} with an ImageNet ResNet-34 encoder and an encoder-preserving fine-tune (Chapter~\ref{ch:legacy}); HOUSE is
+the same model with a plain fine-tune; HRNET replaces the encoder by HRNet-W18 \citep{wang2021hrnet}; SWADBN is PF with weight
+averaging; C3X combines the last two. The audit scores the out-of-fold predictions of these five recipes at five seeds each, 25
+models per pool cell.
+
+\section{Images, sources and cell sets}\label{sec:data-sets}
+
+Every image is a grayscale electroluminescence (EL) image of 512 $\times$ 512 px that shows one cell and parts of its neighbours
+(Section~\ref{sec:data-other}). The main labelled set is BenchmarkEL \texttt{dataset\_20211104} \citep{pratt2023benchmark}: 582 cells
+in a legacy split of 478 train, 54 validation and 50 test cells, with masks over 24 classes (12 structural classes and 12 defects).
+The cells come from five sources with different image contrast and label conventions. In the development pool the counts are
+ARTS 182, BMRK 50, CFVS 169, CSIR 114 and SDLE 17 cells. BMRK cells are cells of the ELPV set \citep{deitsch2019elpv}, downscaled and
+padded. Over the three BenchmarkEL releases and the E-SCDD extension \citep{hanifi2025escdd}, the labelled corpus holds 816 real
+labelled cells, 787 unique physical cells and 463 physical-module groups; the 93 synthetic E-SCDD files are excluded everywhere.
+
+Table~\ref{tab:T1} lists the sets built from this corpus; Figure~\ref{fig:F4} shows how they relate.
+\begin{itemize}
+  \item \textbf{Pool P532} (legacy train and validation, 478 + 54 cells). All development, the five-fold cross-validation (CV5) and
+    the full-pool training of the final models use these cells only.
+  \item \textbf{test50} (the legacy test split; 50 cells from 48 image ids). The cells were hand-picked: 48 hold crack under v1 (46
+    under v1.1, Section~\ref{sec:data-labels}) and 16 hold inactive area, and 3 cells hold 59\% of the inactive pixels. The set is sealed. It was scored in every experiment before 24 Oct
+    2026 without being counted, and opened 19 counted times from 24 Oct to 21 Nov 2026, the last time for a public table that
+    decides nothing. Section~\ref{sec:data-split} shows that test50 overlaps the pool, so every test50 number in this thesis is an
+    in-distribution number with known leakage and serves as context only.
+  \item \textbf{E1} (106 cells of release 20221008 that are neither among the 582 cells nor in the unlabelled pool). The cells come
+    from 71 image ids, 66 CSIR and 5 BMRK; 101 of the 106 cells are CSIR. 62 cells are half-cut cells, a layout that the pool does not
+    contain at all; 44 are full cells. Crack is labelled in 32 cells and inactive area in 10. E1 is our test of unseen modules
+    (supported, not proven; Section~\ref{sec:data-split}). It decided the final evaluation (Chapter~\ref{ch:e1_result}); afterwards it
+    served as training and test data of the few-shot track (Chapter~\ref{ch:t3b}), so no zero-shot claim on E1 is made after that
+    use. Its strata in cells and clusters are full 44 / 24, half-cut 62 / 47, crack 32 / 21 and crack-free 74 / 55.
+  \item \textbf{Forbidden stems}. No training list may contain any of 167 stems: the 50 legacy test cells and the 117 cells first
+    listed for E1 from release 20221008 (E1 is the 106 of them that are not in the unlabelled pool).
+  \item \textbf{Other sets.} Of the 117 cells newly annotated in E-SCDD, 51 full cells and 36 half cells served as development
+    validation sets only.
+    The unlabelled pool of 11,938 CSIR and ARTS crops served the semi-supervised work of Chapter~\ref{ch:legacy}.
+\end{itemize}
+
+Sealing means that no development step reads a label or a prediction of a test50 or E1 cell; the duplicate search of
+Section~\ref{sec:data-split} reads sealed images as pixels only and writes pair lists. On terms of use: BenchmarkEL has no licence
+file, and the BMRK cells are ELPV images under CC BY-NC-SA 4.0, so every model trained on the pool is research-only as trained
+(Chapter~\ref{ch:protocol}).
+
+\FIG{F4}{Cell sets and splits (counts as in Table~\ref{tab:T1}). The pool P532 is split twice: cv5v2 (2-seed screens, 330 groups,
+with a module leak of 24 modules, 91 cells) and cv5v3 (5-seed rows, 285 groups, none spans folds; the 416 clean cells are read beside
+all 532); bars give held-out fold sizes. Sealed: E1 (106 cells, 71 image-id clusters, 101 CSIR, 62 half-cut) and test50 (50 cells;
+in-distribution, known leakage, context only). The 167 forbidden stems may enter no training list.}
+
+\section{Label sets}\label{sec:data-labels}
+
+Four label sets are in use (Table~\ref{tab:T3a}).
+\begin{itemize}
+  \item \textbf{v0} is the 20211104 release as published, values 0 to 23 and no ignore value. It is the label set of the published
+    test50 numbers \citep{pratt2023benchmark}; we use it only for the test50 public table.
+  \item \textbf{v1} is the E-SCDD mask (577 cells) with classes $\geq$ 24 set back to the 20211104 label, plus the 20211104 mask for the 5
+    cells that E-SCDD lacks. The pre-protocol work (Chapter~\ref{ch:legacy}) trained and scored on v1 unless stated.
+  \item \textbf{v1.1} is v1 with every scuff or star pixel set to ignore (255) and one BMRK cell given back its 20220723 mask; in v1 that
+    cell carried the mask of another cell. Ignore pixels are not scored. v1.1 is the training and scoring label set of every CV5 read
+    and of both full-pool models.
+  \item \textbf{The E1 set} is the release 20221008 masks with class 24 (sp mono of the newer releases) mapped to 2 and classes 25 to 28
+    (scuff, corrosion cell, brightening, star) mapped to ignore. E1 labels are about 1.5 $\times$ wider than the pool labels.
+\end{itemize}
+
+The change from v1 to v1.1 is small (Table~\ref{tab:T3b}): 16 of 478 train cells change, with 3,484 px set to ignore (3,246 scuff,
+238 star); no validation cell changes; 2 test cells change, with 236 px. Train crack cells go from 209 to 206; inactive labels are
+untouched. The reason for the change was that v1 labels scuff streaks as crack on 649 px in 6 train cells, and scuff streaks are a
+confounder on the half-cut cells of E1. A cell counts as crack-free under the scoring label set; on v1.1 that is 303 of 532
+pool cells and 226 of 416 clean cells.
+
+The label set matters at scoring time, not at training time (Table~\ref{tab:T3c}). Training PF on v1 instead of v1.1 (two seeds,
+both scored on v1.1) gives relF1@2 $-0.0014$ $[-0.0099, +0.0064]$, strict crack IoU $+0.0004$ $[-0.0058, +0.0069]$, inactive IoU
+$-0.0140$ $[-0.0690, +0.0362]$ and mIoU-R13 $-0.0020$ $[-0.0081, +0.0038]$: no pooled metric changes by a measurable amount at two
+seeds. Scoring is a different matter. Between the 20211104 release and v1.1, 169 of the 532 pool cells change and the crack pixels
+grow from 260,084 to 307,546 (+18\%). The same 25 out-of-fold models score PF at strict crack IoU 0.320 against 0.365 (+0.045) and
+relF1@2 0.822 against 0.846 (+0.025); inactive is unchanged, and contrasts between arms move by at most 0.008, with no pass changed.
+The models were trained on v1.1, which favours v1.1. For scale, the C2 recipe of this thesis gains $+0.0222$ relF1@2 over PF on CV5
+(selection-biased; Table~\ref{tab:T7a}), less than the release shift. Our reading is that a published crack level means little
+unless its release and label set are stated.
+
+\section{Module identity and split integrity}\label{sec:data-split}
+
+Cells of one physical module share grain patterns, and neighbouring crops of one module image share area, so a cell can be
+predicted well because its module was trained on. The first five-fold split, cv5v2, grouped the pool into 330 module groups. An audit of physical-module identity over all 700 image ids on disk (pool,
+sealed and unlabelled) tested this grouping. It used two kinds of evidence. On ARTS images, the printed serial numbers were compared
+as text strips. For all sources, a masked local-feature matcher (SIFT keypoints with a RANSAC similarity fit) linked two image ids when a cell pair
+matched under a whole-cell grid shift with enough inliers. The thresholds were written down before the full run and set on a
+calibration subset, so their error rates are in-sample. In the full run, 20 of 20 same-serial pairs were also matched by pixels
+and 0 of 2,906 different-serial pairs were. The 700 image ids form 561 physical modules under the rule we use (527
+under the rule fixed in advance, which over-links some image ids that hold only unlabelled crops). Our rule was chosen after the
+full run, but it changes nothing for pool or sealed cells. For BMRK and SDLE, which have one image id per cell, module identity
+cannot be decided.
+
+\paragraph{The cv5v2 leak.} 24 physical modules span two cv5v2 folds. Their 91 pool cells (ARTS 48, CFVS 32, CSIR 11; 22.7\% of
+the crack pixels) are held out while a cell of the same module trains: for 4 of them the same physical cell, for 38 a neighbouring
+crop, for 49 the same module without shared area (Table~\ref{tab:T2}). These cells score higher than comparable cells: within the
+same source and cell type, the affected cells exceed the unaffected ones by $+0.072$ crack IoU and $+0.059$ relF1@2. The
+comparison is descriptive, not causal. The affected modules were imaged several times and many carry large stress-test cracks, and
+the gap does not grow with closeness: cells whose neighbouring crop trains score lowest, which a pure leak would not produce. If
+the whole gap were leakage, the 532-cell headline would be too high by about 0.016 crack IoU and 0.013 relF1@2. Scoring without
+the 91 cells lowers PF from 0.365 to 0.347 strict crack IoU and from 0.844 to 0.826 relF1@2, and no contrast changes sign.
+
+\paragraph{The corrected split cv5v3.} We regrouped the pool before any five-seed run: cv5v2 groups, the physical modules of the
+audit, four open image-id pairs, earlier links and the SDLE modules named in the file stems give 285 groups, none of which spans
+folds. 47 cells move; the held-out folds hold 107, 110, 103, 101 and 111 cells. BMRK cells stay grouped by image id, a stated limit,
+and SDLE cells are held out in folds 0, 2 and 4 only. Every cv5v3 read is printed on all 532 cells and on the 416 \emph{clean}
+cells: 116 cells are excluded (the 91 affected cells, the 8 cells of the open pairs and the 17 SDLE cells), and the 416 keep their
+fold in both splits.
+
+\paragraph{The leakage read.} A difference-in-differences read, registered before any cv5v3 run, compared the change of the pooled
+score from cv5v2 to cv5v3 on the 69 excluded (non-clean) cells that kept their fold with the same change on the 416 clean cells. For PF at five seeds it
+gives $-0.0041$ $[-0.0136, +0.0069]$ strict crack IoU and $+0.0026$ $[-0.0092, +0.0174]$ relF1@2. Every interval of both arms (PF
+and HOUSE) and both strata holds 0, so by the registered rule the leak is \emph{not separated}. A leak of the size that the module audit
+allowed as an upper bound ($+0.07$ crack IoU on the affected cells) lies outside the PF intervals; by the registered rule this is
+a description of the intervals, not a conclusion. Inside the pool, 61 images also overlap a pool image of the adjacent
+position of the same module (35 pairs, 16\% of the crack pixels), so parts of one crack are scored twice; both images sit in one
+cv5v3 group, so this is no fold leak.
+
+\paragraph{The sealed sets.} No E1 image id is linked to any other image id, and the largest inlier count between an E1 cell and a
+pool cell is 7, which is noise level. The test covers about a third of the image-id pairs: the half-cut E1 modules have no layout
+counterpart in the pool, and BMRK identity cannot be tested. ``Unseen modules'' is therefore supported by the pixels on disk, not
+proven. test50 is in a different position. 8 test cells are the same physical cell as a pool cell (7 confirmed by pixels, 1 resting
+on the earlier cell-table link only, neither confirmed nor refuted), 7 more are neighbouring crops of pool cells, and 19 share a
+module with pool cells without shared area; only 16 test cells lie in image ids without any link. test50 numbers are
+in-distribution numbers with known leakage and are used as context only.
+
+\section{Strict crack IoU measures the line-width convention}\label{sec:data-f1}
+
+Crack labels are lines of 1 to 2 px drawn on a dark line about 4 px wide (Chapter~\ref{ch:background}). The audit measured what
+this does to strict crack IoU (fault F1 in Table~\ref{tab:T19a}). Against itself, a crack label scores IoU 0.483 when shifted by
+1 px, 0.249 when shifted by 2 px, 0.465 when reduced to its centreline and 0.605 when redrawn 3 px wide, pooled over the 229 crack
+cells; relF1@2 is 1.0 in every case. We then re-scored the same stored predictions of the 25 models against three versions of the
+same crack labels: the 1-px centreline of v1.1, v1.1 itself, and the centreline drawn 3 px wide. PF scores strict crack IoU 0.233,
+0.365 and 0.414, while relF1@2 stays at 0.824, 0.846 and 0.849.
+
+The convention also moves contrasts between arms (Table~\ref{tab:T19b}, Figure~\ref{fig:F5}). HOUSE minus PF in strict crack IoU is $+0.0179$ and
+passes on v1.1, falls to $+0.0015$ without a pass on centreline labels and rises to $+0.0367$ on 3-px labels. SWADBN minus PF behaves
+the same way: $+0.0180$ (pass), $+0.0047$ (no pass), $+0.0342$. HRNET minus PF changes sign in strict IoU, from $+0.0008$ on v1.1 to
+$-0.0109$ on 3-px labels. relF1@2 contrasts move by at most 0.0031 under every variant, but one of them changes its verdict: HRNET
+minus PF falls from $+0.0104$ (pass) to $+0.0073$ (no pass) on 3-px labels. C3X minus PF passes under all four variants. The
+\emph{convention band} of $\pm$0.019, the largest shift of a strict-IoU contrast under the three conventions, comes from this
+re-scoring; the protocol prints strict crack IoU only with this band and lets it decide nothing (Table~\ref{tab:T4}). The variants
+are synthetic conventions, not a second annotator, and the 3-px variant applies BMRK's convention everywhere. We read the
+strict-IoU gains of the arms that draw wider cracks (HOUSE and the weight-averaged arms) as convention effects, and relF1@2 as the
+crack metric that should decide.
+
+\FIG{F5}{Strict crack IoU and relF1@2 under four crack label conventions: the same predictions (25 out-of-fold cv5v3 models, 532 pool
+cells, argmax) scored on the 1~px centreline, the 20211104 release, v1.1 and labels redrawn 3~px wide. (a) PF levels. (b, c) HOUSE,
+HRNET, SWADBN and COMBO (C3X) against PF in strict crack IoU and in relF1@2, with 95\% two-stage group-bootstrap intervals; dashed
+line M = 0.010. Across conventions the strict-IoU contrasts shift by up to 0.019, the relF1@2 contrasts by at most 0.0031.}
+
+\section{Other faults of the pool}\label{sec:data-other}
+
+\paragraph{The images are windows (F3).} ARTS, CFVS and CSIR images show one centre cell, 25 to 30\% of the non-padding pixels, plus
+parts of the eight neighbouring cells, and the labels cover the whole window; BMRK and SDLE images are single cells with 75\%
+padding. 57\% of the v1.1 crack pixels and 71\% of the inactive pixels lie outside the centre cell (Figure~\ref{fig:F3}). 117 of the 229 ``crack cells''
+have no crack pixel in their centre cell, and 28 of the 48 ``inactive cells'' have no inactive pixel there. Defects on the
+neighbour parts are harder: the 25 models recall 0.794 of crack pixels within 2 px outside the centre cell against 0.844 inside.
+The centre-cell geometry was defined after the first numbers and checked by eye on 7 images. We keep the image window as the
+scoring unit, so ``cell'' in every cell-level quantity of this thesis (crack-free cells, inactive area, severity) means the window.
+
+\FIG{F3}{Pool images are windows of about 3 $\times$ 3 cells. (a to c) One pool cell each from ARTS, CFVS and CSIR, chosen by a fixed
+rule, with the v1.1 crack label and the centre cell found by the audit's rule (dashed box). (d) Share of v1.1 crack and inactive pixels
+outside the centre cell, per source and over all 532 pool cells (ALL includes the single-cell BMRK and SDLE images, whose shares are 0).}
+
+\paragraph{One double annotation (F2).} The release contains one image annotated twice (a CFVS cell, identical pixels, both copies in
+the pool). Mask against mask, strict crack IoU is 0.259 and relF1@2 0.829, below PF against the label (0.365 and 0.846) and the
+25-model vote (0.398 and 0.868). Two images of the same physical cell without crack growth give strict IoU 0.16 to 0.37 and a
+tolerant F1 at 2 px of 0.77 to 0.95. Most residual error is shared by the models: 63\% of each model's missed crack pixels are missed within 2 px
+by at least 20 of the 25 models, and only 7\% by 5 or fewer. With one double annotation from one source, we treat this as a
+suggestion that crack labels limit what can be measured, not as an estimate of a ceiling; shared misses also include blind spots
+common to all models.
+
+\paragraph{Inactive labels (F4).} Spurious-inactive candidates, labelled regions that almost no model predicts as inactive, cover
+63 regions in 18 cells, 31,039 px or 10.9\% of the inactive pixels; ignoring them would raise PF inactive IoU from 0.504 to 0.574.
+Most of these candidates are not label noise: in a blind check by AI raters (below), 30 of 40 were judged model errors and 5 of 40 label
+errors, while 5 of 6 missed-inactive candidates were judged label errors. Inactive pixels sit in 33 of the 285 groups, an effective
+number (Kish) of 12.9 groups, and every inactive contrast so far has an interval of about $\pm$0.05 to $\pm$0.06 (audit estimate). Conventions also
+differ: 26 of 47 inactive cells have cracks drawn inside the inactive area. We report inactive results on the labels as they are,
+with region counts and five seeds.
+
+\paragraph{Crack label errors (F5).} Consensus candidates for missed cracks (found by at least 20 of the 25 models, more than 2 px
+from any label) cover 128 segments in 42 cells, 5,436 px or 1.8\% of the crack pixels; candidates for spurious crack labels cover
+53 components in 28 cells, 7,567 px or 2.5\%. A pre-registered check had three AI raters (three runs of one multimodal model,
+calibrated on 60 planted items, each with sensitivity 29/30 and specificity 30/30) rate the 78 image-supported crack candidates
+blind (examples in Figure~\ref{fig:F7}). 18 of 78 were called label errors; corrected for rater error the share is 0.244 $[0.105, 0.436]$, and most of the rest were
+ambiguous at this resolution. Label errors exist, and they are a minority of the image-supported candidates. Ignoring every
+candidate pixel raises PF relF1@2 from 0.846 to 0.864, but no contrast moves by more than 0.003. The detector finds only errors the
+models do not share, and its recall is unknown. The raters are runs of one model, so the check measures consistency, not
+independent human reliability. Related approaches estimate label errors from model confidence \citep{northcutt2021confident} or detect them per
+connected component in segmentation \citep{rottmann2023labelerrors}.
+
+\FIG{F7}{Six label-error candidates on pool cells, crack on the left and inactive on the right, one per class and majority verdict of
+the three AI raters (rows: label error, model error, ambiguous; the largest candidate of each group). Each shows the image window, the
+v1.1 label and the out-of-fold vote of at least 13 of the 25 cv5v3 models; the dashed box is the candidate region. The raters are runs
+of one model: consistency, not independent reliability.}
+
+\paragraph{Source conventions (F7, F8).} Pooled crack label width, in pixels per centreline pixel, is ARTS 1.59, CFVS 2.06, CSIR 2.25 and
+BMRK 3.09; the source explains 29.6\% of the variance of per-cell width (Figure~\ref{fig:F6}). In every source the label is about half as wide as the
+visible dark line. 10 of the 24 classes occur in one source only (splice only in ARTS, corrosion only in SDLE), so per-class IoU of
+these classes measures recognition of the source. The source can also be recognised from global image statistics: a simple source
+classifier reaches balanced accuracy 0.94 (chance 0.20), and 0.85 from an 8-bin power spectrum alone. This shows that a shortcut is
+available, not that a model uses it. Together these findings motivate the per-source width guard of the protocol.
+
+\FIG{F6}{Crack label width per source on the pool (v1.1), in label pixels per centreline pixel: one value per cell for the 207 cells
+with at least 50 centreline pixels. Boxes show the quartiles, whiskers reach 1.5 $\times$ IQR, circles are cells beyond them; SDLE (2
+cells) is drawn as points. Source explains 29.6\% of the variance of per-cell width.}
+
+\paragraph{Few groups carry the crack contrasts (F9).} Crack pixels lie in 125 of the 285 groups, an effective number of 24.1
+groups. Removing whole groups greedily, HOUSE minus PF (relF1@2 $+0.0059$) reaches 0 after 4 groups; HRNET minus PF ($+0.0104$) falls
+below the margin after 1 group and reaches 0 after 17; SWADBN minus PF reaches 0 after 24 and C3X minus PF after 31
+(Table~\ref{tab:T19b}). Greedy removal is a worst case, not a sampling distribution; the bootstrap interval is the latter.
+
+\paragraph{Image faults and duplicates (F10, F11).} 2 pool images have a noise sigma above 10, 109 of 532
+show an 8 $\times$ 8 block grid from earlier JPEG compression, and 19 CSIR images are under-exposed. A perceptual-hash search found
+41 near-identical image pairs across groups, all ARTS or CSIR look-alikes at the same grid position, and no new leak; checks for
+near-duplicates between training and test data are standard practice in benchmark audits \citep{barz2020cifair}.
+
+\section{What the audit means for the benchmark}\label{sec:data-consequences}
+
+Absolute levels on this dataset move by 0.02 to 0.18 with the label release, the line-width convention and the label errors, while
+the relF1@2 contrasts between recipes move by at most about 0.003 under the same changes. We draw five consequences, which
+Chapter~\ref{ch:protocol} makes into rules.
+\begin{enumerate}
+  \item No absolute crack or inactive level from this dataset should be compared with a level from another dataset or release; a
+    level states its release, label set and split.
+  \item relF1@2 decides crack contrasts; strict crack IoU is printed with its convention band and decides nothing.
+  \item Development uses the module-grouped split cv5v3 and prints the 416 clean cells beside the 532; E1 is the unseen-module test
+    (supported, not proven), and test50 is in-distribution with known leakage, context only.
+  \item Width is guarded per source, because label width is a source convention; per-class IoU of one-source classes is read as
+    source recognition.
+  \item A cell-level quantity describes the image window. Inactive claims need region counts and five seeds, and a crack gain
+    reports which module groups carry it.
+\end{enumerate}
+What the audit could not settle needs new data or labour: a second, independent annotation of a few dozen pool cells would turn
+the double-annotation finding into a measured ceiling, and planting known errors would measure the recall of the label-error
+detector.

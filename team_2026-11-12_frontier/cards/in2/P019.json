@@ -1,0 +1,45 @@
+{
+ "paper_id": "arxiv:2103.03451",
+ "title": "Study Group Learning: Improving Retinal Vessel Segmentation Trained with Noisy Labels",
+ "year": 2021,
+ "venue": "MICCAI",
+ "url": "https://arxiv.org/abs/2103.03451",
+ "code_url": "https://github.com/SHI-Labs/SGL-Retinal-Vessel-Segmentation",
+ "mechanism": "Uses K-fold study groups: each model predicts the fold it did not train on, and these out-of-fold predictions refine the labels, which are then distilled into the final model. Training also simulates erased thin vessels.",
+ "adaptation": "Reuse the existing module-grouped 5-fold roots over the 532 train+val cells. The out-of-fold ensemble gives soft crack targets max(label, OOF p), restricted to the dark-ridge mask so the model does not learn scuff or gridline. Short crack segments are randomly erased from the labels as augmentation, which teaches robustness to missing annotations. Distil into PF.",
+ "min_experiment": "Arm: OOF soft targets from 5 fold models (5 x 1.1 GPU-h), then PF retrain with 5 seeds. Baseline: PF, 5 seeds. Metrics: relR@2 at equal relP@2, component recall, crack IoU. Kill if relR@2 rises by less than 0.015 at equal relP@2.",
+ "score": 72,
+ "bench_score": 45,
+ "bet": "safe",
+ "targets": [
+  "crack",
+  "inactive"
+ ],
+ "evidence": "R (from web abstract): improves vessel segmentation on DRIVE and CHASE_DB1, mainly when labels are noisy; small datasets (tens of images); thin structures. Verified through WebSearch only; Research MCP was down.",
+ "gpu_hours": 14,
+ "prior_overlap": "none. Pseudo-label SSL (section 5) used unlabelled pool cells; it did not refine labels on the labelled cells with out-of-fold predictions.",
+ "directions": [
+  "D15"
+ ],
+ "scout_scores": [
+  72,
+  72
+ ],
+ "alt_notes": [
+  {
+   "from": "D15",
+   "adaptation": "Use the existing module-grouped 5-fold roots over 532 train+val cells; fold models emit out-of-fold soft crack/inactive maps; final U-Net++ trained on 0.5 hard + 0.5 soft targets. Also distils part of the 5-seed ensemble gain into one model.",
+   "min_experiment": "Arm: SGL distillation single model. Baseline: house single model and house 5-seed ensemble. Metric: clean-49 crack IoU, relF1@2, inactive IoU. Kill if single-model crack IoU gain < +0.008. About 12 GPU-h.",
+   "score": 72
+  }
+ ],
+ "final": 72,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 19,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P019"
+}

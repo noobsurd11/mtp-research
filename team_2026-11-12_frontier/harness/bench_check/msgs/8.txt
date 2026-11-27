@@ -1,0 +1,11 @@
+elbench: cv5v2 sets, bench_infer queue token, chain (train then dump) and setup scripts
+
+sets.py: cv5v2_f<k> = held-out list of bench_data/roots/cv5v2_v11_f<k> (md5 pinned to cv5v2.json), GT = v1.1 masks
++ ignore. bench_infer.py: --bench-run NAME (verify token; prints 'BENCH_START: run=NAME' first). bench/q/bench_chain.sh:
+bench_q.sh on Q, then (after its end line) its own logger + guard and bench_q.sh on Q/dump, whose jobs are bench_infer
+commands, so dumps pass the same gate, MAXC, PID record and live check. bench/q/bench_setup.sh: arms a prepared queue
+dir in a new tmux session (gm, guard, q = chain); refuses if the session exists, the dir is armed or used, md5s or HEAD
+differ, or an experiments dir exists. Tests: cv5v2 sets, BENCH_START line.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01Wi4ZqFN13pWYd2FWeXAPNX

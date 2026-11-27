@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2501.12860",
+ "title": "CrossDiff: Diffusion Probabilistic Model With Cross-conditional Encoder-Decoder for Crack Segmentation",
+ "year": 2025,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2501.12860",
+ "code_url": "",
+ "mechanism": "Diffusion probabilistic crack segmenter with a cross-encoder (detail) and cross-decoder (semantics).",
+ "evidence": "R: five crack sets (CFD, CrackTree200, DeepCrack, GAPs384, Rissbilder), +8.0% Dice and IoU over SOTA.",
+ "adaptation": "Benchmark suite entry as the diffusion crack baseline: 1-ch input, 512 px, crack-only head or 24-class head; not a refiner.",
+ "min_experiment": "Arm: CrossDiff reimplementation, 3 seeds. Baseline: house 5-seed. Metric: crack IoU, relF1@2. Kill: below house on both.",
+ "score": 25,
+ "bench_score": 45,
+ "bet": "medium",
+ "gpu_hours": 20,
+ "targets": [
+  "crack",
+  "benchmark"
+ ],
+ "prior_overlap": "none",
+ "directions": [
+  "D26"
+ ],
+ "scout_scores": [
+  25
+ ],
+ "final": 25,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 558,
+ "pid": "P558"
+}

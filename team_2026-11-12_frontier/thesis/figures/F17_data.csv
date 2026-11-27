@@ -1,0 +1,11 @@
+row,instrument,model,relF1@2,range over seeds (E1 only; not drawn),source
+1,"CV5 cv5v3, 532 pool cells","PF, 5 seeds, out of fold",0.8463,,results/final_tta_read/verdict.txt:222
+2,"CV5 cv5v3, 416 clean cells","PF, 5 seeds, out of fold",0.8264,,results/final_tta_read/verdict.txt:234
+3,"U2: unseen-module views (1,064)","PF W1-G, seeds 5 to 8",0.769,,results/stageB/U2U4_READ.md:17
+4,"U1: held-out CSIR, BMRK (164)","PF, seeds 5 to 8",0.733,,results/U1_READ.md:12
+5,"test50, all 50 cells","C1 (full-pool PF), 5 seeds",0.8905,,results/final_opening_read/verdict.txt:120
+6,"test50, nolink16 (16 cells)","C1 (full-pool PF), 5 seeds",0.8227,,results/final_opening_read/verdict.txt:130
+7,"E1, all 106 cells","C1 (full-pool PF), 5 seeds",0.4467,0.4387 to 0.4574,results/final_opening_read/read_e1/read.txt:6
+8,"E1, 44 full cells","C1 (full-pool PF), 5 seeds",0.4808,0.4543 to 0.5179,results/final_opening_read/read_e1/read.txt:78
+9,"E1, 62 half-cut cells","C1 (full-pool PF), 5 seeds",0.4312,0.4197 to 0.4368,results/final_opening_read/read_e1/read.txt:60
+10,"E1, all 106 cells, C2","C2 (final recipe), 5 seeds",0.4897,0.4656 to 0.5067,results/final_opening_read/read_e1/read.txt:7

@@ -1,0 +1,52 @@
+{
+ "paper_id": "doi:10.1051/epjpv/2026017",
+ "title": "Impact of cell cracks on performance of PV modules with current cell technologies",
+ "year": 2026,
+ "venue": "EPJ Photovoltaics",
+ "url": "https://doi.org/10.1051/epjpv/2026017",
+ "code_url": "",
+ "mechanism": "Correlates EL-measured crack length/count and busbar count with series resistance, shunt resistance and Pmax across full-cell PERC and half-cut TOPCon modules.",
+ "adaptation": "Severity track should grade by isolated/inactive area and be layout-aware (half-cut, busbar count) rather than by crack length; E1 half-cut cells need their own severity rules.",
+ "min_experiment": "No training arm: in the severity post-evaluation, compare crack-length vs isolated-area severity grades against any available power data; drop crack-length grading if it does not rank cells.",
+ "score": 12,
+ "bench_score": 60,
+ "bet": "safe",
+ "targets": [
+  "severity",
+  "benchmark"
+ ],
+ "evidence": "R: 230 mini-modules, 2 to 12 busbars; crack length/count not universal power-loss predictors; PERC moderate correlation at 200 W/m2 weakening at 1000 W/m2; TOPCon no meaningful correlation.",
+ "gpu_hours": 0,
+ "prior_overlap": "none",
+ "directions": [
+  "D04",
+  "D08",
+  "D44"
+ ],
+ "scout_scores": [
+  5,
+  12,
+  8
+ ],
+ "alt_notes": [
+  {
+   "from": "D04",
+   "adaptation": "Severity design: do not score severity from crack length; use isolated / inactive area as the severity driver.",
+   "min_experiment": "No training arm; shapes the severity metric choice.",
+   "score": 5
+  },
+  {
+   "from": "D44",
+   "adaptation": "Benchmark scoring rule: do not use crack length or count as the severity target. Score isolated or inactive area per cell instead, and keep crack detection (relF1@2) as a separate safety and progression metric.",
+   "min_experiment": "None. Design input for the severity track.",
+   "score": 8
+  }
+ ],
+ "final": 12,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 617,
+ "pid": "P617"
+}

@@ -1,0 +1,43 @@
+{
+ "paper_id": "doi:10.1109/tip.2025.3625380",
+ "title": "Crucial-Diff: A Unified Diffusion Model for Crucial Image and Annotation Synthesis in Data-Scarce Scenarios",
+ "year": 2025,
+ "venue": "IEEE TIP",
+ "url": "https://doi.org/10.1109/tip.2025.3625380",
+ "code_url": "https://github.com/JJessicaYao/Crucial-diff",
+ "mechanism": "A weakness-aware sample miner uses downstream model feedback to steer diffusion toward hard-to-detect samples, fused with a scene-agnostic feature extractor.",
+ "adaptation": "Feedback = house-model per-pixel loss on generated crack/inactive; hard targets are cracks under 2% contrast, BMRK inactive, CFVS cells without a train twin, half-cut scuff cells; combine with GDI canvases.",
+ "min_experiment": "Generator with loss feedback vs same generator unguided, matched count, on PF. Metric CV inactive IoU and test relR@2 on cracks < 2% contrast. Kill: < +0.01 over unguided.",
+ "evidence": "R: MVTec pixel AP 83.63, F1-max 78.12; polyp mIoU 81.64, mDice 87.69.",
+ "gpu_hours": 20,
+ "bet": "medium",
+ "targets": [
+  "inactive",
+  "crack"
+ ],
+ "prior_overlap": "none",
+ "score": 45,
+ "bench_score": 35,
+ "directions": [
+  "D33"
+ ],
+ "scout_scores": [
+  45,
+  45
+ ],
+ "alt_notes": [
+  {
+   "from": "D33",
+   "adaptation": "Feedback = house per-pixel loss; hard targets = cracks under 2% contrast, BMRK inactive, CFVS without twin, scuffed half-cut cells; pair with GDI canvases.",
+   "min_experiment": "Guided vs unguided generator at matched count. Metric CV inactive IoU, test relR@2 on low-contrast cracks. Kill: < +0.01. About 20 GPU-h.",
+   "score": 45
+  }
+ ],
+ "final": 45,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 297,
+ "pid": "P297"
+}

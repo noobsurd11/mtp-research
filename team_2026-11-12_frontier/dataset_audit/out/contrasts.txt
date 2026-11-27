@@ -1,0 +1,139 @@
+# contrasts.txt (dataset_audit, axes d, e, f). 532 pool cells, cv5v3 out-of-fold, argmax, 25 models (5 recipes x seeds 5-9).
+# two-stage group bootstrap: 285 cv5v3 groups, then one seed per fold per arm; B = 2000; rng 0. M = 0.010.
+
+## Levels (mean over 5 seeds of the pooled metric), per label variant
+variant | arm | strict crack IoU | relF1@2 | relP@2 | relR@2 | inactive IoU
+v11 | PF | 0.3653 | 0.8463 | 0.8953 | 0.8024 | 0.5042
+v11 | HOUSE | 0.3832 | 0.8522 | 0.8976 | 0.8112 | 0.5141
+v11 | HRNET | 0.3661 | 0.8567 | 0.8997 | 0.8176 | 0.5142
+v11 | SWADBN | 0.3834 | 0.8532 | 0.9039 | 0.8080 | 0.5196
+v11 | C3X | 0.3753 | 0.8617 | 0.9069 | 0.8209 | 0.5042
+v11 | CONS25 (>= 13 of 25 vote) | 0.3983 | 0.8682 | 0.9290 | 0.8149 | 0.5472
+old | PF | 0.3203 | 0.8217 | 0.8634 | 0.7838 | 0.5035
+old | HOUSE | 0.3306 | 0.8250 | 0.8604 | 0.7924 | 0.5137
+old | HRNET | 0.3231 | 0.8326 | 0.8690 | 0.7992 | 0.5134
+old | SWADBN | 0.3323 | 0.8267 | 0.8693 | 0.7881 | 0.5181
+old | C3X | 0.3289 | 0.8366 | 0.8752 | 0.8013 | 0.5042
+old | CONS25 (>= 13 of 25 vote) | 0.3473 | 0.8424 | 0.8959 | 0.7950 | 0.5471
+skel | PF | 0.2329 | 0.8243 | 0.8358 | 0.8132 | 0.5042
+skel | HOUSE | 0.2344 | 0.8279 | 0.8363 | 0.8197 | 0.5141
+skel | HRNET | 0.2361 | 0.8351 | 0.8416 | 0.8287 | 0.5142
+skel | SWADBN | 0.2376 | 0.8305 | 0.8443 | 0.8171 | 0.5196
+skel | C3X | 0.2393 | 0.8394 | 0.8484 | 0.8306 | 0.5042
+skel | CONS25 (>= 13 of 25 vote) | 0.2537 | 0.8498 | 0.8766 | 0.8245 | 0.5472
+w3 | PF | 0.4142 | 0.8488 | 0.9197 | 0.7881 | 0.5042
+w3 | HOUSE | 0.4508 | 0.8568 | 0.9230 | 0.7994 | 0.5141
+w3 | HRNET | 0.4033 | 0.8562 | 0.9210 | 0.7998 | 0.5142
+w3 | SWADBN | 0.4483 | 0.8571 | 0.9280 | 0.7963 | 0.5196
+w3 | C3X | 0.4212 | 0.8617 | 0.9280 | 0.8042 | 0.5042
+w3 | CONS25 (>= 13 of 25 vote) | 0.4472 | 0.8681 | 0.9466 | 0.8016 | 0.5472
+candign | PF | 0.3782 | 0.8641 | 0.9103 | 0.8223 | 0.5735
+candign | HOUSE | 0.3961 | 0.8694 | 0.9111 | 0.8314 | 0.5825
+candign | HRNET | 0.3789 | 0.8748 | 0.9152 | 0.8377 | 0.5860
+candign | SWADBN | 0.3970 | 0.8712 | 0.9186 | 0.8284 | 0.5879
+candign | C3X | 0.3887 | 0.8802 | 0.9227 | 0.8415 | 0.5704
+candign | CONS25 (>= 13 of 25 vote) | 0.4129 | 0.8874 | 0.9460 | 0.8356 | 0.6261
+
+## Contrasts X minus PF per label variant: point [95% CI]; PASS = delta >= M and low end > 0
+variant | contrast | strict crack IoU | relF1@2 | inactive IoU
+v11 | HOUSE-PF | +0.0179 [+0.0090, +0.0268] PASS | +0.0059 [-0.0050, +0.0161] - | +0.0099 [-0.0459, +0.0706] -
+v11 | HRNET-PF | +0.0008 [-0.0107, +0.0119] - | +0.0104 [+0.0010, +0.0209] PASS | +0.0100 [-0.0513, +0.0696] -
+v11 | SWADBN-PF | +0.0180 [+0.0107, +0.0267] PASS | +0.0070 [-0.0012, +0.0156] - | +0.0154 [-0.0431, +0.0658] -
+v11 | C3X-PF | +0.0099 [-0.0012, +0.0202] - | +0.0154 [+0.0061, +0.0256] PASS | -0.0001 [-0.0518, +0.0529] -
+old | HOUSE-PF | +0.0103 [+0.0013, +0.0196] PASS | +0.0033 [-0.0085, +0.0147] - | +0.0103 [-0.0453, +0.0706] -
+old | HRNET-PF | +0.0028 [-0.0078, +0.0127] - | +0.0109 [+0.0016, +0.0210] PASS | +0.0099 [-0.0509, +0.0691] -
+old | SWADBN-PF | +0.0119 [+0.0056, +0.0198] PASS | +0.0050 [-0.0038, +0.0147] - | +0.0146 [-0.0426, +0.0634] -
+old | C3X-PF | +0.0086 [-0.0021, +0.0176] - | +0.0149 [+0.0050, +0.0248] PASS | +0.0007 [-0.0507, +0.0541] -
+skel | HOUSE-PF | +0.0015 [-0.0040, +0.0071] - | +0.0036 [-0.0067, +0.0134] - | +0.0099 [-0.0459, +0.0706] -
+skel | HRNET-PF | +0.0032 [-0.0032, +0.0093] - | +0.0107 [+0.0016, +0.0212] PASS | +0.0100 [-0.0513, +0.0696] -
+skel | SWADBN-PF | +0.0047 [+0.0004, +0.0096] - | +0.0062 [-0.0016, +0.0146] - | +0.0154 [-0.0431, +0.0658] -
+skel | C3X-PF | +0.0065 [+0.0005, +0.0117] - | +0.0151 [+0.0062, +0.0251] PASS | -0.0001 [-0.0518, +0.0529] -
+w3 | HOUSE-PF | +0.0367 [+0.0234, +0.0506] PASS | +0.0079 [-0.0029, +0.0188] - | +0.0099 [-0.0459, +0.0706] -
+w3 | HRNET-PF | -0.0109 [-0.0240, +0.0020] - | +0.0073 [-0.0022, +0.0182] - | +0.0100 [-0.0513, +0.0696] -
+w3 | SWADBN-PF | +0.0342 [+0.0233, +0.0457] PASS | +0.0083 [-0.0000, +0.0172] - | +0.0154 [-0.0431, +0.0658] -
+w3 | C3X-PF | +0.0071 [-0.0066, +0.0200] - | +0.0128 [+0.0037, +0.0234] PASS | -0.0001 [-0.0518, +0.0529] -
+candign | HOUSE-PF | +0.0179 [+0.0088, +0.0271] PASS | +0.0053 [-0.0053, +0.0152] - | +0.0091 [-0.0562, +0.0786] -
+candign | HRNET-PF | +0.0007 [-0.0115, +0.0121] - | +0.0107 [+0.0014, +0.0209] PASS | +0.0125 [-0.0595, +0.0864] -
+candign | SWADBN-PF | +0.0188 [+0.0113, +0.0279] PASS | +0.0071 [-0.0011, +0.0158] - | +0.0144 [-0.0572, +0.0736] -
+candign | C3X-PF | +0.0104 [-0.0013, +0.0211] - | +0.0161 [+0.0068, +0.0263] PASS | -0.0031 [-0.0699, +0.0595] -
+
+## Sensitivity of each contrast to the label variant (point shift against v11; flag if |shift| >= 0.005 or PASS changes)
+HOUSE-PF | old | iou | shift -0.0076 | pass True->True | sign change False | FLAG
+HOUSE-PF | old | relF1 | shift -0.0026 | pass False->False | sign change False | ok
+HOUSE-PF | old | iiou | shift +0.0004 | pass False->False | sign change False | ok
+HOUSE-PF | skel | iou | shift -0.0164 | pass True->False | sign change False | FLAG
+HOUSE-PF | skel | relF1 | shift -0.0023 | pass False->False | sign change False | ok
+HOUSE-PF | skel | iiou | shift +0.0000 | pass False->False | sign change False | ok
+HOUSE-PF | w3 | iou | shift +0.0188 | pass True->True | sign change False | FLAG
+HOUSE-PF | w3 | relF1 | shift +0.0020 | pass False->False | sign change False | ok
+HOUSE-PF | w3 | iiou | shift +0.0000 | pass False->False | sign change False | ok
+HOUSE-PF | candign | iou | shift +0.0000 | pass True->True | sign change False | ok
+HOUSE-PF | candign | relF1 | shift -0.0006 | pass False->False | sign change False | ok
+HOUSE-PF | candign | iiou | shift -0.0008 | pass False->False | sign change False | ok
+HRNET-PF | old | iou | shift +0.0020 | pass False->False | sign change False | ok
+HRNET-PF | old | relF1 | shift +0.0005 | pass True->True | sign change False | ok
+HRNET-PF | old | iiou | shift -0.0001 | pass False->False | sign change False | ok
+HRNET-PF | skel | iou | shift +0.0024 | pass False->False | sign change False | ok
+HRNET-PF | skel | relF1 | shift +0.0004 | pass True->True | sign change False | ok
+HRNET-PF | skel | iiou | shift +0.0000 | pass False->False | sign change False | ok
+HRNET-PF | w3 | iou | shift -0.0117 | pass False->False | sign change True | FLAG
+HRNET-PF | w3 | relF1 | shift -0.0031 | pass True->False | sign change False | FLAG
+HRNET-PF | w3 | iiou | shift +0.0000 | pass False->False | sign change False | ok
+HRNET-PF | candign | iou | shift -0.0001 | pass False->False | sign change False | ok
+HRNET-PF | candign | relF1 | shift +0.0003 | pass True->True | sign change False | ok
+HRNET-PF | candign | iiou | shift +0.0025 | pass False->False | sign change False | ok
+SWADBN-PF | old | iou | shift -0.0061 | pass True->True | sign change False | FLAG
+SWADBN-PF | old | relF1 | shift -0.0020 | pass False->False | sign change False | ok
+SWADBN-PF | old | iiou | shift -0.0008 | pass False->False | sign change False | ok
+SWADBN-PF | skel | iou | shift -0.0134 | pass True->False | sign change False | FLAG
+SWADBN-PF | skel | relF1 | shift -0.0008 | pass False->False | sign change False | ok
+SWADBN-PF | skel | iiou | shift +0.0000 | pass False->False | sign change False | ok
+SWADBN-PF | w3 | iou | shift +0.0161 | pass True->True | sign change False | FLAG
+SWADBN-PF | w3 | relF1 | shift +0.0013 | pass False->False | sign change False | ok
+SWADBN-PF | w3 | iiou | shift +0.0000 | pass False->False | sign change False | ok
+SWADBN-PF | candign | iou | shift +0.0007 | pass True->True | sign change False | ok
+SWADBN-PF | candign | relF1 | shift +0.0001 | pass False->False | sign change False | ok
+SWADBN-PF | candign | iiou | shift -0.0010 | pass False->False | sign change False | ok
+C3X-PF | old | iou | shift -0.0014 | pass False->False | sign change False | ok
+C3X-PF | old | relF1 | shift -0.0005 | pass True->True | sign change False | ok
+C3X-PF | old | iiou | shift +0.0008 | pass False->False | sign change True | ok
+C3X-PF | skel | iou | shift -0.0035 | pass False->False | sign change False | ok
+C3X-PF | skel | relF1 | shift -0.0003 | pass True->True | sign change False | ok
+C3X-PF | skel | iiou | shift +0.0000 | pass False->False | sign change False | ok
+C3X-PF | w3 | iou | shift -0.0029 | pass False->False | sign change False | ok
+C3X-PF | w3 | relF1 | shift -0.0026 | pass True->True | sign change False | ok
+C3X-PF | w3 | iiou | shift +0.0000 | pass False->False | sign change False | ok
+C3X-PF | candign | iou | shift +0.0005 | pass False->False | sign change False | ok
+C3X-PF | candign | relF1 | shift +0.0007 | pass True->True | sign change False | ok
+C3X-PF | candign | iiou | shift -0.0030 | pass False->False | sign change False | ok
+
+## Fragility on v11 (greedy removal of whole cv5v3 groups; k_M = groups until delta < M, k_0 = until delta <= 0)
+HOUSE-PF relF1: delta +0.0059; k_M 1; k_0 4; first groups: CFVS_00146 (+0.0032), CFVS_00009 (+0.0010), CFVS_00114 (+0.0002), CFVS_00132 (-0.0006)
+HOUSE-PF iou: delta +0.0179; k_M 9; k_0 29; first groups: CFVS_00146 (+0.0160), CFVS_00009 (+0.0144), CFVS_00017 (+0.0135), CFVS_00114 (+0.0126), CFVS_00181 (+0.0120), BMRK_00106 (+0.0114)
+HRNET-PF relF1: delta +0.0104; k_M 1; k_0 17; first groups: CFVS_00139 (+0.0086), CFVS_00017 (+0.0077), CFVS_00146 (+0.0067), BMRK_00106 (+0.0059), ARTS_00005 (+0.0052), CFVS_00009 (+0.0046)
+HRNET-PF iou: delta +0.0008; k_M 1; k_0 1; first groups: CFVS_00139 (-0.0010)
+SWADBN-PF relF1: delta +0.0070; k_M 1; k_0 24; first groups: ARTS_00005 (+0.0062), CFVS_00009 (+0.0057), CSIR_00086 (+0.0052), BMRK_00106 (+0.0049), CSIR_00055 (+0.0045), CFVS_00125 (+0.0042)
+SWADBN-PF iou: delta +0.0180; k_M 31; k_0 None; first groups: CFVS_00180 (+0.0176), CSIR_00086 (+0.0172), ARTS_00005 (+0.0168), CFVS_00139 (+0.0164), CFVS_00114 (+0.0161), CFVS_00009 (+0.0158)
+C3X-PF relF1: delta +0.0154; k_M 5; k_0 31; first groups: CFVS_00139 (+0.0140), CFVS_00009 (+0.0127), ARTS_00005 (+0.0115), CFVS_00017 (+0.0103), BMRK_00106 (+0.0094), CFVS_00181 (+0.0088)
+C3X-PF iou: delta +0.0099; k_M 1; k_0 11; first groups: CFVS_00139 (+0.0084), CFVS_00009 (+0.0073), CFVS_00017 (+0.0061), CFVS_00132 (+0.0048), ARTS_00005 (+0.0038), CFVS_00181 (+0.0029)
+
+## Effective sample size over cv5v3 groups (Kish n_eff = (sum w)^2 / sum w^2)
+groups: 285
+crack_groups: 125
+crack_cells: 229
+crack_neff: 24.144
+inact_groups: 33
+inact_cells: 48
+inact_neff: 12.909
+crack_top5_share: 0.372
+inact_top3_share: 0.388
+inact_top5_share: 0.539
+
+## Error decomposition (v11): each model's missed GT crack px (relR@2) and false crack px (relP@2), by how many of the 25
+## models make the same call within 2 px. 'systematic' = >= 20 of 25 agree on the error, 'variable' = 6..19, 'own' = <= 5.
+PF: missed px/model 60783: systematic 0.605, variable 0.313, own 0.082, in candidates 0.128 | false px/model 32814: systematic 0.662, variable 0.266, own 0.072, in candidates 0.166 | inactive missed systematic 0.699, false systematic 0.471
+HOUSE: missed px/model 58077: systematic 0.612, variable 0.293, own 0.096, in candidates 0.133 | false px/model 35686: systematic 0.646, variable 0.253, own 0.101, in candidates 0.152 | inactive missed systematic 0.714, false systematic 0.437
+HRNET: missed px/model 56100: systematic 0.638, variable 0.283, own 0.079, in candidates 0.138 | false px/model 29933: systematic 0.644, variable 0.269, own 0.087, in candidates 0.177 | inactive missed systematic 0.708, false systematic 0.488
+SWADBN: missed px/model 59047: systematic 0.633, variable 0.322, own 0.045, in candidates 0.132 | false px/model 32626: systematic 0.734, variable 0.230, own 0.036, in candidates 0.174 | inactive missed systematic 0.804, false systematic 0.357
+C3X: missed px/model 55090: systematic 0.666, variable 0.283, own 0.051, in candidates 0.142 | false px/model 28917: systematic 0.702, variable 0.249, own 0.048, in candidates 0.191 | inactive missed systematic 0.769, false systematic 0.354
+ALL: missed px/model 57819: systematic 0.630, variable 0.299, own 0.071, in candidates 0.135 | false px/model 31995: systematic 0.677, variable 0.253, own 0.070, in candidates 0.171 | inactive missed systematic 0.737, false systematic 0.412

@@ -1,0 +1,47 @@
+PASS A screen as it is
+     -> CONFIRMED, CARRIED BY THE DECLARED SECONDARY READOUT swad: swad_bn passes the headline and every failing guard item of swad_bn is a per-source width (width_source src:ARTS OP-A 532 cells; width_source src:ARTS OP-A 416 clean cells); swad passes the headline at both operating points and every guard on both cell sets.
+PASS B only failing item: per-source width at OP-W (ARTS, clean cells)
+     -> CONFIRMED, CARRIED BY THE DECLARED SECONDARY READOUT swad: swad_bn passes the headline and every failing guard item of swad_bn is a per-source width (width_source src:ARTS OP-W 416 clean cells); swad passes the headline at both operating points and every guard on both cell sets.
+PASS C pooled width fails
+     -> NOT CONFIRMED, reported as a gain with the failing guards named: swad_bn passes the headline; failing guard items of swad_bn: width_pooled all OP-A 532 cells. No carry by swad: a failing guard item of swad_bn is not a per-source width.
+PASS D everything passes
+     -> CONFIRMED: the primary readout swad_bn passes the headline at both operating points and every guard.
+PASS E headline: delta below M (OP-W, clean cells)
+     -> NOT CONFIRMED (no confirmed gain): the primary readout swad_bn does not pass the headline.
+PASS F headline: lower end not above 0 (OP-A, 532 cells)
+     -> NOT CONFIRMED (no confirmed gain): the primary readout swad_bn does not pass the headline.
+PASS G carry possible, swad fails the false-alarm guard
+     -> NOT CONFIRMED, reported as a gain with the failing guards named: swad_bn passes the headline; failing guard items of swad_bn: width_source src:ARTS OP-A 532 cells; width_source src:ARTS OP-A 416 clean cells. No carry by swad: swad does not pass every guard (false_alarm OP-W 532 cells).
+PASS H carry possible, swad fails the headline
+     -> NOT CONFIRMED, reported as a gain with the failing guards named: swad_bn passes the headline; failing guard items of swad_bn: width_source src:ARTS OP-A 532 cells; width_source src:ARTS OP-A 416 clean cells. No carry by swad: swad does not pass the headline.
+PASS I per-source width and inactive IoU fail
+     -> NOT CONFIRMED, reported as a gain with the failing guards named: swad_bn passes the headline; failing guard items of swad_bn: width_source src:ARTS OP-A 532 cells; inactive OP-A 532 cells; width_source src:ARTS OP-A 416 clean cells. No carry by swad: a failing guard item of swad_bn is not a per-source width.
+PASS J source below 40 cells outside the band
+     -> CONFIRMED: the primary readout swad_bn passes the headline at both operating points and every guard.
+PASS K1 per-source ratio 1.1499
+     -> CONFIRMED: the primary readout swad_bn passes the headline at both operating points and every guard.
+PASS K2 per-source ratio 1.1501
+     -> CONFIRMED, CARRIED BY THE DECLARED SECONDARY READOUT swad: swad_bn passes the headline and every failing guard item of swad_bn is a per-source width (width_source src:CFVS OP-W 532 cells; width_source src:CFVS OP-W 416 clean cells); swad passes the headline at both operating points and every guard on both cell sets.
+PASS K3 per-source ratio 0.8499 (too thin)
+     -> CONFIRMED, CARRIED BY THE DECLARED SECONDARY READOUT swad: swad_bn passes the headline and every failing guard item of swad_bn is a per-source width (width_source src:BMRK OP-A 532 cells; width_source src:BMRK OP-A 416 clean cells); swad passes the headline at both operating points and every guard on both cell sets.
+PASS L1 false alarms 1.49 x
+     -> CONFIRMED: the primary readout swad_bn passes the headline at both operating points and every guard.
+PASS L2 false alarms 1.51 x
+     -> NOT CONFIRMED, reported as a gain with the failing guards named: swad_bn passes the headline; failing guard items of swad_bn: false_alarm OP-A 532 cells. No carry by swad: a failing guard item of swad_bn is not a per-source width.
+PASS M1 screen read without --mechanics
+     -> refuse: A/A spec of the 532 cells block is 'PFAA:5,6:7,8', the registered one is 'PF:5,6:7,8'
+PASS M2 registered shape, no --mechanics
+     -> CONFIRMED, CARRIED BY THE DECLARED SECONDARY READOUT swad: swad_bn passes the headline and every failing guard item of swad_bn is a per-source width (width_source src:ARTS OP-A 532 cells; width_source src:ARTS OP-A 416 clean cells); swad passes the headline at both operating points and every guard on both cell sets.
+PASS M3 24 runs in one arm
+     -> refuse: arm SWAD has 24 runs with 24 different run ids, the registered read has 25
+PASS M4 seed 9 missing in PF
+     -> refuse: arm PF has seeds [5, 6, 7, 8], the registered read has [5, 6, 7, 8, 9]
+PASS M5 one cv5v2 set
+     -> refuse: arm SWADBN holds sets that are not cv5v3_f<k>: ['cv5v2_f0']
+PASS M6 other A/A spec in the clean-cells block
+     -> refuse: A/A spec of the 416 clean cells block is 'PF:5,6:7,9', the registered one is 'PF:5,6:7,8'
+PASS N1 judged width null
+     -> refuse: width ratio undefined for a judged subset (src:ARTS, OP-A, 532 cells): SWADBN None, PF 0.8683831881862931; no verdict written
+PASS N2 false crack px null
+     -> refuse: false crack px undefined (OP-W, 416 clean cells): SWADBN 188.0, PF None; no verdict written
+VERDICT TEST: 23 cases, 23 passed, 0 failed (base /home/noob/work/bench_reads/w2a/read/read.json; synthetic changes, not results)

@@ -1,0 +1,25 @@
+# U-dev read U1_BMRK (bench_udev_read.py ff033a62); labels v11; baseline PF; 50 cells, 50 groups, crack cells 30, inactive cells 6; effective n crack 16.2, inactive 3.7
+## arms (mean over seeds, OP-A unless stated)
+arm	seeds	crack_iou	relF1_2	relP2	relR2	relF1_1	width_ratio	fa_px	fa_share50	cc_recany_20	inact_iou	matched relR@2 (relP@2>=0.90)
+PF	4	0.2589	0.6904	0.9378	0.5476	0.5967	0.4196	67.0000	0.0250	0.7529	0.3478	0.5881
+SKR01	2	0.2749	0.6891	0.9292	0.5477	0.6041	0.4564	11.5000	0.0000	0.7209	0.3781	0.5664
+## A/A PF:5,6:7,8: OP-A delta [95% CI] SE; M = max(0.01, 2 SE)
+AA	crack_iou	-0.0007 [-0.0500, 0.0452] SE 0.0302	M 0.0603
+AA	relF1_2	-0.0221 [-0.1145, 0.0515] SE 0.0478	M 0.0957
+AA	inact_iou	-0.0318 [-0.2235, 0.1588] SE 0.0884	M 0.1767
+AA	miou_rob	-0.0042 [-0.0395, 0.0301] SE 0.0207	M 0.0414
+AA	relP2	-0.0023 [-0.0466, 0.0445] SE 0.0239	M 0.0479
+AA	relR2	-0.0245 [-0.1243, 0.0656] SE 0.0592	M 0.1185
+AA	relF1_1	-0.0143 [-0.0975, 0.0567] SE 0.0457	M 0.0914
+AA	width_ratio	0.0012 [-0.1128, 0.1308] SE 0.0761	M 0.1522
+AA	fa_share50	0.0500 [0.0000, 0.2222] SE 0.0684	M 0.1368
+AA	frontier relR@2 at ref relP@2	-0.0306 [-0.1572, 0.0705] SE 0.0635	M 0.1270
+## contrasts (arm - baseline): OP-A and frontier, two-stage bootstrap 95% CI; an interval holding 0 = no information
+SKR01 - PF	OP-A	relF1_2	-0.0013 [-0.0668, 0.0802]	no information
+SKR01 - PF	OP-A	crack_iou	0.0160 [-0.0353, 0.0652]	no information
+SKR01 - PF	OP-A	relP2	-0.0085 [-0.0593, 0.0309]	no information
+SKR01 - PF	OP-A	relR2	0.0000 [-0.0764, 0.0924]	no information
+SKR01 - PF	OP-A	width_ratio	0.0368 [-0.0651, 0.1328]	
+SKR01 - PF	OP-A	inact_iou	0.0303 [-0.2174, 0.2447]	no information
+SKR01 - PF	OP-A	fa_share50	-0.0250 [-0.2000, 0.0000]	no information
+SKR01 - PF	frontier	relR@2 at baseline relP@2	-0.0066 [-0.1173, 0.0853]	no information	width ratio vs baseline 1.033 [0.658, 1.339]	(finite draws 1993)

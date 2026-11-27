@@ -1,0 +1,58 @@
+{
+ "paper_id": "doi:10.1109/icassp55912.2026.11464176",
+ "title": "Scale-Aware Self-Supervised Learning for Segmentation of Small and Sparse Structures",
+ "year": 2026,
+ "venue": "ICASSP",
+ "url": "https://arxiv.org/abs/2601.18619",
+ "code_url": "",
+ "mechanism": "Add small-window cropping to the SSL augmentation pipeline so the pretext task zooms on fine sparse structures; gains appear only for small targets.",
+ "adaptation": "Redo pool SSL (DINO / SimCLR style on ResNet-34 and ConvNeXt-T) with 32-96 px windows upsampled, half sampled near dark ridges (black-top-hat / Frangi response), half uniform; then house and PF fine-tune.",
+ "min_experiment": "Arm scale-aware SSL init + PF vs PF and vs the existing MIM checkpoint, 5 seeds; metrics test crack IoU and crack components >= 20 px found; kill if crack IoU gain < +0.012.",
+ "score": 48,
+ "bench_score": 35,
+ "bet": "medium",
+ "gpu_hours": 40,
+ "targets": [
+  "crack",
+  "e1_unseen"
+ ],
+ "evidence": "R: up to +13% on seismic fault (thin line) segmentation and +5% on cell delineation under label limits; little benefit on large regions.",
+ "prior_overlap": "MIM/DDeP on 11.9k pool n.d. used standard crops; a thin-structure-aware SSL objective is listed as open.",
+ "directions": [
+  "D07",
+  "D32"
+ ],
+ "scout_scores": [
+  48,
+  48,
+  40,
+  40
+ ],
+ "alt_notes": [
+  {
+   "from": "D07",
+   "adaptation": "Redo pool SSL on ResNet-34 with 32-96 px windows upsampled, half centred on dark ridges (black top-hat / Frangi), half uniform; house/PF fine-tune.",
+   "min_experiment": "Arm scale-aware SSL ResNet-34 + PF vs baseline PF and the existing MIM checkpoint, 5 seeds; metric CV crack IoU and components >= 20 px found; kill if crack IoU gain < +0.012.",
+   "score": 48
+  },
+  {
+   "from": "D32",
+   "adaptation": "32-96 px crops resized up, half sampled near dark ridges, half uniform, in a DINO / iBOT or MIM run on ConvNeXt; score crack and inactive separately.",
+   "min_experiment": "Arm: ConvNeXt MIM / DINO arm with small-window crops. Baseline: same arm with standard crops. Kill if out-of-fold crack relF1@2 < +0.005.",
+   "score": 40
+  },
+  {
+   "from": "D32",
+   "adaptation": "32 to 96 px crops resized up, half centred near dark ridges, inside the LeJEPA or DINO arms; report crack and inactive separately.",
+   "min_experiment": "LeJEPA/DINO arm with vs without small crops; kill if out-of-fold relF1@2 < +0.005.",
+   "score": 40
+  }
+ ],
+ "final": 48,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 247,
+ "pid": "P247"
+}

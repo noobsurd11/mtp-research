@@ -1,0 +1,175 @@
+% ch09_t3b.tex: Chapter 9, Few-shot layout adaptation (track T3b, E1 opening #9).
+% Every number is traced in ch09_t3b_NOTES.md. Sections 9.1 and 9.2 were written before the read; the result (read once on 23 Nov
+% 2026) was filled in afterwards from verdict.txt and read.txt of the T3b read only (lines in the NOTES file, section 5).
+\chapter{Few-shot layout adaptation: track T3b, E1 opening \#9}\label{ch:t3b}
+
+Chapter~\ref{ch:e1_result} tested the final recipe zero-shot: no model had seen an E1 cell or a labelled half-cut cell. On the 62
+half-cut cells of E1, a layout of which the training pool holds none, the gain of C2 over C1 was not detected (+0.0110
+[$-$0.0289, +0.0722]). This chapter asks a second question of the same cells: how much does the same recipe gain on E1's layouts
+once it has labelled cells of them? We call this the few-shot track (track T3b of the protocol, unrelated to
+Table~\ref{tab:T3b}); it is E1 opening \#9. Sections~\ref{sec:t3b-design} and~\ref{sec:t3b-rule} give the design and the
+registered rule, Section~\ref{sec:t3b-result} the result, and Section~\ref{sec:t3b-scope} what the track can and cannot show.
+
+\section{Motivation and design}\label{sec:t3b-design}
+
+\paragraph{Why.} The pool has no half-cut cell, so CV5 cannot measure that layout and the delivered model has never seen a labelled
+cell of it. E1 holds 62 half-cut cells and 37 cells with a scuff streak of at least 500~px; the only other labelled half-cells of
+this work, 36 E-SCDD cells, carry speck-level crack labels and serve for validation only. Our reading (judgement): what labelled
+cells of a new layout buy is what WattCycle needs to know to plan labelling, and only E1 can measure it here.
+
+\paragraph{Set and folds.} E1 holds 106 cells from 71 source images, one module each; 32 cells hold crack labels (32,294 crack
+pixels, 296 crack components of at least 20~px) and 74 are crack-free. The hard stratum is the half-cut cells with a scuff streak;
+its 20 crack cells hold 75\% of E1's crack pixels. We split E1 into $K=5$ folds by source image, drawn deterministically on 12
+November from the E1 lists and ground-truth counts only (no prediction), with the crack pixels of the hard stratum balanced first,
+and frozen with their md5 before any run. The held-out folds hold 22, 22, 20, 21 and 21 cells from 12, 14, 14, 16 and 15 images.
+
+\paragraph{Arms.} For fold $k$, the arm ALL trains on the 532 pool cells plus every E1 cell outside fold $k$ (84 to 86 cells);
+the arm HALF trains on the 532 plus a fixed half of those source images (42 or 43 cells), chosen deterministically to hold half of
+the training side's cells and half of its hard-stratum crack pixels (shares 0.494 to 0.506 and 0.496 to 0.501). Each fold model
+predicts only its held-out cells, and the five fold records of an arm and seed join into one out-of-fold record over the 106
+cells. Three deployable models train on the 532 plus all 106 E1 cells and are never scored on E1. With seeds 5, 6 and 7, the
+track has 33 trainings: 15 ALL, 15 HALF and 3 deployable.
+
+\paragraph{Recipe, labels and inference.} Every model uses exactly the recipe of C2 (HRNet-W18 U-Net++
+\citep{wang2021hrnet,zhou2018unetpp}, PF encoder schedule, SWAD \citep{cha2021swad} over steps 10,000 to 20,000, 20,000 steps, label
+set v1.1 on the pool; Chapter~\ref{ch:methods}); only the training list differs. E1 labels enter in their scoring view
+(Chapter~\ref{ch:protocol}), with classes 25 to 28 and ignore pixels set to ignore, so the training label equals the scoring label
+on every scored pixel. The validation monitor is a fixed set of 107 pool training cells whose numbers are never read, and no fold's
+training list lists or links its held-out cells. Prediction is C2's: the \texttt{swad} readout of the final weights, D4 with 8
+views, argmax (OP-A). No threshold, bias, view weight or checkpoint was set on, or chosen with, any E1 cell. From staging to
+clean-up, the training machine held the labels of all 106 cells, which the deployable models need; each fold's held-out labels were
+present there but not linked from its training root.
+
+\paragraph{The comparator.} ZS is the zero-shot C2 of opening \#8 for seeds 5, 6 and 7: the same recipe, seeds and inference,
+never trained on E1. Its predictions were made at opening \#8 and are re-scored here. With 3 models, its level is not the five-seed
+C2 level of Chapter~\ref{ch:e1_result}.
+
+\section{Registration, rule and power}\label{sec:t3b-rule}
+
+\paragraph{Registration and run.} The rule was written on 21 November, before any model of the track was trained; after an independent
+review it was registered on 22 November at 03:13 IST, and the ledger row states that from that date E1 is training data for the few-shot models. All 33
+trainings ended without error on 22 November, with no repair run. The opening ran on 23 November from 08:40:46 to 13:39:27 IST.
+The 30 sealed prediction jobs, one per fold model, all ended without error. Of these, 29 ran each on a GPU that held no other job above
+4,096~MiB. The GPUs were then busy with other users' jobs, so sharing was allowed for the last two jobs (13:34:35 to 13:35:49 IST),
+outside the reviewed plan and logged at the time: one started on a GPU that had freed, and the last ran beside another user's job on
+the same GPU. The dumps are deterministic fp32 inference on one GPU model (RTX A6000), and the read checks each dump's manifest. The
+read ran once, after all 30 existed, from 13:38:00 to 13:39:27 IST, without error; it re-scored the three ZS dumps and found them
+identical to their opening \#8 records.
+
+\paragraph{Rule.} The metric is crack relF1@2 at OP-A, pooled over the scored pixels of the 106 cells, as at opening \#8. The
+primary contrast P is $\Delta$, the mean over seeds 5 to 7 of the out-of-fold relF1@2 of ALL minus the same mean for ZS. Its
+interval is the seed-aware two-stage bootstrap of opening \#8 (per draw the 71 clusters with replacement, then for each arm 3 models
+with replacement from its 3; 2,000 draws; 95\% percentile), and $M=0.010$. P is CONFIRMED if $\Delta\geq M$, the lower end is
+above 0, and two guards pass: G1, false crack pixels on the 74 crack-free cells, ALL at most $1.5\times$ ZS; G2, a change in
+mIoU-R13 of at least $-$0.010. With a failing guard the verdict is GAIN, FAILING GUARDS NAMED; otherwise it is NOT CONFIRMED, worded
+WORSE, ``interval holds 0'' or ``below M''. The width ratio ALL / ZS is printed but is not a guard: E1 labels are about $1.5\times$
+wider than the pool labels, so a model trained on E1 cells learns the wider width. Everything else (HALF $-$ ZS, ALL $-$ HALF,
+any-hit crack component recall, the strata, inactive IoU, strict crack IoU with its band $\pm$0.019) is printed beside and decides
+nothing.
+
+\paragraph{Power.} The rule stated its power before any number (judgement in the rule). Opening \#8's seed-aware standard error was
+0.0265 with 5 models per arm; with 3, the rule expected about 0.030, giving power of about 52\% at a true +0.06, 76\% at +0.08 and
+91\% at +0.10; the smallest effect with 80\% power is about +0.085. The rule judged +0.10 or more plausible if labels of the layout
+close part of the gap on the hard stratum, where an earlier zero-shot model of this work recalled about 0.13 of the crack pixels.
+The cell count overstates the information: half of E1's crack pixels lie in 3 source images (the top 1, 3, 5 and 10 hold 0.22,
+0.50, 0.69 and 0.86), and the 20 hard crack cells come from 10 images. Two held-out folds are in effect one image each, so only the
+pooled score is usable, with the uncertainty of about 9 images (effective $n$ 8.6). Smaller gains, ALL $-$ HALF and the strata are
+under-powered, and inactive (10 cells from 7 images, 87\% of its pixels in 3) cannot be answered.
+
+\section{Result}\label{sec:t3b-result}
+
+The read printed: ``T3B VERDICT: P (ALL $-$ ZS pooled out-of-fold crack relF1@2) CONFIRMED; Delta +0.2213 [+0.0977, +0.3504];
+width ratio ALL / ZS 1.426 (reported).'' It ran once on 23 November 2026, from 13:38:00 to 13:39:27 IST.
+
+\paragraph{Primary contrast.} $\Delta$, the out-of-fold crack relF1@2 of ALL minus that of ZS at OP-A, each the mean over seeds 5
+to 7, is +0.2213, with seed-aware 95\% interval [+0.0977, +0.3504] (SE 0.0643) and fixed-model interval [+0.1066, +0.3390]. It is
+above $M=0.010$ and its lower end is above 0. Crack relF1@2 (mean over seeds 5 to 7, range over seeds in brackets) is 0.4881
+[0.4656, 0.5067] for ZS, 0.6924 [0.6797, 0.7005] for HALF and 0.7094 [0.6943, 0.7309] for ALL; relP@2 is 0.6098, 0.8119 and
+0.8403, and relR@2 0.4095, 0.6038 and 0.6140. Precision and recall both rise (ALL $-$ ZS: relP@2 +0.2306 [+0.1394, +0.3440],
+relR@2 +0.2046 [+0.0356, +0.3835]).
+
+\paragraph{Guards and width.} Both guards pass. G1: on the 74 crack-free cells ALL predicts 541 false crack pixels against 2231
+for ZS (ratio 0.242; bound 1.5). G2: mIoU-R13 changes by +0.1385 (bound $-$0.010). The width ratio ALL / ZS is 1.426 (ALL 0.631,
+ZS 0.443), printed and not a guard. E1 labels are about $1.5\times$ wider than the pool labels, and a model trained on E1 cells
+learns that width, which lifts strict IoU and pixel recall without finding more cracks.
+
+\paragraph{Printed beside.} HALF $-$ ZS is +0.2042 [+0.0718, +0.3366] (fixed-model [+0.0773, +0.3274]), about the same as ALL $-$
+ZS, and ALL $-$ HALF is +0.0171 [$-$0.0246, +0.0625] (fixed-model [$-$0.0183, +0.0506]), not separated: half of the labelled
+training-side images gave about the same gain as all of them. Of the 296 crack components of at least 20~px, any-hit recall (a
+component counts if any of its pixels lies within 2~px of a predicted crack pixel; arm mean over seeds, [min, max]) is 0.400
+[0.301, 0.490] for ZS, 0.682 [0.645, 0.703] for HALF and 0.666 [0.635, 0.693] for ALL; recall at $\geq$50\% coverage is 0.245,
+0.591 and 0.598, and component precision 0.659, 0.817 and 0.836. Our reading (judgement): a rise in component recall of this size is
+hard to explain by line width alone, so the gain is not only the learned width.
+
+\paragraph{Strata.} Table~\ref{tab:t3b-strata} gives the strata, which decide nothing. The half-cut cells carry the gain
+(+0.2530 [+0.0878, +0.3885]), most of all the hard stratum, half-cut cells with scuff (+0.3002 [+0.1445, +0.4748]). On half-cut
+cells without scuff the gain is not separated and its point estimate is negative ($-$0.0701 [$-$0.3019, +0.0517]); there ZS already
+scores 0.8870 [0.8797, 0.8928], against 0.8168 [0.8034, 0.8340] for ALL. The full cells are separated but wide (+0.1525 [+0.0260,
++0.4423]); on them HALF $-$ ZS is not separated (+0.0818 [$-$0.0433, +0.2218]), and ALL $-$ HALF is +0.0708 [$-$0.0019, +0.3419],
+against +0.0064 [$-$0.0484, +0.0629] on the half-cut cells. On the 74 crack-free cells every arm scores relF1@2 0.0000, with 541
+(ALL), 1366 (HALF) and 2231 (ZS) false crack pixels. The CSIR cells repeat the pooled result. The BMRK stratum (5 cells, 5 clusters)
+is degenerate: ALL and ZS both score 0.0000 there and HALF 0.5443 with a seed range of [0.0000, 0.9908], so it says nothing.
+
+\begin{table}[htbp]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\caption{Few-shot track (E1 opening \#9): crack relF1@2 contrasts at OP-A, out of fold, mean over seeds 5 to 7, with seed-aware
+95\% intervals, for all cells and per stratum. Only ALL $-$ ZS on all cells decides; the strata decide nothing. Hard = half-cut
+cells with scuff. The 74 crack-free cells score 0 for every arm and are left out.}
+\label{tab:t3b-strata}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{1.8cm}lccc@{}}
+\toprule
+Cells & Cells / clusters & ALL $-$ ZS & HALF $-$ ZS & ALL $-$ HALF \\
+\midrule
+All (P) & 106 / 71 & +0.2213 [+0.0977, +0.3504] & +0.2042 [+0.0718, +0.3366] & +0.0171 [$-$0.0246, +0.0625] \\
+Full & 44 / 24 & +0.1525 [+0.0260, +0.4423] & +0.0818 [$-$0.0433, +0.2218] & +0.0708 [$-$0.0019, +0.3419] \\
+Half-cut & 62 / 47 & +0.2530 [+0.0878, +0.3885] & +0.2466 [+0.0727, +0.3976] & +0.0064 [$-$0.0484, +0.0629] \\
+Hard & 29 / 17 & +0.3002 [+0.1445, +0.4748] & +0.2929 [+0.1201, +0.4835] & +0.0073 [$-$0.0609, +0.0641] \\
+Half-cut without scuff & 33 / 31 & $-$0.0701 [$-$0.3019, +0.0517] & $-$0.0704 [$-$0.2899, +0.0424] & +0.0003 [$-$0.0506, +0.0516] \\
+Crack cells & 32 / 21 & +0.1967 [+0.0680, +0.3222] & +0.1927 [+0.0597, +0.3243] & +0.0040 [$-$0.0421, +0.0473] \\
+CSIR & 101 / 66 & +0.2215 [+0.0977, +0.3415] & +0.2038 [+0.0708, +0.3354] & +0.0177 [$-$0.0267, +0.0647] \\
+BMRK (degenerate) & 5 / 5 & +0.0000 [+0.0000, +0.0000] & +0.5443 [+0.0000, +0.8745] & $-$0.5443 [$-$0.8745, +0.0000] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Other metrics.} Inactive IoU ALL $-$ ZS is +0.1463 [$-$0.0525, +0.4829], reported only (10 inactive cells in 7
+images). Strict crack IoU ALL $-$ ZS is +0.1803 [+0.0929, +0.2606], outside the convention band $\pm$0.019; it decides nothing,
+and the learned label width lifts it. Per class (arm means; decide nothing), crack IoU is 0.1866 for ZS, 0.3438 for HALF and
+0.3669 for ALL; the largest change is sp mono, 0.1924, 0.2039 and 0.7966, whose cause was not examined; material and edge dark
+score 0.0000 for every arm, and splice is not scored. Figure~\ref{fig:F20} shows the contrasts and levels per stratum.
+
+\FIG{F20}{Few-shot track (E1 opening \#9). (a) Crack relF1@2 contrasts ALL $-$ ZS, HALF $-$ ZS and ALL $-$ HALF, with seed-aware
+95\% intervals, for all cells and per stratum; numbers in brackets are cells / clusters; hard = half-cut cells with scuff; solid
+line: zero; dashed line: M = 0.010. (b) Crack relF1@2 levels of ALL, HALF and ZS, as the mean over the three seeds; the bar runs from
+the lowest to the highest seed and is not an interval. ALL is trained on the pool plus the E1 cells of the other 4 folds; HALF on
+the pool plus a fixed half of those image ids. Only P = ALL $-$ ZS on all cells decides (confirmed, +0.2213 [+0.0977, +0.3504]);
+HALF $-$ ZS and ALL $-$ HALF are printed beside and decide nothing. On half-cut cells without scuff, the ZS level (0.8870) is above
+those of ALL and HALF. BMRK (5 cells; ALL and ZS score 0) and the 74 crack-free cells (every arm scores 0) are degenerate and not
+drawn. E1, out of fold over 5 folds of E1, seeds 5 to 7, OP-A; ZS = zero-shot C2 seeds 5 to 7; 106 cells, 71 clusters; strata
+decide nothing.}
+
+\section{What the track can and cannot show}\label{sec:t3b-scope}
+
+\paragraph{Can.} The track can show whether labelled cells of E1's layouts, scored out of fold by source image, raise the crack
+relF1@2 of the C2 recipe on E1 by about +0.085 or more against the same recipe zero-shot, without more false crack pixels than the
+guard allows. Our reading of the result (judgement): labelled cells of E1's layouts raise the crack relF1@2 of the C2 recipe
+strongly against the same recipe zero-shot (+0.2213 [+0.0977, +0.3504], out of fold inside E1), and half of the labelled images
+(42 or 43 E1 cells per fold model) gave about the same gain as all of them. For planning labels at WattCycle, on this evidence a
+first batch of labelled cells of a new layout is worth having, and a second batch of the same size added nothing this track can
+detect. It does not say how few cells suffice, and it does not show that the model handles a new layout without labels.
+
+\paragraph{Cannot.} The rule had 80\% power only for gains of about +0.085 or more; the interval of $\Delta$, [+0.0977, +0.3504],
+is wide, so the size of the gain is not pinned down. A training side holds 14 to 18 hard crack cells from at most 9 images, so the track has two points of a learning curve
+(about half, and all), and which images fall in the half matters more than how many. Folds by source image may be optimistic for a
+new site: E1's CSIR image ids run from 300 to 2,328, and whether neighbouring ids are modules of one batch with the same handling
+marks was not measured. relF1@2 is less sensitive than strict IoU to the wider E1 labels but not immune, which is why any-hit
+component recall is printed. 101 of the 106 cells are CSIR, and each arm has 3 seeds. The deployable models have no held-out score;
+in our judgement their expected score on such cells is the out-of-fold score of ALL.
+
+\paragraph{Cost.} From the registration of opening \#9, E1 is training data for the few-shot models. Every such run and record
+carries a \texttt{trained\_on\_e1} mark that the read tools refuse outside the few-shot read; no number of this chapter enters the
+zero-shot tables of Chapter~\ref{ch:e1_result} or an E1 column of any other track, and none supports a claim about unseen modules
+without labels. The zero-shot result of Chapter~\ref{ch:e1_result} is therefore the last zero-shot result on E1 in this work, and a
+later unseen-module claim needs a new labelled set (Chapter~\ref{ch:limitations}).

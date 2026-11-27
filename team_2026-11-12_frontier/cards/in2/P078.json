@@ -1,0 +1,37 @@
+{
+ "paper_id": "arxiv:2303.15850",
+ "title": "That Label's Got Style: Handling Label Style Bias for Uncertain Image Segmentation",
+ "year": 2023,
+ "venue": "ICLR",
+ "url": "https://arxiv.org/abs/2303.15850",
+ "code_url": "",
+ "mechanism": "Condition stochastic segmentation models (Probabilistic U-Net, SSN) on a discrete label-style variable, modelling p(annotation | image, style) instead of p(annotation | image), which removes style-induced area bias.",
+ "adaptation": "Style = source. Cheapest form is a one-hot source code into the decoder (shares the arm of the CIN paper); the stochastic variant adds per-source crack sample distributions for calibrated uncertainty and severity flags. Use as small-data evidence and as the probabilistic follow-up.",
+ "min_experiment": "Arm: c-SSN crack head conditioned on source on house PF, 5 seeds vs house PF; metric clean-49 crack IoU (mean prediction) and crack ECE; kill if IoU gain < +0.012 and ECE not reduced by >= 20%.",
+ "evidence": "R: ISIC subset, 179 train image-mask pairs over 3 styles; c-Prob.U-Net IoU 0.77/0.78/0.76 vs pooled 0.65/0.65/0.69; PhC-U373 0.92 vs 0.89-0.90. Small data, blob objects.",
+ "prior_overlap": "none",
+ "score": 62,
+ "bench_score": 45,
+ "bet": "medium",
+ "gpu_hours": 8,
+ "targets": [
+  "crack",
+  "severity",
+  "benchmark"
+ ],
+ "directions": [
+  "D17"
+ ],
+ "scout_scores": [
+  62
+ ],
+ "final": 62,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 78,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P078"
+}

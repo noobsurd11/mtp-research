@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2505.06117",
+ "title": "Photovoltaic Defect Image Generator With Boundary Alignment Smoothing Constraint for Domain Shift Mitigation (PDIG)",
+ "year": 2026,
+ "venue": "IEEE Transactions on Multimedia",
+ "url": "https://arxiv.org/abs/2505.06117",
+ "code_url": "",
+ "mechanism": "Stable Diffusion with a semantic concept embedding, a lightweight industrial style adaptor via cross-disentangled attention, and text-image dual-space constraints that place defects in given boxes.",
+ "adaptation": "Box-level only; use as EL evidence that synthesis helps under a time/domain shift and as an EL generator baseline; boxes could seed crack masks only via a separate mask model.",
+ "min_experiment": "No score experiment proposed; cite in the benchmark and, if code appears, run as a baseline generator for inactive at matched count vs row 2 on CV inactive IoU.",
+ "score": 30,
+ "bench_score": 50,
+ "bet": "safe",
+ "targets": [
+  "benchmark",
+  "e1_unseen"
+ ],
+ "evidence": "R: FID 20.90 average over 5 EL defect types vs 40.06 StyleGAN3; 200 generated images per type raised YOLOv5 mAP by 5.8 and 6.3 points on time-shifted EL group2 and group3 (ELES dataset, 16,323 images); YOLOv8 +1.8.",
+ "gpu_hours": 0,
+ "prior_overlap": "None.",
+ "directions": [
+  "D06"
+ ],
+ "scout_scores": [
+  30
+ ],
+ "final": 30,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 510,
+ "pid": "P510"
+}

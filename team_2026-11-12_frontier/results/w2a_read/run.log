@@ -1,0 +1,15 @@
+[2026-11-17 08:23:57] w2a read start (out /home/noob/work/bench_reads/w2a; DRY=0; ARMS=auto -> rcs ema jmlhard swad; GATE_ACK=''; PF4=0; script 5aac565d)
+notes:
+ema: gate gate_ema_hash PASS (/home/noob/work/bench_reads/w2a_gates/gate_ema_hash_r1/VERDICT)
+skipped (incomplete): softband: dump_w2a_softband_f1_s6 last line: trained dump_w2a_softband_f1_s6 rc=1
+swad: gate gate_swad_prescreen PASS (/home/noob/work/bench_reads/w2a_gates/gate_swad_prescreen_r2/VERDICT)
+skipped (gate not passed; GATE_ACK="spd" reads it anyway): spd: gate gate_spd_mech FAIL (/home/noob/work/bench_reads/w2a_gates/gate_spd_mech_r2/VERDICT)
+manifest check: 140 wave 2a dumps, device ['NVIDIA RTX PRO 4500 Blackwell']: OK
+command (cwd /home/noob/work/bench_wt_b, nice -n 19): scripts/bench_read_w1.py --arm PF=/home/noob/work/bench_dumps/w1g/elbench1/house_r34_unetpp_pf_v11:w1g_pf_v11_f[0-4]_s[56] --arm PFAA=/home/noob/work/bench_dumps/w1g/elbench1/house_r34_unetpp_pf_v11:w1g_pf_v11_f[0-4]_s[5-8] --arm RCS=/home/noob/work/bench_dumps/w2a/elbench1/rcs_pf_v11:w2a_rcs_f[0-4]_s[56] --arm RAWBN=/home/noob/work/bench_dumps/w2a/elbench1/ema_wise_posthoc_pf_v11:w2a_ema_f[0-4]_s[56]\.raw_bn --arm EMA=/home/noob/work/bench_dumps/w2a/elbench1/ema_wise_posthoc_pf_v11:w2a_ema_f[0-4]_s[56]\.ema_9998_bn --arm JMLHARD=/home/noob/work/bench_dumps/w2a/elbench1/jml_hard:w2a_jmlhard_f[0-4]_s[56] --arm SWADBN=/home/noob/work/bench_dumps/w2a/elbench1/swad_const_pf_v11:w2a_swad_f[0-4]_s[56]\.swad_bn --arm SWADRAWBN=/home/noob/work/bench_dumps/w2a/elbench1/swad_const_pf_v11:w2a_swad_f[0-4]_s[56]\.raw_bn --arm SWADRAW=/home/noob/work/bench_dumps/w2a/elbench1/swad_const_pf_v11:w2a_swad_f[0-4]_s[56] --arm SWAD=/home/noob/work/bench_dumps/w2a/elbench1/swad_const_pf_v11:w2a_swad_f[0-4]_s[56]\.swad --arm SWADEMABN=/home/noob/work/bench_dumps/w2a/elbench1/swad_const_pf_v11:w2a_swad_f[0-4]_s[56]\.ema_9998_bn --arm SWADEMA=/home/noob/work/bench_dumps/w2a/elbench1/swad_const_pf_v11:w2a_swad_f[0-4]_s[56]\.ema_9998 --pair PF=RCS --pair RAWBN=EMA --pair PF=JMLHARD --pair PF=SWADBN --pair SWADRAWBN=SWADBN --pair PF=SWADRAW --pair PF=SWADRAWBN --pair PF=SWAD --pair PF=SWADEMABN --pair PF=SWADEMA --labels v11 --workers 8 --cache /home/noob/work/bench_reads/w2a/cache_c --baseline PF --aa PFAA:5,6:7,8 --score-exclude /home/yugma/mtp/research/team_2026-11-12_frontier/benchmark/splits/score_exclude_v3.txt --out /home/noob/work/bench_reads/w2a/read
+[282s] argmax records + bias sweeps: 130 runs
+[444s] operating points and their records (532 stems)
+score-exclude /home/yugma/mtp/research/team_2026-11-12_frontier/benchmark/splits/score_exclude_v3.txt md5 6d48dfbd56ba8140ed20ecb21bf349dc: 532 -> 416 stems
+[651s] operating points and their records (416 stems)
+[766s] wave 1 read: 12 arms, 532 OOF stems, 10 contrasts, A/A yes -> /home/noob/work/bench_reads/w2a/read/read.txt
+[2026-11-17 08:36:44] read rc=0
+[2026-11-17 08:36:44] W2A READ ALL DONE (rc 0); tracked changes: bench_wt_b 0, bench_wt_w2 0

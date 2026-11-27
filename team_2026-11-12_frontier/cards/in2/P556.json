@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.52202/075280-2383",
+ "title": "DatasetDM: Synthesizing Data with Perception Annotations Using Diffusion Models",
+ "year": 2023,
+ "venue": "NeurIPS",
+ "url": "https://github.com/showlab/DatasetDM",
+ "code_url": "https://github.com/showlab/DatasetDM",
+ "mechanism": "A perception decoder trained on about 100 labelled images reads diffusion-model features, so every generated image receives a dense mask.",
+ "adaptation": "Needs a diffusion model fine-tuned on the EL pool; decoder trained on 478 train cells. Its labels are model predictions on generated cells, close to pseudo-labelling; mainly a canonical benchmark baseline.",
+ "min_experiment": "Benchmark baseline: PF + DatasetDM pairs vs PF. Metric mIoU_rob and CV inactive IoU. Reported; drop if < +0.005.",
+ "evidence": "R: state of the art synthetic training on VOC/COCO, more robust domain generalisation, with under 1% labelled images.",
+ "gpu_hours": 50,
+ "bet": "safe",
+ "targets": [
+  "benchmark",
+  "other_classes"
+ ],
+ "prior_overlap": "Partly closed: pseudo-label SSL at 100% labels with the 11.9k pool was n.d., and DatasetDM labels are also model predictions; it differs only in generating the images.",
+ "score": 25,
+ "bench_score": 50,
+ "directions": [
+  "D33"
+ ],
+ "scout_scores": [
+  25
+ ],
+ "final": 25,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 556,
+ "pid": "P556"
+}

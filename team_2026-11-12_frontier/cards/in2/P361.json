@@ -1,0 +1,44 @@
+{
+ "paper_id": "doi:10.1109/tpami.2020.2983686",
+ "title": "Deep High-Resolution Representation Learning for Visual Recognition (HRNet)",
+ "year": 2020,
+ "venue": "TPAMI",
+ "url": "https://arxiv.org/abs/1908.07919",
+ "code_url": "https://github.com/HRNet",
+ "mechanism": "Parallel high-to-low resolution streams with repeated multi-resolution exchange keep a 1/4 stream through the whole network.",
+ "adaptation": "HRNet-W18/W32 ImageNet as encoder under PF; top stream is 1/4, so add a stride-1 stem skip; 1-ch input replicated.",
+ "min_experiment": "Arm: HRNet-W32 + stem skip (PF); baseline: house PF; CV crack IoU, inactive IoU, gridline IoU. Kill if all n.d.",
+ "evidence": "R: shown superior on pose, segmentation, detection (Cityscapes etc.); no thin-line data.",
+ "gpu_hours": 20,
+ "bet": "safe",
+ "prior_overlap": "Backbone row tested ResNet-50 only; R5 partly covers resolution. HRNet itself open.",
+ "score": 40,
+ "bench_score": 70,
+ "targets": [
+  "benchmark",
+  "crack",
+  "other_classes"
+ ],
+ "directions": [
+  "D22"
+ ],
+ "scout_scores": [
+  40,
+  40
+ ],
+ "alt_notes": [
+  {
+   "from": "D22",
+   "adaptation": "HRNet-W18/W32 (timm, ImageNet) under PF plus a stride-1 stem skip; OCR head because 99% of inactive regions touch a crack, so per-cell crack-region descriptors are useful context for inactive.",
+   "min_experiment": "Arm HRNet-W32-OCR vs house PF; 5-fold CV crack IoU, inactive IoU, mIoU_rob; kill: no metric above detection floor (crack 0.012) and inactive n.d. About 15 GPU-h.",
+   "score": 40
+  }
+ ],
+ "final": 40,
+ "bench": 70,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 361,
+ "pid": "P361"
+}

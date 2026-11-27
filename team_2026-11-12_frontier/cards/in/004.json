@@ -1,0 +1,53 @@
+{
+ "paper_id": "arxiv:2210.17398",
+ "title": "Rethinking Generalization: The Impact of Annotation Style on Medical Image Segmentation",
+ "year": 2022,
+ "venue": "MELBA",
+ "url": "https://arxiv.org/abs/2210.17398",
+ "code_url": "",
+ "mechanism": "Conditional instance norm: per-dataset scale and shift in norm layers on a shared network, so the model learns each dataset's annotation style instead of averaging conflicting styles.",
+ "evidence": "6 MS lesion trials (~390 patients each): naive pooling worse than single-trial models (0.766 vs 0.784 Dice); trial-conditioned 0.787 to 0.789, matching or beating every single-trial model; can output any style; few-shot fine-tune to a new style.",
+ "adaptation": "Per-source affine params (ARTS, CFVS, CSIR, BMRK, SDLE, plus UCF, MSS, PV-Vision) in U-Net++ decoder BN; encoder BN shared. Condition on known source at test; E1 as CSIR. Absorbs measured label-width differences (1.5 to 3.25 px) and lets wider external crack labels join training without widening BenchmarkEL predictions.",
+ "min_experiment": "Arm: house model + per-source decoder affine, BenchmarkEL only, 20k steps, 5 seeds. Baseline: house 5-seed. Metric: clean-49 crack IoU and per-source crack IoU (BMRK, CFVS). Kill if crack IoU < +0.012 and BMRK/CFVS crack IoU not up by 0.02. ~6 GPU-h.",
+ "prior_overlap": "none; source-conditional prediction listed as never tried in BRIEF section 5",
+ "score": 74,
+ "bench_score": 60,
+ "bet": "safe",
+ "gpu_hours": 6,
+ "targets": [
+  "crack",
+  "inactive",
+  "benchmark"
+ ],
+ "directions": [
+  "D17",
+  "D36"
+ ],
+ "scout_scores": [
+  72,
+  70,
+  74
+ ],
+ "alt_notes": [
+  {
+   "from": "D17",
+   "adaptation": "5-way source ID drives FiLM / conditional-BN scale and shift in U-Net++ decoder blocks only (encoder shared, PF schedule), init gamma 1 beta 0; 10% source dropout to a consensus ID for source-blind use. At test condition on filename source; E1 uses CSIR / BMRK. Targets the per-source crack width convention (ARTS 1.5 to SDLE 3.25 px).",
+   "min_experiment": "Arm: house PF + source-FiLM decoder, 5 seeds. Baseline: house PF, 5 seeds. Metric: clean-49 crack IoU, per-source crack IoU in module-grouped 5-fold CV, BMRK inactive IoU. Kill if 5-seed mean crack IoU gain < +0.012 and no source gains >= +0.03 in CV. Run only after zero-GPU check that predicted widths are flat across sources.",
+   "score": 70
+  },
+  {
+   "from": "D17",
+   "adaptation": "A 5-way source embedding drives FiLM / conditional-norm scale and shift in the U-Net++ decoder only (encoder shared, kept by PF). Condition on the filename source at test (CSIR / BMRK on E1). Use 10% source dropout to get a consensus ID for source-blind use. Targets the per-source crack width differences (1.5 to 3.25 px).",
+   "min_experiment": "First a zero-GPU check: per-source predicted crack width versus label width on CV out-of-fold predictions. Then arm = house PF + source-FiLM decoder (5 seeds) versus house PF (5 seeds). Metrics: crack IoU on clean-49 and per-source CV crack IoU. Kill if the mean gain is < +0.012 and no source gains >= +0.03 in CV. Zero-training control: skeleton redraw at source width, or a per-source logit bias.",
+   "score": 72
+  }
+ ],
+ "final": 74,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 4,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

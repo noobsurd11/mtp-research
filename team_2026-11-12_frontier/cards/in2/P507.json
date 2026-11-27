@@ -1,0 +1,44 @@
+{
+ "paper_id": "arxiv:2412.04243",
+ "title": "Quantifying the Limits of Segmentation Foundation Models: Modeling Challenges in Segmenting Tree-Like and Low-Contrast Objects",
+ "year": 2024,
+ "venue": "WACV 2026",
+ "url": "https://arxiv.org/abs/2412.04243",
+ "code_url": "https://github.com/mazurowski-lab/SAMFailureMetrics",
+ "mechanism": "Interpretable tree-likeness and textural-separability metrics predict SAM / SAM2 / HQ-SAM failures; targeted fine-tuning did not remove the failure.",
+ "adaptation": "Compute both metrics per crack component on val (7% of crack components are < 2% darker than surroundings); stratify FM-arm vs house errors; define benchmark strata by contrast.",
+ "min_experiment": "CPU-only: per-tercile relR@2 for house vs best FM arm on val; report, no kill needed (analysis tool).",
+ "evidence": "R: synthetic controlled experiments plus real datasets; correlation of SFM performance with both metrics.",
+ "prior_overlap": "none",
+ "score": 30,
+ "bench_score": 55,
+ "bet": "safe",
+ "gpu_hours": 1,
+ "targets": [
+  "crack",
+  "benchmark",
+  "measurement"
+ ],
+ "directions": [
+  "D14"
+ ],
+ "scout_scores": [
+  30,
+  25
+ ],
+ "alt_notes": [
+  {
+   "from": "D14",
+   "adaptation": "Compute both metrics per crack component on test and E1 and stratify benchmark results (7% of crack components are < 2% darker than surroundings).",
+   "min_experiment": "Analysis only: stratified recall by separability bin for house vs FM arms.",
+   "score": 25
+  }
+ ],
+ "final": 30,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 507,
+ "pid": "P507"
+}

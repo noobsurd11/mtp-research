@@ -1,0 +1,44 @@
+{
+ "paper_id": "arxiv:2611.00396",
+ "title": "Evaluating SAM-based and Convolutional Architectures in Thin Retinal Vessel Segmentation: Model Capacity, Computational Cost and Foundation Pre-training",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2611.00396",
+ "code_url": "",
+ "mechanism": "Evidence that a pretrained plain ViT (MedSAM, patch 16) matches the best CNN on thin-vessel centerline recall only when the image is upscaled to its 1024 window; padding loses the thin structures.",
+ "adaptation": "Fixed rule for every ViT arm: upscale 512 EL to 1024; one ablation inside the SAM2-UNet arm at 512 vs 1024. Explains why our native-resolution probes may have under-read FMs.",
+ "min_experiment": "SAM2-UNet at 512 vs 1024 input, 5-fold CV; if 1024 is not >= +0.01 crack relF1@2, drop upscaling for all arms.",
+ "evidence": "R: DRIVE, HRF, FIVES, VessMap; MedSAM thin recall within 0.6 to 2.5 pp of best CNN; padding vs upscaling cut thin recall by 17.9 and 41.3 points; pretraining raised thin recall 17.6 / 12.4 points on two sets.",
+ "prior_overlap": "Section 5 linear probes ran at native resolution; input upscaling for ViTs not tested (2x input run was on the house CNN).",
+ "score": 60,
+ "bench_score": 70,
+ "bet": "safe",
+ "gpu_hours": 20,
+ "targets": [
+  "crack",
+  "benchmark"
+ ],
+ "directions": [
+  "D14"
+ ],
+ "scout_scores": [
+  60,
+  58
+ ],
+ "alt_notes": [
+  {
+   "from": "D14",
+   "adaptation": "Design rule for every ViT arm here: upscale 512 to 1024, fine-tune (full or PEFT), never frozen probe; report crack recall binned by label width (per source widths 1.5 to 3.25 px).",
+   "min_experiment": "Within SAM2-UNet or Dino U-Net: 512 vs 1024 input, 3 seeds; metric crack recall on components < 20 px and relF1@2; kill the 1024 arm if gain < 0.012 crack IoU and < 0.01 relF1@2.",
+   "score": 58
+  }
+ ],
+ "final": 60,
+ "bench": 70,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 89,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

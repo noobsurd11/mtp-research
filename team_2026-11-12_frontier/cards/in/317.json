@@ -1,0 +1,35 @@
+{
+ "paper_id": "arxiv:2401.04722",
+ "title": "U-Mamba: Enhancing Long-range Dependency for Biomedical Image Segmentation",
+ "year": 2024,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2401.04722",
+ "code_url": "",
+ "mechanism": "Hybrid CNN-SSM block: conv residual block followed by a Mamba layer over flattened feature maps, in the encoder or the bottleneck only, inside nnU-Net.",
+ "adaptation": "Suite member: U-Mamba_Bot 2D at 512 px, same folds and label-safe aug; needs mamba-ssm CUDA kernels (install requires OK). Always paired with the No-Mamba ablation, as Revisited did.",
+ "min_experiment": "U-Mamba_Bot v No-Mamba base, 5 folds each. Kill (for score purposes) if E1 relF1@2 difference < 0.03; keep as benchmark row regardless.",
+ "evidence": "R: beats CNN and Transformer baselines on 3D CT/MR, 2D endoscopy, 2D microscopy. Counter-evidence: nnU-Net Revisited finds Mamba layers have no effect against a No-Mamba residual U-Net.",
+ "gpu_hours": 100,
+ "bet": "moonshot",
+ "prior_overlap": "none; no Mamba segmenter tried",
+ "score": 30,
+ "bench_score": 80,
+ "targets": [
+  "e1_unseen",
+  "benchmark"
+ ],
+ "directions": [
+  "D25"
+ ],
+ "scout_scores": [
+  30
+ ],
+ "final": 30,
+ "bench": 80,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 317,
+ "pub_allowed": 0,
+ "selected_for": "bench"
+}

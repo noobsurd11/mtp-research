@@ -1,0 +1,43 @@
+{
+ "paper_id": "doi:10.52202/075280-3492",
+ "title": "SegRefiner: Towards Model-Agnostic Segmentation Refinement with Discrete Diffusion Process",
+ "year": 2023,
+ "venue": "NeurIPS",
+ "url": "https://arxiv.org/abs/2312.12425",
+ "code_url": "https://github.com/MengyuWang826/SegRefiner",
+ "mechanism": "Discrete diffusion over per-pixel coarse/fine states: a U-Net on image + current mask predicts the fine mask and confidence, and pixels transition coarse -> fine over T = 6 steps; trained on GT degraded by morphological perturbation.",
+ "adaptation": "Fine-tune the HR model on our inactive regions and per-crack crops (1-channel EL repeated to 3); training masks from out-of-fold predictions plus morphological perturbation. Expect n.d. on cracks given the DRIVE result; mainly an inactive and benchmark baseline.",
+ "min_experiment": "Arm: fine-tuned SegRefiner on house ensemble masks. Baseline: house ensemble. Metrics: inactive IoU, crack IoU on 5-fold CV. Kill: < +0.01 on both.",
+ "evidence": "R: gains on BIG (semantic), COCO / LVIS (instance, APmk 47.4 reported), DIS5K; trained on LVIS then DIS5K + ThinObject-5K at 256 px. R (rNCA Table 1): on DRIVE thin vessels Dice 0.761 -> 0.760.",
+ "prior_overlap": "none on our data; the DRIVE comparison in rNCA is the closest negative evidence.",
+ "score": 32,
+ "bench_score": 60,
+ "bet": "safe",
+ "gpu_hours": 12,
+ "targets": [
+  "inactive",
+  "benchmark"
+ ],
+ "directions": [
+  "D26"
+ ],
+ "scout_scores": [
+  30,
+  32
+ ],
+ "alt_notes": [
+  {
+   "from": "D26",
+   "adaptation": "Retrain from scratch on OOF house predictions (not synthetic morphology), 512 native, 1-ch EL + coarse mask, separate crack and inactive refiners. Expected near null on cracks given the DRIVE result; included mainly as the standard refiner baseline for the benchmark.",
+   "min_experiment": "Arm: SegRefiner on house ensemble. Baseline: house ensemble. Metrics: relR@2 at fixed relP@2, crack and inactive IoU. Kill: relR@2 < +0.01 and inactive IoU < +0.02.",
+   "score": 30
+  }
+ ],
+ "final": 32,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 487,
+ "pid": "P487"
+}

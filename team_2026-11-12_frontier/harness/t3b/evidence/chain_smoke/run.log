@@ -1,0 +1,45 @@
+[2026-11-22 02:32:34] T3b chain smoke in /home/noob/work/bench_int_io/t3b/chain_2865203 (K cba7fbdf5df1579d6efb1168eb292e637bc9fad6; script d9532cb0)
+synthetic ext117 in /home/noob/work/bench_int_io/t3b/chain_2865203/ext117: 106 cells
+3 tiny runs in /home/noob/work/bench_int_io/t3b/chain_2865203/noob_el/bench_9967d59 (REVISION 9967d59), LATEST.md5 in /home/noob/work/bench_int_io/t3b/chain_2865203/relay_fin2
+zero-shot stand-ins: 3 relayed units in /home/noob/work/bench_int_io/t3b/chain_2865203/relay_open (G's bench_infer), 3 records by R's scorer
+register rc 0 (REGISTERED.txt md5 27e1bd685d5b350ead61e83697dd83aa  (IO /home/noob/work/bench_i; 1 scripts line)
+negative build without ledger row #9: rc 1 (REFUSED (build): the ledger /home/noob/work/bench_int_io/t3b/chain_2865203/ledger/e1_openings.md holds no '| 9); IO/data made: no
+build rc 0 (label precheck: 106 of 106 E1 cells map to training labels = the scoring view (in memory; ; ROOTS_t3b.md5 d58d73106c915d358b53fae8c07dca61  MANIFEST.md5; 11 roots; CHECK OK ROOTS_t3b.md5 d58d73106c915d358)
+stage rc 0 (DT /tmp/noob_el/bench_data_t3b: MANIFEST.md5, ROOTS_t3b.md5 and the link list =  DS /tmp/noob_el/bench_data_sealed: 107 files + MANIFEST.md5 (3bad2692921dce08eea )
+negative stage twice: rc 1 (REFUSED (stage): /tmp/noob_el/bench_data_sealed or /tmp/noob_el/bench_data_t3b exists on cv02)
+33 tiny runs in /home/noob/work/bench_int_io/t3b/chain_2865203/noob_el/bench_cba7fbd (REVISION cba7fbd), LATEST.md5 in /home/noob/work/bench_int_io/t3b/chain_2865203/synth_unused
+33 training units (slim, LATEST.md5, RUN.md5) in /home/noob/work/bench_int_io/t3b/chain_2865203/noob_el/bench_cba7fbd
+negative gate before the training relay: rc 1 (REFUSED (gate): t3b is not complete: no 'RELAY ALL DONE: 33 of 33' in /home/noob/work/bench_int_io/t3b/chain_2865203/relay_t3b/relay.log; t3)
+relay train rc 0 (relay (foreground) ended: [2026-11-22 02:38:41] RELAY ALL DONE: 33 of 33 runs relayed); units in RD1 33, of which dump units 0
+relay deploy rc 0 ( DEPLOY LATEST DONE: 3 of 3); latest.pth in RD1: 3
+gate after the training relay: rc 0 (t3b complete: 33 of 33 trained rc=0 with RUN.md5 (registered repairs: none); queues ended; relay 33 of 33; the 3 deployable units and their latest.pth)
+T3b dumps: 30 of 30 in 261 s; marked trained_on_e1: 30; RUN.md5 in KB/runs: 63 (33 training + 30 dump)
+relay dump rc 0 (relay (foreground) ended: [2026-11-22 02:43:18] RELAY ALL DONE: 30 of 30 runs relayed); units in RD2 30, of which training units 0; RD1 still 33
+negative regmd5: rc 1 (REFUSED: REGISTERED.txt md5 != REG_MD5); out dir created: no
+negative manifest_e1count: rc 1 (manifest check: 33 dumps (30 T3b, 3 zero-shot), device ['cpu']: FAIL); out dir created: no
+negative zs_changed: rc 1 (REFUSED: zero-shot unit fin_hrnet_swad_v11_pool_s6.swad.tta_d4.e1_106: md5sum -c of its relayed files failed); out dir created: no
+negative e1_mask_changed: rc 1 (REFUSED: E1 image / mask / ignore files differ from the registration); out dir created: no
+negative tag_path: rc 1 (REFUSED: TAG must be [a-z0-9_]+); out dir created: no
+negative overrides without TEST_MODE: rc 1 (REFUSED: test-only overrides set: IO=/home/noob/work/bench_int_io/t3b/chain_2865203/io RD1); out dir created: no
+negative unstage before the read: rc 1 (REFUSED (unstage): the registered read has not ended (/home/noob/work/bench_int_io/t3b/chain_2865203); DT kept
+negative tampered run_t3b_read.sh: REFUSED: run_t3b_read.sh is not the registered script (REGISTERED.txt scripts line)
+negative tampered t3b_verdict.py: REFUSED: t3b_verdict.py is not the registered script (REGISTERED.txt scripts line)
+negative tampered t3b_queue.sh: REFUSED (gate): t3b_queue.sh is not the registered script (REGISTERED.txt scripts line)
+negative tampered t3b_relay.sh: REFUSED: t3b_relay.sh is not the registered script
+  out dir created by any negative: no
+read rc 0
+manifest check: 33 dumps (30 T3b, 3 zero-shot), device ['cpu']: OK
+[2026-11-22 02:45:52] records: 30 T3b fold records, 3 zero-shot records
+zero-shot re-score vs opening #8 fin_hrnet_swad_v11_pool_s5.swad.tta_d4.e1_106: IDENTICAL: 106 cells, 10 shared fields ['conf', 'crack_cc', 'crack_h1000_neg', 'crack_h1000_pos', 'crack_pband_gt', 'cra
+zero-shot re-score vs opening #8 fin_hrnet_swad_v11_pool_s6.swad.tta_d4.e1_106: IDENTICAL: 106 cells, 10 shared fields ['conf', 'crack_cc', 'crack_h1000_neg', 'crack_h1000_pos', 'crack_pband_gt', 'cra
+zero-shot re-score vs opening #8 fin_hrnet_swad_v11_pool_s7.swad.tta_d4.e1_106: IDENTICAL: 106 cells, 10 shared fields ['conf', 'crack_cc', 'crack_h1000_neg', 'crack_h1000_pos', 'crack_pband_gt', 'cra
+strata (lists/t3b_strata.tsv): full 44, half-cut 62 (of which hard = half-cut + scuff 29, half-cut without scuff 33)
+T3B VERDICT: P (ALL - ZS pooled out-of-fold crack relF1@2) NOT CONFIRMED (the interval holds 0; Delta <= 0); Delta -0.0000 [-0.0000, +0.0000]; width ratio ALL / ZS 0.000 (reported).
+[2026-11-22 02:46:42] T3B READ ALL DONE (verdict rc 0); tracked changes in /home/noob/work/bench_wt_t3b: 0
+negative existing output: rc 1 (REFUSED: output folder exists: /home/noob/work/bench_int_io/t3b/chain_2865203/re)
+negative swapped ALL / HALF read: verdict refuse: arm ALL run ids ['t3b_half_s5.oof', 't3b_half_s6.oof', 't3b_half_s7.oof'] != ['t3b_all_s5.oof', 't3b_all_s6.oof', 't3b_all_s7.oof']; arm HALF run ids ['t3b_all_s5; verdict written: no
+repeat read TAG=rep1: rc 0 (REPEAT (TAG rep1), not the registered read); verdict header: # REPEAT (TAG rep1), not the registered read
+unstage rc 0 (REMOVED_DUMPS 30 REMOVED /home/noob/work/bench_int_io/t3b/chain_2865203/noob_el/bench_data_sealed REMOVED /home/noob/work/bench_int_io/t3b/chain_2865203/noob_el/bench_data_t3b [2026-11-22 02:48:58] unstage: removed the 30 sealed dump dirs from /tmp/noob_el/bench_cba7fbd/dumps (each = its verifie )
+  after unstage: dump dirs left 0; runs/*/RUN.md5 kept 63; DS removed; DT removed; removal log lines 30
+[2026-11-22 02:48:58] chain smoke done (read rc 0); scratch removed
+exit 0

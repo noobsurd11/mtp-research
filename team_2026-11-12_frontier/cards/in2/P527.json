@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2405.09365",
+ "title": "SARATR-X: Toward Building a Foundation Model for SAR Target Recognition",
+ "year": 2025,
+ "venue": "IEEE TIP",
+ "url": "https://arxiv.org/abs/2405.09365",
+ "code_url": "https://github.com/waterdisappear/SARATR-X",
+ "mechanism": "SSL foundation model for noisy greyscale SAR on 0.18M unlabelled images, using multi-scale gradient features as masked-modeling targets so the model does not learn speckle.",
+ "adaptation": "Repeat our closed R34 SparK job with multi-scale gradient / HOG targets instead of normalised pixels; gradient targets keep ridges and edges while ignoring EL sensor noise and source contrast.",
+ "min_experiment": "Gradient-target MIM (~15 GPU-h) + PF vs pixel-target MIM checkpoint and house PF, 5 v 5; kill if crack IoU < +0.012 and E1 recall < +0.02.",
+ "evidence": "R: competitive with or better than supervised, semi- and self-supervised methods on few-shot SAR classification and detection.",
+ "prior_overlap": "Partial: same backbone and pool as our n.d. MIM; only the target changes, which was not tested.",
+ "targets": [
+  "crack",
+  "e1_unseen"
+ ],
+ "bet": "safe",
+ "gpu_hours": 30,
+ "score": 30,
+ "bench_score": 25,
+ "directions": [
+  "D32"
+ ],
+ "scout_scores": [
+  30
+ ],
+ "final": 30,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 527,
+ "pid": "P527"
+}

@@ -1,0 +1,3 @@
+m2_rung_SKR01_scuffign.txt (team-lead, 14 Nov 2026 04:45 IST): the scuff-ignored m2_rung table, a REPORTED-only item (protocol_SKR2C section 4; never changes a verdict).
+The frozen readout script built its file list with one sed over a space-separated list; the greedy pattern rewrote only the first directory and the last suffix, so m2_rung got a wrong path and exited (results/s2c/local/m2_rung_SKR01_scuffign.err). The frozen script marks that call "reported only" and continues.
+Here the same m2_rung.py (0ae9d505), label and inputs are called with the ten paths written out: raw_r/m0_scuffign/{SUPPF,SKR01}/s2c_<arm>_100pct_s10..14.scuffign.json. Nothing else differs.

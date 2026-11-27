@@ -1,0 +1,43 @@
+{
+ "paper_id": "doi:10.1109/cvprw63382.2024.00262",
+ "title": "Segment Anything Model for Road Network Graph Extraction",
+ "year": 2024,
+ "venue": "CVPRW",
+ "url": "https://arxiv.org/abs/2403.16051",
+ "code_url": "https://github.com/htcr/sam_road",
+ "mechanism": "Fine-tuned SAM encoder predicts vertex and intersection masks, NMS gives vertices, a small transformer predicts edges, giving a vector graph.",
+ "adaptation": "Severity, not IoU: a crack graph per cell gives crack mode (single line, dendritic, cross) and length; benchmark severity track.",
+ "min_experiment": "Arm = SAM-Road style graph head on crack; baseline = skeletonised PF prediction; metric graph APLS / crack-mode accuracy vs label skeleton graph on CV. Kill if not better than skeletonised PF.",
+ "score": 33,
+ "bench_score": 45,
+ "bet": "moonshot",
+ "targets": [
+  "severity",
+  "benchmark"
+ ],
+ "evidence": "R: comparable to RNGDet++ on City-scale, 40x faster.",
+ "gpu_hours": 30,
+ "prior_overlap": "None.",
+ "directions": [
+  "D11"
+ ],
+ "scout_scores": [
+  33,
+  30
+ ],
+ "alt_notes": [
+  {
+   "from": "D11",
+   "adaptation": "Severity track only: crack graph per cell gives crack mode (single line, cross, dendritic), length and branch count; train on skeleton graphs from crack labels.",
+   "min_experiment": "Graph extraction on CV folds; metric crack-mode agreement with labels-derived graphs; no score kill line (severity feature).",
+   "score": 30
+  }
+ ],
+ "final": 33,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 482,
+ "pid": "P482"
+}

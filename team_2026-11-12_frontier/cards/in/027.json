@@ -1,0 +1,45 @@
+{
+ "paper_id": "arxiv:2011.00848",
+ "title": "nnU-Net for Brain Tumor Segmentation (region-based training)",
+ "year": 2020,
+ "venue": "BraTS 2020 (arXiv)",
+ "url": "https://arxiv.org/abs/2011.00848",
+ "code_url": "",
+ "mechanism": "Replace the softmax over exclusive labels with per-region sigmoid outputs and BCE + Dice on nested, overlapping regions that match the evaluation regions.",
+ "adaptation": "Keep the 24-class softmax for the other classes. Add 3 sigmoid channels. D = crack OR inactive (the damaged area). I = inactive, hole-filled, so it includes crack pixels inside it. C = crack, kept even inside inactive. Inference: softmax argmax, then overwrite with I > t_I, then C > t_C, with thresholds chosen on val or fold CV. D is a large, easy target that shares features between the two rare classes. This frees the 20% of crack pixels that argmax currently gives to inactive.",
+ "min_experiment": "Arm: PF + D/I/C sigmoid channels with overlap targets. Baseline: PF (5 seeds). Metrics: inactive IoU on module-grouped 5-fold CV and on clean 49, crack IoU, relF1@2, E1 inactive IoU. Kill if the CV inactive IoU gain is < 0.02 and crack IoU falls by more than 0.012.",
+ "evidence": "R (tables 1 and 2 of the PDF): 5-fold CV mean Dice 86.09 -> 86.73 with region training (tumour core +1.0, enhancing +2.0). Validation 83.76 -> 84.13. 369 training cases, 3D MRI.",
+ "prior_overlap": "none. BRIEF section 5 lists multi-label heads as never tried.",
+ "score": 70,
+ "bench_score": 55,
+ "bet": "safe",
+ "gpu_hours": 12,
+ "targets": [
+  "inactive",
+  "crack",
+  "e1_unseen"
+ ],
+ "directions": [
+  "D27"
+ ],
+ "scout_scores": [
+  70,
+  70
+ ],
+ "alt_notes": [
+  {
+   "from": "D27",
+   "adaptation": "Keep 24-class softmax; add 3 sigmoid channels D = crack OR inactive, I = inactive hole-filled, C = crack kept inside inactive (recover crack layer under inactive from 2022 correction layers or mask the loss there). Final map: argmax, then write I, then C (outer to inner) with val/CV thresholds.",
+   "min_experiment": "Arm PF + D/I/C sigmoid heads (BCE+Dice), 5 seeds + module-grouped 5-fold CV; baseline PF; metrics inactive IoU (CV and clean 49), crack IoU, relF1@2, E1 inactive IoU; kill if inactive CV IoU gain < 0.02 and crack IoU drop > 0.012.",
+   "score": 70
+  }
+ ],
+ "final": 70,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 27,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

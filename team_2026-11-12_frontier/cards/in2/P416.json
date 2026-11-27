@@ -1,0 +1,43 @@
+{
+ "paper_id": "arxiv:2602.16238",
+ "title": "EasyControlEdge: A Foundation-Model Fine-Tuning For Edge Detection",
+ "year": 2026,
+ "venue": "ICIP 2026",
+ "url": "https://arxiv.org/abs/2602.16238",
+ "code_url": "",
+ "mechanism": "Lightweight condition injection on a frozen FLUX.1-dev rectified-flow model, pixel-space weighted CE through a proxy gradient, guidance scale controls edge density at inference.",
+ "adaptation": "EL replicated to 3 channels at 512 px, frozen backbone, crack-only target; guidance scale as a recall knob for E1 and the almost-all-cracks target. Gated FLUX download needs user OK. First check VAE reconstruction of GT crack maps since the 8x latent may erase 1 px cracks.",
+ "min_experiment": "Step 1: crack IoU of decode(encode(GT)) vs GT on train cells; stop if < 0.8. Step 2: 1 seed on 478 cells, judged on E1 crack relF1@2 vs PF single model and PF ensemble (0.43 to 0.47). Kill if below PF single model. About 40 GPU-h.",
+ "score": 38,
+ "bench_score": 40,
+ "bet": "moonshot",
+ "targets": [
+  "crack",
+  "e1_unseen"
+ ],
+ "evidence": "R: BIPED with 20 training images CEval ODS 0.875 vs DiffusionEdge 0.851, GED 0.746; BSDS CEval ODS 0.807; CubiCasa walls strong at 42 images.",
+ "gpu_hours": 40,
+ "prior_overlap": "None; generative foundation models and adapters are listed as open. Frozen linear probes of DINO/SAM do not cover this.",
+ "directions": [
+  "D13"
+ ],
+ "scout_scores": [
+  30,
+  38
+ ],
+ "alt_notes": [
+  {
+   "from": "D13",
+   "adaptation": "Tile the EL image to 3 channels at 512 px and train LoRA only, on crack. The guidance scale acts as a recall knob that is not a threshold, aimed at the target relR@2 >= 0.90 at relP@2 >= 0.90 and at E1.",
+   "min_experiment": "Arm: EasyControlEdge LoRA on crack, 3 seeds. Baseline: house ensemble. Metrics: best relR@2 at relP@2 >= 0.90, E1 relF1@2. Kill if both are below the house model.",
+   "score": 30
+  }
+ ],
+ "final": 38,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 416,
+ "pid": "P416"
+}

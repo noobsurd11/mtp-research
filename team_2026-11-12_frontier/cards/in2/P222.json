@@ -1,0 +1,52 @@
+{
+ "paper_id": "arxiv:2604.11162",
+ "title": "Boxes2Pixels: Learning Defect Segmentation from Noisy SAM Masks",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2604.11162",
+ "code_url": "https://github.com/CLendering/Boxes2Pixels",
+ "mechanism": "Treat pseudo-masks as a noisy teacher and apply one-sided online self-correction: relax background supervision where the student is confident a defect is present, targeting teacher false negatives.",
+ "adaptation": "Take only the one-sided rule for our missed crack labels (audit: issues in 24 of 239 train crack cells; E1 recall 0.17-0.21): after warm-up, drop background loss on thin confident EMA components (p>0.9) more than 2 px from any crack label; never add crack targets.",
+ "evidence": "R: wind turbine blade set, binary IoU +9.71 over strongest weak baseline, binary recall +18.56 from self-correction alone.",
+ "min_experiment": "Arm: PF + background-loss drop for confident thin components after 5k steps; baseline: PF; metric: E1 crack relF1@2 and CV relR@2; kill if E1 relF1@2 < +0.02 and CV relP@2 falls > 0.02.",
+ "gpu_hours": 6,
+ "prior_overlap": "none: noisy-label methods never tried; D15/D36 list the paper only for box supervision.",
+ "score": 50,
+ "bench_score": 30,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "e1_unseen"
+ ],
+ "directions": [
+  "D36",
+  "D38",
+  "D40"
+ ],
+ "scout_scores": [
+  48,
+  40,
+  50
+ ],
+ "alt_notes": [
+  {
+   "from": "D38",
+   "adaptation": "Loss for training on FM-labelled pool half-cells: FM labellers miss thin cracks, so relax background CE where the house student is confident of crack; keep real labels for the 478 cells.",
+   "min_experiment": "Only after a labeller passes G0: PF + labeller pseudo-labels with vs without one-sided relaxation; H36 inactive IoU and F51 crack relF1@2; kill under margin M.",
+   "score": 40
+  },
+  {
+   "from": "D36",
+   "adaptation": "PVEL-AD crack boxes (needs user OK). Replace SAM with box-gated house-ensemble pseudo-masks; outside boxes hard background, inside soft with one-sided correction; own source flag for NIR poly cells.",
+   "min_experiment": "Only if joint runs gain from extra crack data. Arm: house + PVEL-AD box-gated pseudo-masks, 30k steps, 5 seeds. Baseline: house 5-seed. Metric: clean-49 crack relR@2 and E1 crack recall. Kill if relR@2 < +0.02 and E1 recall < +0.03. ~20 GPU-h.",
+   "score": 48
+  }
+ ],
+ "final": 50,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 222,
+ "pid": "P222"
+}

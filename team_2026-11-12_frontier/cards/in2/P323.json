@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.1007/978-3-031-72114-4_64",
+ "title": "Universal Topology Refinement for Medical Image Segmentation with Polynomial Feature Synthesis",
+ "year": 2024,
+ "venue": "MICCAI",
+ "url": "https://arxiv.org/abs/2409.09796",
+ "code_url": "https://github.com/smilell/Universal-Topology-Refinement",
+ "mechanism": "A model-agnostic topology refiner trained on synthetic perturbation masks generated from random orthogonal-polynomial fields, so the error distribution is not limited by a small labelled set or one network's biases.",
+ "adaptation": "Generate polynomial perturbations on every crack label available (478 train, E-SCDD train cells, UCF-EL thin parts used label-only); use as the synthetic error source for the refiner in the Chen 2024 arm; compare error models.",
+ "min_experiment": "Arm: refiner trained with polynomial perturbations. Baseline: house ensemble, and the morphological-error refiner. Metric: 5-fold CV components found, relF1@2, crack IoU. Kill: no gain > +0.005 relF1@2 over the house ensemble.",
+ "evidence": "R: outperformed topology-driven losses and post-processing methods on medical segmentation; designed for small datasets (numbers not read).",
+ "prior_overlap": "none.",
+ "score": 45,
+ "bench_score": 25,
+ "bet": "medium",
+ "gpu_hours": 6,
+ "targets": [
+  "crack"
+ ],
+ "directions": [
+  "D26"
+ ],
+ "scout_scores": [
+  45
+ ],
+ "final": 45,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 323,
+ "pid": "P323"
+}

@@ -1,0 +1,20 @@
+== build
+wrote /tmp/claude-1003/-home-noob/72e5944a-6b2b-4807-a45d-84138b3413e5/scratchpad/io2_dry/jobs.txt md5 7efbf54cbdbaae747781089aadb056cd
+[2026-11-21 07:19:29] build: built /tmp/claude-1003/-home-noob/72e5944a-6b2b-4807-a45d-84138b3413e5/scratchpad/io2_dry/jobs.txt: 10 lines, md5 7efbf54cbdbaae747781089aadb056cd
+== build again
+REFUSED (build): /tmp/claude-1003/-home-noob/72e5944a-6b2b-4807-a45d-84138b3413e5/scratchpad/io2_dry/jobs.txt exists (use a new IO)
+== resumecopy wrong F2
+REFUSED (resumecopy): F2 must be the full commit 9330f8bd021d552bc2b633fb58a63f70c657be8b
+== resumecopy F2B not deployed
+REFUSED (resumecopy): F2B REVISION is not F2
+== render (no copy)
+REFUSED (render): F2B REVISION is not F2
+== place DRY
+DRY, not run on cv02: mkdir /tmp/noob_el/bench_q/fin2; jobs.txt (md5 7efbf54cbdbaae747781089aadb056cd, r--r--r--); LPG 1; MAXC 8; SHARE_TRAIN 20480; no SHARE_DUMP
+== guard DRY
+DRY, not run on cv02: place /tmp/noob_el/bench_q/diskguard6.sh (md5 8137e124e6dd0ccc1d9f59ccf61483bb), tmux new-session -d -s bench_diskguard6 'bash /tmp/noob_el/bench_q/diskguard6.sh'
+== arm no render
+REFUSED (arm): no passed 'render' in /tmp/claude-1003/-home-noob/72e5944a-6b2b-4807-a45d-84138b3413e5/scratchpad/io2_dry
+== status
+cv02 2026-11-21 01:49:30 UTC; free 76 GB; HOLD in fin2: no; SHARE_DUMP in fin2: absent
+fin2: no dir

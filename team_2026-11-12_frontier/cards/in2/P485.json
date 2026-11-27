@@ -1,0 +1,37 @@
+{
+ "paper_id": "doi:10.1109/jphotov.2021.3131059",
+ "title": "Automated Defect Detection and Localization in Photovoltaic Cells Using Semantic Segmentation of Electroluminescence Images",
+ "year": 2022,
+ "venue": "IEEE Journal of Photovoltaics",
+ "url": "https://doi.org/10.1109/jphotov.2021.3131059",
+ "code_url": "",
+ "mechanism": "UCF-EL: large polygon-mask EL dataset (crack region, contact, interconnect, corrosion) with a U-Net baseline.",
+ "adaptation": "Joint training: shared U-Net++ with a second 1x1 head for UCF-EL classes, loss only on each dataset's own labels, alternating batches; keeps UCF knowledge instead of the pretrain-then-erase run.",
+ "min_experiment": "Arm joint training vs house, 5 seeds; crack IoU, E1 crack recall; kill if both within noise.",
+ "evidence": "R: crack recall 0.82 and gridline/contact recall 0.78 (as quoted by Pratt 2023); heavy train/test leakage (BRIEF E).",
+ "prior_overlap": "UCF-EL encoder pretraining with house fine-tune (erased) was n.d./worse; joint training never tried. Open.",
+ "score": 32,
+ "bench_score": 85,
+ "bet": "medium",
+ "gpu_hours": 15,
+ "targets": [
+  "crack",
+  "e1_unseen",
+  "benchmark"
+ ],
+ "directions": [
+  "D01"
+ ],
+ "scout_scores": [
+  32
+ ],
+ "final": 32,
+ "bench": 85,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 485,
+ "pub_allowed": 1,
+ "selected_for": "bench",
+ "pid": "P485"
+}

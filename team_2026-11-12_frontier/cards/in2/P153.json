@@ -1,0 +1,35 @@
+{
+ "paper_id": "doi:10.1109/tmi.2020.2974574",
+ "title": "MS-Net: Multi-Site Network for Improving Prostate Segmentation With Heterogeneous MRI Data",
+ "year": 2020,
+ "venue": "IEEE Transactions on Medical Imaging",
+ "url": "https://arxiv.org/abs/2002.03366",
+ "code_url": "https://github.com/liuquande/MS-Net",
+ "mechanism": "Train one segmentation network on several heterogeneous sites with shared conv kernels, site-specific batch normalisation and site-specific auxiliary branches plus multi-site knowledge transfer.",
+ "adaptation": "Treat the 5 EL sources (ARTS, CFVS, CSIR, BMRK, SDLE) as sites in the house U-Net++: per-source BN (PyTorch re-implementation of the BN part only), source id known for every cell; E1 (101 CSIR + 5 BMRK) uses the CSIR / BMRK branches. Optional 6th site UCF-EL for joint (not sequential) training.",
+ "min_experiment": "Arm: PF with per-source BN; baseline: PF. Module-grouped 5-fold CV, 2 seeds. Metrics: crack relF1@2, inactive IoU, BMRK crack IoU, then E1 crack recall. Kill if relF1@2 and inactive IoU both < +0.01 and BMRK crack IoU < +0.02.",
+ "evidence": "R: consistent gains across 3 heterogeneous prostate MRI sites over joint training and single-site baselines (numbers not read).",
+ "prior_overlap": "none. BRIEF per-panel BN adaptation was test-time BN; the SSL 'separate BN' split labelled vs unlabelled batches. Training-time per-source BN and joint multi-dataset training are listed as never tried.",
+ "score": 55,
+ "bench_score": 40,
+ "bet": "safe",
+ "targets": [
+  "crack",
+  "inactive",
+  "e1_unseen"
+ ],
+ "gpu_hours": 22,
+ "directions": [
+  "D04"
+ ],
+ "scout_scores": [
+  55
+ ],
+ "final": 55,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 153,
+ "pid": "P153"
+}

@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2512.06886",
+ "title": "Balanced Learning for Domain Adaptive Semantic Segmentation (BLDA)",
+ "year": 2025,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2512.06886",
+ "code_url": "https://github.com/Woof6/BLDA",
+ "mechanism": "Detects over- and under-predicted classes from logit distributions and aligns them to shared anchor distributions, post hoc and inside self-training.",
+ "evidence": "Consistent gains on two UDA benchmarks, mostly on under-predicted classes, when added to existing methods (abstract).",
+ "adaptation": "Estimate per-class logit corrections from unlabelled E1-like pool cells (half-cells); E1 cracks are under-predicted (70% p<0.001). Use post hoc first, then inside the MIC arm.",
+ "min_experiment": "Post-hoc BLDA correction on PF ensemble vs val-chosen crack logit bias; metric E1 crack relF1@2 and test crack IoU. Kill: < +0.02 E1 relF1@2.",
+ "prior_overlap": "Partial: a single val-chosen crack logit bias was tried; per-class target-estimated alignment was not.",
+ "score": 38,
+ "bench_score": 35,
+ "bet": "medium",
+ "gpu_hours": 1,
+ "targets": [
+  "e1_unseen",
+  "crack"
+ ],
+ "directions": [
+  "D30"
+ ],
+ "scout_scores": [
+  38
+ ],
+ "final": 38,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 417,
+ "pid": "P417"
+}

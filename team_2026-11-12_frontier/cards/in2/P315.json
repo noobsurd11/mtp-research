@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1109/tmi.2024.3405982",
+ "title": "Deep Closing: Enhancing Topological Connectivity in Medical Tubular Segmentation",
+ "year": 2024,
+ "venue": "IEEE TMI",
+ "url": "https://doi.org/10.1109/tmi.2024.3405982",
+ "code_url": "https://github.com/5k5000/DeepClosing",
+ "mechanism": "A masked-image-modelling autoencoder trained on label masks learns a tubular shape prior and flags likely disconnections; a simple-components erosion keeps only topologically meaningful additions to the base segmentation.",
+ "adaptation": "Train the shape prior on crack label masks only (no images), so all labelled crack masks can be used; apply to house predictions to close gaps between collinear fragments; guard against bridging across busbars.",
+ "min_experiment": "Arm: house ensemble + Deep Closing. Baseline: house ensemble. Metrics: components found, relR@2 at fixed relP@2, crack IoU on 5-fold CV and E1. Kill: relR@2 gain < +0.01 or relP@2 drop > 0.01.",
+ "evidence": "R: topology metrics improved on DRIVE, CHASE_DB1, DCA1, CREMI; transfers knowledge from external datasets (numbers not read).",
+ "prior_overlap": "Partly near soft clDice and Skeleton Recall losses (BRIEF section 5), but those are training losses; a post-hoc label-only shape prior was not tested.",
+ "score": 45,
+ "bench_score": 25,
+ "bet": "medium",
+ "gpu_hours": 4,
+ "targets": [
+  "crack",
+  "e1_unseen"
+ ],
+ "directions": [
+  "D26"
+ ],
+ "scout_scores": [
+  45
+ ],
+ "final": 45,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 315,
+ "pid": "P315"
+}

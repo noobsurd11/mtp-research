@@ -1,0 +1,53 @@
+{
+ "paper_id": "doi:10.1007/978-3-030-78191-0_52",
+ "title": "Spatially Varying Label Smoothing: Capturing Uncertainty from Expert Annotations",
+ "year": 2021,
+ "venue": "IPMI",
+ "url": "https://arxiv.org/abs/2104.05788",
+ "code_url": "https://github.com/mobarakol/SVLS",
+ "mechanism": "Convolve one-hot labels with a Gaussian so boundary pixels get soft targets and interiors stay hard, encoding annotation position uncertainty.",
+ "adaptation": "For a 1.75 px crack every pixel is boundary, so SVLS becomes a soft crack band covering the 1-2 px jitter. Sigma per source from label width (ARTS 1.5 px to SDLE 3.25 px) as a second arm. Train with JML or DML instead of house soft Dice; re-pick the crack logit bias on val because soft targets shift the argmax width.",
+ "min_experiment": "Arm SVLS (sigma 0.7 px) + JML vs SUP100, 5 v 5 seeds. Metric clean-49 crack IoU at val-chosen bias, relF1@2, relP@2. Kill if crack IoU < +0.012 or relP@2 drop > 0.05.",
+ "score": 63,
+ "bench_score": 40,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "e1_unseen"
+ ],
+ "evidence": "R: better boundary prediction and calibration on 4 clinical segmentation tasks, single and multi-rater (abstract).",
+ "gpu_hours": 6,
+ "prior_overlap": "Related but not the same: offset-tolerant CE (P14, 10% labels, min over shifts) was n.d.; soft Gaussian targets with an IoU loss at 100% labels never run.",
+ "directions": [
+  "D15",
+  "D18"
+ ],
+ "scout_scores": [
+  55,
+  63,
+  63
+ ],
+ "alt_notes": [
+  {
+   "from": "D15",
+   "adaptation": "Apply SVLS (sigma 0.7 to 1.0) only to the crack channel in CE, giving a soft 3 to 4 px band matching the 4 px FWHM line; keep Dice on the hard crack label; structural classes unchanged.",
+   "min_experiment": "Arm: house + SVLS on crack CE. Baseline: house. Metric: crack IoU, relF1@2. Kill if both < house + 0.005. About 6 GPU-h.",
+   "score": 55
+  },
+  {
+   "from": "D18",
+   "adaptation": "Soft crack band with sigma 0.7 px, second arm with per-source sigma from measured label width; must pair with JML/DML instead of house soft Dice; crack bias re-picked on val.",
+   "min_experiment": "Arm: SVLS crack targets + CE + JML, 5 seeds; baseline SUP100. Metric crack IoU (val bias), relP@2. Kill: crack IoU < +0.012 or relP@2 drop > 0.05.",
+   "score": 63
+  }
+ ],
+ "final": 63,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 66,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P066"
+}

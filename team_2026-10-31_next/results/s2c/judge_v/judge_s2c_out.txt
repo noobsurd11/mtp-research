@@ -1,0 +1,71 @@
+## 0 inputs
+  real test list /home/noob/work/el_f3/data/splits/test.txt: md5 a31fad14 (expected a31fad14), 50 stems
+  real val list /home/noob/work/el_f3/data/splits/val.txt: md5 9dcccf00 (expected 9dcccf00), 54 stems
+  real ext list /home/noob/work/el_f1/reports/f1/ext117/stems_eval.txt: md5 5266806b (expected 5266806b), 106 stems
+  training root test.txt md5 9dcccf00; equals real val list: True; stems shared with the real test list: 0
+  SUPPF: runs ['s2c_SUPPF_100pct_s10', 's2c_SUPPF_100pct_s11', 's2c_SUPPF_100pct_s12', 's2c_SUPPF_100pct_s13', 's2c_SUPPF_100pct_s14']; step 20000; revision e544133; test / val / E1 stems = the real lists; tau0 cells = default cells
+  SKR01: runs ['s2c_SKR01_100pct_s10', 's2c_SKR01_100pct_s11', 's2c_SKR01_100pct_s12', 's2c_SKR01_100pct_s13', 's2c_SKR01_100pct_s14']; step 20000; revision c9bbb02; test / val / E1 stems = the real lists; tau0 cells = default cells
+  m0 JSONs that are not one of the 10 fresh runs: none
+  GT-only columns equal over the 10 runs; E1 GT comps >= 20 px 296; E1 crack-free cells 74; test GT comps 189; E1 clusters 71; test modules 48
+
+## 1 verdict R (singles, seed means, rule 1 /3, 5 v 5)
+  test crack IoU       SUPPF 0.4692 +- 0.0030  SKR01 0.4438 +- 0.0568 | all 50 d -0.0254 (thr 0.0656) n.d. | clean 49 d +0.0021 (thr 0.0100) n.d. | two-set label: n.d.; if one set alone could label: n.d.
+  test crack relF1@2   SUPPF 0.8902 +- 0.0018  SKR01 0.8551 +- 0.0777 | all 50 d -0.0351 (thr 0.0898) n.d. | clean 49 d +0.0012 (thr 0.0100) n.d. | two-set label: n.d.; if one set alone could label: n.d.
+  test inactive IoU    SUPPF 0.4681 +- 0.0205  SKR01 0.4483 +- 0.0091 | all 50 d -0.0198 (thr 0.0259) n.d. | clean 49 d -0.0207 (thr 0.0269) n.d. | two-set label: n.d.; if one set alone could label: n.d.
+  E1 crack relF1@2     SUPPF 0.4279 +- 0.0163  SKR01 0.4568 +- 0.0181 | d +0.028949 (thr 0.028121) BETTER; margin d - thr +0.000828
+  E1 any-hit           SUPPF 0.4223 +- 0.0265  SKR01 0.4358 +- 0.0598 | d +0.013514 (thr 0.075492) n.d.; margin d - thr -0.061979
+    per seed SUPPF: E1 relF1@2 0.4310 / 0.4136 / 0.4280 / 0.4531 / 0.4135 | test inactive (50) 0.4418 / 0.4831 / 0.4626 / 0.4938 / 0.4592 | test relP@2 (50) 0.9464 / 0.9482 / 0.9401 / 0.9387 / 0.9470 | test relP@2 (49) 0.9464 / 0.9482 / 0.9401 / 0.9387 / 0.9470
+    per seed SKR01: E1 relF1@2 0.4703 / 0.4312 / 0.4445 / 0.4728 / 0.4652 | test inactive (50) 0.4373 / 0.4413 / 0.4567 / 0.4578 / 0.4485 | test relP@2 (50) 0.9252 / 0.9323 / 0.9272 / 0.6147 / 0.9310 | test relP@2 (49) 0.9336 / 0.9332 / 0.9272 / 0.9361 / 0.9310
+  G1 test inactive IoU d: all 50 -0.019765, clean 49 -0.020695; trip iff <= -0.015 in both sets -> TRIP
+  G2 test arm: relP@2 d (all 50) -0.077998 (0.9441 -> 0.8661); trip iff < -0.03 -> TRIP
+  G2 E1 arm: crack px on the 74 crack-free cells, seed means SKR01 3931.0 vs fresh SUPPF 4210.6 = x0.9336; bar 1.5 x = 6315.9 px (ruling 1); fixed s5-9 bar 5,896 px decides nothing -> ok
+    per seed crack-free px SUPPF 3813 / 4370 / 3890 / 3235 / 5745 | SKR01 4539 / 6076 / 3359 / 2465 / 3216
+  verdict R from the 5 m0 co-primaries + guards (two-set rule): 1 BETTER, 0 WORSE, G1 TRIP, G2 TRIP -> FAIL (the 2 B5 co-primaries are not in this script; with a guard tripped they cannot change FAIL)
+  verdict R from the 5 m0 co-primaries + guards (one set alone may label): 1 BETTER, 0 WORSE, G1 TRIP, G2 TRIP -> FAIL (the 2 B5 co-primaries are not in this script; with a guard tripped they cannot change FAIL)
+
+## 2 named claim, condition 1: seed-aware two-stage bootstrap of E1 relF1@2 (10 fresh singles)
+  registered form (seed 0, 2,000): estimate +0.0289, 95% CI [-0.001467, +0.059028], P(d > 0) 0.9705; wholly above 0: False
+  stream check, registered order, seeds 1..20 and 20261102: lower bound min -0.0042 max -0.0005; above 0 in 0 of 21
+  stream check, other draw order, seed 0: [-0.0009, +0.0608]
+
+## 3 verdict D (E-SKR2' vs E-SUPPF', both at b 0)
+  E-SUPPF: members s2c_SUPPF_100pct_s10 .. s2c_SUPPF_100pct_s14 (5), bias 0.0, step 20000, model code e544133; test / val / E1 stems = the real lists
+  E-SKR2: members s2c_SKR01_100pct_s10 .. s2c_SKR01_100pct_s14 (5), bias 0.0, step 20000, model code e544133; test / val / E1 stems = the real lists
+  test crack IoU       all 50 d +0.0004 [-0.0050, +0.0052] | clean 49 d +0.0016 [-0.0028, +0.0062] -> n.d.
+  test crack relF1@2   all 50 d +0.0008 [-0.0035, +0.0047] | clean 49 d +0.0020 [-0.0013, +0.0055] -> n.d.
+  test inactive IoU    all 50 d -0.0269 [-0.0592, +0.0007] | clean 49 d -0.0283 [-0.0656, +0.0025] -> n.d.
+  E1 crack relF1@2     d +0.0342 [+0.011509, +0.054423] (71 clusters) -> pass
+  E1 any-hit           d +0.0338 [+0.000000, +0.058565] (71 clusters) -> n.d.
+    E1 any-hit hits 114 -> 124 of 296; draws below 0 44, exactly 0 48, above 0 1908; sorted draws [49] np.float64(0.0) [50] np.float64(0.0); lower bound == 0.0: True; lower bound > 0: False
+  G2a test relP@2 d (all 50) -0.0133 (0.9566 -> 0.9434); trip iff < -0.03 -> ok
+  G2b E1 crack px on the 74 crack-free cells 2539 vs 2925 = x0.8680; bar 4387.5 px -> ok
+  G1t test inactive IoU d: all 50 -0.026877, clean 49 -0.028322; trip iff <= -0.015 in both sets -> TRIP
+  G1e E1 inactive IoU d +0.0973, cluster CI [-0.0681, +0.2054]; trip iff wholly below 0 -> ok
+  verdict D: passing ['E1 crack relF1@2']; failing -; guards tripped ['G1t'] -> FAIL
+  other reading (a bound of exactly 0 counted as above 0): passing ['E1 crack relF1@2', 'E1 any-hit']; verdict D FAIL
+
+## 4 checks of reported statements (no bar or set changed; none of this is a verdict)
+  noisy cell CSIR_00070_r8_c4: GT crack px 787; predicted crack px per run SUPPF 2 / 0 / 0 / 0 / 2 | SKR01 926 / 203 / 0 / 49713 / 0 | E-SUPPF' 0, E-SKR2' 348
+  SKR01 s13: share of its test crack px on that cell 0.344; relP@2 all 50 0.6147, clean 49 0.9361
+  cells of module CSIR_00070 in test: ['CSIR_00070_r8_c4']
+  relP@2 d on the clean 49 -0.0119; all 50 without SKR01 s13 -0.0151 (the guard is registered on all 50 with all 5 seeds: -0.0780)
+  guards over the 10 leave-one-seed-out drops (G1 d50 / d49, G2 relP d, E1 px ratio):
+    without SUPPF s10: G1 -0.0263 / -0.0275 TRIP | G2 -0.0774, x0.912 TRIP
+    without SUPPF s11: G1 -0.0160 / -0.0168 TRIP | G2 -0.0770, x0.943 TRIP
+    without SUPPF s12: G1 -0.0211 / -0.0224 TRIP | G2 -0.0790, x0.916 TRIP
+    without SUPPF s13: G1 -0.0133 / -0.0139 ok | G2 -0.0793, x0.882 TRIP
+    without SUPPF s14: G1 -0.0220 / -0.0229 TRIP | G2 -0.0773, x1.027 TRIP
+    without SKR01 s10: G1 -0.0170 / -0.0179 TRIP | G2 -0.0928, x0.897 TRIP
+    without SKR01 s11: G1 -0.0180 / -0.0189 TRIP | G2 -0.0946, x0.806 TRIP
+    without SKR01 s12: G1 -0.0219 / -0.0228 TRIP | G2 -0.0933, x0.968 TRIP
+    without SKR01 s13: G1 -0.0221 / -0.0230 TRIP | G2 -0.0151, x1.021 ok
+    without SKR01 s14: G1 -0.0198 / -0.0209 TRIP | G2 -0.0942, x0.976 TRIP
+  a guard trips in 10 of 10 seed drops
+  test inactive: GT px 92125 in 16 of 50 cells; n_eff cells 7.2; seed-mean true positives SUPPF 56111 -> SKR01 55236; inactive predicted on other GT 27793 -> 31053
+
+## 5 guards under other readings of the text (the registered form is section 1 / 3; nothing here replaces it)
+  R, counts pooled over the 5 seeds instead of seed means: G1 -0.0195 / -0.0204 -> TRIP; G2 relP@2 (all 50) -0.1007 -> TRIP
+  R, G2 E1 arm against the fixed s5-9 bar 5,896 px (reference line of ruling 1): SKR01 mean 3931.0 -> ok
+  D, G2a on the clean 49 (3b names no set; all 50 is the frozen scorer's and SKR2E's form): relP@2 d -0.0101 -> ok
+  D, test inactive primary, all 50: draws above 0 55 of 2000 (upper bound +0.000658); clean 49: 58 of 2000 (upper bound +0.002502)
+  SKR01 test relP@2 (all 50) seed sd 0.1406, SUPPF 0.0043 (S2 3c calibrated G2's "null trip ~0" on a seed sd of 0.0015)

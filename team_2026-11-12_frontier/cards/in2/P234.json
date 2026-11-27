@@ -1,0 +1,59 @@
+{
+ "paper_id": "arxiv:2509.02379",
+ "title": "MedDINOv3: How to adapt vision foundation models for medical image segmentation?",
+ "year": 2025,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2509.02379",
+ "code_url": "https://github.com/ricklisz/MedDINOv3",
+ "mechanism": "Plain ViT with multi-scale token aggregation for segmentation plus multi-stage domain-adaptive DINOv3 pretraining on 3.87M CT slices.",
+ "evidence": "R (abstract): matches or exceeds SOTA on four CT/MRI segmentation benchmarks.",
+ "adaptation": "Use its multi-scale token aggregation as the VFM-H fusion design; run its domain-adaptive DINOv3 recipe on the 159k EL pool only if ExPLoRA shows an E1 sign (159k is 4% of their data).",
+ "min_experiment": "Fusion design swap in VFM-H vs simple projection; CV crack relF1@2 and E1 relF1@2; kill if less than +0.01 on either.",
+ "prior_overlap": "No ViT domain-adaptive pretraining was run; ResNet MIM is a different objective. Open.",
+ "score": 48,
+ "bench_score": 55,
+ "bet": "moonshot",
+ "targets": [
+  "e1_unseen",
+  "crack"
+ ],
+ "gpu_hours": 200,
+ "directions": [
+  "D14",
+  "D24",
+  "D32"
+ ],
+ "scout_scores": [
+  42,
+  48,
+  40,
+  40
+ ],
+ "alt_notes": [
+  {
+   "from": "D14",
+   "adaptation": "Continue DINOv3 ViT-B/16 SSL on the 11.9k pool (or the 159k pool if download approved) at 512-1024 px, then plug into the Dino U-Net harness.",
+   "min_experiment": "EL-continued DINOv3 vs natural DINOv3 in the same Dino U-Net harness; kill if E1 crack relF1@2 gain < 0.02 and CV crack relF1@2 not better.",
+   "score": 42
+  },
+  {
+   "from": "D32",
+   "adaptation": "Step 1: multi-scale aggregation + 512-768 px on DINOv3 ViT-B, no pretraining change. Step 2: the 3-stage recipe on the de-duplicated pool, stage 3 with 512-768 crops.",
+   "min_experiment": "Step 2 vs step 1, 2 seeds, out-of-fold relF1@2 and E1 crack recall. Kill step 2 if < +0.01 and < +0.02.",
+   "score": 40
+  },
+  {
+   "from": "D32",
+   "adaptation": "Step 1: multi-scale aggregation + 512 to 768 px on DINOv3 ViT-B, no pretraining change. Step 2: continued pretraining on the de-duplicated pool.",
+   "min_experiment": "Step 2 vs step 1; kill step 2 if < +0.01 out-of-fold relF1@2 and < +0.02 E1 recall.",
+   "score": 40
+  }
+ ],
+ "final": 48,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 234,
+ "pid": "P234"
+}

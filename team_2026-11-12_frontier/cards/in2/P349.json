@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2203.12198",
+ "title": "Deep Frequency Filtering for Domain Generalization",
+ "year": 2023,
+ "venue": "CVPR 2023",
+ "url": "https://arxiv.org/abs/2203.12198",
+ "code_url": "",
+ "mechanism": "FFT of intermediate feature maps with a learned spatial attention mask over frequencies that keeps transferable components and damps the rest.",
+ "adaptation": "Insert DFF at layer2 and layer3 of ResNet-34, train with source-balanced batches over the 5 sources, and score on E1.",
+ "min_experiment": "Arm: house + DFF, 5 seeds. Baseline: house. Metric: E1 crack relF1@2. Kill: < +0.02.",
+ "evidence": "R: beats prior SOTA on closed-set classification and open-set retrieval domain generalisation (abstract).",
+ "gpu_hours": 7,
+ "prior_overlap": "none",
+ "score": 42,
+ "bench_score": 25,
+ "bet": "medium",
+ "targets": [
+  "e1_unseen"
+ ],
+ "directions": [
+  "D28"
+ ],
+ "scout_scores": [
+  42
+ ],
+ "final": 42,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 349,
+ "pid": "P349"
+}

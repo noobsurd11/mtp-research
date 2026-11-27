@@ -1,0 +1,24 @@
+........................................................................ [ 16%]
+........................................................................ [ 32%]
+..................................................s..................... [ 48%]
+........................................................................ [ 64%]
+..........................s.s..............s............................ [ 80%]
+........................................................................ [ 96%]
+..................                                                       [100%]
+=============================== warnings summary ===============================
+tests/test_absh.py::test_ssl_aux_pl_uses_the_confidence_rule
+  /home/noob/work/bench_w2b_io/ref_c57508e/tests/test_absh.py:195: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+  Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:820.)
+    assert float(tr._absh_out["aux_keep_u"]) == 0.0 and float(tr._absh_out["loss_aux_con"]) == 0.0
+
+tests/test_bench_x3.py::test_bootstrap_identical_arms_zero_and_margin_floor
+  /home/noob/work/bench_w2b_io/ref_c57508e/bench/crossfit_op.py:281: RuntimeWarning: Mean of empty slice
+    return {k: float(np.nanmean([p[k] for p in per])) for k in BOOT_KEYS}
+
+tests/test_stream.py: 4 warnings
+tests/test_trainer_utils.py: 8 warnings
+  /usr/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=1968635) is multi-threaded, use of fork() may lead to deadlocks in the child.
+    self.pid = os.fork()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+446 passed, 4 skipped, 14 warnings in 56.71s

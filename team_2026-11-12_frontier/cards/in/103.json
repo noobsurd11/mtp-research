@@ -1,0 +1,45 @@
+{
+ "paper_id": "doi:10.1007/978-3-031-43901-8_39",
+ "title": "MedNeXt: Transformer-Driven Scaling of ConvNets for Medical Image Segmentation",
+ "year": 2023,
+ "venue": "MICCAI (LNCS)",
+ "url": "https://arxiv.org/abs/2303.09975",
+ "code_url": "https://github.com/MIC-DKFZ/MedNeXt",
+ "mechanism": "Fully ConvNeXt encoder-decoder with residual ConvNeXt up/down blocks and large depthwise kernels; UpKern initialises a large-kernel net from a trained small-kernel net, which avoids saturation on small data.",
+ "adaptation": "2D MedNeXt in nnU-Net at 512 px, 1 channel, label-safe augmentation. Train k3 first, then UpKern to k5/k7 to widen context along crack direction while keeping 1 px detail in the full-resolution stage.",
+ "min_experiment": "MedNeXt-B k3 then UpKern k5 on the module-grouped folds, against the ResEnc M arm on the same folds; metric CV-mean crack relF1@2 and E1 relF1@2. Kill: no fold-mean gain above 1 fold SD on either.",
+ "evidence": "R: best on 5 of 6 3D datasets in nnU-Net Revisited (for example ACDC 92.65, BTCV 85.04 against 83.08 org), at 68 to 233 A100 h in 3D. Part of the gain was explained by target spacing choice.",
+ "prior_overlap": "none",
+ "score": 58,
+ "bench_score": 85,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "other_classes",
+  "benchmark"
+ ],
+ "gpu_hours": 200,
+ "directions": [
+  "D25"
+ ],
+ "scout_scores": [
+  50,
+  58
+ ],
+ "alt_notes": [
+  {
+   "from": "D25",
+   "adaptation": "2D MedNeXt-B/L k3 at 512 px, 1 channel, label-safe aug, then UpKern to k5. Large kernels give context for E1 (scuff v crack) without attention. 2D support in repo unverified; a 2D port of the block is small.",
+   "min_experiment": "MedNeXt-B k3 and k5 (UpKern) 2D, 5 folds v nnU-Net arm A. Metric: CV crack relF1@2, inactive IoU, E1 relF1@2. Kill if no metric improves by >=0.01 (CV) or 0.03 (E1).",
+   "score": 50
+  }
+ ],
+ "final": 58,
+ "bench": 85,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 103,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

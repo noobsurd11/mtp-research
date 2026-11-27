@@ -1,0 +1,43 @@
+{
+ "paper_id": "doi:10.1609/aaai.v38i7.28490",
+ "title": "DiffusionEdge: Diffusion Probabilistic Model for Crisp Edge Detection",
+ "year": 2024,
+ "venue": "AAAI",
+ "url": "https://arxiv.org/abs/2401.02032",
+ "code_url": "https://github.com/GuHuangAI/DiffusionEdge",
+ "mechanism": "A latent diffusion edge detector. A pixel-level, uncertainty-aware cross-entropy is distilled into the latent space, with an adaptive Fourier filter, and it predicts crisp edges without NMS.",
+ "adaptation": "Train on binary crack and gridline maps with the 1-channel EL image replicated, at 512 px. First check that the autoencoder can reconstruct the 1 px GT crack maps, a cheap test. Mainly a benchmark baseline for generative thin-structure methods.",
+ "min_experiment": "Gate: autoencoder reconstruction IoU of GT crack maps, which must be >= 0.9 to proceed. Arm: DiffusionEdge on crack, 3 seeds. Baseline: house. Metrics: relF1@2, crack IoU. Kill at the gate or if relF1@2 is more than 0.03 below the house model.",
+ "score": 35,
+ "bench_score": 65,
+ "bet": "moonshot",
+ "evidence": "R: on NYUDv2, ODS +30.2%, OIS +28.1% and AC +65.1% over the second best without post-processing. Trained on benchmark-sized sets of a few hundred to a thousand images.",
+ "gpu_hours": 40,
+ "prior_overlap": "Diffusion segmenters are listed as never tried. Open.",
+ "targets": [
+  "crack",
+  "benchmark"
+ ],
+ "directions": [
+  "D13"
+ ],
+ "scout_scores": [
+  35,
+  32
+ ],
+ "alt_notes": [
+  {
+   "from": "D13",
+   "adaptation": "Train on crack + gridline binary maps, 1-channel replicated, 512 px; check VAE reconstruction of 1 px cracks first. Mainly the generative member of the benchmark suite.",
+   "min_experiment": "Arm: DiffusionEdge on 478 cells, 2 seeds; baseline house. Metrics relF1@2, crack IoU, AC. Kill if relF1@2 below house - 0.02. About 30 GPU-h.",
+   "score": 32
+  }
+ ],
+ "final": 35,
+ "bench": 65,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 442,
+ "pid": "P442"
+}

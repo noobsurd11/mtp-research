@@ -1,0 +1,43 @@
+{
+ "paper_id": "doi:10.1016/j.media.2026.103996",
+ "title": "Generative data-engine foundation model for universal few-shot 2D vascular image segmentation (UniVG)",
+ "year": 2026,
+ "venue": "Medical Image Analysis",
+ "url": "https://doi.org/10.1016/j.media.2026.103996",
+ "code_url": "",
+ "mechanism": "Decomposes thin structures and backgrounds and recombines them with varied morphology, then adapts the generator with a few labelled images to synthesise realistic image-label pairs.",
+ "adaptation": "Recombine crack skeletons from ARTS/CFVS with CSIR half-cut canvases (GDI twins or crack-free pool cells), adapt the renderer on 478 cells; reuse the recipe, not the vascular checkpoint. Repo stated as forthcoming (github.com/XinAloha/UniVG), not verified.",
+ "min_experiment": "PF + recombined crack/background pairs vs PF. Metric E1 crack relF1@2. Kill: < +0.02.",
+ "evidence": "R: 11 vessel tasks across 5 modalities with 5 labelled images each; comparable to fully supervised; UniVG-58K pretraining set.",
+ "gpu_hours": 15,
+ "bet": "moonshot",
+ "targets": [
+  "e1_unseen",
+  "crack"
+ ],
+ "prior_overlap": "CP100 pasted real crack pixels (n.d.); structure/background recombination with a learned renderer is untested. Open.",
+ "score": 40,
+ "bench_score": 30,
+ "directions": [
+  "D33"
+ ],
+ "scout_scores": [
+  40,
+  40
+ ],
+ "alt_notes": [
+  {
+   "from": "D33",
+   "adaptation": "ARTS/CFVS crack skeletons onto CSIR half-cut canvases (inpainted twins), adapt the renderer on 478 cells.",
+   "min_experiment": "Recombined set vs PF. Metric E1 relF1@2. Kill: < +0.02. About 15 GPU-h.",
+   "score": 40
+  }
+ ],
+ "final": 40,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 393,
+ "pid": "P393"
+}

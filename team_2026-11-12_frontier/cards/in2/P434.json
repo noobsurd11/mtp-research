@@ -1,0 +1,43 @@
+{
+ "paper_id": "arxiv:2411.03228",
+ "title": "Topograph: An efficient Graph-Based Framework for Strictly Topology Preserving Image Segmentation",
+ "year": 2025,
+ "venue": "ICLR 2025",
+ "url": "https://arxiv.org/abs/2411.03228",
+ "code_url": "https://github.com/AlexanderHBerger/Topograph",
+ "mechanism": "A component graph of prediction and label finds topologically critical regions, and the loss aggregates over them. It also defines a strict homotopy metric. About 5x faster than PH losses.",
+ "adaptation": "Same use as Betti matching on crack (8-connectivity, components >= 20 px). Its homotopy metric is a candidate topology score for the benchmark.",
+ "min_experiment": "Same design as Betti matching. Run whichever of the two installs cleanly.",
+ "score": 36,
+ "bench_score": 60,
+ "bet": "moonshot",
+ "targets": [
+  "crack",
+  "benchmark"
+ ],
+ "evidence": "R (abstract): state-of-the-art topology on binary and multi-class datasets, up to 5x faster loss than PH methods.",
+ "gpu_hours": 10,
+ "prior_overlap": "none",
+ "directions": [
+  "D10"
+ ],
+ "scout_scores": [
+  36,
+  35
+ ],
+ "alt_notes": [
+  {
+   "from": "D10",
+   "adaptation": "Crack class, component (0-dim) errors only, restricted to label components >= 20 px so sub-20 px label fragments (76 to 88% of components) are not enforced. Its homotopy metric is a candidate topology score for the benchmark.",
+   "min_experiment": "PF + Topograph (small weight) vs PF, 5 seeds. Kill if component recall (>= 20 px) gain < 0.02 or crack IoU < PF - 0.012.",
+   "score": 35
+  }
+ ],
+ "final": 36,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 434,
+ "pid": "P434"
+}

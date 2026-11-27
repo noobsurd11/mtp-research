@@ -1,0 +1,13 @@
+............................                                             [100%]
+=============================== warnings summary ===============================
+opening_verdict_test.py::test_main_end_to_end_mechanics
+  /home/noob/work/bench_wt_open/scripts/bench_open_read.py:135: RuntimeWarning: Mean of empty slice
+    point = {k: float(np.nanmean([pb[s][k] for s in sB]) - np.nanmean([pa[s][k] for s in sA])) for k in BOOT_KEYS}
+
+opening_verdict_test.py::test_main_end_to_end_mechanics
+  /home/noob/work/bench_wt_open/scripts/bench_open_read.py:152: RuntimeWarning: Mean of empty slice
+    draws[k].append(float(np.nanmean([m[k] for m in mb]) - np.nanmean([m[k] for m in ma])))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+28 passed, 2 warnings in 40.77s
+rc 0

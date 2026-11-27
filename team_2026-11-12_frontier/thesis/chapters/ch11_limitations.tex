@@ -1,0 +1,93 @@
+% ch11_limitations.tex: Chapter 11, Limitations and threats to validity.
+% Collects the limits stated in Chapters 4 to 10, one sentence each. Every number is traced in ch11_limitations_NOTES.md.
+\chapter{Limitations and threats to validity}\label{ch:limitations}
+
+This chapter collects the limits stated in the earlier chapters, one sentence each, so that every claim of Table~\ref{tab:T20} can
+be weighed against them.
+
+\section{The sealed E1 result}\label{sec:lim-e1}
+
+\begin{itemize}
+  \item The one confirmed claim rests on one sealed set and one primary contrast, with a lower end of +0.0013 and a derived smallest
+  detectable effect of about 0.074, so E1 supports a gain without pinning down its size.
+  \item The claim holds for the recipe averaged over seeds 5 to 9, not for one checkpoint: seed 5 alone is not separated from C1
+  (+0.0189 [$-$0.0403, +0.1068]).
+  \item E1 was read at OP-A only, a stated deviation from the protocol, with width guards in place of OP-W.
+  \item 101 of the 106 E1 cells are CSIR, and the 5 BMRK cells support no statement.
+  \item The full cells carry the gain; on the 62 half-cut cells it is not detected (+0.0110 [$-$0.0289, +0.0722]).
+  \item ``Unseen modules'' is supported, not proven: only about a third of the image-id pairs could be tested, and half-cut images
+  and BMRK cells had no testable counterpart.
+  \item The E1 cells had been looked at before (7 registered openings, 3 of them at one contrast, reads before 31 October and one
+  use of published E1 contrasts), although the final models had not.
+  \item E1 separates the model from the D4 views but not HRNet from SWAD, and the D4 part is not resolved on E1.
+  \item Inactive is not decided on E1 (+0.0996 [$-$0.0310, +0.2162], 10 inactive cells).
+  \item Both arms predict under half of the labelled E1 crack pixels (width ratios 0.458 and 0.463), and the read cannot tell wider
+  E1 labels from missed cracks.
+  \item After opening \#9, E1 is training data for the few-shot models, so a new unseen-module claim needs a new labelled set.
+\end{itemize}
+
+\section{The CV5 evidence}\label{sec:lim-cv5}
+
+\begin{itemize}
+  \item The \texttt{swad} readout and D4 were chosen on pool cells, so every CV5 number of the C2 recipe is selection-biased and its
+  CV5 pass (+0.0222 [+0.0138, +0.0308]) is no confirmation.
+  \item The full-pool models C1 and C2 have no held-out score of their own.
+  \item No HOUSE prediction with D4 exists, so the HOUSE rule sets the eight-view C2 recipe against a single-view HOUSE, and the
+  single-view CS $-$ HOUSE holds 0 at OP-A (+0.0107 [$-$0.0009, +0.0229]).
+  \item C2 costs $11.8\times$ C1 in FLOPs and no equal-cost comparator was printed for it; the same-view controls are not equal cost.
+  \item The margin $M$ covers seed noise, not the choice of folds; the split-variance probe was never run.
+  \item The passing crack contrasts rest on few module groups: removing 17 (HRNet) to 31 (HRNet + SWAD) of the 125 groups with
+  crack pixels takes them to 0.
+  \item The 2-seed screens ran on cv5v2, which leaked modules across folds, and on two machines, so they form a separate tier read
+  per machine.
+\end{itemize}
+
+\section{Labels and metrics}\label{sec:lim-labels}
+
+\begin{itemize}
+  \item Every pool cell has a single annotation; the one double annotation (strict crack IoU 0.259, relF1@2 0.829) suggests, but
+  does not measure, how far labels limit any score.
+  \item Crack label errors are a minority of the image-supported candidates (corrected share 0.244 [0.105, 0.436]), but the
+  detector's recall is unknown and the raters were runs of one model, not independent people.
+  \item Strict crack IoU measures the line-width convention (PF 0.233, 0.365 and 0.414 under three conventions), so no strict-IoU
+  number here decides anything.
+  \item Label width is a source convention (ARTS 1.59 to BMRK 3.09~px per centreline pixel), so the per-source width guard partly
+  measures the annotators.
+  \item E1 labels are about $1.5\times$ wider than the pool labels, so pool-trained models meet a different convention on E1.
+  \item The 2~px tolerance of relF1@2 rests on the few duplicate annotations available, and relF1@2 is blind to line width without
+  its guard.
+  \item The images are windows of about $3\times3$ cells (57\% of crack and 71\% of inactive pixels lie outside the centre cell),
+  so every cell-level quantity describes a window.
+  \item Inactive pixels sit in 33 of the 285 module groups (Kish effective $n$ 12.9), so inactive contrasts carry intervals of about
+  $\pm$0.05 to $\pm$0.06 (audit estimate).
+\end{itemize}
+
+\section{Data, test50 and licences}\label{sec:lim-data}
+
+\begin{itemize}
+  \item test50 is in-distribution with known leakage (8 cells are the same physical cell as a pool cell, 7 by pixels and 1 by the
+  cell-table link only; 7 are neighbouring crops; 19 share a module) and had 19 counted openings, so its numbers are context only
+  and support no claim to beat a published model.
+  \item BMRK and SDLE cells cannot be grouped by physical module, so leakage between their neighbouring windows cannot be excluded.
+  \item All labelled cells come from one dataset family, and the source is recognisable from global image statistics (balanced
+  accuracy 0.94), a shortcut open to any model.
+  \item The weak classes are not solved: material and edge dark score 0.0000 on E1 for every arm, and OP-C, which raised mIoU-R13
+  on the pool (+0.0126 [+0.0077, +0.0167]), is in no final model.
+  \item The 50 BMRK cells are ELPV images under CC BY-NC-SA 4.0 and BenchmarkEL has no licence file, so C2 is research-only as
+  trained, and retraining without the BMRK cells was not measured.
+  \item No WattCycle module was imaged, so the model is trained and tested on public data only.
+\end{itemize}
+
+\section{Cost, severity and the few-shot track}\label{sec:lim-other}
+
+\begin{itemize}
+  \item All latencies were measured on shared hosts and cover network time only, so they are upper bounds for idle hardware.
+  \item The severity output was validated only for PF out of fold on pool cells, not for C2, on E1 or on half-cut cells.
+  \item Predicted inactive area is not shown to predict power loss better than crack length, and no watt figure is given.
+  \item The few-shot track rests on about 9 effective images, has 80\% power only for gains of about +0.085 or more, and may be
+  optimistic for a new site because its folds group by source image; its confirmed gain (+0.2213 [+0.0977, +0.3504]) is a
+  few-shot result inside E1 (3 seeds, 101 of 106 cells CSIR), says nothing about a new layout without labels, and with ALL $-$ HALF
+  not separated (+0.0171 [$-$0.0246, +0.0625]) does not say how many labelled cells a layout needs.
+  \item The few-shot models learn the about $1.5\times$ wider E1 labels (width ratio ALL / ZS 1.426, reported), which lifts strict
+  IoU and pixel recall without finding more cracks; relF1@2 decides because it is less sensitive to this, though not immune.
+\end{itemize}

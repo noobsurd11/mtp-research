@@ -1,0 +1,49 @@
+{
+ "SERIAL_T": 0.8,
+ "TAIL_MIN_WIN": 15,
+ "arts_image_ids": 205,
+ "full": 77,
+ "tail": 16,
+ "tail_only": 5,
+ "either": 82,
+ "sealed_ids_with_strip": 4,
+ "pairs": {
+  "full_full": 2926,
+  "full_tail": 1232,
+  "tail_tail": 120
+ },
+ "same": {
+  "full_full": 20,
+  "full_tail": 32,
+  "tail_tail": 7
+ },
+ "modid_md5": "be3b485f19facce8bab97d7494a3d9c2",
+ "tool_md5": "1ecf2f27b90af6bb6c158f4b74d452a7",
+ "calibration_against_reading": {
+  "full_full": {
+   "n_same_by_reading": 20,
+   "n_diff_by_reading": 2608,
+   "recall": 1.0,
+   "false_matches": 0,
+   "same_min_score": 0.9368,
+   "diff_max_score": 0.728
+  },
+  "full_tail": {
+   "n_same_by_reading": 31,
+   "n_diff_by_reading": 1137,
+   "recall": 1.0,
+   "false_matches": 0,
+   "same_min_score": 0.8476,
+   "diff_max_score": 0.6239
+  },
+  "tail_tail": {
+   "n_same_by_reading": 7,
+   "n_diff_by_reading": 113,
+   "recall": 1.0,
+   "false_matches": 0,
+   "same_min_score": 0.9993,
+   "diff_max_score": 0.4329
+  }
+ },
+ "reading_md5": "742e7caccb79bba7a0ba903c0dccf403"
+}

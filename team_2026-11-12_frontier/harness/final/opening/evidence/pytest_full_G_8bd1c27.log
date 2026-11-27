@@ -1,0 +1,48 @@
+........................................................................ [  8%]
+........................................................................ [ 17%]
+........................................................................ [ 25%]
+........................................................................ [ 34%]
+........................................................................ [ 42%]
+........................................................................ [ 51%]
+........................................................................ [ 59%]
+.....................................................s................s. [ 68%]
+........................................................................ [ 76%]
+............................................................s.s......... [ 85%]
+.....s.................................................................. [ 93%]
+....................................................                     [100%]
+=============================== warnings summary ===============================
+tests/test_absh.py::test_ssl_aux_pl_uses_the_confidence_rule
+  /home/noob/work/bench_wt_openg/tests/test_absh.py:195: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+  Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:820.)
+    assert float(tr._absh_out["aux_keep_u"]) == 0.0 and float(tr._absh_out["loss_aux_con"]) == 0.0
+
+tests/test_bench_aa.py::test_fold_stage_equals_boot_pair
+tests/test_bench_bfix2.py::test_compute_on_kept_stems_equals_the_read_without_those_cells
+tests/test_bench_bfix2.py::test_reports_without_and_with_extras
+tests/test_bench_bfix2.py::test_classbias_read_analyze_restricts_every_table_to_the_kept_stems
+tests/test_bench_classbias.py::test_boot_classes_same_draws_as_boot_pair
+tests/test_bench_x3.py::test_bootstrap_identical_arms_zero_and_margin_floor
+  /home/noob/work/bench_wt_openg/bench/crossfit_op.py:281: RuntimeWarning: Mean of empty slice
+    return {k: float(np.nanmean([p[k] for p in per])) for k in BOOT_KEYS}
+
+tests/test_bench_bfix.py: 2 warnings
+tests/test_stream.py: 4 warnings
+tests/test_trainer_utils.py: 8 warnings
+  /usr/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=903797) is multi-threaded, use of fork() may lead to deadlocks in the child.
+    self.pid = os.fork()
+
+tests/test_bench_bfix2.py::test_classbias_read_analyze_restricts_every_table_to_the_kept_stems
+  /home/noob/work/bench_wt_openg/bench/classbias.py:260: RuntimeWarning: Mean of empty slice
+    pa = np.nanmean([iou(XA[sd].sum(0)) for sd in sA], 0)
+
+tests/test_bench_bfix2.py::test_classbias_read_analyze_restricts_every_table_to_the_kept_stems
+  /home/noob/work/bench_wt_openg/bench/classbias.py:261: RuntimeWarning: Mean of empty slice
+    pb = np.nanmean([iou(XB[sd].sum(0)) for sd in sA], 0)
+
+tests/test_bench_infer_sealed.py::test_open_set_unchanged_and_byte_equal_to_F
+  /usr/lib/python3.12/tarfile.py:2301: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+839 passed, 5 skipped, 24 warnings in 454.07s (0:07:34)
+rc 0

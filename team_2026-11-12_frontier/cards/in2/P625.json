@@ -1,0 +1,44 @@
+{
+ "paper_id": "doi:10.3390/s26123775",
+ "title": "Evaluating Convolutional and Transformer Architectures for Photovoltaic Defect Classification via Electroluminescence Imagery",
+ "year": 2026,
+ "venue": "Sensors",
+ "url": "https://doi.org/10.3390/s26123775",
+ "code_url": "",
+ "mechanism": "Controlled benchmark: six backbones, identical preprocessing and training, stratified 5-fold CV, 150 runs; recommends module-grouped validation.",
+ "adaptation": "Copy the protocol shape for our benchmark but with module-grouped 5-fold CV over the 532 train + val cells (fold roots exist).",
+ "min_experiment": "Benchmark design item: house on module-grouped 5-fold, report fold spread; decides the smallest detectable effect.",
+ "score": 10,
+ "bench_score": 65,
+ "bet": "safe",
+ "targets": [
+  "benchmark",
+  "measurement"
+ ],
+ "evidence": "R: 20,000 proprietary cells; ConvNeXt-T best macro-F1 93.12%.",
+ "gpu_hours": 6,
+ "prior_overlap": "none.",
+ "directions": [
+  "D02",
+  "D43"
+ ],
+ "scout_scores": [
+  10,
+  5
+ ],
+ "alt_notes": [
+  {
+   "from": "D43",
+   "adaptation": "Copy the 'identical pipeline, all folds, mean +/- SD' reporting, with module-grouped folds and pixel metrics.",
+   "min_experiment": "None for scores. Cite it as evidence that the EL field sees the split problem.",
+   "score": 5
+  }
+ ],
+ "final": 10,
+ "bench": 65,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 625,
+ "pid": "P625"
+}

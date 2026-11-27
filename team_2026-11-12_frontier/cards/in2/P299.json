@@ -1,0 +1,43 @@
+{
+ "paper_id": "doi:10.1109/tpami.2024.3449959",
+ "title": "Frequency-Aware Feature Fusion for Dense Image Prediction (FreqFusion)",
+ "year": 2024,
+ "venue": "TPAMI",
+ "url": "https://arxiv.org/abs/2408.12879",
+ "code_url": "https://github.com/Linwei-Chen/FreqFusion",
+ "mechanism": "Decoder fusion with adaptive low-pass filters inside regions, offset resampling for inconsistent features, and adaptive high-pass filters that restore boundary detail lost in downsampling.",
+ "adaptation": "Replace nearest-upsample + concat in each U-Net++ decoder node with FreqFusion; the high-pass path targets 1-2 px cracks and finger interruptions.",
+ "min_experiment": "Arm: house PF with FreqFusion decoder; baseline: house PF; CV crack IoU, gridline IoU. Kill if both n.d. (crack < 0.012, gridline < 0.03).",
+ "evidence": "R: abstract reports gains across dense prediction tasks; numbers not retrieved.",
+ "gpu_hours": 10,
+ "bet": "safe",
+ "prior_overlap": "none; decoder never varied.",
+ "score": 45,
+ "bench_score": 35,
+ "targets": [
+  "crack",
+  "other_classes"
+ ],
+ "directions": [
+  "D22"
+ ],
+ "scout_scores": [
+  45,
+  45
+ ],
+ "alt_notes": [
+  {
+   "from": "D22",
+   "adaptation": "Replace nearest-upsample + concat in each U-Net++ decoder node; the high-pass path targets cracks and gridline; test as one family with SFM.",
+   "min_experiment": "Arm house PF + FreqFusion decoder vs house PF; 5-fold CV gridline IoU and crack relF1@2; kill: gridline IoU < +0.03 and crack IoU n.d. About 10 GPU-h.",
+   "score": 45
+  }
+ ],
+ "final": 45,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 299,
+ "pid": "P299"
+}

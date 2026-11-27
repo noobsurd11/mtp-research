@@ -1,0 +1,50 @@
+{
+ "paper_id": "doi:10.1109/cvpr52729.2023.01488",
+ "title": "The Treasure Beneath Multiple Annotations: An Uncertainty-Aware Edge Detector",
+ "year": 2023,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2303.11828",
+ "code_url": "https://github.com/ZhouCX117/UAED",
+ "mechanism": "Model multiple annotations as a learnable per-pixel Gaussian; variance is the uncertainty; loss re-weighted toward uncertain pixels.",
+ "adaptation": "Treat the 2021 and 2022 crack label versions as two annotators; sample one per iteration; learn mean and variance; read out the mean. Variance map also feeds a benchmark uncertainty view.",
+ "min_experiment": "Arm = PF with UAED crack head on both label versions; baseline = PF on 2022 labels; 5 seeds + CV; metrics crack IoU (2022 labels), relF1@2. Kill if IoU drops > 0.01 with no relF1@2 gain.",
+ "score": 52,
+ "bench_score": 30,
+ "bet": "medium",
+ "targets": [
+  "crack"
+ ],
+ "evidence": "R: CVPR 2023 SOTA on multi-annotator edge sets (BSDS); numbers not read.",
+ "gpu_hours": 20,
+ "prior_overlap": "None; old labels were never used as a second annotator.",
+ "directions": [
+  "D11",
+  "D13"
+ ],
+ "scout_scores": [
+  52,
+  40,
+  40
+ ],
+ "alt_notes": [
+  {
+   "from": "D13",
+   "adaptation": "Take per-pixel disagreement from the 2021 vs 2022 crack label versions. Run it as a sub-arm of the RankED test, because RankED reports the opposite weighting works better.",
+   "min_experiment": "Sub-arm of the RankED experiment. Baseline: house at 100% labels. Metrics: crack IoU, relF1@2. Kill if n.d.",
+   "score": 40
+  },
+  {
+   "from": "D13",
+   "adaptation": "Disagreement from 2021 vs 2022 crack masks on the same cells; Gaussian label on crack logit. Run as a sub-arm of the RankED test because RankED found the opposite weighting better.",
+   "min_experiment": "Sub-arm of RankED test: house + UAED weighting, 5 seeds vs house. Kill if crack IoU and relF1@2 n.d.",
+   "score": 40
+  }
+ ],
+ "final": 52,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 184,
+ "pid": "P184"
+}

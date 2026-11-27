@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.1109/iccv51070.2023.01767",
+ "title": "Pasta: Proportional Amplitude Spectrum Training Augmentation for Syn-to-Real Domain Generalization",
+ "year": 2023,
+ "venue": "ICCV 2023",
+ "url": "https://arxiv.org/abs/2212.00979",
+ "code_url": "",
+ "mechanism": "Perturb the Fourier amplitude spectrum with jitter that grows with frequency, keeping phase, to generate augmented views.",
+ "adaptation": "Source-free counterpart of FDA: phase kept so crack positions are unchanged; cap the high-frequency jitter so faint cracks (7% are under 2% darker) survive. Aimed at E1 and weak sources BMRK/CFVS.",
+ "min_experiment": "Arm: house + PASTA; baseline house; 5 seeds; E1 relF1@2, per-source crack IoU; kill if E1 relF1@2 < +0.03; run beside FDA with shared code.",
+ "evidence": "R: beats more complex DG methods on 5 syn-to-real shifts incl. GTAV-to-real segmentation; complementary to them.",
+ "prior_overlap": "none; house augmentation is brightness/contrast only",
+ "targets": [
+  "e1_unseen"
+ ],
+ "bet": "medium",
+ "gpu_hours": 8,
+ "score": 55,
+ "bench_score": 35,
+ "directions": [
+  "D28"
+ ],
+ "scout_scores": [
+  55
+ ],
+ "final": 55,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 162,
+ "pid": "P162"
+}

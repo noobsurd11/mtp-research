@@ -1,0 +1,36 @@
+{
+ "paper_id": "arxiv:2304.09427",
+ "title": "Boosting Semantic Segmentation with Semantic Boundaries (SBCB)",
+ "year": 2023,
+ "venue": "arXiv (Sensors 2023 version)",
+ "url": "https://arxiv.org/abs/2304.09427",
+ "code_url": "https://github.com/haruishi43/boundary_boost_mmseg",
+ "mechanism": "An auxiliary semantic-boundary-detection head on multi-scale backbone features. It conditions the backbone during training and is dropped at inference.",
+ "adaptation": "Boundary targets come from the 24-class mask (2 px class edges), with crack excluded or replaced by a 3 px dilated crack band because a crack is all boundary. Attach to ResNet-34 layers 1 to 4. Aimed at gridline, edge_dark, border, material and inactive edges.",
+ "min_experiment": "Arm: house + SBCB head. Baseline: house (5 seeds). Metrics: mIoU_rob, gridline, edge_dark and material IoU. Kill if the mIoU_rob gain is < 0.01 and no weak class rises by >= 0.03.",
+ "evidence": "R: Cityscapes +0.5 to +3.0 IoU and boundary F +1.6 to +4.1, across several heads and backbones including ViTs.",
+ "prior_overlap": "none. Edge formulations are listed as never tried.",
+ "score": 60,
+ "bench_score": 40,
+ "bet": "safe",
+ "gpu_hours": 6,
+ "targets": [
+  "other_classes",
+  "inactive"
+ ],
+ "directions": [
+  "D27"
+ ],
+ "scout_scores": [
+  60
+ ],
+ "final": 60,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 98,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P098"
+}

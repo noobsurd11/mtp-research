@@ -1,0 +1,96 @@
+{
+ "set": "test",
+ "n_cells": 49,
+ "gt_comp20": 187,
+ "op_comp": {
+  "b": 3.3,
+  "j": 74,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.856,
+  "val_P": 0.9029850746268657
+ },
+ "op_rel": {
+  "b": 4.7,
+  "j": 88,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.8696557541251516,
+  "val_P": 0.9000268856120613
+ },
+ "comp_recall_at_opc": 0.8288770053475936,
+ "comp_prec_at_opc": 0.8956521739130435,
+ "relR_at_opr": 0.8952643859476158,
+ "relP_at_opr": 0.9000416963463577,
+ "speck_guard": {
+  "opc": {
+   "compP_all": 0.7535410764872521,
+   "speck_share": 0.007630384189843959
+  },
+  "opr": {
+   "compP_all": 0.7198879551820728,
+   "speck_share": 0.007401101478482948
+  }
+ },
+ "deployed_b": 0.0,
+ "at_deployed": {
+  "P": 0.6610580602621012,
+  "R": 0.6150163769211389,
+  "IoU": 0.4675738925486995,
+  "relP": 0.9469792414840632,
+  "relR": 0.8470537973643564,
+  "compR": 0.8074866310160428,
+  "compP": 0.948936170212766,
+  "compP_all": 0.8076923076923077,
+  "speck_share": 0.010903225046803801,
+  "inactIoU": 0.47428709646766126
+ },
+ "cell_deployed": {
+  "b": 0.0,
+  "n_pos": 47,
+  "n_neg": 2,
+  "n_ambiguous": 0,
+  "recall": 0.9361702127659575,
+  "fa_rate": 0.0,
+  "precision": 1.0,
+  "auroc": 1.0
+ },
+ "cell_at_opc": {
+  "b": 3.3,
+  "n_pos": 47,
+  "n_neg": 2,
+  "n_ambiguous": 0,
+  "recall": 0.9361702127659575,
+  "fa_rate": 0.0,
+  "precision": 1.0,
+  "auroc": 1.0
+ },
+ "cell_b0": {
+  "b": 0.0,
+  "n_pos": 47,
+  "n_neg": 2,
+  "n_ambiguous": 0,
+  "recall": 0.9361702127659575,
+  "fa_rate": 0.0,
+  "precision": 1.0,
+  "auroc": 1.0
+ },
+ "inactive_area_err": {
+  "b": 0.0,
+  "mae_all": 1.1210516585129398,
+  "mae_inactive_cells": 4.492346445719401,
+  "n_inactive_cells": 12,
+  "mae_other": 0.027658754554087592,
+  "signed_mean": -0.629965819880612,
+  "max_err": 27.49176025390625
+ },
+ "excluded": [
+  "CSIR_00070_r8_c4"
+ ],
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": false,
+ "el_metrics_md5": "6e73ff11aaa6171a52b5a5404877ab46"
+}

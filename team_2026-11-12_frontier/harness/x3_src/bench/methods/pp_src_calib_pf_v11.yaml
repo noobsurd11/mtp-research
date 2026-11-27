@@ -1,0 +1,39 @@
+# x3 post-processing arm on house_r34_unetpp_pf_v11 dumps (no new training: config and opts = that card). The optional
+# key postproc names the CPU script that reads the run's dumps; bench/postproc/__init__.py validate_postproc checks it.
+name: pp_src_calib_pf_v11
+version: 1
+family: postproc-src-calib
+papers: []
+kind: harness
+config: configs/supervised.yaml
+opts:
+  - data.labeled_fraction=1.0
+  - training.total_steps=20000
+  - data.split_seed=0
+  - training.labeled_batch_size=8
+  - data.mask_subdir=masks_v11
+  - data.mask_ignore_value=255
+  - model.name=smp_unetpp
+  - data.augmentation=labelsafe
+  - loss.supervised=ce_dice
+  - training.val_every=20000
+  - training.encoder_pf.freeze=1000
+  - training.encoder_pf.ramp=1000
+  - training.encoder_pf.lr_mult=0.1
+  - training.encoder_pf.wd=0
+weights:
+  - path: /home/noob/.cache/huggingface/hub/models--smp-hub--resnet34.imagenet/snapshots/7a57b34f723329ff020b3f8bc41771163c519d0c/model.safetensors
+    md5: f57b430554b18e1238c4f92eac566544
+weights_key: model
+decision_rule: argmax24
+memory:
+  peak_mib: 6830
+  gate_mib: 9000
+  source: "pf2 smoke SUP100-PF 6,826 MiB / SUPPF real runs 6,830 (handbook 14 s1.2e); gate rule peak + 2048"
+external: null
+diff_ref: house_r34_unetpp_pf_v11
+postproc:
+  name: src_calib
+  script: scripts/bench_src_calib.py
+  uses_source_metadata: true
+notes: "T4 arm 1 src_calib: per-source crack bias / 1 px morphology chosen by cross-fitting on the other folds, applied at inference on the dumps of house_r34_unetpp_pf_v11 runs. Uses source metadata (stem prefix) at test time: reported as its own row. Training config = house_r34_unetpp_pf_v11 exactly (no key differs)."

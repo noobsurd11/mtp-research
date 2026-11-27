@@ -1,0 +1,58 @@
+{
+ "paper_id": "arxiv:2502.06756",
+ "title": "SAMRefiner: Taming Segment Anything Model for Universal Mask Refinement",
+ "year": 2025,
+ "venue": "ICLR",
+ "url": "https://arxiv.org/abs/2502.06756",
+ "code_url": "https://github.com/linyq2117/SAMRefiner",
+ "mechanism": "Training-free refinement: mines distance-guided points, context-aware elastic boxes and Gaussian-style mask prompts from a coarse mask and feeds SAM; SAMRefiner++ adds a label-free IoU adaptation step.",
+ "adaptation": "Zero-training test on predicted inactive regions (blobby, well labelled) and on BMRK cells; replicate EL to 3 channels; skip crack lines, which suit SAM poorly at 1-2 px.",
+ "min_experiment": "Arm: SAMRefiner on house / PF inactive components. Baseline: unrefined masks. Metric: inactive IoU on 5-fold CV and E1 (PF). Kill: < +0.01 inactive IoU or any BMRK drop.",
+ "evidence": "R: improves coarse masks from several sources for use as training labels across benchmarks (numbers not read).",
+ "prior_overlap": "Frozen SAM2 Hiera-T linear probe showed no gain (BRIEF section 5); prompt-based mask refinement was not tested.",
+ "score": 36,
+ "bench_score": 50,
+ "bet": "safe",
+ "gpu_hours": 1,
+ "targets": [
+  "inactive",
+  "benchmark"
+ ],
+ "directions": [
+  "D16",
+  "D26"
+ ],
+ "scout_scores": [
+  32,
+  30,
+  33,
+  36
+ ],
+ "alt_notes": [
+  {
+   "from": "D16",
+   "adaptation": "Poor fit for 1 to 2 px cracks (the 2026 fracture paper found unconstrained MedSAM supervision hurts thin structures). Test only on region classes: inactive, material, edge_dark, splice, where boundaries are blobby.",
+   "min_experiment": "Arm: house trained with SAMRefiner-refined masks for material, edge_dark, splice only, 3 seeds. Baseline: house. Metric: per-class IoU and mIoU_rob. Kill: mIoU_rob under +0.01.",
+   "score": 30
+  },
+  {
+   "from": "D16",
+   "adaptation": "Not for cracks (SAM cannot resolve 1 to 2 px lines; frozen SAM2 probe gave no signal). Refine train labels of blob classes: inactive at BMRK (IoU 0.324), material, edge_dark; keep original where SAM IoU score is low.",
+   "min_experiment": "Arm: house trained with SAM-refined inactive/material/edge_dark labels; baseline: house. Metrics: inactive IoU (clean-49 and E1), mIoU_rob. Kill if inactive and mIoU_rob both n.d.",
+   "score": 32
+  },
+  {
+   "from": "D16",
+   "adaptation": "Blobby classes only: inactive, material, edge_dark, border; EL replicated to 3 channels; one prompt set per connected component of the house ensemble; IoU adaptation on the unlabelled 11.9k pool. Not for 1 to 2 px cracks. Also usable as a label-refinement tool (D16).",
+   "min_experiment": "Arm: SAMRefiner on ensemble inactive / material components. Baseline: house ensemble (PF ensemble on E1). Metrics: inactive IoU on OOF CV and E1, material and edge_dark IoU. Kill: inactive IoU < +0.02 on OOF CV.",
+   "score": 33
+  }
+ ],
+ "final": 36,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 436,
+ "pid": "P436"
+}

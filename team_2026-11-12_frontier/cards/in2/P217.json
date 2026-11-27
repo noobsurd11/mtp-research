@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2303.10353",
+ "title": "Sharpness-Aware Gradient Matching for Domain Generalization (SAGM)",
+ "year": 2023,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2303.10353",
+ "code_url": "https://github.com/Wang-pengfei/SAGM",
+ "mechanism": "Minimise empirical risk, perturbed loss and their gap together, aligning gradient directions; better DG than SAM at equal cost.",
+ "adaptation": "Drop-in replacement for SAM in the PF recipe; target E1. Run only if SAM moves E1.",
+ "evidence": "Outperforms SOTA on PACS, VLCS, OfficeHome, TerraIncognita, DomainNet (classification).",
+ "min_experiment": "Arm PF+SAGM vs PF+SAM vs PF, seeds 5-9. Metric: E1 crack relF1@2, E1 inactive IoU. Kill if not above PF+SAM on E1.",
+ "gpu_hours": 11,
+ "targets": [
+  "e1_unseen"
+ ],
+ "bet": "medium",
+ "prior_overlap": "none",
+ "score": 50,
+ "bench_score": 35,
+ "directions": [
+  "D35"
+ ],
+ "scout_scores": [
+  50
+ ],
+ "final": 50,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 217,
+ "pid": "P217"
+}

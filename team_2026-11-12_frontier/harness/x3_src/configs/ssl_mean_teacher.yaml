@@ -1,0 +1,13 @@
+defaults:
+  - base
+
+# Mean Teacher + SemiCE. Unlabelled pool = train images outside the
+# labelled subset (data/splits/seed<seed>/unlabeled_<P>pct.txt).
+method: mean_teacher
+
+ssl:
+  # Rule: the labelled loss sees the augmentation of the matching SL arm.  On BenchmarkEL
+  # the SL arms train with geometric + the "strong" photometric ops (blur / jitter / noise,
+  # get_strong_augmentation), so the labelled view is "strong" (as in the pilots).
+  # (Briefly "weak" on 2026-10-03 22:25 - 2026-10-04 08:5x; see reports/day1.md.)
+  labeled_view: strong

@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1007/s11263-025-02416-4",
+ "title": "Not All Pixels are Equal: Learning Pixel Hardness for Semantic Segmentation",
+ "year": 2025,
+ "venue": "IJCV",
+ "url": "https://arxiv.org/abs/2305.08462",
+ "code_url": "https://github.com/Menoly-xin/Hardness-Level-Learning",
+ "mechanism": "Gradient-isolated branch learns a stable pixel hardness map by maximising hardness-weighted loss while the seg head minimises it.",
+ "adaptation": "Targets thin parts (gridline, crack). On jittered crack labels hard pixels are often label noise: restrict hardness weighting to non-crack classes or to pixels within 2 px of the label.",
+ "min_experiment": "Arm: hardness branch on house model, 3 seeds; baseline SUP100; metric gridline IoU and mIoU_rob, crack IoU guard; kill if mIoU_rob < +0.01.",
+ "score": 48,
+ "bench_score": 45,
+ "bet": "medium",
+ "evidence": "R: +1.37 mIoU on average over popular segmentation models on Cityscapes; generalises across domains.",
+ "gpu_hours": 4,
+ "prior_overlap": "none",
+ "targets": [
+  "other_classes",
+  "crack"
+ ],
+ "directions": [
+  "D19"
+ ],
+ "scout_scores": [
+  48
+ ],
+ "final": 48,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 241,
+ "pid": "P241"
+}

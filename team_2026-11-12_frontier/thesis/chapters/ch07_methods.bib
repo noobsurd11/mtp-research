@@ -1,0 +1,118 @@
+% ch07_methods.bib: references cited in Chapter 7 that are not in thesis/refs_extra.bib.
+% Also cited in Chapter 7 from other files: wang2021hrnet, zhou2018unetpp, chen2018deeplabv3plus, kirchhoff2024skeletonrecall
+% (thesis/refs_extra.bib) and pratt2023benchmark (chapters/ch08_e1_result.bib, ch04_data.bib, ch06_protocol.bib).
+% Verified 23 Nov 2026: ids from the method ledger on disk (cards/ledger/MASTER.tsv paper_id) or from RELATED_WORK.md;
+% titles, authors and dates from the arXiv API (export.arxiv.org) and venue fields from the Crossref API (api.crossref.org).
+% arXiv-only entries are given as preprints; a venue recorded on disk but not checked is in the note field.
+
+@misc{cha2021swad,
+  author        = {Cha, Junbum and Chun, Sanghyuk and Lee, Kyungjae and Cho, Han-Cheol and Park, Seunghyun and Lee, Yunsung and Park, Sungrae},
+  title         = {{SWAD}: Domain Generalization by Seeking Flat Minima},
+  year          = {2021},
+  eprint        = {2102.08604},
+  archivePrefix = {arXiv},
+  note          = {arXiv preprint; venue recorded on disk as NeurIPS 2021 (not checked)}
+}
+
+@misc{xie2021segformer,
+  author        = {Xie, Enze and Wang, Wenhai and Yu, Zhiding and Anandkumar, Anima and Alvarez, Jose M. and Luo, Ping},
+  title         = {{SegFormer}: Simple and Efficient Design for Semantic Segmentation with Transformers},
+  year          = {2021},
+  eprint        = {2105.15203},
+  archivePrefix = {arXiv},
+  note          = {arXiv preprint; venue recorded on disk as NeurIPS 2021 (not checked)}
+}
+
+@inproceedings{hoyer2022daformer,
+  author    = {Hoyer, Lukas and Dai, Dengxin and Van Gool, Luc},
+  title     = {{DAFormer}: Improving Network Architectures and Training Strategies for Domain-Adaptive Semantic Segmentation},
+  booktitle = {2022 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+  pages     = {9914--9925},
+  year      = {2022},
+  doi       = {10.1109/cvpr52688.2022.00969}
+}
+
+@inproceedings{wang2023jml,
+  author    = {Wang, Zifu and Ning, Xuefei and Blaschko, Matthew},
+  title     = {Jaccard Metric Losses: Optimizing the Jaccard Index with Soft Labels},
+  booktitle = {Advances in Neural Information Processing Systems 36},
+  pages     = {75259--75285},
+  year      = {2023},
+  doi       = {10.52202/075280-3289}
+}
+
+@misc{moralesbrotons2024ema,
+  author        = {Morales-Brotons, Daniel and Vogels, Thijs and Hendrikx, Hadrien},
+  title         = {Exponential Moving Average of Weights in Deep Learning: Dynamics and Benefits},
+  year          = {2024},
+  eprint        = {2411.18704},
+  archivePrefix = {arXiv},
+  note          = {Transactions on Machine Learning Research (journal reference as given on arXiv)}
+}
+
+@misc{tian2024spd,
+  author        = {Tian, Junjiao and Huang, Chengyue and Kira, Zsolt},
+  title         = {Rethinking Weight Decay for Robust Fine-Tuning of Foundation Models},
+  year          = {2024},
+  eprint        = {2411.01713},
+  archivePrefix = {arXiv},
+  note          = {arXiv preprint; venue recorded on disk as NeurIPS 2024 (not checked)}
+}
+
+@misc{ouyang2021ginipa,
+  author        = {Ouyang, Cheng and Chen, Chen and Li, Surui and Li, Zeju and Qin, Chen and Bai, Wenjia and Rueckert, Daniel},
+  title         = {Causality-inspired Single-source Domain Generalization for Medical Image Segmentation},
+  year          = {2021},
+  eprint        = {2111.12525},
+  archivePrefix = {arXiv},
+  note          = {arXiv preprint; venue recorded on disk as IEEE TMI 2022 (not checked)}
+}
+
+@misc{he2015resnet,
+  author        = {He, Kaiming and Zhang, Xiangyu and Ren, Shaoqing and Sun, Jian},
+  title         = {Deep Residual Learning for Image Recognition},
+  year          = {2015},
+  eprint        = {1512.03385},
+  archivePrefix = {arXiv},
+  note          = {arXiv preprint}
+}
+
+@misc{ronneberger2015unet,
+  author        = {Ronneberger, Olaf and Fischer, Philipp and Brox, Thomas},
+  title         = {{U-Net}: Convolutional Networks for Biomedical Image Segmentation},
+  year          = {2015},
+  eprint        = {1505.04597},
+  archivePrefix = {arXiv},
+  note          = {arXiv preprint}
+}
+
+@misc{chen2017deeplabv3,
+  author        = {Chen, Liang-Chieh and Papandreou, George and Schroff, Florian and Adam, Hartwig},
+  title         = {Rethinking Atrous Convolution for Semantic Image Segmentation},
+  year          = {2017},
+  eprint        = {1706.05587},
+  archivePrefix = {arXiv},
+  note          = {arXiv preprint}
+}
+
+@article{fioresi2022ucfel,
+  author  = {Fioresi, Joseph and Colvin, Dylan J. and Frota, Rafaela and Gupta, Rohit and Li, Mengjie and Seigneur, Hubert P. and Vyas, Shruti and Oliveira, Sofia and Shah, Mubarak and Davis, Kristopher O.},
+  title   = {Automated Defect Detection and Localization in Photovoltaic Cells Using Semantic Segmentation of Electroluminescence Images},
+  journal = {IEEE Journal of Photovoltaics},
+  volume  = {12},
+  number  = {1},
+  pages   = {53--61},
+  year    = {2022},
+  doi     = {10.1109/JPHOTOV.2021.3131059}
+}
+
+@inproceedings{hanifi2025multiclass,
+  author    = {Hanifi, Shiva and Jafarnejad, Sasan and Cormier, Mathieu and Frank, Rapha{\"e}l},
+  title     = {Multi-class Semantic Segmentation of Photovoltaic Module Defects and Features: Towards Industrial Robotic Applications},
+  booktitle = {Advances and Trends in Artificial Intelligence. Theory and Applications (IEA/AIE)},
+  series    = {Lecture Notes in Computer Science},
+  publisher = {Springer},
+  pages     = {37--48},
+  year      = {2025},
+  doi       = {10.1007/978-981-96-8892-0_4}
+}

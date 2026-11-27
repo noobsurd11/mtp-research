@@ -1,0 +1,35 @@
+{
+ "paper_id": "doi:10.1016/j.apenergy.2025.126132",
+ "title": "Open data sets for assessing photovoltaic system reliability",
+ "year": 2025,
+ "venue": "Applied Energy",
+ "url": "https://doi.org/10.1016/j.apenergy.2025.126132",
+ "code_url": "",
+ "mechanism": "Review and inventory of open PV datasets across EL, IR, PL and UVF with tools and suggested practices.",
+ "adaptation": "Source of OpenUVF (3000 labelled + 21,600 unlabelled UVF cell images for cracks) for the cross-modal arm, NREL field PL half-cut cell images as unlabelled half-cut context for E1, and the list of EL datasets the benchmark must check for leakage or use as external tests.",
+ "min_experiment": "No training arm of its own; feeds the UMMKD arm and the benchmark external-test list. Check OpenUVF label format before any download (user OK).",
+ "evidence": "R (full text read): OpenUVF 50 labelled / 100 unlabelled modules, 3000 labelled / 21,600 unlabelled cells; NREL field PL 856 half-cut cell images at 4056 x 3040; EL sets from LBNL, NREL, EPRI, Sandia, FAU, PVEL-AD, Wits, UCF, CWRU.",
+ "prior_overlap": "none",
+ "score": 35,
+ "bench_score": 65,
+ "bet": "medium",
+ "targets": [
+  "benchmark",
+  "crack",
+  "e1_unseen"
+ ],
+ "gpu_hours": 0,
+ "directions": [
+  "D04"
+ ],
+ "scout_scores": [
+  35
+ ],
+ "final": 35,
+ "bench": 65,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 443,
+ "pid": "P443"
+}

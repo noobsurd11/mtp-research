@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MTP EL Segmentation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=block" rel="stylesheet">
+<style>
+:root{ --ink:#111111; --panel:#142B29; --accent:#2A7F78; --soft:#9FD3CC; --muted:#5E6665; --pmuted:#B9C7C5; --grey:#9AA3A2; --red:#B03A2E; --amber:#C77A32 }
+@page{ size:1280px 720px; margin:0 }
+*{ box-sizing:border-box; margin:0; padding:0 }
+html,body{ background:#fff; color:var(--ink); font-family:Inter,sans-serif; -webkit-print-color-adjust:exact; print-color-adjust:exact }
+.slide{ width:1280px; height:720px; position:relative; overflow:hidden; page-break-after:always; break-after:page; background:#fff }
+.slide:last-child{ page-break-after:auto; break-after:auto }
+.abs{ position:absolute }
+.tag{ position:absolute; left:58px; top:40px; font-size:16px; font-weight:700; letter-spacing:3px; color:var(--accent); text-transform:uppercase }
+.title{ position:absolute; left:58px; top:70px; width:1160px; font-family:'Archivo Black',sans-serif; font-size:40px; line-height:1.1; text-transform:uppercase }
+.head{ font-family:'Archivo Black',sans-serif }
+.big{ font-family:'Archivo Black',sans-serif; font-size:29px; line-height:1.25 }
+.pn{ position:absolute; left:1184px; top:674px; width:48px; text-align:right; font-size:13px; color:var(--muted) }
+.panel{ position:absolute; left:0; top:0; width:451px; height:720px; background:var(--panel) }
+.ptitle{ position:absolute; left:58px; top:77px; width:346px; height:566px; display:flex; align-items:center; font-family:'Archivo Black',sans-serif; font-size:44px; line-height:1.12; color:#fff; text-transform:uppercase }
+.muted{ color:var(--muted) }
+.cap{ font-size:15px; color:var(--muted); line-height:1.4 }
+ul.b{ list-style:none }
+ul.b li{ position:relative; padding-left:30px; margin-bottom:20px }
+ul.b li::before{ content:"\2022"; position:absolute; left:4px; top:0 }
+table.t{ border-collapse:collapse; width:100% }
+table.t th, table.t td{ padding:0 10px; height:52px; vertical-align:middle; text-align:center }
+table.t th:first-child, table.t td:first-child{ text-align:left }
+table.t thead th{ font-weight:700; border-top:2px solid var(--ink); border-bottom:1px solid var(--ink) }
+table.t tbody tr:last-child td{ border-bottom:2px solid var(--ink) }
+table.t td.l, table.t th.l{ text-align:left }
+table.tt th, table.tt td{ height:40px; padding:0 6px }
+table.tr th, table.tr td{ height:33px; padding:0 8px }
+table.tr thead th{ height:44px }
+table.tr .grp td{ height:25px }
+table.t12 th, table.t12 td{ height:50px }
+table.t .grp td{ font-size:13px; font-weight:700; letter-spacing:1.5px; color:var(--accent); text-transform:uppercase; height:34px; vertical-align:bottom; padding-bottom:4px }
+.mono{ font-family:'JetBrains Mono',monospace }
+.ok{ color:var(--accent); font-weight:700 } .bad{ color:var(--red); font-weight:600 } .part{ color:var(--amber); font-weight:600 } .nd{ color:var(--muted) }
+.eg{ display:flex; gap:32px }
+.ec{ flex:1 }
+.eh{ font-weight:700; font-size:19px; border-top:2px solid var(--ink); border-bottom:1px solid var(--ink); padding:9px 0 }
+.es{ font-size:13px; color:var(--muted); margin:8px 0 8px }
+.ei{ font-size:16.5px; line-height:1.25; padding:6px 0; display:flex; align-items:center }
+.mk{ display:inline-block; width:11px; height:11px; margin-right:11px; flex:none }
+.legend{ margin-top:20px; font-size:14px; color:var(--muted); display:flex; gap:26px; border-top:1px solid #CFCFCF; padding-top:12px }
+.lg{ display:flex; align-items:center }
+.figcap{ font-size:13px; color:var(--muted); margin-top:6px; line-height:1.3 }
+.figcap b{ color:var(--ink); font-weight:600 }
+</style>
+</head>
+<body>
+
+<!-- 1 TITLE -->
+<section class="slide">
+  <div class="abs" style="left:826px;top:0;width:454px;height:720px;background:var(--panel)"></div>
+  <img class="abs" src="../fig/title_cell.png" style="left:889px;top:168px;width:326px;height:326px">
+  <div class="abs" style="left:889px;top:509px;width:326px;text-align:center;font-size:16px;color:var(--pmuted)">One EL solar cell image: a crack and an inactive region</div>
+  <div class="abs" style="left:77px;top:86px;font-size:18px;font-weight:700;letter-spacing:4px;color:var(--accent)">MTP REPORT</div>
+  <div class="abs head" style="left:77px;top:134px;width:700px;font-size:50px;line-height:1.12">SOLAR MODULE FAULT SEGMENTATION USING EL IMAGES</div>
+  <div class="abs" style="left:77px;top:372px;width:700px;font-size:24px;line-height:1.4">Finding cracks and inactive regions pixel by pixel, and measuring it fairly</div>
+  <div class="abs" style="left:77px;top:500px;width:700px;font-size:21px;line-height:1.7">
+    <b>Yash Patil &middot; B23222 &nbsp;&nbsp;&nbsp;&nbsp; Muskan &middot; B23274</b><br>
+    Guide: Dr. Praful Hambarde<br>
+    <span class="muted">IIT Mandi</span>
+  </div>
+</section>
+
+<!-- 2 PROBLEM -->
+<section class="slide">
+  <div class="panel"></div><div class="ptitle">The problem: thin, rare defects</div>
+  <div class="tag" style="left:518px">Problem</div>
+  <ul class="b abs" style="left:518px;top:150px;width:700px;font-size:26px;line-height:1.35">
+    <li>EL image: bright = working silicon, dark = no current</li>
+    <li>Crack: 0.19% of training pixels, labels 1 to 2 px wide</li>
+    <li>Inactive area: present in 42 of 478 training cells</li>
+    <li>24 classes, labelled per pixel</li>
+  </ul>
+  <div class="abs big" style="left:518px;top:520px;width:700px;font-size:34px">Find them, and measure it fairly.</div>
+  <div class="pn">2</div>
+</section>
+
+<!-- 3 DATA -->
+<section class="slide">
+  <div class="tag">Data</div>
+  <div class="title">BenchmarkEL and our sets</div>
+  <div class="abs" style="left:58px;top:150px;width:700px">
+  <table class="t" style="font-size:20px">
+    <thead><tr><th>Set</th><th>Cells</th><th class="l">Use</th></tr></thead>
+    <tbody>
+      <tr><td>Pool</td><td>532</td><td class="l">train + val: development, 5 folds by module</td></tr>
+      <tr><td>E1</td><td>106</td><td class="l">unseen modules, sealed; 62 half-cut</td></tr>
+      <tr><td>test50</td><td>50</td><td class="l">original test set; overlaps the pool: context only</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="abs" style="left:800px;top:150px;width:420px;font-size:20px;line-height:1.5">
+    5 sources: ARTS 182 &middot; CFVS 169 &middot; CSIR 114 &middot; BMRK 50 &middot; SDLE 17<br><br>
+    <span class="muted">Each image: a window of about 3 x 3 cells, 512 x 512 px</span>
+  </div>
+  <img class="abs" src="../fig/F1.png" style="left:58px;top:370px;width:760px">
+  <div class="abs big" style="left:880px;top:420px;width:340px;font-size:26px">The pool has no half-cut cells. E1 has 62.</div><div class="abs cap" style="left:880px;top:540px;width:340px">BenchmarkEL release 2021 (Pratt et al. 2023), 24 classes</div>
+  <div class="pn">3</div>
+</section>
+
+<!-- 4 PRIOR WORK -->
+<section class="slide">
+  <div class="tag">Existing work &middot; reproduced</div>
+  <div class="title">What papers report, what we got</div>
+  <div class="abs" style="left:58px;top:150px;width:1160px">
+  <table class="t" style="font-size:19px">
+    <thead><tr><th style="width:24%">Paper</th><th style="width:20%">Their number</th><th style="width:22%">Ours, same scoring</th><th class="l" style="width:34%">Gap came from</th></tr></thead>
+    <tbody>
+      <tr><td>Pratt 2023 &middot; DeepLabv3+</td><td>mean IoU 0.28</td><td>0.28 to 0.30</td><td class="l">scoring rule (per-image median)</td></tr>
+      <tr><td>Fioresi 2022 &middot; DeepLabv3</td><td>crack F1 0.81</td><td>0.81</td><td class="l">none on crack</td></tr>
+      <tr><td>Jha 2025 &middot; PV-S3 (SSL)</td><td>supervised 0.088</td><td>0.23, same recipe</td><td class="l">under-trained baseline; background not scored</td></tr>
+      <tr><td>Hanifi 2025 &middot; VGG-16 U-Net</td><td>crack 0.335</td><td>0.352</td><td class="l">matches; model ranking does not</td></tr>
+      <tr><td>SEiPV-Net 2023</td><td>mIoU 0.86</td><td>0.84 or 0.46 to 0.51</td><td class="l">how the class mean is taken</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="abs big" style="left:58px;top:510px;width:1160px;font-size:26px">Every gap came from scoring, training budget or leakage.</div>
+  <div class="abs" style="left:58px;top:568px;width:1160px;font-size:19px">22 EL papers read in full: 0 split train and test by module; 18 report one run, no interval.</div>
+  <div class="abs cap" style="left:58px;top:606px;width:1160px">Pratt, Fioresi, PV-S3: reproduced in our first pipeline, each on its own metric. Hanifi: their released code, 3 seeds. SEiPV-Net: our models re-scored.</div>
+  <div class="pn">4</div>
+</section>
+
+<!-- 5 SSL -->
+<section class="slide">
+  <div class="tag">Our work &middot; semi-supervised (P13, P16)</div>
+  <div class="title">SSL helps only when labels are scarce</div>
+  <div class="abs" style="left:58px;top:170px;width:520px">
+  <table class="t" style="font-size:19px">
+    <thead><tr><th>Labels</th><th>Inactive IoU<br><span style="font-weight:400;font-size:15px">SSL minus supervised</span></th><th>Crack</th></tr></thead>
+    <tbody>
+      <tr><td>5%</td><td>+0.117</td><td>relF1@2 +0.033</td></tr>
+      <tr><td>20%</td><td>+0.029</td><td>n.d.</td></tr>
+      <tr><td>50%</td><td>+0.006</td><td>n.d.</td></tr>
+      <tr><td>100%</td><td>+0.003</td><td>n.d.</td></tr>
+    </tbody>
+  </table>
+  <div class="cap" style="margin-top:14px">5 vs 5 seeds. 5%: [+0.042, +0.189], with CutMix. 100%: with an external pool of 11,938 cells. n.d. = not detectable.</div>
+  </div>
+  <div class="abs" style="left:620px;top:160px"><svg width="600" height="400" viewBox="0 0 600 400" style="font-family:Inter,sans-serif" xmlns="http://www.w3.org/2000/svg"><line x1="70.0" y1="338.0" x2="580.0" y2="338.0" stroke="#E2E6E5" stroke-width="1"/><text x="62.0" y="343.0" font-size="13" text-anchor="end" fill="#5E6665" font-weight="400" >0.20</text><line x1="70.0" y1="224.4" x2="580.0" y2="224.4" stroke="#E2E6E5" stroke-width="1"/><text x="62.0" y="229.4" font-size="13" text-anchor="end" fill="#5E6665" font-weight="400" >0.30</text><line x1="70.0" y1="110.9" x2="580.0" y2="110.9" stroke="#E2E6E5" stroke-width="1"/><text x="62.0" y="115.9" font-size="13" text-anchor="end" fill="#5E6665" font-weight="400" >0.40</text><line x1="70.0" y1="338.0" x2="580.0" y2="338.0" stroke="#111111" stroke-width="1"/><line x1="70.0" y1="20.0" x2="70.0" y2="338.0" stroke="#111111" stroke-width="1"/><text x="115.0" y="360.0" font-size="14" text-anchor="middle" fill="#111111" font-weight="400" >5%</text><text x="255.0" y="360.0" font-size="14" text-anchor="middle" fill="#111111" font-weight="400" >20%</text><text x="395.0" y="360.0" font-size="14" text-anchor="middle" fill="#111111" font-weight="400" >50%</text><text x="535.0" y="360.0" font-size="14" text-anchor="middle" fill="#111111" font-weight="400" >100%</text><text x="325.0" y="390.0" font-size="14" text-anchor="middle" fill="#5E6665" font-weight="400" >labelled share of the training set</text><text x="16.0" y="179.0" font-size="14" text-anchor="middle" fill="#5E6665" font-weight="400" transform="rotate(-90 16 179.0)">inactive IoU (test50)</text><polyline points="109.0,277.8 249.0,155.2 389.0,97.2 529.0,70.0" fill="none" stroke="#9AA3A2" stroke-width="2"/><line x1="109.0" y1="319.8" x2="109.0" y2="235.8" stroke="#9AA3A2" stroke-width="1.5"/><rect x="104.5" y="273.3" width="9" height="9" fill="#9AA3A2"/><line x1="249.0" y1="197.2" x2="249.0" y2="113.1" stroke="#9AA3A2" stroke-width="1.5"/><rect x="244.5" y="150.7" width="9" height="9" fill="#9AA3A2"/><line x1="389.0" y1="110.9" x2="389.0" y2="83.6" stroke="#9AA3A2" stroke-width="1.5"/><rect x="384.5" y="92.7" width="9" height="9" fill="#9AA3A2"/><line x1="529.0" y1="84.7" x2="529.0" y2="55.2" stroke="#9AA3A2" stroke-width="1.5"/><rect x="524.5" y="65.5" width="9" height="9" fill="#9AA3A2"/><polyline points="121.0,144.9 261.0,122.2 401.0,90.4 541.0,66.6" fill="none" stroke="#2A7F78" stroke-width="2"/><line x1="121.0" y1="174.5" x2="121.0" y2="115.4" stroke="#2A7F78" stroke-width="1.5"/><circle cx="121.0" cy="144.9" r="5" fill="#2A7F78"/><line x1="261.0" y1="151.7" x2="261.0" y2="92.7" stroke="#2A7F78" stroke-width="1.5"/><circle cx="261.0" cy="122.2" r="5" fill="#2A7F78"/><line x1="401.0" y1="121.1" x2="401.0" y2="59.7" stroke="#2A7F78" stroke-width="1.5"/><circle cx="401.0" cy="90.4" r="5" fill="#2A7F78"/><line x1="541.0" y1="85.9" x2="541.0" y2="47.3" stroke="#2A7F78" stroke-width="1.5"/><circle cx="541.0" cy="66.6" r="5" fill="#2A7F78"/><circle cx="368" cy="294" r="5" fill="#2A7F78"/><text x="380.0" y="299.0" font-size="13" text-anchor="start" fill="#111111" font-weight="400" >semi-supervised (Mean Teacher)</text><rect x="363.5" y="311.5" width="9" height="9" fill="#9AA3A2"/><text x="380.0" y="321.0" font-size="13" text-anchor="start" fill="#111111" font-weight="400" >supervised only</text></svg></div>
+  <div class="abs big" style="left:58px;top:600px;width:1160px;font-size:24px">With all labels in use, the problems were the split, the metric and unseen modules.</div>
+  <div class="abs cap" style="left:620px;top:568px">test50, in-distribution: context only. Bars: seed sd.</div>
+  <div class="pn">5</div>
+</section>
+
+<!-- 6 MEASURING -->
+<section class="slide">
+  <div class="tag">Our work &middot; dataset audit</div>
+  <div class="title">Measuring thin cracks</div>
+  <div class="abs" style="left:58px;top:150px;width:560px">
+    <div style="font-size:16px;font-weight:600;margin-bottom:8px">A correct crack label, redrawn, scored against itself</div>
+    <table class="t" style="font-size:18px">
+      <thead><tr><th>Change</th><th>Strict IoU</th><th>relF1@2</th></tr></thead>
+      <tbody>
+        <tr><td>moved 1 px</td><td>0.483</td><td>1.0</td></tr>
+        <tr><td>moved 2 px</td><td>0.249</td><td>1.0</td></tr>
+        <tr><td>thinned to 1 px centreline</td><td>0.465</td><td>1.0</td></tr>
+        <tr><td>redrawn 3 px wide</td><td>0.605</td><td>1.0</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="abs" style="left:660px;top:150px;width:560px">
+    <div style="font-size:16px;font-weight:600;margin-bottom:8px">Same baseline predictions, scored on four label versions</div>
+    <table class="t" style="font-size:18px">
+      <thead><tr><th>Labels</th><th>Strict IoU</th><th>relF1@2</th></tr></thead>
+      <tbody>
+        <tr><td>1 px centreline</td><td>0.233</td><td>0.824</td></tr>
+        <tr><td>2021 release</td><td>0.320</td><td>0.822</td></tr>
+        <tr><td>v1.1 (benchmark)</td><td>0.365</td><td>0.846</td></tr>
+        <tr><td>redrawn 3 px</td><td>0.414</td><td>0.849</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="abs" style="left:58px;top:478px;width:1160px;font-size:18px;line-height:1.5">
+    <b>relF1@2:</b> crack F1 where a pixel counts if it lies within 2 px; 2 px = 95th percentile distance between two annotations of one crack<br>
+    <b>Split:</b> 24 physical modules crossed folds (91 cells); regrouped into 285 module groups, none crosses folds
+  </div>
+  <div class="abs big" style="left:58px;top:600px;width:1160px;font-size:24px">relF1@2 decides. Strict IoU is printed beside it.</div>
+  <div class="pn">6</div>
+</section>
+
+<!-- 7 ALL EXPERIMENTS -->
+<section class="slide">
+  <div class="tag">Our work &middot; overview</div>
+  <div class="title">Everything we tried</div>
+  <div class="abs" style="left:58px;top:140px;width:1160px"><div class="eg"><div class="ec"><div class="eh">Semi-supervised</div><div class="es">7 to 23 Oct · test50, context only</div><div class="ei"><span class="mk" style="background:#D3D8D7"></span>first Mean Teacher + SemiCE (bug)</div><div class="ei"><span class="mk" style="background:#9AA3A2"></span>attention gate (SA U-Net++)</div><div class="ei"><span class="mk" style="background:#2A7F78"></span>Mean Teacher, 5 and 10% labels</div><div class="ei"><span class="mk" style="background:#9AA3A2"></span>Mean Teacher, 20 to 100% labels</div><div class="ei"><span class="mk" style="background:#9AA3A2"></span>external unlabelled pool</div><div class="ei"><span class="mk" style="background:#9AA3A2"></span>shift-tolerant loss</div><div class="ei"><span class="mk" style="background:#B03A2E"></span>UCF-EL encoder pretraining</div><div class="ei"><span class="mk" style="background:#9AA3A2"></span>decoupled decoder, balanced head</div><div class="ei"><span class="mk" style="background:#B03A2E"></span>ALHVR</div></div><div class="ec"><div class="eh">After SSL</div><div class="es">24 Oct to 14 Nov · test50 and E1</div><div class="ei"><span class="mk" style="background:#2A7F78"></span>5-model ensemble</div><div class="ei"><span class="mk" style="background:#B03A2E"></span>Dice on 12 classes</div><div class="ei"><span class="mk" style="background:#B03A2E"></span>ResNet-50 encoder</div><div class="ei"><span class="mk" style="background:#9AA3A2"></span>2x resolution, +107 cells</div><div class="ei"><span class="mk" style="background:#9AA3A2"></span>MIM and denoising pretraining</div><div class="ei"><span class="mk" style="background:#9AA3A2"></span>crack copy-paste</div><div class="ei"><span class="mk" style="background:#C77A32"></span>encoder-preserving fine-tune (PF)</div><div class="ei"><span class="mk" style="background:#D3D8D7"></span>DINOv3 encoder</div><div class="ei"><span class="mk" style="background:#C77A32"></span>Skeleton Recall loss</div><div class="ei"><span class="mk" style="background:#B03A2E"></span>clDice loss, scuff class</div><div class="ei"><span class="mk" style="background:#9AA3A2"></span>synthetic half-cut cells</div></div><div class="ec"><div class="eh">Benchmark screens</div><div class="es">14 to 18 Nov · pool, 2 seeds</div><div class="ei"><span class="mk" style="background:#9AA3A2"></span>U-Net R34, U-Net VGG-16</div><div class="ei"><span class="mk" style="background:#9AA3A2"></span>DeepLabV3+ R34, stride 4</div><div class="ei"><span class="mk" style="background:#B03A2E"></span>DeepLabV3 R50, stride 8</div><div class="ei"><span class="mk" style="background:#B03A2E"></span>Pratt&#x27;s weighted CE</div><div class="ei"><span class="mk" style="background:#B03A2E"></span>SegFormer, rare-class sampling</div><div class="ei"><span class="mk" style="background:#9AA3A2"></span>Skeleton Recall, Jaccard loss</div><div class="ei"><span class="mk" style="background:#9AA3A2"></span>weight EMA, encoder decay</div><div class="ei"><span class="mk" style="background:#9AA3A2"></span>decision layers</div><div class="ei"><span class="mk" style="background:#2A7F78"></span>HRNet-W18: promoted</div><div class="ei"><span class="mk" style="background:#2A7F78"></span>SWAD: promoted</div></div><div class="ec"><div class="eh">Decided</div><div class="es">18 to 23 Nov · pool 5 seeds; sealed E1</div><div class="ei"><span class="mk" style="background:#C77A32"></span>HRNet-W18</div><div class="ei"><span class="mk" style="background:#9AA3A2"></span>SWAD</div><div class="ei"><span class="mk" style="background:#C77A32"></span>HRNet-W18 + SWAD</div><div class="ei"><span class="mk" style="background:#2A7F78"></span>D4 test-time augmentation</div><div class="ei"><span class="mk" style="background:#2A7F78"></span>final recipe on E1</div><div class="ei"><span class="mk" style="background:#2A7F78"></span>few-shot on E1</div><div class="ei"><span class="mk" style="background:#9AA3A2"></span>5-model ensemble on E1</div></div></div><div class="legend"><span class="lg"><span class="mk" style="background:#2A7F78"></span>helped / confirmed</span><span class="lg"><span class="mk" style="background:#C77A32"></span>gain, guard failed or narrow</span><span class="lg"><span class="mk" style="background:#9AA3A2"></span>not detectable</span><span class="lg"><span class="mk" style="background:#B03A2E"></span>worse / failed</span><span class="lg"><span class="mk" style="background:#D3D8D7"></span>invalid / stopped</span></div></div>
+  <div class="pn">7</div>
+</section>
+
+<!-- 8 PROTOCOL -->
+<section class="slide">
+  <div class="panel"></div><div class="ptitle">Benchmark protocol</div>
+  <div class="tag" style="left:518px">Our work &middot; protocol</div>
+  <div class="abs" style="left:518px;top:110px;width:700px">
+  <table class="t" style="font-size:18px">
+    <thead><tr><th>Stage</th><th>Seeds</th><th class="l">Cells</th><th class="l">Role</th></tr></thead>
+    <tbody>
+      <tr><td>1 &nbsp;Screen</td><td>2</td><td class="l">pool, 532</td><td class="l">promotes only</td></tr>
+      <tr><td>2 &nbsp;Row</td><td>5</td><td class="l">pool, 532 and 416 clean</td><td class="l">decides on the pool</td></tr>
+      <tr><td>3 &nbsp;Sealed read</td><td>5</td><td class="l">E1, 106</td><td class="l">once; rule fixed before</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="abs mono" style="left:518px;top:358px;width:720px;font-size:16.5px;line-height:1.9">
+    gain counts if &nbsp;&Delta; &ge; M &nbsp;and&nbsp; 95% CI lower bound &gt; 0<br>
+    M = max(0.01, 2 &times; SE of baseline vs itself) = 0.010<br>
+    guards: crack width 0.85 to 1.15 &middot; false crack px &le; 1.5x<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;other classes (mIoU) drop &le; 0.010
+  </div>
+  <div class="abs" style="left:518px;top:540px;width:700px;font-size:18px;line-height:1.5">Interval: bootstrap over module groups and seeds, 2,000 draws.<br>0 of 15 baseline-vs-itself splits would pass.</div>
+  <div class="pn">8</div>
+</section>
+
+<!-- 9 ARCHITECTURE -->
+<section class="slide">
+  <div class="tag">Our work &middot; architecture study</div>
+  <div class="title">Architectures under one protocol</div>
+  <div class="abs" style="left:58px;top:140px;width:320px"><img src="fig/a_unet.png" style="width:320px"><div class="figcap"><b>U-Net</b> &middot; Ronneberger et al., MICCAI 2015, Fig. 1</div></div>
+  <div class="abs" style="left:405px;top:140px;width:300px"><img src="fig/a_unetpp.png" style="width:300px"><div class="figcap"><b>UNet++</b> (our baseline decoder) &middot; Zhou et al., DLMIA 2018, Fig. 1a</div></div>
+  <div class="abs" style="left:58px;top:420px;width:330px"><img src="fig/a_dlv3p.png" style="width:330px"><div class="figcap"><b>DeepLabv3+</b> &middot; Chen et al., ECCV 2018, Fig. 2</div></div>
+    <div class="abs" style="left:420px;top:440px;width:270px;font-size:15px;line-height:1.45;color:var(--muted)">Output stride: the factor by which the network shrinks the image before predicting. DeepLabV3+ predicts at 1/4, DeepLabV3 at 1/8.</div>
+  <div class="abs" style="left:740px;top:140px;width:480px">
+  <table class="t tt" style="font-size:15px">
+    <thead><tr><th>Model, same training</th><th>&Delta; relF1@2</th><th>95% CI</th></tr></thead>
+    <tbody>
+      <tr><td>HRNet-W18 + U-Net++</td><td class="ok">+0.0114</td><td>[+0.0032, +0.0203]</td></tr>
+      <tr><td>U-Net, ResNet-34</td><td>&minus;0.0016</td><td>[&minus;0.0110, +0.0073]</td></tr>
+      <tr><td>SegFormer MiT-B2</td><td>&minus;0.0026</td><td>[&minus;0.0132, +0.0095]</td></tr>
+      <tr><td>U-Net, VGG-16 (Hanifi)</td><td>&minus;0.0064</td><td>[&minus;0.0189, +0.0042]</td></tr>
+      <tr><td>DeepLabV3+, R34, stride 4</td><td>&minus;0.0093</td><td>[&minus;0.0204, +0.0019]</td></tr>
+      <tr><td>DeepLabV3, R50, stride 8</td><td class="bad">&minus;0.0773</td><td>[&minus;0.0892, &minus;0.0594]</td></tr>
+    </tbody>
+  </table>
+  <div class="cap" style="margin-top:8px">Against U-Net++ / ResNet-34; 2-seed screens, pool cells out of fold.</div>
+  </div>
+  <div class="abs" style="left:740px;top:490px;width:480px"><img src="fig/a_hrnet.png" style="width:480px"><div class="figcap"><b>HRNet</b> &middot; Wang et al., TPAMI 2021, Fig. 2</div></div>
+  <div class="abs big" style="left:420px;top:560px;width:300px;font-size:22px">No decoder effect detected. Resolution matters.</div>
+  <div class="pn">9</div>
+</section>
+
+<!-- 10 FINAL MODEL -->
+<section class="slide">
+  <div class="tag">Our work &middot; final model</div>
+  <div class="title">Final model: HRNet-W18 + U-Net++</div>
+  <div class="abs" style="left:58px;top:142px;width:760px"><img src="fig/a_hrnet.png" style="width:760px"><div class="figcap"><b>Encoder: HRNet-W18</b>, ImageNet weights &middot; keeps a high-resolution stream throughout (Wang et al., Fig. 2)</div></div>
+  <div class="abs" style="left:900px;top:132px;width:300px"><img src="fig/a_unetpp.png" style="width:260px"><div class="figcap"><b>Decoder: U-Net++</b>, nested skips (Zhou et al., Fig. 1a)</div></div>
+  <div class="abs" style="left:58px;top:400px;width:1160px">
+  <table class="t" style="font-size:17px">
+    <thead><tr><th style="width:24%">Part</th><th class="l" style="width:50%">What it does</th><th class="l">Source</th></tr></thead>
+    <tbody>
+      <tr><td>Encoder-preserving fine-tune</td><td class="l">encoder frozen 1,000 steps, then trained at 0.1x the learning rate</td><td class="l">ours</td></tr>
+      <tr><td>SWAD weight averaging</td><td class="l">uniform average of the weights from steps 10,000 to 20,000</td><td class="l">Cha et al., NeurIPS 2021</td></tr>
+      <tr><td>D4 test-time augmentation</td><td class="l">average of predictions on 8 flips and rotations</td><td class="l">standard</td></tr>
+      <tr><td>Training</td><td class="l">532 pool cells, 512 px, 20,000 steps, cross-entropy + Dice, 5 seeds</td><td class="l">ours</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="pn">10</div>
+</section>
+
+<!-- 11 RESULTS SCREENS -->
+<section class="slide">
+  <div class="tag">Results &middot; pool, same training, out of fold</div>
+  <div class="title">Results I: ten models compared</div>
+  <div class="abs" style="left:58px;top:132px;width:1164px">
+  <table class="t tr" style="font-size:16px">
+    <thead><tr><th style="width:25%">Model</th><th class="l">Encoder</th><th class="l">From</th><th>Crack relF1@2</th><th>relP@2 / relR@2</th><th>Strict crack IoU</th><th>Inactive IoU</th><th>mIoU-R13</th></tr></thead>
+    <tbody>
+      <tr class="grp"><td colspan="8">Baseline</td></tr>
+      <tr><td>U-Net++, encoder-preserving (PF)</td><td class="l">ResNet-34</td><td class="l">ours</td><td>0.844</td><td>0.894 / 0.799</td><td>0.365</td><td>0.503</td><td>0.612</td></tr>
+      <tr><td>U-Net++, plain fine-tune</td><td class="l">ResNet-34</td><td class="l"></td><td>0.850</td><td>0.897 / 0.807</td><td><b>0.382</b></td><td>0.522</td><td>0.609</td></tr>
+      <tr class="grp"><td colspan="8">Models of EL papers</td></tr>
+      <tr><td>U-Net</td><td class="l">VGG-16</td><td class="l">Hanifi 2025</td><td>0.838</td><td>0.882 / 0.798</td><td>0.349</td><td>0.498</td><td>0.610</td></tr>
+      <tr><td>DeepLabV3, stride 8</td><td class="l">ResNet-50</td><td class="l">Fioresi 2022</td><td>0.767</td><td>0.809 / 0.729</td><td>0.287</td><td>0.497</td><td>0.574</td></tr>
+      <tr><td>DeepLabV3+, weighted CE</td><td class="l">ResNet-34</td><td class="l">Pratt 2023</td><td>0.751</td><td>0.648 / 0.892</td><td>0.258</td><td>0.506</td><td>0.604</td></tr>
+      <tr class="grp"><td colspan="8">General segmentation models</td></tr>
+      <tr><td>U-Net</td><td class="l">ResNet-34</td><td class="l"></td><td>0.843</td><td>0.896 / 0.795</td><td>0.364</td><td>0.522</td><td>0.612</td></tr>
+      <tr><td>DeepLabV3+, stride 4</td><td class="l">ResNet-34</td><td class="l"></td><td>0.835</td><td>0.884 / 0.791</td><td>0.354</td><td>0.478</td><td>0.609</td></tr>
+      <tr><td>SegFormer</td><td class="l">MiT-B2</td><td class="l"></td><td>0.842</td><td>0.877 / 0.809</td><td>0.348</td><td><b>0.530</b></td><td>0.608</td></tr>
+      <tr><td>U-Net++</td><td class="l" style="white-space:nowrap">HRNet-W18</td><td class="l"></td><td><b>0.856</b></td><td>0.902 / 0.814</td><td>0.365</td><td>0.522</td><td><b>0.618</b></td></tr>
+      <tr><td>U-Net++, Skeleton Recall loss</td><td class="l">ResNet-34</td><td class="l"></td><td>0.848</td><td>0.884 / 0.815</td><td>0.372</td><td>0.480</td><td>0.611</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="abs cap" style="left:58px;top:652px;width:1120px">532 pool cells, out of fold; mean of 2 seeds (baseline 5); same training except Pratt's weighted loss. Bold = best. Inactive gaps under 0.05 are seed noise. mIoU-R13 = mean IoU over 13 classes.</div>
+  <div class="pn">11</div>
+</section>
+
+<!-- 12 RESULTS ROWS -->
+<section class="slide">
+  <div class="tag">Results &middot; pool, 5 seeds, corrected split</div>
+  <div class="title">Results II: five-seed rows</div>
+  <div class="abs" style="left:58px;top:140px;width:1164px">
+  <table class="t t12" style="font-size:18px">
+    <thead><tr><th style="width:25%">Change to the baseline</th><th>Crack relF1@2</th><th>&Delta; vs baseline [95% CI]</th><th>Strict crack IoU</th><th>Inactive IoU</th><th>mIoU-R13</th></tr></thead>
+    <tbody>
+      <tr><td>Baseline (PF)</td><td>0.846</td><td></td><td>0.365</td><td>0.504</td><td>0.612</td></tr>
+      <tr><td>Plain fine-tune</td><td>0.852</td><td>+0.0059 [&minus;0.0043, +0.0152]</td><td>0.383</td><td>0.514</td><td>0.607</td></tr>
+      <tr><td>HRNet-W18 encoder</td><td>0.857</td><td>+0.0104 [+0.0012, +0.0203]</td><td>0.366</td><td>0.514</td><td>0.614</td></tr>
+      <tr><td>SWAD</td><td>0.853</td><td>+0.0070 [&minus;0.0007, +0.0156]</td><td>0.383</td><td>0.520</td><td>0.619</td></tr>
+      <tr><td>HRNet-W18 + SWAD</td><td>0.862</td><td>+0.0154 [+0.0065, +0.0260]</td><td>0.375</td><td>0.504</td><td>0.618</td></tr>
+      <tr><td>Baseline + D4 views</td><td>0.860</td><td>+0.0134 [+0.0066, +0.0207]</td><td>0.388</td><td>0.531</td><td>0.620</td></tr>
+      <tr><td>Final recipe *</td><td><b>0.868</b></td><td>+0.0222 [+0.0138, +0.0308]</td><td><b>0.394</b></td><td><b>0.537</b></td><td><b>0.623</b></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="abs big" style="left:58px;top:584px;width:1164px;font-size:24px">Every change gains a little; the margin is 0.010.</div>
+  <div class="abs cap" style="left:58px;top:626px;width:1120px">532 pool cells, out of fold, mean of seeds 5 to 9. HRNet-W18 and HRNet-W18 + SWAD draw more false crack pixels on crack-free cells (up to 4.2x the baseline); D4 views cut them.<br>* the SWAD readout was chosen on these cells; the fair test is E1.</div>
+  <div class="pn">12</div>
+</section>
+
+<!-- 13 RESULTS E1 -->
+<section class="slide">
+  <div class="tag">Results &middot; sealed set E1, one registered read</div>
+  <div class="title">Results III: unseen modules</div>
+  <div class="abs" style="left:58px;top:150px;width:700px">
+  <table class="t" style="font-size:18px">
+    <thead><tr><th>Contrast, crack relF1@2</th><th>&Delta;</th><th>95% CI</th><th>Verdict</th></tr></thead>
+    <tbody>
+      <tr><td>Final minus baseline, 106 cells</td><td>+0.0430</td><td>[+0.0013, +0.1043]</td><td class="ok">CONFIRMED</td></tr>
+      <tr><td>&nbsp;&nbsp;full cells (44)</td><td>+0.1464</td><td>[+0.0420, +0.2278]</td><td class="nd">stratum</td></tr>
+      <tr><td>&nbsp;&nbsp;half-cut cells (62)</td><td>+0.0110</td><td>[&minus;0.0289, +0.0722]</td><td class="nd">n.d.</td></tr>
+      <tr><td>Few-shot minus zero-shot</td><td>+0.2213</td><td>[+0.0977, +0.3504]</td><td class="ok">CONFIRMED</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="abs" style="left:800px;top:150px;width:420px">
+  <table class="t" style="font-size:18px">
+    <thead><tr><th>Model</th><th>relP@2</th><th>relR@2</th><th>relF1@2</th></tr></thead>
+    <tbody>
+      <tr><td>Baseline</td><td>0.547</td><td>0.379</td><td>0.447</td></tr>
+      <tr><td>Final</td><td>0.600</td><td>0.416</td><td>0.490</td></tr>
+    </tbody>
+  </table>
+  <div class="cap" style="margin-top:12px">Guards pass: crack width 1.013 &middot; false crack px 0.75x &middot; mIoU +0.025</div>
+  </div>
+  <div class="abs big" style="left:58px;top:470px;width:1160px;font-size:26px">Confirmed on unseen modules. A new layout needs some labelled cells.</div>
+  <div class="abs cap" style="left:58px;top:530px;width:1160px">Recipe averaged over 5 seeds; argmax; 101 of 106 cells from one source (CSIR). Few-shot: trained with labelled E1 cells of the other folds, out of fold, 3 seeds, a separate registered read.</div>
+  <div class="pn">13</div>
+</section>
+
+<!-- 14 QUALITATIVE -->
+<section class="slide">
+  <div class="tag">Qualitative</div>
+  <div class="title">Qualitative results</div>
+  <div class="abs" style="left:140px;top:128px;width:1000px;height:267px;overflow:hidden">
+    <img src="../fig/qual_pool_methods.png" style="position:absolute;left:0;top:0;width:1000px">
+  </div>
+  <div class="abs" style="left:340px;top:413px;width:600px;height:263px;overflow:hidden">
+    <img src="../fig/qual_e1_final_wide.png" style="position:absolute;left:-626px;top:0;width:1226px">
+  </div>
+  <div class="pn">14</div>
+</section>
+
+<!-- 15 PRECISION RECALL -->
+<section class="slide">
+  <div class="tag">Analysis &middot; pool screens</div>
+  <div class="title">Where the gain comes from</div>
+  <div class="abs" style="left:58px;top:150px"><svg width="640" height="430" viewBox="0 0 640 430" style="font-family:Inter,sans-serif" xmlns="http://www.w3.org/2000/svg"><line x1="195.0" y1="16.0" x2="195.0" y2="372.0" stroke="#E2E6E5" stroke-width="1"/><line x1="320.0" y1="16.0" x2="320.0" y2="372.0" stroke="#E2E6E5" stroke-width="1"/><line x1="445.0" y1="16.0" x2="445.0" y2="372.0" stroke="#E2E6E5" stroke-width="1"/><line x1="570.0" y1="16.0" x2="570.0" y2="372.0" stroke="#E2E6E5" stroke-width="1"/><line x1="70.0" y1="270.3" x2="620.0" y2="270.3" stroke="#E2E6E5" stroke-width="1"/><line x1="70.0" y1="168.6" x2="620.0" y2="168.6" stroke="#E2E6E5" stroke-width="1"/><line x1="70.0" y1="66.9" x2="620.0" y2="66.9" stroke="#E2E6E5" stroke-width="1"/><text x="70.0" y="392.0" font-size="13" text-anchor="middle" fill="#5E6665" font-weight="400" >0.70</text><text x="195.0" y="392.0" font-size="13" text-anchor="middle" fill="#5E6665" font-weight="400" >0.75</text><text x="320.0" y="392.0" font-size="13" text-anchor="middle" fill="#5E6665" font-weight="400" >0.80</text><text x="445.0" y="392.0" font-size="13" text-anchor="middle" fill="#5E6665" font-weight="400" >0.85</text><text x="570.0" y="392.0" font-size="13" text-anchor="middle" fill="#5E6665" font-weight="400" >0.90</text><text x="62.0" y="377.0" font-size="13" text-anchor="end" fill="#5E6665" font-weight="400" >0.60</text><text x="62.0" y="275.3" font-size="13" text-anchor="end" fill="#5E6665" font-weight="400" >0.70</text><text x="62.0" y="173.6" font-size="13" text-anchor="end" fill="#5E6665" font-weight="400" >0.80</text><text x="62.0" y="71.9" font-size="13" text-anchor="end" fill="#5E6665" font-weight="400" >0.90</text><line x1="70.0" y1="372.0" x2="620.0" y2="372.0" stroke="#111111" stroke-width="1"/><line x1="70.0" y1="16.0" x2="70.0" y2="372.0" stroke="#111111" stroke-width="1"/><polyline points="70.0,160.7 75.0,163.4 80.0,166.1 85.0,168.7 90.0,171.3 95.0,173.9 100.0,176.4 105.0,178.9 110.0,181.4 115.0,183.8 120.0,186.3 125.0,188.7 130.0,191.0 135.0,193.3 140.0,195.7 145.0,197.9 150.0,200.2 155.0,202.4 160.0,204.6 165.0,206.8 170.0,209.0 175.0,211.1 180.0,213.2 185.0,215.3 190.0,217.4 195.0,219.4 200.0,221.5 205.0,223.5 210.0,225.4 215.0,227.4 220.0,229.3 225.0,231.3 230.0,233.2 235.0,235.0 240.0,236.9 245.0,238.7 250.0,240.6 255.0,242.4 260.0,244.2 265.0,245.9 270.0,247.7 275.0,249.4 280.0,251.1 285.0,252.8 290.0,254.5 295.0,256.2 300.0,257.8 305.0,259.5 310.0,261.1 315.0,262.7 320.0,264.3 325.0,265.9 330.0,267.4 335.0,269.0 340.0,270.5 345.0,272.0 350.0,273.5 355.0,275.0 360.0,276.5 365.0,278.0 370.0,279.4 375.0,280.9 380.0,282.3 385.0,283.7 390.0,285.1 395.0,286.5 400.0,287.9 405.0,289.2 410.0,290.6 415.0,291.9 420.0,293.3 425.0,294.6 430.0,295.9 435.0,297.2 440.0,298.5 445.0,299.7 450.0,301.0 455.0,302.2 460.0,303.5 465.0,304.7 470.0,305.9 475.0,307.1 480.0,308.4 485.0,309.5 490.0,310.7 495.0,311.9 500.0,313.1 505.0,314.2 510.0,315.4 515.0,316.5 520.0,317.6 525.0,318.7 530.0,319.8 535.0,320.9 540.0,322.0 545.0,323.1 550.0,324.2 555.0,325.3 560.0,326.3 565.0,327.4 570.0,328.4 575.0,329.4 580.0,330.5 585.0,331.5 590.0,332.5 595.0,333.5 600.0,334.5 605.0,335.5 610.0,336.5 615.0,337.4 620.0,338.4" fill="none" stroke="#B5BDBC" stroke-width="1" stroke-dasharray="3 3"/><text x="585.5" y="326.0" font-size="11" text-anchor="start" fill="#5E6665" font-weight="400" >F1 = 0.75</text><polyline points="70.0,33.0 75.0,36.5 80.0,40.1 85.0,43.6 90.0,47.0 95.0,50.5 100.0,53.8 105.0,57.1 110.0,60.4 115.0,63.7 120.0,66.9 125.0,70.0 130.0,73.1 135.0,76.2 140.0,79.3 145.0,82.3 150.0,85.2 155.0,88.2 160.0,91.1 165.0,93.9 170.0,96.8 175.0,99.6 180.0,102.3 185.0,105.1 190.0,107.8 195.0,110.4 200.0,113.1 205.0,115.7 210.0,118.3 215.0,120.8 220.0,123.4 225.0,125.9 230.0,128.3 235.0,130.8 240.0,133.2 245.0,135.6 250.0,137.9 255.0,140.3 260.0,142.6 265.0,144.9 270.0,147.2 275.0,149.4 280.0,151.6 285.0,153.8 290.0,156.0 295.0,158.1 300.0,160.3 305.0,162.4 310.0,164.5 315.0,166.5 320.0,168.6 325.0,170.6 330.0,172.6 335.0,174.6 340.0,176.5 345.0,178.5 350.0,180.4 355.0,182.3 360.0,184.2 365.0,186.1 370.0,187.9 375.0,189.8 380.0,191.6 385.0,193.4 390.0,195.2 395.0,197.0 400.0,198.7 405.0,200.4 410.0,202.2 415.0,203.9 420.0,205.6 425.0,207.2 430.0,208.9 435.0,210.5 440.0,212.2 445.0,213.8 450.0,215.4 455.0,217.0 460.0,218.5 465.0,220.1 470.0,221.6 475.0,223.2 480.0,224.7 485.0,226.2 490.0,227.7 495.0,229.2 500.0,230.6 505.0,232.1 510.0,233.5 515.0,235.0 520.0,236.4 525.0,237.8 530.0,239.2 535.0,240.6 540.0,241.9 545.0,243.3 550.0,244.7 555.0,246.0 560.0,247.3 565.0,248.6 570.0,249.9 575.0,251.2 580.0,252.5 585.0,253.8 590.0,255.1 595.0,256.3 600.0,257.6 605.0,258.8 610.0,260.0 615.0,261.3 620.0,262.5" fill="none" stroke="#B5BDBC" stroke-width="1" stroke-dasharray="3 3"/><text x="585.5" y="248.2" font-size="11" text-anchor="start" fill="#5E6665" font-weight="400" >F1 = 0.80</text><polyline points="245.0,17.5 250.0,20.5 255.0,23.6 260.0,26.6 265.0,29.5 270.0,32.5 275.0,35.4 280.0,38.2 285.0,41.1 290.0,43.9 295.0,46.7 300.0,49.4 305.0,52.1 310.0,54.8 315.0,57.4 320.0,60.1 325.0,62.7 330.0,65.2 335.0,67.8 340.0,70.3 345.0,72.8 350.0,75.3 355.0,77.7 360.0,80.1 365.0,82.5 370.0,84.9 375.0,87.2 380.0,89.5 385.0,91.8 390.0,94.1 395.0,96.4 400.0,98.6 405.0,100.8 410.0,103.0 415.0,105.2 420.0,107.3 425.0,109.4 430.0,111.5 435.0,113.6 440.0,115.7 445.0,117.7 450.0,119.7 455.0,121.7 460.0,123.7 465.0,125.7 470.0,127.7 475.0,129.6 480.0,131.5 485.0,133.4 490.0,135.3 495.0,137.1 500.0,139.0 505.0,140.8 510.0,142.6 515.0,144.4 520.0,146.2 525.0,148.0 530.0,149.7 535.0,151.5 540.0,153.2 545.0,154.9 550.0,156.6 555.0,158.3 560.0,159.9 565.0,161.6 570.0,163.2 575.0,164.8 580.0,166.4 585.0,168.0 590.0,169.6 595.0,171.2 600.0,172.7 605.0,174.3 610.0,175.8 615.0,177.3 620.0,178.8" fill="none" stroke="#B5BDBC" stroke-width="1" stroke-dasharray="3 3"/><text x="585.5" y="162.2" font-size="11" text-anchor="start" fill="#5E6665" font-weight="400" >F1 = 0.85</text><circle cx="317.5" cy="73.0" r="5.5" fill="#111111"/><text x="307.5" y="93.0" font-size="13" text-anchor="end" fill="#111111" font-weight="600" >U-Net++ baseline (PF)</text><circle cx="355.0" cy="64.8" r="5.5" fill="#2A7F78"/><text x="365.0" y="56.8" font-size="13" text-anchor="start" fill="#2A7F78" font-weight="600" >HRNet-W18 + U-Net++</text><circle cx="337.5" cy="69.9" r="4" fill="#9AA3A2"/><circle cx="307.5" cy="70.9" r="4" fill="#9AA3A2"/><circle cx="315.0" cy="85.2" r="4" fill="#9AA3A2"/><circle cx="297.5" cy="83.1" r="4" fill="#9AA3A2"/><circle cx="357.5" cy="83.1" r="4" fill="#9AA3A2"/><circle cx="342.5" cy="90.3" r="4" fill="#9AA3A2"/><circle cx="142.5" cy="159.4" r="5.5" fill="#B03A2E"/><text x="152.5" y="164.4" font-size="13" text-anchor="start" fill="#B03A2E" font-weight="600" >DeepLabV3 R50, stride 8 (UCF-EL)</text><circle cx="550.0" cy="323.2" r="5.5" fill="#B03A2E"/><text x="540.0" y="313.2" font-size="13" text-anchor="end" fill="#B03A2E" font-weight="600" >DeepLabV3+, Pratt&#x27;s weighted CE</text><text x="345.0" y="420.0" font-size="14" text-anchor="middle" fill="#5E6665" font-weight="400" >crack recall, relR@2</text><text x="16.0" y="194.0" font-size="14" text-anchor="middle" fill="#5E6665" font-weight="400" transform="rotate(-90 16 194.0)">crack precision, relP@2</text><circle cx="100.0" cy="349.6" r="4" fill="#9AA3A2"/><text x="110.0" y="353.6" font-size="12" text-anchor="start" fill="#5E6665" font-weight="400" >other screened models</text></svg></div>
+  <ul class="b abs" style="left:760px;top:190px;width:460px;font-size:20px;line-height:1.4">
+    <li><span style="color:var(--accent);font-weight:700">HRNet-W18:</span> more recall at the same precision</li>
+    <li><span style="color:var(--red);font-weight:600">Weighted CE (Pratt):</span> recall bought with precision; cracks drawn 3.05x too wide</li>
+    <li><span style="color:var(--red);font-weight:600">Stride 8 (UCF-EL):</span> loses both</li>
+  </ul>
+  <div class="abs cap" style="left:760px;top:560px;width:460px">2-seed screens, argmax, same training. Dashed: equal F1.</div>
+  <div class="pn">15</div>
+</section>
+
+<!-- 16 CONCLUSION -->
+<section class="slide">
+  <div class="tag">Conclusion</div>
+  <div class="title">What we showed</div>
+  <div class="abs" style="left:58px;top:150px;width:1160px;font-size:23px;line-height:1.45">
+    <div style="margin-bottom:16px">1 &nbsp;&nbsp;Published EL scores do not compare; we built a benchmark that makes them compare</div>
+    <div style="margin-bottom:16px">2 &nbsp;&nbsp;Resolution matters; the final recipe is confirmed better on unseen modules</div>
+    <div>3 &nbsp;&nbsp;A new layout needs some labelled cells of it</div>
+  </div>
+  <div class="abs" style="left:58px;top:390px;width:1160px">
+  <table class="t" style="font-size:18px">
+    <thead><tr><th style="width:50%">Next step</th><th class="l">Why</th></tr></thead>
+    <tbody>
+      <tr><td>Second annotation of a few dozen cells</td><td class="l">turns the label limit into a measured ceiling</td></tr>
+      <tr><td>New unseen-module set, with half-cut cells</td><td class="l">E1 is now used for training</td></tr>
+      <tr><td>Smaller high-resolution model, same protocol</td><td class="l">a deployable size</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="pn">16</div>
+</section>
+
+<!-- 16 THANKS -->
+<section class="slide">
+  <div class="abs head" style="left:77px;top:520px;font-size:60px">THANK YOU</div>
+  <div class="abs muted" style="left:80px;top:600px;font-size:20px">Questions</div>
+</section>
+
+</body>
+</html>

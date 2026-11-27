@@ -1,0 +1,75 @@
+{
+ "paper_id": "doi:10.1016/j.neucom.2022.01.051",
+ "title": "Pixel-accurate road crack detection in presence of inaccurate annotations",
+ "year": 2022,
+ "venue": "Neurocomputing",
+ "url": "https://hal.sorbonne-universite.fr/LIGM_A3SI/hal-03552780v1",
+ "code_url": "",
+ "mechanism": "Measures the cost of inaccurate crack annotations under tolerance-free scoring using the Syncrack synthetic set with controlled label noise, and corrects crack labels with weakly supervised label-noise-correction before retraining.",
+ "adaptation": "Train house model, replace crack labels by its confident predictions only inside a 2 px band around the original label, retrain. For the benchmark: synthesize EL cracks with exact labels plus controlled 1 to 2 px jitter to quantify what jitter costs strict IoU.",
+ "min_experiment": "Arm: house model retrained on self-corrected crack labels (band-limited to 2 px), 5 seeds. Baseline: house. Metric: clean-49 crack IoU and relF1@2. Kill: crack IoU change under +0.012 and relF1@2 change under +0.01.",
+ "evidence": "R: inaccurate annotations reduce F by up to 20%; corrected labels improve Syncrack results by up to 12%; gains also reported on CrackForest and Aigle-RN (real data).",
+ "gpu_hours": 12,
+ "bet": "safe",
+ "targets": [
+  "crack",
+  "benchmark"
+ ],
+ "prior_overlap": "none. Pseudo-label SSL in section 5 added pool data; it never replaced the labelled crack masks.",
+ "score": 68,
+ "bench_score": 55,
+ "directions": [
+  "D09",
+  "D15",
+  "D16",
+  "D41"
+ ],
+ "scout_scores": [
+  60,
+  60,
+  48,
+  55,
+  68,
+  40
+ ],
+ "alt_notes": [
+  {
+   "from": "D09",
+   "adaptation": "Our crack labels sit off the dark ridge (half the points over 1 px away). Fold-held-out models propose a re-placement of each crack label pixel onto the predicted ridge within 2 px; retrain on corrected train labels only, 2 rounds.",
+   "min_experiment": "Arm: PF trained on ridge-snapped crack labels; baseline PF on original labels; 3 seeds. Metric: strict test crack IoU against original labels, relF1@2. Kill if strict IoU drops > 0.01 and relF1@2 n.d.",
+   "score": 60
+  },
+  {
+   "from": "D15",
+   "adaptation": "Benchmark design: build EL images with exact crack masks (copy-paste or a physics generator) plus jittered label copies at the measured 1 px / source-width noise. This shows how much of the strict-IoU gap each method recovers, and justifies relF1@2 alongside strict IoU.",
+   "min_experiment": "No training arm at first. Build jittered copies of 30 train cells with clear ridges; check that the generator reproduces the measured 1 px-shift IoU of 0.56; then score arms 1 to 8 on it. Kill the track if the noise model cannot match the measured inter-annotation IoU of 0.21 to 0.26.",
+   "score": 48
+  },
+  {
+   "from": "D15",
+   "adaptation": "Use its protocol as an EL synthetic-jitter probe: add known 1 px / 2 px offsets and width changes to train crack labels, measure strict IoU vs relF1@2 sensitivity; decides whether label-noise arms can move strict IoU at all.",
+   "min_experiment": "Arm: house on train labels with +1 px and +2 px synthetic jitter (2 levels x 5 seeds). Baseline: house. Metric: strict crack IoU and relF1@2. Decision: if +1 px jitter costs < 0.01 strict IoU, judge label-noise arms on relF1@2 only. About 11 GPU-h.",
+   "score": 55
+  },
+  {
+   "from": "D09",
+   "adaptation": "Our crack labels are 1 to 2 px lines, half of points more than 1 px off the dark ridge, widths differ by source. Fold-held-out models propose a snap of each label pixel onto the predicted ridge within 2 px; 2 rounds; crack class only; inactive labels untouched.",
+   "min_experiment": "Arm: PF trained on corrected crack labels; baseline: PF on original labels; 3 seeds. Metric: strict test crack IoU vs original labels, relF1@2, and IoU vs corrected held-out labels. Kill if strict IoU drops > 0.01 and relF1@2 n.d.",
+   "score": 60
+  },
+  {
+   "from": "D41",
+   "adaptation": "Build a synthetic-EL crack test bed (pasted synthetic cracks with exact GT) and simulate each source's labelling convention (width 1.5-3.25 px, 1-2 px offset); test which metric ranks models by true accuracy.",
+   "min_experiment": "Arm: 300 synthetic cells, 3 existing models. Metric: Kendall tau between ranking under exact GT and jittered labels for strict IoU, NSD@2, relF1@2. Kill: strict IoU tau within 0.1 of NSD@2.",
+   "score": 40
+  }
+ ],
+ "final": 68,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 32,
+ "pub_allowed": 1,
+ "selected_for": "top"
+}

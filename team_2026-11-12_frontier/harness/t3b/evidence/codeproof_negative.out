@@ -1,0 +1,21 @@
+t3b code proof 2026-11-22 01:30:08: K cba7fbdf5df1579d6efb1168eb292e637bc9fad6 (script 2c9a073d)
+OK    1: F2 and G ancestors; R's 82ea81c, 19764b2, 0c72cf9 cherry-picked; history: cba7fbd(4ea4bf8) 4ea4bf8(232659d) 232659d(9ee1f08) 9ee1f08(a8cea33) a8cea33(4710e9f) 4710e9f(9967d59 8bd1c27) 8bd1c27(821dfad) 
+OK    2: training path byte-equal to F2 (117 files)
+OK    3: K differs from F2 in exactly 25 paths (G 4, R 9, T3b 17, overlaps counted once)
+OK    4: G's other paths = G, R's other paths = R
+OK    5a: bench_infer.py (vs G), bench_score.py, derived.py (vs R): T3b lines only added (0 removed; added 13/12/2)
+OK    5b: sets.py: 1 line removed (the SIZES line, re-added with the e1t3b sizes), 19 added
+OK    5c: dumpfmt.py: 1 line changed (set_kind: 'if name in SEALED:' -> '... or name in SEALED_T3B:'), 4 added
+      cq.sh vs merge(F2, G): -3 +19; removed lines:
+        <   while read -r k v x; do case "$k" in e1_106|test50) SOPEN[$k]=$v;; manifest) SMAN=$v;; '') ;; *) SOPEN[bad]=$k;; esac; done < $Q/SEALED
+        <   [ -z "${SOPEN[bad]:-}" ] && [ ${#SOPEN[@]} -ge 1 ] || fail "SEALED: lines must be '<e1_106|test50> <opening>' or 'manifest <md5>'"
+        < declare -A TCMD=() DCMD=() NOD=() SRCOF=() RES=(); R2=()
+      bench_open_read.py vs R: -3 +36; removed lines:
+        <               "fa_px", "fa_cells", "fa_share50", "cc_rec50_20", "cc_prec_20", "in_cc_rec50", "in_cc_prec", "crack_gt_px",
+        <             L.append(f"| {name} | {g('relF1_2').get('n', 0)} | {f4(g('relF1_2').get('mean'))} [{f4(g('relF1_2').get('min'))}, "
+        <             L.append(f"- {cn}: relF1@2 {f4(sa['relF1_2']['delta'])} seed-aware [{f4(sa['relF1_2']['lo'])}, "
+OK    6: DYN read.txt equal True; read.json equal except cc_recany_20 True; cc_recany_20 in K's models True
+-- negatives (tampered copies of K's tree; each must FAIL)
+FAIL  2: differs from F2: src
+FAIL  5a: lines removed: scripts/bench_infer.py(-1)
+t3b code proof: 2 FAIL

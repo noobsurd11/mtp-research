@@ -1,0 +1,20 @@
+[2026-11-21 08:21:08] chain smoke in /home/noob/work/bench_int_io/opening/chain_1118632 (G 8bd1c2761c85f4721e444a8bf7124d2e5804973a, R 0c72cf942a5cc89accfcd02e1d2b443a033549d9)
+synthetic data and 10 tiny runs made
+register rc 0
+| 19 | final opening, test50 public table (harness/final/opening, rule 065a7dddfff2efd4897503561955093f; REGISTERED.txt 4af42786a64168f799a0700add0ee832) | C1 fin_pf_v11_pool_s5..9 (plain), C2 fin_hrn
+the same as a section E 'Benchmark openings' row (7 columns), if the lead puts #19 there:
+| 19 | final opening, test50 public table (harness/final/opening, rule 065a7dddfff2efd4897503561955093f) | C1 fin_pf_v11_pool_s5..9 (plain), C2 fin_hrnet_swad_v11_pool_s5..9 (swad, D4), C1-D4 | test50
+dumps: 30 of 30 in 903 s
+negative wrong REG_MD5: rc 1 (REFUSED: REGISTERED.txt md5 != REG_MD5); out dir created: no
+negative tampered manifest: rc 1 (  fin_pf_v11_pool_s7.test50: weights_key = 'swad', expected 'model'); out dir created: no
+negative overrides without TEST_MODE: rc 1 (REFUSED: test-only overrides set: IO=/home/noob/work/bench_int_io/opening/chain_1118632/io); out dir created: no
+negative v1.1 file changed after registration: rc 1 (REFUSED: test50 v1.1 files: md5sum -c failed: ignore/ARTS_00001_r6_c2.png: FAILED md5sum: WARNING: 1 computed ); out dir created: no
+read rc 0
+manifest check: 30 dumps, device ['cpu']: OK
+[2026-11-21 08:36:31] records: 15 E1, 15 test50 v0, 15 test50 v11
+arms: E1 C1 5 C2 5 C1-D4 5; test50 v11 C1 5 C2 5
+FINAL OPENING VERDICT: E1 P (C2 - C1 relF1@2) NOT CONFIRMED (the interval holds 0; Delta > 0); Delta +0.0016 [+0.0000, +0.0048]; test50: public table only.
+[2026-11-21 08:39:40] FINAL OPENING READ ALL DONE (verdict rc 0); tracked changes in /home/noob/work/bench_wt_open: 0
+negative existing output: rc 1 (REFUSED: output folder exists: /home/noob/work/bench_int_io/opening/chain_1118632/reads/open_final)
+[2026-11-21 08:39:40] chain smoke done (read rc 0); scratch removed
+smoke rc 0

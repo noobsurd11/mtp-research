@@ -1,0 +1,59 @@
+[2026-11-17 18:40:10] c3x check (X 'none', XB 'none', IO /home/noob/work/bench_c3_io/c3x)
+--- 1 code
+OK   bench_wt_final at 89b9ea5, no tracked change (training, dump and read code of every cv5v3 run)
+OK   c3x.patch applies to a fresh archive of 852ed5c and gives the three pinned files; 7 card tests pass there
+SKIP no X given: the c3x commit is not made yet
+OK   worktree /home/noob/work/bench_wt_c3s on bench_c3s at 852ed5c, no tracked change
+SKIP no XB given: the c3x commit is not deployed yet
+--- 2 roots and names
+OK   cv02 cv5v3 roots: ROOTS, SPLITS, DATA_MANIFEST check, test = val, 425/107 422/110 429/103 431/101 421/111, lists equal to gaint's
+OK   no c3x name on cv02 (any deploy's experiments or runs)
+OK   no c3x run in a gaint relay dir other than bench_relay/c3x; relay patterns ^c3_, ^c3h_, ^c3s_ do not match c3x_
+SKIP no render in /home/noob/work/bench_c3_io/c3x yet
+--- 3 queues on cv02
+     c3all MAXC 0 LPG 1 dispatched 0 fixture_only 0 share / started 33 of 70
+     c3all2 MAXC 0 LPG 1 dispatched 0 fixture_only 0 share / started 3 of 62
+     c3all3 MAXC 8 LPG 1 dispatched 0 fixture_only 0 share 20480/10240 started 16 of 59
+     c3base MAXC 0 LPG 1 dispatched 0 fixture_only 0 share / started 2 of 50
+     c3hrnet MAXC 0 LPG 1 dispatched 0 fixture_only 0 share / started 3 of 25
+     ---
+     train 5 c3s_swad_v11_f0_s6
+     train 3 c3s_swad_v11_f1_s6
+     train 7 c3s_swad_v11_f2_s5
+     train 4 c3s_swad_v11_f2_s6
+     train 2 c3s_swad_v11_f3_s6
+OK   live queues that can still start training: 'c3all3 ' (at most one)
+INFO c3all3 has NOT dispatched all its jobs: c3x must not be armed yet (started 16 of 59)
+OK   c3all, c3all2, c3base, c3hrnet frozen (MAXC 0) where live
+SKIP c3x is not armed yet
+OK   no GPU holds two training runs of ours (open training lanes of all queues)
+--- 4 disk and guards
+     cv02: free 68 GB; bench_diskguard3 up bench_diskguard4 down 
+OK   cv02 disk guard 3 up (c3all3); no HOLD file
+SKIP disk guard 4 not started yet (step guard)
+INFO cv02 need for c3x (S): 25 runs x 1.03 GB that stay (latest 0.75 + best 0.08 + slim 0.17 + logs) + 3.3 GB of .swad dump dirs that stay + dumps in transit 8 x 0.27 + the 20 GB guard floor = 51 GB, plus about 1.2 GB per c3all3 run still training; free now 68 GB. A disk guard HOLD stops new training starts and the dumps of finished runs
+INFO gaint need for c3x (S): 25 runs x 0.43 GB relayed (slim 2 sets 0.17 + two dumps without logp 0.26) = 11 GB, read cache < 1 GB; free now 104 GB
+OK   gaint free >= 25 GB (relay start floor)
+OK   relay c3base alive (35 runs relayed)
+OK   relay c3hrnet alive (13 runs relayed)
+OK   relay c3swad alive (2 runs relayed)
+SKIP relay c3x is not running
+SKIP gaint relay guard for c3x not started yet
+--- 5 files
+     edd16aec962125832737e6924281e6de  c3x.patch
+     9c5e3a61f10d18038ed093e0b70ab580  c3x_commit.sh
+     5e78fb44d77c8807d16c157cfd08f80c  c3x_codeproof.sh
+     2da3825d6b4df8b2b53587b481f09736  c3x_make_jobs.py
+     a4fca225ed1559546af35455664fd02a  c3x_rendercmp.py
+     2b4fe31354fb437558dbe19e83f174f8  c3x_queue.sh
+     eb929c5775c0c1eb041ee2855ee38ebf  diskguard4.sh
+     b3bc1db958caa5af98b8a0b2c665bd20  c3x_relay.sh
+     c221e73aeaf9dcf1fe4c80501b94a40c  c3x_relayguard.sh
+     9cb706bb8bb2d598f1ec896e88a2cfe4  c3x_check.sh
+     060e24a28404a291adf21ba11caf679a  run_read_c3x.sh
+     faa2a96130e61f2f054fa4a23d2788bc  c3x_verdict.py
+     c9022bcc9ddb964298bcd38bf01ab375  c3x_class_guard.py
+     c25ca2e14913b3db5eaac1c091e7474a  smoke/c3x_smoke.sh
+     ba38cd21222aa4490d8c31fea4908885  smoke/c3x_smoke_check.py
+     7e74f6687ec760474d38730334ff1fb2  smoke/smoke_c3x_hrnet_swad_path.yaml
+[2026-11-17 18:40:13] C3X CHECK: 14 OK, 0 FAIL, 7 SKIP

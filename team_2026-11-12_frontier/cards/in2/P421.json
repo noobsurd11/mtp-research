@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1609/aaai.v40i7.37502",
+ "title": "OFL-SAM2: Prompt SAM2 with Online Few-shot Learner for Efficient Medical Image Segmentation",
+ "year": 2026,
+ "venue": "AAAI",
+ "url": "https://arxiv.org/abs/2512.24861",
+ "code_url": "",
+ "mechanism": "A light mapping network trained on few labelled samples yields target features fused with frozen SAM2 memory attention, prompt-free, with online updates of the mapper during inference over a sequence.",
+ "evidence": "R: SOTA with limited training data on three medical image segmentation datasets (3D volumes / 2D sequences).",
+ "adaptation": "Bold bet: treat the cells of one module as a video so SAM2 memory and the online mapper carry what was found in earlier cells of the same module (E1 has 106 cells from 67 modules; pool cells come by module); mapper trained on the 478 cells; aimed at half-cut and scuff context shift.",
+ "min_experiment": "Module-ordered OFL-SAM2 vs GFDS SAM2 video mode with fixed supports on H36 (ordered by module) and pool half-cells; metric H36 inactive IoU; kill if no gain over fixed-support SAM2.",
+ "prior_overlap": "Partial: per-panel BN adaptation failed (BRIEF 5), but that is statistic adaptation of the house model, not memory-based propagation across a module.",
+ "score": 38,
+ "bench_score": 35,
+ "bet": "moonshot",
+ "targets": [
+  "e1_unseen",
+  "inactive"
+ ],
+ "gpu_hours": 20,
+ "directions": [
+  "D38"
+ ],
+ "scout_scores": [
+  38
+ ],
+ "final": 38,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 421,
+ "pid": "P421"
+}

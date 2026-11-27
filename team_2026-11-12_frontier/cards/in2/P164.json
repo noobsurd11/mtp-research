@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.1038/s41598-023-41221-2",
+ "title": "A principled representation of elongated structures using heatmaps",
+ "year": 2023,
+ "venue": "Scientific Reports",
+ "url": "https://www.nature.com/articles/s41598-023-41221-2",
+ "code_url": "",
+ "mechanism": "Encode a curve's nominal position and positional uncertainty as a heatmap by convolving the curve distribution with a filter, approximated in linear time by a distance-dependent function.",
+ "adaptation": "Filter width per source set from measured label-to-ridge offsets (team E: 48% of label points within 1 px of the ridge); regression head separate from the CE head so it cannot widen the argmax; read out by ridge NMS and draw at per-source width.",
+ "min_experiment": "Arm PF + heatmap regression head (MSE), two read-outs (aux only; heatmap-NMS drawn at source width) vs PF; metric relF1@2 and strict IoU on CV; kill if relF1@2 +<0.01 in both read-outs.",
+ "evidence": "Approximation error analysed vs curve type and SNR; applied to surgical 2D/3D data, semantic boundaries, skeletonisation. No crack test; numbers not read.",
+ "prior_overlap": "none in BRIEF 5; related to T2 soft_band_jml (soft band inside the CE target) but different head and loss",
+ "score": 55,
+ "bench_score": 30,
+ "bet": "medium",
+ "targets": [
+  "crack"
+ ],
+ "gpu_hours": 22,
+ "directions": [
+  "D11"
+ ],
+ "scout_scores": [
+  55
+ ],
+ "final": 55,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 164,
+ "pid": "P164"
+}

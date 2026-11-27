@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1109/CCDC69976.2026.11560369",
+ "title": "PVMatch: Semi-Supervised Semantic Segmentation for Photovoltaic Defects Using Dynamic Pseudo-Labeling and Multi-Scale Feature Consistency",
+ "year": 2026,
+ "venue": "CCDC",
+ "url": "https://doi.org/10.1109/CCDC69976.2026.11560369",
+ "code_url": "",
+ "mechanism": "Class-aware dynamic thresholds keep rare EL defect classes in the pseudo-labels; a global-local feature consistency loss works inside masked defect regions.",
+ "adaptation": "The only EL-specific SSL method found. Use it as a benchmark SSL baseline if code becomes available. The class-aware threshold could replace our fixed threshold for crack and inactive.",
+ "min_experiment": "Benchmark arm only: reimplement CDT in our Mean Teacher code at 20% labels vs our Mean Teacher, 3 seeds. Metric: crack and inactive IoU. Kill if n.d.",
+ "score": 25,
+ "bench_score": 45,
+ "bet": "moonshot",
+ "targets": [
+  "benchmark",
+  "inactive"
+ ],
+ "evidence": "R: real-world EL datasets, unnamed; no numbers in the abstract.",
+ "gpu_hours": 5,
+ "prior_overlap": "Our Mean Teacher with hard/tolerant pseudo-labels was n.d. from 20% up. Class-aware thresholds were not tested, but they target the low-label regime. Mostly closed for scores.",
+ "directions": [
+  "D29"
+ ],
+ "scout_scores": [
+  25
+ ],
+ "final": 25,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 559,
+ "pid": "P559"
+}

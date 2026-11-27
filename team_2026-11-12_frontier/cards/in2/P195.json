@@ -1,0 +1,52 @@
+{
+ "paper_id": "arxiv:2605.23472",
+ "title": "Rethinking Transfer Learning for Industrial Inspection: DINOv3 vs. ImageNet Pretraining Across RGB and X-ray Tasks",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2605.23472",
+ "code_url": "",
+ "mechanism": "Controlled comparison: DINOv3-distilled ConvNeXt is no better frozen but a much better initialisation under full long fine-tuning on RGB industrial segmentation; worse on greyscale X-ray.",
+ "evidence": "R (full text): Severstal frozen 62.40 vs 62.04 mIoU; full fine-tune DINOv3 ConvNeXt-T +10.29 mIoU over ImageNet ConvNeXt-T, +10.59 over R50 (Mask2Former default schedule). GDXray: ImageNet 21.32 vs 7.88 AP50 frozen, 29.74 vs 27.84 fine-tuned.",
+ "adaptation": "Redo A8 properly: DINOv3 ConvNeXt-S/B in smp U-Net++ with stride-2 stem, full fine-tune (not PF), 20k steps, vs ImageNet ConvNeXt of the same size. EL is greyscale like X-ray, so expect a null; it is cheap and closes the question.",
+ "min_experiment": "DINOv3 ConvNeXt-B vs ImageNet ConvNeXt-B, 3 seeds + 5-fold CV; metric CV crack IoU / relF1@2, inactive IoU; kill if DINOv3 not above ImageNet by 0.01 crack IoU.",
+ "prior_overlap": "A8 tested ConvNeXt-T under PF at 4k steps on F51 AP only; full fine-tune, 20k steps, larger ConvNeXt untested. Partly open.",
+ "score": 50,
+ "bench_score": 70,
+ "bet": "safe",
+ "targets": [
+  "crack",
+  "inactive",
+  "benchmark"
+ ],
+ "gpu_hours": 40,
+ "directions": [
+  "D24",
+  "D32"
+ ],
+ "scout_scores": [
+  50,
+  20,
+  20
+ ],
+ "alt_notes": [
+  {
+   "from": "D32",
+   "adaptation": "Benchmark design: include ConvNeXt-T ImageNet and ConvNeXt-T DINOv3 rows under the same fine-tune for 1-ch near-IR EL; prior that general FMs are not automatically better on EL.",
+   "min_experiment": "Benchmark row pair only; no separate arm.",
+   "score": 20
+  },
+  {
+   "from": "D32",
+   "adaptation": "Benchmark design: include ConvNeXt-T ImageNet and ConvNeXt-T DINOv3 rows under one fine-tune on 1-ch EL; prior that a general FM is not automatically better under greyscale modality shift.",
+   "min_experiment": "Benchmark row pair only (already partly screened: DINOv3 ConvNeXt-T PF 4k steps, no sign); extend to full 20k schedule on folds.",
+   "score": 20
+  }
+ ],
+ "final": 50,
+ "bench": 70,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 195,
+ "pid": "P195"
+}

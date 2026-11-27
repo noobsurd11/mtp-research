@@ -1,0 +1,69 @@
+{
+ "paper_id": "doi:10.1109/cvprw63382.2024.00392",
+ "title": "Omni-Crack30k: A Benchmark for Crack Segmentation and the Reasonable Effectiveness of Transfer Learning",
+ "year": 2024,
+ "venue": "CVPRW",
+ "url": "https://openaccess.thecvf.com/content/CVPR2024W/VAND/html/Benz_OmniCrack30k_A_Benchmark_for_Crack_Segmentation_and_the_Reasonable_Effectiveness_CVPRW_2024_paper.html",
+ "code_url": "",
+ "mechanism": "30k crack images from 20+ datasets as one benchmark; nnU-Net transfer learning beats all other approaches; tolerance metric clIoU@4px because strict IoU favours wide cracks.",
+ "adaptation": "Use as the direct thin-crack evidence that the nnU-Net recipe should be run on EL, and adopt clIoU@k (k=2 for our 1-2 px labels) beside relF1@2 as a benchmark crack metric. OmniCrack30k pretraining of the crack head is D09's arm; do not duplicate.",
+ "min_experiment": "Covered by the nnU-Net arm A; metric work: compute clIoU@2 and @4 for the house 5-seed ensemble and arm A on CV and E1; keep the metric if it ranks runs consistently with relF1@2 and has lower seed variance than strict IoU.",
+ "evidence": "R: 30k samples, 9 billion pixels, asphalt / ceramic / concrete / masonry / steel; nnU-Net mean clIoU4px 64%, at least 10 points above all other approaches.",
+ "gpu_hours": 2,
+ "bet": "safe",
+ "prior_overlap": "none in BRIEF section 5; also listed in D09 (pretraining arm)",
+ "score": 60,
+ "bench_score": 90,
+ "targets": [
+  "crack",
+  "benchmark",
+  "measurement"
+ ],
+ "directions": [
+  "D09",
+  "D14",
+  "D25",
+  "D43"
+ ],
+ "scout_scores": [
+  55,
+  55,
+  35,
+  60,
+  52
+ ],
+ "alt_notes": [
+  {
+   "from": "D09",
+   "adaptation": "(a) Crack-binary pretraining of the ResNet-34 U-Net++ on OmniCrack30k in grayscale at 512 px, then PF fine-tune on EL so the pretraining survives. (b) nnU-Net v2 auto-configured on our 24 classes as a benchmark row. (c) Adopt clIoU@k as a benchmark metric next to relF1@2.",
+   "min_experiment": "Arm: OmniCrack30k pretrain (20k steps) then PF; baseline PF from ImageNet; 3 seeds. Metric: E1 crack relF1@2, CV crack IoU, CV components >= 20 px found. Kill if E1 relF1@2 < +0.02 and CV crack IoU n.d.",
+   "score": 55
+  },
+  {
+   "from": "D14",
+   "adaptation": "Add a tolerant centerline IoU at 2 px next to relF1@2 in our benchmark; include nnU-Net 2D as a required baseline; optional crack pretraining corpus.",
+   "min_experiment": "CPU: compute clIoU@2px on existing predictions; GPU: nnU-Net 2D on the 5 folds vs house PF on crack relF1@2.",
+   "score": 35
+  },
+  {
+   "from": "D09",
+   "adaptation": "(a) Pretrain the crack channel of the house model on OmniCrack30k in grayscale (512 crops), then PF fine-tune on EL so the pretraining survives. (b) Run nnU-Net v2 auto-configured on our 24 classes as a benchmark row. (c) Adopt clIoU@k next to relF1@2 in the benchmark protocol.",
+   "min_experiment": "Arm: OmniCrack30k crack pretraining then PF; baseline: PF from ImageNet; 3 seeds. Metric: E1 crack relF1@2, CV crack IoU, CV components >= 20 px found. Kill if E1 relF1@2 < +0.02 and CV crack IoU n.d. nnU-Net 5-fold as separate benchmark row.",
+   "score": 55
+  },
+  {
+   "from": "D43",
+   "adaptation": "(a) Metric: add tolerance clIoU at 1, 2 and 4 px next to relF1@2, because EL crack labels jitter 1-2 px. (b) Score arm: convert OmniCrack30k to grayscale 512 crops, pretrain U-Net++/ResNet-34 as binary crack, then fine-tune on EL with PF so the encoder is kept.",
+   "min_experiment": "Arm: OmniCrack30k-pretrained U-Net++ R34, then PF fine-tune, 5 seeds. Baseline: PF 5-seed mean from ImageNet init. Metric: clean-49 crack IoU and E1 crack relF1@2. Kill: crack IoU gain < +0.01 AND E1 relF1@2 gain < +0.02.",
+   "score": 52
+  }
+ ],
+ "final": 60,
+ "bench": 90,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 87,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

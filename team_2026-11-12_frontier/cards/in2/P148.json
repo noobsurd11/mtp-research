@@ -1,0 +1,51 @@
+{
+ "paper_id": "arxiv:2607.21456",
+ "title": "SPDCN: Strip-based Deformable Convolutional Network for Steel Surface Defect Segmentation",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2607.21456",
+ "code_url": "https://github.com/DWlzm",
+ "mechanism": "Deformable convolution whose offsets come from decoupled horizontal and vertical strip convolutions, so the sampling grid aligns with elongated, anisotropic defects.",
+ "adaptation": "Gridline (IoU 0.283, recall 0.33) and splice (never predicted) are axis-aligned in rectified cells, and rot90 augmentation keeps them axis-aligned. Use strip-offset deformable blocks in the U-Net++ decoder with the 24-class head.",
+ "min_experiment": "SPDCN-style decoder blocks vs house. Metrics: gridline IoU and recall, plus mIoU_rob on test and module-grouped 5-fold CV; crack IoU as a guard. Kill if gridline CV IoU gains < 0.03.",
+ "evidence": "R: 89.60 mIoU on NEU-Seg with 3.54M params (abstract). The author page github.com/DWlzm is named; the repository itself is unverified.",
+ "gpu_hours": 12,
+ "bet": "medium",
+ "prior_overlap": "None. Never tried.",
+ "score": 55,
+ "bench_score": 45,
+ "targets": [
+  "other_classes",
+  "crack"
+ ],
+ "directions": [
+  "D12",
+  "D40"
+ ],
+ "scout_scores": [
+  55,
+  54,
+  45
+ ],
+ "alt_notes": [
+  {
+   "from": "D12",
+   "adaptation": "Closest domain here: grey industrial surfaces with cracks and scratches. Insert ADADC blocks at 1/2 and 1/4 resolution in the U-Net++ decoder; 1-ch, 24 classes.",
+   "min_experiment": "Arm: ADADC decoder, 5 seeds; baseline house. Metrics: crack relF1@2, components found, gridline IoU, E1 relF1@2. Kill: all gains < 0.01 and E1 < +0.02.",
+   "score": 54
+  },
+  {
+   "from": "D40",
+   "adaptation": "Cells are axis-aligned, so strips fit gridline fingers (IoU 0.283, recall 0.33), busbars, ribbons, splice; learned offsets cover diagonal cracks. Replace 3x3 convs in the last two U-Net++ decoder stages, keep the ImageNet encoder.",
+   "min_experiment": "Arm: house with ADADC in last two decoder stages; baseline: house; metric: CV gridline IoU and crack relF1@2; kill if gridline IoU gain < +0.03 and crack n.d.",
+   "score": 45
+  }
+ ],
+ "final": 55,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 148,
+ "pid": "P148"
+}

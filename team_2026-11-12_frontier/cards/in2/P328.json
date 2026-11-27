@@ -1,0 +1,35 @@
+{
+ "paper_id": "doi:10.1109/cvpr52729.2023.00381",
+ "title": "DeSTSeg: Segmentation Guided Denoising Student-Teacher for Anomaly Detection",
+ "year": 2023,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2211.11317",
+ "code_url": "https://github.com/apple/ml-destseg",
+ "mechanism": "Frozen teacher, denoising student trained to map corrupted normals to clean teacher features, and a segmentation head that fuses multi-level teacher-student discrepancies under synthetic-mask supervision.",
+ "adaptation": "Teacher = ImageNet ResNet-34 (house encoder init); student trained on clean pool cells corrupted with dark Gaussian-profile lines (FWHM 3-5 px, 2-20% contrast) and dark blobs; seg head supervised by real crack + inactive labels (478 cells) plus synthetic masks; output a 2-class map as 6th ensemble member on crack / inactive logits.",
+ "evidence": "R: MVTec AD image AUC 98.6, pixel AP 75.8, instance AP 76.4.",
+ "min_experiment": "Arm: 5 PF seeds + DeSTSeg-EL member; baseline: 5 PF seeds. Metric: CV relR@2 at relP@2 >= 0.90, inactive IoU. Kill: relR@2 gain < +0.02.",
+ "gpu_hours": 12,
+ "prior_overlap": "none; 5-seed ensembling is closed as a win but a heterogeneous AD member is listed as untested.",
+ "score": 42,
+ "bench_score": 65,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "inactive",
+  "benchmark"
+ ],
+ "directions": [
+  "D39"
+ ],
+ "scout_scores": [
+  42
+ ],
+ "final": 42,
+ "bench": 65,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 328,
+ "pid": "P328"
+}

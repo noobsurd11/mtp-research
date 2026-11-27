@@ -1,0 +1,12 @@
+# c3all: one merged cv02 queue for the remaining cv5v3 runs (lead, 16 Nov 2026, 15:00 IST)
+
+Why: three queues polled cv02 at once (rows2, c3base, c3hrnet). A queue counts only its own runs for the one-run-per-GPU rule (LPG 1) and sees another queue's run only once that run shows in nvidia-smi, so two queues that poll within a few seconds both start on the same free GPU. This happened twice on 16 Nov: GPU 7 at 08:39 UTC (r2_skr01_pf_v11_f4_s6 + c3h_hrnet_w18_unetpp_pf_f0_s5) and GPU 0 at 09:00 UTC (c3_pf_v11_f1_s5 + c3h_hrnet_w18_unetpp_pf_f2_s5). No other user held more than 4 GB on those GPUs at the start, so the lane rule itself held; the lead's LPG 1 ruling did not. The doubled runs were left to finish (our two runs hold 14 GB of 48 GB; stopping one costs a follow-up queue).
+
+Fix: one queue dispatches all remaining cv5v3 training starts, so its own start lock, 120 s gap and lane count apply to every start.
+- c3base and c3hrnet: `MAXC` set to 0 at 09:26:20 UTC (MAXC is read live; 0 = no new training start; the dump chain of a running run does not read MAXC and goes on; HOLD was not used because the dump step waits on HOLD). **Never raise these two MAXC files again.** Their queue processes stay alive until the chains of their five started runs end.
+- c3all: the 70 lines of the two reviewed job lists that had not started (c3base 480b228a minus c3_pf_v11_f0_s5, f1_s5; c3hrnet 8cf0c22b minus c3h f0_s5, f1_s5, f2_s5), byte-identical lines (sorted line sets compared), new order per seed 5..9: PF f0..4, HRNet f0..4, HOUSE f0..4. `jobs.txt` md5 c58f610b726bec9bae9b302606c7bc03.
+- Armed 09:29:38 UTC (14:59 IST): cv02 tmux `bench_q_c3all`, queue `/tmp/noob_el/bench_q/c3all`, deploy 89b9ea5a (CODE.md5 OK, cq 02d5ba5f), LPG 1, MAXC 8, gpumem 1548341, queue pid 1548874. Pre-checks in the arm command: both old MAXC = 0, exactly 5 c3 runs exist, free >= 95 GB.
+- Relays unchanged: `bench_relay_c3base` (^c3_, N 50) and `bench_relay_c3hrnet` (^c3h_, N 25) pick runs up by name from the deploy's runs/ folder, whichever queue trained them.
+- The disk guard (`../c3hrnet/diskguard.sh`) names c3base, c3hrnet and rows2 only; the tick command must also cover c3all: `touch /tmp/noob_el/bench_q/c3all/HOLD` below 20 GB.
+- Stop: `touch /tmp/noob_el/bench_q/c3all/HOLD`.
+- rows2 keeps its queue: all its jobs are dispatched (one run training, two dumps waiting for their GPUs); it starts no further training.

@@ -1,0 +1,45 @@
+{
+ "paper_id": "doi:10.1109/jbhi.2022.3188710",
+ "title": "Full-Resolution Network and Dual-Threshold Iteration for Retinal Vessel and Coronary Angiograph Segmentation",
+ "year": 2022,
+ "venue": "IEEE JBHI",
+ "url": "https://doi.org/10.1109/jbhi.2022.3188710",
+ "code_url": "https://github.com/lseventeen/FR-UNet",
+ "mechanism": "Keeps a full-resolution stream so 1 px structures never pass through a stride. Dual-threshold iteration (DTI) then grows low-confidence pixels that connect to high-confidence ones, a hysteresis step.",
+ "adaptation": "Two arms. (a) DTI needs no training: apply hysteresis growth (high seed threshold, low growth threshold, 8-connected) to the existing 5-seed ensemble crack probabilities, with thresholds chosen on val and F51. (b) smp U-Net++ drops the full-resolution feature (its finest skip is conv1 at 1/2). Add a 3-layer stride-1 conv branch (32 ch) on the 1-channel input and concatenate it into the last decoder block.",
+ "min_experiment": "(a) DTI on house ensemble outputs vs the same ensemble at argmax and with the val-chosen logit bias. Metric: test-clean crack relR@2 at relP@2 >= 0.90, plus E1 recall. Kill if the relR@2 gain is < 0.01 at matched relP@2. (b) Detail branch vs house, 5 v 5 seeds. Kill if crack IoU gains < 0.012 and relF1@2 gains < 0.01.",
+ "evidence": "R: the abstract reports the best Sen, AUC, F1 and IoU on most of DRIVE (20 train images), CHASE_DB1, STARE, DCA1 and CHUAC, with fewer parameters, and says DTI greatly improves sensitivity and connectivity. Ablation numbers not retrieved.",
+ "gpu_hours": 7,
+ "bet": "safe",
+ "prior_overlap": "Partial. A val-chosen logit bias (a global threshold) was run in section 5. A connectivity-conditional threshold was not, and no full-resolution branch was ever tried.",
+ "score": 70,
+ "bench_score": 55,
+ "targets": [
+  "crack",
+  "e1_unseen"
+ ],
+ "directions": [
+  "D12"
+ ],
+ "scout_scores": [
+  70,
+  66
+ ],
+ "alt_notes": [
+  {
+   "from": "D12",
+   "adaptation": "DTI as pure post-processing on saved crack probabilities of the house and PF ensembles (t_high, t_low chosen on val). FR-UNet trained from scratch on 1-ch 512 px cells, 24 classes, as a heterogeneous ensemble member.",
+   "min_experiment": "A (0 GPU-h): DTI on 5-seed house and PF ensemble logits vs current val-chosen logit-bias operating point; metric test relR@2 at matched relP@2, components >=20 px found. Kill: relR@2 gain < 0.01 at equal relP@2. B: FR-UNet 5 seeds vs house 5 seeds; kill if single model crack relF1@2 < house - 0.02 and adding it to the ensemble does not raise ensemble relF1@2.",
+   "score": 66
+  }
+ ],
+ "final": 70,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 26,
+ "pub_allowed": 1,
+ "selected_for": "top",
+ "pid": "P026"
+}

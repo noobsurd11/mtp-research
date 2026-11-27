@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.1109/cvpr46437.2021.00954",
+ "title": "CutPaste: Self-Supervised Learning for Anomaly Detection and Localization",
+ "year": 2021,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2104.04015",
+ "code_url": "",
+ "mechanism": "Cut a patch or a thin 'scar' strip and paste it elsewhere in the same image. A classifier learns to spot the paste, and its features localise real anomalies.",
+ "evidence": "Widely cited MVTec baseline (1,281 citations per the index). Numbers not re-checked this session.",
+ "adaptation": "The scar variant is a thin line pasted inside the same cell, so it can serve as a cheap pretext on pool cells. In the benchmark it is the second anomaly-detection baseline next to DRAEM.",
+ "min_experiment": "CutPaste trained on crack-free train cells. Report crack AP and relF1@2 on test and E1. Benchmark baseline, no kill line.",
+ "prior_overlap": "none",
+ "score": 28,
+ "bench_score": 50,
+ "bet": "moonshot",
+ "targets": [
+  "benchmark"
+ ],
+ "gpu_hours": 4,
+ "directions": [
+  "D21"
+ ],
+ "scout_scores": [
+  28
+ ],
+ "final": 28,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 536,
+ "pid": "P536"
+}

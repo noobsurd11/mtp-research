@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.3390/s21134361",
+ "title": "Anomaly Detection and Automatic Labeling for Solar Cell Quality Inspection Based on Generative Adversarial Network",
+ "year": 2021,
+ "venue": "Sensors",
+ "url": "https://arxiv.org/abs/2103.03518",
+ "code_url": "",
+ "mechanism": "GAN anomaly detection trained on normal mono EL cells; anomaly maps used as automatic labels for a supervised FCN.",
+ "adaptation": "Historical EL AD-to-label baseline for the benchmark only.",
+ "min_experiment": "Benchmark entry only.",
+ "score": 20,
+ "bench_score": 40,
+ "bet": "safe",
+ "gpu_hours": 5,
+ "targets": [
+  "benchmark"
+ ],
+ "evidence": "R: 1,873 mono EL cells; models trained on automatic labels reported comparable to manual labels (no numbers in abstract).",
+ "prior_overlap": "none",
+ "directions": [
+  "D07"
+ ],
+ "scout_scores": [
+  20
+ ],
+ "final": 20,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 589,
+ "pid": "P589"
+}

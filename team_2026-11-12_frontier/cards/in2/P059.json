@@ -1,0 +1,47 @@
+{
+ "paper_id": "doi:10.1016/j.media.2023.103028",
+ "title": "Modeling annotator preference and stochastic annotation error for medical image segmentation (PADL)",
+ "year": 2023,
+ "venue": "Medical Image Analysis",
+ "url": "https://arxiv.org/abs/2111.13410",
+ "code_url": "",
+ "mechanism": "A shared network with one head per annotator models each annotator's systematic preference and stochastic error (Gaussian) separately from a consensus segmentation.",
+ "adaptation": "The 5 sources play the role of 5 annotators: a shared U-Net++ decoder, one 1x1 head per source, plus a consensus head. At test, use the cell's source head (source is known for every cell), which reproduces that source's crack width and placement, the only route BRIEF names to strict IoU above 0.5. The consensus head serves E1 and the benchmark.",
+ "min_experiment": "Arm: source heads + consensus head, 5 seeds. Baseline: house, 5 seeds. Metrics: crack IoU overall and per source (BMRK, CFVS without twin), relF1@2. Kill if the source-head crack IoU gain is below 0.012.",
+ "score": 64,
+ "bench_score": 50,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "inactive",
+  "benchmark"
+ ],
+ "evidence": "R: multi-annotator medical segmentation; it models preference and error separately. Abstract not retrieved by the tool; numbers not read.",
+ "gpu_hours": 7,
+ "prior_overlap": "none. Source-conditional prediction and annotator / source-style modelling are on BRIEF's never-tried list.",
+ "directions": [
+  "D15",
+  "D17"
+ ],
+ "scout_scores": [
+  64,
+  40
+ ],
+ "alt_notes": [
+  {
+   "from": "D17",
+   "adaptation": "An ablation of the TAB arm that splits source width preference from trace jitter. Run only if the TAB or FiLM arm shows a gain.",
+   "min_experiment": "Arm = house PF + preference/error heads versus the TAB arm. Metric: crack IoU clean-49. Kill if it does not beat TAB.",
+   "score": 40
+  }
+ ],
+ "final": 64,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 59,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P059"
+}

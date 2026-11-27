@@ -1,0 +1,46 @@
+{
+ "paper_id": "doi:10.1109/JPHOTOV.2019.2895808",
+ "title": "Enhanced Crack Segmentation (eCS): A Reference Algorithm for Segmenting Cracks in Multicrystalline Silicon Solar Cells",
+ "year": 2019,
+ "venue": "IEEE Journal of Photovoltaics",
+ "url": "https://www5.cs.fau.de/our-team/stromer-daniel/photovoltaics/index.html",
+ "code_url": "",
+ "mechanism": "Classical EL crack pipeline that, per a search summary, zeroes the gridline frequencies in the Fourier domain before crack segmentation, which cuts false positives from finger edges.",
+ "adaptation": "On the fly per image: 2D FFT, detect the finger and busbar peaks on each axis, notch them, inverse FFT, and use the residual as input channel 2 next to raw (conv1 channel-2 weights zero-initialised). Per-image peaks adapt to half-cut E1 layouts. Also aims at the gridline class (a local break of finger periodicity).",
+ "min_experiment": "Arm: house with the 2-channel [raw, notch residual], 5 seeds. Baseline: house. Metric: gridline IoU/recall, crack precision at fixed recall, E1 relF1@2. Kill: gridline < +0.03 and crack IoU < +0.012 and E1 relF1@2 < +0.02.",
+ "evidence": "R (search summary only, full text not read): Fourier zeroing smooths the gridlines and reduces false positives. The code zip is on the FAU page (Python 3.5, skimage, OpenCV).",
+ "gpu_hours": 6,
+ "prior_overlap": "none. Intensity normalisation (fail) is a different mechanism.",
+ "score": 62,
+ "bench_score": 30,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "other_classes",
+  "e1_unseen"
+ ],
+ "directions": [
+  "D28"
+ ],
+ "scout_scores": [
+  62,
+  62
+ ],
+ "alt_notes": [
+  {
+   "from": "D28",
+   "adaptation": "Per image 2D FFT, auto-detect finger and busbar peaks per axis, notch, IFFT; feed raw minus de-gridded residual as channel 2 with zero-initialised conv1 weights. Computed per image so half-cut E1 cells get their own notch. Also a classical benchmark row.",
+   "min_experiment": "Arm: 2-channel [raw, notch residual]; baseline house; 5 seeds; gridline IoU/recall, crack precision at fixed recall, E1 relF1@2; kill if gridline IoU < +0.03 and crack IoU < +0.012 and E1 relF1@2 < +0.02. About 6 GPU-h.",
+   "score": 62
+  }
+ ],
+ "final": 62,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 84,
+ "pub_allowed": 1,
+ "selected_for": "top",
+ "pid": "P084"
+}

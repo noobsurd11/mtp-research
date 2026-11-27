@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2504.14795",
+ "title": "A Bayesian Approach to Segmentation with Noisy Labels via Spatially Correlated Distributions",
+ "year": 2025,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2504.14795",
+ "code_url": "https://github.com/pfnet-research/Bayesian_SpatialCorr",
+ "mechanism": "Variational inference over spatially correlated label errors via a latent Gaussian field with KMS-structured covariance (ECCD).",
+ "adaptation": "Model crack labels as truth with flips correlated along the crack direction (correlation length about 10 px), covering both jitter and omission.",
+ "min_experiment": "Arm: house + ECCD loss on crack. Baseline: house. Metric: crack IoU, relF1@2. Kill if < house + 0.008. About 10 GPU-h plus a week of code.",
+ "evidence": "R: spatial correlation modelling clearly helps on several tasks; lung segmentation near clean-label level at moderate noise (abstract).",
+ "prior_overlap": "none",
+ "score": 40,
+ "bench_score": 30,
+ "bet": "moonshot",
+ "gpu_hours": 10,
+ "targets": [
+  "crack"
+ ],
+ "directions": [
+  "D15"
+ ],
+ "scout_scores": [
+  40
+ ],
+ "final": 40,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 386,
+ "pid": "P386"
+}

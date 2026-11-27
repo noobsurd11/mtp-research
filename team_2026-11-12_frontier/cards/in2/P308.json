@@ -1,0 +1,42 @@
+{
+ "paper_id": "arxiv:2405.01228",
+ "title": "RaffeSDG: Random Frequency Filtering enabled Single-source Domain Generalization for Medical Image Segmentation",
+ "year": 2024,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2405.01228",
+ "code_url": "https://github.com/liamheng/Non-IID_Medical_Image_Segmentation",
+ "mechanism": "Random frequency-filter augmentation with blending of homologous samples, plus Gaussian-filter structural saliency for consistent representations across augmented views.",
+ "evidence": "R: improved out-of-domain segmentation for three tissues imaged by four modalities.",
+ "adaptation": "Restrict random filtering below about 1/16 px^-1 so crack bands survive; compare with GIN as the single-source DG choice for E1.",
+ "min_experiment": "Run only if GIN-IPA shows a signal. Arm: house + RaffeSDG. Baseline: house + GIN. Metric: E1 crack relF1@2. Kill: not better than GIN by 0.02.",
+ "gpu_hours": 11,
+ "prior_overlap": "none",
+ "targets": [
+  "e1_unseen"
+ ],
+ "bet": "safe",
+ "score": 45,
+ "bench_score": 30,
+ "directions": [
+  "D08"
+ ],
+ "scout_scores": [
+  45,
+  45
+ ],
+ "alt_notes": [
+  {
+   "from": "D08",
+   "adaptation": "Restrict random filtering to frequencies below about 1/16 px^-1 so 4 px crack bands stay intact; run only if GIN shows a signal.",
+   "min_experiment": "Arm: house + RaffeSDG augmentation, 5 seeds. Baselines: house and GIN arm. Metric: E1 crack relF1@2. Kill: not better than GIN by 0.02.",
+   "score": 45
+  }
+ ],
+ "final": 45,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 308,
+ "pid": "P308"
+}

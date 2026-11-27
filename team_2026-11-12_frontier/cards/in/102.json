@@ -1,0 +1,52 @@
+{
+ "paper_id": "arxiv:2603.14282",
+ "title": "Multi-Period Texture Contrast Enhancement for Low-Contrast Wafer Defect Detection and Segmentation",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2603.14282",
+ "code_url": "",
+ "mechanism": "MPTCE: reconstruct the dominant periodic component of a feature map in the frequency domain, take abs(F - F_periodic) as a disturbance map, turn its gradient into attention, and output F + alpha*A*F.",
+ "adaptation": "Insert after ResNet-34 layer1 (128 px) and layer2 (64 px), where the finger pitch is still resolvable. Pick the top-k spectral peaks per channel per image so half-cut layouts adapt. Optionally supervise the disturbance map weakly with crack + gridline masks.",
+ "min_experiment": "Arm: PF + MPTCE at layer1/2, 5 seeds. Baseline: PF. Metric: gridline IoU, crack pixel precision, crack IoU. Kill: gridline < +0.03 and crack IoU < +0.012.",
+ "evidence": "R: wafer data, 4,531 RGB images, 7 classes, YOLOv8-seg base. MPTCE alone: recall 71.2 -> 73.7, mAP50 72.7 -> 76.2, mAP50-95 47.9 -> 51.1. Full model +8.3 mAP50-95, false positives -8.6%.",
+ "gpu_hours": 8,
+ "prior_overlap": "none in BRIEF section 5. D08 also lists it.",
+ "score": 60,
+ "bench_score": 30,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "other_classes"
+ ],
+ "directions": [
+  "D08",
+  "D28"
+ ],
+ "scout_scores": [
+  40,
+  60,
+  60
+ ],
+ "alt_notes": [
+  {
+   "from": "D08",
+   "adaptation": "Fingers and busbars are periodic, cracks and inactive are not: add the periodic-suppressed image as channel 2 only, never replace the input (gridline and busbar are classes).",
+   "min_experiment": "Arm: house + periodic-suppressed channel, 5 seeds. Baseline: house. Metrics: crack precision and IoU, gridline IoU. Kill: crack IoU < +0.012 or gridline IoU drop > 0.02.",
+   "score": 40
+  },
+  {
+   "from": "D28",
+   "adaptation": "Insert after encoder layer1 (128 px) and layer2 (64 px), top-k spectral peaks per channel per image; expose D as auxiliary map. Targets gridline recall and crack precision near fingers.",
+   "min_experiment": "Arm: PF + MPTCE at layer1/2; baseline PF; 5 seeds; gridline IoU, crack pixel precision; kill if gridline < +0.03 and crack IoU < +0.012.",
+   "score": 60
+  }
+ ],
+ "final": 60,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 102,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

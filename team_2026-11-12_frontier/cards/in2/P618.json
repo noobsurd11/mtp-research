@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2312.02608",
+ "title": "Panoptica -- instance-wise evaluation of 3D semantic and instance segmentation maps",
+ "year": 2023,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2312.02608",
+ "code_url": "",
+ "mechanism": "Package computing instance-wise matching, PQ and per-instance metrics from 2D/3D semantic or instance maps.",
+ "adaptation": "Tooling for instance-wise crack and inactive scores in the benchmark; wrap with a 2 px tolerance matching.",
+ "min_experiment": "Run on existing val predictions; confirm it reproduces our component-found metric. No training.",
+ "evidence": "Software paper; no score claims.",
+ "gpu_hours": 0,
+ "bet": "safe",
+ "prior_overlap": "none",
+ "targets": [
+  "benchmark"
+ ],
+ "score": 12,
+ "bench_score": 60,
+ "directions": [
+  "D20"
+ ],
+ "scout_scores": [
+  12
+ ],
+ "final": 12,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 618,
+ "pid": "P618"
+}

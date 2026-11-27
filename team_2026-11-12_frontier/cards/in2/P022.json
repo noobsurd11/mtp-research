@@ -1,0 +1,38 @@
+{
+ "paper_id": "arxiv:2604.25530",
+ "title": "The Surprising Effectiveness of Canonical Knowledge Distillation for Semantic Segmentation",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2604.25530",
+ "code_url": "",
+ "mechanism": "At matched compute and long schedules, plain logit / feature KD beats segmentation-specific KD; pure logit KD keeps scaling with unlabelled images while feature KD does not.",
+ "adaptation": "Pure logit KD from the frozen 5-seed ensemble (full 24-class soft targets) over 478 labelled + 11.9k pool cells (incl. 1,152 half-cells), 60k-100k steps; keep the teacher architecture-aligned (U-Net++ family).",
+ "min_experiment": "Arm: student on GT + pool KD, 60k steps, 3 seeds. Baseline: labelled-only KD student (Noothout arm) and house single. Metric: crack IoU, relF1@2, inactive IoU on CV / clean 49; E1 relF1@2 secondary. Kill: < +0.012 crack IoU over labelled-only KD and < +0.02 E1 relF1@2.",
+ "evidence": "R: Cityscapes PSPNet-R18 student 79.0 vs R101 teacher 79.8 mIoU (feature KD, 55 GPU-h); pure logit KD + 20k unlabelled images also 79.0; Mask2Former teacher gave 77.8 vs 77.7 at 3x compute.",
+ "gpu_hours": 20,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "inactive",
+  "e1_unseen",
+  "benchmark"
+ ],
+ "prior_overlap": "partial: Mean Teacher with hard/tolerant pseudo-labels on the 11.9k pool at 100% labels was n.d.; that closes single EMA teachers with thresholded labels, not a frozen 5-seed ensemble with soft full-distribution targets and long schedules",
+ "score": 70,
+ "bench_score": 65,
+ "directions": [
+  "D34"
+ ],
+ "scout_scores": [
+  70
+ ],
+ "final": 70,
+ "bench": 65,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 22,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P022"
+}

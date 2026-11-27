@@ -1,0 +1,43 @@
+{
+ "paper_id": "arxiv:2004.08790",
+ "title": "UNet 3+: A Full-Scale Connected UNet for Medical Image Segmentation (classification-guided module)",
+ "year": 2020,
+ "venue": "arXiv (eess.IV)",
+ "url": "https://arxiv.org/abs/2004.08790",
+ "code_url": "https://github.com/ZJUGiveLab/UNet-Version",
+ "mechanism": "An image-level presence classifier on the deepest features multiplies the segmentation output, removing over-segmentation in negative images.",
+ "adaptation": "Two binary heads, inactive-present and crack-present, trained with BCE on mask-derived labels (42 inactive-positive train cells). Use a soft gate (p_seg x p_img) so that one missed cell does not zero its whole mask. Keep the val-chosen threshold.",
+ "min_experiment": "Arm: PF + presence heads with soft gate (hard gate as a second setting). Baseline: PF. Metrics: inactive precision and IoU (CV and clean 49), E1 inactive IoU. Kill if the inactive IoU gain is < 0.02 or the inactive recall drop is > 0.03.",
+ "evidence": "R: the abstract says the module reduces over-segmentation in non-organ images, on 2 datasets. The abstract page gives no numbers.",
+ "prior_overlap": "none",
+ "score": 52,
+ "bench_score": 35,
+ "bet": "medium",
+ "gpu_hours": 6,
+ "targets": [
+  "inactive",
+  "e1_unseen"
+ ],
+ "directions": [
+  "D27"
+ ],
+ "scout_scores": [
+  52,
+  50
+ ],
+ "alt_notes": [
+  {
+   "from": "D27",
+   "adaptation": "Two binary heads (inactive-present, crack-present), soft gate p_seg(inactive) x p_img(inactive); 42 positive cells so soft gate only, val-chosen threshold kept.",
+   "min_experiment": "Arm PF + presence heads, soft gate vs hard gate; baseline PF; metrics inactive precision and IoU (CV), E1 inactive IoU; kill if inactive CV IoU gain < 0.02.",
+   "score": 50
+  }
+ ],
+ "final": 52,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 182,
+ "pid": "P182"
+}

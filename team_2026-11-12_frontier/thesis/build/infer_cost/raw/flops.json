@@ -1,0 +1,73 @@
+{
+ "cmd": "flops",
+ "args": {
+  "cmd": "flops",
+  "code": "/home/noob/work/bench_wt_t3b",
+  "ckroot": "/mnt/nas/noob_el_archive/bench_relay/fin2",
+  "device": "cpu",
+  "threads": 8,
+  "arm": "C2",
+  "batch": 1,
+  "views_batched": false,
+  "warmup": 3,
+  "cells": 200,
+  "max_seconds": 0,
+  "no_weights": false,
+  "out": "raw/flops.json"
+ },
+ "env": {
+  "python": "3.12.3",
+  "torch": "2.14.1+cu130",
+  "threads": 8,
+  "interop_threads": 1,
+  "host": "giant",
+  "device": "cpu",
+  "OMP_NUM_THREADS": "8",
+  "MKL_NUM_THREADS": "8",
+  "nice": 10,
+  "loadavg": [
+   2.39990234375,
+   1.966796875,
+   1.6259765625
+  ],
+  "cpu": "AMD Ryzen Threadripper 7960X 24-Cores",
+  "smp": "0.5.0",
+  "timm": "1.0.30"
+ },
+ "flops": {
+  "pf": {
+   "ckpt": "/mnt/nas/noob_el_archive/bench_relay/fin2/fin_pf_v11_pool_s5/experiments/fin_pf_v11_pool_s5/checkpoints/slim.pth",
+   "out_shape": [
+    1,
+    24,
+    512,
+    512
+   ],
+   "flops_per_view": 147983433728,
+   "GFLOPs_per_view": 147.983433728,
+   "GMACs_per_view": 73.991716864,
+   "flops_one_cell_d4_predict_tta": 1183867469824,
+   "d4_over_single_ratio": 8.0,
+   "flops_by_op_per_view": {
+    "aten.convolution": 147983433728
+   }
+  },
+  "hrnet": {
+   "ckpt": "/mnt/nas/noob_el_archive/bench_relay/fin2/fin_hrnet_swad_v11_pool_s5/experiments/fin_hrnet_swad_v11_pool_s5/checkpoints/slim.pth",
+   "out_shape": [
+    1,
+    24,
+    512,
+    512
+   ],
+   "flops_per_view": 218062610432,
+   "GFLOPs_per_view": 218.062610432,
+   "GMACs_per_view": 109.031305216,
+   "flops_one_cell_d4_predict_tta": 1744500883456,
+   "d4_over_single_ratio": 8.0,
+   "flops_by_op_per_view": {
+    "aten.convolution": 218062610432
+   }
+  }
+ }
+}

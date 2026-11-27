@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1109/cvpr.2018.00433",
+ "title": "Data Distillation: Towards Omni-Supervised Learning",
+ "year": 2018,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/1712.04440",
+ "code_url": "",
+ "mechanism": "Omni-supervised learning: all labelled data plus unlabelled data. Labels for the unlabelled data come from ensembling one model's predictions over multiple input transforms, and a student is retrained on the union.",
+ "adaptation": "Single-model teacher = one PF model with 8-way dihedral TTA (rot90 x flip; EL cracks have no orientation prior), applied to the 11.9k pool. A cheaper alternative to a 5-seed ensemble teacher and easy to refresh for later rounds.",
+ "min_experiment": "Same as the ensemble-distillation arm B, but with a single-model TTA teacher. Baseline: PF single model. Metric: clean-49 crack IoU, E1 crack relF1@2. Kill: no gain >= +0.008 crack IoU over PF and no E1 gain.",
+ "evidence": "R: CVPR 2018, keypoint and box detection on COCO, with gains over the fully supervised baseline when internet-scale unlabelled images are added (numbers not retrieved).",
+ "gpu_hours": 8,
+ "bet": "safe",
+ "score": 55,
+ "bench_score": 35,
+ "targets": [
+  "crack",
+  "e1_unseen"
+ ],
+ "prior_overlap": "Partial. The SSL row used an online EMA teacher without TTA ensembling. Offline TTA teacher labels have not been tested.",
+ "directions": [
+  "D29"
+ ],
+ "scout_scores": [
+  55
+ ],
+ "final": 55,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 157,
+ "pid": "P157"
+}

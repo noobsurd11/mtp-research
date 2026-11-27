@@ -1,0 +1,35 @@
+{
+ "paper_id": "doi:10.3390/math13152430",
+ "title": "Conformal Segmentation in Industrial Surface Defect Detection with Statistical Guarantees",
+ "year": 2025,
+ "venue": "Mathematics",
+ "url": "https://arxiv.org/abs/2504.17721",
+ "code_url": "",
+ "mechanism": "Conformal risk control on a calibration split sets a pixel threshold so the expected test error rate (e.g. missed defect fraction) is bounded by a chosen risk level.",
+ "adaptation": "Benchmark operating point: calibrate crack threshold on val + F51 for expected relR@2 >= 0.90 and report the precision it costs; same for inactive area fraction (severity); test whether the guarantee holds on E1 under shift.",
+ "evidence": "R: Mask R-CNN on industrial defects, test error stays under the risk level across calibration/test ratios.",
+ "min_experiment": "No training: calibrate on val + F51, report realised relR@2 and precision on clean-49 test and E1; kill (as a method) if realised E1 recall falls below target by > 0.1, which is itself a benchmark finding.",
+ "gpu_hours": 0.5,
+ "prior_overlap": "Logit bias and per-module thresholds were tried (threshold choice); conformal guarantee is new and aimed at the benchmark, not the score.",
+ "score": 30,
+ "bench_score": 65,
+ "bet": "safe",
+ "targets": [
+  "benchmark",
+  "measurement",
+  "severity"
+ ],
+ "directions": [
+  "D40"
+ ],
+ "scout_scores": [
+  30
+ ],
+ "final": 30,
+ "bench": 65,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 500,
+ "pid": "P500"
+}

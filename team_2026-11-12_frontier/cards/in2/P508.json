@@ -1,0 +1,43 @@
+{
+ "paper_id": "doi:10.1007/s00138-021-01191-9",
+ "title": "Segmentation of photovoltaic module cells in uncalibrated electroluminescence images",
+ "year": 2021,
+ "venue": "Machine Vision and Applications",
+ "url": "https://arxiv.org/abs/1806.06530",
+ "code_url": "",
+ "mechanism": "Ridge detection of busbars and cell borders, lens distortion and perspective correction to segment cells from uncalibrated module EL images.",
+ "evidence": "R: robust cell segmentation on uncalibrated EL modules (widely used, 145 citations).",
+ "adaptation": "Score side: busbar / border ridge map or half-cut cut-line location as a layout channel for E1. Benchmark side: documented cell extraction for the 159k pool and new modules.",
+ "min_experiment": "Arm: house + layout ridge channel, 5 seeds. Baseline: house. Metric: E1 crack precision in half-cut cells. Kill: < +0.03 relF1@2 on E1.",
+ "gpu_hours": 11,
+ "prior_overlap": "partial: synthetic half-cut views were n.d.; an explicit layout channel was not tested.",
+ "targets": [
+  "e1_unseen",
+  "benchmark"
+ ],
+ "bet": "safe",
+ "score": 30,
+ "bench_score": 55,
+ "directions": [
+  "D08"
+ ],
+ "scout_scores": [
+  30,
+  30
+ ],
+ "alt_notes": [
+  {
+   "from": "D08",
+   "adaptation": "Busbar / border ridge map as a layout channel or to locate the cut line in E1 half-cut cells; documented cell extraction for the 159k pool and new module images in the benchmark.",
+   "min_experiment": "Arm: house + ridge layout channel, 3-seed screen. Baseline: house. Metric: E1 crack false positives along cut line and relF1@2. Kill: < +0.02 E1 relF1@2.",
+   "score": 30
+  }
+ ],
+ "final": 30,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 508,
+ "pid": "P508"
+}

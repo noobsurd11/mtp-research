@@ -1,0 +1,52 @@
+{
+ "paper_id": "arxiv:2605.18413",
+ "title": "Cracks in the Foundation: A Civil Infrastructure Dataset to Challenge Vision Foundation Models",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2605.18413",
+ "code_url": "https://huggingface.co/datasets/ibm-research/cif-dataset",
+ "mechanism": "150k-tile infrastructure defect benchmark comparing EoMT (DINOv2/DINOv3), Mask DINO, YOLO and RF-DETR under one protocol.",
+ "adaptation": "Evidence that VFM mask classifiers do not fix thin-crack masks alone: keep a per-pixel crack head; in our benchmark report crack with tolerant metrics (relF1@2) beside strict IoU.",
+ "min_experiment": "No separate run; its finding is tested by the EoMT arm's crack IoU vs relF1@2 gap compared with the house model.",
+ "score": 30,
+ "bench_score": 60,
+ "bet": "safe",
+ "targets": [
+  "crack",
+  "benchmark"
+ ],
+ "evidence": "R: tiled 1024: EoMT DINOv3 mask mAP 24.2 overall (best), crack mask mAP 4.7 (DINOv3) / 5.0 (DINOv2) vs YOLOv11-xl 8.6; authors: mask mAP plunges to single digits for cracks. Data on HF ibm-research/cif-dataset.",
+ "gpu_hours": 0,
+ "prior_overlap": "none",
+ "directions": [
+  "D14",
+  "D23",
+  "D38"
+ ],
+ "scout_scores": [
+  28,
+  30,
+  10
+ ],
+ "alt_notes": [
+  {
+   "from": "D14",
+   "adaptation": "Benchmark design: add zero-shot FM rows, test centre bias (crack position within cell), possibly use as extra crack pretraining data (different modality).",
+   "min_experiment": "Benchmark-only: report zero-shot SAM3 / SAM2 rows and a centre-bias analysis; no training needed.",
+   "score": 28
+  },
+  {
+   "from": "D38",
+   "adaptation": "Benchmark lesson: report zero-shot and in-context FM rows beside supervised rows with tolerant crack metrics; possible crack-shape pretraining data (HF ibm-research/cif-dataset), overlaps D36.",
+   "min_experiment": "No score experiment; include FM zero-shot/in-context rows in the benchmark table.",
+   "score": 10
+  }
+ ],
+ "final": 30,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 502,
+ "pid": "P502"
+}

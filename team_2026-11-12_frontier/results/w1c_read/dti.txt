@@ -1,0 +1,54 @@
+# dti_hysteresis (bench_dti.py fab1d2ef); labels v11; 532 OOF stems; 57 pairs
+
+## arm PF (seeds [5, 6, 7, 8, 9]), mean over seeds
+point	relF1_2	relF1_1	crack_iou	relP2	relR2	width_ratio	mean_width	cc_rec50_20	cc_prec_20	fa_px	fa_share50	miou_rob
+argmax	0.8441	0.7560	0.3648	0.8944	0.7993	1.0020	2.6237	0.8111	0.8958	357.4000	0.0079	0.6122
+OP-F	0.8397	0.7521	0.3655	0.8705	0.8110	1.1186	2.8297	0.8200	0.8794	480.8000	0.0099	0.6118
+bias_F	0.8397	0.7521	0.3655	0.8705	0.8110	1.1186	2.8297	0.8200	0.8794	480.8000	0.0099	0.6118
+DTI	0.8408	0.7536	0.3668	0.8743	0.8097	1.1102	2.8241	0.8190	0.8809	473.0000	0.0092	0.6120
+width guard (DTI <= 1.15 x OP-F): DTI 1.1102, OP-F 1.1186, ok True
+DTI - OP-F	relF1_2 0.0011 [-0.0016, 0.0062]	relF1_1 0.0015 [-0.0013, 0.0064]	crack_iou 0.0013 [-0.0010, 0.0049]	relP2 0.0039 [-0.0041, 0.0143]	relR2 -0.0013 [-0.0050, 0.0023]	width_ratio -0.0084 [-0.0443, 0.0296]
+DTI - bias_F	relF1_2 0.0011 [-0.0016, 0.0062]	relF1_1 0.0015 [-0.0013, 0.0064]	crack_iou 0.0013 [-0.0010, 0.0049]	relP2 0.0039 [-0.0041, 0.0143]	relR2 -0.0013 [-0.0050, 0.0023]	width_ratio -0.0084 [-0.0443, 0.0296]
+DTI - argmax	relF1_2 -0.0034 [-0.0205, 0.0018]	relF1_1 -0.0024 [-0.0180, 0.0029]	crack_iou 0.0020 [-0.0093, 0.0069]	relP2 -0.0200 [-0.0566, -0.0082]	relR2 0.0104 [0.0051, 0.0150]	width_ratio 0.1082 [0.0584, 0.1724]
+chosen s5: {'OP-F': {0: 'b+3.00', 1: 'b+1.50', 2: 'b+1.50', 3: 'b+1.00', 4: 'b+1.75'}, 'bias_F': {0: 'b+3.00', 1: 'b+1.50', 2: 'b+1.50', 3: 'b+1.00', 4: 'b+1.75'}, 'DTI': {0: 'dti+2/-3', 1: 'dti-1/-1.5', 2: 'dti-0.5/-1.5', 3: 'dti-1/-1', 4: 'dti-1/-1.5'}}
+chosen s6: {'OP-F': {0: 'b+3.00', 1: 'b+2.75', 2: 'b+1.50', 3: 'b+1.50', 4: 'b+2.75'}, 'bias_F': {0: 'b+3.00', 1: 'b+2.75', 2: 'b+1.50', 3: 'b+1.50', 4: 'b+2.75'}, 'DTI': {0: 'dti-1/-3', 1: 'dti-1/-2', 2: 'dti-1/-1', 3: 'dti-1/-1.5', 4: 'dti-1/-2'}}
+chosen s7: {'OP-F': {0: 'b+2.25', 1: 'b+2.50', 2: 'b+0.75', 3: 'b+0.25', 4: 'b+2.25'}, 'bias_F': {0: 'b+2.25', 1: 'b+2.50', 2: 'b+0.75', 3: 'b+0.25', 4: 'b+2.25'}, 'DTI': {0: 'dti-1/-3', 1: 'dti-1/-2', 2: 'dti-1/-1', 3: 'dti-0.5/-0.5', 4: 'dti-1/-1'}}
+chosen s8: {'OP-F': {0: 'b+3.00', 1: 'b-0.25', 2: 'b-0.25', 3: 'b-0.50', 4: 'b+0.25'}, 'bias_F': {0: 'b+3.00', 1: 'b-0.25', 2: 'b-0.25', 3: 'b-0.50', 4: 'b+0.25'}, 'DTI': {0: 'dti-1/-3', 1: 'dti+2/-0.5', 2: 'dti+2/-0.5', 3: 'dti+2/+0', 4: 'dti+2/-1.5'}}
+chosen s9: {'OP-F': {0: 'b+2.75', 1: 'b+2.50', 2: 'b+1.50', 3: 'b+0.50', 4: 'b+2.75'}, 'bias_F': {0: 'b+2.75', 1: 'b+2.50', 2: 'b+1.50', 3: 'b+0.50', 4: 'b+2.75'}, 'DTI': {0: 'dti-1/-2', 1: 'dti-1/-1.5', 2: 'dti-1/-1.5', 3: 'dti-0.5/-0.5', 4: 'dti-1/-2'}}
+frontier s5: argmax_relP2 0.8964, dti_relR2_at_P0.90 0.7964, dti_relR2_at_Pargmax 0.8008, bias_relR2_at_P0.90 0.7964, bias_relR2_at_Pargmax 0.8008, dti_best_tlo_per_thi {-1.0: 'dti-1/-1.5', -0.5: 'dti-0.5/-1.5', 0.0: 'dti+0/-1.5', 0.5: 'dti+0.5/-1.5', 1.0: 'dti+1/-1.5', 2.0: 'dti+2/-1.5'}
+frontier s6: argmax_relP2 0.8947, dti_relR2_at_P0.90 0.7898, dti_relR2_at_Pargmax 0.7994, bias_relR2_at_P0.90 0.7924, bias_relR2_at_Pargmax 0.7994, dti_best_tlo_per_thi {-1.0: 'dti-1/-2', -0.5: 'dti-0.5/-2', 0.0: 'dti+0/-2', 0.5: 'dti+0.5/-2', 1.0: 'dti+1/-3', 2.0: 'dti+2/-3'}
+frontier s7: argmax_relP2 0.8943, dti_relR2_at_P0.90 0.7938, dti_relR2_at_Pargmax 0.8029, bias_relR2_at_P0.90 0.7938, bias_relR2_at_Pargmax 0.8029, dti_best_tlo_per_thi {-1.0: 'dti-1/-1', -0.5: 'dti-0.5/-1', 0.0: 'dti+0/-1', 0.5: 'dti+0.5/-1', 1.0: 'dti+1/-1', 2.0: 'dti+2/-1'}
+frontier s8: argmax_relP2 0.8935, dti_relR2_at_P0.90 0.7879, dti_relR2_at_Pargmax 0.7940, bias_relR2_at_P0.90 0.7870, bias_relR2_at_Pargmax 0.7940, dti_best_tlo_per_thi {-1.0: 'dti-1/-1', -0.5: 'dti-0.5/-0.5', 0.0: 'dti+0/+0', 0.5: 'dti+0.5/-0.5', 1.0: 'dti+1/-0.5', 2.0: 'dti+2/-1'}
+frontier s9: argmax_relP2 0.8929, dti_relR2_at_P0.90 0.7894, dti_relR2_at_Pargmax 0.7993, bias_relR2_at_P0.90 0.7894, bias_relR2_at_Pargmax 0.7993, dti_best_tlo_per_thi {-1.0: 'dti-1/-1.5', -0.5: 'dti-0.5/-1.5', 0.0: 'dti+0/-1.5', 0.5: 'dti+0.5/-1.5', 1.0: 'dti+1/-2', 2.0: 'dti+2/-2'}
+
+## arm HOUSE (seeds [5, 6]), mean over seeds
+point	relF1_2	relF1_1	crack_iou	relP2	relR2	width_ratio	mean_width	cc_rec50_20	cc_prec_20	fa_px	fa_share50	miou_rob
+argmax	0.8496	0.7665	0.3821	0.8974	0.8067	1.1137	2.9334	0.8018	0.9050	732.0000	0.0182	0.6093
+OP-F	0.8493	0.7653	0.3829	0.8811	0.8197	1.2387	3.2100	0.8114	0.8908	953.0000	0.0215	0.6090
+bias_F	0.8493	0.7653	0.3829	0.8811	0.8197	1.2387	3.2100	0.8114	0.8908	953.0000	0.0215	0.6090
+DTI	0.8496	0.7661	0.3835	0.8849	0.8170	1.2127	3.1539	0.8094	0.8924	891.5000	0.0198	0.6092
+width guard (DTI <= 1.15 x OP-F): DTI 1.2127, OP-F 1.2387, ok True
+DTI - OP-F	relF1_2 0.0003 [-0.0006, 0.0015]	relF1_1 0.0007 [-0.0003, 0.0022]	crack_iou 0.0005 [-0.0006, 0.0020]	relP2 0.0037 [0.0013, 0.0067]	relR2 -0.0027 [-0.0043, -0.0012]	width_ratio -0.0260 [-0.0435, -0.0114]
+DTI - bias_F	relF1_2 0.0003 [-0.0006, 0.0015]	relF1_1 0.0007 [-0.0003, 0.0022]	crack_iou 0.0005 [-0.0006, 0.0020]	relP2 0.0037 [0.0013, 0.0067]	relR2 -0.0027 [-0.0043, -0.0012]	width_ratio -0.0260 [-0.0435, -0.0114]
+DTI - argmax	relF1_2 -0.0000 [-0.0021, 0.0021]	relF1_1 -0.0005 [-0.0031, 0.0021]	crack_iou 0.0014 [-0.0016, 0.0042]	relP2 -0.0125 [-0.0171, -0.0083]	relR2 0.0103 [0.0077, 0.0135]	width_ratio 0.0990 [0.0737, 0.1284]
+chosen s5: {'OP-F': {0: 'b+2.25', 1: 'b+1.25', 2: 'b+0.75', 3: 'b+0.75', 4: 'b+1.50'}, 'bias_F': {0: 'b+2.25', 1: 'b+1.25', 2: 'b+0.75', 3: 'b+0.75', 4: 'b+1.50'}, 'DTI': {0: 'dti-1/-1.5', 1: 'dti-1/-1', 2: 'dti-1/-1', 3: 'dti-0.5/-0.5', 4: 'dti-1/-1'}}
+chosen s6: {'OP-F': {0: 'b+2.00', 1: 'b+1.25', 2: 'b+1.25', 3: 'b+1.25', 4: 'b+2.00'}, 'bias_F': {0: 'b+2.00', 1: 'b+1.25', 2: 'b+1.25', 3: 'b+1.25', 4: 'b+2.00'}, 'DTI': {0: 'dti-1/-2', 1: 'dti-1/-1', 2: 'dti-1/-1', 3: 'dti-1/-1', 4: 'dti-1/-1.5'}}
+frontier s5: argmax_relP2 0.8951, dti_relR2_at_P0.90 0.8029, dti_relR2_at_Pargmax 0.8089, bias_relR2_at_P0.90 0.8010, bias_relR2_at_Pargmax 0.8089, dti_best_tlo_per_thi {-1.0: 'dti-1/-1', -0.5: 'dti-0.5/-0.5', 0.0: 'dti+0/-0.5', 0.5: 'dti+0.5/-0.5', 1.0: 'dti+1/-1.5', 2.0: 'dti+2/-1.5'}
+frontier s6: argmax_relP2 0.8996, dti_relR2_at_P0.90 0.8032, dti_relR2_at_Pargmax 0.8045, bias_relR2_at_P0.90 0.8018, bias_relR2_at_Pargmax 0.8045, dti_best_tlo_per_thi {-1.0: 'dti-1/-1', -0.5: 'dti-0.5/-1', 0.0: 'dti+0/-1.5', 0.5: 'dti+0.5/-1.5', 1.0: 'dti+1/-1.5', 2.0: 'dti+2/-1.5'}
+
+## arm PFV1 (seeds [5, 6]), mean over seeds
+point	relF1_2	relF1_1	crack_iou	relP2	relR2	width_ratio	mean_width	cc_rec50_20	cc_prec_20	fa_px	fa_share50	miou_rob
+argmax	0.8428	0.7550	0.3652	0.8937	0.7973	1.0127	2.6574	0.8023	0.9141	323.5000	0.0066	0.6102
+OP-F	0.8420	0.7547	0.3693	0.8722	0.8139	1.1604	2.9335	0.8099	0.9068	494.0000	0.0066	0.6099
+bias_F	0.8420	0.7547	0.3693	0.8722	0.8139	1.1604	2.9335	0.8099	0.9068	494.0000	0.0066	0.6099
+DTI	0.8427	0.7555	0.3693	0.8778	0.8102	1.1274	2.8775	0.8079	0.9108	435.5000	0.0066	0.6101
+width guard (DTI <= 1.15 x OP-F): DTI 1.1274, OP-F 1.1604, ok True
+DTI - OP-F	relF1_2 0.0006 [-0.0004, 0.0020]	relF1_1 0.0008 [-0.0003, 0.0022]	crack_iou -0.0001 [-0.0014, 0.0011]	relP2 0.0056 [0.0031, 0.0097]	relR2 -0.0037 [-0.0061, -0.0020]	width_ratio -0.0330 [-0.0537, -0.0181]
+DTI - bias_F	relF1_2 0.0006 [-0.0004, 0.0020]	relF1_1 0.0008 [-0.0003, 0.0022]	crack_iou -0.0001 [-0.0014, 0.0011]	relP2 0.0056 [0.0031, 0.0097]	relR2 -0.0037 [-0.0061, -0.0020]	width_ratio -0.0330 [-0.0537, -0.0181]
+DTI - argmax	relF1_2 -0.0001 [-0.0036, 0.0029]	relF1_1 0.0005 [-0.0035, 0.0041]	crack_iou 0.0041 [0.0006, 0.0076]	relP2 -0.0158 [-0.0233, -0.0095]	relR2 0.0129 [0.0095, 0.0164]	width_ratio 0.1147 [0.0802, 0.1587]
+chosen s5: {'OP-F': {0: 'b+3.25', 1: 'b+2.25', 2: 'b+1.25', 3: 'b+1.00', 4: 'b+3.25'}, 'bias_F': {0: 'b+3.25', 1: 'b+2.25', 2: 'b+1.25', 3: 'b+1.00', 4: 'b+3.25'}, 'DTI': {0: 'dti-1/-3', 1: 'dti-1/-1', 2: 'dti-1/-1', 3: 'dti-1/-1', 4: 'dti-1/-2'}}
+chosen s6: {'OP-F': {0: 'b+2.50', 1: 'b+2.50', 2: 'b+1.75', 3: 'b+1.50', 4: 'b+2.75'}, 'bias_F': {0: 'b+2.50', 1: 'b+2.50', 2: 'b+1.75', 3: 'b+1.50', 4: 'b+2.75'}, 'DTI': {0: 'dti-1/-2', 1: 'dti-1/-2', 2: 'dti-1/-1.5', 3: 'dti-1/-1.5', 4: 'dti-1/-2'}}
+frontier s5: argmax_relP2 0.8923, dti_relR2_at_P0.90 0.7872, dti_relR2_at_Pargmax 0.7962, bias_relR2_at_P0.90 0.7872, bias_relR2_at_Pargmax 0.7962, dti_best_tlo_per_thi {-1.0: 'dti-1/-1', -0.5: 'dti-0.5/-1', 0.0: 'dti+0/-1.5', 0.5: 'dti+0.5/-1.5', 1.0: 'dti+1/-1.5', 2.0: 'dti+2/-2'}
+frontier s6: argmax_relP2 0.8950, dti_relR2_at_P0.90 0.7886, dti_relR2_at_Pargmax 0.7985, bias_relR2_at_P0.90 0.7911, bias_relR2_at_Pargmax 0.7985, dti_best_tlo_per_thi {-1.0: 'dti-1/-2', -0.5: 'dti-0.5/-2', 0.0: 'dti+0/-2', 0.5: 'dti+0.5/-2', 1.0: 'dti+1/-2', 2.0: 'dti+2/-2'}
+
+Primary: relF1@2 of DTI against OP-F at the cross-fitted point (drop if below M_F, or the frontier gain at relP@2 0.90 and at the argmax relP@2 is below 0.01, or the width ratio exceeds 1.15).

@@ -1,0 +1,239 @@
+% Chapter 3: Related work. Draft for the lead, 23 Nov 2026. Every number is traced in ch03_related_NOTES.md.
+% Citation keys: refs_extra.bib, ch02_background.bib, ch03_related.bib. The related-work tables tab:rw_main, tab:rw_abs,
+% tab:rw_out and tab:rw_counts live in related_work.tex (appendix); they are referenced here, not rebuilt.
+\chapter{Related work and why published numbers do not compare}\label{ch:related}
+
+This chapter reviews the public EL data (Section~\ref{sec:rw_data}), the pixel-level numbers published on them
+(Section~\ref{sec:rw_numbers}), the methods that our benchmark suite draws on (Section~\ref{sec:rw_methods}), work on label
+noise and benchmark practice (Section~\ref{sec:rw_noise}), and the semi-supervised framing this project started from
+(Section~\ref{sec:rw_ssl}). Its argument is that published EL segmentation numbers cannot be compared with each other or with
+ours: almost none states its split and metric together, and none gives an interval on its headline number. The protocol of
+Chapter~\ref{ch:protocol} is built to close exactly these gaps.
+
+\section{Public EL datasets}\label{sec:rw_data}
+
+Table~\ref{tab:rw_datasets} lists the public EL data with pixel or region labels that the published numbers rest on, and two
+image-level or box-level sets that matter for provenance. Three facts about them shape everything later in this chapter.
+
+\begin{table}[htbp]
+\centering
+\scriptsize
+\caption{Public EL datasets relevant to this work. ``Leakage'' lists what is known about overlap between train and test;
+``Use here'' says how this thesis uses the set.}
+\label{tab:rw_datasets}
+\begin{tabular}{>{\raggedright}p{2.4cm} >{\raggedright}p{2.9cm} >{\raggedright}p{2.6cm} >{\raggedright}p{3.6cm} >{\raggedright\arraybackslash}p{2.4cm}}
+\toprule
+Dataset & Labels & Size & Splits and leakage & Use here \\
+\midrule
+BenchmarkEL \texttt{20211104} \citep{pratt2023benchmark} & pixel masks, 24 classes & 582 cells: 478 / 54 / 50 &
+test set hand-picked for defects; 8 test cells are the same physical cell as a pool cell (Table~\ref{tab:T2}) &
+pool P532 and the legacy test set \\
+BenchmarkEL \texttt{20220723}, \texttt{20221008} & pixel masks, 28 and 29 classes; \texttt{20221008} corrects many crack
+labels (dotted labels joined, lines widened) & 642 and 695 cells &
+splits reshuffled: 186 of the 582 cells change split between the first two releases; the test sets of the later releases
+(66 and 72 cells) each hold 51 of our pool cells & source of our revised crack and inactive labels and of the E1 cells \\
+E-SCDD \citep{hanifi2025escdd} & the \texttt{20221008} masks repackaged (crack and inactive pixels unchanged), one class
+added; 117 newly labelled real cells; 93 synthetic cells & 903 files: 693 + 117 + 93 & 44 of its 82 test cells come from
+modules that also have train cells & download route of the revised labels; synthetic files excluded \\
+UCF-EL \citep{fioresi2022ucfel} & polygons; ``crack'' is a region class (about crack plus inactive), contact, interconnect,
+corrosion & public release 9,562 / 2,289; paper data 17,064 incl.\ 256 simulated & 25 to 44\% of the public test cells have
+a physical twin in train & one pre-protocol pretraining test \\
+PV-Vision (LBNL) \citep{chen2023pvvision} & pixel masks: crack, cross, busbar, dark & 1,837 cells sampled from 29,664 cells
+of 445 module images & random cell split; cells of one module can fall in train and test & none \\
+MultiSolSegment \citep{sanghi2026multisolsegment} & multi-label masks: crack, busbar, dark, non-cell & 585 mono-Si images &
+augmented before a random split, so flipped copies can sit on both sides & none \\
+PVEL-S \citep{duan2025caak} & binary masks & 1,200 poly-Si cells from PVEL-AD; 840 / 360 & evaluated on the validation set
+in \citet{duan2025caak} & none \\
+ELPV \citep{deitsch2019elpv} & image-level defect probability & 2,624 cells & contains the BMRK cells of BenchmarkEL & none
+(source of BMRK) \\
+PVEL-AD \citep{su2023pvelad} & boxes & 36,543 NIR cells & by request & none \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+First, the main pixel-labelled set exists in three releases with reshuffled splits. A number on ``BenchmarkEL'' therefore
+names one of three test sets, and the later test sets each hold 51 cells of our training pool; a model trained on either later
+release split would have trained on 38 of the 50 legacy test cells. Second, the defect vocabulary is not shared: UCF-EL's
+``crack'' merges thin polygons around crack lines with outlines of darkened and isolated regions, so it corresponds roughly to
+BenchmarkEL crack plus inactive; a perfect UCF-EL crack mask shifted by 1~px keeps IoU 0.954, against 0.559 on the
+BenchmarkEL legacy test masks (Chapter~\ref{ch:background}). Third, where we could check, train and test sets share modules
+or even physical cells. None of the pixel-labelled sets we could check comes with a module-disjoint split. This thesis therefore
+tests on E1, 106 cells from modules not seen in training (unseen modules: supported, not proven; Chapter~\ref{ch:data}).
+
+\section{Published numbers and why they cannot be compared}\label{sec:rw_numbers}
+
+We collected the papers we could find that report a pixel-level EL segmentation number (or a pixel-level anomaly map) on
+solar cells from 2018 to 2026, and recorded for each its data and release, split, classes, metric and averaging, numbers,
+interval and code, with the page each value comes from. Twenty-two papers were read in full text; seven more are known only
+from their abstracts or second-hand, and a few could not be accessed at all. The full tables are in Appendix~\ref{app:related}: Table~\ref{tab:rw_main} for the full-text papers
+\citep{pratt2021unet,pratt2023benchmark,eesaar2023seipv,mazen2024segnet,torpey2024pretraining,jha2025pvs3,fioresi2022ucfel,%
+hanifi2025multiclass,hanifi2025escdd,ramadan2026hybrid,lodhi2026efsegnet,chen2022pvsc,chen2023pvvision,sohail2023fault,%
+elbahri2026autoencoder,sanghi2026multisolsegment,duan2025caak,gunasekara2026stcnet,saleh2026anomaly,lin2026eiae,su2021sigan,%
+hijjawi2026instance}, Table~\ref{tab:rw_abs} for the abstract-level rows
+\citep{mahboob2025segformer,nigin2025mcxnet,bramantyo2026fracture,liu2027pvread,zhou2024siif,wang2024rern,narayanan2024solar},
+and Table~\ref{tab:rw_out} for work left out because it is image-level, box-only or not EL. Discovery used our paper ledger and
+literature notes, a forward-citation walk, local libraries and web search; conference-only and non-English work is
+under-covered.
+
+\paragraph{What the record shows.} Table~\ref{tab:rw_counts} counts the problems over the 22 full-text papers (a paper counts
+once, and a problem counts if any of its rows has it).
+\begin{itemize}
+  \item \textbf{Split.} 0 of 22 papers state a module- or panel-disjoint split. 4 do not state the split at all and 1 states
+  it in two conflicting ways. Where the paper or our own check allowed it, test data overlap the training data or the test
+  set selects the model in 7 of 22; for 14 others the overlap cannot be checked from the paper.
+  \item \textbf{Uncertainty.} 18 of 22 report no interval, seed count or repeat on any number. The other 4 give an interval
+  only on a side quantity or a subset; none gives one on its headline test number.
+  \item \textbf{Metric.} 15 of 22 leave the metric undefined (averaging, absent-class rule, class set or background not
+  stated) or print numbers that are internally inconsistent. 10 of 22 put background, or a no-defect class, inside the
+  headline mean.
+  \item \textbf{Release.} 7 of 22 do not state the release, or report on data that is not the public release.
+  \item \textbf{What nobody measures.} 0 of 22 use a distance-tolerant metric for the 1 to 2~px crack labels, and 0 of 22
+  report a number on unseen modules. Only 2 of 22 state release, split and metric together, and one of these two evaluates
+  on its validation set \citep{duan2025caak}.
+\end{itemize}
+
+\paragraph{One data family, many test sets.} Only three papers score on the legacy test set of BenchmarkEL
+\citep{pratt2023benchmark,eesaar2023seipv,jha2025pvs3}, the last with its split not stated. \citet{torpey2024pretraining} use
+release \texttt{20220723}; \citet{mazen2024segnet}, \citet{ramadan2026hybrid} and \citet{hanifi2025multiclass} use
+\texttt{20221008}, and the last re-split it without releasing the split. Yet \citet{mazen2024segnet} and
+\citet{ramadan2026hybrid} rank their numbers against legacy test-set rows of other papers, a comparison across test sets, and
+\citet{jha2025pvs3} set their pooled IoU against Pratt's per-image medians, a comparison across metrics. The same holds for
+UCF-EL, which appears as the official release, as the papers' own 80/10/10 splits and as the unreleased paper data, and for
+PVEL-S.
+
+\paragraph{Test data that the model has seen.} The legacy test set was not drawn at random: its authors assigned ``fifty
+images with a prevalence of cracks, gridline defects, and inactive areas'' to it \citep{pratt2023benchmark}. Our module audit
+found that 8 of its cells are the same physical cell as a cell of the training pool (7 confirmed by pixels, 1 resting on the
+cell-list link only), 7 more are neighbouring crops of pool images, and 19 more share a module with pool cells
+(Table~\ref{tab:T2}). Elsewhere, the released split lists of \citet{jha2025pvs3} put 1,769 of the 2,289 public UCF-EL test
+images in their training lists; \citet{fioresi2022ucfel} validate on the test set after each epoch; \citet{duan2025caak}
+evaluate on their validation set; and \citet{sanghi2026multisolsegment} and \citet{saleh2026anomaly} describe augmenting the
+images before splitting them.
+
+\paragraph{Convention moves the number as much as the method.} The same predictions give very different numbers under the
+conventions in use. We re-scored our own full-pool PF models (5 seeds, mean over seeds) on the 50 legacy test cells with the
+release labels (in-distribution, known leakage, context only; Table~\ref{tab:T13b}). The mean of the three defect medians in
+the per-image style of \citet{pratt2023benchmark} is 0.405 when cells without the class are left out (rule A), 0.202 when they
+score 0 (rule B), and 0.541 when they score 1 if nothing is predicted (rule C). A per-image mean IoU in the style of
+\citet{eesaar2023seipv} is 0.855 when absent and unpredicted classes score 1, and 0.545 when they are skipped; the pooled micro
+IoU is 0.891. On what are presumably the same 50 cells (PV-S3 does not state its split), crack is reported as 0.25 by
+\citet{pratt2023benchmark} (per-image median) and as 0.58 by \citet{jha2025pvs3} (pooled IoU); the two
+differ in model, metric and possibly split, so the gap cannot be assigned to any one of them. The ``IoU'' 0.7447 of \citet{eesaar2023seipv} equals
+Dice / (2 $-$ Dice) of its Dice 0.8531 within 0.001, so the two are one pooled pixel quantity dominated by background and
+padding; its headline ``mIoU'' 0.8604 has no stated averaging, and \citet{ramadan2026hybrid} reprint it as a
+frequency-weighted IoU. On PVEL-S, \citet{gunasekara2026stcnet} print a mean IoU of 95.98\% on the validation
+set and 72.52\% on the 360 test images. The label release alone also moves levels: re-scoring
+the same cross-validated models on each release, PF scores strict crack IoU 0.320 on the \texttt{20211104} labels and 0.365
+on our label set v1.1, and relF1@2 0.822 and 0.846, while contrasts between methods move by at most 0.008
+(Table~\ref{tab:T3c}).
+
+\paragraph{The published rows we can relate to our data.} Table~\ref{tab:T13a} copies the four published rows that report on
+the 50 legacy test cells: model 4c and the best per-class values of \citet{pratt2023benchmark}, SEiPV-Net
+\citep{eesaar2023seipv}, and the fully supervised PV-S3 row on its first BenchmarkEL subset \citep{jha2025pvs3}. None is
+comparable with our protocol as published. Pratt's absent-class rule is not stated and only inferred (rule A); SEiPV-Net's
+averaging is not defined, so only a family of readings is possible; PV-S3 states neither its split nor its background rule;
+all are single runs; and the 50 cells overlap our training pool. Four further papers
+\citep{mazen2024segnet,ramadan2026hybrid,hanifi2025multiclass,torpey2024pretraining} report on other test sets that also
+overlap our pool. Table~\ref{tab:T13b} re-scores our own models in each published convention, as context only; no row of
+Tables~\ref{tab:T13a} to~\ref{tab:T13c} supports a claim to beat a published model.
+
+In our judgement, a published EL number is comparable only if it states release, label set, split, class list, metric
+convention, operating-point rule and seed count together. None of the 22 full-text papers states all of them; the protocol
+of Chapter~\ref{ch:protocol} fixes all seven and requires every entry to state them.
+
+\section{Methods in our benchmark suite}\label{sec:rw_methods}
+
+The suite of Chapter~\ref{ch:methods} runs recent methods from outside the EL literature next to the models of the EL papers,
+all under one protocol. Table~\ref{tab:rw_arms} gives the origin of each arm; the results are in Chapter~\ref{ch:methods} and
+in the tables named in the last column. Every arm is an adaptation, not a copy: it runs under the PF recipe (20,000 steps,
+batch 8, 512~px, label set v1.1) unless the table says otherwise, not under its authors' training recipe.
+
+\begin{table}[htbp]
+\centering
+\scriptsize
+\caption{Origins of the arms of the benchmark suite. PF is U-Net++ with an ImageNet ResNet-34 encoder and the
+encoder-preserving fine-tune; ``Results'' names the tables that report each arm.}
+\label{tab:rw_arms}
+\begin{tabular}{>{\raggedright}p{3.4cm} >{\raggedright}p{4.1cm} >{\raggedright}p{4.0cm} >{\raggedright\arraybackslash}p{2.2cm}}
+\toprule
+Arm (name in tables) & Origin & What it changes & Results \\
+\midrule
+PF, HOUSE & U-Net++ decoder \citep{zhou2018unetpp,zhou2020unetpp}; ResNet-34 encoder \citep{he2015resnet};
+\citep{iakubovskii2019smp} & baseline; PF freezes the encoder for 1,000 steps, then ramps it to 0.1 times
+the learning rate over the next 1,000 steps, with no encoder weight decay & Tables~\ref{tab:T5}, \ref{tab:T6} \\
+unet\_r34\_pf & U-Net \citep{ronneberger2015unet} & decoder & \ref{tab:T15}, \ref{tab:T16a} \\
+dlv3p\_r34\_pf & DeepLabV3+ \citep{chen2018deeplabv3plus} & decoder & \ref{tab:T15}, \ref{tab:T16a} \\
+HRNET\newline (hrnet\_w18\_unetpp\_pf) & HRNet \citep{wang2021hrnet} & encoder that keeps a high-resolution branch &
+\ref{tab:T6}, \ref{tab:T16b} \\
+segformer\_mitb2\_pf & SegFormer \citep{xie2021segformer} & transformer encoder (MiT-B2) and MLP decoder &
+\ref{tab:T15}, \ref{tab:T16a} \\
+hanifi\_vgg16\_unet\_pf & VGG-16 U-Net of \citet{hanifi2025multiclass} & published EL model & \ref{tab:T15},
+\ref{tab:T16a} \\
+ucf\_dlv3\_r50\_pf & DeepLabV3 / ResNet-50 of UCF-EL \citep{fioresi2022ucfel} & published EL model & \ref{tab:T15},
+\ref{tab:T16a} \\
+pratt\_dlv3p\_wcec & weighted cross-entropy of \citet{pratt2023benchmark} on DeepLabV3+ & published EL loss &
+\ref{tab:T15}, \ref{tab:T16a} \\
+skr01\_pf\_v11 & Skeleton Recall loss \citep{kirchhoff2024skeletonrecall} & loss term for thin structures &
+\ref{tab:T15}, \ref{tab:T16a} \\
+jml\_hard, soft\_band\_jml & Jaccard metric loss \citep{wang2023jml} & loss that accepts soft labels; soft band around
+crack labels & \ref{tab:T15}, \ref{tab:T16a} \\
+SWAD (swad\_const) & SWAD \citep{cha2021swad} & dense weight averaging over a fixed window of training & \ref{tab:T6},
+\ref{tab:T16b} \\
+ema\_wise\_posthoc & EMA of weights \citep{moralesbrotons2024ema} & exponential moving average of weights, read post hoc &
+\ref{tab:T15}, \ref{tab:T16a} \\
+encoder\_spd & Selective Projection Decay \citep{tian2024spd} & selective weight decay towards the pretrained encoder,
+in place of PF's lower encoder learning rate & \ref{tab:T15}, \ref{tab:T16a} \\
+rcs & rare class sampling of DAFormer \citep{hoyer2022daformer} & sampling of training cells by class frequency &
+\ref{tab:T15}, \ref{tab:T16a} \\
+gin\_ipa & GIN and IPA augmentation \citep{ouyang2021gin} & augmentation for single-source domain generalisation &
+parked, not run (\ref{tab:T16a}) \\
+D4 & none: 8-view flip and rotation test-time augmentation, cited to no publication & inference & \ref{tab:T7a},
+\ref{tab:T16b} \\
+msc\_tta & scale views motivated by \citet{huang2026pie} & extra test-time views on top of D4 & \ref{tab:T7b} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Two groups of arms deserve a word. The first are the models of the EL papers re-run under equal training. In two-seed screens
+on the earlier split cv5v2 (which carried a module leak, Chapter~\ref{ch:protocol}), the UCF-EL model scored relF1@2 $-$0.0773
+[$-$0.0892, $-$0.0594] and Pratt's weighted cross-entropy $-$0.0932 [$-$0.1113, $-$0.0774] against PF, while the VGG-16 U-Net
+of Hanifi et al.\ was not separated from PF ($-$0.0064 [$-$0.0189, +0.0042]) (Table~\ref{tab:T16a}). Under one protocol, the
+published EL models sit at or below our U-Net++ baseline. The second are methods built for a different problem: SWAD and
+GIN-IPA target domain generalisation \citep{cha2021swad,ouyang2021gin}, rare class sampling targets domain adaptation
+\citep{hoyer2022daformer}, and Skeleton Recall targets thin tubular structures
+\citep{kirchhoff2024skeletonrecall}. We tried them because the unseen-module problem of this thesis is a domain shift and the
+crack is a thin structure, not because they were shown to work on EL.
+
+\section{Label noise and benchmark practice}\label{sec:rw_noise}
+
+Our audit of the labels (Chapter~\ref{ch:data}) draws on work about label errors and benchmark validity outside EL. Of these
+works we read the abstracts and, for one, the method section. Confident learning estimates which labels are wrong from a
+model's predicted probabilities \citep{northcutt2021confident}, and Northcutt and colleagues found label errors in the test sets
+of ten common benchmarks, enough to change the ranking of models \citep{northcutt2021pervasive}. For segmentation, label quality
+can be scored per image from the predictions of any trained model \citep{lad2023labelquality}, and label errors can be found
+at the level of connected components \citep{rottmann2023labelerrors}. Near-duplicates between train and test sets, found
+in CIFAR, bias comparisons towards memorisation \citep{barz2020cifair}; contradictory annotations of the same data set an
+upper bound on any measured score \citep{tschirschwitz2025label}; and bias in visual datasets is surveyed by
+\citet{fabbrizzi2022bias}. Each of these has an EL counterpart in our data: the label-error candidates and the double annotation of the pool, the physical-cell duplicates between the legacy test
+set and the pool, and the image statistics that name the source (Chapter~\ref{ch:background}). Chapter~\ref{ch:data} measures
+each of them.
+
+\section{Semi-supervised learning: why the framing was dropped}\label{sec:rw_ssl}
+
+This project began as semi-supervised segmentation: 11,938 unlabelled CSIR and ARTS cells were available on our servers,
+from a public pool of about 159,000 cells of the same two sources. The literature gives a reason to expect little from this
+with all labels in hand: the gain from unlabelled images shrinks as the labelled share grows. On the Pascal benchmark of
+\citet{yang2025unimatchv2}, for example, the labelled-only baseline with a DINOv2-S encoder scores 67.0\% mIoU with 1/16 of the
+labels and 83.7\% with half of them, while UniMatch V2 scores 79.0\% and 86.7\%. On EL images, \citet{torpey2024pretraining}
+compare pretraining regimes on release \texttt{20220723}; their two semi-supervised rows were run once each, against five runs per
+regime for the others. \citet{jha2025pvs3} report semi-supervised results on BenchmarkEL subsets and on UCF-EL, the latter with
+test images inside their released training lists (Section~\ref{sec:rw_numbers}).
+
+Our own pre-protocol results agree with this shape, on the legacy split and the 50 legacy test cells (in-distribution, known
+leakage, context only; Table~\ref{tab:T21}). At 5\% labels, pseudo-labelling with separate batch normalisation and CutMix
+improved inactive IoU by +0.117 [+0.042, +0.189] and crack relF1@2 by +0.033 [+0.006, +0.055]; from 20\% of the labels upward
+no difference was detectable, and adding the external unlabelled pool at full labels gave no detectable gain. A null of this kind closes
+only the recipes that were run, under their conditions; it does not show that unlabelled data is useless for EL. In our
+reading it did show that, with every label in use, the measurable problems of this work lay elsewhere: in the split, the
+metric and the unseen modules. The project then dropped the semi-supervised framing and became a benchmark, for the
+reasons of Section~\ref{sec:rw_numbers} (Chapter~\ref{ch:intro}); Chapter~\ref{ch:legacy} gives the history.

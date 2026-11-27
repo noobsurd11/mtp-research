@@ -1,0 +1,66 @@
+=== check before the slim step (B1: missing slim.pth must FAIL): FAIL	P7 slim	no slim.pth: the slim step did not run or failed ('c3x_smoke.sh slim' returns slim_ckpt.py's rc; log Q/slim_smoke_c3x_path.log) # 1 FAIL: P7 slim 
+=== slim step through c3x_smoke.sh slim (real slim_ckpt.py of the c3x tree)
+slim smoke_c3x_path step 6 keys ['swad', 'swad_bn'] latest_md5 ce199a5c8d62adcbab2b20f51797619e slim_md5 37fc98f6628c1f43679ce2db9b9f5574
+slim step rc 0
+=== slim step again (slim.pth exists): REFUSED (slim): slim.pth exists; rc 1
+=== positive
+# c3x smoke check: Q /tmp/claude-1003/-home-yugma-mtp/e0fe0a1b-de27-464f-816b-2df6724d18f1/scratchpad/fx3/q, repo /tmp/claude-1003/-home-yugma-mtp/e0fe0a1b-de27-464f-816b-2df6724d18f1/scratchpad/fx3/repo, dumps /tmp/claude-1003/-home-yugma-mtp/e0fe0a1b-de27-464f-816b-2df6724d18f1/scratchpad/fx3/dumps (FIXTURE: CPU test run, not the smoke)
+
+## (a) MEMORY and the gate
+PASS	smoke_c3x_mem_hrnet cfgcheck	[2026-11-17 18:30:00] smoke_c3x_mem_hrnet config OK (= card)
+PASS	smoke_c3x_mem_hrnet startup	[2026-11-17 18:30:05] smoke_c3x_mem_hrnet startup line OK: Labelled: 425 (/home/noob/work/bench_data_v3b/roots/cv5v3_v11_f0/splits/train.txt)  unlabelled: 0 (-)  val: 107  test: 107
+PASS	smoke_c3x_mem_hrnet rc	[2026-11-17 18:33:00] trained smoke_c3x_mem_hrnet rc=3
+PASS	smoke_c3x_mem_hrnet 300 steps	2026-11-17 18:33:00 WARNING src.trainers.trainer — exit_after_step=300 reached: hard exit (simulated crash)
+PASS	smoke_c3x_mem_combo cfgcheck	[2026-11-17 18:30:00] smoke_c3x_mem_combo config OK (= card)
+PASS	smoke_c3x_mem_combo startup	[2026-11-17 18:30:05] smoke_c3x_mem_combo startup line OK: Labelled: 425 (/home/noob/work/bench_data_v3b/roots/cv5v3_v11_f0/splits/train.txt)  unlabelled: 0 (-)  val: 107  test: 107
+PASS	smoke_c3x_mem_combo rc	[2026-11-17 18:33:00] trained smoke_c3x_mem_combo rc=3
+PASS	smoke_c3x_mem_combo 300 steps	2026-11-17 18:33:00 WARNING src.trainers.trainer — exit_after_step=300 reached: hard exit (simulated crash)
+PASS	peak plain HRNet	9512 MiB (memory smoke, gaint)
+PASS	peak c3x card, memory smoke	9700 MiB (gaint)
+PASS	peak c3x card, path smoke	9750 MiB (gaint; to step 600 with the BN re-estimate and the final evaluation)
+RULE	gate	P = max(9700, 9750) = 9750 MiB; job gate = max(11000, P + 2,048) = 11798 MiB (lead's Q1 ruling); job list: GATE=11798 (c3x_queue.sh build) = python c3x_make_jobs.py <out> --gate 11798
+PASS	pass criterion	P - plain HRNet = 9750 - 9512 = +238 MiB (at most 1024; above it: the memory model is wrong, the lead looks before anything is armed); memory smoke alone +188 MiB
+INFO	cv02 estimate	8432 + (c3x - plain on gaint, memory smoke) +188 = 8620 MiB; with P instead 8670 MiB (+ 2,048 = 10718)
+
+## (b) PATH
+PASS	smoke_c3x_path cfgcheck	[2026-11-17 18:40:00] smoke_c3x_path config OK (= card)
+PASS	smoke_c3x_path startup	[2026-11-17 18:40:05] smoke_c3x_path startup line OK: Labelled: 425 (/home/noob/work/bench_data_v3b/roots/cv5v3_v11_f0/splits/train.txt)  unlabelled: 0 (-)  val: 107  test: 107
+PASS	smoke_c3x_path rc	[2026-11-17 18:46:00] trained smoke_c3x_path rc=0
+INFO	schedule	fixture: total_steps 6, enc_probe_every 3, swad 4 to 6, encoder_pf freeze 2 ramp 1
+PASS	P0 order of events	encoder unfrozen at 2, ramped by 3 <= first probe 3 <= window start 4 (real run: 1000 + 1000 <= 2000 <= 10000)
+PASS	P0 encoder frozen, then moving	PF encoder lr at logged steps before 2: [(1, 0.0)]; at the first probe step 3: 2e-06
+PASS	P1 averagers built	2026-11-17 18:33:16 INFO src.trainers.weight_avg — WAVG: [('ema_9998', {'mode': 'ema', 'decay': 0.9998, 'start': 0, 'end': None, 'n': 0}), ('swad', {'mode': 'uniform', 'decay': None, 'start': 4, 'end': 6, 'n': 0})]; bn_recal True; checkpoint keys ['ema_9998', 'swad', 'raw_bn', 'ema_9998_bn', 'swad_bn']
+PASS	P2 first probe call	2026-11-17 18:33:17 INFO src.trainers.enc_probe — ENC probe step 3  model: cos=1.0000 nr=1.0000 dev=0.0000
+PASS	P2 probe steps	[3, 6]
+PASS	P2 enc_probe.jsonl	2 rows, steps [3, 6], stages ['model'], n [321]
+PASS	P2 moving encoder, finite probe	cos per step [(3, 1.0), (6, 0.99999998)]; every cos, nr, dev finite: True; every cos < 1: True
+PASS	F losses finite	18 loss values on 6 step lines; non-finite: []
+PASS	F probe log values finite	6 values in 2 'ENC probe' lines
+PASS	P4 BN re-estimate line	2026-11-17 18:34:37 INFO src.trainers.weight_avg — WAVG BN recal: ['ema_9998_bn', 'raw_bn', 'swad_bn'] on 425 train cells (54 batches) in 74 s
+PASS	P5 last step line	2026-11-17 18:33:19 INFO src.trainers.trainer — step 6/6  loss=4.159  loss_sup=4.159  loss_con=0  lambda=0  lr=3.5e-05  steps_per_sec=1.953
+PASS	P5 final save line	2026-11-17 18:34:38 INFO src.trainers.trainer — saved latest.pth at step 6
+PASS	P5 latest.pth	step 6, models keys ['ema_9998', 'ema_9998_bn', 'model', 'raw_bn', 'swad', 'swad_bn']
+PASS	P3 averaging window	weight_avg.swad {'mode': 'uniform', 'decay': None, 'start': 4, 'end': 6, 'n': 3}; ema_9998 n 6 (window start 4: n = 6 - 4 + 1 = 3)
+PASS	P3 swad != model	max |swad - model| over float tensors 1.188e-01
+PASS	P4 swad_bn vs swad	BN running stats differ in 686 of 686 tensors; the other 1031 tensors equal: True
+PASS	F weights finite	non-finite tensors in latest.pth models: []
+INFO	dump_smoke_c3x_path queue	fixture: no dump queue
+PASS	P6 dump_smoke_c3x_path line	dumped smoke_c3x_path cv5v3_f0: 107 cells, 132.6 MiB, ties 0, key swad_bn, step 6, cpu/fp32, 60s -> /tmp/claude-1003/-home-yugma-mtp/e0fe0a1b-de27-464f-816b-2df6724d18f1/scratchpad/fx3/dumps/elbench1/
+PASS	P6 dump_smoke_c3x_path manifest	run_id smoke_c3x_path, weights_key swad_bn, step 6, set cv5v3_f0, checkpoint md5 = latest.pth, device cpu, train_code_revision synthetic
+INFO	dump_smoke_c3x_path.swad queue	fixture: no dump queue
+PASS	P6 dump_smoke_c3x_path.swad line	dumped smoke_c3x_path.swad cv5v3_f0: 107 cells, 132.6 MiB, ties 0, key swad, step 6, cpu/fp32, 60s -> /tmp/claude-1003/-home-yugma-mtp/e0fe0a1b-de27-464f-816b-2df6724d18f1/scratchpad/fx3/dumps/elbench
+PASS	P6 dump_smoke_c3x_path.swad manifest	run_id smoke_c3x_path.swad, weights_key swad, step 6, set cv5v3_f0, checkpoint md5 = latest.pth, device cpu, train_code_revision synthetic
+PASS	P7 slim	keys ['swad', 'swad_bn'], slim_of keys ['swad_bn', 'swad'], all_keys ['ema_9998', 'ema_9998_bn', 'model', 'raw_bn', 'swad', 'swad_bn'], tensors equal to latest.pth: True
+INFO	P7 slim line	slim smoke_c3x_path step 6 keys ['swad', 'swad_bn'] latest_md5 ce199a5c8d62adcbab2b20f51797619e slim_md5 37fc98f6628c1f43679ce2db9b9f5574
+
+# 0 FAIL
+rc 0
+=== negative delta_1088: FAIL	pass criterion	P - plain HRNet = 10600 - 9512 = +1088 MiB (at most 1024; above it: the memory model is wrong, the lead looks before anything is armed); memory smoke alone +188 MiB # 1 FAIL: pass criterion 
+=== negative loss_nan: FAIL	F losses finite	18 loss values on 6 step lines; non-finite: [(2, 'loss', 'nan')] # 1 FAIL: F losses finite 
+=== negative probe_cos_1: FAIL	P2 moving encoder, finite probe	cos per step [(3, 1.0), (6, 0.99999998)]; every cos, nr, dev finite: True; every cos < 1: False # 1 FAIL: P2 moving encoder, finite probe 
+=== negative lr_at_probe_0: FAIL	P0 encoder frozen, then moving	PF encoder lr at logged steps before 2: [(1, 0.0)]; at the first probe step 3: 0.0 # 1 FAIL: P0 encoder frozen, then moving 
+=== negative order_freeze_1000: FAIL	P0 order of events	encoder unfrozen at 1000, ramped by 1001 <= first probe 3 <= window start 4 (real run: 1000 + 1000 <= 2000 <= 10000) FAIL	P0 encoder frozen, then moving	PF encoder lr at logged steps before 1000: [(5, 3e-06), (6, 3.5e-06)]; at the first probe step 3: 2e-06 # 2 FAIL: P0 order of events, P0 encoder frozen, then moving 
+=== negative slim_missing: FAIL	P7 slim	no slim.pth: the slim step did not run or failed ('c3x_smoke.sh slim' returns slim_ckpt.py's rc; log Q/slim_smoke_c3x_path.log) # 1 FAIL: P7 slim 
+=== negative slim_without_swad: FAIL	P7 slim	keys ['swad_bn'] (dumped keys missing: ['swad']), slim_of keys ['swad_bn', 'swad'], all_keys ['ema_9998', 'ema_9998_bn', 'model', 'raw_bn', 'swad', 'swad_bn'], tensors equal to latest.pth: False # 1 FAIL: P7 slim 
+=== failed slim step: rc 1; FileNotFoundError: [Errno 2] No such file or directory: 'experiments/smoke_c3x_path/checkpoints/latest.pth' SLIM FAILED (slim_ckpt.py rc 1; /tmp/claude-1003/-home-yugma-mtp/e0fe0a1b-de27-464f-816b-2df6724d18f1/scratchpad/fx3/n/slim_fails/q/slim_smoke_c3x_path.log) 
+=== c3x_smoke.sh check: rc 1; check rc 1; output kept in /tmp/claude-1003/-home-yugma-mtp/e0fe0a1b-de27-464f-816b-2df6724d18f1/scratchpad/fx3/n/check_rc/q/smoke_check.out (c3x_queue.sh build reads its RULE line); smoke_check.out kept; RULE gate read by c3x_queue.sh's pattern: 11798

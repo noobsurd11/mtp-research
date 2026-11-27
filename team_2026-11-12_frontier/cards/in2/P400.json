@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2610.05918",
+ "title": "Prompt and Refinement: Asymmetric Mutual Learning for Infrared Small Target Detection with Noisy Labels",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2610.05918",
+ "code_url": "",
+ "mechanism": "Two asymmetric learners, one prompt-driven and one refinement-driven, correct each other's noisy masks for small faint targets (abstract-level reading).",
+ "adaptation": "Short faint crack components (76 to 88% under 20 px) are the closest analogue; would pair a prompt-based refiner with the house model to correct crack labels mutually. Details unread (MCP down).",
+ "min_experiment": "Read the method first; if feasible, arm: mutual correction on crack labels; baseline: house; metric comp>=20px recall and relF1@2; kill if both n.d.",
+ "evidence": "unverified beyond abstract fragment.",
+ "score": 40,
+ "bench_score": 25,
+ "bet": "moonshot",
+ "targets": [
+  "crack"
+ ],
+ "gpu_hours": 15,
+ "prior_overlap": "partial: CPS/mutual learning was run at 5% for SSL, not for correcting labelled-set labels.",
+ "directions": [
+  "D16"
+ ],
+ "scout_scores": [
+  40
+ ],
+ "final": 40,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 400,
+ "pid": "P400"
+}

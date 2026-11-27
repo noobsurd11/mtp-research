@@ -1,0 +1,12 @@
+# label-free read (bench_labelfree.py ca9af858); set pool_half_p0; 236 cells; baseline PLAIN
+run	n	crack_px_mean	share_ge50	comp20_sum	unsure_px_mean	d4_relf1
+PLAIN|w1g_pf_v11_f0_s5	236	10.5	0.081	46	14.1	n/a
+PLAIN|w1g_pf_v11_f1_s5	236	11.2	0.068	42	17.0	n/a
+D4|w1g_pf_v11_f0_s5.tta_d4	236	6.4	0.064	28	91.9	n/a
+D4|w1g_pf_v11_f1_s5.tta_d4	236	4.7	0.034	20	80.8	n/a
+D4MS|w1g_pf_v11_f0_s5.tta_d4ms	236	3.4	0.030	15	223.9	n/a
+D4MS|w1g_pf_v11_f1_s5.tta_d4ms	236	2.5	0.017	11	179.4	n/a
+arm	mean crack px per cell	ratio to baseline (label-free volume; no test)
+D4	5.6	0.513
+D4MS	3.0	0.276
+PLAIN	10.8	1.000

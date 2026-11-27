@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2403.05369",
+ "title": "Frequency-Adaptive Dilated Convolution for Semantic Segmentation",
+ "year": 2024,
+ "venue": "CVPR 2024 highlight",
+ "url": "https://arxiv.org/abs/2403.05369",
+ "code_url": "https://github.com/Linwei-Chen/FADC",
+ "mechanism": "Per-pixel dilation rate set from local frequency content; AdaKern balances low / high kernel parts; FreqSelect damps high frequency in background regions.",
+ "adaptation": "Put FADC + FreqSelect in ResNet-34 layer3/4 at output stride 16. FreqSelect could learn to damp the finger frequency band away from defects.",
+ "min_experiment": "Arm: PF + FADC in layer3/4, 5 seeds. Baseline: PF. Metric: crack IoU, gridline IoU. Kill: crack IoU < +0.012.",
+ "evidence": "R: gains on semantic segmentation and detection (abstract); numbers not read.",
+ "gpu_hours": 8,
+ "prior_overlap": "none",
+ "score": 45,
+ "bench_score": 25,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "other_classes"
+ ],
+ "directions": [
+  "D28"
+ ],
+ "scout_scores": [
+  45
+ ],
+ "final": 45,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 321,
+ "pid": "P321"
+}

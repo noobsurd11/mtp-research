@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.1007/978-3-032-31673-8_35",
+ "title": "Loss Landscape Topology Reveals Why Simple Baselines are Competitive at 3D Point Cloud Segmentation Under Class Imbalance",
+ "year": 2026,
+ "venue": "LNCS",
+ "url": "https://arxiv.org/abs/2607.21089",
+ "code_url": "",
+ "mechanism": "Systematic comparison of 11 imbalance methods vs plain CE: CE stays within 0.8-3.3 mIoU; poorly tuned specialised methods can degrade badly.",
+ "adaptation": "Benchmark rule: include tuned plain CE(+Dice) as the control and report tuning budget per method; prior that loss-only fixes give small gains.",
+ "min_experiment": "No training run; fold into benchmark protocol (equal tuning budget per imbalance method).",
+ "score": 15,
+ "bench_score": 50,
+ "bet": "safe",
+ "evidence": "R: 3D point clouds, imbalance 641:1 and 56:1, two architectures: CE within 0.8-3.3% mIoU of specialised methods.",
+ "gpu_hours": 0,
+ "prior_overlap": "none",
+ "targets": [
+  "benchmark"
+ ],
+ "directions": [
+  "D19"
+ ],
+ "scout_scores": [
+  15
+ ],
+ "final": 15,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 610,
+ "pid": "P610"
+}

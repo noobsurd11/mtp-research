@@ -1,0 +1,35 @@
+{
+ "paper_id": "arxiv:2307.05080",
+ "title": "Estimating label quality and errors in semantic segmentation data via any model",
+ "year": 2023,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2307.05080",
+ "code_url": "",
+ "mechanism": "Image label-quality score = soft-minimum of out-of-sample likelihood of each pixel's given class (cleanlab segmentation, built on confident learning doi:10.1613/jair.1.12125).",
+ "adaptation": "Run cleanlab find_label_issues on the same out-of-fold softmax maps as the ensemble-ranking arm; zero extra training; standard baseline for the benchmark's label audit.",
+ "min_experiment": "Arm: cleanlab ranking. Baseline: ensemble ranking (Nogueira-style). Metric: precision at 24 vs audit-flagged cells. Kill: none, kept as baseline row; drop from training arms if precision below ensemble ranking.",
+ "score": 50,
+ "bench_score": 65,
+ "bet": "safe",
+ "targets": [
+  "crack",
+  "benchmark",
+  "measurement"
+ ],
+ "evidence": "R: soft-min score best of 7 for detecting mislabeled images in SYNTHIA with DeepLabV3+/FPN. Nogueira 2026 measured cleanlab tau 0.17, worst on deletions.",
+ "gpu_hours": 0,
+ "prior_overlap": "none.",
+ "directions": [
+  "D37"
+ ],
+ "scout_scores": [
+  50
+ ],
+ "final": 50,
+ "bench": 65,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 196,
+ "pid": "P196"
+}

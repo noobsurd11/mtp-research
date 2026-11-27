@@ -1,0 +1,43 @@
+{
+ "paper_id": "doi:10.1109/cvpr52733.2024.00525",
+ "title": "ViT-CoMer: Vision Transformer with Convolutional Multi-scale Feature Interaction for Dense Predictions",
+ "year": 2024,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2403.07392",
+ "code_url": "https://github.com/Traffic-X/ViT-CoMer",
+ "mechanism": "Bidirectional CNN-transformer fusion injecting multi-receptive-field conv features into a plain ViT, pretraining-free.",
+ "adaptation": "Alternative to ViT-Adapter on DINOv3; run only the one that ports to the timm DINOv3 model with less work.",
+ "min_experiment": "Same as ViT-Adapter arm; kill same.",
+ "evidence": "R: ViT-CoMer-L 64.3 AP COCO val2017, 62.1 mIoU ADE20K val.",
+ "gpu_hours": 40,
+ "bet": "medium",
+ "prior_overlap": "none.",
+ "score": 45,
+ "bench_score": 50,
+ "targets": [
+  "e1_unseen",
+  "benchmark"
+ ],
+ "directions": [
+  "D22"
+ ],
+ "scout_scores": [
+  45,
+  40
+ ],
+ "alt_notes": [
+  {
+   "from": "D22",
+   "adaptation": "Alternative to ViT-Adapter on DINOv3; run only whichever ports to the timm DINOv3 model with less work; same decoder and schedule.",
+   "min_experiment": "Replace ViT-Adapter in the same arm; same baseline, metrics and kill line. About 25 GPU-h.",
+   "score": 40
+  }
+ ],
+ "final": 45,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 285,
+ "pid": "P285"
+}

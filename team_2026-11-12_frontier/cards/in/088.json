@@ -1,0 +1,85 @@
+{
+ "paper_id": "doi:10.1109/jphotov.2023.3249970",
+ "title": "Automatic Crack Segmentation and Feature Extraction in Electroluminescence Images of Solar Modules (PV-Vision)",
+ "year": 2023,
+ "venue": "IEEE Journal of Photovoltaics",
+ "url": "https://www.osti.gov/servlets/purl/1973673",
+ "code_url": "https://github.com/hackingmaterials/pv-vision",
+ "mechanism": "From segmented cracks and busbars, compute the crack-isolated area (region cut off from all busbars) as worst-case inactive area, plus crack length and brightness inside the isolated area.",
+ "adaptation": "Build an isolated-region map from our predicted crack plus ribbon/busbar classes and feed it as an extra input to a second-stage inactive head (inactive touches a crack in 99% of cases). Same map gives a severity output. Public DuraMAT crack set (1,272/206/359) usable as an external cross-dataset test.",
+ "min_experiment": "Step 0 (CPU): on val compute isolated area from GT crack + ribbon masks; kill if it covers < 50% of GT inactive pixels. Step 1: arm PF + isolated map into stage-2 inactive head v PF, 5 seeds; metric inactive IoU; kill if < +0.02.",
+ "evidence": "R: UNet-VGG16 crack F1 0.875, IoU 0.782 on their own test set (359 cells, includes busbar class); companion PVSC 2022 paper predicts maximum inactive area from detected cracks.",
+ "prior_overlap": "none",
+ "score": 60,
+ "bench_score": 80,
+ "bet": "safe",
+ "gpu_hours": 8,
+ "targets": [
+  "inactive",
+  "severity",
+  "benchmark"
+ ],
+ "directions": [
+  "D02",
+  "D03",
+  "D04",
+  "D08",
+  "D36",
+  "D44"
+ ],
+ "scout_scores": [
+  55,
+  60,
+  50,
+  35,
+  35,
+  50,
+  52
+ ],
+ "alt_notes": [
+  {
+   "from": "D02",
+   "adaptation": "Same per-dataset-head joint training as MSPS; map its dark area class to a second inactive head to attack the 42-cell inactive shortage; resample 400 px to our scale. Hold out its test split as an external crack test set for the benchmark.",
+   "min_experiment": "Arm: PF + LBNL joint with own head. Baseline: PF, 5 v 5 seeds. Metrics: E1 crack relF1@2, test inactive IoU (BMRK cells), test crack IoU. Kill if E1 relF1@2 gain < 0.03 and inactive IoU gain < 0.02.",
+   "score": 55
+  },
+  {
+   "from": "D04",
+   "adaptation": "Physics prior for inactive (99% of our inactive regions touch a crack label): build crack-bounded regions from predicted crack + busbar + border masks and relabel a region inactive if its mean EL is below a source-wise fraction of the cell median; union / vote with the network's inactive map. Also an open baseline for the benchmark suite.",
+   "min_experiment": "Arm: house 5-seed ensemble + region rule (threshold tuned on CV folds only); baseline: same ensemble. Metric: CV inactive IoU and relR. Kill if inactive IoU < +0.02.",
+   "score": 50
+  },
+  {
+   "from": "D08",
+   "adaptation": "Run its released model under our protocol as a published EL baseline; use its crack features for severity; its crack set is possible extra data (D02 / D03).",
+   "min_experiment": "No training arm: inference of PV-Vision model on our test-clean and E1 under our metrics (crack IoU, relF1@2). Then optional joint training with its crack set vs house; kill if test crack IoU < +0.012.",
+   "score": 35
+  },
+  {
+   "from": "D08",
+   "adaptation": "Run the released model under our protocol as a published EL baseline; its features feed the severity track; its dataset is extra data for D02/D03.",
+   "min_experiment": "No training arm: evaluate released PV-Vision weights on test-clean and E1 crack relF1@2 and IoU under our protocol (benchmark row). Kill not applicable.",
+   "score": 35
+  },
+  {
+   "from": "D36",
+   "adaptation": "Third pixel-labelled EL crack source for joint training; its high IoU suggests wide crack labels (unverified), so it must enter through source conditioning or a separate head. Crack-isolated-area features give a severity baseline.",
+   "min_experiment": "Measure its median crack label width first. Then add it as a source in the joint run (MultiTalent arm) vs joint run without it; 5 seeds each. Metric: clean-49 crack IoU, E1 crack recall. Kill if no gain >= 0.012 crack IoU or +0.03 E1 recall. ~15 GPU-h.",
+   "score": 50
+  },
+  {
+   "from": "D44",
+   "adaptation": "Use our predicted crack + ribbons (+ busbars) + border masks. Interior components touching no ribbon are isolated. If an isolated part is darker than a per-source threshold fitted on train, label it inactive and OR it with the model's inactive. For half-cut E1 cells, add the cut edge as a barrier.",
+   "min_experiment": "CPU post-processing on PF and PF-ensemble predictions; thresholds fitted on module-grouped 5-fold CV (532 cells). Metrics: inactive IoU, P / R, BMRK inactive IoU on CV and E1. Kill if CV inactive IoU gain < +0.02 or precision drop > 0.05. <2 GPU-h.",
+   "score": 52
+  }
+ ],
+ "final": 60,
+ "bench": 80,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 88,
+ "pub_allowed": 1,
+ "selected_for": "top"
+}

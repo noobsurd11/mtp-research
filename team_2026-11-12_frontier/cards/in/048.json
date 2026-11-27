@@ -1,0 +1,60 @@
+{
+ "paper_id": "doi:10.1061/jccee5.cpeng-7090",
+ "title": "Segment Any Crack: Deep Semantic Segmentation Adaptation for Crack Detection",
+ "year": 2026,
+ "venue": "Journal of Computing in Civil Engineering",
+ "url": "https://arxiv.org/abs/2504.14138",
+ "code_url": "",
+ "mechanism": "Fine-tune only the normalization parameters (LayerNorm gain and bias) of a foundation model and the head; this beats full fine-tuning and other PEFT in accuracy and in generalization to unseen datasets.",
+ "adaptation": "Arm (a): house ResNet-34 U-Net++ with all encoder conv weights frozen, BN affine plus decoder trained (a stricter PF). Arm (b): a large frozen encoder (SAM or DINOv3 ViT-L) with LN-only tuning and a U-Net++ style decoder, 24-class head, gray replicated to 3 channels. Aimed at E1 where encoder preservation already moved inactive IoU 0.05 to 0.24.",
+ "min_experiment": "Arms (a) and (b) vs baseline PF, 3 seeds. Metric: E1 crack relF1@2, E1 inactive IoU, CV crack IoU. Kill if neither arm beats PF by +0.03 E1 relF1@2 or +0.05 E1 inactive IoU while CV crack IoU stays within 0.01.",
+ "score": 66,
+ "bench_score": 60,
+ "bet": "medium",
+ "targets": [
+  "e1_unseen",
+  "inactive",
+  "crack"
+ ],
+ "evidence": "R: SAC reaches F1 61.22% and IoU 44.13% on OmniCrack30k test, best mean on three zero-shot datasets with lowest std; norm-only beat full fine-tuning across SAM and five other segmentation models.",
+ "gpu_hours": 15,
+ "prior_overlap": "Partial: PF (frozen 1k steps then 0.1x lr) tested encoder preservation; norm-only tuning and large frozen ViT with norm tuning are untested (section 5 lists large ViT, adapters as open).",
+ "directions": [
+  "D09",
+  "D14"
+ ],
+ "scout_scores": [
+  66,
+  66,
+  55,
+  58
+ ],
+ "alt_notes": [
+  {
+   "from": "D09",
+   "adaptation": "(a) House ResNet-34 U-Net++: freeze conv weights, train BN affine plus decoder (a stricter PF). (b) Frozen DINOv3 ViT-L or SAM encoder, LayerNorm-only tuning, U-Net++ style decoder, 24-class head, 1-channel EL replicated to 3. Aimed at E1, where PF already moved inactive IoU 0.05 to 0.24.",
+   "min_experiment": "Arms (a) and (b), 3 seeds each, vs house PF. Metric: E1 crack relF1@2 and E1 inactive IoU, module-grouped 5-fold CV crack IoU. Kill if neither arm beats PF by +0.03 E1 relF1@2 or +0.05 E1 inactive IoU with CV crack IoU within 0.01.",
+   "score": 66
+  },
+  {
+   "from": "D14",
+   "adaptation": "(a) Norm-only tuning of the SAM2 / DINOv3 encoder inside the FM arms; (b) house U-Net++ R34 with encoder convs frozen, only BN + decoder trained (stricter than PF), aimed at E1.",
+   "min_experiment": "House norm-only encoder vs PF, 5 seeds; success = E1 crack relF1@2 +0.03 or E1 inactive IoU > 0.28 with CV crack relF1@2 drop <= 0.01.",
+   "score": 55
+  },
+  {
+   "from": "D14",
+   "adaptation": "SAM ViT or SAM2 Hiera encoder LN-only plus a trainable multi-class conv decoder at 1024; tests whether minimal encoder drift helps E1 the way PF helped E1 inactive.",
+   "min_experiment": "LN-only arm inside the PEFT grid vs house PF; metric E1 crack relF1@2 and E1 inactive IoU, plus clean-49 crack IoU; kill if E1 relF1@2 gain < 0.03 and test crack IoU drops > 0.01.",
+   "score": 58
+  }
+ ],
+ "final": 66,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 48,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

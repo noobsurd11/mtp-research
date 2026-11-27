@@ -1,0 +1,10 @@
+rank	paper_id	title	status	arm	note
+9	arxiv:2411.01713	Rethinking Weight Decay for Robust Fine-Tuning of Foundation Models (SPD)	RUN_NOW	encoder_spd	full text read; SPD replaces PF 0.1x encoder lr, lambda 1 (2.2 fallback); mechanism gate layer3/4 cosine >= 0.8
+23	arxiv:2102.08604	SWAD: Domain Generalization by Seeking Flat Minima	RUN_NOW	swad_const	full text read; constant lr + uniform average steps 10k-20k fixed window, BN recal; window not fit on scored fold
+30	arxiv:2411.18704	Exponential Moving Average of Weights in Deep Learning: Dynamics and Benefits	RUN_NOW	ema_wise_posthoc	full text read (to ~90%); paired readout, trajectory-neutral; small effect expected under cosine-to-0; also EMA readout in swad_const
+32	arxiv:1802.01483	Explicit Inductive Bias for Transfer Learning with Convolutional Networks (L2-SP)	PARKED	encoder_spd	abstract only; below SPD in SPD Table 4 seg (73.47/56.70 vs 74.27/60.06); fallback if SPD fails mechanism gate
+77	arxiv:2109.01903	Robust fine-tuning of zero-shot models (WiSE-FT)	RUN_AFTER_GATE	ema_wise_posthoc	abstract only; gate: W1a house+PF cv5v2_v11 trained, CPU init-identity and loss-barrier pre-checks pass
+86	arxiv:2010.01412	Sharpness-Aware Minimization for Efficiently Improving Generalization	RUN_NOW	sam	abstract + repo README; lowest priority, 2x cost; SWAD Table 3 shows SAM n.s. OOD on PACS
+21	doi:10.1109/cvpr52688.2022.00969	DAFormer: Rare Class Sampling	RUN_NOW	rcs	full text read; pre-check E: all-24-class RCS lowers inactive px share (0.81x), R13 T=0.01 raises it 2.49x; class list R13
+33	arxiv:2304.13615	Domain Adaptive and Generalizable Network Architectures and Training Strategies (DAFormer/HRDA TPAMI)	RUN_NOW	rcs	abstract only; RCS covered by arm rcs; FD parked; HRDA multi-res crops belong to another family
+43	arxiv:2111.14887	DAFormer: RCS + ImageNet Feature Distance + warmup	RUN_NOW	rcs; modern_recipe	full text read; RCS in rcs, AdamW wd 0.01 + 1.5k warmup in modern_recipe; thing-class FD PARKED (all-class FD only +0.6 in Table 5)

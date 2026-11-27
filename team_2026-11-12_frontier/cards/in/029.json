@@ -1,0 +1,46 @@
+{
+ "paper_id": "arxiv:2609.30223",
+ "title": "BiCC: Bidirectional Connected-Component Loss for Instance-Aware Segmentation",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2609.30223",
+ "code_url": "https://github.com/TIO-IKIM/BiCC-Loss",
+ "mechanism": "DiceCE on Voronoi cells of each GT component plus a branch on Voronoi cells of predicted components that penalises pure false-positive components with a size-independent mass score; alpha trades lesion precision vs recall.",
+ "adaptation": "2D 8-connectivity on merged crack instances and inactive components; GT Voronoi cells precomputed in the loader, prediction cells per step via GPU connected components on 8 x 512 px. Replaces soft Dice on crack/inactive; CE on 24 classes kept. FP branch penalises decoys (scuff streaks, gridline look-alikes) per component.",
+ "min_experiment": "Arms: alpha 0 (CC-DiceCE) and 0.5, 5 seeds each vs house 5 seeds. Metrics: component F1 on merged instances (test clean-49, E1), relF1@2, crack and inactive IoU. Kill: component F1 not above house by 0.02 on both sets.",
+ "evidence": "5 datasets (AutoPET III, ISLES, BraTS-METS, LiTS, CMB), 5-fold nnU-Net: lesion F1 significantly above DiceCE on 3, tie on 2; CC-DiceCE loses up to 0.363 precision; post-hoc thresholding of DiceCE cannot reproduce the alpha sweep; +17-23% training time on A6000.",
+ "gpu_hours": 14,
+ "bet": "medium",
+ "prior_overlap": "Global logit bias was tried (ensemble); BiCC shows threshold shifts cannot reproduce its precision-recall shift. No component-wise loss run.",
+ "targets": [
+  "crack",
+  "inactive",
+  "e1_unseen"
+ ],
+ "score": 68,
+ "bench_score": 65,
+ "directions": [
+  "D18",
+  "D20"
+ ],
+ "scout_scores": [
+  56,
+  68
+ ],
+ "alt_notes": [
+  {
+   "from": "D18",
+   "adaptation": "Crack: GT branch for small missed cracks, prediction branch for decoys (scuff streaks on half-cut E1 cells, busbar edges); alpha tuned on val relP@2/relR@2.",
+   "min_experiment": "Arm: house loss + BiCC on crack, 5 seeds; baseline SUP100 and the CC-DiceCE arm. Metric components found, relP@2, E1 false-alarm components. Kill: components found < +0.02 at relP@2 drop <= 0.02.",
+   "score": 56
+  }
+ ],
+ "final": 68,
+ "bench": 65,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 29,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

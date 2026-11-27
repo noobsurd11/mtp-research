@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2408.13509",
+ "title": "Dual-Interrelated Diffusion Model for Few-Shot Anomaly Image Generation (DualAnoDiff)",
+ "year": 2025,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2408.13509",
+ "code_url": "",
+ "mechanism": "Two interrelated diffusion models generate the whole image and the anomaly part together, so the mask follows the generated defect; background and shape information reduce blur.",
+ "adaptation": "Same role as AnomalyDiffusion for blobby classes and as a benchmark baseline; only if code is public.",
+ "min_experiment": "Arm: PF + DualAnoDiff inactive samples. Baseline: row 2 arm. Metric: CV inactive IoU. Kill: not better than row 2; skip unless code exists by 20 Nov.",
+ "score": 35,
+ "bench_score": 45,
+ "bet": "medium",
+ "targets": [
+  "inactive",
+  "benchmark"
+ ],
+ "evidence": "R: better diversity, realism and mask accuracy than prior methods on MVTec and better downstream detection, localization, classification (abstract).",
+ "gpu_hours": 30,
+ "prior_overlap": "None.",
+ "directions": [
+  "D06"
+ ],
+ "scout_scores": [
+  35
+ ],
+ "final": 35,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 454,
+ "pid": "P454"
+}

@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.52202/068431-2130",
+ "title": "Test-Time Training with Masked Autoencoders",
+ "year": 2022,
+ "venue": "NeurIPS",
+ "url": "https://arxiv.org/abs/2209.07522",
+ "code_url": "https://github.com/yossigandelsman/test_time_training_mae",
+ "mechanism": "For each test image, the MAE encoder is trained on masked-patch reconstruction for a few steps, and the task head then predicts from the updated encoder.",
+ "adaptation": "Needs a ViT MAE encoder; our ResNet-34 does not fit. Only viable if D23/D24 build a ViT segmenter close to FINAL: MAE-pretrain it on the 11.9k pool, fine-tune for segmentation, then run 20-step per-cell TTT on E1.",
+ "min_experiment": "Arm: ViT segmenter + per-cell MAE TTT. Baseline: the same ViT segmenter without TTT (it must be within 0.01 of FINAL on test). Kill if E1 relF1@2 gains < +0.03.",
+ "score": 25,
+ "bench_score": 40,
+ "bet": "moonshot",
+ "targets": [
+  "e1_unseen"
+ ],
+ "evidence": "R: improves robustness on ImageNet-C and other shift benchmarks with one-sample TTT.",
+ "gpu_hours": 20,
+ "prior_overlap": "None at test time. MIM pretraining on ResNet-34 was n.d. (BRIEF s5), but per-image TTT on a ViT was never run.",
+ "directions": [
+  "D31"
+ ],
+ "scout_scores": [
+  25
+ ],
+ "final": 25,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 562,
+ "pid": "P562"
+}

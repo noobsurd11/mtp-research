@@ -1,0 +1,43 @@
+{
+ "paper_id": "arxiv:2601.14605",
+ "title": "U-Harmony: Enhancing Joint Training for Segmentation Models with Universal Harmonization",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2601.14605",
+ "code_url": "",
+ "mechanism": "Per-instance feature harmonization, then restoration layers that reinject dataset-specific statistics into the decoder. A domain-gated head infers each domain's contribution from prototypes, so no dataset ID is needed at test.",
+ "adaptation": "A source-gated decoder for the case where the source is unknown or shifted (E1 half-cut CSIR, benchmark new-module track). Check whether the gate picks CSIR on E1.",
+ "min_experiment": "Arm = house PF + harmonize/restore + gated head (3 seeds) versus house PF. Metrics: E1 crack relF1@2 and test crack IoU. Kill if E1 relF1@2 < +0.02 and test is n.d.",
+ "score": 45,
+ "bench_score": 35,
+ "bet": "medium",
+ "targets": [
+  "e1_unseen",
+  "crack"
+ ],
+ "evidence": "R: cross-institution brain lesion datasets; a secondary summary reports up to +8.4% DSC (unverified against the full paper).",
+ "gpu_hours": 8,
+ "prior_overlap": "per-panel BN adaptation failed, but that was test-time BN statistics, not learned dataset-gated restoration",
+ "directions": [
+  "D17"
+ ],
+ "scout_scores": [
+  45,
+  38
+ ],
+ "alt_notes": [
+  {
+   "from": "D17",
+   "adaptation": "Source-gated decoder for cells of unknown source (benchmark new-module track, WattCycle's future rig); compare gate-chosen source with the true source on E1.",
+   "min_experiment": "Arm: U-Harmony gated decoder, 5 seeds, no source ID at test vs source-FiLM arm with true ID and house PF; metric clean-49 crack IoU and E1 relF1@2; kill if it does not reach at least half of the source-FiLM gain.",
+   "score": 38
+  }
+ ],
+ "final": 45,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 302,
+ "pid": "P302"
+}

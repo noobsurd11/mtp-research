@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:1907.05740",
+ "title": "Gated-SCNN: Gated Shape CNNs for Semantic Segmentation",
+ "year": 2019,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/1907.05740",
+ "code_url": "",
+ "mechanism": "A full-resolution shape stream, gated by the main stream and supervised with boundaries, runs in parallel with the regular segmentation stream.",
+ "adaptation": "A shape stream at 512 px gated by U-Net++ encoder features, with boundary targets as in SBCB (crack band excluded). Run only if the SBCB arm helps the thin structure classes.",
+ "min_experiment": "Arm: house + shape stream. Baseline: house. Metrics: gridline and edge_dark IoU, mIoU_rob. Kill if the gain is < 0.01 mIoU_rob over the SBCB arm.",
+ "evidence": "R: Cityscapes mIoU +2 and boundary F +4 over strong baselines. The abstract claims larger gains on thinner, smaller objects.",
+ "prior_overlap": "none",
+ "score": 40,
+ "bench_score": 30,
+ "bet": "medium",
+ "gpu_hours": 8,
+ "targets": [
+  "other_classes"
+ ],
+ "directions": [
+  "D27"
+ ],
+ "scout_scores": [
+  40
+ ],
+ "final": 40,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 392,
+ "pid": "P392"
+}

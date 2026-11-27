@@ -1,0 +1,35 @@
+{
+ "paper_id": "arxiv:2610.30007",
+ "title": "Multiclass Boundary Refinement with Neural Cellular Automata for Remote Sensing Land Cover Segmentation",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2610.30007",
+ "code_url": "",
+ "mechanism": "Extends rNCA to multiclass: an NCA updates class probabilities of a frozen segmenter in log space so they stay on the simplex, with free hidden channels, correcting boundary position error cell by cell.",
+ "adaptation": "Multiclass refiner over our 24-class softmax so crack, inactive, gridline and background pixels are traded jointly; train on out-of-fold maps; most useful for inactive borders and crack/inactive overlap.",
+ "min_experiment": "Arm: house ensemble + multiclass NCA. Baseline: house ensemble. Metrics: inactive IoU, crack IoU, mIoU_rob, boundary IoU on 5-fold CV. Kill: inactive IoU < +0.01 and mIoU_rob < +0.005.",
+ "evidence": "R: mean boundary IoU 46.63 -> 48.99 over the frozen base; +8.5 BIoU on the most irregular class (woodland).",
+ "prior_overlap": "none.",
+ "score": 52,
+ "bench_score": 30,
+ "bet": "medium",
+ "gpu_hours": 10,
+ "targets": [
+  "inactive",
+  "crack",
+  "other_classes"
+ ],
+ "directions": [
+  "D26"
+ ],
+ "scout_scores": [
+  52
+ ],
+ "final": 52,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 183,
+ "pid": "P183"
+}

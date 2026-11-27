@@ -1,0 +1,43 @@
+{
+ "paper_id": "doi:10.1016/j.knosys.2026.115713",
+ "title": "Task-specific knowledge distillation from the vision foundation model for enhanced medical image segmentation",
+ "year": 2026,
+ "venue": "Knowledge-Based Systems",
+ "url": "https://arxiv.org/abs/2503.06976",
+ "code_url": "",
+ "mechanism": "Fine-tune a VFM on the target task, then distil it into a small segmentation network.",
+ "adaptation": "Only if a VFM-H arm helps E1: distil it into house U-Net++ R34 with soft labels on 478 labelled + 11.9k pool cells, keeping the cheap model for deployment and ensembles.",
+ "min_experiment": "Arm: R34 student distilled from the best VFM-H arm. Baseline: house PF. Metric: E1 crack relF1@2 and inactive IoU, clean-49 crack IoU. Kill: student keeps less than half of the teacher's E1 gain.",
+ "score": 50,
+ "bench_score": 50,
+ "bet": "safe",
+ "targets": [
+  "deployment",
+  "e1_unseen"
+ ],
+ "evidence": "R: abstract fragment; medical segmentation with limited target data; numbers not read.",
+ "gpu_hours": 20,
+ "prior_overlap": "none: distillation is listed as never tried.",
+ "directions": [
+  "D24"
+ ],
+ "scout_scores": [
+  50,
+  45
+ ],
+ "alt_notes": [
+  {
+   "from": "D24",
+   "adaptation": "Only if a VFM-H arm wins: distil its soft logits into house U-Net++ R34 on labelled cells + 11.9k pool as transfer set.",
+   "min_experiment": "Distilled R34 vs house PF; E1 relF1@2 and CV crack relF1@2; kill if the student keeps less than half the teacher's E1 gain.",
+   "score": 45
+  }
+ ],
+ "final": 50,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 201,
+ "pid": "P201"
+}

@@ -1,0 +1,11 @@
+c1d4 no: cq.sh rc 1; last line: cv02 q: gpumem logger (cq_gpumem.sh) not running; not starting
+jobs 20 (e1_106 10, test50 10); rendered 20; ensemble members with logp 10
+render compare: 0 FAIL
+cfgcheck calls: 20
+negative (no SEALED) c1d4 no: rc 1; cv02 q: fin_hrnet_swad_v11_pool_s5.swad.tta_d4.e1_106: dump-only extra must be '--dumpof <run dir> --key <key> --tta <mode>'; not starting
+c1d4 yes: cq.sh rc 1; last line: cv02 q: gpumem logger (cq_gpumem.sh) not running; not starting
+jobs 30 (e1_106 15, test50 15); rendered 30; ensemble members with logp 10
+render compare: 0 FAIL
+cfgcheck calls: 30
+negative (no SEALED) c1d4 yes: rc 1; cv02 q: fin_hrnet_swad_v11_pool_s5.swad.tta_d4.e1_106: dump-only extra must be '--dumpof <run dir> --key <key> --tta <mode>'; not starting
+render smoke rc 0

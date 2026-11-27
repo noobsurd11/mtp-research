@@ -1,0 +1,43 @@
+{
+ "paper_id": "doi:10.1016/j.media.2025.103556",
+ "title": "Evaluating medical AI systems in dermatology under uncertain ground truth",
+ "year": 2025,
+ "venue": "Medical Image Analysis",
+ "url": "https://arxiv.org/abs/2307.02191",
+ "code_url": "",
+ "mechanism": "Treats ground truth as a distribution aggregated from annotators and reports metrics with ground-truth uncertainty, instead of against one label.",
+ "adaptation": "Benchmark scoring: treat each crack label as a distribution (two label versions, 2 px tolerance band) and report strict IoU, relF1@2 and a ground-truth-uncertainty interval per method.",
+ "min_experiment": "No training. Recompute existing model scores with ground-truth-uncertainty intervals on CV folds and check whether the method ranking changes.",
+ "score": 20,
+ "bench_score": 70,
+ "bet": "safe",
+ "targets": [
+  "benchmark",
+  "measurement"
+ ],
+ "evidence": "R: dermatology classification with multiple raters; shows that ground-truth uncertainty changes the evaluated accuracy (abstract not retrieved in full).",
+ "gpu_hours": 0,
+ "prior_overlap": "none",
+ "directions": [
+  "D17"
+ ],
+ "scout_scores": [
+  20,
+  15
+ ],
+ "alt_notes": [
+  {
+   "from": "D17",
+   "adaptation": "Benchmark design: crack ground truth as a distribution (2021 and 2022 label versions, 2 px tolerance band); report strict IoU, relF1@2 and an interval reflecting label uncertainty, per source.",
+   "min_experiment": "No GPU: recompute existing house and ensemble scores under both label versions and a 2 px band; report per-source intervals; adopt if ranking of methods changes for any pair within the interval.",
+   "score": 15
+  }
+ ],
+ "final": 20,
+ "bench": 70,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 581,
+ "pid": "P581"
+}

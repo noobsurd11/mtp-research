@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2505.08525",
+ "title": "Dynamic Snake Upsampling Operater and Boundary-Skeleton Weighted Loss for Tubular Structure Segmentation",
+ "year": 2025,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2505.08525",
+ "code_url": "",
+ "mechanism": "Upsampling operator that adapts its stride and picks sub-pixel samples along a serpentine path; distance-field loss weighting skeleton to boundary.",
+ "adaptation": "Replace bilinear upsampling in the last two U-Net++ decoder stages; skip the boundary weighting (a 1.75 px label is all boundary).",
+ "min_experiment": "Arm: snake upsampling, 5 seeds; baseline house. Metrics crack relF1@2, components found. Kill: gains < 0.01.",
+ "evidence": "Plug-in gains in pixel accuracy and topology across datasets and backbones (abstract; numbers not read).",
+ "gpu_hours": 10,
+ "prior_overlap": "none",
+ "score": 42,
+ "bench_score": 25,
+ "bet": "medium",
+ "targets": [
+  "crack"
+ ],
+ "directions": [
+  "D12"
+ ],
+ "scout_scores": [
+  42
+ ],
+ "final": 42,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 350,
+ "pid": "P350"
+}

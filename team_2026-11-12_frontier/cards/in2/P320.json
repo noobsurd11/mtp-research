@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2507.06569",
+ "title": "Edge-Boundary-Texture Loss: A Tri-Class Generalization of Weighted Binary Cross-Entropy for Enhanced Edge Detection",
+ "year": 2025,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2507.06569",
+ "code_url": "",
+ "mechanism": "Split pixels into edge, boundary (near-edge) and texture classes, each with its own supervisory weight, generalising weighted BCE.",
+ "adaptation": "Crack / 1-2 px ring around the label skeleton / rest; low weight (0.2) on the ring so firing on the ridge 1 px off the drawn line is barely punished; applied to the crack channel of the 24-class CE.",
+ "min_experiment": "Arm PF with EBT ring weights vs PF; metric relF1@2 and width ratio; kill if relF1@2 +<0.01 or width ratio >1.2.",
+ "evidence": "Beats WBCE across several edge benchmarks with one fixed hyperparameter set; numbers not read.",
+ "prior_overlap": "partial: BRIEF 5 offset-tolerant CE (n.d.) used tolerance, not near-crack down-weighting; open",
+ "score": 45,
+ "bench_score": 25,
+ "bet": "safe",
+ "targets": [
+  "crack"
+ ],
+ "gpu_hours": 20,
+ "directions": [
+  "D11"
+ ],
+ "scout_scores": [
+  45
+ ],
+ "final": 45,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 320,
+ "pid": "P320"
+}

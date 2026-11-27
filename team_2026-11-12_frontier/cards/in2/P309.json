@@ -1,0 +1,43 @@
+{
+ "paper_id": "arxiv:2105.07576",
+ "title": "Rethinking \"Batch\" in BatchNorm",
+ "year": 2021,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2105.07576",
+ "code_url": "",
+ "mechanism": "Review of BN caveats from batch choices (train vs population stats, precise BN, frozen BN in fine-tuning, domain-specific stats) and their fixes.",
+ "adaptation": "Batch 8 with 5 mixed sources: test encoder BN frozen at ImageNet stats, precise-BN recompute on train before eval, and both. Required plumbing for EMA, SWAD, WiSE-FT, LiNeS arms.",
+ "evidence": "Review with mitigations in visual recognition (abstract).",
+ "min_experiment": "Precise BN on existing checkpoints (zero training), then frozen-BN arm vs PF seeds 5-9. Kill if val relF1@2 change < +0.005.",
+ "gpu_hours": 6,
+ "targets": [
+  "e1_unseen",
+  "crack"
+ ],
+ "bet": "safe",
+ "prior_overlap": "Partial: per-panel BN adaptation at test time failed; training-time BN choices never varied.",
+ "score": 45,
+ "bench_score": 30,
+ "directions": [
+  "D35"
+ ],
+ "scout_scores": [
+  45,
+  45
+ ],
+ "alt_notes": [
+  {
+   "from": "D35",
+   "adaptation": "Batch 8 mixes 5 sources: test (a) encoder BN frozen at ImageNet stats, (b) precise-BN recompute on train before eval, (c) both. Needed plumbing for weight averaging arms.",
+   "min_experiment": "Arm: (b) free on existing checkpoints; (a) and (c) 5 seeds. Baseline: SUP100-PF. Metric: test crack relF1@2, E1 crack relF1@2. Kill: all within noise.",
+   "score": 45
+  }
+ ],
+ "final": 45,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 309,
+ "pid": "P309"
+}

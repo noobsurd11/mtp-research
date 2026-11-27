@@ -1,0 +1,6 @@
+selftest HC: G1 delta -0.0228 / -0.0230 (exp -0.0228 / -0.0230) True, TRIP (exp TRIP) True | G2 relP +0.0017 (exp +0.0017) True, E1 crack-free x0.90 (exp x0.90) True, ok (exp ok) True
+selftest SKR w 1.0: G1 delta -0.0170 / -0.0161 (exp -0.0170 / -0.0161) True, TRIP (exp TRIP) True | G2 relP -0.0702 (exp -0.0702) True, E1 crack-free x2.40 (exp x2.40) True, TRIP (exp TRIP) True
+selftest CLD: G1 delta -0.0114 / -0.0106 (exp -0.0114 / -0.0106) True, ok (exp ok) True | G2 relP -0.0186 (exp -0.0186) True, E1 crack-free x1.53 (exp x1.53) True, TRIP (exp TRIP) True
+selftest SUPPF: E1 crack-free px per seed [3092, 2718, 5178, 4179, 4486] (exp [3092, 2718, 5178, 4179, 4486]) True | mean 3931 (exp 3931) True | test relP@2 mean 0.9417 (exp 0.9417) True sd (exp 0.0015) True
+selftest G3 wiring (synthetic): hi > 0 ok True | hi < 0 TRIP True | hi == 0 ok True | missing -> MISSING True
+SELFTEST PASS

@@ -1,0 +1,51 @@
+{
+ "paper_id": "arxiv:2604.24276",
+ "title": "Instance Awareness of Multi-class Semantic Segmentation Loss Functions",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2604.24276",
+ "code_url": "",
+ "mechanism": "One-vs-rest extension of blob / CC losses so each class and each instance contributes equally, with inverse-size weighting confined inside each component.",
+ "adaptation": "Apply the multi-class CC loss over crack, inactive, splice, gridline, edge_dark, material so the rare and weak classes get equal signal on 478 cells.",
+ "min_experiment": "Arm house + multi-class CC loss vs SUP100, 5 v 5. Metric mIoU_rob, inactive IoU, crack IoU. Kill if mIoU_rob < +0.01 and inactive < +0.03, or crack IoU < -0.012.",
+ "score": 56,
+ "bench_score": 50,
+ "bet": "medium",
+ "targets": [
+  "inactive",
+  "other_classes"
+ ],
+ "evidence": "R: BraTS-METS 2025, 260 test cases: foreground Dice 0.64 vs 0.59 baseline; inverse-size weighting raises rare-class Dice to 0.44 at a detection cost.",
+ "gpu_hours": 6,
+ "prior_overlap": "none",
+ "directions": [
+  "D18",
+  "D20"
+ ],
+ "scout_scores": [
+  56,
+  54,
+  48
+ ],
+ "alt_notes": [
+  {
+   "from": "D18",
+   "adaptation": "Apply jointly to rare and weak classes (crack, inactive, splice, gridline, edge_dark, material) so each instance gets equal signal.",
+   "min_experiment": "Arm: house loss + multi-class CC loss, 5 seeds; baseline SUP100. Metric mIoU_rob, inactive IoU, crack IoU. Kill: mIoU_rob < +0.01 and inactive IoU < +0.03, crack not worse than -0.012.",
+   "score": 54
+  },
+  {
+   "from": "D20",
+   "adaptation": "Apply to small-component defect classes (crack, inactive, gridline, splice, edge_dark, material) only; structural classes keep CE.",
+   "min_experiment": "Arm: house + multi-class CC loss over 6 defect classes, 5 seeds. Baseline: house. Metrics: mIoU_rob, gridline and splice IoU, crack IoU. Kill: mIoU_rob < house + 0.005 or crack IoU drop > 0.012.",
+   "score": 48
+  }
+ ],
+ "final": 56,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 129,
+ "pid": "P129"
+}

@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2007.10035",
+ "title": "Improving Semantic Segmentation via Decoupled Body and Edge Supervision",
+ "year": 2020,
+ "venue": "ECCV 2020",
+ "url": "https://arxiv.org/abs/2007.10035",
+ "code_url": "https://github.com/lxtGH/DecoupleSegNets",
+ "mechanism": "Splits features into a body part (made consistent by learned flow warping) and an edge part, each with its own supervision on sampled body and edge pixels.",
+ "adaptation": "Apply to inactive and the cell-structure classes (blob interiors with sharp edges). Crack stays on the normal head because it is all edge.",
+ "min_experiment": "Arm: house + body/edge decoupled decoder. Baseline: house. Metrics: inactive IoU (CV), border and material IoU. Kill if the inactive CV gain is < 0.02 and mIoU_rob gain is < 0.01.",
+ "evidence": "R: Cityscapes 83.7 mIoU with fine annotations only; also CamVid, KITTI, BDD.",
+ "prior_overlap": "none",
+ "score": 38,
+ "bench_score": 25,
+ "bet": "medium",
+ "gpu_hours": 8,
+ "targets": [
+  "inactive",
+  "other_classes"
+ ],
+ "directions": [
+  "D27"
+ ],
+ "scout_scores": [
+  38
+ ],
+ "final": 38,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 431,
+ "pid": "P431"
+}

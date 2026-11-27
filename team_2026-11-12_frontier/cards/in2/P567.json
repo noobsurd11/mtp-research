@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2111.14482",
+ "title": "High Quality Segmentation for Ultra High-resolution Images (CRM)",
+ "year": 2022,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2111.14482",
+ "code_url": "",
+ "mechanism": "Continuous Refinement Model: an implicit-function refiner that aligns features to the refinement target and can output at any resolution.",
+ "evidence": "R: claims generalisation across the low-res training / ultra-high-res test gap (abstract, no numbers on page).",
+ "adaptation": "Query at 2x or 4x output resolution to model sub-pixel crack position and source-specific width, then downsample; tests whether width / alignment error is a resolution problem.",
+ "min_experiment": "Arm: CRM-style implicit refiner at 2x output. Baseline: house ensemble. Metric: crack IoU, relF1@1 and @2. Kill: crack IoU < +0.012.",
+ "score": 25,
+ "bench_score": 20,
+ "bet": "moonshot",
+ "gpu_hours": 10,
+ "targets": [
+  "crack"
+ ],
+ "prior_overlap": "2x input resolution n.d.; implicit super-resolved output not run.",
+ "directions": [
+  "D26"
+ ],
+ "scout_scores": [
+  25
+ ],
+ "final": 25,
+ "bench": 20,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 567,
+ "pid": "P567"
+}

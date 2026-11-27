@@ -1,0 +1,45 @@
+{
+ "paper_id": "arxiv:2406.03917",
+ "title": "Frequency-Based Matcher for Long-Tailed Semantic Segmentation",
+ "year": 2024,
+ "venue": "IEEE TMM",
+ "url": "https://arxiv.org/abs/2406.03917",
+ "code_url": "",
+ "mechanism": "One-to-many query matching where the number of queries matched to each class is set from class frequency, to stop oversuppression of rare classes in mask transformers; also a long-tailed seg benchmark with a dual (frequent vs rare) metric.",
+ "adaptation": "In a mask classifier on our 24 classes, give inactive, splice, corrosion, material several matched queries per image; report frequent-class and rare-class mIoU separately (fits mIoU_rob vs all-class).",
+ "min_experiment": "M2F arm B vs B + frequency-based matching, 5-fold CV; metric inactive IoU and mean IoU over rare classes (splice, material, edge_dark, corrosion); kill if rare-class mIoU gain < 0.02.",
+ "score": 45,
+ "bench_score": 50,
+ "bet": "medium",
+ "targets": [
+  "inactive",
+  "other_classes",
+  "benchmark"
+ ],
+ "evidence": "R: abstract only (TMM 2024); tail-class numbers not retrieved; code promised, unverified.",
+ "gpu_hours": 10,
+ "prior_overlap": "none: long-tail losses and matching never tried.",
+ "directions": [
+  "D19",
+  "D23"
+ ],
+ "scout_scores": [
+  25,
+  45
+ ],
+ "alt_notes": [
+  {
+   "from": "D19",
+   "adaptation": "Benchmark design: report head and tail classes separately in our per-class tables. Matcher only if a Mask2Former-type decoder is adopted.",
+   "min_experiment": "No training run; adopt head/tail split reporting in the benchmark scorer and recompute existing runs.",
+   "score": 25
+  }
+ ],
+ "final": 45,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 280,
+ "pid": "P280"
+}

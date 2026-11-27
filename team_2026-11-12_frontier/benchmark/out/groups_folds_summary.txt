@@ -1,0 +1,97 @@
+## A. Legacy masks_escdd rebuilt locally (check against handbook 03 §2.2: crack 209 / 23 / 48, inactive 42 / 6 / 16)
+  train: cells 478; crack cells 209 (E-SCDD own masks 206); inactive cells 42; crack px 271805 (E-SCDD own 271102); crack-free cells 269
+  val: cells 54; crack cells 23 (E-SCDD own masks 23); inactive cells 6; crack px 37938 (E-SCDD own 37938); crack-free cells 31
+  test: cells 50; crack cells 48 (E-SCDD own masks 46); inactive cells 16; crack px 92074 (E-SCDD own 91838); crack-free cells 2
+
+## B. Physical-module groups, whole corpus (rule of judge/b6_groups.py extended; edges 43 + 11 listed D6 pairs)
+  image ids 491 -> groups 463
+  groups spanning > 1 image id: 15; cells in them 82
+    ['CFVS_00009', 'CFVS_00010', 'CFVS_00012', 'CFVS_00013', 'CFVS_00015', 'CFVS_00016']: cells 12, roles {'val': 2, 'train': 10}, inactive px 44278, crack px 21595
+    ['CFVS_00032', 'CFVS_00033', 'CFVS_00035', 'CFVS_00037', 'CFVS_00042', 'CFVS_00046']: cells 11, roles {'train': 5, 'test': 3, 'val': 3}, inactive px 15569, crack px 27046
+    ['ARTS_00020', 'ARTS_00081']: cells 9, roles {'train': 7, 'test': 2}, inactive px 0, crack px 858
+    ['CFVS_00017', 'CFVS_00018', 'CFVS_00020', 'CFVS_00022', 'CFVS_00027', 'CFVS_00031']: cells 9, roles {'val': 1, 'test': 2, 'train': 6}, inactive px 20588, crack px 55370
+    ['CFVS_00102', 'CFVS_00103']: cells 6, roles {'train': 6}, inactive px 11176, crack px 2212
+    ['ARTS_00005', 'ARTS_00097']: cells 5, roles {'train': 4, 'val': 1}, inactive px 0, crack px 2589
+    ['CFVS_00114', 'CFVS_00130']: cells 5, roles {'test': 2, 'train': 2, 'val': 1}, inactive px 55114, crack px 31329
+    ['ARTS_00040', 'ARTS_00061']: cells 4, roles {'train': 3, 'val': 1}, inactive px 0, crack px 0
+    ['CFVS_00007', 'CFVS_00021', 'CFVS_00063']: cells 4, roles {'train': 3, 'test': 1}, inactive px 2230, crack px 1287
+    ['CFVS_00024', 'CFVS_00030']: cells 4, roles {'train': 4}, inactive px 295, crack px 4488
+    ['CFVS_00003', 'CFVS_00006']: cells 3, roles {'train': 2, 'test': 1}, inactive px 0, crack px 1152
+    ['CFVS_00088', 'CFVS_00112']: cells 3, roles {'train': 2, 'val': 1}, inactive px 0, crack px 789
+    ['CFVS_00119', 'CFVS_00128']: cells 3, roles {'train': 3}, inactive px 0, crack px 1293
+    ['CFVS_00065', 'CFVS_00086']: cells 2, roles {'train': 2}, inactive px 0, crack px 0
+    ['CFVS_00139', 'CFVS_00143']: cells 2, roles {'train': 1, 'val': 1}, inactive px 20109, crack px 17461
+  partition of the 532 train + val cells equal to judge's b6_groups.tsv: False (mine 330 groups, judge 334)
+    my group merges B6 groups ['ARTS_00020', 'ARTS_00081'] via ['ARTS_00020', 'ARTS_00081']
+    my group merges B6 groups ['CFVS_00027', 'CFVS_00031'] via ['CFVS_00017', 'CFVS_00020', 'CFVS_00022', 'CFVS_00027', 'CFVS_00031']
+    my group merges B6 groups ['CFVS_00033', 'CFVS_00042', 'CFVS_00046'] via ['CFVS_00032', 'CFVS_00033', 'CFVS_00037', 'CFVS_00042', 'CFVS_00046']
+  test cells in a group with a train / val cell of ANOTHER image id (twin candidates by this rule): 11: ['ARTS_00020_r5_c1', 'ARTS_00020_r7_c3', 'CFVS_00006_r5_c5', 'CFVS_00018_r4_c4', 'CFVS_00027_r4_c4', 'CFVS_00033_r8_c4', 'CFVS_00035_r8_c4', 'CFVS_00042_r8_c4', 'CFVS_00063_r3_c1', 'CFVS_00114_r2_c5', 'CFVS_00114_r6_c5']
+    their crack px 47692 of 92074 (legacy masks); inactive px 30425 of 92125
+  test cells whose group (image id or twin) has a train cell: 28; with a val cell: 14
+  val cells whose group has a train cell: 26
+  E1: image ids 71, groups 71; E1 groups that also hold: train cells 0, val cells 0, test cells 0, ext_in_pool cells 0, rf_in_pool cells 7, rf_not_pool cells 0
+  rf_in_pool: groups 49; groups shared with train 14, val 1, test 1, E1 1
+  rf_not_pool: groups 13; groups shared with train 1, val 1, test 0, E1 0
+  ext_in_pool: groups 8; groups shared with train 1, val 0, test 0, E1 0
+  ungrouped non-CFVS same-position pairs with hp_r >= 0.90 touching test or E1 (visual check needed): 2: [('0.953', 'ARTS_00030_r8_c6', 'test', 'ARTS_00164_r8_c6', 'train', '0.000'), ('0.939', 'ARTS_00030_r8_c6', 'test', 'ARTS_00146_r8_c6', 'train', '0.000')]
+  BMRK pairs with crack-mask IoU >= 0.2 (not grouped; BMRK has no module id): [('0.903', 'BMRK_00031_cell0091', 'train', 'BMRK_00075_cell0255', 'test', '1.000')]
+
+## C. Candidate pools (E-SCDD / 20221008 masks; crack cell = any crack px)
+  pool | cells | groups | crack cells | crack-free cells | crack comps >= 20 px | inactive cells | inactive groups | n_eff inactive by group (px-weighted) | top-3 group share of inactive px | half-cut cells | sources
+  P532 train+val | 532 | 330 | 229 | 303 | 989 | 48 | 34 | 13.2 | 0.388 | 0 | {'ARTS': 182, 'BMRK': 50, 'CFVS': 169, 'CSIR': 114, 'SDLE': 17}
+  P582 legacy all | 582 | 349 | 275 | 307 | 1175 | 64 | 44 | 15.7 | 0.344 | 0 | {'ARTS': 195, 'BMRK': 60, 'CFVS': 187, 'CSIR': 122, 'SDLE': 18}
+  P593 Pratt labels, no E1 | 593 | 356 | 278 | 315 | 1178 | 64 | 44 | 15.7 | 0.344 | 4 | {'ARTS': 195, 'BMRK': 60, 'CFVS': 187, 'CSIR': 133, 'SDLE': 18}
+  P693 no E1, no rf_not_pool | 693 | 383 | 324 | 369 | 1276 | 74 | 53 | 18.2 | 0.312 | 47 | {'ARTS': 198, 'BMRK': 60, 'CFVS': 187, 'CSIR': 230, 'SDLE': 18}
+  P699 all Pratt labels | 699 | 427 | 310 | 389 | 1474 | 74 | 51 | 16.4 | 0.336 | 66 | {'ARTS': 195, 'BMRK': 65, 'CFVS': 187, 'CSIR': 234, 'SDLE': 18}
+  P816 all real | 816 | 463 | 362 | 454 | 1576 | 84 | 60 | 19.0 | 0.305 | 109 | {'ARTS': 198, 'BMRK': 65, 'CFVS': 187, 'CSIR': 348, 'SDLE': 18}
+
+## D. Frozen B6 folds (md5 e2cafce1) on the 532 cells, legacy masks_escdd rebuilt
+  fold | cells | groups | crack cells | crack-free cells | crack px | inactive cells | inactive px | half-cut | mono / multi / dogbone / no_spacing / halfcut | per source
+  0 | 107 | 66 | 52 | 55 | 49358 | 10 | 56753 | 0 | 47 / 47 / 2 / 11 / 0 | {'ARTS': 36, 'BMRK': 10, 'CFVS': 34, 'CSIR': 23, 'SDLE': 4}
+  1 | 107 | 67 | 44 | 63 | 58635 | 8 | 57565 | 0 | 47 / 46 / 1 / 13 / 0 | {'ARTS': 37, 'BMRK': 10, 'CFVS': 34, 'CSIR': 22, 'SDLE': 4}
+  2 | 106 | 64 | 47 | 59 | 59361 | 7 | 57142 | 0 | 38 / 56 / 0 / 12 / 0 | {'ARTS': 37, 'BMRK': 10, 'CFVS': 33, 'CSIR': 23, 'SDLE': 3}
+  3 | 106 | 68 | 47 | 59 | 100201 | 15 | 56785 | 0 | 53 / 41 / 0 / 12 / 0 | {'ARTS': 36, 'BMRK': 10, 'CFVS': 34, 'CSIR': 23, 'SDLE': 3}
+  4 | 106 | 67 | 42 | 64 | 42188 | 8 | 56775 | 0 | 56 / 39 / 0 / 11 / 0 | {'ARTS': 36, 'BMRK': 10, 'CFVS': 34, 'CSIR': 23, 'SDLE': 3}
+  groups split across folds: 2
+
+  [E. DRAFT extension of the frozen folds to P582 (test cells placed with their group, else greedy)] B6 groups with cells already in two frozen folds through new links: [('ARTS_00081', 1, 3), ('ARTS_00081', 1, 3), ('CFVS_00046', 1, 2), ('CFVS_00046', 1, 2)]
+
+## E. DRAFT extension of the frozen folds to P582 (test cells placed with their group, else greedy)
+  fold | cells | groups | crack cells | crack-free cells | crack px | inactive cells | inactive px | half-cut | mono / multi / dogbone / no_spacing / halfcut | per source
+  0 | 115 | 70 | 59 | 56 | 58971 | 14 | 72204 | 0 | 50 / 50 / 2 / 13 / 0 | {'ARTS': 38, 'BMRK': 12, 'CFVS': 37, 'CSIR': 24, 'SDLE': 4}
+  1 | 121 | 69 | 55 | 66 | 91539 | 11 | 82776 | 0 | 54 / 50 / 1 / 16 / 0 | {'ARTS': 42, 'BMRK': 12, 'CFVS': 40, 'CSIR': 23, 'SDLE': 4}
+  2 | 115 | 67 | 56 | 59 | 66625 | 10 | 71648 | 0 | 42 / 59 / 0 / 14 / 0 | {'ARTS': 39, 'BMRK': 12, 'CFVS': 36, 'CSIR': 25, 'SDLE': 3}
+  3 | 116 | 74 | 56 | 60 | 133533 | 20 | 72360 | 0 | 58 / 43 / 0 / 15 / 0 | {'ARTS': 38, 'BMRK': 12, 'CFVS': 37, 'CSIR': 25, 'SDLE': 4}
+  4 | 115 | 71 | 49 | 66 | 50210 | 9 | 78157 | 0 | 61 / 41 / 0 / 13 / 0 | {'ARTS': 38, 'BMRK': 12, 'CFVS': 37, 'CSIR': 25, 'SDLE': 3}
+  groups split across folds: 2
+
+  [F. DRAFT extension to P693] B6 groups with cells already in two frozen folds through new links: [('ARTS_00081', 1, 3), ('ARTS_00081', 1, 3), ('CFVS_00046', 1, 2), ('CFVS_00046', 1, 2)]
+
+## F. DRAFT extension to P693
+  fold | cells | groups | crack cells | crack-free cells | crack px | inactive cells | inactive px | half-cut | mono / multi / dogbone / no_spacing / halfcut | per source
+  0 | 137 | 75 | 68 | 69 | 69557 | 18 | 83021 | 13 | 54 / 53 / 4 / 13 / 13 | {'ARTS': 39, 'BMRK': 12, 'CFVS': 36, 'CSIR': 46, 'SDLE': 4}
+  1 | 143 | 77 | 65 | 78 | 98017 | 12 | 84064 | 8 | 55 / 56 / 9 / 15 / 8 | {'ARTS': 42, 'BMRK': 11, 'CFVS': 41, 'CSIR': 45, 'SDLE': 4}
+  2 | 137 | 75 | 65 | 72 | 69423 | 11 | 83446 | 7 | 45 / 64 / 7 / 14 / 7 | {'ARTS': 40, 'BMRK': 12, 'CFVS': 35, 'CSIR': 47, 'SDLE': 3}
+  3 | 138 | 79 | 67 | 71 | 131701 | 22 | 83096 | 10 | 58 / 55 / 0 / 15 / 10 | {'ARTS': 39, 'BMRK': 12, 'CFVS': 37, 'CSIR': 46, 'SDLE': 4}
+  4 | 138 | 79 | 59 | 79 | 59730 | 11 | 83027 | 9 | 63 / 46 / 6 / 14 / 9 | {'ARTS': 38, 'BMRK': 13, 'CFVS': 38, 'CSIR': 46, 'SDLE': 3}
+  groups split across folds: 2
+
+## G. Leave-one-source-out over P582 (legacy masks) and over P693 (E-SCDD masks): held-out source = test
+  P582 hold out ARTS: test 195 cells, crack 60, inactive 3 | train 387 cells, crack 220, inactive 61
+  P582 hold out BMRK: test 60 cells, crack 40, inactive 12 | train 522 cells, crack 240, inactive 52
+  P582 hold out CFVS: test 187 cells, crack 116, inactive 36 | train 395 cells, crack 164, inactive 28
+  P582 hold out CSIR: test 122 cells, crack 61, inactive 13 | train 460 cells, crack 219, inactive 51
+  P582 hold out SDLE: test 18 cells, crack 3, inactive 0 | train 564 cells, crack 277, inactive 64
+  P693 hold out ARTS: test 198 cells, crack 60, inactive 3 | train 495 cells, crack 264, inactive 71
+  P693 hold out BMRK: test 60 cells, crack 40, inactive 12 | train 633 cells, crack 284, inactive 62
+  P693 hold out CFVS: test 187 cells, crack 116, inactive 36 | train 506 cells, crack 208, inactive 38
+  P693 hold out CSIR: test 230 cells, crack 105, inactive 23 | train 463 cells, crack 219, inactive 51
+  P693 hold out SDLE: test 18 cells, crack 3, inactive 0 | train 675 cells, crack 321, inactive 74
+
+## H. E1 (106) strata (E-SCDD masks; scuff = class 25)
+  full: cells 36, image ids 21, crack cells 4, crack px 1489, crack-free 32, inactive cells 2, inactive px 3664
+  full+scuff: cells 8, image ids 3, crack cells 2, crack px 4068, crack-free 6, inactive cells 0, inactive px 0
+  halfcut: cells 33, image ids 31, crack cells 6, crack px 2491, crack-free 27, inactive cells 1, inactive px 554
+  halfcut+scuff: cells 29, image ids 17, crack cells 20, crack px 24246, crack-free 9, inactive cells 7, inactive px 4940
+  E1 crack px by image id: top-3 share 0.500, n_eff 8.6; crack image ids 21
+  E1 inactive px by image id: top-3 share 0.870, n_eff 3.3; inactive image ids 7

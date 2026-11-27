@@ -1,0 +1,72 @@
+{
+ "paper_id": "doi:10.1007/978-3-032-37627-5_22",
+ "title": "From Reconstruction to Decision: A Post-encoder Plug-in Adapter for Curvilinear Segmentation (PEPA)",
+ "year": 2026,
+ "venue": "LNCS",
+ "url": "https://arxiv.org/abs/2606.23486",
+ "code_url": "",
+ "mechanism": "Post-encoder adapter: target-conditioned snake upsampling to recover thin tortuous structures, plus target-adaptive differentiable thresholding with guards against trivial bias shift; about 0.26M extra params.",
+ "adaptation": "Attach TCSU to the PF decoder or to a frozen foundation encoder; TADT is a learned form of our val-chosen crack logit bias, so test TCSU first with the known bias fixed.",
+ "min_experiment": "Arm: PF + TCSU, val bias kept; baseline: PF + val bias; 3 seeds. Metric: CV crack IoU. Kill if gain < +0.01.",
+ "score": 46,
+ "bench_score": 30,
+ "bet": "medium",
+ "targets": [
+  "crack"
+ ],
+ "evidence": "R: consistent gains on five medical and industrial benchmarks with frozen-encoder baselines; clDice gains larger than IoU gains (numbers not in abstract).",
+ "gpu_hours": 10,
+ "prior_overlap": "Partial: val-chosen crack logit bias tested (+0.004 to +0.007 IoU); snake upsampling untested.",
+ "directions": [
+  "D09",
+  "D14",
+  "D22"
+ ],
+ "scout_scores": [
+  46,
+  46,
+  42,
+  42,
+  45,
+  45
+ ],
+ "alt_notes": [
+  {
+   "from": "D09",
+   "adaptation": "Attach the snake upsampling to the PF decoder for the crack channel; skip the thresholding half since our val-chosen crack logit bias already does that.",
+   "min_experiment": "Arm: PF + snake upsampling; baseline PF + val bias; 3 seeds. Metric: CV crack IoU. Kill if < +0.01.",
+   "score": 46
+  },
+  {
+   "from": "D14",
+   "adaptation": "Attach to the crack channel of the winning FM arm (or the house decoder); the learned threshold replaces our hand-chosen val crack logit bias.",
+   "min_experiment": "Winning FM arm + PEPA vs same arm with val-chosen bias; crack IoU and relF1@2 on CV; kill if gain < 0.005 crack IoU.",
+   "score": 42
+  },
+  {
+   "from": "D14",
+   "adaptation": "Attach to the FM decoder of the best arm, crack class only; the threshold part overlaps our val-chosen logit bias, so the test is the snake upsampler.",
+   "min_experiment": "Best FM arm +/- PEPA upsampler, 3 seeds; crack IoU and recall on components < 20 px; kill if < +0.012 crack IoU.",
+   "score": 42
+  },
+  {
+   "from": "D22",
+   "adaptation": "Attach to crack and gridline heads of the house decoder or a frozen DINOv3 pipeline; TADT replaces the fixed val-chosen crack logit bias with a per-image threshold (may help source-dependent label width).",
+   "min_experiment": "Arm: house PF + PEPA on crack/gridline; baseline: house PF with val-chosen bias; CV crack IoU, relF1@2, gridline IoU. Kill if crack IoU and relF1@2 n.d.",
+   "score": 45
+  },
+  {
+   "from": "D22",
+   "adaptation": "Attach to the house decoder (or a frozen DINOv3 pipeline) on crack and gridline only; adaptive threshold replaces the fixed val-chosen crack bias with a per-image threshold, relevant to the contrast spread across the 5 sources.",
+   "min_experiment": "Arm house PF + PEPA vs house PF; 5-fold CV crack relF1@2, crack IoU, gridline IoU; kill: relF1@2 n.d. and gridline < +0.02. About 10 GPU-h.",
+   "score": 45
+  }
+ ],
+ "final": 46,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 256,
+ "pid": "P256"
+}

@@ -1,0 +1,24 @@
+wrote /home/noob/work/bench_int_io/opening/chain_1118632/io/jobs.txt: 30 lines (C1-D4 in the opening; E1 logp lines 10)
+TEST MODE (dry run, NOT a registration; overrides: IO=/home/noob/work/bench_int_io/opening/chain_1118632/io FIN_VERDICT=/home/noob/work/bench_int_io/opening/chain_1118632/fin_verdict.txt G=8bd1c2761c85f4721e444a8bf7124d2e5804973a R=0c72cf942a5cc89accfcd02e1d2b443a033549d9 EXT_DIR=/home/noob/work/bench_int_io/opening/chain_1118632/ext117 LABELED_DIR=/home/noob/work/bench_int_io/opening/chain_1118632/labeled MASKS_V11_DIR=/home/noob/work/bench_int_io/opening/chain_1118632/masks_v11 REPO_G=/home/noob/work/bench_wt_openg SKIP_GIT=1)
+registered 2026-11-21 08:21:12 IST by noob@giant
+opening_e1 E1 opening #8 e1_open8_final (e1_106, 106 cells)
+opening_t50 test50 opening #19 t50_open19_final (test50, 50 cells)
+rule OPENING_RULE.md 065a7dddfff2efd4897503561955093f
+jobs 3a308b9ca8025bd991ebfaf51e17c6ca 30 lines
+c1d4 yes (fin verdict 4eaf85d28407064e22aa40bc992b2219)
+flags none | ruled: not needed
+commits F 821dfadf49116cc6d5fdbd6697e263dd7cf0f834 G 8bd1c2761c85f4721e444a8bf7124d2e5804973a R 0c72cf942a5cc89accfcd02e1d2b443a033549d9
+runs F2 9967d59abaab03cef83c1e3014840b2359ef45d7 (deploy /tmp/noob_el/bench_9967d59: the 10 full-pool runs, steps 1 to 18,000 under F, the rest under F2 by the fin2 resume; FINAL_RULE_ADDENDUM_1.md)
+stage_manifest 6487d8f6b16f4f7fafce87f87c4a680a
+e1_masks 97527b6f81cd95b573893b82d4a19641
+v0_test50 11aecb57d501c684f5a1635170c6ddb4
+t50_nolink 66f48dc371fbdf8bf95eb66287e74283
+lists e1 5266806b559f74bcf9eae167bb076b95 t50 a31fad14fa27ee28e2a2319b8976aba3 masks_v11 9c0e068740eab192fce6c5020f0e0f8a
+
+REGISTERED.txt md5 4af42786a64168f799a0700add0ee832  (IO /home/noob/work/bench_int_io/opening/chain_1118632/io; nothing sealed is read beyond file hashes and the image copies)
+ledger row (7 columns), team_2026-10-31_next/e1_openings.md, 'Registered E1 openings':
+| 8 | OPENING_RULE.md 065a7dddfff2efd4897503561955093f (harness/final/opening) | C1 fin_pf_v11_pool_s5..9 (model, plain); C2 fin_hrnet_swad_v11_pool_s5..9 (swad, D4) = the final model; C3 = mean softmax of the 5 C2; beside: E-PF, C1-D4 | primary: E1 crack relF1@2, C2 - C1, seed-aware two-stage bootstrap (71 clusters x seeds), M 0.010; guards width (pooled, CSIR), false crack px x1.5, mIoU-R13 -0.010; inactive reported | registered 21 Nov 2026 08:21 (REGISTERED.txt 4af42786a64168f799a0700add0ee832, jobs 3a308b9ca8025bd991ebfaf51e17c6ca) | **registered, NOT opened** | |
+ledger row (6 columns), benchmark/test_openings.md section B 'Counted openings' (where #1 to #18 are):
+| 19 | final opening, test50 public table (harness/final/opening, rule 065a7dddfff2efd4897503561955093f; REGISTERED.txt 4af42786a64168f799a0700add0ee832) | C1 fin_pf_v11_pool_s5..9 (plain), C2 fin_hrnet_swad_v11_pool_s5..9 (swad, D4), C1-D4 | public table only, decides nothing: Pratt median IoU rules A/B/C, PV-S3 both background rules, SEiPV family on v0; protocol card on v1.1 (all 50, clean 49, 16 without module link); C2 - C1 relF1@2 secondary | registered 21 Nov 2026 08:21, **NOT opened** | |
+the same as a section E 'Benchmark openings' row (7 columns), if the lead puts #19 there:
+| 19 | final opening, test50 public table (harness/final/opening, rule 065a7dddfff2efd4897503561955093f) | C1 fin_pf_v11_pool_s5..9 (plain), C2 fin_hrnet_swad_v11_pool_s5..9 (swad, D4), C1-D4 | test50 (v0 and v1.1): public table only, decides nothing; C2 - C1 relF1@2 secondary | 21 Nov 2026 08:21 (REGISTERED.txt 4af42786a64168f799a0700add0ee832) | **NOT opened** | |

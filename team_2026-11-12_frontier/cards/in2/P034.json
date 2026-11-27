@@ -1,0 +1,60 @@
+{
+ "paper_id": "arxiv:2212.01322",
+ "title": "MIC: Masked Image Consistency for Context-Enhanced Domain Adaptation",
+ "year": 2023,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2212.01322",
+ "code_url": "https://github.com/lhoyer/MIC",
+ "mechanism": "On target images, the student sees a patch-masked input and must match confidence-weighted pseudo-labels that the EMA teacher made from the full image. This forces the student to use context.",
+ "adaptation": "Target = the 1,152 multi half-cells + CSIR pool cells, which look like E1 (half-cut, scuff streaks). Source = the 478 labelled cells. Patch 32 to 64 px at 512, mask ratio 0.5 to 0.7, EMA 0.999, weight 1, pixel confidence weighting. Implement as masking added to the existing Mean Teacher code.",
+ "min_experiment": "Arm MIC-E1 vs house PF, 5 seeds. Metric: E1 crack relF1@2 and E1 inactive IoU, plus a clean-49 crack IoU guard. Kill if E1 relF1@2 gains less than 0.03, or if test crack IoU drops by more than 0.01.",
+ "score": 68,
+ "bench_score": 50,
+ "bet": "medium",
+ "targets": [
+  "e1_unseen",
+  "inactive"
+ ],
+ "evidence": "R: GTA->Cityscapes +2.1 mIoU on HRDA (73.8 -> 75.9), +4.3 on CS->DarkZurich. DeepLabV2 R101 gains +1.2 to +4.5. Largest gains on low-baseline classes (fence +5.4, pole +2.6). Removing confidence weighting costs 1.6. Training time +24%.",
+ "gpu_hours": 10,
+ "prior_overlap": "BRIEF row 'Pseudo-label SSL' explicitly leaves open 'UDA-style methods aimed at E1 with target-like data'. Masked consistency with a half-cut target pool was never run. Open.",
+ "directions": [
+  "D29",
+  "D30"
+ ],
+ "scout_scores": [
+  68,
+  55,
+  60,
+  58
+ ],
+ "alt_notes": [
+  {
+   "from": "D29",
+   "adaptation": "Target domain = the 1,152 multi half-cells (plus multi cells) in the unlabelled pool, never E1 itself. Use 32 px mask patches. Drop the crack-class loss inside masked patches, since a thin crack under a mask cannot be inferred, and keep it for inactive, busbar/ribbon and background. Aimed at the half-cut layout and scuff false alarms.",
+   "min_experiment": "Arm: house PF + MIC loss on half-cell pool as target, 5 seeds. Baseline: PF. Metrics: E1 crack relF1@2 and inactive IoU, half-cut false alarms on H36/F51, clean-49 crack IoU non-inferiority (max -0.01). Kill: E1 crack relF1@2 gain < +0.03.",
+   "score": 55
+  },
+  {
+   "from": "D30",
+   "adaptation": "Target = unlabelled pool cells like E1 (the 1,152 multi half-cells plus CSIR cells), never E1. Patch 32 px, ratio 0.5. E1 cracks get p<0.001, so crack pseudo-labels will be missing; the useful signal is DACS pasting true-labelled source cracks into half-cut, scuffed target context. Use class-wise thresholds and do not force uncertain crack pixels to background.",
+   "min_experiment": "PF+DACS+MIC on half-cell+CSIR pool vs PF and the best augmentation arm, 5 seeds. Metrics: E1 crack relF1@2, recall@2 in the 20 scuffed half-cut cells; guard test crack IoU. Kill: E1 relF1@2 gain < +0.03 or test crack IoU drop > 0.01.",
+   "score": 60
+  },
+  {
+   "from": "D30",
+   "adaptation": "Target = 1,152 unlabelled pool half-cells (never E1). Patch 32 to 64 px, mask ratio 0.5 to 0.7. Keep confidence weighting; use a lower threshold or tolerant pseudo-labels for crack (<1% pixels). Risk: teacher gives p<0.001 to 70% of E1-like cracks, so MIC helps only if context, not local contrast, is the failure.",
+   "min_experiment": "PF + MIC on pool half-cells vs PF and vs PF + EMA self-training without masking (isolates masking), 3 seeds. Kill if E1 crack relF1@2 gain over the no-mask arm < +0.03.",
+   "score": 58
+  }
+ ],
+ "final": 68,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 34,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P034"
+}

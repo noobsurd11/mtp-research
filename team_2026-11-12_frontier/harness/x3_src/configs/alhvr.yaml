@@ -1,0 +1,9 @@
+defaults:
+  - base
+
+# ALHVR (two networks, CG-CPCL + DTCT). All alhvr.* flags at reference
+# defaults (see base.yaml and docs/alhvr_port_notes.md).
+method: alhvr
+
+model:
+  grad_checkpoint: true    # two networks x (main + perturbed) passes do not fit otherwise

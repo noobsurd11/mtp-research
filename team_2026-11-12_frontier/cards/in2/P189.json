@@ -1,0 +1,68 @@
+{
+ "paper_id": "arxiv:2402.17611",
+ "title": "A Large-scale Evaluation of Pretraining Paradigms for the Detection of Defects in Electroluminescence Solar Cell Images",
+ "year": 2024,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2402.17611",
+ "code_url": "",
+ "mechanism": "Whole-network dense pretraining (COCO-segmentation DeepLabV3, encoder and decoder) gave the best crack IoU on the BenchmarkEL family; large OOD pretraining beat in-domain SimCLR.",
+ "adaptation": "Use a full segmentation-pretrained model (ADE20K/COCO UPerNet, SegFormer or Mask2Former), average RGB first-conv weights to 1 channel, PF schedule so the pretraining is kept; avoid ResNet-50 DeepLabV3 since R50 was already worse on inactive here.",
+ "min_experiment": "Arm ADE20K-pretrained UPerNet or SegFormer + PF vs house PF, 3-seed screen then 5; crack IoU, mIoU_rob, E1 crack relF1@2; kill if crack IoU < house - 0.01 and mIoU_rob not higher.",
+ "evidence": "R: 642-cell labelled set (28 classes), DeepLabV3-R50; mIoU COCO 0.544, CCT 0.550, ImageNet-SimCLR 0.534, EL-SimCLR 0.517, previous SOTA 0.506; crack IoU: COCO and ImageNet-SimCLR beat all others p <= 0.0001 (block-centred IoU, Tukey HSD).",
+ "prior_overlap": "Partial: foundation encoders tested as frozen probes plus one ConvNeXt-T fine-tune screen; full-network segmentation pretraining kept by PF never run. Open.",
+ "score": 50,
+ "bench_score": 80,
+ "bet": "medium",
+ "gpu_hours": 15,
+ "targets": [
+  "crack",
+  "other_classes",
+  "benchmark"
+ ],
+ "directions": [
+  "D01",
+  "D02",
+  "D03",
+  "D07"
+ ],
+ "scout_scores": [
+  50,
+  20,
+  42,
+  50,
+  50
+ ],
+ "alt_notes": [
+  {
+   "from": "D02",
+   "adaptation": "Template for the benchmark's pretraining axis on our protocol (clean splits, tolerant crack metric, E1).",
+   "min_experiment": "No new arm; reproduce its best pretraining under our protocol inside the benchmark (3 seeds) v house.",
+   "score": 20
+  },
+  {
+   "from": "D03",
+   "adaptation": "Initialise the full DeepLabV3-R50 (encoder and decoder) from torchvision COCO weights, 1-channel by summing RGB filters, fine-tune with PF. For the benchmark, adopt block-centred per-image IoU tests.",
+   "min_experiment": "Arm: COCO-initialised DeepLabV3-R50 under PF. Baselines: same arch with ImageNet encoder only, and house; 5 seeds. Metric: crack and inactive IoU. Kill if crack IoU gain over the ImageNet twin < 0.012.",
+   "score": 42
+  },
+  {
+   "from": "D07",
+   "adaptation": "Pretrain U-Net++ encoder AND decoder on a dense EL task (UCF-EL 9.5k polygons + MultiSolSegment 585 mapped to a coarse shared class space), then PF fine-tune keeping the decoder; add their 22k unlabelled release to the pool if it is not a duplicate of the 159k.",
+   "min_experiment": "Arm dense-EL-pretrained U-Net++ (encoder+decoder) + PF vs PF from ImageNet, 5 seeds, module-grouped 5-fold CV; metrics mIoU_rob and inactive IoU; kill if CV mIoU_rob gain < +0.01 and inactive gain < +0.02.",
+   "score": 50
+  },
+  {
+   "from": "D07",
+   "adaptation": "Pretrain U-Net++ encoder and decoder on a dense EL task (UCF-EL 9.5k polygons + MultiSolSegment 585 mapped to a coarse 5-class space), then PF fine-tune keeping the decoder; add their 22k unlabelled release to the pool if found.",
+   "min_experiment": "Arm dense EL decoder pretraining + PF vs baseline PF from ImageNet, 5 seeds, CV; metric CV mIoU_rob and inactive IoU; kill if mIoU_rob gain < +0.01 and inactive gain < +0.02. About 20 GPU-h.",
+   "score": 50
+  }
+ ],
+ "final": 50,
+ "bench": 80,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 189,
+ "pid": "P189"
+}

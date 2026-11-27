@@ -1,0 +1,43 @@
+{
+ "paper_id": "arxiv:2010.01412",
+ "title": "Sharpness-Aware Minimization for Efficiently Improving Generalization",
+ "year": 2021,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2010.01412",
+ "code_url": "https://github.com/google-research/sam",
+ "mechanism": "Minimise the worst-case loss in a weight neighbourhood of radius rho; seeks flat minima and is robust to label noise.",
+ "adaptation": "rho {0.02,0.05} on Adam (or ASAM), BN stats from the first pass only; 2x step cost. Crack label jitter is treated as label noise.",
+ "evidence": "Better generalisation on CIFAR-10/100, ImageNet and fine-tuning tasks; label-noise robustness comparable to dedicated noisy-label methods (abstract).",
+ "min_experiment": "Arm PF+SAM vs SUP100-PF, seeds 5-9, 20k steps. Metric: test clean crack relF1@2 and IoU, E1 crack relF1@2. Kill if test relF1@2 gain < +0.01 and E1 relF1@2 gain < +0.02; also check 10k / 15k checkpoints (early-stopping effect).",
+ "gpu_hours": 11,
+ "targets": [
+  "crack",
+  "e1_unseen"
+ ],
+ "bet": "medium",
+ "prior_overlap": "none. Noisy-label methods and SAM never run.",
+ "score": 55,
+ "bench_score": 50,
+ "directions": [
+  "D35"
+ ],
+ "scout_scores": [
+  55,
+  55
+ ],
+ "alt_notes": [
+  {
+   "from": "D35",
+   "adaptation": "rho in {0.02, 0.05} on the house Adam (or ASAM), 2x step cost; crack label jitter treated as label noise; also score 10k and 15k checkpoints because SAM's label-noise gain is largest with early stopping (arxiv:2405.03676). arxiv:2408.04065 found plain SAM the only sharpness optimizer that consistently helped on medical data.",
+   "min_experiment": "Arm: PF + SAM, 5 seeds. Baseline: SUP100-PF. Metric: test clean crack relF1@2 and crack IoU, E1 crack relF1@2. Kill: test crack relF1@2 gain < +0.01 and E1 crack relF1@2 gain < +0.02.",
+   "score": 55
+  }
+ ],
+ "final": 55,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 142,
+ "pid": "P142"
+}

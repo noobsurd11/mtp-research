@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1007/978-3-030-58610-2_29",
+ "title": "SegFix: Model-Agnostic Boundary Refinement for Segmentation",
+ "year": 2020,
+ "venue": "ECCV",
+ "url": "https://arxiv.org/abs/2007.04269",
+ "code_url": "",
+ "mechanism": "Predict a boundary map and a direction map; replace each boundary pixel's label with that of an interior pixel along the predicted direction; applies to predictions or labels.",
+ "adaptation": "Post-processing and label cleaning for blob/band classes (inactive, ribbons, border, frame_edge, edge_dark); not for 1 to 2 px cracks (no interior).",
+ "min_experiment": "Arm: SegFix head trained once, applied to house predictions; baseline: house. Metric: mIoU_rob, inactive IoU. Kill if mIoU_rob gain < 0.01.",
+ "evidence": "R: boundary quality gains on Cityscapes/ADE20K (known from paper; numbers not read here).",
+ "score": 35,
+ "bench_score": 35,
+ "bet": "safe",
+ "targets": [
+  "other_classes",
+  "inactive"
+ ],
+ "gpu_hours": 4,
+ "prior_overlap": "none: refinement stages never tried (BRIEF).",
+ "directions": [
+  "D16"
+ ],
+ "scout_scores": [
+  35
+ ],
+ "final": 35,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 462,
+ "pid": "P462"
+}

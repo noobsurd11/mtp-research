@@ -1,0 +1,94 @@
+{
+ "set": "test",
+ "n_cells": 50,
+ "gt_comp20": 189,
+ "op_comp": {
+  "b": 3.9,
+  "j": 120,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.88,
+  "val_P": 0.9
+ },
+ "op_rel": {
+  "b": 2.7,
+  "j": 108,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.8887395223786178,
+  "val_P": 0.9000991120370557
+ },
+ "comp_recall_at_opc": 0.8518518518518519,
+ "comp_prec_at_opc": 0.569060773480663,
+ "relR_at_opr": 0.8845059408736451,
+ "relP_at_opr": 0.5187810351655716,
+ "speck_guard": {
+  "opc": {
+   "compP_all": 0.29711751662971175,
+   "speck_share": 0.015265776498303555
+  },
+  "opr": {
+   "compP_all": 0.28205128205128205,
+   "speck_share": 0.018445931537313283
+  }
+ },
+ "deployed_b": 0.0,
+ "at_deployed": {
+  "P": 0.41799894710592667,
+  "R": 0.6553858852661989,
+  "IoU": 0.34268061376310377,
+  "relP": 0.6146684769055998,
+  "relR": 0.8584833937919499,
+  "compR": 0.8253968253968254,
+  "compP": 0.6016260162601627,
+  "compP_all": 0.3012757605495584,
+  "speck_share": 0.027964035355074673,
+  "inactIoU": 0.45780085834170936
+ },
+ "cell_deployed": {
+  "b": 0.0,
+  "n_pos": 48,
+  "n_neg": 2,
+  "n_ambiguous": 0,
+  "recall": 0.9583333333333334,
+  "fa_rate": 0.0,
+  "precision": 1.0,
+  "auroc": 0.9583333333333334
+ },
+ "cell_at_opc": {
+  "b": 3.9,
+  "n_pos": 48,
+  "n_neg": 2,
+  "n_ambiguous": 0,
+  "recall": 0.9583333333333334,
+  "fa_rate": 0.0,
+  "precision": 1.0,
+  "auroc": 0.9583333333333334
+ },
+ "cell_b0": {
+  "b": 0.0,
+  "n_pos": 48,
+  "n_neg": 2,
+  "n_ambiguous": 0,
+  "recall": 0.9583333333333334,
+  "fa_rate": 0.0,
+  "precision": 1.0,
+  "auroc": 0.9583333333333334
+ },
+ "inactive_area_err": {
+  "b": 0.0,
+  "mae_all": 1.1266321004970457,
+  "mae_inactive_cells": 4.23895028921274,
+  "n_inactive_cells": 13,
+  "mae_other": 0.03311489905639621,
+  "signed_mean": -0.5357456435630099,
+  "max_err": 26.85089111328125
+ },
+ "excluded": [],
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": false,
+ "el_metrics_md5": "45b1df03a8fb2959272534b2ab6b237f"
+}

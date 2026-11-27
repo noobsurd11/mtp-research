@@ -1,0 +1,44 @@
+{
+ "paper_id": "doi:10.1109/icassp40776.2020.9053405",
+ "title": "UNet 3+: A Full-Scale Connected UNet for Medical Image Segmentation",
+ "year": 2020,
+ "venue": "ICASSP",
+ "url": "https://arxiv.org/abs/2004.08790",
+ "code_url": "https://github.com/ZJUGiveLab/UNet-Version",
+ "mechanism": "Full-scale skip connections, full-scale deep supervision, and a classification-guided module that suppresses predictions in images without the target.",
+ "adaptation": "Full-scale skips including a stride-1 stem; CGM as a cell-level inactive-present gate (42 train cells with inactive) to cut BMRK inactive false positives.",
+ "min_experiment": "Arm: UNet 3+ decoder with stem + CGM (PF encoder); baseline: house PF; CV inactive IoU and precision, gridline IoU. Kill if inactive IoU < +0.02 and gridline n.d.",
+ "evidence": "R: gains on two medical datasets (liver, spleen), fewer parameters than UNet++.",
+ "gpu_hours": 12,
+ "bet": "safe",
+ "prior_overlap": "none; decoder never varied.",
+ "score": 40,
+ "bench_score": 50,
+ "targets": [
+  "inactive",
+  "other_classes",
+  "benchmark"
+ ],
+ "directions": [
+  "D22"
+ ],
+ "scout_scores": [
+  40,
+  40
+ ],
+ "alt_notes": [
+  {
+   "from": "D22",
+   "adaptation": "Full-scale skips including a stride-1 stem on ResNet-34; classification-guided module as an image-level inactive-present gate (42 train cells have inactive), aimed at BMRK inactive false positives.",
+   "min_experiment": "Arm UNet 3+ (ResNet-34, PF) vs house PF; 5-fold CV inactive IoU and precision, gridline IoU; kill: inactive IoU n.d. and gridline < +0.03. About 10 GPU-h.",
+   "score": 40
+  }
+ ],
+ "final": 40,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 374,
+ "pid": "P374"
+}

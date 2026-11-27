@@ -1,0 +1,36 @@
+{
+ "paper_id": "doi:10.21203/rs.3.rs-11088886/v1",
+ "title": "Foreground Sampling and Spatial Support in Pavement Crack Segmentation",
+ "year": 2026,
+ "venue": "Research Square preprint",
+ "url": "https://www.researchsquare.com/article/rs-11088886/latest.pdf",
+ "code_url": "",
+ "mechanism": "Controlled study at 2 px tolerance AP: crack-biased crop sampling hurts because it makes background area unreachable; GroupNorm instead of BatchNorm lifts a random-crop U-Net.",
+ "adaptation": "(a) Swap every decoder BatchNorm2d in U-Net++ for GroupNorm(16) while the pretrained encoder keeps BN, batch 8 of mixed sources. (b) Any crack/inactive oversampling or cropping we add must keep the whole cell reachable. Their paired-seed, prespecified-contrast protocol with a practical floor is a template for the benchmark.",
+ "min_experiment": "Arm: PF with GroupNorm decoder, 5 seeds. Baseline: SUP100-PF. Metric: test clean crack relF1@2, crack IoU, inactive IoU, E1 crack relF1@2. Kill: crack relF1@2 and inactive IoU both within 0.012 of PF.",
+ "evidence": "R (full text): Crack500 full-res, U-Net from scratch, AdamW 3e-4, 20k updates, batch 16, BCE+Dice, flips+rot90, 3 paired seeds. AP2 random crops 0.812 (BN), positive-only 0.789, 10% positive 0.730; positive-only made 47% of area unreachable. GroupNorm random 0.844 vs BN 0.812 (+0.032).",
+ "prior_overlap": "none; normalisation and sampling never varied here.",
+ "score": 66,
+ "bench_score": 70,
+ "bet": "medium",
+ "gpu_hours": 6,
+ "targets": [
+  "crack",
+  "benchmark",
+  "measurement"
+ ],
+ "directions": [
+  "D35"
+ ],
+ "scout_scores": [
+  66
+ ],
+ "final": 66,
+ "bench": 70,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 44,
+ "pub_allowed": 1,
+ "selected_for": "top"
+}

@@ -1,0 +1,28 @@
+mutant 1: ok = v["delta"] >= M and v["lo"] >= 0
+FAIL	a5 headline CI low = 0 -> fails (strict)	
+final verdict test: 66 of 67 PASS
+mutant 2: WIDTH = ("width_pooled", "width_source", "false_alarm_pf")
+FAIL	b4 (b) false alarm against CS passes (0.7 x) but false_alarm_pf fails (1.75 x) -> FLAG D4; (c) 
+FAIL	c5 (c) false alarm 4 x PF -> FLAG C2; (a) not replicated; false_alarm_pf of (b) -> FLAG D4	
+final verdict test: 65 of 67 PASS
+mutant 3: G += guards(D, x, r, tag, fa_pf=False)
+FAIL	A4 (b) has false_alarm against CS and false_alarm_pf against PF; (a), (c) no false_alarm_pf	
+FAIL	b3 (b) GAIN, false alarm against CS fails (2.0 x) -> FLAG D4, item named; CS - PF printed as in
+FAIL	b3f false alarm exactly 1.5 x passes (inclusive; against CS, PF, and in (c))	
+FAIL	b4 (b) false alarm against CS passes (0.7 x) but false_alarm_pf fails (1.75 x) -> FLAG D4; (c) 
+FAIL	c5 (c) false alarm 4 x PF -> FLAG C2; (a) not replicated; false_alarm_pf of (b) -> FLAG D4	
+final verdict test: 62 of 67 PASS
+mutant 4: oc_, fc = res.get("plain", res["c"])
+FAIL	c6 FLAG D4 and FLAG C2 together; CS - PF meets the criteria but replaces nothing (C2 still flag
+FAIL	f2 FLAG D4, CS - PF delta < M at 416 OP-W -> 'does not meet the (c) criteria (headline fails)';
+FAIL	f3 FLAG D4, CS - PF false alarm 1.75 x PF -> item named in the information line; C2 check uncha
+FAIL	f7 FLAG D4, CS - PF LOSS -> information only, C2 check unchanged	
+final verdict test: 63 of 67 PASS
+mutant 5: elif ob == "GAIN, FAILING GUARDS NAMED":
+FAIL	b3 (b) GAIN, false alarm against CS fails (2.0 x) -> FLAG D4, item named; CS - PF printed as in
+FAIL	b4 (b) false alarm against CS passes (0.7 x) but false_alarm_pf fails (1.75 x) -> FLAG D4; (c) 
+FAIL	b5 (b) inactive delta < -M -> FLAG D4	
+FAIL	b6 (b) mIoU delta < -M -> FLAG D4	
+FAIL	b7 (b) width and inactive fail -> FLAG D4, both named	
+FAIL	c5 (c) false alarm 4 x PF -> FLAG C2; (a) not replicated; false_alarm_pf of (b) -> FLAG D4	
+final verdict test: 61 of 67 PASS

@@ -1,0 +1,42 @@
+{
+ "paper_id": "doi:10.1007/978-3-031-43898-1_46",
+ "title": "Dice Semimetric Losses: Optimizing the Dice Score with Soft Labels",
+ "year": 2023,
+ "venue": "MICCAI",
+ "url": "https://arxiv.org/abs/2303.16296",
+ "code_url": "https://github.com/zifuwanggg/JDTLosses",
+ "mechanism": "Dice loss that equals soft Dice on hard labels but is minimised at prediction = target for soft labels.",
+ "adaptation": "Drop-in replacement for the house soft Dice in every soft-target arm (KD, SVLS, GeoLS, SoftSeg, dilated labels); run DML vs house soft Dice on the same soft targets to show whether the house loss breaks.",
+ "min_experiment": "Inside the SVLS arm: SVLS+DML vs SVLS+house soft Dice, 5 v 5. Metric crack IoU; kill if DML - soft Dice < +0.012 (then the soft-Dice issue does not matter here).",
+ "score": 50,
+ "bench_score": 40,
+ "bet": "safe",
+ "targets": [
+  "crack"
+ ],
+ "evidence": "R (web summary): better Dice and calibration than soft Dice with soft labels on QUBIQ, LiTS, KiTS; numbers not read.",
+ "gpu_hours": 6,
+ "prior_overlap": "Dice on 3 classes (hard labels) n.d.; DML is identical there, so only the soft-label use is open.",
+ "directions": [
+  "D18"
+ ],
+ "scout_scores": [
+  50,
+  50
+ ],
+ "alt_notes": [
+  {
+   "from": "D18",
+   "adaptation": "Drop-in replacement for the house soft Dice in every soft-target arm (KD, SVLS, GeoLS, SAUNA); paired check DML vs house soft Dice on the same soft targets.",
+   "min_experiment": "Run inside the SVLS arm: SVLS+DML vs SVLS+house Dice, 5 seeds; metric crack IoU; kill if difference < 0.012 (then the house Dice is fine).",
+   "score": 50
+  }
+ ],
+ "final": 50,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 206,
+ "pid": "P206"
+}

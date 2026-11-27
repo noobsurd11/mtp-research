@@ -1,0 +1,259 @@
+% ch08_e1_result.tex: Chapter 8, Final model and the sealed E1 result.
+% Every number is traced in ch08_e1_result_NOTES.md. Tables are referenced, not copied (thesis_tables.tex).
+\chapter{Final model and the sealed E1 result}\label{ch:e1_result}
+
+This chapter reports the one pre-registered test of the final recipe on E1, the 106 cells of unseen modules (supported, not
+proven: on the pixels on disk E1 holds no module, cell or neighbouring crop of the pool, but some module identities cannot be
+tested; Chapter~\ref{ch:data}). The test is E1 opening \#8. It compares the final recipe C2 with the full-pool PF baseline C1
+on crack relF1@2 and decides one claim. Every E1 statement in this chapter has the same scope, which we repeat with each claim: the
+claim is about the recipe averaged over seeds 5 to 9, not one checkpoint; it holds at OP-A (argmax) only; 101 of the
+106 cells are CSIR cells; and the full cells carry the gain while the half-cut cells are not decided. The legacy 50-cell test
+set (test50) was opened once more in the same run, as a public table that decides nothing.
+
+Section~\ref{sec:e1-registration} states the candidates, the registration and what was selected on which cells.
+Section~\ref{sec:e1-primary} gives the primary contrast and its guards, and Section~\ref{sec:e1-strata} where on E1 the gain
+sits. Sections~\ref{sec:e1-parts} and~\ref{sec:e1-classes} read the contrasts printed beside it: model against views, ensemble
+against members, one checkpoint, inactive and the other classes. Section~\ref{sec:e1-cv5} sets the E1 effect beside its CV5
+size and the absolute E1 levels beside the pool levels. Section~\ref{sec:e1-test50} gives the test50 public table.
+
+\section{Candidates, registration and selection}\label{sec:e1-registration}
+
+\paragraph{Candidates.} Both recipes were trained on all 532 pool cells with the v1.1 labels, five seeds each (seeds 5 to 9),
+20,000 steps. C1 is the PF baseline (U-Net++ with a ResNet-34 encoder and the encoder-preserving fine-tune;
+Chapter~\ref{ch:methods}), scored on one view. C2, the final model, is HRNet-W18 U-Net++ trained under the PF recipe with SWAD
+weight averaging, read out with the \texttt{swad} weights (a uniform average over steps 10,000 to 20,000, without a batch-norm
+re-estimate), and scored with D4 test-time augmentation: 8 views (four quarter turns, each with and without a flip), with
+the softmax averaged over the views. C3 is the mean-softmax ensemble of the five C2 models. Two comparators are printed beside
+and decide nothing: E-PF, the five-seed ensemble of C1, and C1-D4, C1 scored with the same 8 views as C2. C1-D4 was included
+because the CV5 TTA read had replicated the D4 gain on PF (item (a) of Table~\ref{tab:T7a}). The deployable single model is C2
+seed 5, designated before any number of the final models existed, so it was not selected by score.
+
+C2 is an entry of class (c) under the protocol (several views per prediction; Chapter~\ref{ch:protocol}), while C1 runs one
+view. The primary contrast therefore compares the whole candidate, model and views together, with the baseline; only C1-D4
+separates the D4 part from the model part (Section~\ref{sec:e1-parts}). No E1 number exists for HRNet alone or for SWAD alone,
+so E1 does not separate those two.
+
+\paragraph{Registration and the read.} The opening rule was written before any number of the final models existed: at the
+time of writing the full-pool runs were not trained and no CV5 number of the TTA read existed. The rule, the job list and the
+hash manifests of the sealed E1 masks were registered at 11:22:35 IST on 21 November 2026, and the ledger row was written
+before any prediction of a sealed cell was made. The 30 prediction dumps were made on one GPU model (RTX A6000, fp32), and the
+read ran once, from 12:02:30 to 12:06:09 on the same day, without error. No threshold, bias, class weight or view weight
+was set on, or chosen with, any sealed cell. The ten full-pool runs stopped at their final validation step, with their last checkpoint at step
+18,000, and were resumed from those checkpoints under a corrected code revision; on CPU a resumed run is bit-equal to an
+uninterrupted one in every tensor of the training state, and on GPU any run, fresh or resumed, is reproducible only up to
+the nondeterminism of atomic accumulation.
+
+\paragraph{What was selected where.} No candidate, readout or threshold was selected on E1 cells. Two choices of C2 were made
+on pool cells: the \texttt{swad} readout was chosen after the CV5 read of HRNet + SWAD, whose registered primary readout
+(\texttt{swad\_bn}) was NOT CONFIRMED (Chapter~\ref{ch:methods}), and D4 was adopted from an earlier CV5 TTA read. Both choices
+used pool cells only. E1 is therefore an unbiased test of them, while every CV5 number of the C2 recipe is selection-biased. We
+fixed the candidate list before any number of the final models existed and kept D4 after the CV5 read found no confirmed D4
+gain on the candidate (Table~\ref{tab:T7a}, item (b)). The two full-pool models C1 and C2 have no held-out score of their own:
+the CV5 rows of Chapter~\ref{ch:methods} describe the recipes through the cv5v3 fold models, and the full-pool models were never
+scored on E1 or test50 before this opening.
+
+\paragraph{Prior looks.} The E1 cells themselves had been looked at before. In the words of the verdict: test50 had 18
+counted openings and many uncounted reads; E1 had 7 registered openings (3 looks at one contrast) plus reads before 31 October
+and one use of published E1 contrasts (R0, 15 November); the final models were never scored on either set.
+Table~\ref{tab:T17} lists registered E1 openings \#1 to \#8. What is new at opening \#8 is the final models, not the cells.
+
+\paragraph{Expectation stated before the opening.} The rule recorded its power before any number. With the standard error
+expected from earlier openings (about 0.019, range 0.017 to 0.021), the smallest effect with 80\% power was about 0.048 to 0.059, and the rule named
+``NOT CONFIRMED, interval holds 0'' as the likeliest honest outcome if E1 behaved like the pool. The realised standard error was
+larger (0.0265; Section~\ref{sec:e1-primary}).
+
+\section{The primary contrast}\label{sec:e1-primary}
+
+\paragraph{Rule.} The primary contrast P is the mean over seeds 5 to 9 of the crack relF1@2 of C2 minus the same mean for C1, at
+OP-A, with counts pooled over the scored pixels of the 106 cells. Its interval comes from a seed-aware two-stage bootstrap: each
+draw resamples the 71 clusters (one cluster per source image) with replacement, then, for each arm independently, draws 5
+models with replacement from its 5; 2,000 draws give a 95\% percentile interval. The margin is M = 0.010, the protocol's
+relF1@2 margin, fixed before the opening and not re-estimated on E1. P is CONFIRMED if the point value is at least M, the lower
+end of the interval is above 0, and four guards pass: G1, the pooled crack width ratio C2 / C1 within 0.85 to 1.15; G2, the same
+ratio on the CSIR cells (the only source with at least 40 E1 cells); G3, false crack pixels on the crack-free cells, C2 at most
+1.5 times C1; G4, a change in mIoU-R13 of at least $-$0.010. Inactive IoU is reported and never decides.
+
+OP-A only is a stated deviation from the protocol, under which a crack gain counts at OP-A and at the width-matched OP-W.
+OP-W needs a crack bias fitted on held-out folds, which full-pool models do not have, and fitting it on a sealed set would be
+tuning on it. The width guards G1 and G2 take OP-W's role.
+
+\paragraph{Result.} Table~\ref{tab:T8} gives the decision. On E1 (OP-A, the recipe averaged over seeds 5 to 9, 101 of 106 cells
+CSIR), P = +0.0430 with the seed-aware interval [+0.0013, +0.1043] (SE 0.0265), and every guard passes: the pooled width ratio is
+1.013 (C2 0.463, C1 0.458), the CSIR width ratio 1.013, the false crack pixels on the 74 crack-free cells 2421 for C2 against 3218
+for C1 (ratio 0.752), and the mIoU-R13 change +0.0249. The verdict is CONFIRMED. The levels are 0.4467 for C1 and 0.4897 for C2
+(means over the five seeds; ranges over seeds 0.4387 to 0.4574 and 0.4656 to 0.5067). Figure~\ref{fig:F13} shows P with the contrasts
+printed beside it.
+
+\FIG{F13}{E1 opening \#8: the primary contrast P = C2 $-$ C1 (crack relF1@2) and the contrasts printed beside it, with seed-aware 95\%
+intervals; the A/A row compares C1 seeds 7 and 8 against seeds 5 and 6. Dashed line: M = 0.010; dotted line: the derived smallest
+detectable effect of P, about 0.074. Only P decides. C2 recipe averaged over seeds 5 to 9; OP-A; 101 of 106 cells CSIR.}
+
+The fixed-model interval of P, which resamples clusters but keeps the ten trained models fixed, is [+0.0067, +0.1007]. It is a
+statement about these ten models, not about the recipe; the seed-aware interval decides. Printed with P and deciding nothing:
+relP@2 +0.0524 [$-$0.0226, +0.1373], relR@2 +0.0371 [$-$0.0058, +0.0948], relF1@1 +0.0441 [+0.0032, +0.1038], and strict crack
+IoU +0.0263 [+0.0022, +0.0651], outside the convention band $\pm$0.019. Neither the precision nor the recall change is
+separated from 0 alone.
+
+Per model (Table~\ref{tab:T11b}, Figure~\ref{fig:F15}), the lowest C2 model on E1 (seed 5, 0.4656) scores above the highest C1 model
+(seed 7, 0.4574). This is descriptive. The A/A contrast of two seed halves of the same recipe, C1 seeds \{7, 8\} against
+\{5, 6\}, is +0.0022 [$-$0.0425, +0.0507] (SE 0.0225): on these cells a contrast with no true difference has an interval of
+that width.
+
+\FIG{F15}{E1 crack relF1@2 per trained model for C1, C1-D4 and C2; within each arm the dots run left to right from seed 5 to seed 9,
+and bars and numbers are the arm means over the five models. Descriptive; decides nothing. C2 recipe averaged over seeds 5 to 9;
+OP-A; 101 of 106 cells CSIR.}
+
+\paragraph{How strong the result is.} The lower end of the interval, +0.0013, is near 0. The read does not print a smallest
+detectable effect; we derive one from its standard error: 2.80 $\times$ 0.0265 = 0.0742, about 0.074 (two-sided 0.05, power
+0.80, normal approximation; flagged as derived in the table notes). Every contrast in this chapter that is n.d. therefore cannot
+exclude effects below about 0.074 at 80\% power. Our reading (judgement): E1 supports a gain of the C2 recipe over the PF recipe
+in crack relF1@2, but it does not pin down its size; values from near 0 to about +0.10 are compatible with the read.
+
+\paragraph{The claim.} Written out with its scope, the confirmed claim is: on the 106 cells of E1, at OP-A, the C2 recipe
+(HRNet-W18 U-Net++ + SWAD + D4) averaged over seeds 5 to 9 has a higher crack relF1@2 than the full-pool PF recipe, by +0.0430
+[+0.0013, +0.1043] (seed-aware, 71 clusters), with crack width and false crack pixels inside the guards; 101 of the 106 cells are
+CSIR, and the full cells carry the gain (Section~\ref{sec:e1-strata}). Not claimed: anything about inactive, about test50, about
+cells unlike E1, or about the deployable seed 5 alone. Table~\ref{tab:T20} carries it as claim 1, the one confirmed zero-shot E1
+claim of this thesis.
+
+\section{Where on E1 the gain sits}\label{sec:e1-strata}
+
+Table~\ref{tab:T10} splits P by cell type, source and crack presence (OP-A, C2 $-$ C1 of the recipe means over seeds 5 to 9,
+seed-aware intervals); Figure~\ref{fig:F14} plots the strata. Strata decide nothing; they show where the confirmed all-cell contrast
+comes from.
+
+\FIG{F14}{E1 opening \#8: P = C2 $-$ C1 (crack relF1@2) by stratum, with seed-aware 95\% intervals: all 106 cells, full, half-cut, CSIR,
+BMRK and crack cells; numbers in brackets are cells / clusters; dashed line: M = 0.010. The 74 crack-free cells score 0 for every arm
+and are not drawn; the BMRK stratum rests on 5 cells. Strata decide nothing. C2 recipe averaged over seeds 5 to 9; OP-A; 101 of 106
+cells CSIR.}
+
+\paragraph{Full and half-cut cells.} On the 44 full cells (24 clusters), P is +0.1464 [+0.0420, +0.2278], with C1 at 0.4808 and
+C2 at 0.6272. The full cells carry the gain (descriptive; strata decide nothing). On the 62 half-cut cells (47 clusters), a layout of which the training pool holds none, P is +0.0110
+[$-$0.0289, +0.0722], n.d., with C1 at 0.4312 and C2 at 0.4422. On the half-cut cells we show
+neither a gain nor its absence: the interval holds 0, and an effect below about 0.074 could not be detected at 80\% power.
+
+\paragraph{Sources.} The CSIR stratum (101 cells, 66 clusters) gives +0.0433 [+0.0015, +0.0984], close to the all-cell value
+because it is nearly all of E1. On the 5 BMRK cells, C2 scores relF1@2 0.0000 [0.0000, 0.0000] and C1 0.1843 [0.0000, 0.9216]
+(mean over seeds, range over seeds); C1-D4, C3 and E-PF also score 0.0000. The stratum contrast of $-$0.1843
+[$-$0.5529, +0.0000] rests on 5 cells, and we draw nothing from it.
+
+\paragraph{Crack cells and crack-free cells.} On the 32 cells with a crack label (21 clusters), P is +0.0340
+[$-$0.0114, +0.0862], n.d. On the 74 crack-free cells relF1@2 is 0 for every arm, since there is no labelled crack to find; what
+these cells contribute is false crack pixels, which enter the pooled relP@2 of the all-cell contrast. C2 predicts fewer of
+them (G3 ratio 0.752). Our reading (judgement): part of the all-cell gain comes from fewer false crack pixels on crack-free
+cells, and part from the full crack cells; the crack-cell stratum alone is not decided.
+
+\section{What carries the gain}\label{sec:e1-parts}
+
+Table~\ref{tab:T9} gives the contrasts printed beside P (E1, OP-A, seed-aware intervals; arms with five models enter as means
+over seeds 5 to 9). They decide nothing, and each one that is n.d. cannot exclude effects below about 0.074.
+
+\paragraph{Model against views.} With the same 8 views on both sides, C2 $-$ C1-D4 is +0.0451 [+0.0173, +0.0699] (fixed-model
+[+0.0278, +0.0597]). Most of the gain is the model. D4 on the baseline, C1-D4 $-$ C1, is $-$0.0021 [$-$0.0423, +0.0575]. The D4
+part is not resolved on E1: that interval does not exclude a D4 effect of the size seen on CV5 (PF\_D4 $-$ PF +0.0134,
+Table~\ref{tab:T7a}). D4 on PF moved inactive IoU by +0.0908 [$-$0.0019, +0.1936] and mIoU-R13 by +0.0206 [+0.0017, +0.0419];
+both are printed beside and decide nothing. ``The model'' here is HRNet-W18 U-Net++ with the \texttt{swad} readout as one unit;
+E1 has no number that splits it.
+
+\paragraph{Ensemble against its members.} The five-seed ensemble adds nothing measurable over its members: C3 $-$ C2 is
+$-$0.0025 [$-$0.0254, +0.0157]. Against the baseline, C3 $-$ C1 is +0.0405 [$-$0.0044, +0.1108], an interval that holds 0. C3
+$-$ E-PF is +0.0383 [+0.0007, +0.0904], but the two ensembles do not cost the same: C3 runs 8 views per model and costs 8 times
+E-PF in forward passes (Chapter~\ref{ch:deployment} gives the compute cost). E-PF $-$ C1 is +0.0023 [$-$0.0165, +0.0279]. On E1,
+neither five-seed ensemble separates from the mean of its own single models.
+
+\paragraph{One checkpoint.} The deployable model, C2 seed 5 alone, against C1 gives +0.0189 [$-$0.0403, +0.1068], n.d. Seed 5
+was designated before any number and turned out the lowest of the five C2 models on E1 (0.4656; Table~\ref{tab:T11a}). The
+confirmed claim is therefore about the recipe averaged over seeds 5 to 9, not about one checkpoint. Our reading (judgement): a
+deployed single C2 model rests on the recipe-level result and on the spread of its seeds on E1 (0.4656 to 0.5067), not on a
+test of its own.
+
+\section{Inactive and the other classes}\label{sec:e1-classes}
+
+\paragraph{Inactive.} E1 has 10 inactive cells. At OP-A, for the recipe means over seeds 5 to 9, the inactive IoU change C2 $-$ C1 is +0.0996 seed-aware [$-$0.0310, +0.2162],
+fixed-model [$-$0.0000, +0.2007]: n.d., reported and never deciding. The levels are 0.2909 for C1 and 0.3905 for C2
+(Table~\ref{tab:T12a}). Inactive region recall (regions of at least 100 px) rises from 0.557 to 0.829 and precision from 0.388
+to 0.412 (Table~\ref{tab:T12b}); component values decide nothing. One contrast printed beside, C2 seed 5 against C1, has an
+inactive interval just above 0 (+0.1393 [+0.0009, +0.2103]); it is one of many printed-beside values and decides nothing. We do
+not claim that C2 improves inactive segmentation, on E1 or on CV5, where the change is also n.d. (+0.0328 [$-$0.0128, +0.0826],
+Table~\ref{tab:T7b}).
+
+\paragraph{The other classes.} The mIoU-R13 guard passes (+0.0249). Per class (Table~\ref{tab:T12a}, Figure~\ref{fig:F16}; arm means,
+deciding nothing), C2 is higher than C1 on border (0.5436 to 0.6823), frame edge (0.6640 to 0.7109) and sp multi (0.6629 to
+0.6918). sp mono, the dark spacing between mono cells, is the one clear loss (0.2434 to 0.1658); gridline moves from 0.2314 to
+0.2213. Material and edge dark score 0.0000 for every arm, and splice scores 0.0000 for C1 and is n/a for the others. No final
+model addresses these weak classes on E1.
+
+\FIG{F16}{E1 per-class IoU of the 13 robust classes, C1 (open circles) against C2 (squares), arm means over seeds 5 to 9. sp mono is
+the one clear loss; material and edge dark are 0 for both arms; splice has no C2 value (n/a). Decides nothing. C2 recipe averaged over
+seeds 5 to 9; OP-A; 101 of 106 cells CSIR.}
+
+\paragraph{Crack components.} Of the crack components of at least 20 px (found if at least 50\% is covered within 2 px), C1
+finds 0.262 and C2 0.257; component precision rises from 0.559 to 0.650 (Table~\ref{tab:T12b}). Component values decide
+nothing. Our reading (judgement): on E1 the relF1@2 gain is not a gain in the share of long cracks found.
+
+\section{E1 against CV5, and the absolute levels}\label{sec:e1-cv5}
+
+\paragraph{Effect size.} On E1 (OP-A, recipe means over seeds 5 to 9) the point effect is about 2 to 3 times its CV5 size: +0.043
+against +0.015 to +0.022. Against CS\_D4
+$-$ PF (+0.0222, selection-biased) it is about 2 times. The E1 interval [+0.0013, +0.1043] contains the CV5 values, so E1 does
+not show a larger effect than CV5. On CV5 the C2 recipe (CS\_D4) passes its check against PF (selection-biased); the ARTS width
+guard fails on the 416 clean cells at OP-A and OP-W (1.159 against the 1.15 band; named) and passes on the 532 cells
+(Chapter~\ref{ch:methods}).
+
+\paragraph{Absolute levels.} Table~\ref{tab:T14} and Figure~\ref{fig:F17} set the crack relF1@2 of the PF recipe on each instrument
+side by side. On CV5 (known modules, 532 cells out of fold) PF reaches 0.8463; on simulated unseen-module views (U2) 0.769; with
+the sources CSIR and BMRK held out (U1) 0.733; on E1 C1 reaches 0.4467 and C2 0.4897. These are levels of different models and
+cell sets, with no interval for the differences, so they describe a large gap between E1 and the pool but do not measure it. On
+E1 the full cells (C1 0.4808) and the half-cut cells (C1 0.4312) are both far below the pool level.
+
+\FIG{F17}{Crack relF1@2 of the PF recipe across instruments (rows of Table~\ref{tab:T14}), plus C2 on E1: CV5 (532 and 416 pool cells,
+out of fold), U2 (simulated unseen-module views), U1 (held-out sources), test50 (all 50 cells and the 16 without a pool cell in their
+module; in-distribution, known leakage, context only) and E1 (all, full and half-cut cells). Levels of different models and sets; no
+interval exists for the gaps. E1 rows: C2 recipe averaged over seeds 5 to 9; OP-A; 101 of 106 cells CSIR.}
+
+Two further facts bound what E1 says about deployment. First, both arms predict less than half of the labelled crack pixel
+count on E1: the width ratio (predicted over labelled crack pixels) is 0.458 for C1 and 0.463 for C2 (Table~\ref{tab:T11a}),
+against 1.0189 for PF on CV5 (Table~\ref{tab:T5}). This read does not separate wider E1 labels from missed cracks as the cause.
+Second, the crack operating target set at the start of this work, relR@2 of at least 0.90 at relP@2 of at least 0.90, is not
+reached on E1: C2 is at relP@2 0.5995 and relR@2 0.4157 (OP-A, mean over seeds 5 to 9).
+
+\section{The test50 public table: context only}\label{sec:e1-test50}
+
+test50 is the legacy 50-cell test set of BenchmarkEL, opened once more in the same run (opening \#19) as a public table. Every test50 number
+in this section is in-distribution, carries known leakage, and is context only. Eight test cells are the same physical cell as
+a pool cell (7 confirmed by pixels, 1 resting on the cells.tsv link only), 7 are neighbouring crops of pool cells, and 19 more
+share a module with pool cells; the full-pool models trained on all of them, after 18 counted earlier openings of test50.
+Tables~\ref{tab:T13a} to~\ref{tab:T13c} (Appendix~A) hold the values.
+
+\paragraph{Under our protocol.} On the v1.1 labels (in-distribution, known leakage, context only), C2 $-$ C1 is +0.0102
+[$-$0.0094, +0.0291] on all 50 cells and +0.0102 [$-$0.0090, +0.0292] on the 49 cells without the noisy cell, both n.d.; on the
+16 cells whose module holds no pool cell it is +0.0322 [+0.0036, +0.0584]. These are secondary contrasts and decide nothing alone.
+The levels are 0.8905 for C1, 0.9006 for C2 and 0.9013 for C1-D4 on all 50 cells.
+
+\paragraph{Under published conventions.} On the old masks of release 20211104, we score our models with the conventions of three
+published rows \citep{pratt2023benchmark,eesaar2023seipv,jha2025pvs3} (in-distribution, known leakage, context only). Under Pratt's rule A (median per-image
+IoU, cells without the class left out), C2 reaches crack 0.383 (C1 0.337), against 0.25 printed for Pratt 2023 model 4c
+\citep{pratt2023benchmark}. Under the PV-S3 convention (pooled crack IoU over all pixels), C2 reaches 0.441 (C1 0.418), against their 0.58
+\citep{jha2025pvs3}. Under the SEiPV-Net family of readings, C2 reaches micro IoU 0.896 and frequency-weighted IoU 0.903, against their
+`IoU' 0.7447 and `mIoU' 0.8604 \citep{eesaar2023seipv}. The rows are not comparable for named reasons: Pratt's rule A is inferred from the
+paper, PV-S3 states neither its split nor its background rule, SEiPV-Net does not define its averaging, the published rows are
+single runs on the old labels (Pratt 2023 and SEiPV-Net trained on the 478 training cells with fourfold offline augmentation)
+while ours are five seeds trained on 532 cells with the v1.1 labels, and test50 overlaps our training pool. Our numbers fall above one published row and below another depending on the convention, as Chapter~\ref{ch:related}
+argues in general. These rows are context only, never a claim to beat a published model.
+
+\section{Summary}\label{sec:e1-summary}
+
+\begin{itemize}
+  \item \textbf{Confirmed.} On E1 (unseen modules, supported, not proven; OP-A only; 101 of 106 cells CSIR), the C2 recipe
+  averaged over seeds 5 to 9 beats the full-pool PF recipe on crack relF1@2 by +0.0430 [+0.0013, +0.1043], with guards G1 to G4
+  passing. The lower end is near 0, and the derived smallest detectable effect is about 0.074.
+  \item \textbf{Where.} The full cells carry it (+0.1464 [+0.0420, +0.2278]); on the half-cut cells, a layout absent from the
+  pool, it is n.d. (+0.0110 [$-$0.0289, +0.0722]).
+  \item \textbf{What.} Most of the gain is the model (C2 $-$ C1-D4 +0.0451 [+0.0173, +0.0699]); the D4 part is not resolved on
+  E1. The ensemble adds nothing measurable over its members, and one checkpoint alone is n.d. against C1.
+  \item \textbf{Not shown.} Inactive is n.d. on E1; the weak classes material, edge dark and splice stay at 0; the 0.90 / 0.90
+  crack target is not reached; the test50 public table is context only.
+\end{itemize}
+
+From E1 opening \#9 on (Chapter~\ref{ch:t3b}), the E1 cells are training data for the few-shot models, so the zero-shot
+result of this chapter is the last zero-shot result on E1 in this work.

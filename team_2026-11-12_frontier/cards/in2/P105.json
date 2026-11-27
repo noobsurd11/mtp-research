@@ -1,0 +1,55 @@
+{
+ "paper_id": "arxiv:2609.12431",
+ "title": "An End-to-End Automated Pipeline for Controllable Crack Data Synthesis",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2609.12431",
+ "code_url": "",
+ "mechanism": "Procedural Bezier skeletons turned into crack masks by a GAN, rendered by dual-ControlNet Stable Diffusion; an ensemble of real-trained segmenters assigns pixel-wise label confidence that weights the synthetic loss instead of hard filtering; detectors evaluated by probability of detection (POD) vs crack width.",
+ "adaptation": "Use the existing 5-seed house ensemble as the confidence model for any synthetic crack pair (it already sits at relF1@2 0.897); weight synthetic pixels by agreement with the inherited mask. Add POD vs crack width and contrast (a90/95) to the benchmark, computed on test and E1 crack components.",
+ "min_experiment": "Arm: row-1 synthetic stream with confidence-weighted loss. Baseline: same stream unweighted, both on PF, 5 seeds. Metric: E1 relF1@2 and test crack relP@2. Kill: gain < +0.01 on both.",
+ "score": 58,
+ "bench_score": 75,
+ "bet": "safe",
+ "targets": [
+  "crack",
+  "e1_unseen",
+  "benchmark",
+  "measurement"
+ ],
+ "evidence": "R: improves five segmentation networks over conventional, diffusion and flow-matching augmentation on CRACK500 and CrackTree200; confidence weighting beats threshold filtering at every threshold; U-Net width detected at 90% POD / 95% confidence 8.0 -> 4.3 px; ECE 14.2% -> 9.6%.",
+ "gpu_hours": 8,
+ "prior_overlap": "None.",
+ "directions": [
+  "D06",
+  "D21"
+ ],
+ "scout_scores": [
+  58,
+  45,
+  45
+ ],
+ "alt_notes": [
+  {
+   "from": "D21",
+   "adaptation": "Take only the confidence weighting: the house 5-seed ensemble scores every pasted or rendered pixel, and that score weights the loss in the copy-paste, ObjectAug and procedural arms. For the benchmark, report POD against crack contrast and length on test and E1.",
+   "min_experiment": "Any synthetic arm with vs without ensemble-confidence weights, 5 seeds. Metric: that arm's main metric. Kill if gain < +0.01.",
+   "score": 45
+  },
+  {
+   "from": "D21",
+   "adaptation": "Use only the confidence weighting: house 5-seed ensemble scores every pasted, carved or rendered pixel in the CarveMix, Soft-CP, Synth4Seg and procedural arms. For the benchmark, report POD vs crack contrast and length on test and E1.",
+   "min_experiment": "Best synthetic arm with vs without ensemble-confidence weights; that arm's main metric. Kill: < +0.01.",
+   "score": 45
+  }
+ ],
+ "final": 58,
+ "bench": 75,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 105,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P105"
+}

@@ -1,0 +1,37 @@
+{
+ "paper_id": "arxiv:2012.07421",
+ "title": "WILDS: A Benchmark of in-the-Wild Distribution Shifts",
+ "year": 2020,
+ "venue": "arXiv / ICML 2021",
+ "url": "https://arxiv.org/abs/2012.07421",
+ "code_url": "https://wilds.stanford.edu",
+ "mechanism": "Splits defined by groups (hospital, camera, region). ID and OOD scores are reported separately through a standard loader and evaluator; ERM remains a strong baseline.",
+ "adaptation": "Groups = module and source. Splits: ID test (seen modules), OOD-module test (E1, half-cut, scuffs), and leave-one-source-out (BMRK, SDLE). Report the worst-source score. The 11.9k/159k pool plays the role of WILDS-unlabeled (arXiv:2112.05090).",
+ "min_experiment": "Re-score existing house and PF checkpoints per source and on E1. Decision: if the source-wise ranking of house vs PF differs from the pooled ranking, the worst-source score enters the headline.",
+ "prior_overlap": "Partial: E1 already acts as an OOD split. Leave-one-source-out and worst-group reporting are new.",
+ "score": 30,
+ "bench_score": 88,
+ "bet": "safe",
+ "targets": [
+  "benchmark",
+  "e1_unseen",
+  "measurement"
+ ],
+ "evidence": "R: 10 datasets; standard training gives clearly lower OOD than ID performance on each, and existing shift methods do not close the gap.",
+ "gpu_hours": 2,
+ "directions": [
+  "D43"
+ ],
+ "scout_scores": [
+  30
+ ],
+ "final": 30,
+ "bench": 88,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 492,
+ "pub_allowed": 0,
+ "selected_for": "bench",
+ "pid": "P492"
+}

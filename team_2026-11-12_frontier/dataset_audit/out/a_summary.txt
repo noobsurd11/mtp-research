@@ -1,0 +1,42 @@
+# a_summary.txt: label-error candidates from the 25-model cv5v3 out-of-fold consensus (rules: PLAN.md section 1a)
+pool cells 532; v1.1 crack px 307546 in 229 cells; v1.1 inactive px 285020 in 48 cells
+type | components | cells | px | px as share of v1.1 px of that class | supported (fixed z) | supported at the two printed z | replicated on W1-G
+MC | 128 | 42 | 5436 | 0.0177 | 46 (1951 px, 0.0063) | 67 at z -0.5, 32 at z -2.0 | 124 (0.969)
+SC | 53 | 28 | 7567 | 0.0246 | 32 (5844 px, 0.0190) | 8 at z 0.0, 45 at z -1.0 | 48 (0.906)
+MI | 9 | 7 | 7745 | 0.0272 | 6 (7354 px, 0.0258) | 8 at z -0.5, 2 at z -2.0 | 8 (0.889)
+SI | 63 | 18 | 31039 | 0.1089 | 40 (19258 px, 0.0676) | 24 at z 0.0, 53 at z -1.0 | 58 (0.921)
+
+per source: type | source | components | cells | px | share of the source's v1.1 px of that class | supported components
+MC | ARTS | 1 | 1 | 46 | 0.0035 | 1
+MC | BMRK | 7 | 6 | 235 | 0.0069 | 5
+MC | CFVS | 96 | 25 | 3791 | 0.0189 | 22
+MC | CSIR | 24 | 10 | 1364 | 0.0232 | 18
+SC | ARTS | 7 | 6 | 563 | 0.0426 | 3
+SC | BMRK | 2 | 2 | 329 | 0.0096 | 2
+SC | CFVS | 9 | 6 | 1008 | 0.0050 | 4
+SC | CSIR | 35 | 14 | 5667 | 0.0966 | 23
+MI | CFVS | 9 | 7 | 7745 | 0.0347 | 6
+SI | ARTS | 1 | 1 | 381 | 0.3313 | 1
+SI | BMRK | 2 | 2 | 3814 | 0.1284 | 1
+SI | CFVS | 25 | 9 | 7487 | 0.0336 | 14
+SI | CSIR | 35 | 6 | 19357 | 0.6210 | 24
+
+v1.1 crack px / crack cells / inactive px / inactive cells per source: ARTS 13205 / 47 / 1150 / 2; BMRK 34258 / 30 / 29704 / 6; CFVS 200985 / 99 / 222994 / 29; CSIR 58693 / 51 / 31172 / 11; SDLE 405 / 2 / 0 / 0
+
+kind of missed-crack components: {'extension': 90, 'whole': 38}
+v1.1 classes under MC px: background 2964 (0.545), inactive 2214 (0.407), ribbons 186 (0.034), gridline 51 (0.009), sp_mono 21 (0.004)
+v1.1 classes under MI px: background 5725 (0.739), gridline 1563 (0.202), crack 452 (0.058), sp_mono 5 (0.001)
+
+v1.1 crack components >= 20 px: 989; share with >= 90% px at <= 2 of 25 models within 2 px: 0.0536; with >= 50%: 0.0849
+image contrast z of all v1.1 crack components >= 20 px: median -0.72; share z > -0.5 (not darker than the ring): 0.3812; share z > 0: 0.1426  (n 989)
+  ARTS: n 91, median z -0.97, share z > -0.5 0.143
+  BMRK: n 86, median z -0.48, share z > -0.5 0.523
+  CFVS: n 583, median z -0.64, share z > -0.5 0.415
+  CSIR: n 227, median z -0.90, share z > -0.5 0.339
+  SDLE: n 2, median z -1.10, share z > -0.5 0.000
+v1.1 inactive regions >= 100 px: 285; share with >= 90% px at <= 2 of 25 votes: 0.2211
+image contrast z of v1.1 inactive regions >= 100 px: median -1.34; share z > -0.5: 0.2218
+
+cells with the most candidate px: CSIR_00135_r9_c3 (8666), CSIR_00055_r6_c3 (3954), CSIR_00090_r3_c5 (3706), CFVS_00046_r8_c4 (3694), BMRK_01660_cell0398 (3627), CSIR_00179_r12_c4 (2968), CFVS_00146_r8_c3 (2869), CFVS_00126_r5_c3 (2081), CSIR_00092_r12_c5 (1962), CSIR_00094_r16_c5 (1926), CFVS_00143_r4_c3 (1547), CFVS_00045_r4_c3 (1445), CFVS_00013_r7_c4 (1268), CFVS_00016_r7_c4 (1138), CFVS_00015_r7_c4 (997)
+cells with at least one candidate: 75 of 532; of the 229 crack cells: 66
+cells with at least one supported candidate: 49

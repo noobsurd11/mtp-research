@@ -1,0 +1,51 @@
+{
+ "paper_id": "doi:10.1007/s11263-026-02743-0",
+ "title": "The MVTec AD 2 Dataset: Advanced Scenarios for Unsupervised Anomaly Detection",
+ "year": 2026,
+ "venue": "International Journal of Computer Vision",
+ "url": "https://arxiv.org/abs/2503.21622",
+ "code_url": "",
+ "mechanism": "Benchmark design: hidden test ground truth on an evaluation server, test splits with lighting / distribution shift, very small defects; shows SOTA below 60% AU-PRO.",
+ "adaptation": "Template for the EL benchmark: hidden unseen-module test (E1-style), half-cut / new-module shift split, thresholded per-image segmentation F1 alongside AU-PRO, separate AD track.",
+ "min_experiment": "No training; adopt split and metric design in the benchmark protocol.",
+ "score": 10,
+ "bench_score": 80,
+ "bet": "safe",
+ "gpu_hours": 0,
+ "targets": [
+  "benchmark",
+  "measurement"
+ ],
+ "evidence": "R: 8 scenarios, >8000 high-resolution images; SOTA methods below 60% average AU-PRO.",
+ "prior_overlap": "none",
+ "directions": [
+  "D07",
+  "D43"
+ ],
+ "scout_scores": [
+  10,
+  10,
+  8
+ ],
+ "alt_notes": [
+  {
+   "from": "D07",
+   "adaptation": "Template for our benchmark: hidden E1-style unseen-module test, a half-cut shift split, thresholded per-image metrics, and an AD track next to the supervised track.",
+   "min_experiment": "Not an experiment: adopt the protocol (hidden test, shift split, thresholded metrics) in the benchmark spec.",
+   "score": 10
+  },
+  {
+   "from": "D43",
+   "adaptation": "Sealed EL test: hold E1 plus new labelled modules back from the public release and score them with a maintainer-held script, with the threshold fixed on dev OOF. Add an 'unseen module or cut type' split like private_mixed.",
+   "min_experiment": "Protocol only: freeze the sealed split before any new method runs. Each method may submit once per protocol version.",
+   "score": 8
+  }
+ ],
+ "final": 10,
+ "bench": 80,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 623,
+ "pid": "P623"
+}

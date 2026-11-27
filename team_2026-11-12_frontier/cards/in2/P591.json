@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1002/solr.202500592",
+ "title": "Extraction of Qualitative Photoluminescence and Series Resistance Images from a Single Electroluminescence Measurement",
+ "year": 2026,
+ "venue": "Solar RRL",
+ "url": "https://doi.org/10.1002/solr.202500592",
+ "code_url": "",
+ "mechanism": "A network trained on simulations decomposes one EL image into a recombination (PL-like) image and a series-resistance image.",
+ "adaptation": "An Rs-like channel could separate inactive / disconnected areas (resistance or isolation) from dark material and edge_dark (recombination). Needs released weights or a cell simulator to make training pairs; neither found.",
+ "min_experiment": "Only if weights are public: PF with predicted Rs channel vs PF; CV inactive IoU and material IoU; kill if both < +0.01.",
+ "evidence": "R: high accuracy on unseen simulations; authors say more work is needed for real images.",
+ "prior_overlap": "none",
+ "score": 20,
+ "bench_score": 20,
+ "bet": "moonshot",
+ "targets": [
+  "inactive",
+  "other_classes"
+ ],
+ "gpu_hours": 12,
+ "directions": [
+  "D04"
+ ],
+ "scout_scores": [
+  20
+ ],
+ "final": 20,
+ "bench": 20,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 591,
+ "pid": "P591"
+}

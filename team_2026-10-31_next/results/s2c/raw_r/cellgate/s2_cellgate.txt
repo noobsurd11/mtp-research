@@ -1,0 +1,8 @@
+## REPORTED ONLY, UNSTABLE THRESHOLD (val-chosen t swings ~16 margin units across seeds; arch withdrew A6 §7)
+## SKR + cell gate (protocol §9 v1.0.1; REPORTED ONLY, no verdict role): gate g = s[1], t = min over val cells with n_gt >= 20 minus 1e-3; gated cells lose all crack px; b 0; seed means (per-run values in the JSON)
+arm | E1 crack px on crack-free cells ungated -> gated | E1 any-hit ungated -> gated | test relP@2 ungated -> gated | E1 crack-free cells gated / total | E1 positive cells gated | test cells gated (crack-free / positive) | t per run
+SUPPF  | 4211 -> 3604 | 0.4223 -> 0.4081 | 0.9441 -> 0.9448 | 50.6 / 74 | 5.0 / 32 | 1.8 / 4.0 (of 2 / 48) | 7.44 -6.88 8.69 7.34 4.81
+SKR01  | 3931 -> 3506 | 0.4358 -> 0.4196 | 0.8661 -> 0.8678 | 57.8 / 74 | 5.2 / 32 | 2.0 / 3.6 (of 2 / 48) | 7.22 -0.84 7.66 7.75 8.16
+
+## next to G2 (context only; G2 itself is computed from m0 at argmax in the guards pass): arm vs SUPPF, ungated / gated
+SKR01 vs SUPPF: E1 crack-free px x0.93 -> x0.97 | test relP@2 d -0.0780 -> -0.0771 | E1 any-hit d +0.0135 -> +0.0115

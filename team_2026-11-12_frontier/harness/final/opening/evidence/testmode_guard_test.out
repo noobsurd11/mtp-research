@@ -1,0 +1,20 @@
+== opening_register.sh
+PASS  R1 TEST_MODE, FIN_VERDICT left at its default: REFUSED (TEST_MODE guard): FIN_VERDICT must be set explicitly to a path under /home/noob/work/bench_int_io (its default is a production path)
+PASS  R2 TEST_MODE, EXT_DIR inside the real tree: REFUSED (TEST_MODE guard): /home/noob/work/ext117/__no_such__ resolves to /home/noob/work/ext117/__no_such__, outside /home/noob/work/bench_int_io
+PASS  R3 TEST_MODE, a scratch EXT_DIR whose masks dir is a symlink into the real tree: REFUSED (TEST_MODE guard): /home/noob/work/bench_int_io/opening/tmguard_1118170/ext2/masks resolves to /home/noob/work/ext117/__no_such__, outside /home/noob/work/bench_i
+PASS  R4 TEST_MODE, one mask file in a scratch dir is a symlink into the real tree: REFUSED (TEST_MODE guard): /home/noob/work/bench_int_io/opening/tmguard_1118170/lab2/masks_coded/X.png resolves to /home/noob/work/el-fault-detection/data/labeled/masks_c
+PASS  R7 TEST_MODE, a relative EXT_DIR (B3; run from the scratch dir, where it would resolve inside it): REFUSED (TEST_MODE guard): ext is not an absolute path
+PASS  R5 control: all paths scratch -> the guard passes, a later check refuses: REFUSED (register): fin verdict /home/noob/work/bench_int_io/opening/tmguard_1118170/no_fin.txt missing (the fin CV5 TTA read comes first)
+PASS  R6 control with the git pins checked (G, R, F2 with their trees): the guard passes, a later check refuses: REFUSED (register): fin verdict /home/noob/work/bench_int_io/opening/tmguard_1118170/no_fin.txt missing (the fin CV5 TTA read comes first)
+   IO made by any register case: no
+== run_opening_read.sh
+PASS  D1 TEST_MODE, READ_ROOT left at its default: REFUSED (TEST_MODE guard): READ_ROOT must be set explicitly to a path under /home/noob/work/bench_int_io (its default is a production path)
+PASS  D2 TEST_MODE, BENCH_MASKS_V11 left at its default: REFUSED (TEST_MODE guard): BENCH_MASKS_V11 must be set explicitly to a path under /home/noob/work/bench_int_io (its default is a production path)
+PASS  D3 TEST_MODE, BENCH_LABELED inside the real tree: REFUSED (TEST_MODE guard): /home/noob/work/el-fault-detection/data/labeled/__no_such__ resolves to /home/noob/work/el-fault-detection/data/labeled/__no_such__, outside /h
+PASS  D4 TEST_MODE, RD on the real relay tree: REFUSED (TEST_MODE guard): /mnt/nas/noob_el_archive/bench_relay/__no_such__ resolves to /mnt/nas/noob_el_archive/bench_relay/__no_such__, outside /home/noob/work/bench_in
+PASS  D5 TEST_MODE, a scratch RD holding a symlink into the real relay tree: REFUSED (TEST_MODE guard): /home/noob/work/bench_int_io/opening/tmguard_1118170/relay2/unit resolves to /home/noob/work/bench_relay/__no_such__, outside /home/noob/work/b
+PASS  D7 TEST_MODE, a relative BENCH_LABELED=data/labeled (B3; the read cds to RT, whose data/labeled is the real data): REFUSED (TEST_MODE guard): data/labeled is not an absolute path
+PASS  D8 TEST_MODE, a relative READ_ROOT (B3): REFUSED (TEST_MODE guard): reads is not an absolute path
+PASS  D6 control: all paths scratch -> the guard passes, a later check refuses: REFUSED: no /home/noob/work/bench_int_io/opening/tmguard_1118170/io_read/REGISTERED.txt
+   output folder made by any read case: no
+guard test: 0 FAIL

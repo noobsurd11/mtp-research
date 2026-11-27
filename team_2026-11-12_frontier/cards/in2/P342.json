@@ -1,0 +1,43 @@
+{
+ "paper_id": "arxiv:2309.13556",
+ "title": "LogicSeg: Parsing Visual Semantics with Neural Logic Learning and Reasoning",
+ "year": 2023,
+ "venue": "ICCV 2023 (oral)",
+ "url": "https://arxiv.org/abs/2309.13556",
+ "code_url": "https://github.com/lingorX/LogicSeg/",
+ "mechanism": "Class hierarchy and relations written as first-order logic rules, relaxed with fuzzy logic for training and applied at inference as matrix multiplications.",
+ "adaptation": "Use the same tree as HSSN, plus the rules inactive -> defect, inactive region -> crack nearby, and padding excludes all others. This is a module on the existing U-Net++ logits.",
+ "min_experiment": "Arm: house + LogicSeg rules. Baseline: house. Metrics: mIoU_rob, inactive precision. Kill if the mIoU_rob gain is < 0.01 and the inactive precision gain is < 0.03.",
+ "evidence": "R: gains on four datasets with various models and backbones. The abstract page gives no numbers.",
+ "prior_overlap": "none",
+ "score": 42,
+ "bench_score": 30,
+ "bet": "moonshot",
+ "gpu_hours": 6,
+ "targets": [
+  "other_classes",
+  "inactive"
+ ],
+ "directions": [
+  "D27"
+ ],
+ "scout_scores": [
+  42,
+  40
+ ],
+ "alt_notes": [
+  {
+   "from": "D27",
+   "adaptation": "Rules: inactive -> defect; inactive region -> crack nearby; padding excludes others. Only after the tree-loss or HSSN arm shows a gain.",
+   "min_experiment": "Arm house + LogicSeg rule losses; baseline best tree arm; metric mIoU_rob and inactive precision; kill if gain < 0.01 over the tree arm.",
+   "score": 40
+  }
+ ],
+ "final": 42,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 342,
+ "pid": "P342"
+}

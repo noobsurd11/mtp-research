@@ -1,0 +1,10 @@
+fin2 code proof: 821dfadf49116cc6d5fdbd6697e263dd7cf0f834 -> e99eda76921184fd7758045f6a8bd738ceca48a0 (2026-11-21 07:20:36; script 4abbce0c)
+OK   (1) git diff F F2: exactly 5 paths (train.py, cq.sh, cq_setup.sh, 2 new tests)
+OK   (1) nothing under src/ configs/ data/ bench/methods*/ bench/*.py, bench_infer.py, tta.py changed
+FAIL (2) train.py diff is not the eval block only
+FAIL (2) a changed line outside the eval block
+OK   (3) deploy CODE.md5 F2 against F: only the 5 paths (+ REVISION); F2 CODE.md5 md5 f9bc70afd1d9957380bdfc18b99e298c (782 lines; c3_deploy.sh F2 must print it
+OK   (4) queue and eval tests in the archive of F2: 47 passed, 2 skipped in 4.29s (byte-equal render of non-resume lines against F's cq.sh needs the git repo: r
+OK   (4) lines without --resume render byte-equal to F's cq.sh (worktree test): 1 passed, 13 deselected in 0.33s
+SKIP (5) experiments: give SMOKE_OUT=<final2_smoke.sh output>
+fin2 code proof: 2 FAIL

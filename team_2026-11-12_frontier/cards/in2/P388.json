@@ -1,0 +1,35 @@
+{
+ "paper_id": "doi:10.1016/j.joule.2022.05.001",
+ "title": "Automated efficiency loss analysis by luminescence image reconstruction using generative adversarial networks",
+ "year": 2022,
+ "venue": "Joule",
+ "url": "https://doi.org/10.1016/j.joule.2022.05.001",
+ "code_url": "",
+ "mechanism": "A GAN reconstructs a defect-free luminescence image of a cell; the difference to the real image isolates defects and quantifies their efficiency loss.",
+ "adaptation": "Train a masked inpainting U-Net on the 11.9k unlabelled pool cells; feed abs(EL - reconstruction) as a second input channel to the house model, as an anomaly prior that does not depend on the learned full-cell layout (target: E1, where 70% of crack pixels get p(crack) < 0.001). Scuffs will also light up, so watch precision.",
+ "min_experiment": "Arm: house with 2-channel input (EL, residual); baseline: house. Metrics: E1 crack recall and relF1@2, CV crack relF1@2 as guard. Kill if E1 recall < +0.03 or CV relF1@2 drops > 0.01.",
+ "evidence": "R: reconstruction-based loss analysis on luminescence images of silicon cells (companion PVSC 2021 doi:10.1109/pvsc43889.2021.9518512); numbers not retrieved.",
+ "prior_overlap": "none. MIM / DDeP pretraining (n.d.) used reconstruction for features only; residual-as-input and anomaly priors are on the never-tried list.",
+ "score": 40,
+ "bench_score": 30,
+ "bet": "moonshot",
+ "targets": [
+  "e1_unseen",
+  "crack",
+  "other_classes"
+ ],
+ "gpu_hours": 25,
+ "directions": [
+  "D04"
+ ],
+ "scout_scores": [
+  40
+ ],
+ "final": 40,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 388,
+ "pid": "P388"
+}

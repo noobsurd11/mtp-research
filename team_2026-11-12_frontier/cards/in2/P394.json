@@ -1,0 +1,44 @@
+{
+ "paper_id": "arxiv:2204.13132",
+ "title": "HRDA: Context-Aware High-Resolution Domain-Adaptive Semantic Segmentation",
+ "year": 2022,
+ "venue": "ECCV",
+ "url": "https://arxiv.org/abs/2204.13132",
+ "code_url": "https://github.com/lhoyer/HRDA",
+ "mechanism": "Multi-resolution UDA: a small high-resolution detail crop and a large low-resolution context crop, fused by a learned scale attention.",
+ "adaptation": "Detail branch at native 512 (or 1024 upsampled); context branch from a 2x downsampled larger view of the module where pool images allow. Only worth running if MIC shows E1 movement.",
+ "min_experiment": "MIC-E1 + HRDA vs MIC-E1, 3 seeds. Metric: E1 crack relF1@2. Kill if less than +0.02.",
+ "score": 40,
+ "bench_score": 30,
+ "bet": "moonshot",
+ "targets": [
+  "e1_unseen",
+  "crack"
+ ],
+ "evidence": "R: GTA->CS 73.8 mIoU (+5.5 over the prior SOTA), Synthia->CS 65.8 (+4.9).",
+ "gpu_hours": 20,
+ "prior_overlap": "A 2x input test was n.d. at 4x compute. A multi-res detail/context fusion inside UDA was not tested. Open.",
+ "directions": [
+  "D29",
+  "D30"
+ ],
+ "scout_scores": [
+  40,
+  30
+ ],
+ "alt_notes": [
+  {
+   "from": "D30",
+   "adaptation": "Only useful with native-resolution pool sources (about 1200 px): detail crop at native res for cracks, context crop at 512 px for layout.",
+   "min_experiment": "Benchmark entry; score run only if native-res crops are prepared by another direction: HRDA-style dual crop vs PF, kill if test crack IoU gain < +0.012.",
+   "score": 30
+  }
+ ],
+ "final": 40,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 394,
+ "pid": "P394"
+}

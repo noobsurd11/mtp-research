@@ -1,0 +1,42 @@
+{
+ "paper_id": "doi:10.1109/iccv51701.2025.02188",
+ "title": "HarmonySeg: Tubular Structure Segmentation with Deep-Shallow Feature Fusion and Growth-Suppression Balanced Loss",
+ "year": 2025,
+ "venue": "ICCV",
+ "url": "https://arxiv.org/abs/2504.07827",
+ "code_url": "",
+ "mechanism": "Vesselness map fused with image via deep mutual query and shallow query attention; growth-suppression loss: relaxed supervision outside annotated regions, reconnection pseudo-labels, spatial feature prior, mixup equivalence; built for incomplete labels.",
+ "adaptation": "Use only the loss: no background penalty within 3 px of crack labels (relaxed term) plus mixup-equivalence consistency; add attention fusion of a ridge map only if the vesselness-input arm shows a signal.",
+ "min_experiment": "Arm: house + relaxed term + mixup-equivalence, 5 seeds; baseline house. Metric relR@2 at matched relP@2, crack IoU. Kill: relR@2 gain < 0.01 at equal relP@2.",
+ "evidence": "Hepatic vessels: GSB lifts nnU-Net Dice 60.15 -> 64.00 (terms +2.94, +1.11, +1.67, +2.01 alone); D2SD +5.1 Dice; beats DSC-Net and SR-loss nnU-Net on 3 of 4 external strata; plain concatenation of vesselness gave no notable gain.",
+ "gpu_hours": 8,
+ "prior_overlap": "Offset-tolerant CE (n.d.) is close to the relaxed term (partly closed); mixup-equivalence and reconnection terms untested",
+ "score": 50,
+ "bench_score": 40,
+ "bet": "medium",
+ "targets": [
+  "crack"
+ ],
+ "directions": [
+  "D12"
+ ],
+ "scout_scores": [
+  48,
+  50
+ ],
+ "alt_notes": [
+  {
+   "from": "D12",
+   "adaptation": "Compute a multi-scale dark-ridge Hessian map (Sato or Frangi, sigma 1 to 3 px) per cell. Feed it as a parallel stream, not by concatenation, since their ablation found concatenation useless. The relaxed-supervision term fits our missed or partial crack labels (24 of 239 audited cells were flagged).",
+   "min_experiment": "Ridge-stream fusion vs a concat control vs house, 5 seeds. Metrics: test crack relF1@2 and E1 crack recall. Kill if it beats neither the concat control nor house by >= 0.012.",
+   "score": 48
+  }
+ ],
+ "final": 50,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 207,
+ "pid": "P207"
+}

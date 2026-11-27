@@ -1,0 +1,35 @@
+{
+ "paper_id": "doi:10.1109/tii.2026.3707683",
+ "title": "PV-MambaSeg: Geometry-Enhanced Vision Mamba With Omni-Local Scan for Photovoltaic Cell Defect Segmentation",
+ "year": 2026,
+ "venue": "IEEE Transactions on Industrial Informatics",
+ "url": "https://doi.org/10.1109/tii.2026.3707683",
+ "code_url": "",
+ "mechanism": "Vision Mamba with omni-local multi-direction scanning plus a global-local VSS block with multi-window aggregation and channel attention for irregular, arbitrarily oriented defects.",
+ "adaptation": "If code is released, train at 512 px 1-ch on our 24 classes; multi-direction scan may follow long cracks across busbars. Needs Mamba CUDA kernels (install needs user OK).",
+ "min_experiment": "Arm PV-MambaSeg 3 seeds vs house; mIoU_rob and crack relF1@2; kill if both below house.",
+ "evidence": "R: claims highest mIoU on two real PV defect datasets with 2.77 M params and 0.78 GFLOPs; per-dataset numbers not retrieved; code 'will be made public', not found.",
+ "prior_overlap": "none: Mamba never tried.",
+ "score": 35,
+ "bench_score": 65,
+ "bet": "moonshot",
+ "gpu_hours": 8,
+ "targets": [
+  "crack",
+  "other_classes",
+  "benchmark"
+ ],
+ "directions": [
+  "D01"
+ ],
+ "scout_scores": [
+  35
+ ],
+ "final": 35,
+ "bench": 65,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 444,
+ "pid": "P444"
+}

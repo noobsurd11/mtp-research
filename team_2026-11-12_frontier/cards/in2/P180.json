@@ -1,0 +1,35 @@
+{
+ "paper_id": "doi:10.1109/cvpr42600.2020.01070",
+ "title": "Self-Training With Noisy Student Improves ImageNet Classification",
+ "year": 2020,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/1911.04252",
+ "code_url": "",
+ "mechanism": "Iterated self-training. The student is equal to or larger than the teacher, is noised (dropout, stochastic depth, RandAugment), learns from soft pseudo-labels, and then becomes the next teacher.",
+ "adaptation": "Round 2 after ensemble distillation. The distilled student relabels the pool, and a larger student (U-Net++ R50 under PF, or the ViT-B hybrid) is trained with noise that does not resample labelled 1-2 px masks.",
+ "min_experiment": "Round-2 student vs round-1 student (ensemble-distilled PF). Metric: clean-49 crack IoU and inactive IoU, E1 crack relF1@2. Kill: round 2 adds < +0.005 crack IoU and < +0.02 inactive IoU.",
+ "evidence": "R: ImageNet top-1 88.4% using 300M unlabelled images, +2.0 over the prior SOTA, with large robustness gains on ImageNet-A/C/P.",
+ "gpu_hours": 15,
+ "bet": "medium",
+ "score": 52,
+ "bench_score": 40,
+ "targets": [
+  "crack",
+  "inactive",
+  "e1_unseen"
+ ],
+ "prior_overlap": "Partial. The SSL row used a single online round of Mean Teacher. An iterated, larger, noised student was not run. Note that ResNet-50 was worse on inactive under the house fine-tune.",
+ "directions": [
+  "D29"
+ ],
+ "scout_scores": [
+  52
+ ],
+ "final": 52,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 180,
+ "pid": "P180"
+}

@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1109/cvpr52729.2023.01562",
+ "title": "Prototypical Residual Networks for Anomaly Detection and Localization (PRN)",
+ "year": 2023,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2212.02031",
+ "code_url": "",
+ "mechanism": "Multi-scale residual prototypes between anomalous and normal features plus multi-size self-attention, trained with a few real anomalies and generated seen / unseen-style anomalies.",
+ "adaptation": "Supervised-AD benchmark row: 478 labelled cells as seen anomalies, binary defect target; port its anomaly generators to EL dark lines and blobs. Overlaps the WeakREST arm; run only if that arm works.",
+ "evidence": "R: beats unsupervised and supervised methods on MVTec AD plus 3 more datasets.",
+ "min_experiment": "Benchmark row; if used as a member, same kill as DeSTSeg (relR@2 gain < +0.02).",
+ "gpu_hours": 10,
+ "prior_overlap": "none",
+ "score": 32,
+ "bench_score": 55,
+ "bet": "medium",
+ "targets": [
+  "benchmark",
+  "crack"
+ ],
+ "directions": [
+  "D39"
+ ],
+ "scout_scores": [
+  32
+ ],
+ "final": 32,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 488,
+ "pid": "P488"
+}

@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2412.10339",
+ "title": "Towards Unsupervised Domain Bridging via Image Degradation in Semantic Segmentation (DiDA)",
+ "year": 2025,
+ "venue": "NeurIPS 2025",
+ "url": "https://arxiv.org/abs/2412.10339",
+ "code_url": "https://github.com/Woof6/DiDA",
+ "mechanism": "Build continuous intermediate domains by degrading images to graded strengths, so the network learns domain-shared features, with a diffusion-encoder term that compensates semantic shift; plugs into self-training UDA.",
+ "adaptation": "Source = 478 labelled cells; target = 1,152 unlabelled multi half-cut pool cells (E1-like, not E1). Degradations chosen for EL: blur, gain, noise, vignetting. Put on top of the existing Mean Teacher code.",
+ "min_experiment": "Arm: MT + DiDA on the half-cut pool, 5 seeds. Baseline: PF and the existing MT-with-pool run. Metrics: E1 crack relF1@2, E1 inactive IoU; test crack IoU must not drop more than 0.012. Kill: E1 relF1@2 gain under 0.02 over PF.",
+ "evidence": "R: consistent gains when added to several UDA methods on standard synthetic-to-real benchmarks (GTA/SYNTHIA to Cityscapes); exact numbers not read.",
+ "prior_overlap": "Partial. Mean Teacher with the external pool was n.d. at 100% labels, but it was not aimed at E1 with target-like half-cut cells. BRIEF lists UDA aimed at E1 as open; per-panel BN adaptation (failed) is a different mechanism.",
+ "score": 42,
+ "bench_score": 28,
+ "bet": "medium",
+ "gpu_hours": 10,
+ "targets": [
+  "e1_unseen"
+ ],
+ "directions": [
+  "D42"
+ ],
+ "scout_scores": [
+  42
+ ],
+ "final": 42,
+ "bench": 28,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 347,
+ "pid": "P347"
+}

@@ -1,0 +1,31 @@
+[2026-11-23 13:38:26] T3b read start (out /home/noob/work/bench_reads/t3b_open9; 33 dumps; REGISTERED 5f18a8205c0697973cd77d3434d8d14f; script e4cda97a; rule 0c006d44; K cba7fbdf5df1579d6efb1168eb292e637bc9fad6; relays /mnt/nas/noob_el_archive/bench_relay/t3bopen, /mnt/nas/noob_el_archive/bench_relay/open)
+manifest check: 33 dumps (30 T3b, 3 zero-shot), device ['NVIDIA RTX A6000']: OK
+[2026-11-23 13:38:37] records: 30 T3b fold records, 3 zero-shot records
+zero-shot re-score vs opening #8 fin_hrnet_swad_v11_pool_s5.swad.tta_d4.e1_106: IDENTICAL: 106 cells, 10 shared fields ['conf', 'crack_cc', 'crack_h1000_neg', 'crack_h1000_pos', 'crack_pband_gt', 'cra
+zero-shot re-score vs opening #8 fin_hrnet_swad_v11_pool_s6.swad.tta_d4.e1_106: IDENTICAL: 106 cells, 10 shared fields ['conf', 'crack_cc', 'crack_h1000_neg', 'crack_h1000_pos', 'crack_pband_gt', 'cra
+zero-shot re-score vs opening #8 fin_hrnet_swad_v11_pool_s7.swad.tta_d4.e1_106: IDENTICAL: 106 cells, 10 shared fields ['conf', 'crack_cc', 'crack_h1000_neg', 'crack_h1000_pos', 'crack_pband_gt', 'cra
+oof t3b_all_s5.oof: 106 cells from 5 folds (22, 22, 20, 21, 21) -> /home/noob/work/bench_reads/t3b_open9/records/oof/t3b_all_s5.oof.json
+oof t3b_all_s6.oof: 106 cells from 5 folds (22, 22, 20, 21, 21) -> /home/noob/work/bench_reads/t3b_open9/records/oof/t3b_all_s6.oof.json
+oof t3b_all_s7.oof: 106 cells from 5 folds (22, 22, 20, 21, 21) -> /home/noob/work/bench_reads/t3b_open9/records/oof/t3b_all_s7.oof.json
+oof t3b_half_s5.oof: 106 cells from 5 folds (22, 22, 20, 21, 21) -> /home/noob/work/bench_reads/t3b_open9/records/oof/t3b_half_s5.oof.json
+oof t3b_half_s6.oof: 106 cells from 5 folds (22, 22, 20, 21, 21) -> /home/noob/work/bench_reads/t3b_open9/records/oof/t3b_half_s6.oof.json
+oof t3b_half_s7.oof: 106 cells from 5 folds (22, 22, 20, 21, 21) -> /home/noob/work/bench_reads/t3b_open9/records/oof/t3b_half_s7.oof.json
+strata (lists/t3b_strata.tsv): full 44, half-cut 62 (of which hard = half-cut + scuff 29, half-cut without scuff 33)
+[7s] subset all: 106 cells, 71 clusters
+/home/noob/work/bench_wt_t3b/scripts/bench_open_read.py:140: RuntimeWarning: Mean of empty slice
+  point = {k: float(np.nanmean([pb[s][k] for s in sB]) - np.nanmean([pa[s][k] for s in sA])) for k in BOOT_KEYS}
+/home/noob/work/bench_wt_t3b/scripts/bench_open_read.py:157: RuntimeWarning: Mean of empty slice
+  draws[k].append(float(np.nanmean([m[k] for m in mb]) - np.nanmean([m[k] for m in ma])))
+[9s] subset src:BMRK: 5 cells, 5 clusters
+[16s] subset src:CSIR: 101 cells, 66 clusters
+[20s] subset type:halfcut: 62 cells, 47 clusters
+[24s] subset type:full: 44 cells, 24 clusters
+[28s] subset crack_cells: 32 cells, 21 clusters
+[33s] subset crack_free_cells: 74 cells, 55 clusters
+[37s] subset strat_full: 44 cells, 24 clusters
+[42s] subset strat_halfcut: 62 cells, 47 clusters
+[45s] subset strat_hard: 29 cells, 17 clusters
+[49s] subset strat_halfcut_noscuff: 33 cells, 31 clusters
+[49s] open read e1_106 (set): 3 arms, 106 cells, 71 clusters, 3 contrasts -> /home/noob/work/bench_reads/t3b_open9/read_t3b/read.txt
+T3B VERDICT: P (ALL - ZS pooled out-of-fold crack relF1@2) CONFIRMED; Delta +0.2213 [+0.0977, +0.3504]; width ratio ALL / ZS 1.426 (reported).
+[2026-11-23 13:39:27] T3B READ ALL DONE (verdict rc 0); tracked changes in /home/noob/work/bench_wt_t3b: 0

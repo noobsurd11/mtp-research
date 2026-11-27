@@ -1,0 +1,35 @@
+{
+ "paper_id": "doi:10.4229/eupvsec2026/3do.16.5",
+ "title": "Long-Tail Challenges in Electroluminescence-Based Photovoltaic Defect Detection: a Diagnostic Study",
+ "year": 2026,
+ "venue": "EU PVSEC",
+ "url": "https://doi.org/10.4229/eupvsec2026/3do.16.5",
+ "code_url": "",
+ "mechanism": "Diagnoses that rare EL classes fail on localisation (predicted as background) and shows only cell-grid-aware copy-paste lifts tail AP.",
+ "adaptation": "Paste inactive+crack pairs, splice, edge_dark, corrosion only onto labelled train cells at grid-consistent positions (between busbars, aligned with fingers, same source contrast), never onto unlabelled pool cells.",
+ "min_experiment": "Arm: house + grid-aware rare-class paste. Baseline: house, 5 v 5 seeds. Metrics: test inactive IoU, mIoU_rob, splice / edge_dark IoU. Kill if inactive < +0.02 and mIoU_rob < +0.005.",
+ "score": 48,
+ "bench_score": 60,
+ "bet": "safe",
+ "targets": [
+  "inactive",
+  "other_classes",
+  "benchmark"
+ ],
+ "evidence": "R: 2,894 images, 61,331 instances, 14 classes, YOLOv11 mAP50 0.579; head AP 0.830 v tail 0.488; grid-aware paste ring_defect AP 0.145 to 0.288.",
+ "gpu_hours": 10,
+ "prior_overlap": "Partial: crack copy-paste onto pool cells was n.d. (more decoys). Grid-aware paste on labelled cells for inactive and rare classes is untested.",
+ "directions": [
+  "D02"
+ ],
+ "scout_scores": [
+  48
+ ],
+ "final": 48,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 233,
+ "pid": "P233"
+}

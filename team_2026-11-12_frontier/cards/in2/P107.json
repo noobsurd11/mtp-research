@@ -1,0 +1,45 @@
+{
+ "paper_id": "doi:10.1007/978-3-031-72111-3_67",
+ "title": "The Centerline-Cross Entropy Loss for Vessel-Like Structure Segmentation: Better Topology Consistency Without Sacrificing Accuracy",
+ "year": 2024,
+ "venue": "MICCAI 2024",
+ "url": "https://doi.org/10.1007/978-3-031-72111-3_67",
+ "code_url": "https://github.com/cesaracebes/centerline_CE",
+ "mechanism": "CE restricted to the label skeleton (recall) and to the predicted skeleton (precision), added to CE. This keeps CE's robustness to noisy annotations, which Dice-based clDice lacks.",
+ "adaptation": "Crack class only, weight 0.1 to 0.5. The label skeleton is about the 1-2 px trace itself. The predicted-skeleton precision term penalises thin false lines (E1 scuff streaks, gridline confusion) and so counters the widening Skeleton Recall caused.",
+ "min_experiment": "Arm: PF + clCE (crack, w 0.25), 5 seeds. Baseline: PF. Metrics: clean-49 crack IoU, relF1@2, predicted width, E1 relF1@2. Kill if crack IoU < baseline - 0.012, or width rises > 15% with no relF1@2 gain.",
+ "score": 58,
+ "bench_score": 70,
+ "bet": "safe",
+ "targets": [
+  "crack",
+  "e1_unseen"
+ ],
+ "evidence": "R (abstract): 2D/3D retinal and coronary data, better overlap than other losses and better connectivity. Exact numbers not read (S2 snippets rate-limited).",
+ "gpu_hours": 6,
+ "prior_overlap": "Partial. Soft clDice (Dice-based) failed and Skeleton Recall (recall only) widened predictions. CE-based skeleton terms with a predicted-skeleton precision term are untested.",
+ "directions": [
+  "D10"
+ ],
+ "scout_scores": [
+  58,
+  48
+ ],
+ "alt_notes": [
+  {
+   "from": "D10",
+   "adaptation": "Crack class only, weight 0.25. The predicted-skeleton term penalises thin false lines (E1 scuff streaks, gridline confusions), which should counter the widening seen with Skeleton Recall. Follow the released code; a reviewer flagged sign errors in the paper equations.",
+   "min_experiment": "PF + clCE (w 0.25) vs PF, 5 seeds. Kill if crack IoU < PF - 0.012 or predicted width rises > 15% with no relF1@2 gain. Run only if SCNP and TRACE fail.",
+   "score": 48
+  }
+ ],
+ "final": 58,
+ "bench": 70,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 107,
+ "pub_allowed": 1,
+ "selected_for": "top",
+ "pid": "P107"
+}

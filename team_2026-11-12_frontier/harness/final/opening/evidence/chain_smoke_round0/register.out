@@ -1,0 +1,20 @@
+wrote /home/noob/work/bench_int_io/opening/chain_934867/io/jobs.txt: 30 lines (C1-D4 in the opening; E1 logp lines 10)
+registered 2026-11-21 05:43:31 IST by noob@giant
+opening_e1 E1 opening #8 e1_open8_final (e1_106, 106 cells)
+opening_t50 test50 opening #19 t50_open19_final (test50, 50 cells)
+rule OPENING_RULE.md 69f0c0f382083f049e676221e9d8daac
+jobs dbd54984b5e34555169796ac5a5726c5 30 lines
+c1d4 yes (fin verdict 48c45d2b0f9e21bcd366478a4b5a68ec)
+flags none | ruled: not needed
+commits F 821dfadf49116cc6d5fdbd6697e263dd7cf0f834 G 8bd1c2761c85f4721e444a8bf7124d2e5804973a R 19764b255ac29f3834bd2c5b1b53f85bc374ff58
+stage_manifest 6487d8f6b16f4f7fafce87f87c4a680a
+e1_masks 97527b6f81cd95b573893b82d4a19641
+v0_test50 11aecb57d501c684f5a1635170c6ddb4
+t50_nolink 66f48dc371fbdf8bf95eb66287e74283
+lists e1 5266806b559f74bcf9eae167bb076b95 t50 a31fad14fa27ee28e2a2319b8976aba3 masks_v11 9c0e068740eab192fce6c5020f0e0f8a
+
+REGISTERED.txt md5 d0de451dbe3efb854a23c4f35f789da2  (IO /home/noob/work/bench_int_io/opening/chain_934867/io; nothing sealed is read beyond file hashes and the image copies)
+ledger row, team_2026-10-31_next/e1_openings.md:
+| 8 | OPENING_RULE.md 69f0c0f382083f049e676221e9d8daac (harness/final/opening) | C1 fin_pf_v11_pool_s5..9 (model, plain); C2 fin_hrnet_swad_v11_pool_s5..9 (swad, D4) = the final model; C3 = mean softmax of the 5 C2; beside: E-PF, C1-D4 | primary: E1 crack relF1@2, C2 - C1, seed-aware two-stage bootstrap (71 clusters x seeds), M 0.010; guards width (pooled, CSIR), false crack px x1.5, mIoU-R13 -0.010; inactive reported | registered 21 Nov 2026 05:43 (REGISTERED.txt d0de451dbe3efb854a23c4f35f789da2, jobs dbd54984b5e34555169796ac5a5726c5) | **registered, NOT opened** | |
+ledger row, benchmark/test_openings.md section B:
+| 19 | final opening (harness/final/opening, rule 69f0c0f382083f049e676221e9d8daac) | C1 fin_pf_v11_pool_s5..9 (plain), C2 fin_hrnet_swad_v11_pool_s5..9 (swad, D4), C1-D4 | public table only, decides nothing: Pratt median IoU rules A/B/C, PV-S3 both background rules, SEiPV family on v0; protocol card on v1.1 (all 50, clean 49, 16 without module link); C2 - C1 relF1@2 secondary | registered 21 Nov 2026 05:43 (REGISTERED.txt d0de451dbe3efb854a23c4f35f789da2); **NOT opened** | |

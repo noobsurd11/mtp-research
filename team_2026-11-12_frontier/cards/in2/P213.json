@@ -1,0 +1,44 @@
+{
+ "paper_id": "arxiv:2603.02554",
+ "title": "Generalizable Knowledge Distillation from Vision Foundation Models for Semantic Segmentation",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2603.02554",
+ "code_url": "",
+ "mechanism": "Two-stage KD from a VFM. Stage 1 distils domain-agnostic features into the student by query-based soft feature distillation. Stage 2 freezes those features and trains the task head, so the student keeps the VFM's out-of-domain robustness.",
+ "adaptation": "Stage 1: distil DINOv2-L or DINOv3 patch features into the ResNet-34 encoder on the 11.9k pool (or the 159k pool). Stage 2: house training under PF so the distilled encoder is not erased. Target: E1 generalisation.",
+ "min_experiment": "Arm: GKD-initialised R34 + PF fine-tune, 5 seeds. Baseline: PF from ImageNet. Metrics: E1 crack relF1@2 and inactive IoU, clean-49 crack IoU. Kill: E1 metrics within noise of PF and no test gain.",
+ "evidence": "R: average gains +1.9% (foundation-to-foundation) and +10.6% (foundation-to-local) over prior KD methods on 5 domain-generalisation segmentation benchmarks.",
+ "gpu_hours": 16,
+ "bet": "medium",
+ "score": 50,
+ "bench_score": 35,
+ "targets": [
+  "e1_unseen",
+  "inactive"
+ ],
+ "prior_overlap": "Partial. The pool feature-learning row (MIM, DDeP on R34) was n.d. VFM feature distillation is a different objective, and BRIEF lists other SSL objectives as open.",
+ "directions": [
+  "D24",
+  "D29"
+ ],
+ "scout_scores": [
+  45,
+  50
+ ],
+ "alt_notes": [
+  {
+   "from": "D24",
+   "adaptation": "Student = house R34 encoder; stage 1 feature distillation from DINOv2-L or C-RADIOv4 on the 11.9k pool; stage 2 house training, encoder frozen then PF.",
+   "min_experiment": "GKD-initialised R34 vs house PF; E1 relF1@2 and E1 inactive IoU; kill if not +0.03 E1 relF1@2.",
+   "score": 45
+  }
+ ],
+ "final": 50,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 213,
+ "pid": "P213"
+}

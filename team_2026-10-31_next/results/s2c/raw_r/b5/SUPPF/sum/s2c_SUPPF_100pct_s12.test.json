@@ -1,0 +1,94 @@
+{
+ "set": "test",
+ "n_cells": 50,
+ "gt_comp20": 189,
+ "op_comp": {
+  "b": 4.3,
+  "j": 84,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.856,
+  "val_P": 0.9064748201438849
+ },
+ "op_rel": {
+  "b": 3.4,
+  "j": 75,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.8708418999420107,
+  "val_P": 0.9000818119187047
+ },
+ "comp_recall_at_opc": 0.8624338624338624,
+ "comp_prec_at_opc": 0.9051724137931034,
+ "relR_at_opr": 0.8802484957751374,
+ "relP_at_opr": 0.9142962587073857,
+ "speck_guard": {
+  "opc": {
+   "compP_all": 0.7018469656992085,
+   "speck_share": 0.0087137830676339
+  },
+  "opr": {
+   "compP_all": 0.7420212765957447,
+   "speck_share": 0.009152558010794851
+  }
+ },
+ "deployed_b": 0.0,
+ "at_deployed": {
+  "P": 0.6571536506628203,
+  "R": 0.623465907856724,
+  "IoU": 0.47044409660473846,
+  "relP": 0.9400828811502622,
+  "relR": 0.8505115450615809,
+  "compR": 0.8201058201058201,
+  "compP": 0.9605263157894737,
+  "compP_all": 0.8292011019283747,
+  "speck_share": 0.01213453304943105,
+  "inactIoU": 0.46260294923488376
+ },
+ "cell_deployed": {
+  "b": 0.0,
+  "n_pos": 48,
+  "n_neg": 2,
+  "n_ambiguous": 0,
+  "recall": 0.9166666666666666,
+  "fa_rate": 0.0,
+  "precision": 1.0,
+  "auroc": 0.9583333333333334
+ },
+ "cell_at_opc": {
+  "b": 4.3,
+  "n_pos": 48,
+  "n_neg": 2,
+  "n_ambiguous": 0,
+  "recall": 0.9375,
+  "fa_rate": 0.0,
+  "precision": 1.0,
+  "auroc": 0.9583333333333334
+ },
+ "cell_b0": {
+  "b": 0.0,
+  "n_pos": 48,
+  "n_neg": 2,
+  "n_ambiguous": 0,
+  "recall": 0.9166666666666666,
+  "fa_rate": 0.0,
+  "precision": 1.0,
+  "auroc": 0.9583333333333334
+ },
+ "inactive_area_err": {
+  "b": 0.0,
+  "mae_all": 1.1443449999597153,
+  "mae_inactive_cells": 4.313483605018029,
+  "n_inactive_cells": 13,
+  "mae_other": 0.030863868452740376,
+  "signed_mean": -0.5804564501550279,
+  "max_err": 26.63116455078125
+ },
+ "excluded": [],
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": false,
+ "el_metrics_md5": "6e73ff11aaa6171a52b5a5404877ab46"
+}

@@ -1,0 +1,67 @@
+{
+ "paper_id": "doi:10.1109/tip.2022.3155954",
+ "title": "Local Intensity Order Transformation for Robust Curvilinear Object Segmentation",
+ "year": 2022,
+ "venue": "IEEE TIP",
+ "url": "https://arxiv.org/abs/2202.12587",
+ "code_url": "https://github.com/TY-Shi/LIOT",
+ "mechanism": "Encodes each pixel as 4 channels of 8-bit codes: is the pixel darker than each of its 8 neighbours (1 to 8 px away) to the left, right, top and bottom. The code is invariant to any monotone contrast change.",
+ "adaptation": "EL cracks are dark lines about 4 px FWHM, which is exactly the LIOT prior. Use a 5-channel input (raw + 4 LIOT) under PF, with the ResNet-34 stem weights extended to the new channels. This targets contrast differences across the 5 sources and the E1 CSIR half-cuts. Risk: gridlines, busbars, cell edges and scuff streaks are also darker than their context, so false positives may rise.",
+ "min_experiment": "LIOT+raw PF vs PF house, 5 seeds. Primary metric: E1 crack relF1@2 and recall. Guard: test-clean crack relF1@2. Kill if E1 relF1@2 gains < 0.03 or test relF1@2 drops by > 0.01.",
+ "evidence": "R (full text): in-dataset results are about equal to baseline (slightly worse on retina, competitive on CrackTree). Cross-retinal (DRIVE/STARE/CHASE, 3 random splits) gives a better mean and smaller standard error on Se, Acc, AUC, F1 and connectivity. Retina-to-CrackTree transfer is also reported.",
+ "gpu_hours": 7,
+ "bet": "medium",
+ "prior_overlap": "Partial. Inference-time intensity normalisation failed in section 5. LIOT is a different mechanism: a contrast-invariant representation used during training.",
+ "score": 68,
+ "bench_score": 50,
+ "targets": [
+  "e1_unseen",
+  "crack"
+ ],
+ "directions": [
+  "D08",
+  "D11",
+  "D12"
+ ],
+ "scout_scores": [
+  62,
+  62,
+  58,
+  68,
+  58
+ ],
+ "alt_notes": [
+  {
+   "from": "D08",
+   "adaptation": "Feed [EL, LIOT x4] (5 channels) rather than LIOT alone to keep in-distribution signal; neighbour range about 8 px to span a 4 px crack; per-source check on BMRK because LIOT degraded under blur in the CrackCue tables.",
+   "min_experiment": "Arm: house with [EL, LIOT x4] input, 5 seeds. Baseline: house. Metrics: test crack IoU, relF1@2, per-source crack IoU (BMRK, CFVS), E1 crack relF1@2. Kill: E1 relF1@2 < +0.03, or test crack IoU drop > 0.012.",
+   "score": 62
+  },
+  {
+   "from": "D11",
+   "adaptation": "Input-side, not output-side. Stack LIOT channels with raw 1-channel EL (5 channels, re-init the 4 extra first-conv channels). Aimed at E1 contrast shift and half-cut scuff streaks.",
+   "min_experiment": "Arm = PF with LIOT+raw input; baseline = PF; 5 seeds; metrics E1 crack relF1@2 and recall, test crack IoU. Kill if E1 relF1@2 gain < 0.03 or test IoU drops > 0.01.",
+   "score": 58
+  },
+  {
+   "from": "D08",
+   "adaptation": "Input [EL, LIOT x4] (5 channels) so in-distribution signal is kept; order window about 8 px to cover 4 px dark lines. Targets source contrast differences (5 sources) and CSIR E1. BMRK (downscaled, blurry) and the noisy CSIR cell are the risk cases.",
+   "min_experiment": "Arm: house with [EL, LIOT] input, 5 seeds. Baseline: house. Metrics: E1 crack relF1@2, per-source test crack IoU (BMRK, CFVS), test crack IoU. Kill: E1 relF1@2 < +0.03 and test crack IoU drop > 0.012.",
+   "score": 62
+  },
+  {
+   "from": "D12",
+   "adaptation": "Compute LIOT on the 1-ch EL cell; input [EL, LIOT] (5 ch) or LIOT only; run on house and PF since E1 inactive depends on PF. Aimed at E1 contrast / source shift; watch for extra finger and scuff false alarms.",
+   "min_experiment": "Arm: house and PF with [EL, LIOT] input, 5 seeds each; baseline: house / PF 5 seeds. Metric: E1 crack relF1@2 and recall, test crack IoU as guard. Kill: E1 relF1@2 gain < 0.03 or test crack IoU drop > 0.015.",
+   "score": 58
+  }
+ ],
+ "final": 68,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 33,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

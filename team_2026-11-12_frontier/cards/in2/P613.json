@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1109/isitia71267.2026.11642343",
+ "title": "Solar Photovoltaic Modules Degradation: A Comparison Between Electroluminescence and Infrared Thermal Imaging",
+ "year": 2026,
+ "venue": "ISITIA",
+ "url": "https://doi.org/10.1109/isitia71267.2026.11642343",
+ "code_url": "",
+ "mechanism": "Multimodal EL + IR detection dataset with one label scheme and weak boxes, YOLO with cross-modal fusion.",
+ "evidence": "R: 359 EL and 569 IR images; no metrics in the abstract. Availability unverified.",
+ "adaptation": "The only labelled EL + IR set found; if public and paired by module, it allows a cell-level mapping study (which EL defect classes have a thermal signature).",
+ "min_experiment": "Locate the data; if public, count modules with both modalities and their label overlap. CPU.",
+ "gpu_hours": 0,
+ "prior_overlap": "Not in the desk study's dataset table (A1 to A3, B, C, D, E rows).",
+ "targets": [
+  "deployment",
+  "severity"
+ ],
+ "bet": "medium",
+ "score": 15,
+ "bench_score": 30,
+ "directions": [
+  "D05"
+ ],
+ "scout_scores": [
+  15
+ ],
+ "final": 15,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 613,
+ "pid": "P613"
+}

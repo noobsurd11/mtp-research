@@ -1,0 +1,5 @@
+case 1 (relay not done): REFUSED (unstage): the relay in /home/noob/work/bench_int_io/opening/unstage_1094044/relay has not relayed all 3 dumps
+case 2 (one cv02 file differs): SKIP md5sum -c fin_hrnet_swad_v11_pool_s6.swad.tta_d4.e1_106 REMOVED_DUMPS 2 REFUSED (unstage): not every sealed dump dir was removed from /tmp/noob_el/bench_8bd1c27/dumps (see above; nothing else was touched) 
+  after case 2: dump dirs left 1 (the tampered one: kept); DS kept
+case 3 (all equal): REMOVED_DUMPS 3 REMOVED /home/noob/work/bench_int_io/opening/unstage_1094044/noob_el/bench_data_sealed [2026-11-21 07:51:49] unstage: removed 3 sealed dump dirs from /tmp/noob_el/bench_8bd1c27/dumps (each = its verified relayed copy in /home/noob/work/bench_int_io/opening/unstage_1094044/relay) and 
+  after case 3: dump dirs left 0; runs/*/RUN.md5 kept 3; DS removed; removal log lines 5

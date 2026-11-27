@@ -1,0 +1,37 @@
+{
+ "paper_id": "arxiv:2304.01973",
+ "title": "ERM++: An Improved Baseline for Domain Generalization",
+ "year": 2025,
+ "venue": "WACV",
+ "url": "https://arxiv.org/abs/2304.01973",
+ "code_url": "https://github.com/piotr-teterwak/erm_plusplus",
+ "mechanism": "A tuned plain-ERM recipe: average all weight iterates (MPA), warm-start the new head on a frozen backbone, set training length on val then retrain on train+val, stronger init, unfrozen BN.",
+ "adaptation": "MPA as a running mean of all U-Net++ weights from step 2k to 20k with BN stats recomputed on train; warm start = PF's 1k frozen steps; fix the schedule (plateau lr drops, cap 80k) on the module-grouped 5-fold CV, then retrain the final model on all 532 train+val cells.",
+ "min_experiment": "Arm: PF + MPA (same run, paired raw vs averaged), then PF + MPA + full-data retrain. Baseline: SUP100-PF, seeds 5-9. Metric: val/CV crack relF1@2 and inactive IoU, then test clean crack relF1@2, E1 crack relF1@2, E1 inactive IoU. Kill: MPA minus raw < +0.005 val relF1@2 paired over 5 seeds and E1 inactive not better.",
+ "evidence": "R (full text, Table 2a, ResNet-50, 5 DomainBed datasets): ERM++ 68.9 avg; without MPA 65.9 (-3.0, largest), without full data 67.7, without strong init 67.6, without unfrozen BN 68.3, without Auto-LR 68.4, without warm start 68.7.",
+ "prior_overlap": "BRIEF section 5 optimizer row: EMA/SWA and longer schedules never varied; PF covers only the warm-start part. Open.",
+ "score": 74,
+ "bench_score": 60,
+ "bet": "safe",
+ "gpu_hours": 15,
+ "targets": [
+  "e1_unseen",
+  "inactive",
+  "crack",
+  "benchmark"
+ ],
+ "directions": [
+  "D35"
+ ],
+ "scout_scores": [
+  74
+ ],
+ "final": 74,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 3,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

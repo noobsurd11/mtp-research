@@ -1,0 +1,43 @@
+{
+ "paper_id": "arxiv:2503.23430",
+ "title": "DGSAM: Domain Generalization via Individual Sharpness-Aware Minimization",
+ "year": 2025,
+ "venue": "Qeios (preprint)",
+ "url": "https://arxiv.org/abs/2503.23430",
+ "code_url": "",
+ "mechanism": "SAM can find flat total loss but sharp per-domain loss; gradual domain-wise perturbation lowers sharpness per domain at less cost than SAM.",
+ "adaptation": "Domains = the 5 image sources; source-balanced batches; per-source perturbation steps. Aimed at BMRK weakness and E1 (CSIR-heavy).",
+ "evidence": "Beats SOTA DG methods on several benchmarks with less overhead than SAM (abstract).",
+ "min_experiment": "Arm DGSAM vs PF+SAM, seeds 5-9; metric per-source test crack IoU (BMRK) and E1 crack relF1@2. Kill if BMRK and E1 not better than PF+SAM.",
+ "gpu_hours": 15,
+ "targets": [
+  "e1_unseen",
+  "crack"
+ ],
+ "bet": "moonshot",
+ "prior_overlap": "none",
+ "score": 45,
+ "bench_score": 25,
+ "directions": [
+  "D35"
+ ],
+ "scout_scores": [
+  45,
+  40
+ ],
+ "alt_notes": [
+  {
+   "from": "D35",
+   "adaptation": "Domains = the 5 image sources (ARTS, CFVS, CSIR, BMRK, SDLE); per-source perturbation steps with source-balanced batches; aims at BMRK weakness and CSIR-heavy E1.",
+   "min_experiment": "Arm: PF + DGSAM, 5 seeds, only if plain SAM moved E1. Baseline: PF + SAM and SUP100-PF. Metric: E1 crack relF1@2, BMRK crack/inactive IoU. Kill: no gain over PF + SAM.",
+   "score": 40
+  }
+ ],
+ "final": 45,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 316,
+ "pid": "P316"
+}

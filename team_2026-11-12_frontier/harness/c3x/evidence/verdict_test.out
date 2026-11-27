@@ -1,0 +1,67 @@
+PASS	A all pass -> CONFIRMED, candidate	
+PASS	A2 candidate case: no single-arm information line	
+PASS	A3 not candidate: HRNET - PF and SWADBN - PF printed for both cell sets at OP-A and OP-W, no ranking	
+PASS	B only failing item a per-source width (ARTS OP-W 416) -> carried by COMBO.swad	
+PASS	B2 two per-source widths (either op, either cell set) -> carried	
+PASS	C pooled width fails -> not confirmed, named, no carry, not candidate	
+PASS	D headline delta < M at one of four (416 OP-W, M 0.012) -> no confirmed gain	
+PASS	E headline CI low = 0 at one value -> no confirmed gain	
+PASS	E2 headline delta = M exactly and CI low > 0 -> passes (inclusive)	
+PASS	F carry possible but COMBO.swad fails a guard (false alarms) -> not confirmed, named	
+PASS	G carry possible but COMBO.swad fails the headline -> not confirmed	
+PASS	H per-source width + inactive guard -> no carry	
+PASS	I source with 17 < 40 cells far outside -> not judged, confirmed	
+PASS	J1 per-source ratio 1.1499 passes	
+PASS	J2 per-source ratio 1.1501 fails (then carried)	
+PASS	J3 pooled ratio 0.8499 fails, no carry	
+PASS	K1 false alarms 1.49 x pass	
+PASS	K2 false alarms 1.51 x fail, no carry	
+PASS	L mIoU-R13 drop below -M fails the guard	
+PASS	S1 adds against both	
+PASS	S2 one value delta < M (416 M 0.012), all CI low > -M -> no loss	
+PASS	S3 CI low = 0 at one value -> not adds, no loss	
+PASS	S4 CI low = -M exactly (416, -0.012) -> loses; not candidate, reason named	
+PASS	S5 CI low = -0.0119 > -M -> no loss	
+PASS	S6 delta = M exactly with CI low > 0 -> adds (inclusive)	
+PASS	S7 loses against HRNET -> not candidate	
+PASS	S8 all four secondary contrasts printed with 4 values each	
+PASS	F1 carried: COMBO loses vs SWADBN but COMBO.swad has no loss -> candidate (labels of the carrier)	
+PASS	F2 carried: COMBO.swad loses vs HRNET -> not candidate	
+PASS	F3 primary not confirmed though COMBO adds against both -> not candidate	
+PASS	R1_aa_spec refused	refuse: A/A spec of the 532 cells block is 'PF:5,6:8,9', the registered one is 'PF:5,6:7,8'
+
+PASS	R2_aa_spec_416 refused	refuse: A/A spec of the 416 clean cells block is 'HRNET:5,6:7,8', the registered one is 'PF:5,6:7,8'
+
+PASS	R3_24_runs refused	refuse: arm COMBO_SWAD has 24 runs with 24 different run ids, the registered read has 25
+
+PASS	R4_seed_missing refused	refuse: arm HRNET has seeds [5, 6, 7, 8], the registered read has [5, 6, 7, 8, 9]
+
+PASS	R5_cv5v2_set refused	refuse: arm PF holds sets that are not cv5v3_f<k>: ['cv5v2_f3']
+
+PASS	R6_contrast_missing refused	refuse: the 416 clean cells block lacks the contrasts ['COMBO_SWAD - SWADBN']
+
+PASS	N1_null_width refused	refuse: width ratio undefined for a judged subset (src:CSIR, OP-W, 416 clean cells): COMBO None, PF 1.0; no verdict written
+
+PASS	N2_null_fa refused	refuse: false crack px undefined (OP-A, 532 cells): COMBO 400.0, PF None; no verdict written
+
+PASS	N3a_null_delta_headline refused	refuse: contrast COMBO - PF, OP-A, relF1_2: delta is None in the 532 cells block (null or NaN); no verdict written
+
+PASS	N3b_nan_hi_carry_headline refused	refuse: contrast COMBO_SWAD - PF, OP-W, relF1_2: hi is nan in the 416 clean cells block (null or NaN); no verdict written
+
+PASS	N3c_null_lo_inactive_guard refused	refuse: contrast COMBO - PF, OP-W, inact_iou: lo is None in the 532 cells block (null or NaN); no verdict written
+
+PASS	N3d_nan_delta_miou_guard refused	refuse: contrast COMBO - PF, OP-A, miou_rob: delta is nan in the 416 clean cells block (null or NaN); no verdict written
+
+PASS	N3e_nan_lo_secondary refused	refuse: contrast COMBO - SWADBN, OP-W, relF1_2: lo is nan in the 416 clean cells block (null or NaN); no verdict written
+
+PASS	N3f_null_delta_secondary refused	refuse: contrast COMBO_SWAD - HRNET, OP-A, relF1_2: delta is None in the 532 cells block (null or NaN); no verdict written
+
+PASS	N3g_null_margin refused	refuse: the A/A margin M(relF1_2) of the 416 clean cells block is None (null or NaN); no verdict written
+
+PASS	N3h a NaN is refused under --mechanics too (never a silent 'loses')	
+PASS	N3i an undefined per-seed or information value beside the verdict prints n/a, no TypeError	
+PASS	R7 --mechanics on a non-registered read: mark in first, verdict and final-model lines	
+PASS	O1 existing output refused	
+PASS	P1 probe lines: stage 'model' at step 20000; other stage names flagged	
+
+c3x verdict test: 50 of 50 PASS

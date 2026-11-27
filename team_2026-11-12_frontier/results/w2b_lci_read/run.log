@@ -1,0 +1,34 @@
+[2026-11-18 15:31:01] w2b read start (ARM=lci PF4=0 out /home/noob/work/bench_reads/w2b_lci; script 8d644288; counts a23dd544; verdict 1ace40f7)
+read (cwd /home/noob/work/bench_wt_b, nice -n 19): scripts/bench_read_w1.py --arm PF=/home/noob/work/bench_dumps/w1g/elbench1/house_r34_unetpp_pf_v11:w1g_pf_v11_f[0-4]_s[56] --arm PFC=/home/noob/work/bench_udev/opc/dumps_gaint/elbench1/pf_v11_opc:w1g_pf_v11_f[0-4]_s[56] --arm PFAA=/home/noob/work/bench_dumps/w1g/elbench1/house_r34_unetpp_pf_v11:w1g_pf_v11_f[0-4]_s[5-8] --arm LCI=/home/noob/work/bench_dumps/w2b/elbench1/layered_ci_pf_v11:w2b_lci_f[0-4]_s[56] --arm LCIARG=/home/noob/work/bench_dumps/w2b/elbench1/layered_ci_pf_v11:w2b_lci_f[0-4]_s[56]\.argmax24 --arm LCIUNI=/home/noob/work/bench_dumps/w2b/elbench1/layered_ci_pf_v11:w2b_lci_f[0-4]_s[56]\.layered_ci_union --pair PFC=LCI --pair PF=LCI --pair LCIARG=LCI --pair LCIARG=LCIUNI --pair PF=LCIARG --labels v11 --workers 8 --cache /home/noob/work/bench_reads/w2b_lci/cache_c --baseline PF --aa PFAA:5,6:7,8 --score-exclude /home/yugma/mtp/research/team_2026-11-12_frontier/benchmark/splits/score_exclude_v3.txt --out /home/noob/work/bench_reads/w2b_lci/read
+[173s] argmax records + bias sweeps: 70 runs
+[275s] operating points and their records (532 stems)
+score-exclude /home/yugma/mtp/research/team_2026-11-12_frontier/benchmark/splits/score_exclude_v3.txt md5 6d48dfbd56ba8140ed20ecb21bf349dc: 532 -> 416 stems
+[381s] operating points and their records (416 stems)
+[440s] wave 1 read: 6 arms, 532 OOF stems, 5 contrasts, A/A yes -> /home/noob/work/bench_reads/w2b_lci/read/read.txt
+[2026-11-18 15:38:22] read rc=0
+wrote /home/noob/work/bench_reads/w2b_lci/counts_532.txt (196 lines)
+wrote /home/noob/work/bench_reads/w2b_lci/counts_416.txt (196 lines)
+[2026-11-18 15:38:34] counts rc 532 0, 416 0
+L1 532	FAIL	R1 LCI - PFC -0.0140 [-0.0767, +0.0556]
+L1 416	FAIL	R1 LCI - PFC -0.0124 [-0.0811, +0.0633]
+L2 false-alarm px	PASS	R2 LCI 2412 <= 1.15 x PFC 12231 (cells without inactive 484)
+L3 inactive precision	PASS	R3 LCI - PFC +0.0545 >= -0.02
+L4 area	PASS	R4 LCI / PFC 0.918 in [0.85, 1.15]
+L5 direction	PASS	R5 LCI - PFC +0.0180 > 0
+L6 mechanism	PASS	R5 LCI - LCIARG +0.0009 > 0 (paired CI -0.0007, +0.0026; promotes nothing)
+L7 crack_iou OP-A	PASS	LCI - PF delta +0.0073 >= -M -0.0100 [CI +0.0001, +0.0158]
+L7 relF1_2 OP-A	PASS	LCI - PF delta +0.0043 >= -M -0.0100 [CI -0.0037, +0.0111]
+L7 crack_iou OP-W	PASS	LCI - PF delta +0.0061 >= -M -0.0100 [CI -0.0013, +0.0145]
+L7 relF1_2 OP-W	PASS	LCI - PF delta +0.0040 >= -M -0.0100 [CI -0.0039, +0.0109]
+L7 width pooled	PASS	LCI 1.030 vs PF 1.006 x [0.85, 1.15]
+L7 width ARTS	PASS	LCI 0.916 vs PF 0.868 x [0.85, 1.15]
+L7 width BMRK	PASS	LCI 0.869 vs PF 0.868 x [0.85, 1.15]
+L7 width CFVS	PASS	LCI 1.093 vs PF 1.068 x [0.85, 1.15]
+L7 width CSIR	PASS	LCI 0.929 vs PF 0.898 x [0.85, 1.15]
+L7 false crack px	PASS	LCI 368 <= 1.5 x PF 452
+		printed: LCIARG R1 0.6070 R2 2273 R3 0.8019 R4 0.7518 R5 0.5248
+		printed: LCIUNI R1 0.6070 R2 2432 R3 0.7997 R4 0.7575 R5 0.5260
+		printed: PF R1 0.6000 R2 8854 R3 0.7671 R4 0.7648 R5 0.4980
+VERDICT layered_ci: PARK (no promotion at 2 seeds; failed: ['L1 532', 'L1 416'])
+[2026-11-18 15:38:34] verdict rc=0
+[2026-11-18 15:38:34] W2B READ ALL DONE (rc 0); tracked changes: bench_wt_b 0, bench_wt_w2b 0

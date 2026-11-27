@@ -1,0 +1,60 @@
+{
+ "paper_id": "doi:10.1016/j.autcon.2026.107190",
+ "title": "Multi-Task Crack Foundation Model for Engineering-Reliable Crack Representation and Topology Preservation in Civil Infrastructure (CrackGeoFM)",
+ "year": 2026,
+ "venue": "Automation in Construction (arXiv 2606.05641)",
+ "url": "https://arxiv.org/abs/2606.05641",
+ "code_url": "",
+ "mechanism": "Frozen visual foundation backbone with frequency-guided crack enhancement and a domain adaptation module, plus one decoder that jointly outputs mask, skeleton and uncertainty.",
+ "adaptation": "Take the multi-task decoder only: skeleton head (label skeleton dilated 1 px) and aleatoric uncertainty head on the house model; skeleton output drawn at per-source width; uncertainty as a severity / review flag. 5-shot adaptation claim relevant to the E1 few-shot track.",
+ "min_experiment": "Arm PF + skeleton + uncertainty heads vs PF; metric relF1@2 (CV) and E1 relF1@2; kill if relF1@2 +<0.01 and E1 relF1@2 +<0.03.",
+ "evidence": "20 crack datasets: SOTA segmentation, better topology, calibrated uncertainty, few-shot adaptation from 5 labelled images; numbers not read.",
+ "prior_overlap": "partial: BRIEF 5 frozen foundation probes showed no gain, but the multi-task skeleton/uncertainty decoder was never tried",
+ "score": 45,
+ "bench_score": 55,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "e1_unseen",
+  "benchmark"
+ ],
+ "gpu_hours": 25,
+ "directions": [
+  "D09",
+  "D11",
+  "D14"
+ ],
+ "scout_scores": [
+  44,
+  44,
+  45,
+  45
+ ],
+ "alt_notes": [
+  {
+   "from": "D09",
+   "adaptation": "Frozen DINOv3 or SAM2 encoder, 24-class mask head plus crack skeleton head plus aleatoric crack head; uncertainty feeds the severity step and benchmark calibration reporting.",
+   "min_experiment": "Arm: PF + aleatoric crack head (and optionally frozen-FM variant); baseline PF; 3 seeds. Metric: crack ECE within 2 px, CV crack IoU unchanged. Kill if ECE not lower.",
+   "score": 44
+  },
+  {
+   "from": "D09",
+   "adaptation": "Frozen DINOv3 or SAM2 encoder with adapter, 24-class mask head plus crack skeleton and aleatoric uncertainty heads; uncertainty output feeds the benchmark's severity and post-evaluation step.",
+   "min_experiment": "Arm: PF + aleatoric crack head (and optional skeleton head); baseline: PF; 3 seeds. Metric: ECE on crack pixels within 2 px, CV crack IoU. Kill if ECE not lower or IoU drops > 0.01.",
+   "score": 44
+  },
+  {
+   "from": "D14",
+   "adaptation": "Add a skeleton head (centerline target from our 1-2 px labels) and an uncertainty head to the Dino U-Net arm; uncertainty flags E1 cells for review; skeleton output feeds crack length for severity.",
+   "min_experiment": "Dino U-Net + skeleton + uncertainty heads vs Dino U-Net alone; crack relF1@2 on CV and E1 recall at matched precision; kill if both gains < 0.01.",
+   "score": 45
+  }
+ ],
+ "final": 45,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 277,
+ "pid": "P277"
+}

@@ -1,0 +1,8 @@
+elbench: queue, gate, guard, gpumem logger and dry harness (not armed)
+
+bench_q.sh from s2c_queue v3 de31c533 (cards, any command, verify token run_name= / --bench-run), bench_lib.sh
+from s2c_lib 4edcae9e, bench_guard.sh from s2c_guard 334742d6 (logic unchanged), bench_gate.sh = gpu_gate
+00fabfdd with a configurable gate dir and fake free memory for tests, bench_gpumem.sh from s2c_gpumem 06791cdd.
+bench/q/tests/bench_q_dry.sh runs the guard, unit and whole-queue tests on dummy processes only.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>

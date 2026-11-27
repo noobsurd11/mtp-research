@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2607.00687",
+ "title": "LUMA: Benchmarking Segmentation via a Lightweight Universal Mask Adapter",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2607.00687",
+ "code_url": "",
+ "mechanism": "One fixed lightweight mask-transformer head attached to any backbone (ViT, hierarchical, conv, MoE) so backbones and pretrainings can be compared under one recipe.",
+ "adaptation": "Benchmark design: hold one mask head fixed and swap encoders (ResNet-34 ImageNet, ConvNeXt-T, DINOv2/DINOv3 ViT) to separate encoder from decoder effects; also a cheap way to put a mask head on the house ResNet-34.",
+ "min_experiment": "LUMA head on house ResNet-34 vs house U-Net++ decoder, 5-fold; metric inactive IoU and mIoU_rob; kill if both below house by > 0.01.",
+ "score": 30,
+ "bench_score": 70,
+ "bet": "medium",
+ "targets": [
+  "benchmark",
+  "inactive"
+ ],
+ "evidence": "R: matches EoMT at cost parity; 20 backbones, 11 pretraining schemes on ADE20K/COCO/Cityscapes; pretraining objective, not architecture, governs quality; plain ViT holds throughput Pareto front. Code stated github.com/tobna/LUMA (not opened).",
+ "gpu_hours": 15,
+ "prior_overlap": "none",
+ "directions": [
+  "D23"
+ ],
+ "scout_scores": [
+  30
+ ],
+ "final": 30,
+ "bench": 70,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 498,
+ "pid": "P498"
+}

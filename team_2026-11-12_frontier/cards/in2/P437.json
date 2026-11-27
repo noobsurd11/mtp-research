@@ -1,0 +1,42 @@
+{
+ "paper_id": "doi:10.22260/isarc2025/0140",
+ "title": "DSCformer: A Dual-Branch Network Integrating Enhanced Dynamic Snake Convolution and SegFormer for Crack Segmentation",
+ "year": 2025,
+ "venue": "ISARC",
+ "url": "https://arxiv.org/abs/2411.09371",
+ "code_url": "",
+ "mechanism": "Dynamic snake convolution with pyramid-kernel offset prediction and bidirectional offset iteration, in a dual branch with SegFormer, plus weighted channel attention.",
+ "adaptation": "Replace the last two U-Net++ decoder conv blocks with enhanced DSConv for crack-following receptive fields; encoder and other heads unchanged.",
+ "min_experiment": "Arm: PF with DSConv decoder blocks; baseline: PF; 3 seeds. Metric: CV crack IoU and components found. Kill if IoU gain < +0.01.",
+ "score": 36,
+ "bench_score": 35,
+ "bet": "medium",
+ "targets": [
+  "crack"
+ ],
+ "evidence": "R: IoU 59.22% on Crack3238 and 87.24% on FIND.",
+ "gpu_hours": 10,
+ "prior_overlap": "none (snake / deformable convolutions are on the never-tried list).",
+ "directions": [
+  "D09"
+ ],
+ "scout_scores": [
+  36,
+  36
+ ],
+ "alt_notes": [
+  {
+   "from": "D09",
+   "adaptation": "Replace the last two U-Net++ decoder conv blocks with DSConv on the crack path; keep the ResNet-34 encoder and 24-class head.",
+   "min_experiment": "Arm: PF with DSConv decoder blocks; baseline PF; 3 seeds. Metric: CV crack IoU and components >= 20 px found. Kill if IoU gain < +0.01 and components n.d.",
+   "score": 36
+  }
+ ],
+ "final": 36,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 437,
+ "pid": "P437"
+}

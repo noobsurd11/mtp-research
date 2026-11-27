@@ -1,0 +1,37 @@
+{
+ "paper_id": "arxiv:2509.11689",
+ "title": "Uncertainty-Aware Retinal Vessel Segmentation via Ensemble Distillation",
+ "year": 2025,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2509.11689",
+ "code_url": "",
+ "mechanism": "Distil a 5-model ensemble into one FR-UNet (KL or contrastive representation distillation) to keep ensemble Dice and calibration for thin vessels.",
+ "adaptation": "Same arm as Noothout; also report ECE on crack pixels and student uncertainty over the crack band as input to severity post-evaluation.",
+ "min_experiment": "Within the Noothout arm: add crack-pixel ECE and relF1@2 at matched precision. Kill as Noothout arm.",
+ "evidence": "R: DRIVE (40 imgs) and FIVES (800); distilled model comparable to 5-model deep ensemble on DSC / MCC and calibration (ECE, Brier, NLL); beats MC dropout and Layer Ensembles on cost.",
+ "gpu_hours": 2,
+ "bet": "safe",
+ "targets": [
+  "crack",
+  "severity",
+  "deployment"
+ ],
+ "prior_overlap": "none",
+ "score": 60,
+ "bench_score": 35,
+ "directions": [
+  "D34"
+ ],
+ "scout_scores": [
+  60
+ ],
+ "final": 60,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 100,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P100"
+}

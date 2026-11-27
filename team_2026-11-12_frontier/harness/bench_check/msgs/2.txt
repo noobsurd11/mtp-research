@@ -1,0 +1,10 @@
+elbench: dump format, cell sets, m0 core, scorer and inference
+
+bench/dumpfmt.py (numpy only): per-cell npz (pred, oth, m_crack f16, p_crack f32, p_inact f16, optional logp),
+sealed-set guard, manifest with md5s. bench/sets.py: set names -> ordered stems, images, GT, ignore.
+bench/m0core.py: comps / BANDS / cell_stats / agg copied line-identical from m0_audit d36f7438 and m0_analyze
+d5adbe6b (AST test against vendored copies). bench/score_ext.py: rel@1/3, GT shift / dilation reference rows.
+scripts/bench_infer.py: b6 / m0 predict path, cpu fp32 | cuda bf16 | cuda fp32 (TF32 off). scripts/bench_score.py:
+records, refrows, summary (subsets, R1, paired bootstrap), ast-check, compare (prints IDENTICAL / DIFF counts only).
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>

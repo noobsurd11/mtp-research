@@ -1,0 +1,60 @@
+{
+ "paper_id": "doi:10.1109/ictas64866.2025.11155421",
+ "title": "Correlating Defects in Electroluminescence Images to Photovoltaic Module Power Loss Using DeepLabV3 for Semantic Segmentation",
+ "year": 2025,
+ "venue": "ICTAS",
+ "url": "https://doi.org/10.1109/ictas64866.2025.11155421",
+ "code_url": "",
+ "mechanism": "Segment every cell of fielded modules with a multi-class EL model and regress module electrical parameters on per-module defect fractions.",
+ "adaptation": "CSIR (our CSIR source, BenchmarkEL author) shows the class set links to module fill factor. Benchmark severity track: per-module class fractions vs FF / Pmpp, if CSIR shares the electrical data (needs user OK).",
+ "min_experiment": "No training arm; for the benchmark, request the 680-module EL + IV data and report correlation of predicted inactive / crack fractions with FF and Pmpp.",
+ "evidence": "R: 680 modules, 48,960 cells, 29 classes after adding 24 brightening samples; brightening fraction explains 42% of FF variance (r2 0.42).",
+ "prior_overlap": "none",
+ "score": 20,
+ "bench_score": 70,
+ "bet": "medium",
+ "targets": [
+  "severity",
+  "benchmark"
+ ],
+ "gpu_hours": 1,
+ "directions": [
+  "D02",
+  "D03",
+  "D04",
+  "D44"
+ ],
+ "scout_scores": [
+  10,
+  15,
+  20,
+  15
+ ],
+ "alt_notes": [
+  {
+   "from": "D02",
+   "adaptation": "Same CSIR lab as our CSIR source: template for a severity post-evaluation (predicted inactive fraction per module v measured power); ask the authors for the paired EL + I-V data.",
+   "min_experiment": "Severity item only: correlate house inactive fraction with module power if paired data is obtained.",
+   "score": 10
+  },
+  {
+   "from": "D02",
+   "adaptation": "Template for the severity step: aggregate our class fractions per module and regress on fill factor or Pmax where CSIR or WattCycle electrical data exist.",
+   "min_experiment": "If electrical data exist for any of our modules: regress module crack length, inactive fraction on FF; report r2 with module-level CV. No score kill line.",
+   "score": 15
+  },
+  {
+   "from": "D44",
+   "adaptation": "Same lab, class scheme and CSIR source as our data and E1. If Pratt shares the 680-module EL + I-V, it becomes the benchmark's power track on the E1-like domain: score each segmenter by how well its per-module inactive / crack / brightening fractions explain FF and Pmpp loss.",
+   "min_experiment": "Ask Pratt / CSIR for the data (user decision). If obtained: module-grouped CV regression of Pmpp loss on predicted defect fractions for the house, PF and ensemble models. Kill if no model's R2 exceeds a defect-free baseline (module age / type only) by 0.05.",
+   "score": 15
+  }
+ ],
+ "final": 20,
+ "bench": 70,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 580,
+ "pid": "P580"
+}

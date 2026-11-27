@@ -1,0 +1,26 @@
+# MD5 freeze of the AI-rater check (PREREG.md section 9), 2026-11-21 04:53 IST. Paths relative to dataset_audit/rater/.
+bf7226e47a338ffa881962bc000f76b0  PREREG.md
+e1acd7ead43ee67bc1a463c00a75bd73  RATER_BRIEF.md
+28f037d6d4ca5ba2c12215f73c56726b  build_log.txt
+81dad72810ef1055788d38f0bf52e4bf  panels_manifest.md5
+c567d36dac41368170c4b74d3c536dcc  scripts/rcommon.py
+3c92896f5fd506561316a3d98f5a8f58  scripts/build.py
+cfe5b91d6e42ae355a772b324eebad7b  scripts/score.py
+30d080314da5bcc8f7ba085b9a14345a  scripts/test_score.py
+d9472d726fafd17913f36ce45afe5f15  orders/ORDER_R1.txt
+6f3484a7020660cd290b0fa9789a5111  orders/ORDER_R2.txt
+261ac96290e4b3ff824b529997f05b77  orders/ORDER_R3.txt
+93ad5c73b3a9d906b87fc11bebd0e917  brief_examples/EX1.png
+4ed0b71760a40f6ac725142061d159bc  brief_examples/EX2.png
+1ae5d03b0abbf59f9c26fbdc43ab3e2b  brief_examples/EX3.png
+3ec0064fe5c3e57b251dc0e1a2d91562  brief_examples/EX4.png
+93423e6005d975672a63ce5b03f9a8e0  brief_examples/EX5.png
+fe33e96007e45a5027c4b7e44d3a529d  key/key.tsv
+acffb0ad8f4f0c7cde0583dc0dc8f6a3  key/examples.tsv
+# inputs (read-only, audit):
+7df4e6ff1e3819369c2a29a5dfed8cb6  ../out/a_candidates.tsv
+7ffb1e4c72be32dbd335e417c45d7bef  ../out/a_visual_check.tsv
+a06d490e6b35b6888074bfa98f65d8c8  ../scripts/common.py
+# panels: 184 PNGs listed in panels_manifest.md5; rater bundle copy /home/noob/work/bench_int_io/rater/bundle/ (panels/, examples/, RATER_BRIEF.md, ORDER_R1..3.txt) verified byte-identical at freeze.
+# key tripwire: key/key.tsv atime set to 2026-11-21 03:45:39 (epoch 1795212939), one hour before its mtime; the mount is relatime, so any read of the file moves the atime to the read time. Check before scoring: chmod 700 key && stat -c '%X' key/key.tsv  (must print 1795212939).
+# check panels: cd panels && md5sum -c ../panels_manifest.md5 (names are relative to panels/; the same manifest checks the bundle's panels/).

@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MTP EL Segmentation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=block" rel="stylesheet">
+<style>
+:root{ --ink:#111111; --panel:#142B29; --accent:#2A7F78; --soft:#9FD3CC; --muted:#5E6665; --pmuted:#B9C7C5; --grey:#9AA3A2; --red:#B03A2E; --amber:#C77A32 }
+@page{ size:1280px 720px; margin:0 }
+*{ box-sizing:border-box; margin:0; padding:0 }
+html,body{ background:#fff; color:var(--ink); font-family:Inter,sans-serif; -webkit-print-color-adjust:exact; print-color-adjust:exact }
+.slide{ width:1280px; height:720px; position:relative; overflow:hidden; page-break-after:always; break-after:page; background:#fff }
+.slide:last-child{ page-break-after:auto; break-after:auto }
+.abs{ position:absolute }
+.tag{ position:absolute; left:58px; top:40px; font-size:16px; font-weight:700; letter-spacing:3px; color:var(--accent); text-transform:uppercase }
+.title{ position:absolute; left:58px; top:70px; width:1160px; font-family:'Archivo Black',sans-serif; font-size:40px; line-height:1.1; text-transform:uppercase }
+.head{ font-family:'Archivo Black',sans-serif }
+.big{ font-family:'Archivo Black',sans-serif; font-size:29px; line-height:1.25 }
+.pn{ position:absolute; left:1184px; top:674px; width:48px; text-align:right; font-size:13px; color:var(--muted) }
+.panel{ position:absolute; left:0; top:0; width:451px; height:720px; background:var(--panel) }
+.ptitle{ position:absolute; left:58px; top:77px; width:346px; height:566px; display:flex; align-items:center; font-family:'Archivo Black',sans-serif; font-size:44px; line-height:1.12; color:#fff; text-transform:uppercase }
+.muted{ color:var(--muted) }
+.cap{ font-size:15px; color:var(--muted); line-height:1.4 }
+ul.b{ list-style:none }
+ul.b li{ position:relative; padding-left:30px; margin-bottom:20px }
+ul.b li::before{ content:"\2022"; position:absolute; left:4px; top:0 }
+table.t{ border-collapse:collapse; width:100% }
+table.t th, table.t td{ padding:0 10px; height:52px; vertical-align:middle; text-align:center }
+table.t th:first-child, table.t td:first-child{ text-align:left }
+table.t thead th{ font-weight:700; border-top:2px solid var(--ink); border-bottom:1px solid var(--ink) }
+table.t tbody tr:last-child td{ border-bottom:2px solid var(--ink) }
+table.t td.l, table.t th.l{ text-align:left }
+table.tt th, table.tt td{ height:40px; padding:0 6px }
+table.tr th, table.tr td{ height:33px; padding:0 8px }
+table.tr thead th{ height:44px }
+table.tr .grp td{ height:25px }
+table.t12 th, table.t12 td{ height:50px }
+table.t .grp td{ font-size:13px; font-weight:700; letter-spacing:1.5px; color:var(--accent); text-transform:uppercase; height:34px; vertical-align:bottom; padding-bottom:4px }
+.mono{ font-family:'JetBrains Mono',monospace }
+.ok{ color:var(--accent); font-weight:700 } .bad{ color:var(--red); font-weight:600 } .part{ color:var(--amber); font-weight:600 } .nd{ color:var(--muted) }
+.eg{ display:flex; gap:32px }
+.ec{ flex:1 }
+.eh{ font-weight:700; font-size:19px; border-top:2px solid var(--ink); border-bottom:1px solid var(--ink); padding:9px 0 }
+.es{ font-size:13px; color:var(--muted); margin:8px 0 8px }
+.ei{ font-size:16.5px; line-height:1.25; padding:6px 0; display:flex; align-items:center }
+.mk{ display:inline-block; width:11px; height:11px; margin-right:11px; flex:none }
+.legend{ margin-top:20px; font-size:14px; color:var(--muted); display:flex; gap:26px; border-top:1px solid #CFCFCF; padding-top:12px }
+.lg{ display:flex; align-items:center }
+.figcap{ font-size:13px; color:var(--muted); margin-top:6px; line-height:1.3 }
+.figcap b{ color:var(--ink); font-weight:600 }
+</style>
+</head>
+<body>
+
+<!-- 1 TITLE -->
+<section class="slide">
+  <div class="abs" style="left:826px;top:0;width:454px;height:720px;background:var(--panel)"></div>
+  <img class="abs" src="../fig/title_cell.png" style="left:889px;top:168px;width:326px;height:326px">
+  <div class="abs" style="left:889px;top:509px;width:326px;text-align:center;font-size:16px;color:var(--pmuted)">One EL solar cell image: a crack and an inactive region</div>
+  <div class="abs" style="left:77px;top:86px;font-size:18px;font-weight:700;letter-spacing:4px;color:var(--accent)">MTP REPORT</div>
+  <div class="abs head" style="left:77px;top:134px;width:700px;font-size:50px;line-height:1.12">SOLAR MODULE FAULT SEGMENTATION USING EL IMAGES</div>
+  <div class="abs" style="left:77px;top:372px;width:700px;font-size:24px;line-height:1.4">Finding cracks and inactive regions pixel by pixel, and measuring it fairly</div>
+  <div class="abs" style="left:77px;top:500px;width:700px;font-size:21px;line-height:1.7">
+    <b>Yash Patil &middot; B23222 &nbsp;&nbsp;&nbsp;&nbsp; Muskan &middot; B23274</b><br>
+    Guide: Dr. Praful Hambarde<br>
+    <span class="muted">IIT Mandi</span>
+  </div>
+</section>
+
+<!-- 2 PROBLEM -->
+<section class="slide">
+  <div class="panel"></div><div class="ptitle">The problem: thin, rare defects</div>
+  <div class="tag" style="left:518px">Problem</div>
+  <ul class="b abs" style="left:518px;top:150px;width:700px;font-size:26px;line-height:1.35">
+    <li>EL image: bright = working silicon, dark = no current</li>
+    <li>Crack: 0.19% of training pixels, labels 1 to 2 px wide</li>
+    <li>Inactive area: present in 42 of 478 training cells</li>
+    <li>24 classes, labelled per pixel</li>
+  </ul>
+  <div class="abs big" style="left:518px;top:520px;width:700px;font-size:34px">Find them, and measure it fairly.</div>
+  <div class="pn">2</div>
+</section>
+
+<!-- 3 DATA -->
+<section class="slide">
+  <div class="tag">Data</div>
+  <div class="title">BenchmarkEL and our sets</div>
+  <div class="abs" style="left:58px;top:150px;width:700px">
+  <table class="t" style="font-size:20px">
+    <thead><tr><th>Set</th><th>Cells</th><th class="l">Use</th></tr></thead>
+    <tbody>
+      <tr><td>Pool</td><td>532</td><td class="l">train + val: development, 5 folds by module</td></tr>
+      <tr><td>E1</td><td>106</td><td class="l">unseen modules, sealed; 62 half-cut</td></tr>
+      <tr><td>test50</td><td>50</td><td class="l">original test set; overlaps the pool: context only</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="abs" style="left:800px;top:150px;width:420px;font-size:20px;line-height:1.5">
+    5 sources: ARTS 182 &middot; CFVS 169 &middot; CSIR 114 &middot; BMRK 50 &middot; SDLE 17<br><br>
+    <span class="muted">Each image: a window of about 3 x 3 cells, 512 x 512 px</span>
+  </div>
+  <img class="abs" src="../fig/F1.png" style="left:58px;top:370px;width:760px">
+  <div class="abs big" style="left:880px;top:420px;width:340px;font-size:26px">The pool has no half-cut cells. E1 has 62.</div><div class="abs cap" style="left:880px;top:540px;width:340px">BenchmarkEL release 2021 (Pratt et al. 2023), 24 classes</div>
+  <div class="pn">3</div>
+</section>
+
+<!-- 4 PRIOR WORK -->
+<section class="slide">
+  <div class="tag">Existing work &middot; reproduced</div>
+  <div class="title">What papers report, what we got</div>
+  <div class="abs" style="left:58px;top:150px;width:1160px">
+  <table class="t" style="font-size:19px">
+    <thead><tr><th style="width:24%">Paper</th><th style="width:20%">Their number</th><th style="width:22%">Ours, same scoring</th><th class="l" style="width:34%">Gap came from</th></tr></thead>
+    <tbody>
+      <tr><td>Pratt 2023 &middot; DeepLabv3+</td><td>mean IoU 0.28</td><td>0.28 to 0.30</td><td class="l">scoring rule (per-image median)</td></tr>
+      <tr><td>Fioresi 2022 &middot; DeepLabv3</td><td>crack F1 0.81</td><td>0.81</td><td class="l">none on crack</td></tr>
+      <tr><td>Jha 2025 &middot; PV-S3 (SSL)</td><td>supervised 0.088</td><td>0.23, same recipe</td><td class="l">under-trained baseline; background not scored</td></tr>
+      <tr><td>Hanifi 2025 &middot; VGG-16 U-Net</td><td>crack 0.335</td><td>0.352</td><td class="l">matches; model ranking does not</td></tr>
+      <tr><td>SEiPV-Net 2023</td><td>mIoU 0.86</td><td>0.84 or 0.46 to 0.51</td><td class="l">how the class mean is taken</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="abs big" style="left:58px;top:510px;width:1160px;font-size:26px">Every gap came from scoring, training budget or leakage.</div>
+  <div class="abs" style="left:58px;top:568px;width:1160px;font-size:19px">22 EL papers read in full: 0 split train and test by module; 18 report one run, no interval.</div>
+  <div class="abs cap" style="left:58px;top:606px;width:1160px">Pratt, Fioresi, PV-S3: reproduced in our first pipeline, each on its own metric. Hanifi: their released code, 3 seeds. SEiPV-Net: our models re-scored.</div>
+  <div class="pn">4</div>
+</section>
+
+<!-- 5 SSL -->
+<section class="slide">
+  <div class="tag">Our work &middot; semi-supervised (P13, P16)</div>
+  <div class="title">SSL helps only when labels are scarce</div>
+  <div class="abs" style="left:58px;top:170px;width:520px">
+  <table class="t" style="font-size:19px">
+    <thead><tr><th>Labels</th><th>Inactive IoU<br><span style="font-weight:400;font-size:15px">SSL minus supervised</span></th><th>Crack</th></tr></thead>
+    <tbody>
+      <tr><td>5%</td><td>+0.117</td><td>relF1@2 +0.033</td></tr>
+      <tr><td>20%</td><td>+0.029</td><td>n.d.</td></tr>
+      <tr><td>50%</td><td>+0.006</td><td>n.d.</td></tr>
+      <tr><td>100%</td><td>+0.003</td><td>n.d.</td></tr>
+    </tbody>
+  </table>
+  <div class="cap" style="margin-top:14px">5 vs 5 seeds. 5%: [+0.042, +0.189], with CutMix. 100%: with an external pool of 11,938 cells. n.d. = not detectable.</div>
+  </div>
+  <div class="abs" style="left:620px;top:160px"><!--SVG:ssl--></div>
+  <div class="abs big" style="left:58px;top:600px;width:1160px;font-size:24px">With all labels in use, the problems were the split, the metric and unseen modules.</div>
+  <div class="abs cap" style="left:620px;top:568px">test50, in-distribution: context only. Bars: seed sd.</div>
+  <div class="pn">5</div>
+</section>
+
+<!-- 6 MEASURING -->
+<section class="slide">
+  <div class="tag">Our work &middot; dataset audit</div>
+  <div class="title">Measuring thin cracks</div>
+  <div class="abs" style="left:58px;top:150px;width:560px">
+    <div style="font-size:16px;font-weight:600;margin-bottom:8px">A correct crack label, redrawn, scored against itself</div>
+    <table class="t" style="font-size:18px">
+      <thead><tr><th>Change</th><th>Strict IoU</th><th>relF1@2</th></tr></thead>
+      <tbody>
+        <tr><td>moved 1 px</td><td>0.483</td><td>1.0</td></tr>
+        <tr><td>moved 2 px</td><td>0.249</td><td>1.0</td></tr>
+        <tr><td>thinned to 1 px centreline</td><td>0.465</td><td>1.0</td></tr>
+        <tr><td>redrawn 3 px wide</td><td>0.605</td><td>1.0</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="abs" style="left:660px;top:150px;width:560px">
+    <div style="font-size:16px;font-weight:600;margin-bottom:8px">Same baseline predictions, scored on four label versions</div>
+    <table class="t" style="font-size:18px">
+      <thead><tr><th>Labels</th><th>Strict IoU</th><th>relF1@2</th></tr></thead>
+      <tbody>
+        <tr><td>1 px centreline</td><td>0.233</td><td>0.824</td></tr>
+        <tr><td>2021 release</td><td>0.320</td><td>0.822</td></tr>
+        <tr><td>v1.1 (benchmark)</td><td>0.365</td><td>0.846</td></tr>
+        <tr><td>redrawn 3 px</td><td>0.414</td><td>0.849</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="abs" style="left:58px;top:478px;width:1160px;font-size:18px;line-height:1.5">
+    <b>relF1@2:</b> crack F1 where a pixel counts if it lies within 2 px; 2 px = 95th percentile distance between two annotations of one crack<br>
+    <b>Split:</b> 24 physical modules crossed folds (91 cells); regrouped into 285 module groups, none crosses folds
+  </div>
+  <div class="abs big" style="left:58px;top:600px;width:1160px;font-size:24px">relF1@2 decides. Strict IoU is printed beside it.</div>
+  <div class="pn">6</div>
+</section>
+
+<!-- 7 ALL EXPERIMENTS -->
+<section class="slide">
+  <div class="tag">Our work &middot; overview</div>
+  <div class="title">Everything we tried</div>
+  <div class="abs" style="left:58px;top:140px;width:1160px"><!--HTML:exp--></div>
+  <div class="pn">7</div>
+</section>
+
+<!-- 8 PROTOCOL -->
+<section class="slide">
+  <div class="panel"></div><div class="ptitle">Benchmark protocol</div>
+  <div class="tag" style="left:518px">Our work &middot; protocol</div>
+  <div class="abs" style="left:518px;top:110px;width:700px">
+  <table class="t" style="font-size:18px">
+    <thead><tr><th>Stage</th><th>Seeds</th><th class="l">Cells</th><th class="l">Role</th></tr></thead>
+    <tbody>
+      <tr><td>1 &nbsp;Screen</td><td>2</td><td class="l">pool, 532</td><td class="l">promotes only</td></tr>
+      <tr><td>2 &nbsp;Row</td><td>5</td><td class="l">pool, 532 and 416 clean</td><td class="l">decides on the pool</td></tr>
+      <tr><td>3 &nbsp;Sealed read</td><td>5</td><td class="l">E1, 106</td><td class="l">once; rule fixed before</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="abs mono" style="left:518px;top:358px;width:720px;font-size:16.5px;line-height:1.9">
+    gain counts if &nbsp;&Delta; &ge; M &nbsp;and&nbsp; 95% CI lower bound &gt; 0<br>
+    M = max(0.01, 2 &times; SE of baseline vs itself) = 0.010<br>
+    guards: crack width 0.85 to 1.15 &middot; false crack px &le; 1.5x<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;other classes (mIoU) drop &le; 0.010
+  </div>
+  <div class="abs" style="left:518px;top:540px;width:700px;font-size:18px;line-height:1.5">Interval: bootstrap over module groups and seeds, 2,000 draws.<br>0 of 15 baseline-vs-itself splits would pass.</div>
+  <div class="pn">8</div>
+</section>
+
+<!-- 9 ARCHITECTURE -->
+<section class="slide">
+  <div class="tag">Our work &middot; architecture study</div>
+  <div class="title">Architectures under one protocol</div>
+  <div class="abs" style="left:58px;top:140px;width:320px"><img src="fig/a_unet.png" style="width:320px"><div class="figcap"><b>U-Net</b> &middot; Ronneberger et al., MICCAI 2015, Fig. 1</div></div>
+  <div class="abs" style="left:405px;top:140px;width:300px"><img src="fig/a_unetpp.png" style="width:300px"><div class="figcap"><b>UNet++</b> (our baseline decoder) &middot; Zhou et al., DLMIA 2018, Fig. 1a</div></div>
+  <div class="abs" style="left:58px;top:420px;width:330px"><img src="fig/a_dlv3p.png" style="width:330px"><div class="figcap"><b>DeepLabv3+</b> &middot; Chen et al., ECCV 2018, Fig. 2</div></div>
+    <div class="abs" style="left:420px;top:440px;width:270px;font-size:15px;line-height:1.45;color:var(--muted)">Output stride: the factor by which the network shrinks the image before predicting. DeepLabV3+ predicts at 1/4, DeepLabV3 at 1/8.</div>
+  <div class="abs" style="left:740px;top:140px;width:480px">
+  <table class="t tt" style="font-size:15px">
+    <thead><tr><th>Model, same training</th><th>&Delta; relF1@2</th><th>95% CI</th></tr></thead>
+    <tbody>
+      <tr><td>HRNet-W18 + U-Net++</td><td class="ok">+0.0114</td><td>[+0.0032, +0.0203]</td></tr>
+      <tr><td>U-Net, ResNet-34</td><td>&minus;0.0016</td><td>[&minus;0.0110, +0.0073]</td></tr>
+      <tr><td>SegFormer MiT-B2</td><td>&minus;0.0026</td><td>[&minus;0.0132, +0.0095]</td></tr>
+      <tr><td>U-Net, VGG-16 (Hanifi)</td><td>&minus;0.0064</td><td>[&minus;0.0189, +0.0042]</td></tr>
+      <tr><td>DeepLabV3+, R34, stride 4</td><td>&minus;0.0093</td><td>[&minus;0.0204, +0.0019]</td></tr>
+      <tr><td>DeepLabV3, R50, stride 8</td><td class="bad">&minus;0.0773</td><td>[&minus;0.0892, &minus;0.0594]</td></tr>
+    </tbody>
+  </table>
+  <div class="cap" style="margin-top:8px">Against U-Net++ / ResNet-34; 2-seed screens, pool cells out of fold.</div>
+  </div>
+  <div class="abs" style="left:740px;top:490px;width:480px"><img src="fig/a_hrnet.png" style="width:480px"><div class="figcap"><b>HRNet</b> &middot; Wang et al., TPAMI 2021, Fig. 2</div></div>
+  <div class="abs big" style="left:420px;top:560px;width:300px;font-size:22px">No decoder effect detected. Resolution matters.</div>
+  <div class="pn">9</div>
+</section>
+
+<!-- 10 FINAL MODEL -->
+<section class="slide">
+  <div class="tag">Our work &middot; final model</div>
+  <div class="title">Final model: HRNet-W18 + U-Net++</div>
+  <div class="abs" style="left:58px;top:142px;width:760px"><img src="fig/a_hrnet.png" style="width:760px"><div class="figcap"><b>Encoder: HRNet-W18</b>, ImageNet weights &middot; keeps a high-resolution stream throughout (Wang et al., Fig. 2)</div></div>
+  <div class="abs" style="left:900px;top:132px;width:300px"><img src="fig/a_unetpp.png" style="width:260px"><div class="figcap"><b>Decoder: U-Net++</b>, nested skips (Zhou et al., Fig. 1a)</div></div>
+  <div class="abs" style="left:58px;top:400px;width:1160px">
+  <table class="t" style="font-size:17px">
+    <thead><tr><th style="width:24%">Part</th><th class="l" style="width:50%">What it does</th><th class="l">Source</th></tr></thead>
+    <tbody>
+      <tr><td>Encoder-preserving fine-tune</td><td class="l">encoder frozen 1,000 steps, then trained at 0.1x the learning rate</td><td class="l">ours</td></tr>
+      <tr><td>SWAD weight averaging</td><td class="l">uniform average of the weights from steps 10,000 to 20,000</td><td class="l">Cha et al., NeurIPS 2021</td></tr>
+      <tr><td>D4 test-time augmentation</td><td class="l">average of predictions on 8 flips and rotations</td><td class="l">standard</td></tr>
+      <tr><td>Training</td><td class="l">532 pool cells, 512 px, 20,000 steps, cross-entropy + Dice, 5 seeds</td><td class="l">ours</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="pn">10</div>
+</section>
+
+<!-- 11 RESULTS SCREENS -->
+<section class="slide">
+  <div class="tag">Results &middot; pool, same training, out of fold</div>
+  <div class="title">Results I: ten models compared</div>
+  <div class="abs" style="left:58px;top:132px;width:1164px">
+  <table class="t tr" style="font-size:16px">
+    <thead><tr><th style="width:25%">Model</th><th class="l">Encoder</th><th class="l">From</th><th>Crack relF1@2</th><th>relP@2 / relR@2</th><th>Strict crack IoU</th><th>Inactive IoU</th><th>mIoU-R13</th></tr></thead>
+    <tbody>
+      <tr class="grp"><td colspan="8">Baseline</td></tr>
+      <tr><td>U-Net++, encoder-preserving (PF)</td><td class="l">ResNet-34</td><td class="l">ours</td><td>0.844</td><td>0.894 / 0.799</td><td>0.365</td><td>0.503</td><td>0.612</td></tr>
+      <tr><td>U-Net++, plain fine-tune</td><td class="l">ResNet-34</td><td class="l"></td><td>0.850</td><td>0.897 / 0.807</td><td><b>0.382</b></td><td>0.522</td><td>0.609</td></tr>
+      <tr class="grp"><td colspan="8">Models of EL papers</td></tr>
+      <tr><td>U-Net</td><td class="l">VGG-16</td><td class="l">Hanifi 2025</td><td>0.838</td><td>0.882 / 0.798</td><td>0.349</td><td>0.498</td><td>0.610</td></tr>
+      <tr><td>DeepLabV3, stride 8</td><td class="l">ResNet-50</td><td class="l">Fioresi 2022</td><td>0.767</td><td>0.809 / 0.729</td><td>0.287</td><td>0.497</td><td>0.574</td></tr>
+      <tr><td>DeepLabV3+, weighted CE</td><td class="l">ResNet-34</td><td class="l">Pratt 2023</td><td>0.751</td><td>0.648 / 0.892</td><td>0.258</td><td>0.506</td><td>0.604</td></tr>
+      <tr class="grp"><td colspan="8">General segmentation models</td></tr>
+      <tr><td>U-Net</td><td class="l">ResNet-34</td><td class="l"></td><td>0.843</td><td>0.896 / 0.795</td><td>0.364</td><td>0.522</td><td>0.612</td></tr>
+      <tr><td>DeepLabV3+, stride 4</td><td class="l">ResNet-34</td><td class="l"></td><td>0.835</td><td>0.884 / 0.791</td><td>0.354</td><td>0.478</td><td>0.609</td></tr>
+      <tr><td>SegFormer</td><td class="l">MiT-B2</td><td class="l"></td><td>0.842</td><td>0.877 / 0.809</td><td>0.348</td><td><b>0.530</b></td><td>0.608</td></tr>
+      <tr><td>U-Net++</td><td class="l" style="white-space:nowrap">HRNet-W18</td><td class="l"></td><td><b>0.856</b></td><td>0.902 / 0.814</td><td>0.365</td><td>0.522</td><td><b>0.618</b></td></tr>
+      <tr><td>U-Net++, Skeleton Recall loss</td><td class="l">ResNet-34</td><td class="l"></td><td>0.848</td><td>0.884 / 0.815</td><td>0.372</td><td>0.480</td><td>0.611</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="abs cap" style="left:58px;top:652px;width:1120px">532 pool cells, out of fold; mean of 2 seeds (baseline 5); same training except Pratt's weighted loss. Bold = best. Inactive gaps under 0.05 are seed noise. mIoU-R13 = mean IoU over 13 classes.</div>
+  <div class="pn">11</div>
+</section>
+
+<!-- 12 RESULTS ROWS -->
+<section class="slide">
+  <div class="tag">Results &middot; pool, 5 seeds, corrected split</div>
+  <div class="title">Results II: five-seed rows</div>
+  <div class="abs" style="left:58px;top:140px;width:1164px">
+  <table class="t t12" style="font-size:18px">
+    <thead><tr><th style="width:25%">Change to the baseline</th><th>Crack relF1@2</th><th>&Delta; vs baseline [95% CI]</th><th>Strict crack IoU</th><th>Inactive IoU</th><th>mIoU-R13</th></tr></thead>
+    <tbody>
+      <tr><td>Baseline (PF)</td><td>0.846</td><td></td><td>0.365</td><td>0.504</td><td>0.612</td></tr>
+      <tr><td>Plain fine-tune</td><td>0.852</td><td>+0.0059 [&minus;0.0043, +0.0152]</td><td>0.383</td><td>0.514</td><td>0.607</td></tr>
+      <tr><td>HRNet-W18 encoder</td><td>0.857</td><td>+0.0104 [+0.0012, +0.0203]</td><td>0.366</td><td>0.514</td><td>0.614</td></tr>
+      <tr><td>SWAD</td><td>0.853</td><td>+0.0070 [&minus;0.0007, +0.0156]</td><td>0.383</td><td>0.520</td><td>0.619</td></tr>
+      <tr><td>HRNet-W18 + SWAD</td><td>0.862</td><td>+0.0154 [+0.0065, +0.0260]</td><td>0.375</td><td>0.504</td><td>0.618</td></tr>
+      <tr><td>Baseline + D4 views</td><td>0.860</td><td>+0.0134 [+0.0066, +0.0207]</td><td>0.388</td><td>0.531</td><td>0.620</td></tr>
+      <tr><td>Final recipe *</td><td><b>0.868</b></td><td>+0.0222 [+0.0138, +0.0308]</td><td><b>0.394</b></td><td><b>0.537</b></td><td><b>0.623</b></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="abs big" style="left:58px;top:584px;width:1164px;font-size:24px">Every change gains a little; the margin is 0.010.</div>
+  <div class="abs cap" style="left:58px;top:626px;width:1120px">532 pool cells, out of fold, mean of seeds 5 to 9. HRNet-W18 and HRNet-W18 + SWAD draw more false crack pixels on crack-free cells (up to 4.2x the baseline); D4 views cut them.<br>* the SWAD readout was chosen on these cells; the fair test is E1.</div>
+  <div class="pn">12</div>
+</section>
+
+<!-- 13 RESULTS E1 -->
+<section class="slide">
+  <div class="tag">Results &middot; sealed set E1, one registered read</div>
+  <div class="title">Results III: unseen modules</div>
+  <div class="abs" style="left:58px;top:150px;width:700px">
+  <table class="t" style="font-size:18px">
+    <thead><tr><th>Contrast, crack relF1@2</th><th>&Delta;</th><th>95% CI</th><th>Verdict</th></tr></thead>
+    <tbody>
+      <tr><td>Final minus baseline, 106 cells</td><td>+0.0430</td><td>[+0.0013, +0.1043]</td><td class="ok">CONFIRMED</td></tr>
+      <tr><td>&nbsp;&nbsp;full cells (44)</td><td>+0.1464</td><td>[+0.0420, +0.2278]</td><td class="nd">stratum</td></tr>
+      <tr><td>&nbsp;&nbsp;half-cut cells (62)</td><td>+0.0110</td><td>[&minus;0.0289, +0.0722]</td><td class="nd">n.d.</td></tr>
+      <tr><td>Few-shot minus zero-shot</td><td>+0.2213</td><td>[+0.0977, +0.3504]</td><td class="ok">CONFIRMED</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="abs" style="left:800px;top:150px;width:420px">
+  <table class="t" style="font-size:18px">
+    <thead><tr><th>Model</th><th>relP@2</th><th>relR@2</th><th>relF1@2</th></tr></thead>
+    <tbody>
+      <tr><td>Baseline</td><td>0.547</td><td>0.379</td><td>0.447</td></tr>
+      <tr><td>Final</td><td>0.600</td><td>0.416</td><td>0.490</td></tr>
+    </tbody>
+  </table>
+  <div class="cap" style="margin-top:12px">Guards pass: crack width 1.013 &middot; false crack px 0.75x &middot; mIoU +0.025</div>
+  </div>
+  <div class="abs big" style="left:58px;top:470px;width:1160px;font-size:26px">Confirmed on unseen modules. A new layout needs some labelled cells.</div>
+  <div class="abs cap" style="left:58px;top:530px;width:1160px">Recipe averaged over 5 seeds; argmax; 101 of 106 cells from one source (CSIR). Few-shot: trained with labelled E1 cells of the other folds, out of fold, 3 seeds, a separate registered read.</div>
+  <div class="pn">13</div>
+</section>
+
+<!-- 14 QUALITATIVE -->
+<section class="slide">
+  <div class="tag">Qualitative</div>
+  <div class="title">Qualitative results</div>
+  <div class="abs" style="left:140px;top:128px;width:1000px;height:267px;overflow:hidden">
+    <img src="../fig/qual_pool_methods.png" style="position:absolute;left:0;top:0;width:1000px">
+  </div>
+  <div class="abs" style="left:340px;top:413px;width:600px;height:263px;overflow:hidden">
+    <img src="../fig/qual_e1_final_wide.png" style="position:absolute;left:-626px;top:0;width:1226px">
+  </div>
+  <div class="pn">14</div>
+</section>
+
+<!-- 15 PRECISION RECALL -->
+<section class="slide">
+  <div class="tag">Analysis &middot; pool screens</div>
+  <div class="title">Where the gain comes from</div>
+  <div class="abs" style="left:58px;top:150px"><!--SVG:pr--></div>
+  <ul class="b abs" style="left:760px;top:190px;width:460px;font-size:20px;line-height:1.4">
+    <li><span style="color:var(--accent);font-weight:700">HRNet-W18:</span> more recall at the same precision</li>
+    <li><span style="color:var(--red);font-weight:600">Weighted CE (Pratt):</span> recall bought with precision; cracks drawn 3.05x too wide</li>
+    <li><span style="color:var(--red);font-weight:600">Stride 8 (UCF-EL):</span> loses both</li>
+  </ul>
+  <div class="abs cap" style="left:760px;top:560px;width:460px">2-seed screens, argmax, same training. Dashed: equal F1.</div>
+  <div class="pn">15</div>
+</section>
+
+<!-- 16 CONCLUSION -->
+<section class="slide">
+  <div class="tag">Conclusion</div>
+  <div class="title">What we showed</div>
+  <div class="abs" style="left:58px;top:150px;width:1160px;font-size:23px;line-height:1.45">
+    <div style="margin-bottom:16px">1 &nbsp;&nbsp;Published EL scores do not compare; we built a benchmark that makes them compare</div>
+    <div style="margin-bottom:16px">2 &nbsp;&nbsp;Resolution matters; the final recipe is confirmed better on unseen modules</div>
+    <div>3 &nbsp;&nbsp;A new layout needs some labelled cells of it</div>
+  </div>
+  <div class="abs" style="left:58px;top:390px;width:1160px">
+  <table class="t" style="font-size:18px">
+    <thead><tr><th style="width:50%">Next step</th><th class="l">Why</th></tr></thead>
+    <tbody>
+      <tr><td>Second annotation of a few dozen cells</td><td class="l">turns the label limit into a measured ceiling</td></tr>
+      <tr><td>New unseen-module set, with half-cut cells</td><td class="l">E1 is now used for training</td></tr>
+      <tr><td>Smaller high-resolution model, same protocol</td><td class="l">a deployable size</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="pn">16</div>
+</section>
+
+<!-- 16 THANKS -->
+<section class="slide">
+  <div class="abs head" style="left:77px;top:520px;font-size:60px">THANK YOU</div>
+  <div class="abs muted" style="left:80px;top:600px;font-size:20px">Questions</div>
+</section>
+
+</body>
+</html>

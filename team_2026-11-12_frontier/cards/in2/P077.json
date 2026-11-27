@@ -1,0 +1,55 @@
+{
+ "paper_id": "arxiv:2108.11224",
+ "title": "Multi-domain semantic segmentation with overlapping labels",
+ "year": 2022,
+ "venue": "WACV",
+ "url": "https://arxiv.org/abs/2108.11224",
+ "code_url": "",
+ "mechanism": "Universal taxonomy where each dataset class is a union of universal classes; one softmax over universal classes trained with a partial-label NLL (log of summed probability over the union).",
+ "evidence": "Competitive within- and cross-dataset, state of the art on WildDash 2; learns concepts never labelled separately in any training dataset.",
+ "adaptation": "Universal classes = our 24 plus UCF/MSS classes with no BenchmarkEL counterpart (contact, interconnect). Hand-written dataset-to-universal map (UCF crack = {crack, inactive}). Use as the formal version of the marginal-loss arm.",
+ "min_experiment": "Same as marginal-loss arm (Arm B) but with the universal-taxonomy NLL; 5 seeds, 30k steps vs house 5-seed; kill line as MultiTalent arm. Shares GPU budget with Arm B.",
+ "prior_overlap": "none",
+ "score": 62,
+ "bench_score": 45,
+ "bet": "medium",
+ "gpu_hours": 15,
+ "targets": [
+  "crack",
+  "inactive",
+  "e1_unseen",
+  "other_classes"
+ ],
+ "directions": [
+  "D27",
+  "D36"
+ ],
+ "scout_scores": [
+  55,
+  55,
+  62
+ ],
+ "alt_notes": [
+  {
+   "from": "D27",
+   "adaptation": "Joint training with UCF-EL 9,562 cells: UCF crack -> log(p_crack + p_inactive); contact/interconnect mapped to ribbon/busbar groups after an eyeball check on ~20 cells; BenchmarkEL loss unchanged.",
+   "min_experiment": "Arm PF + UCF-EL 1:1 batches under union loss; baseline PF; metrics E1 crack recall and relF1@2, inactive IoU; kill if E1 relF1@2 gain < 0.02 or test crack IoU drop > 0.012.",
+   "score": 55
+  },
+  {
+   "from": "D27",
+   "adaptation": "Joint training with UCF-EL's 9,562 cells. UCF 'crack' is trained as log(p_crack + p_inactive). UCF contact and interconnect map to the busbar and ribbon groups; check this mapping by eye on 20 cells, with no relabelling. The BenchmarkEL loss is unchanged. This keeps UCF information in the model, unlike the old pretraining that the fine-tune erased.",
+   "min_experiment": "Arm: PF jointly trained with UCF-EL (1:1 batches) under the union loss. Baseline: PF. Metrics: E1 crack recall and relF1@2, inactive IoU, test crack IoU. Kill if the E1 relF1@2 gain is < 0.02 or test crack IoU drops by more than 0.012.",
+   "score": 55
+  }
+ ],
+ "final": 62,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 77,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P077"
+}

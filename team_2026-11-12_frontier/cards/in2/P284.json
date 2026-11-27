@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.1109/cvpr46437.2021.00957",
+ "title": "Seesaw Loss for Long-Tailed Instance Segmentation",
+ "year": 2021,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2008.10032",
+ "code_url": "",
+ "mechanism": "Per class pair, mitigate negative gradients that frequent classes put on rare classes and compensate when the rare class is wrongly predicted.",
+ "adaptation": "Pixel-wise softmax version: background, ribbons, busbar suppress splice at every pixel; crack vs inactive pair benefits from compensation.",
+ "min_experiment": "Arm: seesaw CE replacing CE, 3 seeds; baseline SUP100; metric mIoU_rob and splice IoU; kill if mIoU_rob < +0.01.",
+ "score": 45,
+ "bench_score": 50,
+ "bet": "medium",
+ "evidence": "R: LVIS long-tailed instance segmentation, gains on rare categories (abstract level).",
+ "gpu_hours": 4,
+ "prior_overlap": "none",
+ "targets": [
+  "other_classes"
+ ],
+ "directions": [
+  "D19"
+ ],
+ "scout_scores": [
+  45
+ ],
+ "final": 45,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 284,
+ "pid": "P284"
+}

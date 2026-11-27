@@ -1,0 +1,44 @@
+{
+ "paper_id": "arxiv:2409.09893",
+ "title": "Resolving Inconsistent Semantics in Multi-Dataset Image Segmentation",
+ "year": 2024,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2409.09893",
+ "code_url": "",
+ "mechanism": "Trains one segmentation model on several datasets whose class definitions conflict, by reconciling label semantics instead of forcing one label space.",
+ "adaptation": "Map UCF-EL, MultiSolSegment and PVEL-S classes onto our 24 classes with per-dataset label spaces, for joint training and for the benchmark's cross-dataset track.",
+ "min_experiment": "Arm = joint training with per-dataset label spaces versus house PF. Metrics: mIoU_rob and E1 crack relF1@2. Kill if mIoU_rob < +0.01 and E1 is n.d.",
+ "score": 40,
+ "bench_score": 50,
+ "bet": "medium",
+ "targets": [
+  "other_classes",
+  "e1_unseen",
+  "benchmark"
+ ],
+ "evidence": "R: natural-image multi-dataset segmentation (abstract level).",
+ "gpu_hours": 12,
+ "prior_overlap": "joint multi-dataset training is open in BRIEF section 5",
+ "directions": [
+  "D17"
+ ],
+ "scout_scores": [
+  40,
+  32
+ ],
+ "alt_notes": [
+  {
+   "from": "D17",
+   "adaptation": "Map UCF-EL, MultiSolSegment and PVEL-S label spaces onto our 24 classes with label-space-specific queries; use for joint training and for a cross-dataset benchmark track.",
+   "min_experiment": "Arm: joint training with label-space queries (needs a mask-classification decoder) vs house PF; metric E1 relF1@2 and clean-49 mIoU_rob; kill if E1 relF1@2 gain < +0.03.",
+   "score": 32
+  }
+ ],
+ "final": 40,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 371,
+ "pid": "P371"
+}

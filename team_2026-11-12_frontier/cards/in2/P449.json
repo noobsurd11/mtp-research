@@ -1,0 +1,35 @@
+{
+ "paper_id": "doi:10.1109/cvpr52733.2024.01681",
+ "title": "Supervised Anomaly Detection for Complex Industrial Images (SegAD)",
+ "year": 2024,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2405.04953",
+ "code_url": "https://github.com/abc-125/segad",
+ "mechanism": "Per-region statistics of anomaly maps inside segmentation-map regions, plus an optional supervised score, feed a boosted random forest that makes the final decision.",
+ "adaptation": "Per-cell features = house crack/inactive probabilities and AD scores inside structural regions (busbar, ribbon, cell body); BRF predicts cell has crack >= 20 px and inactive-fraction band, for post-evaluation / severity.",
+ "min_experiment": "Arm BRF on house + AD region stats vs baseline house-ensemble max crack prob per cell; metric cell-level crack recall at 95% precision on CV and E1; kill if gain < +0.03. Under 2 GPU-h.",
+ "score": 35,
+ "bench_score": 55,
+ "bet": "safe",
+ "evidence": "R: +2.1% AUROC on VAD (5,000 images, 2,000 real defects), +0.4% on VisA.",
+ "gpu_hours": 2,
+ "prior_overlap": "none",
+ "targets": [
+  "severity",
+  "e1_unseen",
+  "benchmark"
+ ],
+ "directions": [
+  "D07"
+ ],
+ "scout_scores": [
+  35
+ ],
+ "final": 35,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 449,
+ "pid": "P449"
+}

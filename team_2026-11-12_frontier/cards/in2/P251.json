@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.1609/aaai.v40i15.38217",
+ "title": "Strip R-CNN: Large Strip Convolution for Remote Sensing Object Detection",
+ "year": 2026,
+ "venue": "AAAI",
+ "url": "https://arxiv.org/abs/2501.03775",
+ "code_url": "",
+ "mechanism": "Sequential orthogonal large strip convolutions aggregate context along the dominant axis of slender objects, avoiding the dilution of large square kernels.",
+ "adaptation": "Add a large-strip context block (k 31 to 63) on 1/4 and 1/8 features of the house encoder; targets long axis-aligned classes (gridline, ribbons, splice, busbars) and long cracks across the cell.",
+ "min_experiment": "Arm: house + strip context block, 5 seeds. Metrics: gridline IoU, splice IoU, mIoU_rob. Kill: gridline IoU gain < 0.03 and mIoU_rob gain < 0.005.",
+ "evidence": "DOTA-v1.0 82.75 mAP with 30M params, gains on FAIR1M, HRSC2016, DIOR (detection, not segmentation).",
+ "gpu_hours": 8,
+ "prior_overlap": "none",
+ "score": 48,
+ "bench_score": 30,
+ "bet": "medium",
+ "targets": [
+  "other_classes"
+ ],
+ "directions": [
+  "D12"
+ ],
+ "scout_scores": [
+  48
+ ],
+ "final": 48,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 251,
+ "pid": "P251"
+}

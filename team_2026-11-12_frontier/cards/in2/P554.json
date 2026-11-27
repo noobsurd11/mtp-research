@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1109/access.2025.3582900",
+ "title": "Learning to Be a Transformer to Pinpoint Anomalies",
+ "year": 2024,
+ "venue": "IEEE Access",
+ "url": "https://arxiv.org/abs/2407.04092",
+ "code_url": "",
+ "mechanism": "Shallow MLP students mimic attention-layer patch mappings of a frozen ViT on high-resolution inputs; adds defect-size-stratified evaluation metrics.",
+ "adaptation": "High-resolution AD prior at native 1,200 px for pool sources that have it; and adopt size-stratified metrics in the benchmark: crack recall by component length bins (<20, 20-100, >100 px).",
+ "evidence": "R: SOTA on MVTec AD, best segmentation on VisA; better robustness across defect sizes by their metrics.",
+ "min_experiment": "Benchmark: add length-binned crack recall to the protocol (no GPU). Prior arm only if the WeakREST arm passes.",
+ "gpu_hours": 3,
+ "prior_overlap": "none; 2x input resolution n.d. was for the supervised model, not an AD prior",
+ "score": 25,
+ "bench_score": 55,
+ "bet": "safe",
+ "targets": [
+  "benchmark",
+  "measurement"
+ ],
+ "directions": [
+  "D39"
+ ],
+ "scout_scores": [
+  25
+ ],
+ "final": 25,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 554,
+ "pid": "P554"
+}

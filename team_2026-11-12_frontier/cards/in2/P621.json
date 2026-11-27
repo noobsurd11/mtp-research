@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.3390/en19040876",
+ "title": "EL-to-IV: Deep Learning-Based Prediction of Photovoltaic Current-Voltage Curves from Electroluminescence Imaging",
+ "year": 2026,
+ "venue": "Energies",
+ "url": "https://doi.org/10.3390/en19040876",
+ "code_url": "",
+ "mechanism": "A CNN maps a pair of EL images (20% and 80% Isc) to the full module I-V curve, and still works with one image.",
+ "adaptation": "Benchmark reference row for 'power from EL'. We have one EL per cell and no I-V, so not usable as a method. Its 438 modules and bias levels match Sandia PV-IV-EL (likely the same data, unverified).",
+ "min_experiment": "None for scores. For the benchmark, cite it as the image-level power baseline beside our mask-derived inactive-fraction proxy on Sandia PV-IV-EL.",
+ "evidence": "R: 438 modules; validation accuracy about 95%; MPP and FF error < 2%; < 0.5 s per module.",
+ "prior_overlap": "none",
+ "score": 12,
+ "bench_score": 55,
+ "bet": "safe",
+ "targets": [
+  "severity",
+  "benchmark"
+ ],
+ "gpu_hours": 0,
+ "directions": [
+  "D44"
+ ],
+ "scout_scores": [
+  12
+ ],
+ "final": 12,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 621,
+ "pid": "P621"
+}

@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2310.19182",
+ "title": "Fast Trainable Projection for Robust Fine-Tuning (FTP)",
+ "year": 2023,
+ "venue": "NeurIPS",
+ "url": "https://arxiv.org/abs/2310.19182",
+ "code_url": "https://github.com/GT-RIPL/FTP",
+ "mechanism": "Learns per-layer projection radii around pretrained weights via hyper-optimisation; AdamW plug-in.",
+ "adaptation": "Encoder only, comparator for SPD.",
+ "evidence": "Better OOD robustness on four vision tasks and five pretrained models; in SPD's PASCAL seg table FTP 73.79 ID / 58.45 OOD vs vanilla 66.03 / 44.00.",
+ "min_experiment": "Run only if SPD wins: FTP vs SPD, seeds 5-9, same co-primaries. Kill if below SPD.",
+ "gpu_hours": 17,
+ "targets": [
+  "e1_unseen"
+ ],
+ "bet": "safe",
+ "prior_overlap": "Partial via PF.",
+ "score": 48,
+ "bench_score": 30,
+ "directions": [
+  "D35"
+ ],
+ "scout_scores": [
+  48
+ ],
+ "final": 48,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 249,
+ "pid": "P249"
+}

@@ -1,0 +1,43 @@
+{
+ "paper_id": "doi:10.1109/cvpr42600.2020.00891",
+ "title": "CascadePSP: Toward Class-Agnostic and Very High-Resolution Segmentation via Global and Local Refinement",
+ "year": 2020,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2005.02551",
+ "code_url": "https://github.com/hkchengrex/CascadePSP",
+ "mechanism": "A class-agnostic cascade refiner trained on perturbed masks that refines a mask globally and then locally, at any resolution.",
+ "adaptation": "Inference-only test on inactive masks with the pretrained refiner (EL repeated to 3 channels); fine-tune on perturbed inactive GT if the zero-shot test is not negative.",
+ "min_experiment": "Arm: CascadePSP on house / PF inactive masks. Baseline: unrefined. Metric: inactive IoU on 5-fold CV and E1. Kill: < +0.01 inactive IoU.",
+ "evidence": "R: improved IoU and boundary accuracy on the BIG high-resolution set and PASCAL refinement benchmarks (numbers not read).",
+ "prior_overlap": "none.",
+ "score": 30,
+ "bench_score": 50,
+ "bet": "safe",
+ "gpu_hours": 1,
+ "targets": [
+  "inactive",
+  "benchmark"
+ ],
+ "directions": [
+  "D26"
+ ],
+ "scout_scores": [
+  22,
+  30
+ ],
+ "alt_notes": [
+  {
+   "from": "D26",
+   "adaptation": "Our cells are 512 px native and U-Net++ already predicts at full resolution, so its main benefit is absent; retrain on OOF masks per class only as a benchmark refinement baseline.",
+   "min_experiment": "Arm: CascadePSP retrained on OOF crack / inactive masks. Baseline: house ensemble. Metric: relF1@2, inactive IoU. Kill: no gain > +0.01 relF1@2 and +0.02 inactive IoU.",
+   "score": 22
+  }
+ ],
+ "final": 30,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 509,
+ "pid": "P509"
+}

@@ -1,0 +1,152 @@
+## 1. Files per release (real cells; synthetic listed apart)
+  20211104: 582 cells; split {'train': 478, 'val': 54, 'test': 50}
+  20220723: 642 cells; split {'train': 511, 'val': 65, 'test': 66}
+  20221008: 695 cells; split {'train': 553, 'val': 70, 'test': 72}
+  escdd: 810 cells; split {'train': 638, 'val': 90, 'test': 82}
+  escdd synthetic files: 93; split {'train': 93}; base cells {'CFVS_00114_r2_c5': 35, 'CSIR_00067_r4_c3_rf': 30, 'CSIR_00094_r3_c5_rf': 20, 'CSIR_00038_r11_c3_rf': 8}
+  escdd real: 810 = 693 non-rf + 117 _rf
+
+## 2. Union of real labelled stems over all releases: 816
+  membership pattern (20211104, 20220723, 20221008, escdd): count
+    (1, 1, 1, 1): 577
+    (0, 0, 0, 1): 117
+    (0, 1, 1, 1): 59
+    (0, 0, 1, 1): 57
+    (1, 1, 0, 0): 4
+    (1, 1, 1, 0): 1
+    (0, 1, 1, 0): 1
+  _rf cells whose base stem (without _rf) is also a labelled stem: 0 []
+  our 582 not in 20221008: ['ARTS_00057_r2_c5', 'CSIR_00178_r7_c1', 'CSIR_00179_r12_c4', 'CSIR_00179_r6_c1']
+  our 582 not in escdd: ['ARTS_00057_r2_c5', 'BMRK_02125_cell1223', 'CSIR_00178_r7_c1', 'CSIR_00179_r12_c4', 'CSIR_00179_r6_c1']
+  20221008 not in escdd: ['BMRK_02125_cell1223', 'CSIR_00308_r5_c3']
+  20220723 not in 20221008: ['ARTS_00057_r2_c5', 'CSIR_00178_r7_c1', 'CSIR_00179_r12_c4', 'CSIR_00179_r6_c1']
+  20211104 not in 20220723: 0
+  20221008 cells not among our 582: 117; of these in the 11,938 pool: 11; E1 = 106
+  _rf cells with base stem in the 11,938 pool: 100 of 117
+  split changes 20211104 -> 20220723: common 582, in a different split 186; {('train', 'val'): 48, ('val', 'train'): 45, ('train', 'test'): 48, ('test', 'train'): 38, ('test', 'val'): 4, ('val', 'test'): 3}
+  split changes 20211104 -> 20221008: common 578, in a different split 184; {('train', 'val'): 46, ('val', 'train'): 45, ('train', 'test'): 48, ('test', 'train'): 38, ('test', 'val'): 4, ('val', 'test'): 3}
+  split changes 20220723 -> 20221008: common 638, in a different split 1; {('train', 'test'): 1}
+  split changes 20221008 -> escdd: common 693, in a different split 3; {('test', 'train'): 1, ('train', 'test'): 2}
+  split changes 20211104 -> escdd: common 577, in a different split 185; {('train', 'val'): 46, ('val', 'train'): 45, ('train', 'test'): 48, ('test', 'train'): 39, ('test', 'val'): 4, ('val', 'test'): 3}
+
+## 3. Cells: 816; image shapes [((512, 512), 816)]
+  mask version used per cell: {'escdd': 810, '20220723': 4, '20221008': 2}
+  role: {'train': 478, 'test': 50, 'rf_in_pool': 100, 'val': 54, 'E1': 106, 'rf_not_pool': 17, 'ext_in_pool': 11}
+  cells with any half-cut spacing px (24 or 29): 109; px quantiles min/10/50/90/max: 3266 / 5179 / 11334 / 19450 / 23951; <500 px: 0
+  cell type x pool group label (for cells with a pool copy): {('mono', 'mono'): 10, ('multi', 'multi'): 31, ('dogbone', 'mono'): 23, ('halfcut_multi', 'multi_half_cells'): 47}
+
+## 4a. By role (benchmark mask version: E-SCDD / 20221008 where it exists)
+  key | cells | crack cells (>0 px) | crack cells >=20 px | inactive cells | modules (image ids) | crack px | inactive px
+  E1 | 106 | 32 | 32 | 10 | 71 | 32294 | 9158
+  ext_in_pool | 11 | 3 | 3 | 0 | 8 | 2940 | 0
+  rf_in_pool | 100 | 46 | 43 | 10 | 49 | 24610 | 39509
+  rf_not_pool | 17 | 6 | 3 | 0 | 13 | 229 | 0
+  test | 50 | 46 | 46 | 16 | 48 | 91838 | 92125
+  train | 478 | 206 | 206 | 42 | 322 | 271102 | 272743
+  val | 54 | 23 | 23 | 6 | 49 | 37938 | 12277
+  ALL | 816 | 362 | 356 | 84 | 491 | 460951 | 425812
+
+## 4b. By source
+  key | cells | crack cells (>0 px) | crack cells >=20 px | inactive cells | modules (image ids) | crack px | inactive px
+  ARTS | 198 | 60 | 59 | 3 | 109 | 15906 | 2517
+  BMRK | 65 | 41 | 41 | 12 | 65 | 61042 | 79725
+  CFVS | 187 | 116 | 116 | 36 | 112 | 253627 | 255713
+  CSIR | 348 | 142 | 137 | 33 | 187 | 129776 | 87857
+  SDLE | 18 | 3 | 3 | 0 | 18 | 600 | 0
+  ALL | 816 | 362 | 356 | 84 | 491 | 460951 | 425812
+
+## 4c. By cell type
+  key | cells | crack cells (>0 px) | crack cells >=20 px | inactive cells | modules (image ids) | crack px | inactive px
+  dogbone | 28 | 11 | 11 | 1 | 9 | 8435 | 19396
+  halfcut_mono | 4 | 0 | 0 | 0 | 4 | 0 | 0
+  halfcut_multi | 105 | 50 | 50 | 12 | 50 | 29592 | 7142
+  mono | 284 | 130 | 127 | 38 | 190 | 295766 | 275117
+  multi | 321 | 131 | 128 | 21 | 165 | 66731 | 44881
+  no_spacing | 74 | 40 | 40 | 12 | 74 | 60427 | 79276
+  ALL | 816 | 362 | 356 | 84 | 491 | 460951 | 425812
+
+## 4d. By source x cell type
+  key | cells | crack cells (>0 px) | crack cells >=20 px | inactive cells | modules (image ids) | crack px | inactive px
+  ('ARTS', 'mono') | 29 | 4 | 3 | 0 | 19 | 132 | 0
+  ('ARTS', 'multi') | 169 | 56 | 56 | 3 | 90 | 15774 | 2517
+  ('BMRK', 'dogbone') | 2 | 1 | 1 | 0 | 2 | 55 | 0
+  ('BMRK', 'mono') | 7 | 4 | 4 | 1 | 7 | 5362 | 3627
+  ('BMRK', 'no_spacing') | 56 | 36 | 36 | 11 | 56 | 55625 | 76098
+  ('CFVS', 'mono') | 147 | 82 | 82 | 31 | 102 | 225404 | 245816
+  ('CFVS', 'multi') | 39 | 33 | 33 | 4 | 10 | 24021 | 6719
+  ('CFVS', 'no_spacing') | 1 | 1 | 1 | 1 | 1 | 4202 | 3178
+  ('CSIR', 'dogbone') | 26 | 10 | 10 | 1 | 7 | 8380 | 19396
+  ('CSIR', 'halfcut_mono') | 4 | 0 | 0 | 0 | 4 | 0 | 0
+  ('CSIR', 'halfcut_multi') | 105 | 50 | 50 | 12 | 50 | 29592 | 7142
+  ('CSIR', 'mono') | 101 | 40 | 38 | 6 | 62 | 64868 | 25674
+  ('CSIR', 'multi') | 112 | 42 | 39 | 14 | 64 | 26936 | 35645
+  ('SDLE', 'multi') | 1 | 0 | 0 | 0 | 1 | 0 | 0
+  ('SDLE', 'no_spacing') | 17 | 3 | 3 | 0 | 17 | 600 | 0
+  ALL | 816 | 362 | 356 | 84 | 491 | 460951 | 425812
+
+## 4e. By role x cell type
+  key | cells | crack cells (>0 px) | crack cells >=20 px | inactive cells | modules (image ids) | crack px | inactive px
+  ('E1', 'dogbone') | 2 | 1 | 1 | 0 | 2 | 55 | 0
+  ('E1', 'halfcut_mono') | 4 | 0 | 0 | 0 | 4 | 0 | 0
+  ('E1', 'halfcut_multi') | 58 | 26 | 26 | 8 | 43 | 26737 | 5494
+  ('E1', 'mono') | 1 | 0 | 0 | 0 | 1 | 0 | 0
+  ('E1', 'multi') | 38 | 5 | 5 | 2 | 18 | 5502 | 3664
+  ('E1', 'no_spacing') | 3 | 0 | 0 | 0 | 3 | 0 | 0
+  ('ext_in_pool', 'dogbone') | 7 | 3 | 3 | 0 | 4 | 2940 | 0
+  ('ext_in_pool', 'halfcut_multi') | 4 | 0 | 0 | 0 | 4 | 0 | 0
+  ('rf_in_pool', 'dogbone') | 16 | 6 | 6 | 1 | 7 | 3856 | 19396
+  ('rf_in_pool', 'halfcut_multi') | 43 | 24 | 24 | 4 | 8 | 2855 | 1648
+  ('rf_in_pool', 'mono') | 10 | 7 | 5 | 2 | 10 | 15112 | 8711
+  ('rf_in_pool', 'multi') | 31 | 9 | 8 | 3 | 24 | 2787 | 9754
+  ('rf_not_pool', 'mono') | 8 | 1 | 0 | 0 | 6 | 5 | 0
+  ('rf_not_pool', 'multi') | 9 | 5 | 3 | 0 | 7 | 224 | 0
+  ('test', 'mono') | 24 | 21 | 21 | 5 | 23 | 58025 | 28621
+  ('test', 'multi') | 14 | 13 | 13 | 4 | 13 | 4181 | 10305
+  ('test', 'no_spacing') | 12 | 12 | 12 | 7 | 12 | 29632 | 53199
+  ('train', 'dogbone') | 3 | 1 | 1 | 0 | 2 | 1584 | 0
+  ('train', 'mono') | 218 | 92 | 92 | 28 | 157 | 196388 | 226918
+  ('train', 'multi') | 206 | 91 | 91 | 9 | 112 | 46889 | 19748
+  ('train', 'no_spacing') | 51 | 22 | 22 | 5 | 51 | 26241 | 26077
+  ('val', 'mono') | 23 | 9 | 9 | 3 | 21 | 26236 | 10867
+  ('val', 'multi') | 23 | 8 | 8 | 3 | 20 | 7148 | 1410
+  ('val', 'no_spacing') | 8 | 6 | 6 | 0 | 8 | 4554 | 0
+  ALL | 816 | 362 | 356 | 84 | 491 | 460951 | 425812
+
+## 4f. By role x source
+  key | cells | crack cells (>0 px) | crack cells >=20 px | inactive cells | modules (image ids) | crack px | inactive px
+  ('E1', 'BMRK') | 5 | 1 | 1 | 0 | 5 | 55 | 0
+  ('E1', 'CSIR') | 101 | 31 | 31 | 10 | 66 | 32239 | 9158
+  ('ext_in_pool', 'CSIR') | 11 | 3 | 3 | 0 | 8 | 2940 | 0
+  ('rf_in_pool', 'ARTS') | 3 | 3 | 2 | 0 | 3 | 81 | 0
+  ('rf_in_pool', 'CSIR') | 97 | 43 | 41 | 10 | 46 | 24529 | 39509
+  ('rf_not_pool', 'CSIR') | 17 | 6 | 3 | 0 | 13 | 229 | 0
+  ('test', 'ARTS') | 13 | 10 | 10 | 1 | 12 | 2620 | 1367
+  ('test', 'BMRK') | 10 | 10 | 10 | 6 | 10 | 25235 | 50021
+  ('test', 'CFVS') | 18 | 17 | 17 | 7 | 17 | 52642 | 32719
+  ('test', 'CSIR') | 8 | 8 | 8 | 2 | 8 | 11146 | 8018
+  ('test', 'SDLE') | 1 | 1 | 1 | 0 | 1 | 195 | 0
+  ('train', 'ARTS') | 162 | 42 | 42 | 1 | 96 | 10571 | 381
+  ('train', 'BMRK') | 42 | 24 | 24 | 6 | 42 | 31198 | 29704
+  ('train', 'CFVS') | 146 | 88 | 88 | 25 | 93 | 171752 | 211737
+  ('train', 'CSIR') | 111 | 50 | 50 | 10 | 74 | 57176 | 30921
+  ('train', 'SDLE') | 17 | 2 | 2 | 0 | 17 | 405 | 0
+  ('val', 'ARTS') | 20 | 5 | 5 | 1 | 17 | 2634 | 769
+  ('val', 'BMRK') | 8 | 6 | 6 | 0 | 8 | 4554 | 0
+  ('val', 'CFVS') | 23 | 11 | 11 | 4 | 21 | 29233 | 11257
+  ('val', 'CSIR') | 3 | 1 | 1 | 1 | 3 | 1517 | 251
+  ALL | 816 | 362 | 356 | 84 | 491 | 460951 | 425812
+
+## 4g. _rf cells by judge set (F51 / H36 / F19 / not in sets)
+  key | cells | crack cells (>0 px) | crack cells >=20 px | inactive cells | modules (image ids) | crack px | inactive px
+  F19 | 19 | 10 | 9 | 2 | 14 | 6811 | 7570
+  F51 | 51 | 17 | 12 | 4 | 36 | 14639 | 30291
+  H36 | 36 | 17 | 17 | 3 | 7 | 1792 | 1238
+  excluded_by_hygiene | 11 | 8 | 8 | 1 | 4 | 1597 | 410
+  ALL | 117 | 52 | 46 | 10 | 61 | 24839 | 39509
+
+  inactive without crack (cells): 3 ['CSIR_00095_r2_c1_rf', 'CSIR_00297_r23_c4_rf', 'CSIR_00301_r1_c4_rf']
+  scuff (25) cells / px by role: {'E1': (np.int64(38), 84511), 'ext_in_pool': (np.int64(0), 0), 'rf_in_pool': (np.int64(12), 7355), 'rf_not_pool': (np.int64(0), 0), 'test': (np.int64(2), 236), 'train': (np.int64(12), 3246), 'val': (np.int64(0), 0)}
+
+## 5. Pixel-identical images under different stems (grey md5): 1 groups: [['CFVS_00015_r7_c4', 'CFVS_00016_r7_c4']]
+  near-duplicate screen: 3460 same-source same-position pairs (plus all BMRK / SDLE pairs); hp_r >= 0.9: 647, >= 0.8: 1852
+  pairs.tsv written (hp_r >= 0.5)

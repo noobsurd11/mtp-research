@@ -1,0 +1,37 @@
+{
+ "paper_id": "doi:10.2196/26151",
+ "title": "Clinically Applicable Segmentation of Head and Neck Anatomy for Radiotherapy (normalized surface Dice)",
+ "year": 2021,
+ "venue": "Journal of Medical Internet Research",
+ "url": "https://arxiv.org/abs/1809.04430",
+ "code_url": "https://github.com/google-deepmind/surface-distance",
+ "mechanism": "Surface Dice at tolerance tau, with tau set from measured inter-observer variation, scores boundaries as correct when within tau.",
+ "adaptation": "tau = 2 px from our measured annotator agreement (0.82-0.99 within 2 px); NSD@1 and @2 for crack, @2 for inactive and thin structural classes (gridline, busbar). Use as decision metric only if it separates known real effects better than strict IoU.",
+ "min_experiment": "Arm: NSD@1/2/3 on OOF predictions. Baseline: strict crack IoU. Metric: paired t statistic for 5-seed ensemble vs single model (known +0.014-0.018). Kill: NSD@2 t not higher than strict IoU t.",
+ "score": 50,
+ "bench_score": 88,
+ "bet": "safe",
+ "targets": [
+  "measurement",
+  "benchmark",
+  "crack"
+ ],
+ "evidence": "R: introduced surface Dice with organ-specific tolerances from inter-observer variation on head and neck CT.",
+ "gpu_hours": 0,
+ "prior_overlap": "partial: relF1@2 (tolerance F1) is already reported; NSD as decision metric and per-class tau not tested.",
+ "directions": [
+  "D41"
+ ],
+ "scout_scores": [
+  50
+ ],
+ "final": 50,
+ "bench": 88,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 188,
+ "pub_allowed": 0,
+ "selected_for": "bench",
+ "pid": "P188"
+}

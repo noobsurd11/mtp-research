@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2409.00589",
+ "title": "Siamese network with change awareness for surface defect segmentation in complex backgrounds (CADNet)",
+ "year": 2025,
+ "venue": "Scientific Reports",
+ "url": "https://arxiv.org/abs/2409.00589",
+ "code_url": "https://github.com/HATFormer/CADNet",
+ "mechanism": "Formulate defect segmentation as change detection against a defect-free reference with a Siamese transformer encoder and a class-balanced contrastive loss; the distance map is skip-connected to the decoder.",
+ "adaptation": "For E1: reference = defect-free pool cell retrieved by source / mono-multi / full-half-cut, or the median of other cells of the same module (E1 has module ids); feed feature distance map as extra decoder input so module-wide context cancels and cell-specific cracks remain.",
+ "evidence": "R: beats semantic segmentation baselines on a synthetic LCD set and two public sets, also in semi-supervised settings (numbers not read).",
+ "min_experiment": "Arm: PF + distance map to retrieved reference; baseline: PF; metric: E1 crack relF1@2 and half-cut false alarms; kill if E1 relF1@2 gain < +0.03.",
+ "gpu_hours": 15,
+ "prior_overlap": "none: reference-based inputs never tried; D39 covers normal-reference attention (NDP-Net) from the anomaly side.",
+ "score": 35,
+ "bench_score": 25,
+ "bet": "moonshot",
+ "targets": [
+  "e1_unseen",
+  "crack"
+ ],
+ "directions": [
+  "D40"
+ ],
+ "scout_scores": [
+  35
+ ],
+ "final": 35,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 472,
+ "pid": "P472"
+}

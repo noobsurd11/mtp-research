@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2407.04683",
+ "title": "Efficient Betti Matching Enables Topology-Aware 3D Segmentation via Persistent Homology",
+ "year": 2024,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2407.04683",
+ "code_url": "https://github.com/nstucki/Betti-Matching-3D",
+ "mechanism": "Persistent-homology loss with spatially induced matching between predicted and label barcodes (Betti matching, arxiv:2211.15272), in a fast C++ implementation.",
+ "adaptation": "Crack class, components only, on label components >= 20 px. Weight 1e-5 to 1e-2 chosen on val (TRACE paper notes larger weights drop Dice).",
+ "min_experiment": "PF + Betti matching vs PF, 5 seeds. Kill if component recall gain < 0.02 or crack IoU < PF - 0.012.",
+ "evidence": "R (abstract): large speed-up over Cubical Ripser; improved topological correctness on several datasets. R (TRACE tables): Betti matching weaker than TRACE on DeepCrack.",
+ "gpu_hours": 12,
+ "bet": "moonshot",
+ "score": 33,
+ "bench_score": 60,
+ "targets": [
+  "crack",
+  "benchmark"
+ ],
+ "prior_overlap": "none.",
+ "directions": [
+  "D10"
+ ],
+ "scout_scores": [
+  33
+ ],
+ "final": 33,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 481,
+ "pid": "P481"
+}

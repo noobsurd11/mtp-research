@@ -1,0 +1,44 @@
+{
+ "paper_id": "doi:10.1109/cvpr52733.2024.01064",
+ "title": "Training Like a Medical Resident: Context-Prior Learning Toward Universal Medical Image Segmentation (Hermes)",
+ "year": 2024,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2306.02416",
+ "code_url": "",
+ "mechanism": "A universal segmentation model with learned task and modality prior tokens, trained jointly on many heterogeneous, partially labelled datasets.",
+ "adaptation": "Prior tokens for the 5 BenchmarkEL sources plus UCF-EL. UCF-EL's region-style crack (crack plus inactive) then trains jointly without overwriting the thin-crack convention, and the encoder is not erased because training is joint.",
+ "min_experiment": "Arm = joint BenchmarkEL + UCF-EL with dataset tokens (3 seeds) versus house PF. Metrics: crack IoU, inactive IoU, E1 crack relF1@2. Kill if all gains are < 0.012.",
+ "score": 50,
+ "bench_score": 45,
+ "bet": "medium",
+ "targets": [
+  "inactive",
+  "e1_unseen",
+  "crack"
+ ],
+ "evidence": "R: CT/MRI/PET multi-dataset universal segmentation, gains over task-specific and other universal models (abstract level).",
+ "gpu_hours": 12,
+ "prior_overlap": "UCF-EL pretrain-then-finetune was n.d. or worse, but the fine-tune erased the encoder. Joint training with dataset priors is open",
+ "directions": [
+  "D17"
+ ],
+ "scout_scores": [
+  50,
+  40
+ ],
+ "alt_notes": [
+  {
+   "from": "D17",
+   "adaptation": "Prior tokens = {5 BenchmarkEL sources, UCF-EL, MultiSolSegment}; an alternative to per-dataset channels for joint EL training.",
+   "min_experiment": "Arm: prior-token joint training (BenchmarkEL + UCF-EL), 5 seeds vs house PF on BenchmarkEL only; metrics clean-49 crack IoU and E1 relF1@2; kill if E1 relF1@2 gain < +0.03 and test IoU not up by +0.012.",
+   "score": 40
+  }
+ ],
+ "final": 50,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 204,
+ "pid": "P204"
+}

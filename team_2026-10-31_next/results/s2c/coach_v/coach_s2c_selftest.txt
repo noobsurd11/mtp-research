@@ -1,0 +1,95 @@
+## selftest R on the opened #5 files (SUPPF s5-9, SKR01 s5-9); expected = verify_skr2_hc2.md / results/s2/coach_v
+  test crack d all: +0.0091 vs +0.0091 -> ok
+  test crack thr all: +0.0100 vs +0.0100 -> ok
+  test crack d clean: +0.0088 vs +0.0088 -> ok
+  test crack thr clean: +0.0100 vs +0.0100 -> ok
+  test crack two-set: nd vs nd -> ok
+  test relF1 d all: +0.0089 vs +0.0089 -> ok
+  test relF1 thr all: +0.0100 vs +0.0100 -> ok
+  test relF1 d clean: +0.0085 vs +0.0085 -> ok
+  test relF1 thr clean: +0.0100 vs +0.0100 -> ok
+  test relF1 two-set: nd vs nd -> ok
+  test inact d all: +0.0099 vs +0.0099 -> ok
+  test inact thr all: +0.0272 vs +0.0272 -> ok
+  test inact d clean: +0.0102 vs +0.0102 -> ok
+  test inact thr clean: +0.0285 vs +0.0285 -> ok
+  test inact two-set: nd vs nd -> ok
+  B5 compR d all: +0.0169 vs +0.0169 -> ok
+  B5 compR thr all: +0.0290 vs +0.0290 -> ok
+  B5 compR d clean: +0.0171 vs +0.0171 -> ok
+  B5 compR thr clean: +0.0293 vs +0.0293 -> ok
+  B5 relR d all: +0.0094 vs +0.0094 -> ok
+  B5 relR thr all: +0.0177 vs +0.0177 -> ok
+  B5 relR d clean: +0.0094 vs +0.0094 -> ok
+  B5 relR thr clean: +0.0177 vs +0.0177 -> ok
+  B5 OPs SUPPF b_comp / b_rel, SKR01 b_comp / b_rel: (3.9, 3.9, 4.8, 2.7) vs (3.9, 3.9, 4.8, 2.7) -> ok
+  E1 relF1 d: +0.0364 vs +0.0364 -> ok
+  E1 relF1 thr: +0.0351 vs +0.0351 -> ok
+  E1 relF1 label: BETTER vs BETTER -> ok
+  E1 any-hit d: +0.0439 vs +0.0439 -> ok
+  E1 any-hit thr: +0.0521 vs +0.0521 -> ok
+  E1 any-hit label: nd vs nd -> ok
+  G1 d all: +0.0099 vs +0.0099 -> ok
+  G1 d clean: +0.0102 vs +0.0102 -> ok
+  G2 relP d: -0.0121 vs -0.0121 -> ok
+  G2 crack-free px SKR01 / SUPPF: (3819, 3931) vs (3819, 3931) -> ok
+  G2 ratio: +0.9716 vs +0.9700 -> ok
+  verdict R on #5: ('PASS', ['E1 crack relF1@2'], [], []) vs ('PASS', ['E1 crack relF1@2'], [], []) -> ok
+  seed-aware boot E1 relF1 lo (RNG 20261102; boot.txt): +0.0038 vs +0.0038 -> ok
+  seed-aware boot E1 relF1 hi: +0.0756 vs +0.0756 -> ok
+  seed-aware boot E1 any-hit lo: -0.0057 vs -0.0057 -> ok
+  seed-aware boot E1 any-hit hi: +0.1029 vs +0.1029 -> ok
+  sb_boot_n == sb_boot (5 v 5, same draws): (0.003771334666, 0.07555251954) vs (0.003771334666, 0.07555251954) -> ok
+  test clusters: 48 vs 48 -> ok
+  seed-aware boot test crack lo: +0.0006 vs +0.0006 -> ok
+  seed-aware boot test crack hi: +0.0194 vs +0.0194 -> ok
+  seed-aware boot test inact lo: -0.0168 vs -0.0168 -> ok
+  seed-aware boot test inact hi: +0.0410 vs +0.0410 -> ok
+  leave-one-seed-out E1 relF1 BETTER count (verify_skr2_hc2: 5 of 10): 5 vs 5 -> ok
+  leave-one-image-out E1 relF1 BETTER count (judge: 65 of 71): 65 vs 65 -> ok
+## selftest D on the opened #6 files (E-PF b 0 vs E-SKR2 b 0); expected = runner seed-0 CIs in verify_skr2e.md
+  #6 test all 50 crack IoU d: +0.0102 vs +0.0102 -> ok
+  #6 test all 50 crack IoU lo (seed 0): +0.0031 vs +0.0031 -> ok
+  #6 test all 50 crack IoU hi (seed 0): +0.0197 vs +0.0197 -> ok
+  #6 test all 50 relF1@2 d: +0.0104 vs +0.0104 -> ok
+  #6 test all 50 relF1@2 lo (seed 0): +0.0016 vs +0.0016 -> ok
+  #6 test all 50 relF1@2 hi (seed 0): +0.0232 vs +0.0232 -> ok
+  #6 test all 50 inactive IoU d: +0.0050 vs +0.0050 -> ok
+  #6 test all 50 inactive IoU lo (seed 0): -0.0090 vs -0.0090 -> ok
+  #6 test all 50 inactive IoU hi (seed 0): +0.0280 vs +0.0280 -> ok
+  #6 test clean 49 crack IoU d: +0.0101 vs +0.0101 -> ok
+  #6 test clean 49 crack IoU lo (seed 0): +0.0031 vs +0.0031 -> ok
+  #6 test clean 49 crack IoU hi (seed 0): +0.0188 vs +0.0188 -> ok
+  #6 test clean 49 relF1@2 d: +0.0103 vs +0.0103 -> ok
+  #6 test clean 49 relF1@2 lo (seed 0): +0.0017 vs +0.0017 -> ok
+  #6 test clean 49 relF1@2 hi (seed 0): +0.0231 vs +0.0231 -> ok
+  #6 test clean 49 inactive IoU d: +0.0055 vs +0.0055 -> ok
+  #6 test clean 49 inactive IoU lo (seed 0): -0.0104 vs -0.0104 -> ok
+  #6 test clean 49 inactive IoU hi (seed 0): +0.0317 vs +0.0317 -> ok
+  #6 E1 relF1@2 d: +0.0353 vs +0.0353 -> ok
+  #6 E1 relF1@2 lo (seed 0): +0.0102 vs +0.0102 -> ok
+  #6 E1 relF1@2 hi (seed 0): +0.0613 vs +0.0613 -> ok
+  #6 E1 any-hit d: +0.0676 vs +0.0676 -> ok
+  #6 E1 any-hit lo (seed 0): +0.0253 vs +0.0253 -> ok
+  #6 E1 any-hit hi (seed 0): +0.1282 vs +0.1282 -> ok
+  #6 E1 inactive IoU d: -0.0418 vs -0.0418 -> ok
+  #6 E1 inactive IoU lo (seed 0): -0.0545 vs -0.0545 -> ok
+  #6 E1 inactive IoU hi (seed 0): +0.0123 vs +0.0123 -> ok
+  #6 test all 50 crack IoU stream-2 CI (= my #6 coach CI): (0.0031, 0.0193) vs (0.0031, 0.0193) -> ok
+  #6 test clean 49 crack IoU stream-2 CI (= my #6 coach CI): (0.0029, 0.0192) vs (0.0029, 0.0192) -> ok
+  #6 test all 50 relF1@2 stream-2 CI (= my #6 coach CI): (0.0017, 0.0241) vs (0.0017, 0.0241) -> ok
+  #6 E1 any-hit counts: (102, 122, 296) vs (102, 122, 296) -> ok
+  #6 G2a relP d: -0.0110 vs -0.0110 -> ok
+  #6 crack-free px E-PF / E-SKR2: (2528, 2673) vs (2528, 2673) -> ok
+  #6 G1t: (0.005, 0.0055) vs (0.005, 0.0055) -> ok
+  #6 verdict at the b 0 pair alone (no headline pair here): ('PASS', ['test crack IoU', 'test relF1@2', 'E1 crack relF1@2', 'E1 any-hit'], []) vs ('PASS', ['test crack IoU', 'test relF1@2', 'E1 crack relF1@2', 'E1 any-hit'], []) -> ok
+  wording: test-only PASS has 3 lines (carriers, volume, not replicated): 3 vs 3 -> ok
+  wording: G1t-only FAIL has 2 lines (cause, ~15%): 2 vs 2 -> ok
+  assemble_R: WORSE beats BETTER: FAIL vs FAIL -> ok
+  assemble_R: guard trip fails a BETTER: FAIL vs FAIL -> ok
+  assemble_R: none BETTER -> n.d.: n.d. vs n.d. -> ok
+  assemble_R: one BETTER -> PASS: PASS vs PASS -> ok
+  two-set rule: BETTER + same-sign n.d. -> BETTER: BETTER vs BETTER -> ok
+  two-set rule: BETTER + opposite-sign n.d. -> n.d.: nd vs nd -> ok
+  two-set rule: WORSE in one set -> WORSE: WORSE vs WORSE -> ok
+SELFTEST PASS

@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2607.09205",
+ "title": "Joint-Embedding Predictive Architecture for Solar PV Panel Fault Classification",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2607.09205",
+ "code_url": "https://github.com/Azimi2kht/JEFFNet",
+ "mechanism": "Fuses a JEPA-pretrained ViT with an EfficientNetV2-S branch for thermal fault classification.",
+ "evidence": "R: PVF-10 10-class F1 93.21, acc 94.33; ISM 12-class F1 72.60, acc 83.88; binary F1 97.53 / 94.69; 108.6 M params.",
+ "adaptation": "Strong ready baseline for the thermal deliverable; not expected to help EL (frozen foundation features were n.d. on EL).",
+ "min_experiment": "Run official code on PVF-10 fixed split, then test on A3 as in the PVF-10 experiment; keep it over ResNet-34 only if > 2 F1 points better cross-plant.",
+ "gpu_hours": 4,
+ "prior_overlap": "none for thermal; foundation encoders on EL closed only for frozen probes and one ConvNeXt-T screen.",
+ "targets": [
+  "deployment"
+ ],
+ "bet": "safe",
+ "score": 10,
+ "bench_score": 25,
+ "directions": [
+  "D05"
+ ],
+ "scout_scores": [
+  10
+ ],
+ "final": 10,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 633,
+ "pid": "P633"
+}

@@ -1,0 +1,35 @@
+{
+ "paper_id": "arxiv:2609.24769",
+ "title": "Brain Metastases Segmentation for BraTS 2026 Task 1: A Multi-Architecture Comparison",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2609.24769",
+ "code_url": "https://github.com/mahdiislam79/BraTS_METS_2026",
+ "mechanism": "Head-to-head region-based vs label-based training on the same model with grouped CV, plus pitfalls in region-to-label reconstruction and ensembling.",
+ "evidence": "R (read): Primus region vs label: ET DSC 0.713 vs 0.710, WT 0.680 vs 0.683, RC 0.566 vs 0.531, TC 0.400 vs 0.742 from a wrong region write order. Lesion F1 unrelated to DSC ranking (ResEncL 0.452 vs Primus 0.052); probability averaging kept the weaker model's lesion F1.",
+ "adaptation": "Write outer region before inner in the region head and check pixel counts vs softmax; report component-level crack recall beside IoU and check whether 5-seed averaging drops small cracks one seed finds.",
+ "min_experiment": "No separate training: in the region-head run, compare write orders and per-seed vs ensemble component recall (crack components >=20 px and <20 px); flag if ensemble component recall < best single seed.",
+ "prior_overlap": "none",
+ "score": 35,
+ "bench_score": 45,
+ "bet": "safe",
+ "gpu_hours": 0,
+ "targets": [
+  "inactive",
+  "measurement",
+  "benchmark"
+ ],
+ "directions": [
+  "D27"
+ ],
+ "scout_scores": [
+  35
+ ],
+ "final": 35,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 453,
+ "pid": "P453"
+}

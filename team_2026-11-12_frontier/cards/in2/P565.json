@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1109/tsmc.2025.3595539",
+ "title": "Global-Regularized Neighborhood Regression for Efficient Zero-Shot Texture Anomaly Detection (GRNR)",
+ "year": 2025,
+ "venue": "IEEE TSMC",
+ "url": "https://arxiv.org/abs/2406.07333",
+ "code_url": "",
+ "mechanism": "Training-free: each patch is regressed from its in-image neighbours, regularised by global normal prototypes from the same image.",
+ "adaptation": "Per-cell prior for multi-crystalline texture; the periodic cell layout (fingers, busbars) makes in-image neighbours good references, including for unseen half-cut layouts. Offline only.",
+ "evidence": "R: eight benchmark datasets, beats some trained methods without any training data.",
+ "min_experiment": "Offline map on CV val + F51 multi cells; kill if < 30% of PF-missed crack components >=20 px recovered at 1% area.",
+ "gpu_hours": 2,
+ "prior_overlap": "none",
+ "score": 25,
+ "bench_score": 35,
+ "bet": "medium",
+ "targets": [
+  "e1_unseen",
+  "crack"
+ ],
+ "directions": [
+  "D39"
+ ],
+ "scout_scores": [
+  25
+ ],
+ "final": 25,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 565,
+ "pid": "P565"
+}

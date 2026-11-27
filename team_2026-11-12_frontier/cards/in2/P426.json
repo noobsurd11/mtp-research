@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2508.03143",
+ "title": "SARD: Segmentation-Aware Anomaly Synthesis via Region-Constrained Diffusion with Discriminative Mask Guidance",
+ "year": 2025,
+ "venue": "MIND 2025",
+ "url": "https://arxiv.org/abs/2508.03143",
+ "code_url": "",
+ "mechanism": "During reverse denoising the background is frozen and only the anomaly region is updated. A mask-guided discriminator judges both global realism and local anomaly fidelity.",
+ "evidence": "Abstract: beats prior synthesis methods in segmentation accuracy on MVTec-AD and BTAD. No numbers on the arXiv page.",
+ "adaptation": "With a PV-DDPM retrained on our 478 cells, insert inactive regions or crack bands into real labelled cells while every pixel outside the mask stays real. This removes the seam problem by construction for blobby classes.",
+ "min_experiment": "PF + region-constrained diffusion insertions vs PF + inactive copy-paste (Soft-CP arm), 5 seeds plus CV. Metric: CV inactive IoU. Kill if not above the copy-paste arm.",
+ "prior_overlap": "none",
+ "score": 38,
+ "bench_score": 30,
+ "bet": "moonshot",
+ "targets": [
+  "inactive"
+ ],
+ "gpu_hours": 90,
+ "directions": [
+  "D21"
+ ],
+ "scout_scores": [
+  38
+ ],
+ "final": 38,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 426,
+ "pid": "P426"
+}

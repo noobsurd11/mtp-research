@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.1016/j.compbiomed.2024.108414",
+ "title": "A new family of instance-level loss functions for improving instance-level segmentation and detection of white matter hyperintensities in routine clinical brain MRI",
+ "year": 2024,
+ "venue": "Computers in Biology and Medicine",
+ "url": "https://doi.org/10.1016/j.compbiomed.2024.108414",
+ "code_url": "",
+ "mechanism": "Instance losses: instance segmentation, instance centre, false/missed instance rate, and proximity loss pulling predicted instances to GT instances.",
+ "adaptation": "Use L_false (soft count of missed + false crack instances) and L_proximity (tolerates 1-2 px offsets) on merged crack instances.",
+ "min_experiment": "Arm: house + L_false + L_proximity, 5 seeds. Baseline: house. Metric: component F1, relF1@2. Kill: no component F1 gain >= 0.02.",
+ "evidence": "ADNI and WMH challenge: ensemble of two instance losses beats pixel losses on instance metrics; also helps nuclei segmentation.",
+ "gpu_hours": 7,
+ "bet": "moonshot",
+ "prior_overlap": "none",
+ "targets": [
+  "crack"
+ ],
+ "score": 34,
+ "bench_score": 25,
+ "directions": [
+  "D20"
+ ],
+ "scout_scores": [
+  34
+ ],
+ "final": 34,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 478,
+ "pid": "P478"
+}

@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:1806.05034",
+ "title": "A Probabilistic U-Net for Segmentation of Ambiguous Images",
+ "year": 2018,
+ "venue": "NeurIPS",
+ "url": "https://arxiv.org/abs/1806.05034",
+ "code_url": "",
+ "mechanism": "A conditional VAE prior/posterior pair over a latent code gives a distribution of plausible masks from a U-Net.",
+ "adaptation": "Reference baseline for the multi-rater family and the base of the D-Persona arm. Use the latent code to represent trace placement ambiguity.",
+ "min_experiment": "Included only as the multi-rater baseline in the benchmark suite. No standalone arm.",
+ "score": 22,
+ "bench_score": 45,
+ "bet": "safe",
+ "targets": [
+  "benchmark"
+ ],
+ "evidence": "R: LIDC-IDRI and Cityscapes; well-calibrated sample distributions (abstract).",
+ "gpu_hours": 6,
+ "prior_overlap": "none",
+ "directions": [
+  "D17"
+ ],
+ "scout_scores": [
+  22
+ ],
+ "final": 22,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 575,
+ "pid": "P575"
+}

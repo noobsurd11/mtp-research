@@ -1,0 +1,43 @@
+{
+ "paper_id": "arxiv:2604.10609",
+ "title": "Self-supervised Pretraining of Cell Segmentation Models (DINOCell)",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2604.10609",
+ "code_url": "https://github.com/kadenstillwagon/DINOCell",
+ "mechanism": "Continue DINOv2 ViT-B self-distillation (DINO + iBOT) on 130k domain images with patch size cut from 14 to 8, then a light upsampling decoder.",
+ "adaptation": "Patch 8 at 512 px gives 64x64 tokens, closer to crack scale; continue DINOv2 ViT-B/8 on the de-duplicated 11.9k pool, 30 epochs at 448; judge on E1 and folds.",
+ "min_experiment": "Arm: continued ViT-B/8. Baseline: ViT-B/8 from DINOv2 without continuation, same decoder. Kill if E1 crack recall < +0.02.",
+ "evidence": "R: LIVECell SEG 0.784, +10.42% over SAM-based models; but continued domain SSL changed little vs DINOv2 init (+6.48% on 1 of 4 sets); ~100 h on 8 L40S.",
+ "prior_overlap": "None.",
+ "score": 33,
+ "bench_score": 45,
+ "bet": "moonshot",
+ "gpu_hours": 200,
+ "targets": [
+  "e1_unseen",
+  "crack"
+ ],
+ "directions": [
+  "D32"
+ ],
+ "scout_scores": [
+  33,
+  33
+ ],
+ "alt_notes": [
+  {
+   "from": "D32",
+   "adaptation": "Patch 8 at 512 px gives 64x64 tokens; continue on the de-duplicated pool; judge on E1 and folds.",
+   "min_experiment": "ViT-B/8 continued on 11.9k vs without continuation; kill if E1 crack recall < +0.02. Only if NeCo or MedDINOv3 shows a sign.",
+   "score": 33
+  }
+ ],
+ "final": 33,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 483,
+ "pid": "P483"
+}

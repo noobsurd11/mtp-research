@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1007/978-3-030-59719-1_51",
+ "title": "Universal Loss Reweighting to Balance Lesion Size Inequality in 3D Medical Image Segmentation",
+ "year": 2020,
+ "venue": "MICCAI (LNCS)",
+ "url": "https://arxiv.org/abs/2007.10033",
+ "code_url": "",
+ "mechanism": "Reweights voxel loss by inverse lesion size so each lesion carries equal total weight.",
+ "adaptation": "Precomputed per-pixel weight map on merged crack instances, (median size / size)^gamma with gamma 0.5 or 1, capped at 10, applied on CE only; zero runtime cost.",
+ "min_experiment": "Arm: house with inverse-size CE weights, 5 seeds. Baseline: house. Metrics: component recall <20 px and >=20 px, relF1@2, crack IoU, E1 relF1@2. Kill: component F1 not above house by 0.02.",
+ "evidence": "Abstract not in index; mechanism from title and session-1 notes; numbers unverified.",
+ "gpu_hours": 6,
+ "bet": "safe",
+ "prior_overlap": "none; no size reweighting was run.",
+ "targets": [
+  "crack",
+  "inactive"
+ ],
+ "score": 55,
+ "bench_score": 40,
+ "directions": [
+  "D20"
+ ],
+ "scout_scores": [
+  55
+ ],
+ "final": 55,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 156,
+ "pid": "P156"
+}

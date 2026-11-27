@@ -1,0 +1,23 @@
+PASS SHOW prints the command
+PASS fake relay root: 150 manifests
+PASS missing relay unit refused, no folder
+PASS missing 'relayed' log line refused
+PASS CS_D4 weights key swad_bn refused, no folder
+PASS PF_D4 tta false refused, no folder
+PASS PF_D4 revision 03375d4 refused, no folder
+PASS CB_D4 step 600 refused, no folder
+PASS plain PF with the D4 writer refused, no folder
+PASS a third writer refused, no folder
+PASS two devices refused, no folder
+PASS plain CS tta d4 refused, no folder
+PASS CS_D4 from another checkpoint (review N1) refused, no folder
+PASS plain CB without checkpoint_md5 (review N1) refused, no folder
+PASS wrong F commit refused
+PASS F_REPO without F refused
+PASS complete set: folder, 150 live links, expected_dumps.tsv, stub got 6 arms and 7 pairs
+PASS each arm regex fullmatches exactly its 25 link names (OK PF 25, PF_D4 25, CS 25, CS_D4 25, CB 25, CB_D4 25; 150 names; 0 in two arms; 7 pairs)
+PASS second run refused (output folder exists)
+PASS RELAY_FIN outside RELAY_ROOT: positive path, the 75 D4 dumps linked from it
+PASS without RELAY_FIN the moved fin relay is missing: refused
+PASS TAG repeat writes its own folder final_tta_t2
+final read test: 22 of 22 PASS

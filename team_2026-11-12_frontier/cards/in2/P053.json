@@ -1,0 +1,45 @@
+{
+ "paper_id": "arxiv:1802.01483",
+ "title": "Explicit Inductive Bias for Transfer Learning with Convolutional Networks (L2-SP)",
+ "year": 2018,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/1802.01483",
+ "code_url": "",
+ "mechanism": "Replace weight decay toward zero with an L2 penalty toward the pretrained weights, keeping the fine-tuned model near the source solution.",
+ "adaptation": "Encoder only, alpha grid {1e-3,1e-2,1e-1}; decoder keeps wd 1e-4. Simplest feature-preserving arm; the baseline that SPD improves on.",
+ "evidence": "Recommends L2-SP as the baseline penalty for transfer. In SPD's PASCAL seg table: L2-SP 73.47 ID / 56.70 OOD mIoU vs vanilla FT 66.03 / 44.00.",
+ "min_experiment": "Arm L2-SP vs SUP100-PF and vs house, seeds 5-9. Co-primaries as for SPD. Kill if no gain over PF on E1 inactive IoU or test relF1@2 and no gain over house on test.",
+ "gpu_hours": 17,
+ "targets": [
+  "e1_unseen",
+  "inactive"
+ ],
+ "bet": "safe",
+ "prior_overlap": "Partial: PF removes encoder weight decay and lowers lr but has no pull toward init. L2-SP itself never run.",
+ "score": 66,
+ "bench_score": 40,
+ "directions": [
+  "D35"
+ ],
+ "scout_scores": [
+  66,
+  64
+ ],
+ "alt_notes": [
+  {
+   "from": "D35",
+   "adaptation": "Encoder L2-SP alpha in {1e-3, 1e-2, 1e-1} with the house lr; decoder plain wd 1e-4; conv1 reference = the summed 1-channel ImageNet kernel. Separates PF's freeze, low lr and no-wd components.",
+   "min_experiment": "Arm: house + encoder L2-SP (best alpha on val, 5 seeds). Baseline: SUP100-PF and house. Metric: E1 inactive IoU, E1 crack relF1@2, test crack relF1@2. Kill: not better than PF on any co-primary.",
+   "score": 64
+  }
+ ],
+ "final": 66,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 53,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P053"
+}

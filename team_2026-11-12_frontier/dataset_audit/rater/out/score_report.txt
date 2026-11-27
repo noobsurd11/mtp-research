@@ -1,0 +1,90 @@
+# AI-rater check score report. key md5 fe33e96007e45a5027c4b7e44d3a529d
+rater 1: ratings/ratings_r1.tsv md5 f163b9bb60d87fecc286ba90fda6d669; lines 184, rated 184/184, missing 0 (0.0%, counted as AMBIGUOUS), invalid verdict 0, repeats ignored 0, unknown IDs 0 [], confidence missing 0
+rater 2: ratings/ratings_r2.tsv md5 0c556a53e2460e01113cdca8ab1da522; lines 184, rated 184/184, missing 0 (0.0%, counted as AMBIGUOUS), invalid verdict 0, repeats ignored 0, unknown IDs 0 [], confidence missing 0
+rater 3: ratings/ratings_r3.tsv md5 8f4d6886342138fe611246263d332837; lines 184, rated 184/184, missing 0 (0.0%, counted as AMBIGUOUS), invalid verdict 0, repeats ignored 0, unknown IDs 0 [], confidence missing 0
+
+## Calibration (truth known): sensitivity = label_error called on planted label errors; specificity = no label_error called where the label is correct
+
+### class crack: 18 planted label errors, 18 correct labels
+rater 1: sens 17/18 = 0.944 [0.742, 0.990]  spec 18/18 = 1.000 [0.824, 1.000]  label-side correct on correct labels 18/18  non-committal 1/36  individual gate (sens >= 0.6, spec >= 0.7) yes
+rater 2: sens 17/18 = 0.944 [0.742, 0.990]  spec 18/18 = 1.000 [0.824, 1.000]  label-side correct on correct labels 18/18  non-committal 1/36  individual gate (sens >= 0.6, spec >= 0.7) yes
+rater 3: sens 17/18 = 0.944 [0.742, 0.990]  spec 18/18 = 1.000 [0.824, 1.000]  label-side correct on correct labels 18/18  non-committal 1/36  individual gate (sens >= 0.6, spec >= 0.7) yes
+MAJORITY (>= 2 of 3): sens 17/18 = 0.944 [0.742, 0.990]  spec 18/18 = 1.000 [0.824, 1.000]  Youden J 0.944, bootstrap 95% lower bound 0.833
+Fleiss kappa on these calibration items: binary 1.000, 5 categories 1.000
+   crack DEL planted in consensus (truth label_correct): majority right 6/6; majority verdicts {'model_error': 6}
+   crack DEL planted in label (truth label_error): majority right 6/6; majority verdicts {'label_error': 6}
+   crack FAKE planted in consensus (truth label_correct): majority right 6/6; majority verdicts {'model_error': 6}
+   crack FAKE planted in label (truth label_error): majority right 5/6; majority verdicts {'label_error': 5, 'ambiguous': 1}
+   crack SHIFT planted in consensus (truth label_correct): majority right 6/6; majority verdicts {'model_error': 6}
+   crack SHIFT planted in label (truth label_error): majority right 6/6; majority verdicts {'label_error': 6}
+
+### class inact: 12 planted label errors, 12 correct labels
+rater 1: sens 12/12 = 1.000 [0.757, 1.000]  spec 12/12 = 1.000 [0.757, 1.000]  label-side correct on correct labels 12/12  non-committal 0/24  individual gate (sens >= 0.6, spec >= 0.7) yes
+rater 2: sens 12/12 = 1.000 [0.757, 1.000]  spec 12/12 = 1.000 [0.757, 1.000]  label-side correct on correct labels 12/12  non-committal 0/24  individual gate (sens >= 0.6, spec >= 0.7) yes
+rater 3: sens 12/12 = 1.000 [0.757, 1.000]  spec 12/12 = 1.000 [0.757, 1.000]  label-side correct on correct labels 12/12  non-committal 0/24  individual gate (sens >= 0.6, spec >= 0.7) yes
+MAJORITY (>= 2 of 3): sens 12/12 = 1.000 [0.757, 1.000]  spec 12/12 = 1.000 [0.757, 1.000]  Youden J 1.000, bootstrap 95% lower bound 1.000
+Fleiss kappa on these calibration items: binary 1.000, 5 categories 1.000
+   inact DEL planted in consensus (truth label_correct): majority right 6/6; majority verdicts {'model_error': 6}
+   inact DEL planted in label (truth label_error): majority right 6/6; majority verdicts {'label_error': 6}
+   inact FAKE planted in consensus (truth label_correct): majority right 6/6; majority verdicts {'model_error': 6}
+   inact FAKE planted in label (truth label_error): majority right 6/6; majority verdicts {'label_error': 6}
+
+### class all: 30 planted label errors, 30 correct labels
+rater 1: sens 29/30 = 0.967 [0.833, 0.994]  spec 30/30 = 1.000 [0.886, 1.000]  label-side correct on correct labels 30/30  non-committal 1/60  individual gate (sens >= 0.6, spec >= 0.7) yes
+rater 2: sens 29/30 = 0.967 [0.833, 0.994]  spec 30/30 = 1.000 [0.886, 1.000]  label-side correct on correct labels 30/30  non-committal 1/60  individual gate (sens >= 0.6, spec >= 0.7) yes
+rater 3: sens 29/30 = 0.967 [0.833, 0.994]  spec 30/30 = 1.000 [0.886, 1.000]  label-side correct on correct labels 30/30  non-committal 1/60  individual gate (sens >= 0.6, spec >= 0.7) yes
+MAJORITY (>= 2 of 3): sens 29/30 = 0.967 [0.833, 0.994]  spec 30/30 = 1.000 [0.886, 1.000]  Youden J 0.967, bootstrap 95% lower bound 0.900
+Fleiss kappa on these calibration items: binary 1.000, 5 categories 1.000
+   crack DEL planted in consensus (truth label_correct): majority right 6/6; majority verdicts {'model_error': 6}
+   crack DEL planted in label (truth label_error): majority right 6/6; majority verdicts {'label_error': 6}
+   crack FAKE planted in consensus (truth label_correct): majority right 6/6; majority verdicts {'model_error': 6}
+   crack FAKE planted in label (truth label_error): majority right 5/6; majority verdicts {'label_error': 5, 'ambiguous': 1}
+   crack SHIFT planted in consensus (truth label_correct): majority right 6/6; majority verdicts {'model_error': 6}
+   crack SHIFT planted in label (truth label_error): majority right 6/6; majority verdicts {'label_error': 6}
+   inact DEL planted in consensus (truth label_correct): majority right 6/6; majority verdicts {'model_error': 6}
+   inact DEL planted in label (truth label_error): majority right 6/6; majority verdicts {'label_error': 6}
+   inact FAKE planted in consensus (truth label_correct): majority right 6/6; majority verdicts {'model_error': 6}
+   inact FAKE planted in label (truth label_error): majority right 6/6; majority verdicts {'label_error': 6}
+
+## Candidates (124 image-supported audit candidates): majority verdict of 3 raters
+
+### class crack: 78 candidates in 39 cells; Fleiss kappa binary 0.674, 5 categories 0.736
+majority verdicts: {'no_majority': 2, 'model_error': 11, 'ambiguous': 46, 'label_error': 18, 'convention': 1}
+label error (>= 2 of 3): 18/78 = 0.231, Wilson [0.151, 0.336]; px-weighted 3315/7795 = 0.425
+cell-cluster bootstrap 95% CI of the share: [0.099, 0.405]
+Rogan-Gladen share corrected for rater sens / spec: 0.244, joint bootstrap 95% CI [0.105, 0.436] (0 of 2000 draws undefined, J <= 0)
+   type MC: 9/46 label error, Wilson [0.107, 0.332]; verdicts {'no_majority': 1, 'model_error': 4, 'ambiguous': 32, 'label_error': 9}
+   type SC: 9/32 label error, Wilson [0.156, 0.454]; verdicts {'ambiguous': 14, 'label_error': 9, 'convention': 1, 'model_error': 7, 'no_majority': 1}
+   source ARTS: 2/4 label error; verdicts {'model_error': 2, 'label_error': 2}
+   source BMRK: 2/7 label error; verdicts {'label_error': 2, 'ambiguous': 5}
+   source CFVS: 1/26 label error; verdicts {'no_majority': 2, 'model_error': 2, 'ambiguous': 20, 'convention': 1, 'label_error': 1}
+   source CSIR: 13/41 label error; verdicts {'ambiguous': 21, 'label_error': 13, 'model_error': 7}
+
+### class inact: 46 candidates in 14 cells; Fleiss kappa binary 0.844, 5 categories 0.601
+majority verdicts: {'ambiguous': 5, 'label_error': 10, 'model_error': 30, 'no_majority': 1}
+label error (>= 2 of 3): 10/46 = 0.217, Wilson [0.123, 0.356]; px-weighted 7976/26612 = 0.300
+cell-cluster bootstrap 95% CI of the share: [0.081, 0.526]
+Rogan-Gladen share corrected for rater sens / spec: 0.217, joint bootstrap 95% CI [0.081, 0.526] (0 of 2000 draws undefined, J <= 0)
+   type MI: 5/6 label error, Wilson [0.436, 0.970]; verdicts {'label_error': 5, 'ambiguous': 1}
+   type SI: 5/40 label error, Wilson [0.055, 0.261]; verdicts {'ambiguous': 4, 'model_error': 30, 'label_error': 5, 'no_majority': 1}
+   source ARTS: 0/1 label error; verdicts {'model_error': 1}
+   source BMRK: 0/1 label error; verdicts {'model_error': 1}
+   source CFVS: 5/20 label error; verdicts {'ambiguous': 3, 'label_error': 5, 'model_error': 12}
+   source CSIR: 5/24 label error; verdicts {'model_error': 16, 'label_error': 5, 'no_majority': 1, 'ambiguous': 2}
+
+## Pre-registered decision
+F5 (crack label errors): G1 majority sens 0.944 >= 0.7 and spec 1.000 >= 0.8: pass; G2 J lower bound 0.833 >= 0.3: pass; G3 raters passing alone 3 >= 2: pass; G4 candidate kappa 0.674 >= 0.4: pass
+  -> F5 (crack label errors) MEASURED: 18/78 candidates label error by majority (share 0.231, cell-bootstrap [0.099, 0.405]); corrected 0.244 [0.105, 0.436]. Pre-registered reading: label errors exist but are a MINORITY of the image-supported candidates.
+F4 (inactive label errors): G1 majority sens 1.000 >= 0.7 and spec 1.000 >= 0.8: pass; G2 J lower bound 1.000 >= 0.3: pass; G3 raters passing alone 3 >= 2: pass; G4 candidate kappa 0.844 >= 0.4: pass
+  -> F4 (inactive label errors) MEASURED: 10/46 candidates label error by majority (share 0.217, cell-bootstrap [0.081, 0.526]); corrected 0.217 [0.081, 0.526]. Pre-registered reading: label errors exist; whether they are most of the candidates is undetermined.
+
+## Descriptive: the auditor's one non-expert look (out/a_visual_check.tsv) vs the rater majority (matched on stem, type, px; only rated, image-supported candidates)
+   auditor ambiguous            raters ambiguous      1
+   auditor ambiguous            raters label_error    3
+   auditor ambiguous            raters model_error    2
+   auditor convention           raters convention     1
+   auditor convention           raters model_error    2
+   auditor label_error_likely   raters ambiguous      1
+   auditor label_error_likely   raters label_error    7
+   auditor label_error_likely   raters model_error    2
+   matched 19 of 30 auditor rows (the rest are unsupported candidates, not rated)

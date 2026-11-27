@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.1080/01621459.2023.2197686",
+ "title": "Cross-Validation: What Does It Estimate and How Well Does It Do It?",
+ "year": 2023,
+ "venue": "Journal of the American Statistical Association",
+ "url": "https://arxiv.org/abs/2104.00673",
+ "code_url": "",
+ "mechanism": "Naive CV CIs under-cover because fold errors are correlated; nested CV estimates the variance with near-nominal coverage.",
+ "adaptation": "Use as a correction factor for naive SEs of grouped-CV deltas; full nested CV too costly for deep nets.",
+ "min_experiment": "Arm: compare naive CV SE with spread of deltas across 2 groupings. Kill: ratio < 1.2 means no correction.",
+ "score": 30,
+ "bench_score": 65,
+ "bet": "safe",
+ "targets": [
+  "measurement"
+ ],
+ "evidence": "R: theory and simulations on linear models show naive CV intervals under-cover.",
+ "gpu_hours": 0,
+ "prior_overlap": "none",
+ "directions": [
+  "D41"
+ ],
+ "scout_scores": [
+  30
+ ],
+ "final": 30,
+ "bench": 65,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 501,
+ "pid": "P501"
+}

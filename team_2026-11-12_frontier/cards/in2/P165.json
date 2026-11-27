@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.1016/j.media.2024.103355",
+ "title": "Label refinement network from synthetic error augmentation for medical image segmentation",
+ "year": 2024,
+ "venue": "Medical Image Analysis",
+ "url": "https://arxiv.org/abs/2209.06353",
+ "code_url": "",
+ "mechanism": "A generator of synthetic structural errors plus a label-appearance simulation network makes corrupted masks that look like real network outputs; a refiner trained on image + these masks learns to fix breaks and missing branches.",
+ "adaptation": "2D version; error model = skeleton breaks, deletion of the lowest-contrast crack segments, 1 px shifts off the dark ridge, width changes between source conventions (1.5 to 3.25 px), gridline-like false fragments; appearance net mimics out-of-fold crack probability maps; pool cells give extra base-model predictions to correct.",
+ "min_experiment": "Arm: U-Net refiner on image + 24-class probabilities trained on out-of-fold + synthetic errors. Control: identical refiner trained on out-of-fold maps only. Metric: 5-fold CV crack relF1@2 and IoU, components found. Kill: arm beats control by < 0.01 relF1@2.",
+ "evidence": "R: airway (chest CT) and brain vessel (CTA) segmentation; beat a 3D U-Net, four earlier label refinement methods and a tubular-structure loss; larger gains with extra unlabeled data (exact numbers not read).",
+ "prior_overlap": "Crack copy-paste and synthetic half-cut views were data augmentation for the segmenter, not a refiner; mechanism not tested.",
+ "score": 55,
+ "bench_score": 30,
+ "bet": "medium",
+ "gpu_hours": 12,
+ "targets": [
+  "crack"
+ ],
+ "directions": [
+  "D26"
+ ],
+ "scout_scores": [
+  55
+ ],
+ "final": 55,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 165,
+ "pid": "P165"
+}

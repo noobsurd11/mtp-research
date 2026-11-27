@@ -1,0 +1,35 @@
+{
+ "paper_id": "doi:10.1007/978-3-031-34048-2_58",
+ "title": "blob loss: Instance Imbalance Aware Loss Functions for Semantic Segmentation",
+ "year": 2023,
+ "venue": "IPMI (LNCS)",
+ "url": "https://arxiv.org/abs/2205.08209",
+ "code_url": "https://github.com/neuronflow/blob_loss",
+ "mechanism": "Per GT component Dice with all other components masked, averaged over components and added to a global loss.",
+ "adaptation": "Merged crack instances and inactive components; reference arm for the benchmark's loss suite.",
+ "min_experiment": "Arm: house + blob Dice on crack/inactive, 5 seeds. Baseline: house. Metric: component F1 and relF1@2. Kill: no component F1 gain >= 0.02.",
+ "evidence": "Five 3D tasks: F1 +5% MS lesions, +3% liver tumour, +2% microscopy vs soft Dice. In BiCC's comparison blob loss lowered precision and Dice on 4 of 5 datasets.",
+ "gpu_hours": 7,
+ "bet": "safe",
+ "prior_overlap": "none",
+ "targets": [
+  "crack",
+  "inactive",
+  "benchmark"
+ ],
+ "score": 42,
+ "bench_score": 70,
+ "directions": [
+  "D20"
+ ],
+ "scout_scores": [
+  42
+ ],
+ "final": 42,
+ "bench": 70,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 326,
+ "pid": "P326"
+}

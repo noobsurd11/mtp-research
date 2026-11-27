@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2604.22838",
+ "title": "Neural Network Optimization Reimagined: Decoupled Techniques for Scratch and Fine-Tuning (DualOpt)",
+ "year": 2026,
+ "venue": "TPAMI",
+ "url": "https://arxiv.org/abs/2604.22838",
+ "code_url": "",
+ "mechanism": "For fine-tuning, a per-step weight rollback toward upstream weights inside the optimizer, with rollback strength adapted per layer; evaluated on classification, detection, semantic and instance segmentation.",
+ "adaptation": "Encoder-only rollback with layer3/4 rolled back hardest; second regulariser if SPD wins.",
+ "evidence": "State of the art across classification, detection, semantic and instance segmentation (abstract; numbers not retrieved).",
+ "min_experiment": "Arm DualOpt vs SPD vs PF, seeds 5-9. Kill if not above PF on any co-primary.",
+ "gpu_hours": 17,
+ "targets": [
+  "e1_unseen",
+  "inactive"
+ ],
+ "bet": "medium",
+ "prior_overlap": "Partial via PF, same as SPD.",
+ "score": 50,
+ "bench_score": 35,
+ "directions": [
+  "D35"
+ ],
+ "scout_scores": [
+  50
+ ],
+ "final": 50,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 214,
+ "pid": "P214"
+}

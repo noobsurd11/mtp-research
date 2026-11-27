@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.5244/c.34.74",
+ "title": "Object Detection as a Positive-Unlabeled Problem",
+ "year": 2020,
+ "venue": "BMVC",
+ "url": "https://arxiv.org/abs/2002.04672",
+ "code_url": "",
+ "mechanism": "Treats unlabelled regions as unlabelled rather than negative, using a non-negative PU risk with a class prior, so missing annotations stop teaching false negatives.",
+ "adaptation": "nnPU risk on crack vs background pixels only inside the dark-ridge mask, where missing cracks can hide; standard CE elsewhere. The class prior is set per source from labelled crack density.",
+ "min_experiment": "Arm: nnPU crack loss, 5 seeds. Baseline: house. Metrics: relR@2, relP@2, components found. Kill if relR@2 shows no detectable difference or relP@2 drops by more than 0.02.",
+ "score": 42,
+ "bench_score": 25,
+ "bet": "medium",
+ "targets": [
+  "crack"
+ ],
+ "evidence": "R (abstract): a PU loss beats the standard PN loss on PASCAL VOC and COCO across levels of missing labels. Detection, not segmentation.",
+ "gpu_hours": 7,
+ "prior_overlap": "none",
+ "directions": [
+  "D15"
+ ],
+ "scout_scores": [
+  42
+ ],
+ "final": 42,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 352,
+ "pid": "P352"
+}

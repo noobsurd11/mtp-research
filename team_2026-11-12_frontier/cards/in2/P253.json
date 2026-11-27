@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2504.14032",
+ "title": "LoftUp: Learning a Coordinate-Based Feature Upsampler for Vision Foundation Models",
+ "year": 2025,
+ "venue": "ICCV",
+ "url": "https://arxiv.org/abs/2504.14032",
+ "code_url": "",
+ "mechanism": "Coordinate-based cross-attention upsampler that combines the full-res image with low-res VFM features, trained on mask-based pseudo-GT features, to give sharp pixel-level features.",
+ "adaptation": "Full-res path for ViT segmenters: upsample DINOv2 tokens from 1/14 to 512 px guided by the EL image, then dot with query embeddings; fine-tune the upsampler end to end on our cells since it was trained on RGB natural images.",
+ "min_experiment": "Within the EoMT arm: conv refinement head vs LoftUp upsampler, 5-fold CV; metric crack relF1@2 and crack IoU; kill if LoftUp variant is below conv head on relF1@2 by any margin and not better on IoU by > 0.012.",
+ "score": 48,
+ "bench_score": 25,
+ "bet": "medium",
+ "targets": [
+  "crack"
+ ],
+ "evidence": "R: outperforms prior upsamplers across dense tasks (abstract). Related arXiv 2508.21529 shows upsampled VFM features separate hairline cracks in battery micrographs with few labels. Code stated as github.com/andrehuang/loftup (not opened).",
+ "gpu_hours": 15,
+ "prior_overlap": "none: super-resolution heads listed as open under Resolution.",
+ "directions": [
+  "D23"
+ ],
+ "scout_scores": [
+  48
+ ],
+ "final": 48,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 253,
+ "pid": "P253"
+}

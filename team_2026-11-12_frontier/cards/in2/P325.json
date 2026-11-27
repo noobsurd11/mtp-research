@@ -1,0 +1,43 @@
+{
+ "paper_id": "doi:10.1109/wacv61041.2025.00136",
+ "title": "AnomalyDINO: Boosting Patch-based Few-Shot Anomaly Detection with DINOv2",
+ "year": 2025,
+ "venue": "WACV",
+ "url": "https://arxiv.org/abs/2405.14529",
+ "code_url": "https://github.com/dammsi/AnomalyDINO",
+ "mechanism": "Training-free patch nearest-neighbour scoring on DINOv2 features against a few normal reference images.",
+ "adaptation": "References = clean pool cells of the same source and layout (half-cut references from the 1,152 pool half-cells); 448 px input with ViT-S/14 and ViT-L/14; map used as an extra input channel or gating prior for inactive and for E1 recall; also the pseudo-target generator for AGSSP-EL.",
+ "min_experiment": "Offline recall study as for MuSc (F51/H36), then add the map as a 2nd input channel to PF U-Net++, 5 seeds; metric inactive IoU (test, 5-fold CV) and E1 inactive IoU; kill if inactive IoU gain < +0.02 on CV.",
+ "score": 42,
+ "bench_score": 70,
+ "bet": "medium",
+ "gpu_hours": 8,
+ "targets": [
+  "inactive",
+  "e1_unseen"
+ ],
+ "evidence": "R: one-shot MVTec-AD image AUROC 93.1 to 96.6; training-free.",
+ "prior_overlap": "none; anomaly priors never tried. Frozen DINOv2-S linear probe (segmentation) is a different use.",
+ "directions": [
+  "D07"
+ ],
+ "scout_scores": [
+  42,
+  42
+ ],
+ "alt_notes": [
+  {
+   "from": "D07",
+   "adaptation": "References = pool cells of the same source and layout that the house ensemble calls clean (pool contains defects, so filter the memory bank SoftPatch-style); 1,152 pool half-cells give half-cut references for E1; 448 px, ViT-S/14 and ViT-L/14; map as prior channel or logit fusion.",
+   "min_experiment": "Offline recall test as above; baseline PF ensemble; kill if < 30% of house-missed components recovered at 1% flagged area.",
+   "score": 42
+  }
+ ],
+ "final": 42,
+ "bench": 70,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 325,
+ "pid": "P325"
+}

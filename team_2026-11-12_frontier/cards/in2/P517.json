@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1109/cvpr52734.2025.00489",
+ "title": "Revisiting MAE pre-training for 3D medical image segmentation",
+ "year": 2025,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2410.23132",
+ "code_url": "",
+ "mechanism": "Masked-autoencoder pretraining of an nnU-Net residual-encoder CNN on a large unlabelled pool with a configuration study, then nnU-Net fine-tuning.",
+ "adaptation": "MAE-pretrain a 2D ResEnc-L on the 159k-cell unlabelled pool (13x the 11.9k used before), fine-tune with PF so the encoder is kept, label-safe aug, our folds.",
+ "min_experiment": "MAE ResEnc-L (PF) v scratch ResEnc-L, 2 seeds x 5 folds. Kill if CV crack IoU < +0.01 and E1 relF1@2 < +0.03.",
+ "evidence": "R: abstract reports SSL on a large clinical pool improving nnU-Net downstream segmentation (details not read).",
+ "gpu_hours": 300,
+ "bet": "moonshot",
+ "prior_overlap": "MIM on ResNet-34 with the 11.9k pool, then house and PF fine-tune: n.d. This differs in pool size, architecture and MAE recipe, so not closed.",
+ "score": 30,
+ "bench_score": 40,
+ "targets": [
+  "e1_unseen",
+  "crack"
+ ],
+ "directions": [
+  "D25"
+ ],
+ "scout_scores": [
+  30
+ ],
+ "final": 30,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 517,
+ "pid": "P517"
+}

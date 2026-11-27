@@ -1,0 +1,23 @@
+final code proof: 03375d4 -> b548b6423b74cec69aef8dbbb430a7f399be8392 (2026-11-21 00:42:40; script e7c299e5; scratch /tmp/claude-1003/-home-noob/72e5944a-6b2b-4807-a45d-84138b3413e5/scratchpad/neg/s0)
+FAIL (1) git diff 03375d4 F differs from the expected 10 paths:
+     M	bench/q/cv02/cq.sh
+     M	bench/q/cv02/cq_setup.sh
+     M	bench/tta.py
+     M	scripts/bench_infer.py
+     A	scripts/bench_make_pool_root.py
+     M	src/models/model_factory.py
+     M	tests/test_bench_cards_cv02.py
+     M	tests/test_bench_cq_cv5v3.py
+     A	tests/test_bench_cq_final.py
+     A	tests/test_bench_pool_root.py
+     A	tests/test_bench_tta_pred.py
+FAIL (1) changed: src/models/model_factory.py 
+OK   (1) 03375d4's bench/tta.py and scripts/bench_infer.py = ae4dd10's (gaint udev_tta deploy, pre-ttafix)
+FAIL (1) F TTA code differs from 2933146: bench/tta.py scripts/bench_infer.py 
+FAIL (1) train.py trace: 39 modules, differing: src.models.model_factory; hits ''
+OK   (1) old-style queue lines render byte-equal to 03375d4's cq.sh (sandbox test in the archive of F: 1 passed in 0.37s)
+FAIL (2) CODE.md5 differs in: <bench/q/cv02/cq.sh <bench/q/cv02/cq_setup.sh <bench/tta.py <scripts/bench_infer.py <src/models/model_factory.py <tests/test_bench_cards_cv02.py <tests/test_bench_cq_cv5v3.py >bench/q/cv02/cq.sh >bench/q/cv02/cq_setup.sh >bench/tta.py >scripts/bench_infer.py >scripts/bench_make_pool_root.py >src/models/model_factory.py >tests/test_bench_cards_cv02.py >tests/test_bench_cq_cv5v3.py >tests/test_bench_cq_final.py >tests/test_bench_pool_root.py >tests/test_bench_tta_pred.py 
+     F deploy CODE.md5 md5 32ee2f876110e00d1bb848f2fb4ea070 (780 lines; c3_deploy.sh F must print the same)
+SKIP (2) cv02 CODE.md5 of bench_03375d4 (set CV02=1)
+SKIP (3) real-cell dumps (DUMPS=0)
+final code proof: 5 FAIL

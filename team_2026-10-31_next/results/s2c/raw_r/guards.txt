@@ -1,0 +1,8 @@
+## guards (protocol_SKR2C §3a; same cells as #5 / #6); 5-seed means (s10-14); a trip FAILS verdict R
+G1 inactive | SKR01 - SUPPF | test inactive IoU delta all 50 -0.0198, clean -0.0207 | TRIP iff <= -0.015 in both | TRIP
+G2 precision | SKR01 - SUPPF | test crack relP@2 delta (all 50) -0.0780 (TRIP if < -0.03) | E1 crack px on 74 crack-free cells 3931 vs 4211 = x0.93 (TRIP if > 1.5) | TRIP
+G2 reference line (decides nothing; ruling 1) | fixed s5-9 bar 5896 px (1.5 x 3931) | SKR01 E1 crack-free px mean 3931 above it: False | fresh SUPPF s10-14 mean 4211 (bar 6316)
+
+## reported only (never a verdict): seed means per arm
+SUPPF  test_relP2_clean 0.9441 | test_pred_over_gt 0.9468 | test_anyhit 0.8974 | test_crackfree_px 0.0000 | test_n_crackfree 2.0000 | e1_pred_over_gt 0.4787 | e1_relP2 0.5126 | e1_relR2 0.3686 | test_inact_all 0.4681 | test_inact_clean 0.4833 | test_relP2_all 0.9441 | e1_crackfree_px 4210.6000
+SKR01  test_relP2_clean 0.9322 | test_pred_over_gt 1.1520 | test_anyhit 0.9037 | test_crackfree_px 1.0000 | test_n_crackfree 2.0000 | e1_pred_over_gt 0.5274 | e1_relP2 0.5362 | e1_relR2 0.3996 | test_inact_all 0.4483 | test_inact_clean 0.4626 | test_relP2_all 0.8661 | e1_crackfree_px 3931.0000

@@ -1,0 +1,35 @@
+{
+ "paper_id": "arxiv:2501.08458",
+ "title": "RWKV-UNet: Improving UNet with Long-Range Cooperation for Effective Medical Image Segmentation",
+ "year": 2025,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2501.08458",
+ "code_url": "https://github.com/juntaoJianggavin/RWKV-UNet",
+ "mechanism": "Encoder of Global-Local Spatial Perception blocks mixing convolutions with RWKV linear attention, plus a Cross-Channel Mix module for multi-scale skip fusion.",
+ "adaptation": "1-channel input, 512 px. RWKV gives global context (busbar grid, half-cut edge, scuff orientation) at linear cost, while conv branches keep 1 px crack detail. Train with both the house recipe and the PF fine-tune.",
+ "min_experiment": "RWKV-UNet against house and house PF, 3 seeds, 20k steps; metric E1 crack relF1@2, E1 inactive IoU, test-49 crack IoU. Kill: under +0.03 E1 relF1@2, or test crack IoU worse by more than 0.01.",
+ "evidence": "R: SOTA claimed on 11 datasets. In the independent U-Bench (28 2D datasets) it ranks top-1 IoU both in-domain and zero-shot.",
+ "prior_overlap": "none",
+ "score": 50,
+ "bench_score": 75,
+ "bet": "medium",
+ "targets": [
+  "e1_unseen",
+  "crack",
+  "benchmark"
+ ],
+ "gpu_hours": 15,
+ "directions": [
+  "D25"
+ ],
+ "scout_scores": [
+  50
+ ],
+ "final": 50,
+ "bench": 75,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 192,
+ "pid": "P192"
+}

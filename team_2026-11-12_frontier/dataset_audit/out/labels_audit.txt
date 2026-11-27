@@ -1,0 +1,86 @@
+# labels_audit.txt (dataset_audit; label-side, 532 pool cells, v1.1 unless stated; old = BenchmarkEL 20211104)
+
+## b1. Crack label width = crack px / skeleton px (bench/skel.py); pooled per source and median of cells with >= 50 skeleton px
+source | crack cells | pooled width v1.1 | median cell width v1.1 | pooled width 20211104 | comps per 100 skeleton px | share of crack px in comps < 20 px
+ARTS | 47 | 1.593 | 1.515 | 1.527 | 1.19 | 0.0060
+BMRK | 30 | 3.087 | 3.065 | 2.807 | 0.81 | 0.0006
+CFVS | 99 | 2.064 | 2.125 | 1.769 | 0.69 | 0.0042
+CSIR | 51 | 2.249 | 2.345 | 1.877 | 0.97 | 0.0027
+SDLE | 2 | 1.640 | 2.436 | 1.640 | 1.21 | 0.0025
+ALL | 229 | 2.149 | 2.127 | 1.863 | 0.78 | 0.0036
+eta^2 (share of the variance of per-cell label width explained by source; cells with >= 50 skeleton px, n 207): 0.296
+Kruskal-Wallis across sources: H 59.7, p 3.29e-12
+
+## b2. Dark trough under the crack label: mean grey vs distance from the label skeleton (bg and crack px), cells averaged
+source | cells | trough FWHM px (pooled profile) | label width px (pooled) | label / trough | median per-cell FWHM | trough depth (grey)
+ARTS | 45 | 2.87 | 1.59 | 0.56 | 2.84 | 18.0   profile d0..10: -18.0 -12.5 -4.5 -1.2 -0.3 +0.0 +0.1 +0.2 +0.1 -0.1 -0.2
+BMRK | 29 | 4.93 | 3.09 | 0.63 | 5.98 | 20.7   profile d0..10: -20.7 -18.4 -12.3 -8.1 -4.3 -2.1 -1.1 -0.8 -0.4 +0.3 +0.9
+CFVS | 95 | 4.59 | 2.06 | 0.45 | 4.20 | 40.6   profile d0..10: -40.6 -34.5 -22.4 -15.2 -10.0 -6.5 -4.7 -2.7 -1.3 +1.0 +3.0
+CSIR | 48 | 4.31 | 2.25 | 0.52 | 4.40 | 19.1   profile d0..10: -19.1 -15.7 -10.1 -6.6 -4.0 -2.4 -1.2 -0.6 -0.1 +0.4 +0.3
+ALL | 219 | 4.14 | 2.15 | 0.52 | 4.12 | 28.6   profile d0..10: -28.6 -23.7 -14.6 -9.4 -5.9 -3.7 -2.4 -1.3 -0.6 +0.5 +1.4
+
+## b3. Inactive conventions (cells with >= 100 inactive px)
+source | inactive cells | share of inactive boundary px within 2 px of a crack label | cells with >= 20 crack px inside inactive | crack px inside inactive
+ARTS | 2 | 0.480 (per cell min 0.42, median 0.49, max 0.56) | 0 | 0
+BMRK | 5 | 0.652 (per cell min 0.52, median 0.61, max 1.00) | 3 | 600
+CFVS | 29 | 0.808 (per cell min 0.10, median 0.80, max 0.97) | 18 | 16842
+CSIR | 11 | 0.807 (per cell min 0.17, median 0.78, max 0.91) | 5 | 1512
+ALL | 47 | 0.799 (per cell min 0.10, median 0.78, max 1.00) | 26 | 18954
+
+## b4. Cells per class per source (v1.1, pool); '*' = class in one source only
+class | ARTS | BMRK | CFVS | CSIR | SDLE | groups (cv5v3) | px
+0 background | 182 | 50 | 169 | 114 | 17 | 285 | 95837080
+1 sp_multi | 158 | 0 | 38 | 32 | 1 | 108 | 2510376
+2 sp_mono | 24 | 7 | 131 | 79 | 0 | 130 | 2746891
+3 sp_dogbone* | 0 | 0 | 0 | 3 | 0 | 2 | 70621
+4 ribbons | 182 | 50 | 169 | 105 | 17 | 280 | 5951273
+5 border | 94 | 50 | 87 | 46 | 17 | 201 | 3231578
+6 text* | 16 | 0 | 0 | 0 | 0 | 12 | 12893
+7 padding | 93 | 50 | 87 | 50 | 17 | 203 | 24440330
+8 clamp* | 1 | 0 | 0 | 0 | 0 | 1 | 1238
+9 busbars | 9 | 0 | 39 | 7 | 0 | 42 | 245166
+10 crack_rbn_edge | 3 | 0 | 0 | 1 | 0 | 3 | 166
+11 inactive | 2 | 6 | 29 | 11 | 0 | 33 | 285020
+12 rings* | 1 | 0 | 0 | 0 | 0 | 1 | 1204
+13 material | 19 | 4 | 54 | 39 | 0 | 81 | 762150
+14 crack | 47 | 30 | 99 | 51 | 2 | 125 | 307546
+15 gridline | 150 | 31 | 131 | 43 | 3 | 198 | 850668
+16 splice* | 60 | 0 | 0 | 0 | 0 | 33 | 63299
+17 dead_cell* | 0 | 0 | 0 | 2 | 0 | 2 | 49804
+18 corrosion* | 0 | 0 | 0 | 0 | 15 | 3 | 158267
+19 belt_mark* | 0 | 0 | 0 | 2 | 0 | 1 | 21935
+20 edge_dark | 6 | 15 | 1 | 21 | 0 | 33 | 699500
+21 frame_edge | 36 | 0 | 68 | 6 | 0 | 69 | 1201801
+22 jbox* | 9 | 0 | 0 | 0 | 0 | 9 | 7764
+23 meas_artifact* | 3 | 0 | 0 | 0 | 0 | 3 | 554
+classes with < 10 cv5v3 groups (pooled IoU not measurable at this size): sp_dogbone (2), clamp (1), crack_rbn_edge (3), rings (1), dead_cell (2), corrosion (3), belt_mark (1), jbox (9), meas_artifact (3)
+
+## b5. Crop geometry: the cell that holds the image centre, bounded by rows / columns that are > 20% cell-gap px
+source | cells | cells with gap lines found | median share of non-padding px inside the centre cell | crack px outside the centre cell | inactive px outside | median padding share
+ARTS | 182 | 182 | 0.302 | 8959 of 13205 (0.678) | 1150 of 1150 (1.000) | 0.062
+BMRK | 50 | 3 | 1.000 | 0 of 34258 (0.000) | 0 of 29704 (0.000) | 0.750
+CFVS | 169 | 169 | 0.304 | 125409 of 200985 (0.624) | 175682 of 222994 (0.788) | 0.096
+CSIR | 114 | 114 | 0.245 | 42311 of 58693 (0.721) | 24342 of 31172 (0.781) | 0.000
+SDLE | 17 | 1 | 1.000 | 0 of 405 (0.000) | 0 of 0 (0.000) | 0.750
+ALL | 532 | 469 | 0.328 | 176679 of 307546 (0.574) | 201174 of 285020 (0.706) | 0.113
+crack cells whose every crack px lies outside the centre cell: 117 of 229
+inactive cells whose every inactive px lies outside the centre cell: 28 of 48
+
+## d. Label version 20211104 -> v1.1 on the pool (v1.1 ignore px excluded)
+ARTS: cells with any px changed 56 of 182; crack px changed (xor) 2050; crack px 11401 -> 13205; cells whose crack px differ 15; crack cells 44 -> 47; crack comps 253 -> 99; inactive px changed 193; inactive px 1343 -> 1150; any-class px changed 276160
+BMRK: cells with any px changed 22 of 50; crack px changed (xor) 5706; crack px 32602 -> 34258; cells whose crack px differ 15; crack cells 27 -> 30; crack comps 133 -> 90; inactive px changed 465; inactive px 30031 -> 29704; any-class px changed 65997
+CFVS: cells with any px changed 56 of 169; crack px changed (xor) 39358; crack px 165995 -> 200985; cells whose crack px differ 39; crack cells 99 -> 99; crack comps 2958 -> 675; inactive px changed 8391; inactive px 222189 -> 222994; any-class px changed 246749
+CSIR: cells with any px changed 34 of 114; crack px changed (xor) 12982; crack px 49681 -> 58693; cells whose crack px differ 22; crack cells 52 -> 51; crack comps 512 -> 254; inactive px changed 1242; inactive px 31480 -> 31172; any-class px changed 166946
+SDLE: cells with any px changed 1 of 17; crack px changed (xor) 0; crack px 405 -> 405; cells whose crack px differ 0; crack cells 2 -> 2; crack comps 3 -> 3; inactive px changed 0; inactive px 0 -> 0; any-class px changed 482
+ALL: cells with any px changed 169 of 532; crack px changed (xor) 60096; crack px 260084 -> 307546; cells whose crack px differ 91; crack cells 224 -> 229; crack comps 3859 -> 1121; inactive px changed 10291; inactive px 285043 -> 285020; any-class px changed 756334
+
+## f1. Strict crack IoU of the v1.1 label against itself moved or redrawn (pooled over the 229 crack cells; mean of 8 directions)
+sh1: IoU 0.4828
+sh2: IoU 0.2491
+skel: IoU 0.4653
+w3: IoU 0.6053
+  ARTS: shift 1 px 0.347; skeleton 0.628; 3-px redraw 0.469
+  BMRK: shift 1 px 0.599; skeleton 0.324; 3-px redraw 0.815
+  CFVS: shift 1 px 0.472; skeleton 0.485; 3-px redraw 0.592
+  CSIR: shift 1 px 0.491; skeleton 0.445; 3-px redraw 0.604
+  SDLE: shift 1 px 0.349; skeleton 0.610; 3-px redraw 0.441

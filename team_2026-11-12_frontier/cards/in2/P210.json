@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2508.10383",
+ "title": "Unlocking Robust Semantic Segmentation Performance via Label-only Elastic Deformations against Implicit Label Noise (NSegment+)",
+ "year": 2025,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2508.10383",
+ "code_url": "",
+ "mechanism": "Elastic deformation applied to labels only (image untouched), resampled every epoch, to model implicit boundary noise; small segments exempted.",
+ "adaptation": "Invert the small-object rule: apply smooth 0.5 to 1.5 px deformation to crack and inactive labels only (sigma 4 to 8 px, p 0.5), never to structural classes. One dataloader change.",
+ "min_experiment": "Arm: house + label-only jitter. Baseline: house. Metric: crack IoU, relF1@2. Kill if both < house + 0.005. About 6 GPU-h.",
+ "evidence": "R: mIoU +2.29 Vaihingen, +2.38 LoveDA, +1.75 Cityscapes, +3.39 VOC; vs LNL methods with DeepLabV3+: +0.81 Vaihingen, +0.63 Cityscapes, beating AIO2, L2B, UCE, Compensation Learning.",
+ "prior_overlap": "partial: offset-tolerant CE (n.d.) also targets shift tolerance; label-only stochastic jitter is a different regulariser and untested.",
+ "score": 50,
+ "bench_score": 40,
+ "bet": "safe",
+ "gpu_hours": 6,
+ "targets": [
+  "crack"
+ ],
+ "directions": [
+  "D15"
+ ],
+ "scout_scores": [
+  50
+ ],
+ "final": 50,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 210,
+ "pid": "P210"
+}

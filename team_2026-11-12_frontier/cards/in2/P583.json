@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2511.14860",
+ "title": "When CNNs Outperform Transformers and Mambas: Revisiting Deep Architectures for Dental Caries Segmentation",
+ "year": 2025,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2511.14860",
+ "code_url": "https://github.com/JunZengz/dental-caries-segmentation",
+ "mechanism": "Controlled comparison of 12 CNN, Transformer and Mamba segmenters under identical configs on a small 2D set; CNN spatial priors win under limited data.",
+ "adaptation": "Closest small-2D evidence (597 images v our 478 cells) for keeping a CNN house model; add DoubleU-Net (second U-Net refines the first) as a cheap suite member.",
+ "min_experiment": "DoubleU-Net 5 folds v house; benchmark row; kill for score if CV crack relF1@2 < +0.01.",
+ "evidence": "R: DoubleU-Net Dice 0.7345, mIoU 0.5978, precision 0.8145, top 3 on all metrics are CNNs; Mamba/Transformer over-segment.",
+ "gpu_hours": 20,
+ "bet": "safe",
+ "prior_overlap": "none",
+ "score": 20,
+ "bench_score": 60,
+ "targets": [
+  "benchmark"
+ ],
+ "directions": [
+  "D25"
+ ],
+ "scout_scores": [
+  20
+ ],
+ "final": 20,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 583,
+ "pid": "P583"
+}

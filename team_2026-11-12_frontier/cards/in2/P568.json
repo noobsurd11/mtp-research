@@ -1,0 +1,42 @@
+{
+ "paper_id": "arxiv:2602.05880",
+ "title": "Contour Refinement using Discrete Diffusion in Low Data Regime",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2602.05880",
+ "code_url": "",
+ "mechanism": "A lightweight CNN + self-attention discrete diffusion model, conditioned on a segmentation mask, iteratively denoises a sparse contour representation; built for fewer than 500 training images.",
+ "adaptation": "Refine outlines of predicted inactive regions (42 train cells, labels well aligned); contours converted back to filled masks.",
+ "min_experiment": "Arm: contour diffusion on PF inactive masks. Baseline: PF ensemble. Metric: inactive IoU on 5-fold CV. Kill: < +0.01.",
+ "evidence": "R: beat several SOTA baselines on KVASIR, competitive on HAM10K and a smoke dataset, with < 500 training images and 3.5x faster inference.",
+ "prior_overlap": "none.",
+ "score": 25,
+ "bench_score": 15,
+ "bet": "moonshot",
+ "gpu_hours": 8,
+ "targets": [
+  "inactive"
+ ],
+ "directions": [
+  "D26"
+ ],
+ "scout_scores": [
+  18,
+  25
+ ],
+ "alt_notes": [
+  {
+   "from": "D26",
+   "adaptation": "Inactive boundaries only; low value because inactive boundaries are already accurate (1 px shift IoU 0.94).",
+   "min_experiment": "Arm: contour refiner on inactive. Baseline: house ensemble. Metric: inactive IoU. Kill: < +0.02.",
+   "score": 18
+  }
+ ],
+ "final": 25,
+ "bench": 15,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 568,
+ "pid": "P568"
+}

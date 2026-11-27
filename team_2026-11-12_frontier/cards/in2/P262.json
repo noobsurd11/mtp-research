@@ -1,0 +1,85 @@
+{
+ "paper_id": "doi:10.1016/j.solener.2025.114083",
+ "title": "A benchmarking study of instance segmentation methods for photovoltaic cell defect detection using electroluminescence images",
+ "year": 2025,
+ "venue": "Solar Energy",
+ "url": "https://doi.org/10.1016/j.solener.2025.114083",
+ "code_url": "",
+ "mechanism": "Mask-classification / instance segmentation (Mask R-CNN, ConvNeXt, ConvNeXt-V2, Mask2Former via MMDetection) for EL defects.",
+ "adaptation": "Mask2Former in semantic mode, Swin-T or R50 with ADE20K weights, 1-ch, 512 px; aimed at inactive (few blob regions per cell) and mIoU_rob; crack likely stays with the house model in a heterogeneous ensemble.",
+ "min_experiment": "Arm Mask2Former semantic, 3 seeds vs house; inactive IoU, mIoU_rob; kill if inactive IoU < house and mIoU_rob < house - 0.01.",
+ "evidence": "R: UCF-EL (crack, interconnect, contact, corrosion); ConvNeXt-V2 best: seg mAP50 0.602, seg mIoU 0.650, box mAP50 0.629. Code said public; URL not verified.",
+ "prior_overlap": "none: mask-classification decoders never tried.",
+ "score": 45,
+ "bench_score": 75,
+ "bet": "medium",
+ "gpu_hours": 15,
+ "targets": [
+  "inactive",
+  "other_classes",
+  "benchmark"
+ ],
+ "directions": [
+  "D01",
+  "D02",
+  "D03",
+  "D23",
+  "D27",
+  "D36",
+  "D43"
+ ],
+ "scout_scores": [
+  45,
+  38,
+  45,
+  30,
+  30,
+  25,
+  20
+ ],
+ "alt_notes": [
+  {
+   "from": "D02",
+   "adaptation": "Run Mask2Former and ConvNeXt-V2 UperNet as semantic baselines (mmseg) on BenchmarkEL with 1-ch replicated to 3, 512 px, house augmentation, same splits; check 1/4-res mask head on 1-2 px cracks.",
+   "min_experiment": "Arm: Mask2Former (ConvNeXt-V2), 3 seeds, 40k iters. Baseline: house. Metrics: crack IoU, relF1@2, mIoU_rob. Kill as a score arm if crack IoU < house - 0.02; keep as benchmark entry regardless.",
+   "score": 38
+  },
+  {
+   "from": "D03",
+   "adaptation": "Mask2Former semantic head with ConvNeXt-V2-T or Swin-T, 1-channel input replicated, 512 px, 24 classes; targets blobby inactive and rare classes where query-based masks may help.",
+   "min_experiment": "Arm: Mask2Former + ConvNeXt-V2-T, 40k iters. Baseline: house, 5 seeds. Metric: mIoU_rob, inactive IoU, crack IoU. Kill if mIoU_rob < 0.580 and inactive IoU < 0.449.",
+   "score": 45
+  },
+  {
+   "from": "D23",
+   "adaptation": "Use its model list in our suite; treat inactive regions as instances for an instance-level AP metric alongside IoU.",
+   "min_experiment": "Benchmark only: Mask2Former and ConvNeXt-V2 entries under our protocol (covered by #2).",
+   "score": 30
+  },
+  {
+   "from": "D27",
+   "adaptation": "Convert our masks to instances by connected components (cracks merged within 3 px) to get per-crack and per-inactive-region counts, lengths, severity; a benchmark/severity lever, not a strict-IoU lever. Its UCF split has train/test leakage.",
+   "min_experiment": "Benchmark track: Mask2Former instance model vs house semantic model, scored on crack components >=20 px found and Boundary PQ; no kill line (suite member).",
+   "score": 30
+  },
+  {
+   "from": "D36",
+   "adaptation": "Cite as the existing EL benchmark and the leakage example motivating clean splits; include Mask2Former / ConvNeXt-V2 in the method suite under our protocol.",
+   "min_experiment": "Benchmark only: run Mask2Former and ConvNeXt-V2 under the BenchmarkEL protocol and report next to house model on clean-49 and E1. ~10 GPU-h.",
+   "score": 25
+  },
+  {
+   "from": "D43",
+   "adaptation": "Document the flaw: UCF-EL has heavy train/test leakage (BRIEF). Add Mask2Former / ConvNeXt-V2 under our protocol as the transformer and mask-classification entry.",
+   "min_experiment": "Mask2Former (semantic) on our folds at matched compute. Baseline: house fold ensemble. Kill for score use: inactive IoU below the house model by more than 0.02.",
+   "score": 20
+  }
+ ],
+ "final": 45,
+ "bench": 75,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 262,
+ "pid": "P262"
+}

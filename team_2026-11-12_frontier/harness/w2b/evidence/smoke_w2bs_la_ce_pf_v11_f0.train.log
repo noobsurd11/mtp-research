@@ -1,0 +1,133 @@
+2026-11-17 18:28:33 INFO train — Run: w2bs_la_ce_pf_v11_f0  device: cpu  config: configs/supervised.yaml  overrides: ['seed=5', 'data.labeled_fraction=1.0', 'training.total_steps=20000', 'data.split_seed=0', 'training.labeled_batch_size=8', 'data.mask_subdir=masks_v11', 'data.mask_ignore_value=255', 'model.name=smp_unetpp', 'data.augmentation=labelsafe', 'loss.supervised=ce_dice', 'training.val_every=20000', 'training.encoder_pf.freeze=1000', 'training.encoder_pf.ramp=1000', 'training.encoder_pf.lr_mult=0.1', 'training.encoder_pf.wd=0', 'loss.logit_offset_by_train_md5.96d3154c34b964f9a482912786040ba3=[0.0,-0.25,-0.25,0.0,-0.375,-0.0625,0.0,-0.25,0.0,0.0,0.0,-4.0,0.0,-1.375,0.0,-1.0,-2.0,0.0,0.0,0.0,-0.5625,0.0,0.0,0.0]', 'loss.logit_offset_by_train_md5.19e4a606963bc066ec9da8dfc1cb60d6=[0.0,-0.25,-0.25,0.0,-0.5,0.0625,0.0,-0.125,0.0,0.0,0.0,-4.0,0.0,-1.1875,0.0,-1.0,-1.8125,0.0,0.0,0.0,-0.5,-0.125,0.0,0.0]', 'loss.logit_offset_by_train_md5.56d43036cf9bc72710c05479fb0c55d1=[0.0,-0.125,-0.25,0.0,-0.5,0.125,0.0,0.0,0.0,0.0,0.0,-4.0,0.0,-1.4375,0.0,-1.0,-1.75,0.0,0.0,0.0,-0.5,0.0,0.0,0.0]', 'loss.logit_offset_by_train_md5.b65ff0f2c2d272a83cc0ec32cfcaa79d=[0.0,-0.25,-0.25,0.0,-0.375,0.1875,0.0,-0.3125,0.0,0.0,0.0,-4.0,0.0,-1.4375,0.0,-1.0,-1.75,0.0,0.0,0.0,-0.625,0.0,0.0,0.0]', 'loss.logit_offset_by_train_md5.c57b0b940c1418bba843e38f56f18ee3=[0.0,-0.25,-0.25,0.0,-0.5,0.0625,0.0,-0.3125,0.0,0.0,0.0,-4.0,0.0,-1.3125,0.0,-1.0,-1.875,0.0,0.0,0.0,-0.5625,0.0,0.0,0.0]', 'data.root=/home/noob/work/bench_data/roots/cv5v2_v11_f0', 'run_name=w2bs_la_ce_pf_v11_f0', 'training.total_steps=5', 'training.val_every=5', 'training.checkpoint_every=5', 'training.num_workers=2', 'training.log_every=1', 'logging.experiments_dir=/home/noob/work/bench_w2b_io/check_5995379/exp']  resume: False
+2026-11-17 18:28:33 INFO train — Labelled: 425 (/home/noob/work/bench_data/roots/cv5v2_v11_f0/splits/train.txt)  unlabelled: 0 (-)  val: 107  test: 107
+2026-11-17 18:28:34 INFO train — Model smp_unetpp: 26,075,672 parameters
+2026-11-17 18:28:34 INFO train — LA_CE: logit offset on the CE term only (row train.txt md5 96d3154c34b964f9a482912786040ba3): [0.0, -0.25, -0.25, 0.0, -0.375, -0.0625, 0.0, -0.25, 0.0, 0.0, 0.0, -4.0, 0.0, -1.375, 0.0, -1.0, -2.0, 0.0, 0.0, 0.0, -0.5625, 0.0, 0.0, 0.0]
+2026-11-17 18:28:34 INFO train — CE class weights: none (plain CE)
+2026-11-17 18:28:34 INFO train — Zero-pixel classes in labelled subset (weight 0): ['belt_mark']
+2026-11-17 18:28:34 INFO src.trainers.trainer — Mode: supervised  total_steps=5  val_every=5  checkpoint_every=5  amp=False(bfloat16)  params=26,075,672
+2026-11-17 18:28:48 INFO src.trainers.trainer — step 1/5  loss=4.057  loss_sup=4.057  loss_con=0  lambda=0  lr=1e-05  steps_per_sec=0.07084
+2026-11-17 18:28:48 INFO src.trainers.trainer — PF encoder lr=0 at step 1
+2026-11-17 18:29:03 INFO src.trainers.trainer — step 2/5  loss=3.988  loss_sup=3.988  loss_con=0  lambda=0  lr=1.5e-05  steps_per_sec=0.07051
+2026-11-17 18:29:03 INFO src.trainers.trainer — PF encoder lr=0 at step 2
+2026-11-17 18:29:16 INFO src.trainers.trainer — step 3/5  loss=3.994  loss_sup=3.994  loss_con=0  lambda=0  lr=2e-05  steps_per_sec=0.07172
+2026-11-17 18:29:16 INFO src.trainers.trainer — PF encoder lr=0 at step 3
+2026-11-17 18:29:29 INFO src.trainers.trainer — step 4/5  loss=3.994  loss_sup=3.994  loss_con=0  lambda=0  lr=2.5e-05  steps_per_sec=0.07233
+2026-11-17 18:29:29 INFO src.trainers.trainer — PF encoder lr=0 at step 4
+2026-11-17 18:29:43 INFO src.trainers.trainer — step 5/5  loss=3.978  loss_sup=3.978  loss_con=0  lambda=0  lr=3e-05  steps_per_sec=0.07292
+2026-11-17 18:29:43 INFO src.trainers.trainer — PF encoder lr=0 at step 5
+2026-11-17 18:30:35 INFO src.trainers.trainer — val @ step 5  defect_miou=0.0013  miou_defects_all=0.0018  miou_all=0.0049  crack_recall=0.0046  crack_recall_relaxed=0.0339  crack_fpr_image=1.000
+2026-11-17 18:30:35 INFO src.trainers.trainer — new best val defect_miou=0.0013 at step 5
+2026-11-17 18:30:35 INFO src.trainers.trainer — saved latest.pth at step 5
+2026-11-17 18:31:26 INFO src.trainers.trainer — TEST (final weights, step 5)
+[standard]
+idx  class                IoU    Prec  Recall      F1        GT px
+------------------------------------------------------------------
+  0  background        0.0154  0.6645  0.0155  0.0303   19,318,882
+  1  sp_multi          0.0108  0.0147  0.0389  0.0214      507,715
+  2  sp_mono           0.0148  0.0224  0.0420  0.0292      562,865
+  3  sp_dogbone        0.0012  0.0044  0.0016  0.0024       45,835
+  4  ribbons           0.0212  0.0226  0.2517  0.0415    1,212,908
+  5  border            0.0098  0.0183  0.0205  0.0193      635,129
+  6  text              0.0001  0.0001  0.0412  0.0001          194
+  7  padding           0.0041  0.0335  0.0046  0.0081    4,913,506
+  8  clamp                  -       -       -       -            0
+  9  busbars           0.0041  0.0046  0.0334  0.0081       44,290
+ 10  crack_rbn_edge    0.0000  0.0000  0.0000  0.0000           64
+ 11  inactive          0.0015  0.0021  0.0047  0.0029       56,753
+ 12  rings                  -       -       -       -            0
+ 13  material          0.0029  0.0029  0.2311  0.0058       79,810
+ 14  crack             0.0011  0.0015  0.0046  0.0023       49,358
+ 15  gridline          0.0017  0.0153  0.0019  0.0034      220,325
+ 16  splice            0.0005  0.0005  0.0491  0.0010       11,958
+ 17  dead_cell              -       -       -       -            0
+ 18  corrosion         0.0019  0.0027  0.0062  0.0038       30,307
+ 19  belt_mark         0.0004  0.0004  0.0123  0.0007       21,935
+ 20  edge_dark         0.0064  0.0089  0.0222  0.0127      133,261
+ 21  frame_edge        0.0000  0.0032  0.0000  0.0000      202,565
+ 22  jbox              0.0001  0.0001  0.0029  0.0001        1,748
+ 23  meas_artifact          -       -       -       -            0
+------------------------------------------------------------------
+defect_mean            0.0018  0.0038  0.0369  0.0036
+all_mean               0.0049  0.0411  0.0392  0.0097
+defect_miou               0.0013
+miou_defects_all          0.0018
+miou_all                  0.0049
+crack_iou                 0.0011
+inactive_iou              0.0015
+crack_recall              0.0046
+crack_recall_relaxed      0.0339
+crack_fpr_image           1.0000
+pixel_accuracy            0.0253
+present classes               20
+[pvs3]
+idx  class                IoU    Prec  Recall      F1        GT px
+------------------------------------------------------------------
+  0  background             -       -       -       -            0
+  1  sp_multi          0.0257  0.0705  0.0389  0.0502      507,715
+  2  sp_mono           0.0202  0.0375  0.0420  0.0396      562,865
+  3  sp_dogbone        0.0015  0.0194  0.0016  0.0030       45,835
+  4  ribbons           0.0657  0.0816  0.2517  0.1233    1,212,908
+  5  border            0.0162  0.0719  0.0205  0.0319      635,129
+  6  text              0.0002  0.0002  0.0412  0.0005          194
+  7  padding           0.0045  0.1641  0.0046  0.0090    4,913,506
+  8  clamp                  -       -       -       -            0
+  9  busbars           0.0082  0.0108  0.0334  0.0163       44,290
+ 10  crack_rbn_edge    0.0000  0.0000  0.0000  0.0000           64
+ 11  inactive          0.0035  0.0137  0.0047  0.0070       56,753
+ 12  rings                  -       -       -       -            0
+ 13  material          0.0079  0.0081  0.2311  0.0156       79,810
+ 14  crack             0.0025  0.0055  0.0046  0.0050       49,358
+ 15  gridline          0.0018  0.0548  0.0019  0.0037      220,325
+ 16  splice            0.0021  0.0022  0.0491  0.0041       11,958
+ 17  dead_cell              -       -       -       -            0
+ 18  corrosion         0.0038  0.0096  0.0062  0.0075       30,307
+ 19  belt_mark         0.0005  0.0006  0.0123  0.0011       21,935
+ 20  edge_dark         0.0122  0.0264  0.0222  0.0241      133,261
+ 21  frame_edge        0.0000  0.0076  0.0000  0.0000      202,565
+ 22  jbox              0.0003  0.0003  0.0029  0.0005        1,748
+ 23  meas_artifact          -       -       -       -            0
+------------------------------------------------------------------
+defect_mean            0.0038  0.0134  0.0369  0.0076
+all_mean               0.0093  0.0308  0.0405  0.0180
+2026-11-17 18:31:26 INFO src.utils.checkpoint — Loaded checkpoint from /home/noob/work/bench_w2b_io/check_5995379/exp/w2bs_la_ce_pf_v11_f0/checkpoints/best.pth (step 5, defect_miou=0.0013)
+2026-11-17 18:32:17 INFO src.trainers.trainer — TEST (best.pth (step 5))
+[standard]
+idx  class                IoU    Prec  Recall      F1        GT px
+------------------------------------------------------------------
+  0  background        0.0154  0.6645  0.0155  0.0303   19,318,882
+  1  sp_multi          0.0108  0.0147  0.0389  0.0214      507,715
+  2  sp_mono           0.0148  0.0224  0.0420  0.0292      562,865
+  3  sp_dogbone        0.0012  0.0044  0.0016  0.0024       45,835
+  4  ribbons           0.0212  0.0226  0.2517  0.0415    1,212,908
+  5  border            0.0098  0.0183  0.0205  0.0193      635,129
+  6  text              0.0001  0.0001  0.0412  0.0001          194
+  7  padding           0.0041  0.0335  0.0046  0.0081    4,913,506
+  8  clamp                  -       -       -       -            0
+  9  busbars           0.0041  0.0046  0.0334  0.0081       44,290
+ 10  crack_rbn_edge    0.0000  0.0000  0.0000  0.0000           64
+ 11  inactive          0.0015  0.0021  0.0047  0.0029       56,753
+ 12  rings                  -       -       -       -            0
+ 13  material          0.0029  0.0029  0.2311  0.0058       79,810
+ 14  crack             0.0011  0.0015  0.0046  0.0023       49,358
+ 15  gridline          0.0017  0.0153  0.0019  0.0034      220,325
+ 16  splice            0.0005  0.0005  0.0491  0.0010       11,958
+ 17  dead_cell              -       -       -       -            0
+ 18  corrosion         0.0019  0.0027  0.0062  0.0038       30,307
+ 19  belt_mark         0.0004  0.0004  0.0123  0.0007       21,935
+ 20  edge_dark         0.0064  0.0089  0.0222  0.0127      133,261
+ 21  frame_edge        0.0000  0.0032  0.0000  0.0000      202,565
+ 22  jbox              0.0001  0.0001  0.0029  0.0001        1,748
+ 23  meas_artifact          -       -       -       -            0
+------------------------------------------------------------------
+defect_mean            0.0018  0.0038  0.0369  0.0036
+all_mean               0.0049  0.0411  0.0392  0.0097
+defect_miou               0.0013
+miou_defects_all          0.0018
+miou_all                  0.0049
+crack_iou                 0.0011
+inactive_iou              0.0015
+crack_recall              0.0046
+crack_recall_relaxed      0.0339
+crack_fpr_image           1.0000
+pixel_accuracy            0.0253
+present classes               20

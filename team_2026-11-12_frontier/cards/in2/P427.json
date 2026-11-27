@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.1109/cvpr52688.2022.00790",
+ "title": "Towards Fewer Annotations: Active Learning via Region Impurity and Prediction Uncertainty for Domain Adaptive Semantic Segmentation",
+ "year": 2022,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2111.12940",
+ "code_url": "",
+ "mechanism": "Select target regions by region impurity (class entropy in a neighbourhood) times prediction uncertainty for domain-adaptive segmentation.",
+ "adaptation": "Rank the 1,152 pool half-cells (E1-like, half-cut, scuff) by RIPU score and pseudo-label the top ones with the PF ensemble; if a minimal labelling case is accepted, label 20-30 RIPU-chosen regions.",
+ "min_experiment": "Arm: PF + top 300 RIPU-ranked pool half-cells pseudo-labelled. Baseline: PF variant. Metric: E1 crack relF1@2, E1 inactive IoU. Kill: < +0.02 E1 relF1@2.",
+ "score": 38,
+ "bench_score": 30,
+ "bet": "medium",
+ "targets": [
+  "e1_unseen"
+ ],
+ "evidence": "R: 69.6 mIoU GTAV to Cityscapes with 2.2% labelled pixels vs 66.6 for LabOR. Code at github.com/BIT-DA/RIPU per search results, not opened.",
+ "gpu_hours": 15,
+ "prior_overlap": "Synthetic half-cut views n.d.; selection of real half-cut pool cells not run. Open.",
+ "directions": [
+  "D37"
+ ],
+ "scout_scores": [
+  38
+ ],
+ "final": 38,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 427,
+ "pid": "P427"
+}

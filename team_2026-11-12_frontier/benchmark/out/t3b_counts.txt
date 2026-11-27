@@ -1,0 +1,55 @@
+T3b counts: E1 106 cells; 71 image ids; crack cells (>= 20 px) 32 ; crack px 32294 ; crack components >= 20 px 296 ; half-cut cells 62 ; scuff cells (>= 500 px) 37 ; inactive cells 10
+crack px by image id, top 8: [('CSIR_01717', 7068, '0.219', 'crack cells 4'), ('CSIR_01637', 5586, '0.173', 'crack cells 4'), ('CSIR_01679', 3483, '0.108', 'crack cells 5'), ('CSIR_00341', 3194, '0.099', 'crack cells 1'), ('CSIR_02222', 3071, '0.095', 'crack cells 1'), ('CSIR_01101', 1264, '0.039', 'crack cells 2'), ('CSIR_02026', 1079, '0.033', 'crack cells 1'), ('CSIR_01647', 1066, '0.033', 'crack cells 1')]
+cumulative share of crack px, top 1 / 3 / 5 / 10 image ids: [0.219, 0.5, 0.694, 0.857]
+inactive px by image id: [('CSIR_01637', 3702), ('CSIR_01101', 3228), ('CSIR_01647', 1033), ('CSIR_02136', 554), ('CSIR_00400', 436), ('CSIR_02026', 148), ('CSIR_01717', 57)]
+families with id gap <= 1: 58 units; top-3 share of crack px 0.500; units with crack 21
+families with id gap <= 2: 52 units; top-3 share of crack px 0.500; units with crack 21
+families with id gap <= 5: 44 units; top-3 share of crack px 0.529; units with crack 19
+families with id gap <= 10: 37 units; top-3 share of crack px 0.562; units with crack 17
+families with id gap <= 20: 20 units; top-3 share of crack px 0.822; units with crack 11
+image-id numbers of the half-cut + scuff crack cells: [1621, 1637, 1647, 1679, 1717, 1951, 2026, 2222, 2228, 2301]
+image-id numbers of all E1 CSIR cells (min, max): 300 2328
+
+K = 3, grouped by image id (71 units)
+  fold | held-out cells | units | half-cut cells | scuff cells | crack cells | of which half-cut + scuff | crack px (share) | components >= 20 px | crack-free cells | inactive cells (px) | TRAIN side: cells / half-cut / crack cells / half-cut + scuff crack cells / crack px
+  0 | 36 | 20 | 20 | 9 | 6 | 5 | 11112 (0.34) | 83 | 30 | 1 (57) | 70 / 42 / 26 / 15 / 21182
+  1 | 36 | 27 | 21 | 13 | 13 | 7 | 10614 (0.33) | 108 | 23 | 8 (8068) | 70 / 41 / 19 / 13 / 21680
+  2 | 34 | 24 | 21 | 15 | 13 | 8 | 10568 (0.33) | 105 | 21 | 1 (1033) | 72 / 41 / 19 / 12 / 21726
+    fold 0: largest image id holds 0.64 of the fold's crack px (CSIR_01717)
+    fold 1: largest image id holds 0.53 of the fold's crack px (CSIR_01637)
+    fold 2: largest image id holds 0.33 of the fold's crack px (CSIR_01679)
+
+K = 5, grouped by image id (71 units)
+  fold | held-out cells | units | half-cut cells | scuff cells | crack cells | of which half-cut + scuff | crack px (share) | components >= 20 px | crack-free cells | inactive cells (px) | TRAIN side: cells / half-cut / crack cells / half-cut + scuff crack cells / crack px
+  0 | 22 | 12 | 12 | 5 | 4 | 4 | 7068 (0.22) | 70 | 18 | 1 (57) | 84 / 50 / 28 / 16 / 25226
+  1 | 22 | 14 | 13 | 6 | 6 | 4 | 6053 (0.19) | 63 | 16 | 5 (4256) | 84 / 49 / 26 / 16 / 26241
+  2 | 20 | 14 | 13 | 7 | 11 | 6 | 6143 (0.19) | 51 | 9 | 2 (3664) | 86 / 49 / 21 / 14 / 26151
+  3 | 21 | 16 | 12 | 9 | 6 | 2 | 6014 (0.19) | 52 | 15 | 0 (0) | 85 / 50 / 26 / 18 / 26280
+  4 | 21 | 15 | 12 | 10 | 5 | 4 | 7016 (0.22) | 60 | 16 | 2 (1181) | 85 / 50 / 27 / 16 / 25278
+    fold 0: largest image id holds 1.00 of the fold's crack px (CSIR_01717)
+    fold 1: largest image id holds 0.92 of the fold's crack px (CSIR_01637)
+    fold 2: largest image id holds 0.57 of the fold's crack px (CSIR_01679)
+    fold 3: largest image id holds 0.51 of the fold's crack px (CSIR_02222)
+    fold 4: largest image id holds 0.46 of the fold's crack px (CSIR_00341)
+
+K = 3, grouped by family (id gap <= 5) (44 units)
+  fold | held-out cells | units | half-cut cells | scuff cells | crack cells | of which half-cut + scuff | crack px (share) | components >= 20 px | crack-free cells | inactive cells (px) | TRAIN side: cells / half-cut / crack cells / half-cut + scuff crack cells / crack px
+  0 | 30 | 12 | 21 | 17 | 7 | 5 | 11986 (0.37) | 84 | 23 | 1 (57) | 76 / 41 / 25 / 15 / 20308
+  1 | 26 | 19 | 21 | 8 | 13 | 7 | 10157 (0.31) | 106 | 13 | 5 (3850) | 80 / 41 / 19 / 13 / 22137
+  2 | 50 | 13 | 20 | 12 | 12 | 8 | 10151 (0.31) | 106 | 38 | 4 (5251) | 56 / 42 / 20 / 12 / 22143
+    fold 0: largest image id holds 0.59 of the fold's crack px (CSIR_01717)
+    fold 1: largest image id holds 0.55 of the fold's crack px (CSIR_01637)
+    fold 2: largest image id holds 0.34 of the fold's crack px (CSIR_01679)
+
+K = 5, grouped by family (id gap <= 5) (44 units)
+  fold | held-out cells | units | half-cut cells | scuff cells | crack cells | of which half-cut + scuff | crack px (share) | components >= 20 px | crack-free cells | inactive cells (px) | TRAIN side: cells / half-cut / crack cells / half-cut + scuff crack cells / crack px
+  0 | 15 | 7 | 12 | 5 | 4 | 4 | 7068 (0.22) | 70 | 11 | 1 (57) | 91 / 50 / 28 / 16 / 25226
+  1 | 14 | 7 | 13 | 7 | 5 | 4 | 5953 (0.18) | 60 | 9 | 4 (3702) | 92 / 49 / 27 / 16 / 26341
+  2 | 42 | 9 | 12 | 7 | 10 | 6 | 5695 (0.18) | 52 | 32 | 3 (4218) | 64 / 50 / 22 / 14 / 26599
+  3 | 15 | 13 | 13 | 3 | 7 | 2 | 5688 (0.18) | 53 | 8 | 0 (0) | 91 / 49 / 25 / 18 / 26606
+  4 | 20 | 8 | 12 | 15 | 6 | 4 | 7890 (0.24) | 61 | 14 | 2 (1181) | 86 / 50 / 26 / 16 / 24404
+    fold 0: largest image id holds 1.00 of the fold's crack px (CSIR_01717)
+    fold 1: largest image id holds 0.94 of the fold's crack px (CSIR_01637)
+    fold 2: largest image id holds 0.61 of the fold's crack px (CSIR_01679)
+    fold 3: largest image id holds 0.54 of the fold's crack px (CSIR_02222)
+    fold 4: largest image id holds 0.40 of the fold's crack px (CSIR_00341)

@@ -1,0 +1,22 @@
+c3x code proof: 89b9ea5 -> 6161de6b5aa30cbe0688dd2c834da9c154c120ff (2026-11-17 18:38:36)
+FAIL (1) git diff 89b9ea5 X differs from the expected 9 paths:
+A	bench/methods/hrnet_w18_unetpp_swad_const_pf_v11.yaml
+A	bench/methods_cv02/hrnet_w18_unetpp_swad_const_pf_v11.yaml
+A	bench/methods_cv02/swad_const_pf_v11.yaml
+M	bench/q/cv02/cq.sh
+A	bench/q/cv02/cq_rescue.sh
+M	bench/q/cv02/cq_setup.sh
+M	bench/q/cv02/slim_ckpt.py
+M	src/models/bench_models.py
+A	tests/test_bench_c3x_card.py
+A	tests/test_bench_cq_readouts.py
+FAIL (1) a training, dump or read file differs
+     775 files in X; tree b92c3630d806ecc386d1885f6b2cb2af5f1c3877
+FAIL (2) CODE.md5 differs in: <bench/q/cv02/cq.sh <bench/q/cv02/cq_setup.sh <bench/q/cv02/slim_ckpt.py <src/models/bench_models.py >bench/methods/hrnet_w18_unetpp_swad_const_pf_v11.yaml >bench/methods_cv02/hrnet_w18_unetpp_swad_const_pf_v11.yaml >bench/methods_cv02/swad_const_pf_v11.yaml >bench/q/cv02/cq.sh >bench/q/cv02/cq_rescue.sh >bench/q/cv02/cq_setup.sh >bench/q/cv02/slim_ckpt.py >src/models/bench_models.py >tests/test_bench_c3x_card.py >tests/test_bench_cq_readouts.py 
+OK   (3) none of the 9 paths is under scripts/ src/ configs/ data/
+OK   (3) the only Python files among them are bench/q/cv02/slim_ckpt.py (queue step after the dumps) and two tests
+OK   (3) no file under scripts/ src/ configs/ bench/*.py names a queue script, slim_ckpt, methods_cv02 or the two tests
+OK   (4) train: 39 repo modules imported at start, none of the 9 paths: src,src.data,src.data.augmentations,src.data.benchmark_el,src.data.class_info,src.data.class_stats,src.data.splits,src.data.stream,src.data.ucf_el,src.evaluation,src.evaluation.evaluator,src.evaluation.metrics,src.evaluation.visualize,src.losses,src.losses.alhvr,src.losses.ce_dice,src.losses.class_t
+OK   (4) infer: 19 repo modules imported at start, none of the 9 paths: bench,bench.cards,bench.dumpfmt,bench.sets,src,src.data,src.data.augmentations,src.data.benchmark_el,src.data.class_info,src.data.splits,src.models,src.models.deeplabv3plus,src.models.model_factory,src.models.sa_unetpp,src.models.self_attention,src.utils,src.utils.checkpoint,src.utils.config,src.uti
+     (bench_infer.py stopped after its imports, as intended: FileNotFoundError: [Errno 2] No such file or directory: '/tmp/claude-1003/-home-yugma-mtp/e0fe0a1b-de27-464f-816b-2df672)
+c3x code proof: 3 FAIL

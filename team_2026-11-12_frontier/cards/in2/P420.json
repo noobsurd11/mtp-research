@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2206.01737",
+ "title": "MaxStyle: Adversarial Style Composition for Robust Medical Image Segmentation",
+ "year": 2022,
+ "venue": "MICCAI",
+ "url": "https://arxiv.org/abs/2206.01737",
+ "code_url": "https://github.com/cherise215/MaxStyle",
+ "mechanism": "Auxiliary style-augmented decoder; adversarial search over worst-case mixtures of feature styles plus noise.",
+ "evidence": "Better OOD robustness on cardiac and prostate MR under corruptions, site shift and unseen sequences, in low and high data settings (abstract).",
+ "adaptation": "Add an aux reconstruction decoder to U-Net++; perturb encoder feature mean/std adversarially.",
+ "min_experiment": "PF+MaxStyle vs PF+GIN-IPA; E1 relF1@2; kill if < +0.02 over GIN-IPA.",
+ "prior_overlap": "None.",
+ "score": 38,
+ "bench_score": 35,
+ "bet": "medium",
+ "gpu_hours": 8,
+ "targets": [
+  "e1_unseen"
+ ],
+ "directions": [
+  "D30"
+ ],
+ "scout_scores": [
+  38
+ ],
+ "final": 38,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 420,
+ "pid": "P420"
+}

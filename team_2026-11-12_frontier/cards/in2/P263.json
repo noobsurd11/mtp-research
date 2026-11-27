@@ -1,0 +1,45 @@
+{
+ "paper_id": "doi:10.1002/pip.3416",
+ "title": "Deep-learning-based pipeline for module power prediction from electroluminescense measurements",
+ "year": 2021,
+ "venue": "Progress in Photovoltaics",
+ "url": "https://arxiv.org/abs/2009.14712",
+ "code_url": "https://github.com/ma0ho/elpvpower",
+ "mechanism": "CNN regresses module Pmpp from module EL images, with a CAM variant giving per-cell power loss; inactive regions and cracks are the main loss drivers.",
+ "adaptation": "719 public module EL images + Pmpp from the lab family behind ELPV (our weak BMRK source). Cut into cells as a BMRK-like unlabelled pool; use module power loss as a weak bag label for the summed predicted inactive fraction (ranking loss across module pairs); use as a severity validation set for predicted inactive fraction.",
+ "min_experiment": "Step 1: house model on cell crops of all 719 modules, Spearman(predicted inactive fraction, measured power loss); kill weak-supervision idea if rho < 0.3. Step 2: PF + ranking loss vs PF, CV inactive IoU and BMRK inactive IoU; kill if < +0.02. Download needs user OK.",
+ "evidence": "R: 719 modules; baseline regression MAE 9.0 W (4.0%), CNN MAE 7.3 W (3.2%); dataset, code and models released.",
+ "prior_overlap": "Partial: SSL with the 11.9k CSIR/ARTS pool was n.d. at 100% labels, but that pool was not BMRK-like and had no electrical labels. Weak supervision from power is untested.",
+ "score": 45,
+ "bench_score": 75,
+ "bet": "medium",
+ "targets": [
+  "inactive",
+  "severity",
+  "benchmark"
+ ],
+ "gpu_hours": 27,
+ "directions": [
+  "D04",
+  "D44"
+ ],
+ "scout_scores": [
+  45,
+  22
+ ],
+ "alt_notes": [
+  {
+   "from": "D44",
+   "adaptation": "External task-level check of our masks. Crop ELPVPOWER cells (about 150 px) with PV-Vision preprocessing, upsample to 512, run the house / PF / ensemble models, sum the predicted inactive fraction per module and rank-correlate with measured Pmpp loss. Expect a domain gap (resolution, camera).",
+   "min_experiment": "Ask the user before downloading ELPVPOWER (public). Metric: Spearman between predicted inactive fraction and Pmpp loss, module-grouped. Compare house vs PF vs ensemble. Kill the power track if no model reaches Spearman > 0.3. About 3 GPU-h plus a day of preprocessing.",
+   "score": 22
+  }
+ ],
+ "final": 45,
+ "bench": 75,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 263,
+ "pid": "P263"
+}

@@ -1,0 +1,47 @@
+{
+ "paper_id": "arxiv:2606.12552",
+ "title": "Crossing the Validation Crisis: Cross-Validation Reduces Benchmarking Variance Surprisingly Well",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2606.12552",
+ "code_url": "",
+ "mechanism": "Repeated cross-validation splits act as a virtual enlargement of the test set (sample gain); gains keep growing past K=5 and an early-stop rule from split redundancy says when to stop.",
+ "adaptation": "Module-grouped repeated CV over the 532 train+val cells using the existing fold roots (2 groupings x 5 folds), paired per split and seed; pooled out-of-fold crack/inactive IoU as the decision instrument; test-49 and E1 kept untouched for confirmation. Also lets logit bias / checkpoint be chosen on 532 OOF cells instead of 54 val cells.",
+ "min_experiment": "Arm: house and PF on 10 grouped splits, 1 seed each, paired. Baseline: 5v5 seeds on clean test-49. Metric: SE of paired delta in pooled OOF crack IoU and minimum detectable effect (2.8 x SE). Kill: CV MDE not <= 0.008 (vs ~0.012 now).",
+ "score": 72,
+ "bench_score": 92,
+ "bet": "safe",
+ "targets": [
+  "measurement",
+  "benchmark",
+  "crack",
+  "inactive"
+ ],
+ "evidence": "R: MCCV at K=200 gave test-sample gain ~14 (Ridge) and ~15 (MLP) on synthetic data; real data (PCam histopathology CNNs/ViT, Yelp BERT) gains of about 5 to 20 at K=20, not converged at K=5; repeated K-fold comparable.",
+ "gpu_hours": 22,
+ "prior_overlap": "BRIEF 4.5 notes grouped 5-fold roots exist; section 5 'never tried' lists k-fold cross-validated selection. Open.",
+ "directions": [
+  "D37",
+  "D41"
+ ],
+ "scout_scores": [
+  20,
+  72
+ ],
+ "alt_notes": [
+  {
+   "from": "D37",
+   "adaptation": "Make module-grouped 5-fold CV over 532 cells the primary comparison, clean-49 test and E1 as held-out reports; OOF predictions double as label-audit input.",
+   "min_experiment": "Compare seed-pair standard error of crack IoU difference on CV vs clean-49 for house vs PF. Kill: none (measurement design).",
+   "score": 20
+  }
+ ],
+ "final": 72,
+ "bench": 92,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 7,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

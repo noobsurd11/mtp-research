@@ -1,0 +1,44 @@
+{
+ "paper_id": "doi:10.1016/j.media.2025.103565",
+ "title": "Confidence intervals for performance estimates in brain MRI segmentation",
+ "year": 2025,
+ "venue": "Medical Image Analysis",
+ "url": "https://arxiv.org/abs/2307.10926",
+ "code_url": "https://github.com/rosanajurdi/SegVal",
+ "mechanism": "Measures CI width of mean Dice vs test size and spread, parametric vs bootstrap.",
+ "adaptation": "Bootstrap CIs of per-cell crack IoU on val-54 and OOF-532; show readers how wide a 49-cell CI is for EL cracks.",
+ "min_experiment": "Arm: bootstrap CI on val and OOF. Metric: CI width. Kill: reporting only.",
+ "score": 40,
+ "bench_score": 80,
+ "bet": "safe",
+ "targets": [
+  "measurement",
+  "benchmark"
+ ],
+ "evidence": "R (companion ISBI 2023 doi:10.1109/isbi53787.2023.10230401): about 8 Dice points CI width for 20 test cases at SD ~0.10.",
+ "gpu_hours": 0,
+ "prior_overlap": "none",
+ "directions": [
+  "D41",
+  "D43"
+ ],
+ "scout_scores": [
+  40,
+  35
+ ],
+ "alt_notes": [
+  {
+   "from": "D43",
+   "adaptation": "Compute the per-cell crack IoU SD on clean-49 and E1 and the CI half-width. Derive how many sealed-test cells give +/-0.01 for crack and inactive, then size the new test and E1 sets from that.",
+   "min_experiment": "From the existing 5 house seeds: CI half-width of crack and inactive IoU on clean-49. Decision line: if the half-width > 0.02, the headline score must be OOF CV over 532 cells plus E1, not test-49 alone.",
+   "score": 35
+  }
+ ],
+ "final": 40,
+ "bench": 80,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 357,
+ "pid": "P357"
+}

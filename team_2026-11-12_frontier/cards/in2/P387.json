@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2410.04648",
+ "title": "AdaptDiff: Cross-Modality Domain Adaptation via Weak Conditional Semantic Diffusion for Retinal Vessel Segmentation",
+ "year": 2024,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2410.04648",
+ "code_url": "https://github.com/DeweiHu/AdaptDiff",
+ "mechanism": "Pseudo-labels on unlabelled target images train a mask-conditioned diffusion model, which renders target-style images from source masks to fine-tune the segmenter.",
+ "evidence": "Seven public datasets, three modalities; improved segmentation on all unseen sets (abstract, no numbers).",
+ "adaptation": "Train mask-to-image diffusion on unlabelled half-cut pool cells conditioned on house pseudo-labels of structure classes (busbars, ribbons, cut edge); render train crack/inactive masks into half-cut scuffed cells.",
+ "min_experiment": "PF + 1,000 rendered half-cut cells vs PF, 5 seeds; metric E1 crack relF1@2 and recall@2 on half-cut cells. Kill: < +0.03 relF1@2.",
+ "prior_overlap": "Partial: synthetic half-cut views (geometric) were n.d.; generative synthesis untested (D06 overlap).",
+ "score": 40,
+ "bench_score": 30,
+ "bet": "moonshot",
+ "gpu_hours": 50,
+ "targets": [
+  "e1_unseen"
+ ],
+ "directions": [
+  "D30"
+ ],
+ "scout_scores": [
+  40
+ ],
+ "final": 40,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 387,
+ "pid": "P387"
+}

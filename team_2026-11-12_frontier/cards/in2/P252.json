@@ -1,0 +1,50 @@
+{
+ "paper_id": "arxiv:2207.09654",
+ "title": "Learning Topological Interactions for Multi-Class Medical Image Segmentation",
+ "year": 2022,
+ "venue": "ECCV 2022 (oral)",
+ "url": "https://arxiv.org/abs/2207.09654",
+ "code_url": "https://github.com/TopoXLab/TopoInteraction",
+ "mechanism": "A fully convolutional module detects pixels that violate containment or exclusion between classes and adds loss on them, trained end to end.",
+ "adaptation": "Encode two rules. First, an inactive region must have a crack prediction within 5 px (an adjacency rule; 99% of train inactive regions satisfy it). Second, crack is excluded from padding and frame. Loss is applied only to violating pixels.",
+ "min_experiment": "Arm: the best multi-label or gated arm + violation loss. Baseline: that arm. Metrics: inactive precision and IoU, number of inactive regions with no crack nearby. Kill if the inactive IoU gain is < 0.01.",
+ "evidence": "R: validated on 2D and 3D, CT and ultrasound, private and public challenge data. The abstract page gives no numbers.",
+ "prior_overlap": "none. Skeleton Recall and clDice were single-class topology losses, not cross-class constraints.",
+ "score": 48,
+ "bench_score": 25,
+ "bet": "medium",
+ "gpu_hours": 6,
+ "targets": [
+  "inactive"
+ ],
+ "directions": [
+  "D10",
+  "D27"
+ ],
+ "scout_scores": [
+  40,
+  48,
+  48
+ ],
+ "alt_notes": [
+  {
+   "from": "D10",
+   "adaptation": "EL has hard class rules: inactive regions touch a crack (99% in train), crack and inactive never lie on padding or frame_edge. Cheapest form is an inference rule: drop predicted inactive components with no predicted crack within k px. Training form: exclusion penalty between inactive / crack and padding / frame_edge.",
+   "min_experiment": "Inference rule on existing PF checkpoints, k chosen on val (0 GPU-h); then PF + exclusion term vs PF, 5 seeds. Kill if val inactive precision gain < 0.03 or inactive recall falls > 0.01.",
+   "score": 40
+  },
+  {
+   "from": "D27",
+   "adaptation": "Exclusions: crack/inactive outside cell area. Adjacency rule (inactive region must have crack within 5 px) built as a custom violation map since TI_Loss covers containment/exclusion only.",
+   "min_experiment": "Arm best of region/presence arms + violation loss; metric inactive precision and count of inactive regions without nearby crack; kill if inactive IoU gain < 0.01 over its base.",
+   "score": 48
+  }
+ ],
+ "final": 48,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 252,
+ "pid": "P252"
+}

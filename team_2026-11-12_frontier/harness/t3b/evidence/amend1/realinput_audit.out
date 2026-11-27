@@ -1,0 +1,21 @@
+t3b real-input audit 2026-11-22 02:31:36 IST (script bd84f5e7; queue 51a96237, old cad952c0)
+check	result	evidence
+kb_check, registration-1 script (cad952c0)	refuses	REFUSED (check): KB differs from F2B in other paths than K's: <.gitignore <Makefile <README.md <bench/__init__... (123 path entries)
+kb_check, amended script (sorted by path)	real-input OK	KB /tmp/noob_el/bench_cba7fbd: REVISION K, CODE.md5 OK, pins OK; differs from F2B only in K's paths (+ REVISION)
+  CODE.md5 line orders	info	798 781 bench/aa.py bench/atlas.py .gitignore Makefile
+data_check (bench_data DEPLOY.md5)	real-input OK	cv02 d6063fd83d20e656612540edda702cbe, pinned d6063fd83d20e656612540edda702cbe
+names_check (63 names)	real-input OK	cv02 hits 0, relay hits 0; jobs md5 d77f3a94 / 9423cb91
+stage precondition (DT, DS absent)	real-input OK	FREE
+dt_check	not testable before stage	DT does not exist yet; same commands passed on the chain smoke's staged copy (stub ssh); both sides now LC_ALL=C sorted
+ds_check	not testable before stage	DS does not exist yet; compares md5 of the same MANIFEST.md5 bytes (tar copy) and md5sum -c (order-free)
+render_q + t3b_rendercmp.py	not testable before stage	cq.sh arming checks DT's ROOTS_t3b.md5 / MANIFEST.md5 and render writes a scratch queue dir on cv02; rendercmp compares sets of lines (order-free); K's real cq.sh rendered 65 lines in the render smoke
+arm_q queue-dir string (format, on the ended queue fin2)	real-input OK (format)	jobs 7efbf54cbdbaae747781089aadb056cd LPG 1 share 20480 0 sealed 0 used 2+log ses no
+free_gpus / free disk (arm)	real-input OK	GPUs < 4096 MiB now: 1; cv02 /tmp free 71 GB (arm needs 55)
+guard preconditions	real-input OK	bench_diskguard8 session and /tmp/noob_el/bench_q/diskguard8.sh absent: 'guard' will place and start it
+place / arm / place2 / arm2 / render_r / place_r / arm_r	not testable now	they write or start on cv02 (forbidden here); the cq_setup.sh line they grep is the one fin2 / open printed
+q1_done remote part + parser (fin2 sample)	real-input OK (format)	ALL DONE / state '1 ended'; names with 'trained <n> rc=0 ' and RUN.md5: 10 of 10; t3brep dirs: ''
+relay.log / .ok / md5sum -c / LATEST.md5 formats (NAS fin2)	real-input OK (format)	'RELAY ALL DONE: 10 of 10' lines 1; .ok field 4 = md5(RUN.md5) yes; md5sum -c OK; LATEST.md5 path experiments/fin_hrnet_swad_v11_pool_s5/checkpoints/latest.pth (q1_done / relay deploy use these)
+unstage gaint-side checks (an open-set dump unit of fin)	real-input OK (format)	unit c3_pf_v11_f0_s5.tta_d4: .ok field 4 = md5(RUN.md5) yes; md5sum -c OK; dump-dir lines 108 of 108
+unstage cv02 part, relay deploy, the read	not testable before the runs / dumps	need KB/runs and KB/dumps of T3b (absent); same commands passed through the stub ssh in the chain smoke
+relay preconditions (stage copy, relay_w1c.sh, NAS)	real-input OK	stage CODE.md5 OK; relay_w1c 74a2ec3d48ad3cd989aa0c9b5ae69942; RD1 / RD2 existing 0; NAS free 8258 GB
+audit end 2026-11-22 02:31:55; nothing written on cv02; IO not read

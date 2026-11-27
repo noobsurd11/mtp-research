@@ -1,0 +1,68 @@
+{
+ "paper_id": "doi:10.1111/mice.70127",
+ "title": "Efficient unsupervised domain adaptation for crack segmentation with interpretable Fourier-Morphology blending and Uncertainty-guided self-training",
+ "year": 2025,
+ "venue": "Computer-Aided Civil and Infrastructure Engineering",
+ "url": "https://doi.org/10.1111/mice.70127",
+ "code_url": "",
+ "mechanism": "Fourier low-frequency style transfer plus morphological operators that align crack width/geometry between domains (two parameters), then dual-network uncertainty-guided self-training on target.",
+ "adaptation": "Morphology half matches our source-dependent label width (ARTS 1.5 px, CSIR 1.75, BMRK 3.0, SDLE 3.25): erode/dilate source labels toward the CSIR convention while swapping low-frequency amplitude from pool half-cells. Test the blending half first; self-training half overlaps SSL nulls.",
+ "min_experiment": "PF + FDA(pool half-cells) + label width matching to 1.75 px vs PF + FDA, 3 seeds. Kill if E1 crack IoU gain < +0.02 at equal relF1@2.",
+ "score": 58,
+ "bench_score": 45,
+ "bet": "medium",
+ "targets": [
+  "e1_unseen",
+  "crack"
+ ],
+ "evidence": "R: up to +18.5% F1 over competitive baselines in cross-domain crack segmentation on public and industrial sets (abstract only; full text unavailable).",
+ "gpu_hours": 6,
+ "prior_overlap": "Self-training part overlaps BRIEF s5 pseudo-label SSL (n.d. at 100%); Fourier plus label-width alignment untested.",
+ "directions": [
+  "D08",
+  "D09",
+  "D30"
+ ],
+ "scout_scores": [
+  55,
+  55,
+  50,
+  50,
+  58
+ ],
+ "alt_notes": [
+  {
+   "from": "D08",
+   "adaptation": "Target = CSIR half-cell pool (1,152 multi half-cells look like E1); the morphology half can also align label width across sources (BMRK 3.0 / SDLE 3.25 vs ARTS 1.5 px). Run blending without self-training first.",
+   "min_experiment": "Arm: house + Fourier-Morphology blending with CSIR half-cell pool as target, 5 seeds. Baseline: house. Metric: E1 crack relF1@2. Kill: < +0.03. Add self-training only if it passes.",
+   "score": 55
+  },
+  {
+   "from": "D09",
+   "adaptation": "Target = E1-like pool cells (1,152 multi half-cells, CSIR). Fourier-swap labelled cells toward half-cut scuffed pool cells; morph crack label width to the CSIR convention (1.75 px); dual-network self-training with uncertainty masks on the 11.9k pool. Freeze the recipe on F51 / H36 val before scoring E1.",
+   "min_experiment": "Arm: Fourier-morphology blending + uncertainty-gated dual-network self-training; baseline PF; 3 seeds. Metric: E1 crack relF1@2 and recall, E1 inactive IoU; CV crack IoU within 0.01. Kill if E1 relF1@2 < +0.03.",
+   "score": 50
+  },
+  {
+   "from": "D30",
+   "adaptation": "Morphology step: thin or thicken source crack masks and dark lines to match each source's label width (ARTS 1.5 px to SDLE 3.25 px). Fourier step towards half-cell pool cells. Dual-network self-training on the pool.",
+   "min_experiment": "Morphology step alone first: house+width-matching vs house, 5 seeds; metric per-source test crack IoU (BMRK, SDLE) and E1 relF1@2. Kill: < +0.01 test crack IoU and < +0.02 E1 relF1@2.",
+   "score": 50
+  },
+  {
+   "from": "D08",
+   "adaptation": "Target = unlabelled CSIR half-cell pool (1,152 multi half-cells) as an E1 proxy. Morphology part can also harmonise label width conventions across sources (BMRK 3.0, SDLE 3.25 vs ARTS 1.5 px). Run blending first without self-training.",
+   "min_experiment": "Arm: house + FM blending toward CSIR half-cell pool, 5 seeds. Baseline: house. Metric: E1 crack relF1@2, test crack IoU. Kill: E1 relF1@2 < +0.03. Add self-training only if it passes.",
+   "score": 55
+  }
+ ],
+ "final": 58,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 118,
+ "pub_allowed": 1,
+ "selected_for": "top",
+ "pid": "P118"
+}

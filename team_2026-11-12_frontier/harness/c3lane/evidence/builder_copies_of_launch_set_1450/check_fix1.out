@@ -1,0 +1,47 @@
+[2026-11-17 14:47:04] c3lane check (QC 'none', NEWQ c3all3)
+--- 1 code
+OK   worktree /home/noob/work/bench_wt_c3s on bench_c3s at 5437778 or at its child with the c3lane commit, no tracked change
+OK   c3lane.patch applies to a fresh archive of 5437778 and gives cq.sh 14d33b80 and cq_rescue.sh 204f9bce; only these two files differ
+OK   strict lane code untouched: from '# ---- lanes' to the line of logger_ok the patched cq.sh equals 5437778 (5222150b)
+SKIP no QC given: the new queue code is not deployed yet
+--- 2 queues on cv02
+     c3all MAXC 0 dispatched 0 fixture_only 0 share / started 33 of 70
+     c3all2 MAXC 8 dispatched 0 fixture_only 0 share / started 2 of 62
+     c3base MAXC 0 dispatched 0 fixture_only 0 share / started 2 of 50
+     c3hrnet MAXC 0 dispatched 0 fixture_only 0 share / started 3 of 25
+     c3swad_smoke MAXC 1 dispatched 0 fixture_only 1 share / started 0 of 1
+     rows2 MAXC 8 dispatched 1 fixture_only 0 share / started 30 of 30
+     ---
+     open c3all c3h_hrnet_w18_unetpp_pf_f1_s7 GPU 7 rc '0' chain ok rescued 0
+     open c3all c3_pf_v11_f3_s7 GPU 0 rc '0' chain ok rescued 0
+     open c3all2 c3_pf_v11_f1_s8 GPU 5 rc '' chain ok rescued 0
+     open rows2 r2_segformer_mitb2_pf_f4_s6 GPU 2 rc '0' chain ok rescued 0
+     ---
+     0, 21754;1, 26208;2, 5634;3, 2958;4, 2954;5, 18713;6, 1849;7, 6893;
+     81
+     bench_diskguard up
+     bench_diskguard2 up
+     bench_diskguard3 up
+     1
+     0
+OK   live queues that can still start training: 'c3all2 ' (at most one)
+OK   c3all, c3base, c3hrnet frozen (MAXC 0)
+OK   no sharing in any live queue other than c3all3 (older queue code ignores the files; they must not be there)
+SKIP c3all3 is not armed yet
+OK   every open lane of an older queue has a verified chain (candidates for the rescue tool), or was stopped by the tool
+OK   cv02 /tmp free >= 45 GB (now 81)
+OK   cv02 disk guards up; guard 3 names c3all2 and c3all3; no HOLD file
+--- 3 gaint
+OK   gaint free >= 15 GB (now 111)
+OK   relay c3base alive (25 runs relayed)
+OK   relay c3hrnet alive (12 runs relayed)
+OK   relay c3swad alive (0 runs relayed)
+     6262e355da16c5fceaeeeca0fd07de68  c3lane.patch
+     51beca9c2ff057ea6bfd9fb69b0e63dc  c3lane_commit.sh
+     36450f6e4d32d2f97a3d8030790b748f  c3lane_handover.sh
+     89fc00d8f41237c9d07cf21aa4a2075e  c3lane_rescue.sh
+     9dc30d14b57e3208add5ab5df9ae7828  c3lane_dumptest.sh
+     3b55d21d38c5888b40cbfd336eaa25d1  c3lane_check.sh
+     2a53aa7d818cec028c4520ffb45973cd  c3lane_test.sh
+     def3b2958890657dcb6b61a914561020  c3lane_handover_test.sh
+[2026-11-17 14:47:06] C3LANE CHECK: 13 OK, 0 FAIL, 2 SKIP

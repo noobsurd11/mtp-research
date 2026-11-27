@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>EE511 EL Segmentation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=block" rel="stylesheet">
+<style>
+:root{
+  --lav:#DCDAEA; --blue:#DEE8F5; --green:#E2EFDA; --peach:#FAE5D8; --grey:#F1F1F1;
+  --lav-d:#B7B2D6; --blue-d:#A9C2E4; --green-d:#B5D3A3; --peach-d:#EDB99A;
+  --ink:#1B1B1B; --muted:#5E5E5E; --line:#D5D5D5;
+  --first:#F4A29C; --second:#F9C99C; --third:#FFF2A0;
+}
+@page{ size:1280px 720px; margin:0 }
+*{ box-sizing:border-box; margin:0; padding:0 }
+html,body{ background:#fff; color:var(--ink); font-family:'IBM Plex Sans',sans-serif; -webkit-print-color-adjust:exact; print-color-adjust:exact }
+.slide{ width:1280px; height:720px; position:relative; overflow:hidden; page-break-after:always; break-after:page; background:#fff }
+.slide:last-child{ page-break-after:auto; break-after:auto }
+h1,.h1{ font-family:'Space Grotesk',sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:-0.5px; line-height:1.02 }
+.h2{ font-family:'Space Grotesk',sans-serif; font-weight:700; letter-spacing:-0.3px }
+.bar-l{ position:absolute; width:4px; background:var(--ink) }
+.dash{ width:58px; height:4px; background:var(--ink) }
+.mono{ font-family:'IBM Plex Mono',monospace }
+.muted{ color:var(--muted) }
+.abs{ position:absolute }
+ul.b{ list-style:none }
+ul.b li{ position:relative; padding-left:30px; margin-bottom:14px }
+ul.b li::before{ content:"\2022"; position:absolute; left:6px; top:0 }
+.cap{ font-size:14px; color:var(--muted); line-height:1.4 }
+.fig{ display:block }
+.arrow{ width:0; height:0; border-top:16px solid transparent; border-bottom:16px solid transparent; border-left:20px solid var(--lav-d) }
+table.t{ border-collapse:collapse; width:100% }
+table.t th, table.t td{ padding:7px 10px; text-align:left; vertical-align:middle }
+table.t thead th{ white-space:normal; font-weight:600; border-top:2px solid var(--ink); border-bottom:1px solid var(--ink) }
+table.t tbody tr:last-child td{ border-bottom:2px solid var(--ink) }
+table.tight th, table.tight td{ padding:5px 8px; line-height:1.25 }
+table.t thead th.num{ font-family:"IBM Plex Sans",sans-serif }
+.num{ text-align:right!important; font-variant-numeric:tabular-nums; font-family:'IBM Plex Mono',monospace }
+.c1{ background:var(--first) } .c2{ background:var(--second) } .c3{ background:var(--third) }
+.v-good{ background:#CFE8C0 } .v-maybe{ background:#FFF2A0 } .v-null{ background:#EDEDED } .v-bad{ background:#F6C1BC }
+.grp td{ font-size:13px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.6px; padding-top:9px; border-bottom:1px solid var(--line) }
+.side{ position:absolute; top:0; height:720px }
+.chip{ background:var(--grey); padding:16px 20px }
+table.t thead th.num{ font-family:"IBM Plex Sans",sans-serif }
+</style>
+</head>
+<body>
+
+<!-- 1 TITLE -->
+<section class="slide">
+  <div class="abs" style="left:1105px;top:0;width:175px;height:720px;background:var(--grey)"></div>
+  <div class="abs" style="left:849px;top:0;width:88px;height:720px;background:var(--lav)"></div>
+  <div class="abs" style="left:937px;top:0;width:88px;height:720px;background:var(--blue)"></div>
+  <div class="abs" style="left:1025px;top:0;width:88px;height:720px;background:var(--green)"></div>
+  <div class="abs" style="left:1113px;top:0;width:88px;height:720px;background:var(--peach)"></div>
+  <img class="abs fig" src="fig/title_cell.png" style="left:889px;top:168px;width:350px;height:350px;border:5px solid #fff">
+  <div class="abs" style="left:889px;top:532px;width:350px;font-size:15px;text-align:center;color:#3f3f3f">EL image of one cell: a crack and an inactive fragment</div>
+  <div class="bar-l" style="left:60px;top:198px;height:78px"></div>
+  <div class="abs" style="left:86px;top:192px;width:740px">
+    <h1 style="font-size:60px">Solar Module Fault Segmentation using EL Images</h1>
+    <div style="font-size:25px;margin-top:26px;line-height:1.35">Finding cracks and inactive regions pixel by pixel,<br>and measuring it fairly</div>
+  </div>
+  <div class="abs" style="left:86px;top:548px">
+    <div style="font-size:27px">Yash Patil &nbsp;<span class="muted" style="font-size:22px">B23222</span></div>
+    <div style="font-size:19px;margin-top:8px" class="muted">Mentor: Dr. Dinesh Singh &nbsp;&middot;&nbsp; EE511 Computer Vision</div>
+  </div>
+</section>
+
+<!-- 2 PROBLEM -->
+<section class="slide">
+  <div class="side" style="left:0;width:634px;background:var(--lav)"></div>
+  <h1 class="abs" style="left:68px;top:226px;font-size:52px;width:540px">The problem:<br><br>thin cracks,<br>few pixels</h1>
+  <div class="abs" style="left:712px;top:120px;width:520px">
+    <div class="dash"></div>
+    <ul class="b" style="font-size:24px;margin-top:36px;line-height:1.3">
+      <li>Crack: 0.19% of pixels, labels 1 to 2&nbsp;px wide</li>
+      <li>Inactive area: rare</li>
+      <li>24 classes, 512&times;512 EL cells</li>
+      <li>THE ONE IDEA:</li>
+    </ul>
+    <div class="h2" style="font-size:38px;margin-top:30px">Measure fairly, then improve</div>
+    <div style="font-size:22px;margin-top:14px;line-height:1.35">published EL scores do not compare</div>
+  </div>
+</section>
+
+<!-- 3 RELATED WORK -->
+<section class="slide">
+  <div class="bar-l" style="left:60px;top:76px;height:76px"></div>
+  <h1 class="abs" style="left:90px;top:86px;font-size:56px">Related work</h1>
+  <div class="abs h2" style="left:92px;top:176px;font-size:18px;text-transform:uppercase;letter-spacing:.4px">Pixel-level EL defect segmentation</div>
+  <div class="abs" style="left:60px;top:252px;width:1160px;display:flex;align-items:center;gap:14px">
+    <div style="flex:1;height:224px;background:var(--lav);border:1px solid var(--lav-d);display:flex;flex-direction:column;justify-content:center;text-align:center;padding:12px">
+      <div class="h2" style="font-size:27px">U-Net</div><div style="font-size:17px;margin-top:6px">defect segmentation</div><div style="font-size:16px;margin-top:14px">Pratt et al. 2021<br><span class="muted">Renewable Energy</span></div></div>
+    <div class="arrow"></div>
+    <div style="flex:1;height:224px;background:var(--lav);border:1px solid var(--lav-d);display:flex;flex-direction:column;justify-content:center;text-align:center;padding:12px">
+      <div class="h2" style="font-size:27px">UCF-EL</div><div style="font-size:17px;margin-top:6px">DeepLabV3</div><div style="font-size:16px;margin-top:14px">Fioresi et al. 2022<br><span class="muted">IEEE J. Photovoltaics</span></div></div>
+    <div class="arrow"></div>
+    <div style="flex:1;height:224px;background:var(--lav);border:1px solid var(--lav-d);display:flex;flex-direction:column;justify-content:center;text-align:center;padding:12px">
+      <div class="h2" style="font-size:25px">BenchmarkEL</div><div style="font-size:17px;margin-top:6px">24-class dataset, DeepLabV3+</div><div style="font-size:16px;margin-top:14px">Pratt et al. 2023<br><span class="muted">Systems and Soft Computing</span></div></div>
+    <div class="arrow"></div>
+    <div style="flex:1;height:224px;background:var(--lav);border:1px solid var(--lav-d);display:flex;flex-direction:column;justify-content:center;text-align:center;padding:12px">
+      <div class="h2" style="font-size:25px">VGG16 U-Net</div><div style="font-size:17px;margin-top:6px">29-class segmentation</div><div style="font-size:16px;margin-top:14px">Hanifi et al. 2025<br><span class="muted">IEA/AIE</span></div></div>
+    <div class="arrow"></div>
+    <div style="flex:1.15;height:224px;background:var(--peach);border:1px solid var(--peach-d);display:flex;flex-direction:column;justify-content:center;text-align:center;padding:12px">
+      <div class="h2" style="font-size:26px;line-height:1.1">No shared protocol</div><div style="font-size:17px;margin-top:10px;line-height:1.35">22 papers read in full:<br><b>0</b> module-disjoint splits<br><b>18</b> with no interval or seeds</div></div>
+  </div>
+  <div class="abs" style="left:62px;top:540px;width:1160px;font-size:17px;line-height:1.5">
+    <span class="muted">Methods from general CV we brought in:</span> Mean Teacher, SKCDF, ALHVR, clDice, Skeleton Recall, DINOv3, HRNet, SWAD, SegFormer
+  </div>
+</section>
+
+<!-- 4 DATASET -->
+<section class="slide">
+  <h1 class="abs" style="left:92px;top:78px;font-size:54px">Dataset details</h1>
+  <div class="abs h2" style="left:92px;top:166px;font-size:27px">Development pool</div>
+  <img class="abs fig" src="fig/F1.png" style="left:86px;top:212px;width:640px">
+  <ul class="b abs" style="left:92px;top:470px;width:640px;font-size:21px;line-height:1.25">
+    <li>BenchmarkEL: 532 labelled cells, 24 classes</li>
+    <li>5 sources: ARTS 182 &middot; BMRK 50 &middot; CFVS 169 &middot; CSIR 114 &middot; SDLE 17</li>
+    <li>5-fold CV, grouped by physical module</li>
+    <li>0 half-cut cells</li>
+  </ul>
+  <div class="abs h2" style="left:796px;top:166px;font-size:27px">Sealed test sets</div>
+  <div class="abs" style="left:796px;top:214px;width:420px;height:236px;background:var(--peach);border:2px dashed var(--peach-d);padding:20px 22px">
+    <div class="h2" style="font-size:23px">E1: unseen modules</div>
+    <ul class="b" style="font-size:19px;margin-top:14px;line-height:1.3">
+      <li>106 cells (101 CSIR, 5 BMRK)</li>
+      <li>62 half-cut cells</li>
+      <li>final models scored once, rule fixed before the read</li>
+    </ul>
+  </div>
+  <div class="abs" style="left:796px;top:470px;width:420px;height:150px;background:var(--grey);border:2px dashed #C8C8C8;padding:18px 22px">
+    <div class="h2" style="font-size:23px">test50: legacy test</div>
+    <ul class="b" style="font-size:19px;margin-top:12px;line-height:1.3">
+      <li>50 cells; 8 also in the pool</li>
+      <li>context only</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 5 JOURNEY -->
+<section class="slide">
+  <div class="bar-l" style="left:60px;top:76px;height:70px"></div>
+  <h1 class="abs" style="left:90px;top:84px;font-size:52px">Research path</h1>
+  <div class="abs" style="left:90px;top:200px;width:1110px">
+  <table class="t" style="font-size:21px">
+    <thead><tr><th style="width:20%">Period</th><th style="width:40%">Question</th><th style="width:40%">Finding</th></tr></thead>
+    <tbody>
+      <tr><td style="padding:18px 10px">7 to 20 Oct</td><td>Does semi-supervised learning help?</td><td>yes at 5% labels; n.d. at 20 to 100%</td></tr>
+      <tr><td style="padding:18px 10px">21 Oct to 14 Nov</td><td>Do recent methods help at full labels?</td><td>mostly n.d.; kept the PF fine-tune</td></tr>
+      <tr><td style="padding:18px 10px">12 to 23 Nov</td><td>Measured fairly, what actually helps?</td><td>small confirmed gain on unseen modules; labels of the target layout help most</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="abs cap" style="left:92px;top:600px;width:1100px">Each verdict comes from a rule written before its runs; exploratory reads are labelled as such.</div>
+</section>
+
+<!-- 6 EXPERIMENTS I: SSL -->
+<section class="slide">
+  <div class="side" style="left:904px;width:376px;background:var(--lav)"></div>
+  <div class="abs" style="left:70px;top:110px"><!--SVG:ssl--></div>
+  <h1 class="abs" style="left:938px;top:230px;font-size:38px;width:320px">Experiments I: semi-supervised</h1>
+  <div class="abs" style="left:940px;top:380px;width:300px;font-size:20px;line-height:1.4">Mean Teacher with separate BatchNorm, 5 seeds per arm.<br><br>The gain shrinks as labels grow.</div>
+  <div class="abs cap" style="left:80px;top:610px;width:780px">Bars = seed sd. Inactive sits in 16 test cells (3 hold 59% of its pixels). 5% verdict: +0.117 [+0.042, +0.189], image bootstrap. 100% SSL used an external pool (11,938 cells). No 10% arm. Crack: n.d. at 20 to 100%.</div>
+</section>
+
+<!-- 7 EXPERIMENTS II: WHAT WE TRIED -->
+<section class="slide">
+  <div class="abs" style="left:0;top:0;width:1280px;height:122px;background:var(--peach)"></div>
+  <h1 class="abs" style="left:60px;top:44px;font-size:40px">Experiments II: what we tried</h1>
+  <div class="abs" style="left:60px;top:140px;width:1160px">
+  <table class="t tight" style="font-size:16px;table-layout:fixed">
+    <colgroup><col style="width:36%"><col style="width:15%"><col style="width:10%"><col style="width:24%"><col style="width:15%"></colgroup>
+    <thead><tr><th>Method</th><th>Source</th><th>Labels</th><th>vs supervised baseline</th><th>Verdict</th></tr></thead>
+    <tbody>
+      <tr class="grp"><td colspan="5">Legacy protocol (test50)</td></tr>
+      <tr><td>Mean Teacher + CutMix (SSL)</td><td>NeurIPS 2017</td><td>5%</td><td>inactive IoU +0.117</td><td class="v-good">helps at 5%</td></tr>
+      <tr><td>Mean Teacher, no CutMix</td><td></td><td>20&ndash;100%</td><td>n.d.</td><td class="v-null">n.d.</td></tr>
+      <tr><td>SKCDF parts (decoupled decoder, balanced head)</td><td>CVPR 2025</td><td>5%</td><td>n.d.</td><td class="v-null">closed</td></tr>
+      <tr><td>ALHVR</td><td>ICCV 2025</td><td>5%</td><td>worse on all 3 metrics</td><td class="v-bad">worse</td></tr>
+      <tr><td>Unlabelled pool: MIM, DDeP, copy-paste</td><td>2021 to 2022</td><td>5%; 100%</td><td>n.d.</td><td class="v-null">closed</td></tr>
+      <tr><td>DINOv3 encoder</td><td>2025</td><td>100%</td><td>no sign of a gain</td><td class="v-null">stopped</td></tr>
+      <tr><td>Skeleton Recall loss</td><td>ECCV 2024</td><td>100%</td><td>E1 +0.036, not replicated</td><td class="v-maybe">not confirmed</td></tr>
+      <tr><td>clDice loss</td><td>CVPR 2021</td><td>100%</td><td>recall worse</td><td class="v-bad">fail</td></tr>
+      <tr><td>Synthetic half-cut cells</td><td>ours</td><td>100%</td><td>n.d.</td><td class="v-null">closed</td></tr>
+      <tr><td>Encoder-preserving fine-tune (PF)</td><td>ours</td><td>100%</td><td>keeps encoder features</td><td class="v-good">new baseline</td></tr>
+      <tr class="grp"><td colspan="5">Benchmark protocol (sealed E1)</td></tr>
+      <tr><td>HRNet-W18 + SWAD + D4 TTA</td><td>TPAMI'21, NeurIPS'21</td><td>100%</td><td>E1 +0.043</td><td class="v-good">final model</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="abs cap" style="left:62px;top:672px;width:1160px">n.d. = not detectable (interval includes 0 or effect below the margin).</div>
+</section>
+
+<!-- 8 MEASURING -->
+<section class="slide">
+  <h1 class="abs" style="left:60px;top:56px;font-size:46px">What we learned about measuring</h1>
+  <img class="abs fig" src="fig/F5.png" style="left:46px;top:150px;width:780px">
+  <div class="abs cap" style="left:60px;top:548px;width:760px">Same predictions, four crack label conventions: strict IoU moves with line width; relF1@2 barely moves.</div>
+  <ul class="b abs" style="left:870px;top:170px;width:370px;font-size:19px;line-height:1.35">
+    <li>The label release alone shifts strict crack IoU by +0.045</li>
+    <li>24 physical modules sat in two folds: regrouped by module</li>
+    <li>The old test set was opened 19 times: final models now read once on sealed E1</li>
+  </ul>
+</section>
+
+<!-- 9 PROTOCOL -->
+<section class="slide">
+  <div class="dash abs" style="left:60px;top:196px"></div>
+  <div class="abs h2" style="left:60px;top:262px;font-size:46px;line-height:1.08">The<br>benchmark<br>protocol</div>
+  <div class="abs mono" style="left:448px;top:70px;width:780px;border:2px solid var(--ink);padding:22px 26px;font-size:18px;line-height:1.8;white-space:pre">Split:   5 folds by physical module
+Metric:  relF1@2 = crack F1 within 2 px
+Margin:  M = max(0.01, 2 &times; SE of A/A)
+Decide:  &Delta; &ge; M  and  lower 95% bound &gt; 0
+Guards:  crack width, false cracks, mIoU</div>
+  <div class="abs" style="left:448px;top:350px;width:780px;display:flex;gap:12px;align-items:center">
+    <div style="flex:1;background:var(--blue);padding:18px;height:130px">
+      <div class="h2" style="font-size:21px">1 &nbsp;SCREEN</div>
+      <div style="font-size:18px;margin-top:10px;line-height:1.35">2 seeds, 532 cells</div></div>
+    <div class="arrow" style="border-left-color:var(--blue-d)"></div>
+    <div style="flex:1;background:var(--blue);padding:18px;height:130px">
+      <div class="h2" style="font-size:21px">2 &nbsp;ROW</div>
+      <div style="font-size:18px;margin-top:10px;line-height:1.35">5 seeds, corrected split</div></div>
+    <div class="arrow" style="border-left-color:var(--peach-d)"></div>
+    <div style="flex:1;background:var(--peach);padding:18px;height:130px;border:2px dashed var(--peach-d)">
+      <div class="h2" style="font-size:21px">3 &nbsp;SEALED READ</div>
+      <div style="font-size:18px;margin-top:10px;line-height:1.35">&le; 3 candidates on E1</div></div>
+  </div>
+  <div class="abs cap" style="left:448px;top:510px;width:780px">A/A = baseline seeds compared with each other (pure noise). M = 0.010 for crack relF1@2.</div>
+</section>
+
+<!-- 10 RESULTS I: METHOD SUITE -->
+<section class="slide">
+  <div class="side" style="left:0;width:384px;background:var(--blue)"></div>
+  <h1 class="abs" style="left:58px;top:250px;font-size:40px;width:300px">Results I: same training, 10 models</h1>
+  <div class="abs" style="left:60px;top:420px;width:290px;font-size:19px;line-height:1.4">EL-paper models: two fall 0.08 to 0.09 below the baseline.</div>
+  <div class="abs" style="left:412px;top:74px;width:840px">
+  <table class="t" style="font-size:16px;white-space:nowrap">
+    <thead><tr><th>Model</th><th>Encoder</th><th>From</th><th class="num">crack relF1@2</th><th class="num">strict crack IoU</th><th class="num">inactive IoU</th><th class="num">mIoU-R13</th></tr></thead>
+    <tbody>
+      <tr class="grp"><td colspan="7">Baseline</td></tr>
+      <tr><td>U-Net++, PF fine-tune</td><td>ResNet-34</td><td>ours</td><td class="num">0.844</td><td class="num c3">0.365</td><td class="num">0.503</td><td class="num c2">0.612</td></tr>
+      <tr><td>U-Net++, plain fine-tune</td><td>ResNet-34</td><td></td><td class="num c2">0.850</td><td class="num c1">0.382</td><td class="num">0.522</td><td class="num">0.609</td></tr>
+      <tr class="grp"><td colspan="7">From EL papers</td></tr>
+      <tr><td>U-Net</td><td>VGG-16</td><td>Hanifi 2025</td><td class="num">0.838</td><td class="num">0.349</td><td class="num">0.498</td><td class="num c3">0.610</td></tr>
+      <tr><td>DeepLabV3</td><td>ResNet-50</td><td>Fioresi 2022</td><td class="num">0.767</td><td class="num">0.287</td><td class="num">0.497</td><td class="num">0.574</td></tr>
+      <tr><td>DeepLabV3+, weighted CE</td><td>ResNet-34</td><td>Pratt 2023</td><td class="num">0.751</td><td class="num">0.258</td><td class="num">0.506</td><td class="num">0.604</td></tr>
+      <tr class="grp"><td colspan="7">General CV</td></tr>
+      <tr><td>U-Net</td><td>ResNet-34</td><td></td><td class="num">0.843</td><td class="num">0.364</td><td class="num">0.522</td><td class="num c2">0.612</td></tr>
+      <tr><td>DeepLabV3+</td><td>ResNet-34</td><td></td><td class="num">0.835</td><td class="num">0.354</td><td class="num">0.478</td><td class="num">0.609</td></tr>
+      <tr><td>SegFormer</td><td>MiT-B2</td><td></td><td class="num">0.842</td><td class="num">0.348</td><td class="num">0.530</td><td class="num">0.608</td></tr>
+      <tr><td>U-Net++</td><td>HRNet-W18</td><td></td><td class="num c1">0.856</td><td class="num c3">0.365</td><td class="num">0.522</td><td class="num c1">0.618</td></tr>
+      <tr><td>U-Net++, Skeleton Recall</td><td>ResNet-34</td><td></td><td class="num c3">0.848</td><td class="num c2">0.372</td><td class="num">0.480</td><td class="num">0.611</td></tr>
+    </tbody>
+  </table>
+  <div class="cap" style="margin-top:12px">5-fold CV, 532 cells, mean of 2 seeds (baseline 5), split cv5v2. <span class="c1" style="padding:0 5px">first</span> <span class="c2" style="padding:0 5px">second</span> <span class="c3" style="padding:0 5px">third</span>. A screen only promotes a row to 5 seeds. Same training except the Pratt row's weighted CE. Inactive: not ranked, differences under 0.05 are seed noise at 2 seeds.</div>
+  </div>
+</section>
+
+<!-- 11 RESULTS II: 5-SEED CV5 -->
+<section class="slide">
+  <div class="abs" style="left:0;top:0;width:1280px;height:122px;background:var(--blue)"></div>
+  <h1 class="abs" style="left:60px;top:44px;font-size:40px">Results II: 5-seed confirmation (CV5)</h1>
+  <div class="abs" style="left:48px;top:160px;width:520px">
+  <table class="t" style="font-size:16px;white-space:nowrap">
+    <thead><tr><th>Arm</th><th class="num">crack relF1@2</th><th class="num">inactive IoU</th><th class="num">mIoU-R13</th></tr></thead>
+    <tbody>
+      <tr><td>baseline (PF)</td><td class="num">0.846</td><td class="num">0.504</td><td class="num">0.612</td></tr>
+      <tr><td>plain fine-tune</td><td class="num">0.852</td><td class="num">0.514</td><td class="num">0.607</td></tr>
+      <tr><td>HRNet-W18</td><td class="num">0.857</td><td class="num">0.514</td><td class="num">0.614</td></tr>
+      <tr><td>SWAD</td><td class="num">0.853</td><td class="num c3">0.520</td><td class="num c3">0.619</td></tr>
+      <tr><td>HRNet + SWAD</td><td class="num c2">0.862</td><td class="num">0.504</td><td class="num">0.618</td></tr>
+      <tr><td>baseline + D4 TTA</td><td class="num c3">0.860</td><td class="num c2">0.531</td><td class="num c2">0.620</td></tr>
+      <tr><td>final recipe *</td><td class="num c1">0.868</td><td class="num c1">0.537</td><td class="num c1">0.623</td></tr>
+    </tbody>
+  </table>
+  <div class="cap" style="margin-top:12px">532 pool cells, out of fold, seeds 5 to 9, split cv5v3.<br>* chosen on these cells, so selection-biased; E1 is its real test.</div>
+  </div>
+  <div class="abs" style="left:590px;top:150px"><!--SVG:cv5--></div>
+</section>
+
+<!-- 12 FINAL MODEL -->
+<section class="slide">
+  <h1 class="abs" style="left:60px;top:60px;font-size:46px">Final model</h1>
+  <div class="abs" style="left:60px;top:170px;width:760px">
+    <div style="display:flex;align-items:center;gap:10px">
+      <div style="width:120px;height:124px;background:var(--grey);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;text-align:center;font-size:17px;line-height:1.3">EL cell<br>512&times;512</div>
+      <div class="arrow" style="border-left-color:#BDBDBD"></div>
+      <div style="width:205px;height:124px;background:var(--lav);border:1px solid var(--lav-d);padding:14px;font-size:16px;line-height:1.3"><div class="h2" style="font-size:21px">HRNet-W18</div>high-resolution branch kept in parallel</div>
+      <div class="arrow" style="border-left-color:#BDBDBD"></div>
+      <div style="width:175px;height:124px;background:var(--blue);border:1px solid var(--blue-d);padding:14px;font-size:16px;line-height:1.3"><div class="h2" style="font-size:21px">U-Net++</div>nested skip connections</div>
+      <div class="arrow" style="border-left-color:#BDBDBD"></div>
+      <div style="width:86px;height:124px;background:var(--grey);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;text-align:center;font-size:17px;line-height:1.3">24-class<br>map</div>
+    </div>
+    <div style="display:flex;gap:12px;margin-top:24px">
+      <div style="flex:1;background:var(--green);padding:16px;font-size:17px;line-height:1.35;height:120px"><div class="h2" style="font-size:19px">PF fine-tune</div>encoder frozen 1k steps, then 0.1&times; LR</div>
+      <div style="flex:1;background:var(--green);padding:16px;font-size:17px;line-height:1.35;height:120px"><div class="h2" style="font-size:19px">SWAD</div>average weights, steps 10k to 20k</div>
+      <div style="flex:1;background:var(--peach);padding:16px;font-size:17px;line-height:1.35;height:120px"><div class="h2" style="font-size:19px">D4 TTA</div>8 flips / rotations, averaged</div>
+    </div>
+    <div class="cap" style="margin-top:14px;font-size:15px">Loss CE + Dice &middot; 20k steps &middot; batch 8 &middot; all 532 pool cells</div>
+  </div>
+  <div class="abs" style="left:870px;top:170px;width:360px">
+    <div class="h2" style="font-size:20px;margin-bottom:10px">Cost per cell, one GPU</div>
+    <table class="t" style="font-size:16px">
+      <thead><tr><th>Model</th><th class="num">views</th><th class="num">seconds</th></tr></thead>
+      <tbody>
+        <tr><td>baseline</td><td class="num">1</td><td class="num">0.011</td></tr>
+        <tr><td>baseline + D4</td><td class="num">8</td><td class="num">0.091</td></tr>
+        <tr><td><b>final</b></td><td class="num">8</td><td class="num"><b>0.174</b></td></tr>
+        <tr><td>final, 5 models</td><td class="num">40</td><td class="num">0.855</td></tr>
+      </tbody>
+    </table>
+    <div class="cap" style="margin-top:10px">RTX A6000, fp32; median network time, batch 1, 200 cells; excludes image read and writes</div>
+  </div>
+</section>
+
+<!-- 13 RESULTS III: E1 -->
+<section class="slide">
+  <div class="abs" style="left:0;top:0;width:1280px;height:110px;background:var(--peach)"></div>
+  <h1 class="abs" style="left:60px;top:38px;font-size:38px">Results III: sealed E1, unseen modules</h1>
+  <div class="abs" style="left:48px;top:128px;width:1184px">
+  <table class="t" style="font-size:16px;white-space:nowrap">
+    <thead><tr><th>Arm (106 cells)</th><th class="num">models</th><th class="num">crack relF1@2</th><th class="num">precision</th><th class="num">recall</th><th class="num">strict crack IoU</th><th class="num">inactive IoU</th><th class="num">mIoU-R13</th><th class="num">false crack px &darr;</th></tr></thead>
+    <tbody>
+      <tr><td>baseline (PF)</td><td class="num">5</td><td class="num">0.447</td><td class="num">0.547</td><td class="num c3">0.379</td><td class="num c3">0.163</td><td class="num">0.291</td><td class="num">0.473</td><td class="num">3218</td></tr>
+      <tr><td>baseline + D4</td><td class="num">5</td><td class="num">0.445</td><td class="num c1">0.621</td><td class="num">0.347</td><td class="num">0.157</td><td class="num c3">0.382</td><td class="num c3">0.493</td><td class="num c1">1765</td></tr>
+      <tr><td>baseline, 5-model ensemble</td><td class="num">1</td><td class="num c3">0.449</td><td class="num">0.580</td><td class="num">0.366</td><td class="num">0.161</td><td class="num">0.322</td><td class="num">0.486</td><td class="num c3">2353</td></tr>
+      <tr><td><b>final</b></td><td class="num">5</td><td class="num c1"><b>0.490</b></td><td class="num c3">0.600</td><td class="num c1">0.416</td><td class="num c1">0.189</td><td class="num c2">0.391</td><td class="num c2">0.497</td><td class="num">2421</td></tr>
+      <tr><td>final, 5-model ensemble</td><td class="num">1</td><td class="num c2">0.487</td><td class="num c2">0.605</td><td class="num c2">0.408</td><td class="num c2">0.188</td><td class="num c1">0.418</td><td class="num c1">0.503</td><td class="num c2">2230</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="abs" style="left:48px;top:392px"><!--SVG:e1--></div>
+  <div class="abs" style="left:770px;top:420px;width:460px;font-size:17px;line-height:1.45">
+    <div><b>Decides:</b> final &minus; baseline, +0.043 [+0.001, +0.104], all guards pass. The other rows are printed beside.</div>
+    <div class="cap" style="margin-top:12px;font-size:14.5px">Gain sits in full cells (+0.146); half-cut +0.011, n.d. Inactive on 10 cells only: n.d. 101 of 106 cells from one source.</div>
+  </div>
+</section>
+
+<!-- 14 FEW-SHOT -->
+<section class="slide">
+  <div class="side" style="left:964px;width:316px;background:var(--green)"></div>
+  <div class="abs" style="left:40px;top:150px"><!--SVG:fs_bars--></div>
+  <div class="abs" style="left:440px;top:150px"><!--SVG:fs_strata--></div>
+  <h1 class="abs" style="left:994px;top:220px;font-size:36px;width:260px">Results IV: few-shot</h1>
+  <div class="abs" style="left:996px;top:340px;width:250px;font-size:19px;line-height:1.4">Train with labelled E1 cells of the other folds.<br><br>+0.22, confirmed.</div>
+  <div class="abs cap" style="left:60px;top:650px;width:880px">E1 in 5 folds by image id; seeds 5 to 7 (dots). Strata decide nothing. These models also learn E1's wider labels (1.43&times;).</div>
+</section>
+
+<!-- 15 QUALITATIVE I -->
+<section class="slide">
+  <div class="side" style="left:964px;width:316px;background:var(--green)"></div>
+  <img class="abs fig" src="fig/QIMG1" style="left:30px;top:24px;width:910px;max-height:672px;object-fit:contain;object-position:left top">
+  <h1 class="abs" style="left:994px;top:150px;font-size:34px;width:260px">Qualitative I: EL-paper models</h1>
+  <div class="abs" style="left:996px;top:290px;width:250px;font-size:17px;line-height:1.4"><!--CAP:q1--></div>
+</section>
+
+<!-- 16 QUALITATIVE II -->
+<section class="slide">
+  <div class="abs" style="left:0;top:0;width:1280px;height:84px;background:var(--green)"></div>
+  <h1 class="abs" style="left:40px;top:24px;font-size:32px">Qualitative II: unseen modules (E1)</h1>
+  <div class="abs" style="left:640px;top:14px;width:600px;font-size:14.5px;line-height:1.35"><!--CAP:q2--></div>
+  <img class="abs fig" src="fig/QIMG2" style="left:30px;top:96px;width:1220px;max-height:612px;object-fit:contain;object-position:center top">
+</section>
+
+<!-- 17 QUALITATIVE III -->
+<section class="slide">
+  <div class="abs" style="left:0;top:0;width:1280px;height:84px;background:var(--green)"></div>
+  <h1 class="abs" style="left:40px;top:24px;font-size:32px">Qualitative III: few-shot (E1)</h1>
+  <div class="abs" style="left:640px;top:14px;width:600px;font-size:14.5px;line-height:1.35"><!--CAP:q3--></div>
+  <img class="abs fig" src="fig/QIMG3" style="left:30px;top:96px;width:1220px;max-height:612px;object-fit:contain;object-position:center top">
+</section>
+
+<!-- 18 CONCLUSION + LIMITATIONS -->
+<section class="slide">
+  <div class="abs" style="left:0;top:0;width:256px;height:150px;background:var(--lav)"></div>
+  <div class="abs" style="left:256px;top:0;width:256px;height:150px;background:var(--blue)"></div>
+  <div class="abs" style="left:512px;top:0;width:256px;height:150px;background:var(--green)"></div>
+  <div class="abs" style="left:768px;top:0;width:256px;height:150px;background:var(--peach)"></div>
+  <div class="abs" style="left:1024px;top:0;width:256px;height:150px;background:var(--grey)"></div>
+  <h1 class="abs" style="left:60px;top:196px;font-size:36px">Conclusion</h1>
+  <div class="abs" style="left:60px;top:262px;width:560px">
+    <div class="h2" style="font-size:25px">Fair measurement first</div>
+    <div style="font-size:18px;margin-top:4px" class="muted">module-grouped splits, tolerant metric, sealed reads</div>
+    <div class="h2" style="font-size:25px;margin-top:26px">Two EL-paper models below our baseline</div>
+    <div style="font-size:18px;margin-top:4px" class="muted">&minus;0.08 to &minus;0.09 crack relF1@2, equal training</div>
+    <div class="h2" style="font-size:25px;margin-top:26px">Small confirmed gain on unseen modules</div>
+    <div style="font-size:18px;margin-top:4px" class="muted">+0.043, low end near 0</div>
+    <div class="h2" style="font-size:25px;margin-top:26px">Target-layout labels help most</div>
+    <div style="font-size:18px;margin-top:4px" class="muted">+0.22 few-shot (a different contrast)</div>
+  </div>
+  <h1 class="abs" style="left:700px;top:196px;font-size:36px">Limitations</h1>
+  <ul class="b abs" style="left:700px;top:266px;width:540px;font-size:20px;line-height:1.3">
+    <li>E1: 101 of 106 cells from one source</li>
+    <li>Inactive unresolved (10 E1 cells)</li>
+    <li>On E1 only gains above ~0.07 are detectable</li>
+    <li>No half-cut cells in the training pool</li>
+    <li>Next: few labels per new layout; thermal imaging; severity</li>
+  </ul>
+</section>
+
+<!-- 19 THANK YOU -->
+<section class="slide">
+  <div class="bar-l" style="left:60px;top:72px;height:84px"></div>
+  <h1 class="abs" style="left:88px;top:556px;font-size:58px">Thank you!</h1>
+  <div class="abs" style="left:92px;top:636px;font-size:19px"><span class="muted">Questions?</span></div>
+</section>
+
+</body>
+</html>

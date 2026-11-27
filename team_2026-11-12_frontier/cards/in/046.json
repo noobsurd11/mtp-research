@@ -1,0 +1,46 @@
+{
+ "paper_id": "arxiv:2603.18671",
+ "title": "Towards High-Quality Image Segmentation: Improving Topology Accuracy by Penalizing Neighbor Pixels (SCNP)",
+ "year": 2026,
+ "venue": "CVPR 2026",
+ "url": "https://arxiv.org/abs/2603.18671",
+ "code_url": "https://jmlipman.github.io/SCNP-SameClassNeighborPenalization",
+ "mechanism": "Before the loss, each foreground logit is replaced by the worst value among its same-class foreground neighbours and each background logit by the worst among background neighbours, so the model must fix neighbours first. Three lines of code, no inference cost, wraps CE, Dice, clDice or Skeleton Recall.",
+ "adaptation": "Wrap the house CE + Dice over all 24 channels, window 3 (best window is about structure width; ours is 1 to 2 px). Thin classes crack, gridline (recall 0.33) and splice should gain most. Because it is symmetric it penalises false positives beside the line as hard as misses on it, so it should not widen predictions like Skeleton Recall did. Jitter risk: background pixels 1 px off a drawn crack get the max off-line crack logit, so run a second arm with SCNP on all classes except crack.",
+ "min_experiment": "PF + SCNP (all classes) and PF + SCNP (all but crack) vs PF, 5 seeds each. Metrics: clean-49 crack IoU, relF1@2, gridline IoU, E1 relF1@2, predicted crack width. Kill if crack IoU < PF - 0.012 and gridline IoU gain < +0.02 and E1 relF1@2 gain < +0.02.",
+ "evidence": "R: 13 datasets, 5 runs each. Lowest beta0 error on TopoMortar and Crack500 without lowering Dice or clDice. FIVES: CEDice beta0 10.82 to 6.94 at equal Dice 0.92; SkelRecall 12.45 to 5.07 with SCNP; clDice 36.55 to 5.44. Binary closing only reached 8.79. clCE on FIVES beta0 10.62. DeepGlobe roads: topology up but Dice down slightly.",
+ "gpu_hours": 12,
+ "bet": "safe",
+ "score": 66,
+ "bench_score": 70,
+ "targets": [
+  "crack",
+  "other_classes",
+  "e1_unseen",
+  "benchmark"
+ ],
+ "prior_overlap": "none. Section 5 ran clDice, Skeleton Recall and offset-tolerant CE; neighbour-worst logit penalisation was never run.",
+ "directions": [
+  "D10"
+ ],
+ "scout_scores": [
+  64,
+  66
+ ],
+ "alt_notes": [
+  {
+   "from": "D10",
+   "adaptation": "Apply to the CE term over all 24 classes with a 3x3 neighbourhood. Crack and gridline (recall 0.33) and splice are thin lines that should gain continuity. With 1-2 px jittered crack labels the worst neighbour is often a mislabelled pixel, so also try crack + gridline only or a capped penalty.",
+   "min_experiment": "Arm: PF + SCNP on CE, 5 seeds. Baseline: PF 5 seeds. Metrics: clean-49 crack IoU, gridline IoU, E1 crack relF1@2, predicted width. Kill if crack IoU < baseline - 0.012 and gridline gain < 0.02 and E1 relF1@2 gain < 0.02.",
+   "score": 64
+  }
+ ],
+ "final": 66,
+ "bench": 70,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 46,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

@@ -1,0 +1,54 @@
+{
+ "paper_id": "arxiv:2103.14749",
+ "title": "Pervasive Label Errors in Test Sets Destabilize Machine Learning Benchmarks",
+ "year": 2021,
+ "venue": "arXiv (NeurIPS 2021 D&B, unverified)",
+ "url": "https://arxiv.org/abs/2103.14749",
+ "code_url": "",
+ "mechanism": "Confident-learning style detection of test-set label errors; errors can flip model rankings.",
+ "adaptation": "Flag val/test cells whose crack or inactive labels disagree strongly with the 5-fold OOF ensemble (CSIR_00070_r8_c4 is a known case); report rankings with and without flagged cells; no manual relabelling.",
+ "min_experiment": "Arm: remove top flagged cells. Baseline: clean-49. Metric: rank change of house vs PF vs ensemble. Kill: no rank flip and |delta change| < 0.005.",
+ "score": 45,
+ "bench_score": 75,
+ "bet": "medium",
+ "targets": [
+  "measurement",
+  "benchmark",
+  "crack",
+  "inactive"
+ ],
+ "evidence": "R: label errors found in test sets of 10 common CV/NLP/audio datasets; rankings change on corrected subsets.",
+ "gpu_hours": 0,
+ "prior_overlap": "partial: one noisy cell already excluded by hand; audit flagged 24 of 239 train cells, nothing systematic on test/val.",
+ "directions": [
+  "D37",
+  "D41",
+  "D43"
+ ],
+ "scout_scores": [
+  25,
+  45,
+  30
+ ],
+ "alt_notes": [
+  {
+   "from": "D37",
+   "adaptation": "After models are frozen, run label-error ranking on the 50 test and 106 E1 cells (labels only), count crack/inactive errors, report every method on original and audited labels.",
+   "min_experiment": "No training: audit test/E1 labels with ensemble ranking + cleanlab; re-rank the 5-seed house, PF and ensemble models. Kill: none (benchmark instrument).",
+   "score": 25
+  },
+  {
+   "from": "D43",
+   "adaptation": "Rank test and E1 cells by disagreement between the OOF ensemble and the label at crack-component level. Review only the top few flags (minimal, allowed under the no-labelling rule). Publish rankings on both label sets.",
+   "min_experiment": "OOF disagreement ranking, then rankings of house vs PF vs ensemble on original vs corrected test labels. Decision: if any pair flips, publish both leaderboards.",
+   "score": 30
+  }
+ ],
+ "final": 45,
+ "bench": 75,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 265,
+ "pid": "P265"
+}

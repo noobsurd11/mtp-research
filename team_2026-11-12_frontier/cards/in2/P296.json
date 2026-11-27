@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1109/cvpr52734.2025.00488",
+ "title": "Steady Progress Beats Stagnation: Mutual Aid of Foundation and Conventional Models in Mixed Domain Semi-Supervised Medical Image Segmentation",
+ "year": 2025,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2503.16997",
+ "code_url": "https://github.com/MQinghe/SynFoC",
+ "mechanism": "A LoRA-tuned foundation model and a conventional U-Net co-train on mixed-domain unlabelled data. The pseudo-label is a per-image weighted ensemble set by self-confidence and mutual agreement: the FM leads early, the CNN corrects its over-confident errors later, and a consensus-divergence consistency loss ties them.",
+ "adaptation": "FM = SAM2 Hiera or DINOv2-B + LoRA with a mask head, which supplies context such as the half-cut layout. Conventional model = house U-Net++, which supplies thin-crack resolution. The mixed-domain unlabelled set = pool (CSIR/ARTS, mono, multi, half-cells), with labelled cells from 5 sources.",
+ "min_experiment": "Arm: SynFoC pair with the CNN branch evaluated, 3 seeds. Baseline: PF house. Metrics: E1 crack relF1@2 and inactive IoU, clean-49 crack IoU. Kill: E1 relF1@2 gain < +0.03 and inactive IoU gain < +0.03.",
+ "evidence": "R: four multi-domain medical datasets (Prostate, Fundus, M&Ms, BUSI) at few labels; Prostate Dice +10.31% over prior methods.",
+ "gpu_hours": 30,
+ "bet": "medium",
+ "score": 45,
+ "bench_score": 40,
+ "targets": [
+  "e1_unseen",
+  "inactive"
+ ],
+ "prior_overlap": "Partial. The SSL row ran on ResNet-34 only, and BRIEF lists SSL with foundation-model teachers as open. CPS (also co-training) was run at 5% only.",
+ "directions": [
+  "D29"
+ ],
+ "scout_scores": [
+  45
+ ],
+ "final": 45,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 296,
+ "pid": "P296"
+}

@@ -1,0 +1,1 @@
+2026-10-29 13:32 IST runner: cv02 deploy /tmp/noob_el/el_f2 (2751aa8, tgz md5 79aca58b both hops; v11 lists md5 f0a5d74a/4a09f598; pool bytes 855daabd = gaint); DDeP pretraining queue tmux =f2ddep on cv02 (waits for GPU < 1,000 MiB, 500-step smoke + auto gate, then full 40k run); protocols ddep5/cp5 machine sections updated

@@ -1,0 +1,44 @@
+{
+ "paper_id": "doi:10.3390/app16042148",
+ "title": "Defect-Aware RGB Representation and Resolution-Efficient Deep Learning for Photovoltaic Failure Detection in Electroluminescence Images",
+ "year": 2026,
+ "venue": "Applied Sciences",
+ "url": "https://doi.org/10.3390/app16042148",
+ "code_url": "",
+ "mechanism": "Local contrast enhancement then physically motivated false-colour mapping of grey ranges into 3 channels (dark crack / inactive, healthy emission, conductive paths).",
+ "evidence": "R: higher ELPV classification accuracy than prior CNN results, comparable accuracy at lower resolution (classification only).",
+ "adaptation": "Our ResNet-34 takes 1 channel; a 3-band per-source-percentile mapping uses the full pretrained conv1. Bands must be per source, not fixed grey values.",
+ "min_experiment": "Arm: house with 3-band input, 5 seeds. Baseline: house. Metrics: mIoU_rob, crack IoU, inactive IoU. Kill: < +0.01 mIoU_rob and < +0.012 crack IoU.",
+ "gpu_hours": 11,
+ "prior_overlap": "none",
+ "targets": [
+  "other_classes",
+  "crack",
+  "inactive"
+ ],
+ "bet": "safe",
+ "score": 40,
+ "bench_score": 30,
+ "directions": [
+  "D08"
+ ],
+ "scout_scores": [
+  40,
+  40
+ ],
+ "alt_notes": [
+  {
+   "from": "D08",
+   "adaptation": "Per-source percentile bands (not fixed grey values) into the full 3-channel ImageNet conv1 of ResNet-34.",
+   "min_experiment": "Arm: house with 3-band input, 5 seeds. Baseline: house. Metrics: mIoU_rob and crack IoU. Kill: mIoU_rob < +0.01 and crack IoU < +0.012.",
+   "score": 40
+  }
+ ],
+ "final": 40,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 389,
+ "pid": "P389"
+}

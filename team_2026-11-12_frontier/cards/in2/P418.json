@@ -1,0 +1,44 @@
+{
+ "paper_id": "doi:10.1109/iccv51701.2025.02229",
+ "title": "ConformalSAM: Unlocking the Potential of Foundational Segmentation Models in Semi-Supervised Semantic Segmentation with Conformal Prediction",
+ "year": 2025,
+ "venue": "ICCV",
+ "url": "https://arxiv.org/abs/2507.15803",
+ "code_url": "",
+ "mechanism": "Calibrate a foundation teacher on the labelled data with conformal prediction, and keep as pseudo-labels only the pixels whose conformal set is a single class. Later training switches to self-reliance so the student does not overfit the FM masks.",
+ "adaptation": "Teacher = our ensemble or the UniMatch V2 hybrid. Per-class conformal thresholds (crack and inactive separately) from val 54 + F51 give a coverage-controlled pool pseudo-label mask in place of hand-set thresholds. An add-on to the ensemble-distillation arm.",
+ "min_experiment": "Ensemble-distillation arm B with conformal masks vs the same with plain soft targets. Metric: clean-49 crack IoU, inactive IoU. Kill: < +0.005 crack IoU and < +0.01 inactive IoU.",
+ "evidence": "R: beats recent SSSS methods on three standard benchmarks and helps other methods as a plug-in (numbers not retrieved).",
+ "gpu_hours": 8,
+ "bet": "medium",
+ "score": 38,
+ "bench_score": 35,
+ "targets": [
+  "crack",
+  "inactive"
+ ],
+ "prior_overlap": "Partial. Tolerant and threshold pseudo-label variants were run under Mean Teacher. Conformal calibration with an offline teacher was not run.",
+ "directions": [
+  "D29",
+  "D42"
+ ],
+ "scout_scores": [
+  38,
+  38
+ ],
+ "alt_notes": [
+  {
+   "from": "D42",
+   "adaptation": "Teacher = PF 5-seed ensemble or the DINOv3-IML model (SEEM has no EL concepts). Per-class quantiles fitted on val 54 + F51; pseudo-label the 1,152 half-cut pool cells; class-conditional selection keeps faint crack pixels.",
+   "min_experiment": "Arm: student trained on labelled + CP-filtered pseudo-labelled half-cut cells, 5 seeds. Baseline: the old hard / tolerant pseudo-label runs with the pool at 100%. Metrics: E1 crack recall and relF1@2. Kill: no E1 relF1@2 gain over the old pseudo-label run.",
+   "score": 38
+  }
+ ],
+ "final": 38,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 418,
+ "pid": "P418"
+}

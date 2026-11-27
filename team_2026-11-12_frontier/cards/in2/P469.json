@@ -1,0 +1,43 @@
+{
+ "paper_id": "doi:10.1109/cvpr42600.2020.00383",
+ "title": "Dual Super-Resolution Learning for Semantic Segmentation (DSRL)",
+ "year": 2020,
+ "venue": "CVPR",
+ "url": "https://doi.org/10.1109/cvpr42600.2020.00383",
+ "code_url": "https://github.com/wanglixilinx/DSRL",
+ "mechanism": "Segmentation super-resolution and single-image super-resolution streams share an encoder; a feature-affinity loss ties segmentation features to SR features.",
+ "adaptation": "Label-free SR auxiliary: from 512 px input, reconstruct the native-res crop of pool cells (part is 1200 px) from decoder features with affinity on shared stride-2 features; unlabelled pool trains the SISR stream.",
+ "min_experiment": "Arm: house PF + SISR aux on labelled + pool cells; baseline: house PF; CV crack relF1@2, E1 relF1@2. Kill if CV n.d. and E1 < +0.02.",
+ "evidence": "R: >= 2% mIoU on Cityscapes at similar FLOPs; same mIoU at 70% FLOPs.",
+ "gpu_hours": 15,
+ "bet": "moonshot",
+ "prior_overlap": "Pool MIM and DDeP (reconstruction pretraining) were n.d.; a joint native-resolution SR auxiliary was not run, but shares the risk.",
+ "score": 35,
+ "bench_score": 25,
+ "targets": [
+  "crack",
+  "e1_unseen"
+ ],
+ "directions": [
+  "D22"
+ ],
+ "scout_scores": [
+  35,
+  35
+ ],
+ "alt_notes": [
+  {
+   "from": "D22",
+   "adaptation": "Label-free SR auxiliary: reconstruct native-resolution crops (part of the pool is 1200 px) from decoder features, affinity weighted on a dilated crack + gridline band; unlabelled pool cells train the SR stream.",
+   "min_experiment": "Arm house PF + SR stream vs house PF; 5-fold CV crack relF1@2 and E1 relF1@2; kill: CV n.d. and E1 < +0.02. About 15 GPU-h.",
+   "score": 35
+  }
+ ],
+ "final": 35,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 469,
+ "pid": "P469"
+}

@@ -1,0 +1,4 @@
+[2026-11-14 04:38:01] env: python 3.12.3 numpy 2.5.2 on giant
+selftest (1) PF2E report via cluster_boot5 == pf2e_boot_runner.txt line by line: True (65 / 65 lines; first diffs []) [control: via pf2e cluster_boot True] | (2) E-PF vs itself: all CIs [0, 0] True, no guard trips True, test verdict n.d., E1 n.d. | (3) cluster_boot5 cols 0-3 == cluster_boot exactly True; any-hit full == agg cc_recany_20 diff True; E1 GT comps >= 20 px 296 (expect 296) | (4) matched-volume interpolation True
+selftest (5) #6 SKR2E b 0 pair block == skr2e_boot_runner.txt True | E1 concentration block True | matched-volume lines True | (6) verdict-D wording on synthetic rows True
+SELFTEST PASS

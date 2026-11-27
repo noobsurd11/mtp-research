@@ -1,0 +1,42 @@
+{
+ "paper_id": "doi:10.1016/j.conbuildmat.2022.128264",
+ "title": "TOPO-Loss for continuity-preserving crack detection using deep learning",
+ "year": 2022,
+ "venue": "Construction and Building Materials",
+ "url": "https://doi.org/10.1016/j.conbuildmat.2022.128264",
+ "code_url": "https://github.com/eesd-epfl/topo_crack_detection",
+ "mechanism": "Connectivity-oriented loss (adapted from road delineation) designed to encourage crack continuity and to accommodate imprecise annotations, combined with MSE and Dice.",
+ "adaptation": "Crack class on U-Net++, as an extra term with low weight. It is the only crack-domain topology loss with code and an imprecise-label design.",
+ "min_experiment": "Arm: PF + TOPO term (crack), 3 seeds. Baseline: PF. Metric: component recall, crack IoU. Kill if crack IoU < baseline - 0.012.",
+ "score": 25,
+ "bench_score": 40,
+ "bet": "moonshot",
+ "targets": [
+  "crack"
+ ],
+ "evidence": "R: improved topology on masonry crack sets. R (TopoMortar): TOPO unstable (CREMI Dice 0.63 +- 0.22) and over-segments OOD images.",
+ "gpu_hours": 4,
+ "prior_overlap": "none",
+ "directions": [
+  "D10"
+ ],
+ "scout_scores": [
+  25,
+  15
+ ],
+ "alt_notes": [
+  {
+   "from": "D10",
+   "adaptation": "Only crack-domain topology loss with imprecise labels; reference only given its instability.",
+   "min_experiment": "None planned; include only if the benchmark suite wants a crack-specific topology loss.",
+   "score": 15
+  }
+ ],
+ "final": 25,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 563,
+ "pid": "P563"
+}

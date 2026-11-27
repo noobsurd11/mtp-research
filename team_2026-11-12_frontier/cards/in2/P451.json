@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.59275/j.melba.2022-db5c",
+ "title": "Label fusion and training methods for reliable representation of inter-rater uncertainty",
+ "year": 2023,
+ "venue": "MELBA",
+ "url": "https://arxiv.org/abs/2202.07550",
+ "code_url": "https://ivadomed.org",
+ "mechanism": "Compares STAPLE, averaging and random per-iteration rater sampling of multi-rater labels, combined with SoftSeg (regression on soft labels). The result is better calibration with equal or better Dice.",
+ "adaptation": "Where a cell has two crack label versions (2021 vs 2022, or E-SCDD re-annotations), train crack on soft averaged labels or a random version per iteration. Score on revised labels and on the union.",
+ "min_experiment": "Arm: house with soft or random-version crack targets. Baseline: house on revised labels. Metric: clean-49 relF1@2 and crack IoU. Kill: relF1@2 more than 0.005 below the baseline. First count the train cells with two independent versions.",
+ "prior_overlap": "none: soft-label losses and annotator modelling are listed as open in BRIEF section 5.",
+ "score": 35,
+ "bench_score": 50,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "benchmark"
+ ],
+ "evidence": "R: 10 splits on 2 public multi-rater datasets (spinal cord gray matter, MS lesions). SoftSeg is equal or better in Dice and better calibrated; the best fusion method was task-dependent.",
+ "gpu_hours": 6,
+ "directions": [
+  "D43"
+ ],
+ "scout_scores": [
+  35
+ ],
+ "final": 35,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 451,
+ "pid": "P451"
+}

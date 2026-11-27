@@ -1,0 +1,37 @@
+{
+ "paper_id": "doi:10.1007/s13755-025-00356-4",
+ "title": "Multi-teacher based knowledge distillation for retinal vessel segmentation",
+ "year": 2025,
+ "venue": "Health Information Science and Systems",
+ "url": "https://doi.org/10.1007/s13755-025-00356-4",
+ "code_url": "",
+ "mechanism": "Specialist teachers trained on modified ground truth (original, thin-only, thick-only); student distils all of them.",
+ "adaptation": "Teacher A house (native labels), teacher B crack labels dilated 3-5 px (recall teacher), teacher C inactive specialist (oversample 42 inactive cells), teacher D PF (E1 inactive 0.24); student CE(GT) + per-class teacher mix (crack from A+B, inactive from C+D).",
+ "min_experiment": "Arm: 4-specialist KD student, 3 seeds. Baseline: house single and Noothout KD arm. Metric: relR@2 at relP@2 >= 0.90, inactive IoU, E1 inactive IoU. Kill: relR@2 < +0.015 and inactive IoU < +0.02.",
+ "evidence": "R: two fundus and two angiography sets; up to +8.44 F1 and +10.42 IoU over baseline U-Net.",
+ "gpu_hours": 12,
+ "bet": "moonshot",
+ "targets": [
+  "crack",
+  "inactive",
+  "e1_unseen"
+ ],
+ "prior_overlap": "none; dilated labels never used as a teacher (Skeleton Recall / offset-tolerant CE are different mechanisms)",
+ "score": 62,
+ "bench_score": 30,
+ "directions": [
+  "D34"
+ ],
+ "scout_scores": [
+  62
+ ],
+ "final": 62,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 85,
+ "pub_allowed": 1,
+ "selected_for": "top",
+ "pid": "P085"
+}

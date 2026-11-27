@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.1016/j.patcog.2026.114961",
+ "title": "Generalised Balanced Softmax: A Finite-Data Perspective on Logit Adjustment for Long-Tailed Recognition",
+ "year": 2026,
+ "venue": "Pattern Recognition",
+ "url": "https://arxiv.org/abs/2607.22258",
+ "code_url": "",
+ "mechanism": "Training-time logit adjustment z + beta*log N_c with beta treated as a finite-data hyperparameter; beta = 1 (balanced softmax) is often not optimal.",
+ "adaptation": "Supplies the beta grid for the logit-adjusted CE arm; with 478 cells beta below 1 is likely best; select on OOF folds.",
+ "min_experiment": "Run as the beta arm of the LA-CE experiment: beta in {0.25, 0.5, 1.0}, 3 seeds, vs SUP100; metric mIoU_rob; kill as LA-CE.",
+ "score": 55,
+ "bench_score": 40,
+ "bet": "safe",
+ "evidence": "R: across long-tailed classification benchmarks, beta = 1 does not attain the best average recall on most datasets; tuned beta lowers the model imbalance metric.",
+ "gpu_hours": 4,
+ "prior_overlap": "none",
+ "targets": [
+  "other_classes"
+ ],
+ "directions": [
+  "D19"
+ ],
+ "scout_scores": [
+  55
+ ],
+ "final": 55,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 152,
+ "pid": "P152"
+}

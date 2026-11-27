@@ -1,0 +1,68 @@
+{
+ "paper_id": "doi:10.1109/cvpr52733.2024.02704",
+ "title": "Stronger, Fewer, & Superior: Harnessing Vision Foundation Models for Domain Generalized Semantic Segmentation (Rein)",
+ "year": 2024,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2312.04265",
+ "code_url": "https://github.com/w1oves/Rein",
+ "mechanism": "Learnable tokens refine every layer's features of a frozen VFM (<1% params); beat full fine-tuning on unseen domains.",
+ "evidence": "R: DGSS benchmarks (GTA to Cityscapes etc.) above full fine-tune; 182 citations, standard DGSS baseline.",
+ "adaptation": "Port only the token module into our trainer; use in VFM-H side branch with DINOv2-L / DINOv3-L / C-RADIOv4; 24-class head unchanged; train on all 5 sources.",
+ "min_experiment": "Rein vs Rein-LoRA vs frozen-only vs LoRA in VFM-H, house PF baseline; CV crack relF1@2 + E1 relF1@2 / inactive IoU; keep only the best PEFT on E1, drop all if none passes the default kill line.",
+ "prior_overlap": "Section 5 lists adapters / LoRA / Rein as not tested. Open.",
+ "score": 62,
+ "bench_score": 75,
+ "bet": "medium",
+ "targets": [
+  "e1_unseen",
+  "benchmark"
+ ],
+ "gpu_hours": 300,
+ "directions": [
+  "D14",
+  "D24",
+  "D30"
+ ],
+ "scout_scores": [
+  60,
+  60,
+  56,
+  62,
+  48
+ ],
+ "alt_notes": [
+  {
+   "from": "D14",
+   "adaptation": "DINOv2/v3 ViT-L at 1024 with Rein, our U-Net or Mask2Former head, 24 classes; train on 478 cells, primary read-out E1 (half-cut, scuff, new modules) and leave-one-source-out folds.",
+   "min_experiment": "Rein vs full FT vs LN-only vs LoRA on the best encoder, 3 seeds; metric E1 crack relF1@2 and E1 inactive IoU; kill if no arm beats house PF on E1 relF1@2 by +0.03.",
+   "score": 60
+  },
+  {
+   "from": "D24",
+   "adaptation": "Same VFM-H harness: frozen DINOv2-L/14 or DINOv3-L/16 at 1024 px (64x64 tokens), Rein tokens, CNN detail branch for the 1-2 px crack scale, 24 classes; repo configs cover DINOv2, ConvNeXt, CLIP, SAM so the backbone is a switch. Overlaps D14 item 11.",
+   "min_experiment": "Arm: VFM-H + Rein vs VFM-H full fine-tune at 0.1x lr. Baseline: house PF. Metric: CV crack relF1@2, CV inactive IoU, then E1 crack relF1@2 and inactive IoU once. Kill: default line (CV relF1@2 down > 0.005 and E1 relF1@2 not +0.03 and E1 inactive not > 0.24).",
+   "score": 56
+  },
+  {
+   "from": "D14",
+   "adaptation": "DINOv2-L or DINOv3-L/16 at 1024 + Rein + Mask2Former/UPerNet head, 24 classes; train on the 5 sources, judge mainly on E1 (unseen modules, half-cut).",
+   "min_experiment": "Rein-DINOv2-L vs house PF: E1 crack relF1@2 (+0.03 to pass), E1 inactive IoU (> 0.24), clean-49 crack IoU not below 0.46; 3 seeds.",
+   "score": 60
+  },
+  {
+   "from": "D30",
+   "adaptation": "ViT patch 14 at 512 px gives 37x37 tokens, too coarse for 1-2 px cracks: run at about 1024 px or fuse with the U-Net++ detail decoder. Rein-A target = pool half-cells. 1-ch replicated to 3.",
+   "min_experiment": "DINOv2-L (or DINOv3-L) + Rein + Mask2Former at ~1024 px vs PF U-Net++, 3 seeds. Kill if test crack IoU < 0.45 or E1 relF1@2 not above PF.",
+   "score": 48
+  }
+ ],
+ "final": 62,
+ "bench": 75,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 69,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P069"
+}

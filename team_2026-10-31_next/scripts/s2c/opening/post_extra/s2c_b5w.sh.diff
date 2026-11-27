@@ -1,0 +1,76 @@
+--- post_extra/s2_b5w.sh c4472057
++++ post_extra/s2c_b5w.sh
+@@ -1,4 +1,7 @@
+ #!/bin/bash
++# SKR2C opening (protocol_SKR2C §3a.2 co-primary, §6), pass 10a = s2_b5w.sh c4472057 with: settings s2c_settings.sh; BOTH arms (SKR01,
++# SUPPF; seeds 10-14) through the frozen hook + the wide steps (no comparator reuse); the 'SUPPF remade from PF2 dumps' block and its
++# 'ops' check vs PF2 removed; table with --old for both arms; labels. Original header follows.
+ # SKR2 + HC2 opening, pass 10a: B5 on the WIDER grid (protocol_SKR2_HC2 v1.0.1 §3a.2 co-primary for SKR2, §4 reported for HC2, §6).
+ # s2_post.sh runs it with GS set; rc -> decision_rc.txt. DRAFT (runner's helper, 2 Nov 2026) for coach's FREEZE.
+ # From hc_b5.sh (9167911e, frozen HC hook) + calib's frozen pf2_b5_hook.sh (e06dfc5f) / pf2_b5_pooled.sh (873591ff): the frozen hook and
+@@ -19,7 +22,7 @@
+ # lists) into post/b5/<arm>/. Work dir WK/b5 is OUTSIDE post/ (dumps stay on gaint). CPU steps: nice 19, CUDA hidden, 1 thread x 8 procs.
+ # exit 0 iff every step passed (each failure counted in F; later steps still run where their inputs exist).
+ set -u
+-. /home/noob/work/s2q/open/s2_settings.sh || exit 2
++. /home/noob/work/s2c/open/s2c_settings.sh || exit 2
+ . $GATE_SH
+ GS=${GS:?}; X=$OPEN/post_extra; CW=$OPEN/calib_w/el_metrics_w.py; CHK=$OPEN/s2_b5w_check.py; B=$WK/b5; OB=$S2_OUT/b5; F=0
+ m=$(settings_check) || { echo "settings: $m"; exit 2; }
+@@ -28,7 +31,7 @@
+ case "$DEVICE" in cuda) TP=exact;; cpu) TP=cpu;; *) echo "B5_DEVICE missing or invalid ('$DEVICE'): B5 not run"; exit 2;; esac
+ export DEVICE
+ CPUE=(env CUDA_VISIBLE_DEVICES= OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 HF_HUB_OFFLINE=1 PYTHONDONTWRITEBYTECODE=1 nice -n 19)
+-echo "[$(date)] B5 wide: DEVICE=$DEVICE (PF2's mechanical decision; tol profile $TP) for the 10 new runs; SUPPF records remade from PF2's dumps"
++echo "[$(date)] B5 wide: DEVICE=$DEVICE (PF2's mechanical decision; tol profile $TP) for the 10 fresh runs (SKR01 + SUPPF, s10-14)"
+ mkdir -p $B $OB
+ 
+ wrec(){  # ARM CODE DUMPDIR M0DIR RUN: el_metrics_w records of val / test / ext with the b = 0 self-check (as pf2_b5_hook.sh l.65-69)
+@@ -67,10 +70,10 @@
+   done; return $bad; }
+ 
+ # ---- new runs: frozen hook (dump + 6e73ff11) then the wide steps ----
+-for a in SKR01 HC2; do
++for a in SKR01 SUPPF; do
+   w=$(wt_of $a); mkdir -p $B/$a
+   for r in $(runs_of $a); do
+-    gate_wait $GS "s2 post b5 $r"
++    gate_wait $GS "s2c post b5 $r"
+     bash $X/calib/pf2_b5_hook.sh $PROTO $w $S2_OUT/m0/$a $B/$a $X/calib $w/experiments/$r || F=$((F + 1))
+     echo "[$(date)] b5 frozen hook $r done (fails so far $F)"
+     ok=1; for S in val test ext; do [ -s $B/$a/dump/$r.$S.npz ] || ok=0; done
+@@ -86,24 +89,10 @@
+   echo "[$(date)] b5 pooled $a (6e73ff11 + wide) done (fails so far $F)"
+ done
+ 
+-# ---- SUPPF: wide records remade from PF2's existing dumps (CPU; no model) ----
+-a=SUPPF; mkdir -p $B/$a
+-grep -E '  pf2_SUPPF_100pct_s[5-9]\.(val|test|ext)\.npz$' $PF/b5/dump_md5_on_gaint.txt > $B/$a/dump_md5.txt
+-if [ "$(wc -l < $B/$a/dump_md5.txt)" = 15 ] && (cd $PF2B5/dump && md5sum -c --quiet $B/$a/dump_md5.txt) >> $B/$a/b5w.log 2>&1; then
+-  for r in $CMP_RUNS; do
+-    wrec $a /home/noob/work/el_f3 $PF2B5/dump $PF/m0 $r || F=$((F + 1))
+-    wchk $a $PF/b5/rec $r || F=$((F + 1))
+-    wsum $a $r || F=$((F + 1))
+-  done
+-  wpool $a $CMP_RUNS || F=$((F + 1))
+-  "${CPUE[@]}" $P $CHK ops --wide-sum $B/$a/sum_w --frozen-sum $PF/b5/sum --runs $CMP_RUNS > $B/$a/ops_check.txt 2>&1 || F=$((F + 1))
+-  echo "[$(date)] SUPPF wide records / summaries / OP check done (fails so far $F): $(tail -1 $B/$a/ops_check.txt)"
+-else F=$((F + 1)); echo "[$(date)] SUPPF: PF2 b5_work dumps missing or changed; SUPPF wide records NOT made"; fi
+-
+ # ---- table + copies ----
+-"${CPUE[@]}" $P $CHK table --arm SUPPF $B/SUPPF/sum_w $CMP_RUNS --arm SKR01 $B/SKR01/sum_w $SKR_RUNS --arm HC2 $B/HC2/sum_w $HC2_RUNS \
+-  --base SUPPF --coprim SKR01 --old SKR01 $B/SKR01/sum --old HC2 $B/HC2/sum --json $OB/b5w_table.json > $OB/b5w_table.txt 2>&1 || F=$((F + 1))
+-for a in SKR01 HC2 SUPPF; do
++"${CPUE[@]}" $P $CHK table --arm SUPPF $B/SUPPF/sum_w $SUP_RUNS --arm SKR01 $B/SKR01/sum_w $SKR_RUNS \
++  --base SUPPF --coprim SKR01 --old SKR01 $B/SKR01/sum --old SUPPF $B/SUPPF/sum --json $OB/b5w_table.json > $OB/b5w_table.txt 2>&1 || F=$((F + 1))
++for a in SKR01 SUPPF; do
+   mkdir -p $OB/$a
+   for d in rec rec_w sum sum_w; do
+     [ -d $B/$a/$d ] || continue; mkdir -p $OB/$a/$d
+@@ -112,5 +101,5 @@
+   cp -p $B/$a/*.log $B/$a/*.txt $OB/$a/ 2>/dev/null
+   [ -d $B/$a/dump ] && (cd $B/$a/dump && md5sum *.npz) > $OB/$a/dump_md5_on_gaint.txt
+ done
+-echo "[$(date)] s2_b5w done: fails $F"
++echo "[$(date)] s2c_b5w done: fails $F"
+ [ $F = 0 ]

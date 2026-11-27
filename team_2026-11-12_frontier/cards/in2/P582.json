@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2603.00163",
+ "title": "A Boundary-Metric Evaluation Protocol for Whiteboard Stroke Segmentation Under Extreme Imbalance",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2603.00163",
+ "code_url": "",
+ "mechanism": "Protocol combining region and boundary metrics, a thin-subset equity analysis, per-image median/IQR/worst case and seeded multi-run non-parametric tests.",
+ "adaptation": "Thin subset = crack components < 20 px (76-88% of components) vs longer cracks, per source.",
+ "min_experiment": "Arm: metrics on thin vs long crack subsets. Kill: same ranking in both subsets for all arms.",
+ "score": 20,
+ "bench_score": 60,
+ "bet": "safe",
+ "targets": [
+  "benchmark",
+  "crack"
+ ],
+ "evidence": "R: 12 test images, 5 losses x 3 runs; overlap losses beat CE by >20 F1 points (p<0.001); classical baseline higher mean F1 but worse worst-case.",
+ "gpu_hours": 0,
+ "prior_overlap": "partial: components >= 20 px recall already reported.",
+ "directions": [
+  "D41"
+ ],
+ "scout_scores": [
+  20
+ ],
+ "final": 20,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 582,
+ "pid": "P582"
+}

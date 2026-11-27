@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2405.03676",
+ "title": "Why is SAM Robust to Label Noise?",
+ "year": 2024,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2405.03676",
+ "code_url": "",
+ "mechanism": "SAM's label-noise robustness comes mainly from a network-Jacobian regularisation effect and peaks with early stopping; cheaper explicit regularisers recover much of it.",
+ "adaptation": "Mechanism reason for the SAM arm on jittered crack labels; if SAM helps, test the cheaper explicit regulariser at 1x cost and read earlier checkpoints.",
+ "evidence": "SAM gains of tens of percent under label noise; peak before convergence (abstract).",
+ "min_experiment": "Conditional on SAM: explicit-regulariser arm vs PF+SAM, seeds 5-9; kill if below PF+SAM on test relF1@2.",
+ "gpu_hours": 6,
+ "targets": [
+  "crack"
+ ],
+ "bet": "medium",
+ "prior_overlap": "none",
+ "score": 40,
+ "bench_score": 20,
+ "directions": [
+  "D35"
+ ],
+ "scout_scores": [
+  40
+ ],
+ "final": 40,
+ "bench": 20,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 405,
+ "pid": "P405"
+}

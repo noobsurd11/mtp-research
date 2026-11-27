@@ -1,0 +1,35 @@
+{
+ "paper_id": "doi:10.1109/iccv51070.2023.00110",
+ "title": "SegGPT: Towards Segmenting Everything In Context",
+ "year": 2023,
+ "venue": "ICCV",
+ "url": "https://arxiv.org/abs/2304.03284",
+ "code_url": "https://github.com/baaivision/Painter",
+ "mechanism": "ViT-L trained as in-context colouring: given (image, mask) prompts with random colour maps it paints the query mask; multiple prompts ensembled by feature averaging.",
+ "evidence": "R: strong in-domain and out-of-domain results on few-shot semantic, VOS, semantic and panoptic segmentation; no thin-structure evidence.",
+ "adaptation": "Gray to 3 channels; 448 px canvas halves each cell so 1-2 px cracks vanish: use for inactive and structural classes; fixed colour per class in prompt masks; supports retrieved by source; the standard in-context row in the benchmark K-shot track.",
+ "min_experiment": "In G0 and the K-shot track: SegGPT K=1/4/16 vs house PF fine-tuned on the same K cells; metrics inactive IoU, mIoU_rob classes; kill as labeller if below house PF on all classes.",
+ "prior_overlap": "none",
+ "score": 25,
+ "bench_score": 70,
+ "bet": "safe",
+ "targets": [
+  "benchmark",
+  "inactive",
+  "other_classes"
+ ],
+ "gpu_hours": 4,
+ "directions": [
+  "D38"
+ ],
+ "scout_scores": [
+  25
+ ],
+ "final": 25,
+ "bench": 70,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 548,
+ "pid": "P548"
+}

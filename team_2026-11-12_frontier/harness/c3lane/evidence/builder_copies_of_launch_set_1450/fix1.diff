@@ -1,0 +1,103 @@
+--- reviewed/bench/q/cv02/cq.sh
++++ fix1/bench/q/cv02/cq.sh
+@@ -32,7 +32,9 @@
+ #   Floors in MiB are read LIVE from two files in Q: SHARE_TRAIN and SHARE_DUMP. A file that is absent, empty, not a number,
+ #   or below the user's floor (20480 / 10240) switches that kind of sharing off: then the strict rule alone holds.
+ #   Shared TRAINING start on GPU g (one pass over all GPUs with the strict rule comes first, at every look): free memory
+-#   on g >= SHARE_TRAIN at two consecutive looks at least 30 s apart; none of the owners above OTHER_MAX is our own login
++#   on g >= SHARE_TRAIN at two looks at g that are at least 30 s and at most 120 s apart (the time is taken at each look),
++#   with no failed look at g and no pass without a look (HOLD, MAXC full, logger gone, a strict lane found, a start)
++#   between them; none of the owners above OTHER_MAX is our own login
+ #   (a run of another of our queues, a lab member on the shared login), the bucket "unknown", or one with unreadable
+ #   memory; fewer than LPG of our runs on g; free >= the job's gate. Among such GPUs the one with most free memory.
+ #   Shared DUMP on the run's GPU: free memory >= SHARE_DUMP and >= the dump gate; any readable owner, our own login
+@@ -104,7 +106,7 @@
+ gap_take(){ flock $Q/start.lock bash -c 'a=$(( $(date +%s) - $(stat -c %Y '$Q'/last_start 2>/dev/null || echo 0) )); [ $a -ge '$GAPSEC' ] && touch '$Q'/last_start'; }
+ logger_ok(){ kill -0 "$(cat $Q/gpumem.pid 2>/dev/null)" 2>/dev/null; }
+ # ---- lane rule v2: shared GPUs (see the header). SQ = the dir of the SHARE files (the queue dir; cq_rescue.sh sets its own).
+-SHARE_TRAIN_MIN=20480; SHARE_DUMP_MIN=10240; SHARE_WAIT=30; SQ=${SQ:-$Q}
++SHARE_TRAIN_MIN=20480; SHARE_DUMP_MIN=10240; SHARE_WAIT=30; SHARE_STALE=120; SQ=${SQ:-$Q}
+ share_floor(){ local v; v=$(cat $SQ/$1 2>/dev/null); case "$v" in ''|*[!0-9]*) echo 0;; *) [ "$v" -ge "$2" ] && echo "$v" || echo 0;; esac; }
+ # share_ok G train|dump GATE: 0 iff GPU G may be shared now. Sets SHF (free MiB), SHO (owners above OTHER_MAX), SHL (floor).
+ share_ok(){ local g=$1 kind=$2 gate=$3 fl o t f
+@@ -118,17 +120,22 @@
+   [ "$f" -ge "$fl" ] && [ "$f" -ge "$gate" ] || return 1
+   SHF=$f; SHO=$o; SHL=$fl; return 0; }
+ # share_pick GATE DGATE FIX: (main loop, only when the strict pass found no GPU) the shared lane for the next job. A training
+-# job takes a GPU only at a look that is at least SHARE_WAIT s after the first of its unbroken qualifying looks; a fixture
+-# job (dumps only) by the dump rule at once. Most free memory wins. Sets SHG (GPU or ''), SHARED (log text), SHSLEEP.
++# job takes a GPU only at a look that is SHARE_WAIT to SHARE_STALE s after an earlier qualifying look at the same GPU, with
++# no failed look between the two; a fixture job (dumps only) by the dump rule at once. Most free memory wins.
++# SH1[g] = time in ms of that earlier look, taken when share_ok returned (not at the start of the pass). It is cleared by
++# a failed look, and for all GPUs by the main loop at every pass that makes no shared look (HOLD, logger gone, MAXC full,
++# a strict lane found) and at every start. An earlier look older than SHARE_STALE s does not count: the present look is
++# then a first look again. Sets SHG (GPU or ''), SHARED (log text), SHSLEEP.
+ declare -A SH1=()
+-share_pick(){ local gate=$1 dgate=$2 fix=$3 c now bf=-1 pend=0; now=$(date +%s); SHG=""; SHARED=""; SHSLEEP=$POLL
++share_pick(){ local gate=$1 dgate=$2 fix=$3 c t p d bf=-1 pend=0; SHG=""; SHARED=""; SHSLEEP=$POLL
+   for c in $GPUS; do
+     if [ "$fix" = 1 ]; then share_ok $c dump $dgate || continue
+       [ "$SHF" -gt "$bf" ] && { bf=$SHF; SHG=$c; SHARED="beside $SHO; free $SHF MiB >= SHARE_DUMP $SHL"; }
+-    elif share_ok $c train $gate; then
+-      [ -n "${SH1[$c]:-}" ] || { SH1[$c]=$now; lg "lane GPU $c: shared candidate, first look (free $SHF MiB >= SHARE_TRAIN $SHL; beside $SHO)"; }
+-      if [ $((now - SH1[$c])) -lt $SHARE_WAIT ]; then pend=1
+-      elif [ "$SHF" -gt "$bf" ]; then bf=$SHF; SHG=$c; SHARED="beside $SHO; free $SHF MiB >= SHARE_TRAIN $SHL at two looks $((now - SH1[$c])) s apart"; fi
++    elif share_ok $c train $gate; then t=$(date +%s%3N); p=${SH1[$c]:-}; d=$(( (t - ${p:-0}) / 1000 ))
++      [ -n "$p" ] && [ $d -gt $SHARE_STALE ] && { lg "lane GPU $c: shared candidate, the earlier look is $d s old (more than $SHARE_STALE s): it does not count"; p=""; }
++      if [ -z "$p" ]; then SH1[$c]=$t; pend=1; lg "lane GPU $c: shared candidate, first look (free $SHF MiB >= SHARE_TRAIN $SHL; beside $SHO)"
++      elif [ $d -lt $SHARE_WAIT ]; then pend=1
++      elif [ "$SHF" -gt "$bf" ]; then bf=$SHF; SHG=$c; SHARED="beside $SHO; free $SHF MiB >= SHARE_TRAIN $SHL at two looks $d s apart"; fi
+     else [ -z "${SH1[$c]:-}" ] || lg "lane GPU $c: shared candidate lost"; SH1[$c]=""; fi
+   done
+   [ -n "$SHG" ] && return 0
+@@ -255,19 +262,19 @@
+   if [ $fix = 0 ] && { [ -e $B/experiments/$name ] || [ -e $B/experiments/$name.stdout ]; }; then lg "skip $name (exists)"; continue; fi
+   if [ -e $Q/pids/$name.gpu ]; then lg "skip $name (already started by this queue dir)"; continue; fi
+   while :; do
+-    if [ -e $Q/HOLD ]; then sleep $POLL; continue; fi
+-    logger_ok || { touch $Q/HOLD; lg "cv02 q: gpumem logger gone; HOLD set"; continue; }
+-    [ "$(lanes_all)" -ge "$(cat $Q/MAXC 2>/dev/null || echo 16)" ] && { sleep 10; continue; }
++    if [ -e $Q/HOLD ]; then SH1=(); sleep $POLL; continue; fi          # SH1=(): a pass without a shared look ends every series of looks
++    logger_ok || { SH1=(); touch $Q/HOLD; lg "cv02 q: gpumem logger gone; HOLD set"; continue; }
++    [ "$(lanes_all)" -ge "$(cat $Q/MAXC 2>/dev/null || echo 16)" ] && { SH1=(); sleep 10; continue; }
+     g=""; SHARED=""; for c in $GPUS; do lane_ok $c $gate && { g=$c; break; }; done
+-    [ -n "$g" ] || { share_pick $gate $dgate $fix && g=$SHG; }   # a shared lane only when no GPU passes the strict rule
++    if [ -n "$g" ]; then SH1=(); else share_pick $gate $dgate $fix && g=$SHG; fi   # a shared lane only when no GPU passes the strict rule
+     if [ -z "$g" ]; then [ "$LASTW" != "$name" ] && lg "cv02 q: $name waits for a qualifying lane"; LASTW=$name; sleep ${SHSLEEP:-$POLL}; continue; fi
+     gap_take || { sleep 10; continue; }
+     [ -e $Q/HOLD ] && { lg "cv02 q: HOLD seen after the gap pass for $name; not starting"; continue; }
+     deploy_ok || { lg "cv02 q: deploy check FAIL before $name; HOLD set"; touch $Q/HOLD; continue; }
+     break
+   done
+-  echo $g > $Q/pids/$name.gpu
+-  if [ -n "$SHARED" ]; then SH1=(); [ $fix = 1 ] && lg "SHARED lane (fixture) $name on GPU $g: $SHARED" || lg "SHARED start $name on GPU $g: $SHARED"; fi
++  echo $g > $Q/pids/$name.gpu; SH1=()
++  if [ -n "$SHARED" ]; then [ $fix = 1 ] && lg "SHARED lane (fixture) $name on GPU $g: $SHARED" || lg "SHARED start $name on GPU $g: $SHARED"; fi
+   if [ $fix = 1 ]; then lg "fixture $name on GPU $g: training skipped"
+     FIX=1 DG=$dgate DC="${DCMD[$name]}" RO="${ro//,/ }" PK=$([ -n "$ro" ] && yget $card weights_key) METH=$(yget $card name) chain_after $name $g $fold x 0 &
+     echo "$name chain $!" >> $Q/pids/subshells.txt; continue; fi
+--- reviewed/bench/q/cv02/cq_rescue.sh
++++ fix1/bench/q/cv02/cq_rescue.sh
+@@ -24,7 +24,8 @@
+ #   b if the old chain did start the dump in that moment: removes the HOLD, waits for the old chain to finish the run
+ #     (.end), reports it and starts NO dump; else: SIGTERM to the verified chain PID only, confirms it is gone, writes
+ #     pids/<run>.rescued, removes the HOLD;
+-#   c waits for a lane: the run's own GPU first, then other GPUS of the same model; strict rule or the shared-dump rule
++#   c waits for a lane: first a GPU that passes the strict rule (the run's own GPU, then other GPUS of the same model), and
++#     only if none does, a GPU that passes the shared-dump rule, in the same order
+ #     (free >= SHARE_DUMP and >= the dump gate; no unknown owner, no unreadable memory); honours HOLD in RQ and in OQ and
+ #     the start gap of OQ;
+ #   d runs the dump command byte for byte as OQ rendered it, in OQ's B, with the environment of cq.sh / start_py, the same
+@@ -129,9 +130,9 @@
+   gm=$(timeout 10 nvidia-smi --query-gpu=name --format=csv,noheader -i $g 2>/dev/null); lw=""
+   while :; do h=""; SHD=""
+     if [ -e $RQ/HOLD ] || [ -e $OQ/HOLD ]; then w="HOLD"
+-    else for c in $g $(for x in $GPUS; do [ $x = $g ] || echo $x; done); do
+-        [ $c = $g ] || [ "$(timeout 10 nvidia-smi --query-gpu=name --format=csv,noheader -i $c 2>/dev/null)" = "$gm" ] || continue
+-        if lane_ok $c $DGATE 1; then h=$c; break; elif share_ok $c dump $DGATE; then h=$c; SHD="beside $SHO; free $SHF MiB >= SHARE_DUMP $SHL"; break; fi; done
++    else cs=$g; for x in $GPUS; do [ $x = $g ] || [ "$(timeout 10 nvidia-smi --query-gpu=name --format=csv,noheader -i $x 2>/dev/null)" != "$gm" ] || cs="$cs $x"; done
++      for c in $cs; do lane_ok $c $DGATE 1 && { h=$c; break; }; done                 # strict pass over all candidates first
++      [ -n "$h" ] || for c in $cs; do share_ok $c dump $DGATE && { h=$c; SHD="beside $SHO; free $SHF MiB >= SHARE_DUMP $SHL"; break; }; done
+       if [ -z "$h" ]; then w="no GPU qualifies (own GPU $g, strict rule or SHARE_DUMP $(share_floor SHARE_DUMP $SHARE_DUMP_MIN))"
+       elif ! gap_take; then sleep 10; continue
+       elif [ -e $RQ/HOLD ] || [ -e $OQ/HOLD ]; then w="HOLD"

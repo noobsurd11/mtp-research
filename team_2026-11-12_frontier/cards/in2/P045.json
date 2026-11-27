@@ -1,0 +1,37 @@
+{
+ "paper_id": "arxiv:2007.07314",
+ "title": "Long-tail learning via logit adjustment",
+ "year": 2020,
+ "venue": "ICLR 2021",
+ "url": "https://arxiv.org/abs/2007.07314",
+ "code_url": "",
+ "mechanism": "Add tau*log(class prior) to logits inside the CE during training (or subtract post hoc), a Fisher-consistent loss for balanced error.",
+ "adaptation": "Priors from train pixel frequencies over the 17 present classes; apply to the CE term only, keep crack + inactive Dice. tau in {0.5, 1.0}. Watch crack width (prior 0.19%) and re-tune the crack bias after.",
+ "min_experiment": "Arm: LA-CE tau 0.5 and 1.0, 3 seeds each; baseline SUP100 5 seeds; metric mIoU_rob plus splice/gridline/edge_dark IoU on OOF folds then test once; kill if mIoU_rob < +0.01 or crack IoU drop > 0.01 after crack bias re-tune.",
+ "score": 66,
+ "bench_score": 70,
+ "bet": "safe",
+ "evidence": "R: classification long-tail benchmarks (CIFAR-LT, ImageNet-LT, iNaturalist); BLV paper also uses it as a fully supervised segmentation baseline.",
+ "gpu_hours": 7,
+ "prior_overlap": "none for training-time LA; only post-hoc crack bias exists.",
+ "targets": [
+  "other_classes",
+  "inactive",
+  "benchmark"
+ ],
+ "directions": [
+  "D19"
+ ],
+ "scout_scores": [
+  66
+ ],
+ "final": 66,
+ "bench": 70,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 45,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P045"
+}

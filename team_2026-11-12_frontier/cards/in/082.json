@@ -1,0 +1,44 @@
+{
+ "paper_id": "arxiv:2512.13397",
+ "title": "rNCA: Self-Repairing Segmentation Masks",
+ "year": 2025,
+ "venue": "MIDL 2026 (PMLR 315)",
+ "url": "https://arxiv.org/abs/2512.13397",
+ "code_url": "https://github.com/maltesilber/rnca",
+ "mechanism": "A 12k-parameter neural cellular automaton runs 64 local update steps on [mask state, image features] and learns to grow and prune a coarse mask; trained on the base model's real predictions paired with ground truth.",
+ "evidence": "R: DRIVE (20 images, about 4,000 64x64 patches), U-Net base Dice 0.761 / clDice 0.802 / dBeta0 0.965 -> rNCA 0.777 / 0.820 / 0.532. SegFix 0.759, SegRefiner 0.760, DenseCRF 0.760 Dice in the same table. Unseen Swin base 0.767 -> 0.776. Myocardium zero-shot repairs 61.5% of broken cases.",
+ "adaptation": "Input 1-ch EL + out-of-fold house-ensemble p(crack), p(inactive), plus source id as a constant channel so it can learn per-source label width (ARTS 1.5 px vs BMRK 3.0 px). 64x64 patches centred on predicted and GT crack components plus random patches. Train per CV fold on OOF predictions from the module-grouped 5-fold roots, never on in-sample train predictions. Apply to the test 5-seed ensemble probabilities.",
+ "min_experiment": "Arm: rNCA on house 5-seed ensemble output. Baseline: house 5-seed ensemble (relF1@2 0.897, relR@2 0.866 at relP@2 0.930, components>=20 px 0.834). Metrics: relR@2 at relP@2>=0.93, component recall, strict crack IoU, OOF-CV relF1@2 for power. Kill: relR@2 gain < +0.01 at fixed relP@2 on both test and OOF CV, or crack IoU drop > 0.01.",
+ "score": 62,
+ "bench_score": 35,
+ "bet": "medium",
+ "gpu_hours": 10,
+ "targets": [
+  "crack",
+  "inactive"
+ ],
+ "prior_overlap": "none run. BRIEF section 5 lists learned refinement stages as never tried. D12 item 7 proposes a corrupted-mask refiner on ensemble output (same family, not run); coordinate.",
+ "directions": [
+  "D26"
+ ],
+ "scout_scores": [
+  62,
+  62
+ ],
+ "alt_notes": [
+  {
+   "from": "D26",
+   "adaptation": "Train on out-of-fold crack probability maps from the existing module-grouped 5-fold roots (532 cells; in-fold train predictions are near-perfect and useless) plus synthetic skeleton breaks and faint-segment deletions on GT; 64 px patches around predicted or GT cracks of the 1-channel EL; refine only the crack channel of the 5-seed ensemble, keep argmax for the other 23 classes. Expected to help fragments and component recall, not the 2 px jitter loss.",
+   "min_experiment": "Arm: house 5-seed ensemble + rNCA on crack probabilities. Baseline: same ensemble without refiner (also PF ensemble). Metrics: 5-fold CV and clean-49 crack relF1@2, components >= 20 px found, crack IoU; E1 relR@2. Kill: relF1@2 gain < +0.005 and components-found gain < +0.02 on 5-fold CV.",
+   "score": 62
+  }
+ ],
+ "final": 62,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 82,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

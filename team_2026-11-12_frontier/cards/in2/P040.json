@@ -1,0 +1,46 @@
+{
+ "paper_id": "arxiv:2503.03365",
+ "title": "TopoMortar: A dataset to evaluate image segmentation methods focused on topology accuracy",
+ "year": 2025,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2503.03365",
+ "code_url": "https://jmlipman.github.io/TopoMortar",
+ "mechanism": "Controlled benchmark of 8 topology losses under small data, noisy labels and OOD. Self-distillation (3 rounds of retraining on the model's own soft labels) raises both Dice and topology accuracy under noisy labels.",
+ "adaptation": "Use self-distillation as a noisy-label arm for 1-2 px jittered crack labels: split the house 20k steps into 3 rounds of about 6.7k, each trained on the previous round's softmax for crack and inactive (hard labels for the other 22 classes). Adopt its protocol (10 seeds, paired permutation test, Betti or component errors reported next to overlap) for our benchmark.",
+ "min_experiment": "Arm: PF + 3-round self-distillation, 5 seeds, 20k total steps. Baseline: PF 5 seeds. Metrics: clean-49 crack IoU, relF1@2, predicted crack width. Kill if crack IoU gain < 0.012 and relF1@2 gain < 0.01.",
+ "score": 66,
+ "bench_score": 85,
+ "bet": "safe",
+ "targets": [
+  "crack",
+  "benchmark",
+  "measurement"
+ ],
+ "evidence": "R: nnU-Net, 10 seeds. CrackTree Dice: CEDice 0.78, cbDice 0.76, Warping 0.77, clDice 0.54, SkelRecall 0.32, TopoLoss 0.52. clDice / SkelRecall cut beta0 error (22 / 14 vs 84). Noisy labels: SkelRecall best topology. Self-distillation improved Dice and Betti errors with pseudo and noisy labels.",
+ "gpu_hours": 6,
+ "prior_overlap": "Losses overlap the clDice and Skeleton Recall rows. Self-distillation on the labelled set is untested here: SSL used the external pool, and noisy-label methods and distillation are listed as never tried.",
+ "directions": [
+  "D10"
+ ],
+ "scout_scores": [
+  66,
+  62
+ ],
+ "alt_notes": [
+  {
+   "from": "D10",
+   "adaptation": "Self-distillation on PF: 3 x 6.7k steps inside the 20k budget, rounds 2 and 3 trained on the previous round's softmax for all 24 classes (soft crack targets spread around jittered 1 to 2 px traces). Its protocol (10 seeds, paired permutation tests, Betti errors only next to overlap, reported augmentation) is a template for the EL benchmark.",
+   "min_experiment": "PF + 3-round self-distillation vs PF, 5 seeds. Metrics: crack IoU, relF1@2, width, inactive IoU. Kill if crack IoU gain < 0.012 and relF1@2 gain < 0.01.",
+   "score": 62
+  }
+ ],
+ "final": 66,
+ "bench": 85,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 40,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P040"
+}

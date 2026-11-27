@@ -1,0 +1,13 @@
+P532 cells 532 inactive cells 48
+inactive/active median intensity ratio: median 0.319 IQR 0.220-0.456 n=48
+   ARTS 2 median 0.636
+   CFVS 29 median 0.312
+   CSIR 11 median 0.447
+   BMRK 6 median 0.186
+inactive cells evaluable by rule (crack>=20 & ribbon/busbar present): 48
+  pooled recall of inactive px by isolation rule 0.274, pooled precision 0.575
+  per-cell IoU median 0.253; cells with IoU>=0.5: 14
+  cells where rule finds any isolated area: 38
+crack cells without inactive, evaluable: 180 ; rule isolates >=0.5% of cell area in 18
+  by source Counter({'CFVS': 12, 'BMRK': 3, 'CSIR': 3}) of Counter({'CFVS': 70, 'ARTS': 45, 'CSIR': 39, 'BMRK': 24, 'SDLE': 2})
+  isolated area share (median among firing) 0.016

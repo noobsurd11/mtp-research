@@ -1,0 +1,44 @@
+{
+ "paper_id": "arxiv:2408.12879",
+ "title": "Frequency-aware Feature Fusion for Dense Image Prediction",
+ "year": 2024,
+ "venue": "TPAMI",
+ "url": "https://arxiv.org/abs/2408.12879",
+ "code_url": "https://github.com/Linwei-Chen/FreqFusion",
+ "mechanism": "Decoder feature fusion with an adaptive low-pass filter (consistent interiors), offset resampling, and an adaptive high-pass filter (restores boundary detail lost in downsampling).",
+ "adaptation": "Replace the upsample + concat at each U-Net++ decoder node with FreqFusion on 1-channel EL features. The low-pass is meant for blobby inactive regions, the high-pass for 1 to 2 px crack edges.",
+ "min_experiment": "Arm: PF + FreqFusion decoder, 5-fold CV. Baseline: PF. Metric: inactive IoU and crack IoU. Kill: both < 1 SE.",
+ "evidence": "R: gains on semantic, instance and panoptic segmentation and detection (abstract). No thin-structure numbers seen.",
+ "gpu_hours": 10,
+ "prior_overlap": "none",
+ "score": 55,
+ "bench_score": 40,
+ "bet": "medium",
+ "targets": [
+  "inactive",
+  "crack",
+  "benchmark"
+ ],
+ "directions": [
+  "D28"
+ ],
+ "scout_scores": [
+  55,
+  55
+ ],
+ "alt_notes": [
+  {
+   "from": "D28",
+   "adaptation": "Replace upsample + concat at each U-Net++ node; low-pass should help blobby inactive regions, high-pass crack edges.",
+   "min_experiment": "Arm: PF + FreqFusion decoder; baseline PF; 5 seeds; inactive IoU (CV) and crack IoU; kill if both below 1 SE.",
+   "score": 55
+  }
+ ],
+ "final": 55,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 151,
+ "pid": "P151"
+}

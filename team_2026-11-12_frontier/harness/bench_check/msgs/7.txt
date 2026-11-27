@@ -1,0 +1,9 @@
+elbench: cards house_r34_unetpp_v11 and house_r34_unetpp_pf_v11 (label set v1.1)
+
+The house cards plus data.mask_subdir=masks_v11 (per-root link folder from bench_make_roots.py: train stems -> v1.1
+masks with ignore 255, held-out stems -> strict) and data.mask_ignore_value=255; nothing else. Test: config diff vs the
+house card is exactly those two keys; on gaint every cv5v2_v11 root loads as train.py would (train masks with 255,
+held-out masks strict, 4 x 3,484 ignore px), v1 roots read labeled/masks_escdd.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01Wi4ZqFN13pWYd2FWeXAPNX

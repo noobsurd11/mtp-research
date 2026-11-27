@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2610.19540",
+ "title": "Cross-Scenario Industrial Defect Detection via Domain-Robust Training and Metric-Aligned Selection",
+ "year": 2026,
+ "venue": "arXiv (IDA 2026 challenge)",
+ "url": "https://arxiv.org/abs/2610.19540",
+ "code_url": "https://github.com/GZHU-DVL/Dikai",
+ "mechanism": "Robust normalisation, DSU feature-statistic perturbation, progressive random convolution, small-defect loss, score calibration, and a SWAD variant with metric-aligned checkpoint selection for unseen production scenarios.",
+ "adaptation": "Closest domain found (boards with surface contaminants, like scuffs). Take DSU in encoder layer1-2 and checkpoint selection on val relF1@2 rather than loss; drop detection-only parts (NWD, VFL).",
+ "min_experiment": "PF + DSU vs PF, 3 seeds; kill at < +0.03 E1 crack relF1@2.",
+ "score": 45,
+ "bench_score": 40,
+ "bet": "medium",
+ "targets": [
+  "e1_unseen",
+  "deployment"
+ ],
+ "evidence": "R: Track 1 score 0.564, screening 0.696 on hidden test, single RTX 4090; no ablation in abstract.",
+ "gpu_hours": 4,
+ "prior_overlap": "none",
+ "directions": [
+  "D30"
+ ],
+ "scout_scores": [
+  45
+ ],
+ "final": 45,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 291,
+ "pid": "P291"
+}

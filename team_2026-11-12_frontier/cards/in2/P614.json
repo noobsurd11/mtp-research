@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1051/epjpv/2025020",
+ "title": "Influence of irradiance and drone altitude in infrared thermography inspections of photovoltaic plants",
+ "year": 2025,
+ "venue": "EPJ Photovoltaics",
+ "url": "https://www.epj-pv.org/articles/epjpv/abs/2025/01/pv20250040/pv20250040.html",
+ "code_url": "",
+ "mechanism": "Controlled drone IR of 43 artificially degraded modules at 4 altitudes and 200 to 1000 W/m2 to measure which faults are thermally visible.",
+ "evidence": "R: cracked modules hard to distinguish from healthy; interconnect breaks visible from 600 W/m2; PID and glass cracks no pronounced anomaly; diodes and heavy soiling 80 to >100 C even at 200 W/m2; altitude effect small. Data public (our A3, CC BY 4.0, E).",
+ "adaptation": "Cross-plant test set for any thermal classifier trained on PVF-10 / ISM, and the only public place where drone IR and EL meet on the same induced faults.",
+ "min_experiment": "Resume pick 1 R1 / R2 / R3b as frozen in handbook doc 22 section 11: IR screening recall by fault type on A3; CPU only.",
+ "gpu_hours": 0,
+ "prior_overlap": "A3 downloaded and verified; sunlit arm R1 / R2 / R3b and pick3b not run (doc 22). Open.",
+ "targets": [
+  "deployment",
+  "severity"
+ ],
+ "bet": "safe",
+ "score": 15,
+ "bench_score": 25,
+ "directions": [
+  "D05"
+ ],
+ "scout_scores": [
+  15
+ ],
+ "final": 15,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 614,
+ "pid": "P614"
+}

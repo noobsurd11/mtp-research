@@ -1,0 +1,36 @@
+{
+ "paper_id": "doi:10.1016/j.sasc.2023.200048",
+ "title": "A benchmark dataset for defect detection and classification in electroluminescence images of PV modules using semantic segmentation",
+ "year": 2023,
+ "venue": "Systems and Soft Computing",
+ "url": "https://doi.org/10.1016/j.sasc.2023.200048",
+ "code_url": "",
+ "mechanism": "Weighted cross-entropy with engineered class weights (crack 100, gridline 10, inactive 10, ribbons 3, DOE-validated) to lift recall of rare thin defects.",
+ "adaptation": "Leave crack to the house Dice; apply capped weights (e.g. inverse-sqrt frequency, max 10) only to weak classes gridline, splice, edge_dark, material to lift mIoU_rob without dilating cracks.",
+ "min_experiment": "Arm house + weak-class CE weights vs house, 5 seeds; mIoU_rob, gridline recall, splice IoU; kill if mIoU_rob < +0.01 or crack IoU drops > 0.01.",
+ "evidence": "R: 593 cells, 50 test, 24 classes; DeepLabv3+ custom weights best: crack median IoU 0.25, recall 0.86, gridline recall 0.85, defect mIoU 0.28; equal weights defects 0.04 to 0.24; low precision from dilated predictions.",
+ "prior_overlap": "Dice on 12 classes (worse) and on 3 (n.d.) tested; class-weighted CE on weak classes not listed. Open.",
+ "score": 45,
+ "bench_score": 92,
+ "bet": "safe",
+ "gpu_hours": 11,
+ "targets": [
+  "other_classes",
+  "benchmark"
+ ],
+ "directions": [
+  "D01"
+ ],
+ "scout_scores": [
+  45
+ ],
+ "final": 45,
+ "bench": 92,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 259,
+ "pub_allowed": 1,
+ "selected_for": "bench",
+ "pid": "P259"
+}

@@ -1,0 +1,47 @@
+{"E-SUPPF": ["s2c_SUPPF_100pct_s10", "s2c_SUPPF_100pct_s11", "s2c_SUPPF_100pct_s12", "s2c_SUPPF_100pct_s13", "s2c_SUPPF_100pct_s14"], "E-SKR2": ["s2c_SKR01_100pct_s10", "s2c_SKR01_100pct_s11", "s2c_SKR01_100pct_s12", "s2c_SKR01_100pct_s13", "s2c_SKR01_100pct_s14"], "revision": {"E-SUPPF": "e544133", "E-SKR2": "c9bbb02"}, "model_code": "/home/noob/work/el_f3 (el_f3 e544133)", "n_state_keys": 350, "script_md5": "6fccdbdfb8eb8a1e3c875be03d20f9c4", "m_common_md5": "10f0d37c751c69d9394ee2dd0a845020", "ext_stems_md5": "5266806b559f74bcf9eae167bb076b95", "val_md5": "9dcccf00662dfca750f0b46628f8d5bb", "test_md5": "a31fad14fa27ee28e2a2319b8976aba3", "mode": "opening", "device": "cpu fp32", "threads": 8}
+val done, 378 s
+SKR2C D gates (a) each member of each arm alone, val pooled, b 0: gaint CPU fp32 vs its R-opening m0 JSON (GPU bf16); tolerance 0.005 (crack IoU, relF1@2), 0.01 (any-hit); (b) ensemble val GT crack comps >= 20 px == 125
+  (a) E-SUPPF s2c_SUPPF_100pct_s10 crack_iou: 0.4146 (ref 0.4146, delta -0.0000)
+  (a) E-SUPPF s2c_SUPPF_100pct_s10 relF1: 0.8804 (ref 0.8803, delta +0.0001)
+  (a) E-SUPPF s2c_SUPPF_100pct_s10 val any-hit: 0.9200 (115/125) (ref 0.9200 (115/125), delta +0.0000)
+  (a) E-SUPPF s2c_SUPPF_100pct_s11 crack_iou: 0.4246 (ref 0.4250, delta -0.0004)
+  (a) E-SUPPF s2c_SUPPF_100pct_s11 relF1: 0.8882 (ref 0.8875, delta +0.0007)
+  (a) E-SUPPF s2c_SUPPF_100pct_s11 val any-hit: 0.8880 (111/125) (ref 0.8880 (111/125), delta +0.0000)
+  (a) E-SUPPF s2c_SUPPF_100pct_s12 crack_iou: 0.4107 (ref 0.4104, delta +0.0003)
+  (a) E-SUPPF s2c_SUPPF_100pct_s12 relF1: 0.8843 (ref 0.8840, delta +0.0003)
+  (a) E-SUPPF s2c_SUPPF_100pct_s12 val any-hit: 0.9120 (114/125) (ref 0.9120 (114/125), delta +0.0000)
+  (a) E-SUPPF s2c_SUPPF_100pct_s13 crack_iou: 0.4164 (ref 0.4162, delta +0.0001)
+  (a) E-SUPPF s2c_SUPPF_100pct_s13 relF1: 0.8840 (ref 0.8839, delta +0.0001)
+  (a) E-SUPPF s2c_SUPPF_100pct_s13 val any-hit: 0.9280 (116/125) (ref 0.9280 (116/125), delta +0.0000)
+  (a) E-SUPPF s2c_SUPPF_100pct_s14 crack_iou: 0.4131 (ref 0.4128, delta +0.0003)
+  (a) E-SUPPF s2c_SUPPF_100pct_s14 relF1: 0.8809 (ref 0.8810, delta -0.0001)
+  (a) E-SUPPF s2c_SUPPF_100pct_s14 val any-hit: 0.9120 (114/125) (ref 0.9120 (114/125), delta +0.0000)
+  (b) E-SUPPF ensemble val GT crack comps >= 20 px: 125 (expected 125)
+  (a) E-SKR2 s2c_SKR01_100pct_s10 crack_iou: 0.4201 (ref 0.4202, delta -0.0001)
+  (a) E-SKR2 s2c_SKR01_100pct_s10 relF1: 0.8844 (ref 0.8842, delta +0.0002)
+  (a) E-SKR2 s2c_SKR01_100pct_s10 val any-hit: 0.9040 (113/125) (ref 0.9040 (113/125), delta +0.0000)
+  (a) E-SKR2 s2c_SKR01_100pct_s11 crack_iou: 0.4272 (ref 0.4273, delta -0.0001)
+  (a) E-SKR2 s2c_SKR01_100pct_s11 relF1: 0.8913 (ref 0.8916, delta -0.0002)
+  (a) E-SKR2 s2c_SKR01_100pct_s11 val any-hit: 0.9040 (113/125) (ref 0.9040 (113/125), delta +0.0000)
+  (a) E-SKR2 s2c_SKR01_100pct_s12 crack_iou: 0.4256 (ref 0.4257, delta -0.0002)
+  (a) E-SKR2 s2c_SKR01_100pct_s12 relF1: 0.8884 (ref 0.8886, delta -0.0002)
+  (a) E-SKR2 s2c_SKR01_100pct_s12 val any-hit: 0.9040 (113/125) (ref 0.9040 (113/125), delta +0.0000)
+  (a) E-SKR2 s2c_SKR01_100pct_s13 crack_iou: 0.4262 (ref 0.4261, delta +0.0001)
+  (a) E-SKR2 s2c_SKR01_100pct_s13 relF1: 0.8919 (ref 0.8933, delta -0.0013)
+  (a) E-SKR2 s2c_SKR01_100pct_s13 val any-hit: 0.9040 (113/125) (ref 0.9040 (113/125), delta +0.0000)
+  (a) E-SKR2 s2c_SKR01_100pct_s14 crack_iou: 0.4209 (ref 0.4209, delta -0.0000)
+  (a) E-SKR2 s2c_SKR01_100pct_s14 relF1: 0.8853 (ref 0.8853, delta -0.0000)
+  (a) E-SKR2 s2c_SKR01_100pct_s14 val any-hit: 0.9120 (114/125) (ref 0.9120 (114/125), delta +0.0000)
+  (b) E-SKR2 ensemble val GT crack comps >= 20 px: 125 (expected 125)
+  -> within tolerance: proceed
+val decisions written (md5 dae948e8965d3cbc8959e8ed4f19afd6): E-SUPPF D2 b 1.25 (max val relF1@2), headline 0.0 (reported); E-SKR2 D2 b 0.75 (smallest bias with val relR@2 >= 0.90 and relP@2 >= 0.90), headline 0.75 (reported); b_mv -0.45; written b {'E-SUPPF': [0.0], 'E-SKR2': [-0.45, 0.0]}
+  E1 GT crack comps >= 20 px (masks + ignore only): 296 (expected 296) -> OK
+test done, 561 s
+ext done, 1103 s
+SKR2C D inference done, 1103 s; files: E-SKR2.b-0.45.json, E-SKR2.b0.json, E-SUPPF.b0.json
+SKR2C D checks
+  any-hit self-test, E-SUPPF b 0 E1: this run's cells 114/296, sweep aggregate 114/296 -> EQUAL
+  any-hit self-test, E-SKR2 b 0 E1: this run's cells 124/296, sweep aggregate 124/296 -> EQUAL
+  val stems read: 54 == real list (54): True
+  test stems read: 50 == real list (50): True
+  ext stems read: 106 == real list (106): True

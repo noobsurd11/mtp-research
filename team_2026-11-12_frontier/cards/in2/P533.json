@@ -1,0 +1,43 @@
+{
+ "paper_id": "doi:10.1109/cvpr42600.2020.01269",
+ "title": "Semi-Supervised Semantic Segmentation With Cross-Consistency Training (CCT)",
+ "year": 2020,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2003.09005",
+ "code_url": "",
+ "mechanism": "Enforce agreement between the main decoder and auxiliary decoders fed perturbed encoder features on unlabelled images.",
+ "adaptation": "U-Net++ with 3-6 auxiliary decoders, 11.9k pool cells as unlabelled; included mainly because it was the best mIoU on this data family in Torpey 2024.",
+ "min_experiment": "Arm CCT U-Net++ vs PF, 5 seeds; metric CV mIoU_rob and inactive IoU; kill if mIoU_rob gain < +0.01.",
+ "score": 28,
+ "bench_score": 60,
+ "bet": "safe",
+ "gpu_hours": 15,
+ "targets": [
+  "other_classes",
+  "benchmark"
+ ],
+ "evidence": "R (via Torpey 2024): CCT mIoU 0.550 vs 0.506 previous SOTA on CSIR EL, single run.",
+ "prior_overlap": "Pseudo-label SSL (Mean Teacher, CPS) n.d. at 100%; feature-perturbation consistency is a different mechanism but same SSL family, so expected gain is small.",
+ "directions": [
+  "D07"
+ ],
+ "scout_scores": [
+  28,
+  25
+ ],
+ "alt_notes": [
+  {
+   "from": "D07",
+   "adaptation": "U-Net++ with 3-6 auxiliary decoders, 11.9k pool unlabelled, 100% labels; feature perturbations, not pseudo-labels.",
+   "min_experiment": "Arm CCT U-Net++ vs baseline house, 5 seeds; metric CV mIoU_rob; kill if gain < +0.01. About 30 GPU-h.",
+   "score": 25
+  }
+ ],
+ "final": 28,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 533,
+ "pid": "P533"
+}

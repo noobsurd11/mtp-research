@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2301.10441",
+ "title": "Learning trustworthy model from noisy labels based on rough set for surface defect detection",
+ "year": 2024,
+ "venue": "Applied Soft Computing",
+ "url": "https://arxiv.org/abs/2301.10441",
+ "code_url": "",
+ "mechanism": "Treat label noise as inconsistency on suspicious regions (rough-set boundary region), redesign the loss on those pixels and add a pluggable spatially correlated Bayesian module giving a defect-discrimination confidence.",
+ "adaptation": "Define the boundary region as the 1-2 px ring around crack labels plus faint crack segments (7% are < 2% darker), apply the boundary loss there; use the confidence output for the benchmark's uncertainty column.",
+ "evidence": "R: abstract claims effectiveness, robustness, real-time; numbers unverified (full text not read).",
+ "min_experiment": "Arm: house with rough-set boundary loss on the ring + faint segments; baseline: house; metric: CV crack IoU and relF1@2; kill if IoU gain < +0.01. Read full text first.",
+ "gpu_hours": 6,
+ "prior_overlap": "Partial: offset-tolerant CE (n.d.) is related; Bayesian confidence module untested.",
+ "score": 35,
+ "bench_score": 20,
+ "bet": "medium",
+ "targets": [
+  "crack"
+ ],
+ "directions": [
+  "D40"
+ ],
+ "scout_scores": [
+  35
+ ],
+ "final": 35,
+ "bench": 20,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 474,
+ "pid": "P474"
+}

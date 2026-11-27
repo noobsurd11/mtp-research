@@ -1,0 +1,43 @@
+{
+ "paper_id": "arxiv:1711.03345",
+ "title": "Frangi-Net: A Neural Network Approach to Vessel Segmentation",
+ "year": 2017,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/1711.03345",
+ "code_url": "",
+ "mechanism": "The multi-scale Frangi vesselness filter rewritten as a network with preset weights, so it starts as Frangi and can then be trained end to end.",
+ "adaptation": "Dark-ridge variant with sigmas 0.7 to 2.5 px, matched to the 4 px FWHM crack line. Used as a trainable input branch concatenated to the raw channel before the ResNet-34 stem.",
+ "min_experiment": "Arm: house with [raw, learnable dark-ridge Frangi], 5 seeds. Baseline: house. Metric: test relF1@2, E1 crack recall. Kill: E1 recall < +0.03 and relF1@2 < +0.01.",
+ "evidence": "R: 45 high-resolution fundus images; F1 up to +17% after fine-tuning compared with the fixed filter.",
+ "gpu_hours": 7,
+ "prior_overlap": "none in BRIEF section 5. D12 notes that HarmonySeg found vesselness at the input gave no notable gain on 3D hepatic vessels (other domain).",
+ "score": 58,
+ "bench_score": 25,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "e1_unseen"
+ ],
+ "directions": [
+  "D28"
+ ],
+ "scout_scores": [
+  58,
+  52
+ ],
+ "alt_notes": [
+  {
+   "from": "D28",
+   "adaptation": "Dark-ridge variant, sigma 0.7 to 2.5 px to match the 4 px FWHM crack line; extra input channel or parallel stem branch trained jointly.",
+   "min_experiment": "Arm: 2-channel [raw, learnable dark-ridge Frangi]; baseline house; 5 seeds; relF1@2, E1 crack recall; kill if E1 recall < +0.03 and test relF1@2 < +0.01.",
+   "score": 52
+  }
+ ],
+ "final": 58,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 128,
+ "pid": "P128"
+}

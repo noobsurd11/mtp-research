@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2509.17951",
+ "title": "DragOSM: Extract Building Roofs and Footprints from Aerial Images by Aligning Historical Labels",
+ "year": 2025,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2509.17951",
+ "code_url": "https://github.com/likaiucas/DragOSM",
+ "mechanism": "Label alignment as iterative denoising: a model learns to move randomly Gaussian-perturbed labels back to their position, then is applied iteratively to real misaligned labels.",
+ "adaptation": "Bold bet: train a small label snapper on (EL image, crack label perturbed by 1 to 3 px shifts and width changes) to recover the unperturbed label. Annotator jitter is random but the ridge is consistent, so the snapper should learn the expected label position given the image, which sits on the ridge. Apply to all train labels, retrain.",
+ "min_experiment": "Gate first: on val, the snapper must move labels at least 0.3 px on average toward the dark ridge. Then arm: house on snapped labels, 5 seeds. Baseline: house. Metric: clean-49 crack IoU, relF1@2. Kill: gate fails, or crack IoU under +0.012.",
+ "evidence": "R: new ReBO dataset, 179,265 buildings with OSM and corrected labels in 5,473 images; reported effective alignment (numbers not read).",
+ "gpu_hours": 12,
+ "bet": "moonshot",
+ "targets": [
+  "crack"
+ ],
+ "prior_overlap": "none",
+ "score": 45,
+ "bench_score": 25,
+ "directions": [
+  "D16"
+ ],
+ "scout_scores": [
+  45
+ ],
+ "final": 45,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 319,
+ "pid": "P319"
+}

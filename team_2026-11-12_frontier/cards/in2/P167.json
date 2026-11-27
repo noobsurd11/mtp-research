@@ -1,0 +1,58 @@
+{
+ "paper_id": "arxiv:1912.03383",
+ "title": "Deep Distance Transform for Tubular Structure Segmentation in CT Scans",
+ "year": 2019,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/1912.03383",
+ "code_url": "",
+ "mechanism": "A multi-task head predicts the mask and a per-pixel distance map to the structure surface. The mask is then refined with a shape prior rebuilt from that map.",
+ "adaptation": "An auxiliary head regresses truncated distance to the crack label centerline, capped at 4 px (the dark-line FWHM). This target degrades smoothly under 1 to 2 px label jitter. Use it as an extra crack cue and for ridge-following refinement.",
+ "min_experiment": "Arm: house + distance head (L1, weight 0.5). Baseline: house. Metrics: crack relF1@2 and IoU on test and E1. Kill if the relF1@2 gain is < 0.01 on both test and E1.",
+ "evidence": "R: six CT datasets, more than 13% DSC gain on pancreatic duct.",
+ "prior_overlap": "none. Offset-tolerant CE and Skeleton Recall are different mechanisms. D11 (centerline regression) overlaps as a formulation, but here the distance map is an auxiliary head next to CE.",
+ "score": 55,
+ "bench_score": 25,
+ "bet": "medium",
+ "gpu_hours": 6,
+ "targets": [
+  "crack",
+  "e1_unseen"
+ ],
+ "directions": [
+  "D11",
+  "D27"
+ ],
+ "scout_scores": [
+  52,
+  45,
+  55,
+  55
+ ],
+ "alt_notes": [
+  {
+   "from": "D11",
+   "adaptation": "For crack use distance-to-skeleton bins 0..4 px; for inactive true distance to boundary; radius head yields crack width per source and inactive area fraction for severity.",
+   "min_experiment": "Arm PF + DDT distance head (crack + inactive) vs PF; metric inactive IoU and relF1@2; kill if both move <0.01.",
+   "score": 45
+  },
+  {
+   "from": "D11",
+   "adaptation": "For 1-2 px cracks distance-to-surface is near 0, so use distance-to-label-skeleton bins (0..4 px) for crack and true distance for inactive; radius head also gives crack width for severity.",
+   "min_experiment": "Arm = PF + quantised distance head (crack, inactive) with DDT refinement; baseline = PF; 5 seeds + CV; metrics inactive IoU, crack relF1@2. Kill if both flat (< 0.01).",
+   "score": 52
+  },
+  {
+   "from": "D27",
+   "adaptation": "Regress truncated distance to crack label centerline capped at 4 px (dark-line FWHM); target degrades smoothly under 1-2 px jitter; auxiliary head next to CE, optional ridge-following fusion at inference.",
+   "min_experiment": "Arm house + distance head (L1, w 0.5); baseline house; metrics crack relF1@2, IoU, E1 relF1@2; kill if relF1@2 gain < 0.01 on test and E1.",
+   "score": 55
+  }
+ ],
+ "final": 55,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 167,
+ "pid": "P167"
+}

@@ -1,0 +1,35 @@
+{
+ "paper_id": "doi:10.1109/tii.2022.3162846",
+ "title": "PVEL-AD: A Large-Scale Open-World Dataset for Photovoltaic Cell Anomaly Detection",
+ "year": 2023,
+ "venue": "IEEE Transactions on Industrial Informatics",
+ "url": "https://doi.org/10.1109/tii.2022.3162846",
+ "code_url": "https://github.com/binyisu/PVEL-AD",
+ "mechanism": "36,543 NIR cells, 21,044 boxes over 8 defect classes (line crack, star crack, finger interruption, black core ...), 4,148 image-level labels.",
+ "adaptation": "Box-supervised auxiliary pretraining of encoder + decoder (mask projection must fill each crack box, background outside all boxes) on 1-ch images resized to 512, then PF fine-tune on our 478 so the pretraining survives.",
+ "min_experiment": "Arm: 20k-step box-projection pretrain then PF. Baseline: PF, 5 v 5 seeds. Metrics: E1 crack relF1@2, test crack IoU. Kill if E1 relF1@2 gain < 0.03 and test crack IoU flat.",
+ "score": 40,
+ "bench_score": 70,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "e1_unseen",
+  "benchmark"
+ ],
+ "evidence": "R: dataset stats from Chen 2025 review; GitHub reportedly released test labels and a new download in Jan 2026 (search summary, unverified).",
+ "gpu_hours": 30,
+ "prior_overlap": "none: PVEL-AD boxes listed as untried; UCF-EL pretraining null concerned a fine-tune that erased the encoder, PF fixes that.",
+ "directions": [
+  "D02"
+ ],
+ "scout_scores": [
+  40
+ ],
+ "final": 40,
+ "bench": 70,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 363,
+ "pid": "P363"
+}

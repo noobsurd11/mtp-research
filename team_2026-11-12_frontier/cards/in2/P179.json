@@ -1,0 +1,44 @@
+{
+ "paper_id": "arxiv:2002.11770",
+ "title": "Rethinking the Hyperparameters for Fine-tuning",
+ "year": 2020,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2002.11770",
+ "code_url": "",
+ "mechanism": "Optimal effective lr and momentum for fine-tuning depend on source-target similarity; reference-based regularisation can fail for dissimilar datasets.",
+ "adaptation": "Run the never-run grid: encoder lr {1e-4,3e-4,1e-3} x decoder lr {1e-3,3e-3} x beta1 {0.9,0.95}, on module-grouped 5-fold CV. Also warns that EL is dissimilar to ImageNet, so L2-SP / SPD may need small lambda.",
+ "evidence": "Extensive transfer benchmarks (classification); momentum and effective lr matter; regularisation toward init not always helpful on dissimilar data.",
+ "min_experiment": "12 cells x 5 folds x 2 seeds vs house and PF cells. Metric: CV crack relF1@2 and inactive IoU. Kill if best cell is within CV noise of PF.",
+ "gpu_hours": 130,
+ "targets": [
+  "crack",
+  "inactive",
+  "measurement"
+ ],
+ "bet": "safe",
+ "prior_overlap": "none. lr fixed at 1e-3 Adam (PF 0.1x on encoder) in every run so far.",
+ "score": 52,
+ "bench_score": 40,
+ "directions": [
+  "D35"
+ ],
+ "scout_scores": [
+  52,
+  52
+ ],
+ "alt_notes": [
+  {
+   "from": "D35",
+   "adaptation": "Grid never run: optimizer {Adam + L2 (house), AdamW} x encoder lr {1e-3, 3e-4, 1e-4} x layer-wise lr decay {1.0, 0.7} on module-grouped 5-fold CV, 2 seeds per cell, decoder lr fixed at 1e-3.",
+   "min_experiment": "Arm: 12-cell grid on CV, best cell rerun 5 seeds. Baseline: house and SUP100-PF. Metric: CV crack relF1@2 and inactive IoU, then test and E1. Kill: best cell within 0.012 crack relF1@2 and 0.02 inactive IoU of PF.",
+   "score": 52
+  }
+ ],
+ "final": 52,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 179,
+ "pid": "P179"
+}

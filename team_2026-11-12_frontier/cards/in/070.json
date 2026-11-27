@@ -1,0 +1,37 @@
+{
+ "paper_id": "arxiv:2604.16083",
+ "title": "DINOv3 Beats Specialized Detectors: A Simple Foundation Model Baseline for Image Forensics",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2604.16083",
+ "code_url": "https://github.com/Irennnne/DINOv3-IML",
+ "mechanism": "Frozen DINOv3 ViT backbone with LoRA plus a lightweight convolutional decoder for pixel-level localisation of small manipulated regions. LoRA beats full fine-tuning, which is unstable on scarce data.",
+ "adaptation": "Repeat 1-channel EL to 3 channels; 512 or 1024 px input; add a stride-2 CNN stem skip into the conv decoder so 1-2 px cracks survive the patch-16 grid; 24-class CE plus Dice on crack and inactive as in the house recipe. DINOv3 is gated (user OK needed); fallback DINOv2-L or C-RADIOv4.",
+ "min_experiment": "Arm: frozen DINOv3 ViT-L/16 + LoRA r16 + conv decoder + stem skip, 1024 px, 20k steps, 5 seeds. Baseline: house PF 5-seed. Metrics: E1 crack relF1@2, E1 inactive IoU, test crack relF1@2 and IoU. Kill: after 2 seeds, E1 relF1@2 below PF + 0.02 and test relF1@2 below PF.",
+ "evidence": "R: +17.0 average pixel F1 over previous SOTA on 4 benchmarks (CAT-Net protocol) with 9.1M trainable params on frozen ViT-L; data-scarce MVSS protocol F1 0.774 vs 0.530; LoRA > full FT at all backbone scales. E: our house fine-tune erases the encoder and PF keeps it, the same pattern.",
+ "prior_overlap": "Partial. BRIEF section 5 ran frozen linear probes of small VFMs and one DINOv3 ConvNeXt-T PF screen; ViT-L with LoRA and a conv decoder is listed as open. D24 covers VFM PEFT in general but not this paper.",
+ "score": 62,
+ "bench_score": 72,
+ "bet": "medium",
+ "gpu_hours": 20,
+ "targets": [
+  "e1_unseen",
+  "crack",
+  "inactive",
+  "benchmark"
+ ],
+ "directions": [
+  "D42"
+ ],
+ "scout_scores": [
+  62
+ ],
+ "final": 62,
+ "bench": 72,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 70,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

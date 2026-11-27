@@ -1,0 +1,43 @@
+{
+ "paper_id": "arxiv:1912.05763",
+ "title": "IterNet: Retinal Image Segmentation Utilizing Structural Redundancy in Vessel Networks",
+ "year": 2020,
+ "venue": "WACV",
+ "url": "https://arxiv.org/abs/1912.05763",
+ "code_url": "https://github.com/conscienceli/IterNet",
+ "mechanism": "A shared-weight mini-UNet is applied repeatedly to the segmentation output itself (with skip connections from earlier iterations), with supervision at each iteration, so the network learns to complete broken thin structures.",
+ "evidence": "R: DRIVE AUC 0.9816, CHASE-DB1 0.9851, STARE 0.9881; trained from 10 to 20 labelled images, no pretraining.",
+ "adaptation": "Bolt 3 shared-weight mini-UNets onto the U-Net++ full-resolution output; each takes [1-ch EL, softmax of crack / inactive / gridline / splice, last decoder features]; house loss (CE + Dice on crack and inactive) on every iteration; end to end, no OOF data needed. Gridline (recall 0.33) is a periodic thin line and is a second target.",
+ "min_experiment": "Arm: U-Net++ + 3-iteration IterNet head, 5 seeds, 20k steps. Baseline: house 5-seed (and PF variant if adopted). Metrics: crack IoU, relF1@2, gridline IoU and recall, mIoU_rob. Kill: crack IoU < +0.012 and relF1@2 < +0.01 and gridline IoU < +0.03.",
+ "score": 58,
+ "bench_score": 30,
+ "bet": "safe",
+ "gpu_hours": 7,
+ "targets": [
+  "crack",
+  "other_classes"
+ ],
+ "prior_overlap": "none. No iterative or stacked head was run; architecture changes tried were ResNet-50 encoder and 2x input only.",
+ "directions": [
+  "D26"
+ ],
+ "scout_scores": [
+  58,
+  55
+ ],
+ "alt_notes": [
+  {
+   "from": "D26",
+   "adaptation": "Append 3 weight-shared mini-U-Nets after U-Net++ that read the softmax output (and last decoder features); loss CE + crack/inactive Dice at each stage; same label-safe augmentation, 20k steps; test on house and PF fine-tunes.",
+   "min_experiment": "Arm: U-Net++ + 3 IterNet stages, 5 seeds. Baseline: house and PF, 5 seeds. Metrics: clean-49 and 5-fold CV crack IoU, relF1@2, components found, inactive IoU, mIoU_rob. Kill: crack IoU < +0.012 and no relF1@2 gain.",
+   "score": 55
+  }
+ ],
+ "final": 58,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 127,
+ "pid": "P127"
+}

@@ -1,0 +1,43 @@
+{
+ "paper_id": "doi:10.1186/1687-5281-2014-15",
+ "title": "Micro-crack detection of multicrystalline solar cells featuring an improved anisotropic diffusion filter and image segmentation technique",
+ "year": 2014,
+ "venue": "EURASIP Journal on Image and Video Processing",
+ "url": "https://doi.org/10.1186/1687-5281-2014-15",
+ "code_url": "",
+ "mechanism": "Improved anisotropic diffusion smooths grain boundaries and dislocation texture while keeping crack edges in multicrystalline EL; then segmentation.",
+ "evidence": "R: classical micro-crack detection on multicrystalline EL cells (no deep baseline).",
+ "adaptation": "Compute offline per cell and add the AD residual as channel 2, mainly for sp_multi cells. Also the classical non-learned baseline for the benchmark.",
+ "min_experiment": "Arm: house + AD residual channel, 5 seeds. Baseline: house. Metric: test crack IoU on multi cells, relF1@2. Kill: < +0.012 crack IoU.",
+ "gpu_hours": 11,
+ "prior_overlap": "none",
+ "targets": [
+  "crack",
+  "benchmark"
+ ],
+ "bet": "safe",
+ "score": 35,
+ "bench_score": 35,
+ "directions": [
+  "D08"
+ ],
+ "scout_scores": [
+  35,
+  35
+ ],
+ "alt_notes": [
+  {
+   "from": "D08",
+   "adaptation": "Offline AD-filtered residual as input channel 2, mainly for sp_multi cells; also the classical baseline in the benchmark.",
+   "min_experiment": "Arm: house + AD residual channel, 5 seeds. Baseline: house. Metric: test crack IoU on sp_multi cells. Kill: < +0.012.",
+   "score": 35
+  }
+ ],
+ "final": 35,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 460,
+ "pid": "P460"
+}

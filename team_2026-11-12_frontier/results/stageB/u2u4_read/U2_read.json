@@ -1,0 +1,1161 @@
+{
+ "tool": "bench_udev_read.py",
+ "tool_md5": "ff033a620b670d0994568f3713397da4",
+ "name": "U2",
+ "stems_file": "/home/noob/work/bench_udev/build_shvoof_v2/sets/shvoof/stems_eval.txt",
+ "stems_md5": "214fb41ad38275a4504e1065730d7d01",
+ "labels": "set",
+ "baseline": "PF",
+ "eff": {
+  "cells": 1064,
+  "source_cells": 532,
+  "groups": 330,
+  "folds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "crack_cells": 422,
+  "inactive_cells": 88,
+  "eff_n_crack": 20.645336220877432,
+  "eff_n_inactive": 12.208423211257655
+ },
+ "runs": [
+  {
+   "arm": "PF",
+   "seed": 5,
+   "run_id": "w1g_pf_v11_f0_s5",
+   "set": "shvoof_f0",
+   "manifest_md5": "01dc21c3e723f3c78f881494f4450b99",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "PF",
+   "seed": 6,
+   "run_id": "w1g_pf_v11_f0_s6",
+   "set": "shvoof_f0",
+   "manifest_md5": "0da6a52b64d29daafde89edcb9652aa6",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "PF",
+   "seed": 7,
+   "run_id": "w1g_pf_v11_f0_s7",
+   "set": "shvoof_f0",
+   "manifest_md5": "a6d94a87ac52b03771d4862dfe76995d",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "PF",
+   "seed": 8,
+   "run_id": "w1g_pf_v11_f0_s8",
+   "set": "shvoof_f0",
+   "manifest_md5": "1d420bbb51d735e9c501bb90d85be76f",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "PF",
+   "seed": 5,
+   "run_id": "w1g_pf_v11_f1_s5",
+   "set": "shvoof_f1",
+   "manifest_md5": "61d9a9314d74b607a9de70e1897fde6b",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "PF",
+   "seed": 6,
+   "run_id": "w1g_pf_v11_f1_s6",
+   "set": "shvoof_f1",
+   "manifest_md5": "620ba2ba1f4ef1e549cbc0b36b47bd85",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "PF",
+   "seed": 7,
+   "run_id": "w1g_pf_v11_f1_s7",
+   "set": "shvoof_f1",
+   "manifest_md5": "62ed4944844f9123d646e5d5203761e1",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "PF",
+   "seed": 8,
+   "run_id": "w1g_pf_v11_f1_s8",
+   "set": "shvoof_f1",
+   "manifest_md5": "fac66dd2bb91fbbf5a2b2517a77d00e6",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "PF",
+   "seed": 5,
+   "run_id": "w1g_pf_v11_f2_s5",
+   "set": "shvoof_f2",
+   "manifest_md5": "9d1b1299345ce2cd316a82d4ef3ef628",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "PF",
+   "seed": 6,
+   "run_id": "w1g_pf_v11_f2_s6",
+   "set": "shvoof_f2",
+   "manifest_md5": "f7104473ce135247e7c175ddfd139ac0",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "PF",
+   "seed": 7,
+   "run_id": "w1g_pf_v11_f2_s7",
+   "set": "shvoof_f2",
+   "manifest_md5": "b73b01b9a2aa1e60e4a2454636df5371",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "PF",
+   "seed": 8,
+   "run_id": "w1g_pf_v11_f2_s8",
+   "set": "shvoof_f2",
+   "manifest_md5": "08075c487fc168c086e30edbe00f22d8",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "PF",
+   "seed": 5,
+   "run_id": "w1g_pf_v11_f3_s5",
+   "set": "shvoof_f3",
+   "manifest_md5": "95b4a2c7fb49da9ba478af9f08a94712",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "PF",
+   "seed": 6,
+   "run_id": "w1g_pf_v11_f3_s6",
+   "set": "shvoof_f3",
+   "manifest_md5": "ae6809825d88624572025a5e4892ad77",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "PF",
+   "seed": 7,
+   "run_id": "w1g_pf_v11_f3_s7",
+   "set": "shvoof_f3",
+   "manifest_md5": "72e558e942404d09e3455db7e1116fcb",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "PF",
+   "seed": 8,
+   "run_id": "w1g_pf_v11_f3_s8",
+   "set": "shvoof_f3",
+   "manifest_md5": "e7e77dec206ed924b56de5a680761a11",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "PF",
+   "seed": 5,
+   "run_id": "w1g_pf_v11_f4_s5",
+   "set": "shvoof_f4",
+   "manifest_md5": "f57ce5d9e00b9d725f8dcd79b99caff4",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "PF",
+   "seed": 6,
+   "run_id": "w1g_pf_v11_f4_s6",
+   "set": "shvoof_f4",
+   "manifest_md5": "a41b4ec07e5abcd457af390590420ef6",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "PF",
+   "seed": 7,
+   "run_id": "w1g_pf_v11_f4_s7",
+   "set": "shvoof_f4",
+   "manifest_md5": "4b5b899ec484bbea692924cdd9409f33",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "PF",
+   "seed": 8,
+   "run_id": "w1g_pf_v11_f4_s8",
+   "set": "shvoof_f4",
+   "manifest_md5": "4bd98976158119eab5b48ecadda34ccc",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "EMA",
+   "seed": 5,
+   "run_id": "w2a_ema_f0_s5",
+   "set": "shvoof_f0",
+   "manifest_md5": "de8f9e745857ee81b44c3b57229a8253",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "EMA",
+   "seed": 5,
+   "run_id": "w2a_ema_f1_s5",
+   "set": "shvoof_f1",
+   "manifest_md5": "bf97bbb3dda9f9818fcb866ca8aa5104",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "EMA",
+   "seed": 5,
+   "run_id": "w2a_ema_f2_s5",
+   "set": "shvoof_f2",
+   "manifest_md5": "00f8997863eaa9aa6e04bbc55e313ff1",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "EMA",
+   "seed": 5,
+   "run_id": "w2a_ema_f3_s5",
+   "set": "shvoof_f3",
+   "manifest_md5": "f4cc89d2d9d45b5ee4e450512909f8f3",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "EMA",
+   "seed": 5,
+   "run_id": "w2a_ema_f4_s5",
+   "set": "shvoof_f4",
+   "manifest_md5": "b9fbaf264745084b56d8467ca0f844d7",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "EMABN",
+   "seed": 5,
+   "run_id": "w2a_ema_f0_s5.ema_9998_bn",
+   "set": "shvoof_f0",
+   "manifest_md5": "89d7bb16278fc54bd3399ceb8015b309",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "EMABN",
+   "seed": 5,
+   "run_id": "w2a_ema_f1_s5.ema_9998_bn",
+   "set": "shvoof_f1",
+   "manifest_md5": "ffb5fc0ba3e29dca5398d01fcd42b141",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "EMABN",
+   "seed": 5,
+   "run_id": "w2a_ema_f2_s5.ema_9998_bn",
+   "set": "shvoof_f2",
+   "manifest_md5": "335ce5bd50d6b3832731256f68e774dc",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "EMABN",
+   "seed": 5,
+   "run_id": "w2a_ema_f3_s5.ema_9998_bn",
+   "set": "shvoof_f3",
+   "manifest_md5": "ccbcec9a2526d976b6fb092e5631e774",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "EMABN",
+   "seed": 5,
+   "run_id": "w2a_ema_f4_s5.ema_9998_bn",
+   "set": "shvoof_f4",
+   "manifest_md5": "6895a4851be85ad1e8b089c7ed9cf010",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "JMLHARD",
+   "seed": 5,
+   "run_id": "w2a_jmlhard_f0_s5",
+   "set": "shvoof_f0",
+   "manifest_md5": "887148b7bbf006a64f2a909c98e62edb",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "JMLHARD",
+   "seed": 5,
+   "run_id": "w2a_jmlhard_f1_s5",
+   "set": "shvoof_f1",
+   "manifest_md5": "67b353b21e735d0f28e2598ca287a773",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "JMLHARD",
+   "seed": 5,
+   "run_id": "w2a_jmlhard_f2_s5",
+   "set": "shvoof_f2",
+   "manifest_md5": "ff49aa2b0fa116b01fece2c4d81eb456",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "JMLHARD",
+   "seed": 5,
+   "run_id": "w2a_jmlhard_f3_s5",
+   "set": "shvoof_f3",
+   "manifest_md5": "bd347b8b6e762fe0f2458c50355bf6bc",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "JMLHARD",
+   "seed": 5,
+   "run_id": "w2a_jmlhard_f4_s5",
+   "set": "shvoof_f4",
+   "manifest_md5": "4550e4a3cc1fbed8c49299f06d847050",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "RCS",
+   "seed": 5,
+   "run_id": "w2a_rcs_f0_s5",
+   "set": "shvoof_f0",
+   "manifest_md5": "ffb1e8334a3abc79b192df6b89a951f4",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "RCS",
+   "seed": 5,
+   "run_id": "w2a_rcs_f1_s5",
+   "set": "shvoof_f1",
+   "manifest_md5": "fd116ea4fd26a3afd645bbc490995469",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "RCS",
+   "seed": 5,
+   "run_id": "w2a_rcs_f2_s5",
+   "set": "shvoof_f2",
+   "manifest_md5": "79e8e65bb661cdb33f8f49ca65954f92",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "RCS",
+   "seed": 5,
+   "run_id": "w2a_rcs_f3_s5",
+   "set": "shvoof_f3",
+   "manifest_md5": "73c1b50766a55942e0cf650851f7c2ca",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "RCS",
+   "seed": 5,
+   "run_id": "w2a_rcs_f4_s5",
+   "set": "shvoof_f4",
+   "manifest_md5": "41991a15b5b190236bfb1e588b9e1960",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "SOFTBAND",
+   "seed": 5,
+   "run_id": "w2a_softband_f0_s5",
+   "set": "shvoof_f0",
+   "manifest_md5": "a662cd744f2b5b9c9096970402b5d813",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "SOFTBAND",
+   "seed": 5,
+   "run_id": "w2a_softband_f1_s5",
+   "set": "shvoof_f1",
+   "manifest_md5": "11fb139869cae3a08e7a28cfa4af7e1b",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "SOFTBAND",
+   "seed": 5,
+   "run_id": "w2a_softband_f2_s5",
+   "set": "shvoof_f2",
+   "manifest_md5": "9185be363667380aa42b7726080a4e97",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "SOFTBAND",
+   "seed": 5,
+   "run_id": "w2a_softband_f3_s5",
+   "set": "shvoof_f3",
+   "manifest_md5": "35b96a6c19c047695469bd09182941c3",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "SOFTBAND",
+   "seed": 5,
+   "run_id": "w2a_softband_f4_s5",
+   "set": "shvoof_f4",
+   "manifest_md5": "1ced78b969b9d1d18384c9fceb345218",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "SWAD",
+   "seed": 5,
+   "run_id": "w2a_swad_f0_s5",
+   "set": "shvoof_f0",
+   "manifest_md5": "196a6be81220ddbb7856f878f8a35bef",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "SWAD",
+   "seed": 5,
+   "run_id": "w2a_swad_f1_s5",
+   "set": "shvoof_f1",
+   "manifest_md5": "6e185284b2df13ddceaec106211eaf30",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "SWAD",
+   "seed": 5,
+   "run_id": "w2a_swad_f2_s5",
+   "set": "shvoof_f2",
+   "manifest_md5": "94a8f4043caf72aba729f6f0351952ca",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "SWAD",
+   "seed": 5,
+   "run_id": "w2a_swad_f3_s5",
+   "set": "shvoof_f3",
+   "manifest_md5": "403957c90cb131745e5049f2ff7f534a",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "SWAD",
+   "seed": 5,
+   "run_id": "w2a_swad_f4_s5",
+   "set": "shvoof_f4",
+   "manifest_md5": "5e173b31500aa13830c4b8fd40c0594c",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "SWADBN",
+   "seed": 5,
+   "run_id": "w2a_swad_f0_s5.swad_bn",
+   "set": "shvoof_f0",
+   "manifest_md5": "8bbf8c63161d0836e6d32cbb6e8b60fe",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "SWADBN",
+   "seed": 5,
+   "run_id": "w2a_swad_f1_s5.swad_bn",
+   "set": "shvoof_f1",
+   "manifest_md5": "18610b3909cdcea6529e31bddf7f4faa",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "SWADBN",
+   "seed": 5,
+   "run_id": "w2a_swad_f2_s5.swad_bn",
+   "set": "shvoof_f2",
+   "manifest_md5": "3e47eee5863a5d5269731445421546fe",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "SWADBN",
+   "seed": 5,
+   "run_id": "w2a_swad_f3_s5.swad_bn",
+   "set": "shvoof_f3",
+   "manifest_md5": "7d7000b2f67a0f1566123b3024f11937",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  },
+  {
+   "arm": "SWADBN",
+   "seed": 5,
+   "run_id": "w2a_swad_f4_s5.swad_bn",
+   "set": "shvoof_f4",
+   "manifest_md5": "1507e7c5755e41f0969733d810bd9716",
+   "device": "NVIDIA RTX PRO 4500 Blackwell"
+  }
+ ],
+ "summary": {
+  "PF": {
+   "crack_iou": 0.3107509664559587,
+   "relF1_2": 0.7688185742515555,
+   "relP2": 0.8818268761850439,
+   "relR2": 0.6814969502486343,
+   "relF1_1": 0.6684243242077351,
+   "width_ratio": 0.7120951271342135,
+   "fa_px": 4191.25,
+   "fa_share50": 0.03426791277258567,
+   "cc_recany_20": 0.8125958099131323,
+   "inact_iou": 0.3691191790940653,
+   "matched_relR2_at_P90": 0.6522326568356074,
+   "seeds": [
+    5,
+    6,
+    7,
+    8
+   ]
+  },
+  "EMA": {
+   "crack_iou": 0.30591554344625477,
+   "relF1_2": 0.7646170606915974,
+   "relP2": 0.8730872338655844,
+   "relR2": 0.680120581534919,
+   "relF1_1": 0.6630414256973354,
+   "width_ratio": 0.7178689096832668,
+   "fa_px": 4396.0,
+   "fa_share50": 0.03426791277258567,
+   "cc_recany_20": 0.8083801737353091,
+   "inact_iou": 0.3812297544697077,
+   "matched_relR2_at_P90": 0.6366111015848909,
+   "seeds": [
+    5
+   ]
+  },
+  "EMABN": {
+   "crack_iou": 0.30426661377085723,
+   "relF1_2": 0.754135280198038,
+   "relP2": 0.8845857383969983,
+   "relR2": 0.6572152952992186,
+   "relF1_1": 0.6558617473847885,
+   "width_ratio": 0.6912126742277638,
+   "fa_px": 4031.0,
+   "fa_share50": 0.03426791277258567,
+   "cc_recany_20": 0.7884517118037813,
+   "inact_iou": 0.3617187335203662,
+   "matched_relR2_at_P90": 0.6332980182740122,
+   "seeds": [
+    5
+   ]
+  },
+  "JMLHARD": {
+   "crack_iou": 0.311211532759633,
+   "relF1_2": 0.768057708887802,
+   "relP2": 0.8812374242232277,
+   "relR2": 0.6806411214266468,
+   "relF1_1": 0.6684348187852438,
+   "width_ratio": 0.7129513387061216,
+   "fa_px": 3571.0,
+   "fa_share50": 0.029595015576323987,
+   "cc_recany_20": 0.8124680633622893,
+   "inact_iou": 0.3406064013020927,
+   "matched_relR2_at_P90": 0.6531152781520222,
+   "seeds": [
+    5
+   ]
+  },
+  "RCS": {
+   "crack_iou": 0.3029092382306174,
+   "relF1_2": 0.7679763612989919,
+   "relP2": 0.8749472328240122,
+   "relR2": 0.6843124586630086,
+   "relF1_1": 0.6640516544495625,
+   "width_ratio": 0.7035953996521569,
+   "fa_px": 3392.0,
+   "fa_share50": 0.03426791277258567,
+   "cc_recany_20": 0.8185998978027593,
+   "inact_iou": 0.34741094806669337,
+   "matched_relR2_at_P90": 0.6423829703843421,
+   "seeds": [
+    5
+   ]
+  },
+  "SOFTBAND": {
+   "crack_iou": 0.3174186552940271,
+   "relF1_2": 0.7749535705698908,
+   "relP2": 0.8626750430204991,
+   "relR2": 0.7034254586875046,
+   "relF1_1": 0.6756972845643041,
+   "width_ratio": 0.7820392303358401,
+   "fa_px": 4377.0,
+   "fa_share50": 0.03894080996884735,
+   "cc_recany_20": 0.824220746039857,
+   "inact_iou": 0.41060245200423917,
+   "matched_relR2_at_P90": 0.6504574627048477,
+   "seeds": [
+    5
+   ]
+  },
+  "SWAD": {
+   "crack_iou": 0.3019108857955739,
+   "relF1_2": 0.7532057849845908,
+   "relP2": 0.8918286693318104,
+   "relR2": 0.6518797614090096,
+   "relF1_1": 0.6551612897845673,
+   "width_ratio": 0.6701951105994169,
+   "fa_px": 3791.0,
+   "fa_share50": 0.03271028037383177,
+   "cc_recany_20": 0.7828308635666837,
+   "inact_iou": 0.3098991278476035,
+   "matched_relR2_at_P90": 0.6404064497954585,
+   "seeds": [
+    5
+   ]
+  },
+  "SWADBN": {
+   "crack_iou": 0.33867674902003925,
+   "relF1_2": 0.7815826659247236,
+   "relP2": 0.9032659644070932,
+   "relR2": 0.68879216373123,
+   "relF1_1": 0.6907080360473069,
+   "width_ratio": 0.7698677828675011,
+   "fa_px": 2322.0,
+   "fa_share50": 0.028037383177570093,
+   "cc_recany_20": 0.8027593254982115,
+   "inact_iou": 0.3532102835768585,
+   "matched_relR2_at_P90": 0.691690346128408,
+   "seeds": [
+    5
+   ]
+  }
+ },
+ "contrasts": {
+  "EMA - PF": {
+   "opA": {
+    "crack_iou": {
+     "delta": -0.00483542300970391,
+     "lo": -0.012915296668592976,
+     "hi": 0.003397594988110813,
+     "se": 0.0042544033295767135
+    },
+    "relF1_2": {
+     "delta": -0.0042015135599581255,
+     "lo": -0.013911304365140126,
+     "hi": 0.00676892588231963,
+     "se": 0.005191591301391723
+    },
+    "inact_iou": {
+     "delta": 0.012110575375642418,
+     "lo": -0.03761167330920961,
+     "hi": 0.07183214493505445,
+     "se": 0.028245869629822454
+    },
+    "miou_rob": {
+     "delta": 0.0010501176033959059,
+     "lo": -0.007143698605525557,
+     "hi": 0.01024501033711684,
+     "se": 0.004391105133029552
+    },
+    "relP2": {
+     "delta": -0.00873964231945945,
+     "lo": -0.01995085535586956,
+     "hi": 0.002535633305699439,
+     "se": 0.0058276850877355835
+    },
+    "relR2": {
+     "delta": -0.0013763687137152703,
+     "lo": -0.014984932975622676,
+     "hi": 0.013370354152928973,
+     "se": 0.00709944395041694
+    },
+    "relF1_1": {
+     "delta": -0.005382898510399747,
+     "lo": -0.015497756420694639,
+     "hi": 0.005162442253143848,
+     "se": 0.0052920036768726465
+    },
+    "width_ratio": {
+     "delta": 0.005773782549053252,
+     "lo": -0.019258499557860746,
+     "hi": 0.03388352763792037,
+     "se": 0.01318281999706352
+    },
+    "fa_share50": {
+     "delta": 0.0,
+     "lo": -0.017828924519564714,
+     "hi": 0.017887637767079127,
+     "se": 0.009184585434804046
+    }
+   },
+   "frontier": {
+    "delta_relR2_at_refP": -0.013038732189839641,
+    "lo": -0.03356124544878903,
+    "hi": 0.008461588913503897,
+    "se": 0.010860423601730809,
+    "n_finite": 2000,
+    "width_rel": 0.9413435631857319,
+    "width_lo": 0.8711276437766219,
+    "width_hi": 1.018623582977885
+   }
+  },
+  "EMABN - PF": {
+   "opA": {
+    "crack_iou": {
+     "delta": -0.006484352685101447,
+     "lo": -0.014528993944868769,
+     "hi": 0.0016564313006514396,
+     "se": 0.004214723819393141
+    },
+    "relF1_2": {
+     "delta": -0.014683294053517537,
+     "lo": -0.026515359886824883,
+     "hi": -0.0048667678457484705,
+     "se": 0.005490549412789941
+    },
+    "inact_iou": {
+     "delta": -0.007400445573699066,
+     "lo": -0.05614697748820489,
+     "hi": 0.04946329926130187,
+     "se": 0.026876114969479933
+    },
+    "miou_rob": {
+     "delta": 0.002021216002999038,
+     "lo": -0.006295733435402649,
+     "hi": 0.01087515544395207,
+     "se": 0.004365398359789185
+    },
+    "relP2": {
+     "delta": 0.002758862211954427,
+     "lo": -0.007451916645161619,
+     "hi": 0.013628540239983354,
+     "se": 0.005578667999235978
+    },
+    "relR2": {
+     "delta": -0.0242816549494157,
+     "lo": -0.03981549915669532,
+     "hi": -0.010963605997308468,
+     "se": 0.0073219843998513666
+    },
+    "relF1_1": {
+     "delta": -0.012562576822946592,
+     "lo": -0.023475613537227713,
+     "hi": -0.002559162259507443,
+     "se": 0.005462803742971116
+    },
+    "width_ratio": {
+     "delta": -0.020882452906449744,
+     "lo": -0.044947690726479674,
+     "hi": 0.0029044402500910636,
+     "se": 0.012029047345728832
+    },
+    "fa_share50": {
+     "delta": 0.0,
+     "lo": -0.019080953895071542,
+     "hi": 0.018731988472622474,
+     "se": 0.009683620222956607
+    }
+   },
+   "frontier": {
+    "delta_relR2_at_refP": -0.020690166459085946,
+    "lo": -0.04184875033209311,
+    "hi": -0.0010870629087414987,
+    "se": 0.010469580293893034,
+    "n_finite": 2000,
+    "width_rel": 0.9918360963064531,
+    "width_lo": 0.9211570512793545,
+    "width_hi": 1.0680006438355734
+   }
+  },
+  "JMLHARD - PF": {
+   "opA": {
+    "crack_iou": {
+     "delta": 0.0004605663036743035,
+     "lo": -0.0069695178764050065,
+     "hi": 0.009003740852375219,
+     "se": 0.004169440110418501
+    },
+    "relF1_2": {
+     "delta": -0.0007608653637535268,
+     "lo": -0.011093909714405562,
+     "hi": 0.00942587821704501,
+     "se": 0.005240800746604328
+    },
+    "inact_iou": {
+     "delta": -0.028512777791972588,
+     "lo": -0.08957989446098798,
+     "hi": 0.016113748080884574,
+     "se": 0.026676314172421636
+    },
+    "miou_rob": {
+     "delta": -0.004245566196712569,
+     "lo": -0.012137915358081263,
+     "hi": 0.004388835623643644,
+     "se": 0.004191088694470046
+    },
+    "relP2": {
+     "delta": -0.0005894519618161453,
+     "lo": -0.015754836294392005,
+     "hi": 0.013673599854659267,
+     "se": 0.007371703060560054
+    },
+    "relR2": {
+     "delta": -0.0008558288219875365,
+     "lo": -0.01422172073063766,
+     "hi": 0.012293437985478398,
+     "se": 0.006790756648398932
+    },
+    "relF1_1": {
+     "delta": 1.0494577508679548e-05,
+     "lo": -0.009744351351819669,
+     "hi": 0.010615894254207506,
+     "se": 0.005259389869973513
+    },
+    "width_ratio": {
+     "delta": 0.0008562115719080721,
+     "lo": -0.028599386229367203,
+     "hi": 0.029228840634688745,
+     "se": 0.01503111646106633
+    },
+    "fa_share50": {
+     "delta": -0.004672897196261679,
+     "lo": -0.02442761413745787,
+     "hi": 0.014901280023722444,
+     "se": 0.010061916655858124
+    }
+   },
+   "frontier": {
+    "delta_relR2_at_refP": -0.0014981175919883682,
+    "lo": -0.023944845432732058,
+    "hi": 0.01986192055518777,
+    "se": 0.011026243562981234,
+    "n_finite": 2000,
+    "width_rel": 0.9971371790008828,
+    "width_lo": 0.9126079444930276,
+    "width_hi": 1.0839001714892338
+   }
+  },
+  "RCS - PF": {
+   "opA": {
+    "crack_iou": {
+     "delta": -0.007841728225341293,
+     "lo": -0.016928298685634825,
+     "hi": 0.0018453832961805151,
+     "se": 0.004888870259524653
+    },
+    "relF1_2": {
+     "delta": -0.0008422129525635924,
+     "lo": -0.012726139241687574,
+     "hi": 0.011244548652384277,
+     "se": 0.006187615213501172
+    },
+    "inact_iou": {
+     "delta": -0.021708231027371905,
+     "lo": -0.0831138057349638,
+     "hi": 0.026748685994217054,
+     "se": 0.02835625570145767
+    },
+    "miou_rob": {
+     "delta": -0.004074108085084904,
+     "lo": -0.012946312656091192,
+     "hi": 0.004876178370006304,
+     "se": 0.004510703017775525
+    },
+    "relP2": {
+     "delta": -0.00687964336103164,
+     "lo": -0.0263049088179143,
+     "hi": 0.01000288058501458,
+     "se": 0.009144911560170116
+    },
+    "relR2": {
+     "delta": 0.0028155084143742792,
+     "lo": -0.011790084763142838,
+     "hi": 0.01836889589632801,
+     "se": 0.007636888437947537
+    },
+    "relF1_1": {
+     "delta": -0.0043726697581726315,
+     "lo": -0.015909567412865706,
+     "hi": 0.007614034404173864,
+     "se": 0.006111788423595991
+    },
+    "width_ratio": {
+     "delta": -0.00849972748205663,
+     "lo": -0.03537569269579664,
+     "hi": 0.021336881069544587,
+     "se": 0.014141816314720489
+    },
+    "fa_share50": {
+     "delta": 0.0,
+     "lo": -0.02286585365853658,
+     "hi": 0.02366104368283162,
+     "se": 0.011713256825946193
+    }
+   },
+   "frontier": {
+    "delta_relR2_at_refP": -0.006781182527081042,
+    "lo": -0.03725145752807184,
+    "hi": 0.021820606794182868,
+    "se": 0.01481260787976714,
+    "n_finite": 2000,
+    "width_rel": 0.9370562824651957,
+    "width_lo": 0.8208556488813417,
+    "width_hi": 1.0448902410724097
+   }
+  },
+  "SOFTBAND - PF": {
+   "opA": {
+    "crack_iou": {
+     "delta": 0.006667688838068397,
+     "lo": -0.0018751232544787638,
+     "hi": 0.016584295662368173,
+     "se": 0.004678587733606472
+    },
+    "relF1_2": {
+     "delta": 0.006134996318335251,
+     "lo": -0.005678339564264956,
+     "hi": 0.01971216638859378,
+     "se": 0.00641971166073935
+    },
+    "inact_iou": {
+     "delta": 0.041483272910173896,
+     "lo": -0.02123209662527634,
+     "hi": 0.1068878403556764,
+     "se": 0.03216601484113077
+    },
+    "miou_rob": {
+     "delta": 0.010275463816840691,
+     "lo": 0.001256911987818342,
+     "hi": 0.019643069049844298,
+     "se": 0.004734094277988004
+    },
+    "relP2": {
+     "delta": -0.019151833164544718,
+     "lo": -0.03813811872429375,
+     "hi": -0.0008596348022452696,
+     "se": 0.00952304589880493
+    },
+    "relR2": {
+     "delta": 0.021928508438870287,
+     "lo": 0.006817213986351736,
+     "hi": 0.037819609954842924,
+     "se": 0.00762852649715748
+    },
+    "relF1_1": {
+     "delta": 0.0072729603565689915,
+     "lo": -0.004222837291148651,
+     "hi": 0.02010440710256903,
+     "se": 0.006196625689277196
+    },
+    "width_ratio": {
+     "delta": 0.06994410320162658,
+     "lo": 0.03889039563749563,
+     "hi": 0.10092150125068038,
+     "se": 0.015644113939529882
+    },
+    "fa_share50": {
+     "delta": 0.004672897196261683,
+     "lo": -0.015154990269669169,
+     "hi": 0.024290192223678436,
+     "se": 0.010168489627445697
+    }
+   },
+   "frontier": {
+    "delta_relR2_at_refP": -0.0009051619111261067,
+    "lo": -0.02474496288753378,
+    "hi": 0.026779764597126318,
+    "se": 0.01342796392416567,
+    "n_finite": 2000,
+    "width_rel": 0.9481026353348105,
+    "width_lo": 0.8517467222236684,
+    "width_hi": 1.0739382313803718
+   }
+  },
+  "SWAD - PF": {
+   "opA": {
+    "crack_iou": {
+     "delta": -0.008840080660384775,
+     "lo": -0.017462060700095188,
+     "hi": 0.0008331872479460106,
+     "se": 0.004748071128389533
+    },
+    "relF1_2": {
+     "delta": -0.015612789266964744,
+     "lo": -0.028503505135902784,
+     "hi": -0.00450180994226556,
+     "se": 0.006150332120243982
+    },
+    "inact_iou": {
+     "delta": -0.05922005124646179,
+     "lo": -0.1188261170884632,
+     "hi": -0.006235262278564308,
+     "se": 0.029103255120906606
+    },
+    "miou_rob": {
+     "delta": -0.014564677461503694,
+     "lo": -0.025213898146242992,
+     "hi": -0.004155944235366604,
+     "se": 0.005405558110593312
+    },
+    "relP2": {
+     "delta": 0.010001793146766524,
+     "lo": -0.002483680087763687,
+     "hi": 0.024247971228731825,
+     "se": 0.00702846738414585
+    },
+    "relR2": {
+     "delta": -0.02961718883962472,
+     "lo": -0.04685741116578139,
+     "hi": -0.015154863398955998,
+     "se": 0.008063468568599125
+    },
+    "relF1_1": {
+     "delta": -0.013263034423167785,
+     "lo": -0.024981347970683528,
+     "hi": -0.001492533684437615,
+     "se": 0.006099045852793714
+    },
+    "width_ratio": {
+     "delta": -0.04190001653479658,
+     "lo": -0.07246815485451696,
+     "hi": -0.01712877288306126,
+     "se": 0.014096433112886131
+    },
+    "fa_share50": {
+     "delta": -0.0015576323987538943,
+     "lo": -0.022149224796404795,
+     "hi": 0.017806176160954458,
+     "se": 0.010295443384198077
+    }
+   },
+   "frontier": {
+    "delta_relR2_at_refP": -0.017940019944649443,
+    "lo": -0.040180902901721854,
+    "hi": 0.0015985692908132812,
+    "se": 0.010725660951708143,
+    "n_finite": 2000,
+    "width_rel": 1.0147569514065236,
+    "width_lo": 0.9288255111253827,
+    "width_hi": 1.0938552399481651
+   }
+  },
+  "SWADBN - PF": {
+   "opA": {
+    "crack_iou": {
+     "delta": 0.02792578256408057,
+     "lo": 0.01994691630912395,
+     "hi": 0.03670885660281432,
+     "se": 0.00437065062990997
+    },
+    "relF1_2": {
+     "delta": 0.012764091673168054,
+     "lo": 0.002067959404616288,
+     "hi": 0.023229896458715725,
+     "se": 0.005482335868790209
+    },
+    "inact_iou": {
+     "delta": -0.015908895517206756,
+     "lo": -0.06784067658270146,
+     "hi": 0.029585826233773874,
+     "se": 0.024604384783102933
+    },
+    "miou_rob": {
+     "delta": 0.023041367814729485,
+     "lo": 0.014414087945969717,
+     "hi": 0.0315870209449763,
+     "se": 0.0044777302569394195
+    },
+    "relP2": {
+     "delta": 0.02143908822204932,
+     "lo": 0.010841258139037163,
+     "hi": 0.0348724823092445,
+     "se": 0.0061952724793449526
+    },
+    "relR2": {
+     "delta": 0.007295213482595653,
+     "lo": -0.00792106991782617,
+     "hi": 0.02123794177594754,
+     "se": 0.007515684944090041
+    },
+    "relF1_1": {
+     "delta": 0.022283711839571785,
+     "lo": 0.011730270059670667,
+     "hi": 0.03309838647599796,
+     "se": 0.005489069464952119
+    },
+    "width_ratio": {
+     "delta": 0.0577726557332876,
+     "lo": 0.03262368736102498,
+     "hi": 0.08403423211076996,
+     "se": 0.01299927009240184
+    },
+    "fa_share50": {
+     "delta": -0.0062305295950155735,
+     "lo": -0.025953174670155,
+     "hi": 0.011713829139111889,
+     "se": 0.009614515760669132
+    }
+   },
+   "frontier": {
+    "delta_relR2_at_refP": 0.03529530089622723,
+    "lo": 0.01566958214730579,
+    "hi": 0.05363230996909835,
+    "se": 0.009896863556698412,
+    "n_finite": 2000,
+    "width_rel": 1.2874419769722247,
+    "width_lo": 1.20040978654797,
+    "width_hi": 1.380326288644009
+   }
+  }
+ },
+ "aa": {
+  "opA": {
+   "crack_iou": {
+    "delta": 0.0036383448305982724,
+    "lo": -0.004532584058992568,
+    "hi": 0.011569595910396519,
+    "se": 0.0041599609453094825
+   },
+   "relF1_2": {
+    "delta": 0.0034657695291960833,
+    "lo": -0.009470115448443093,
+    "hi": 0.01310903938024294,
+    "se": 0.005729250191061
+   },
+   "inact_iou": {
+    "delta": -0.009187451820917514,
+    "lo": -0.07314635892006899,
+    "hi": 0.04548664985643645,
+    "se": 0.02993464461281559
+   },
+   "miou_rob": {
+    "delta": -0.001751614698218773,
+    "lo": -0.011893573970162892,
+    "hi": 0.00738821946106321,
+    "se": 0.005132696559590251
+   },
+   "relP2": {
+    "delta": 0.009869651996059048,
+    "lo": -0.0010857163725866592,
+    "hi": 0.020615671940666682,
+    "se": 0.005555523595154099
+   },
+   "relR2": {
+    "delta": -0.0004470519070132184,
+    "lo": -0.0193677983545294,
+    "hi": 0.014274970848777359,
+    "se": 0.008530121743533103
+   },
+   "relF1_1": {
+    "delta": 0.00402670670451033,
+    "lo": -0.007256582780187684,
+    "hi": 0.013782825508988069,
+    "se": 0.005370142418754048
+   },
+   "width_ratio": {
+    "delta": -0.005850715283051144,
+    "lo": -0.03647550978311557,
+    "hi": 0.0237001246862785,
+    "se": 0.015043153428750922
+   },
+   "fa_share50": {
+    "delta": -0.009345794392523366,
+    "lo": -0.030306324110671932,
+    "hi": 0.012085049202206674,
+    "se": 0.010696982952951685
+   }
+  },
+  "frontier": {
+   "delta_relR2_at_refP": 0.012170486019517868,
+   "lo": -0.010241850510352915,
+   "hi": 0.031173094028485195,
+   "se": 0.010591424079088514,
+   "n_finite": 2000,
+   "width_rel": 1.0674534131874518,
+   "width_lo": 0.9972570122936937,
+   "width_hi": 1.1325388408529
+  },
+  "M": {
+   "crack_iou": 0.01,
+   "relF1_2": 0.011458500382122,
+   "inact_iou": 0.05986928922563118,
+   "miou_rob": 0.010265393119180502,
+   "relP2": 0.011111047190308199,
+   "relR2": 0.017060243487066206,
+   "relF1_1": 0.010740284837508097,
+   "width_ratio": 0.030086306857501844,
+   "fa_share50": 0.02139396590590337
+  },
+  "M_frontier": 0.021182848158177028
+ },
+ "aa_spec": "PF:5,6:7,8",
+ "boot": 2000,
+ "seconds": 231
+}

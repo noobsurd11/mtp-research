@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1002/pip.3518",
+ "title": "Anomaly detection in IR images of PV modules using supervised contrastive learning",
+ "year": 2022,
+ "venue": "Progress in Photovoltaics",
+ "url": "https://arxiv.org/abs/2112.02922",
+ "code_url": "",
+ "mechanism": "Supervised contrastive training of a ResNet-34 plus kNN distance as anomaly score, evaluated as train-on-one-plant, test-on-another (unsupervised domain adaptation framing).",
+ "evidence": "R: AUROC 73.3 to 96.6 % on 9 source-target combinations of 4 plants, 2.92 M IR module images, 8.5 % anomalous; at a fixed threshold 79.4 % normal and 77.1 % anomalous correct; sometimes beats a BCE classifier; insensitive to hyperparameters.",
+ "adaptation": "Add a SupCon auxiliary loss on cell-pooled layer4 features (positives = same cell label crack / inactive / clean, sampled across the 5 sources) to the PF fine-tune, aimed at the E1 gap; adopt the source-to-target protocol as the model for the benchmark's unseen-module split.",
+ "min_experiment": "Arm PF + SupCon aux (weight 0.1), 3 seeds; baseline PF, 3 seeds; metrics E1 crack relF1@2 and inactive IoU, test clean-49 crack IoU; kill if E1 relF1@2 gain < 0.02 or test crack IoU drops > 0.01.",
+ "gpu_hours": 4,
+ "prior_overlap": "none. BRIEF 5 tested MIM / DDeP pool pretraining and Mean Teacher, not a supervised contrastive auxiliary loss during fine-tuning.",
+ "targets": [
+  "e1_unseen",
+  "benchmark"
+ ],
+ "bet": "medium",
+ "score": 35,
+ "bench_score": 60,
+ "directions": [
+  "D05"
+ ],
+ "scout_scores": [
+  35
+ ],
+ "final": 35,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 445,
+ "pid": "P445"
+}

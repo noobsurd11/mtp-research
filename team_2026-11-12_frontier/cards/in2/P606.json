@@ -1,0 +1,43 @@
+{
+ "paper_id": "arxiv:2610.14274",
+ "title": "Inspect Any Crack: An Automated End-to-End Crack Segmentation and Severity Assessment Framework",
+ "year": 2026,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2610.14274",
+ "code_url": "",
+ "mechanism": "Foundation-model-derived segmenter (SACv2-Tiny), then physical width and area from masks, combined into a bounded continuous Crack Severity Index from max width and affected-area ratio.",
+ "adaptation": "Template for the EL severity step: width is meaningless (sub-pixel crack), so use crack length, crack orientation mode (parallel to busbar, cross, dendritic) and isolated or inactive area fraction, combined into a bounded index; validate against inactive area and power-loss bands where available.",
+ "min_experiment": "Post-hoc on PF predictions: compute the index per cell and test whether it separates cells with and without inactive ground truth (AUC) on CV folds. Kill if AUC < 0.75.",
+ "score": 15,
+ "bench_score": 55,
+ "bet": "safe",
+ "targets": [
+  "severity",
+  "benchmark"
+ ],
+ "evidence": "R: SACv2-Tiny F1 62.49%, IoU 45.45% on OmniCrack30k test, mean zero-shot F1 69.89% on three unseen sets; width error 7.33% at 41 caliper points.",
+ "gpu_hours": 2,
+ "prior_overlap": "none (severity not yet built).",
+ "directions": [
+  "D09"
+ ],
+ "scout_scores": [
+  15,
+  15
+ ],
+ "alt_notes": [
+  {
+   "from": "D09",
+   "adaptation": "Template for EL severity: replace width (sub-pixel on EL) with crack length, crack mode (dendritic, parallel to busbar, cross) and isolated-area fraction; combine into a bounded index and check against inactive area.",
+   "min_experiment": "Post-hoc on PF predictions: compute the index per cell; test whether it separates cells with and without inactive regions (AUC) on CV folds. Kill if AUC < 0.75.",
+   "score": 15
+  }
+ ],
+ "final": 15,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 606,
+ "pid": "P606"
+}

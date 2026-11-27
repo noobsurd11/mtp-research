@@ -1,0 +1,22 @@
+(i) stems 816 -> unique physical cells by (physical group, position): 787
+    physical cells imaged more than once: 16 ; images of them 45 ; by source {'ARTS': 4, 'CFVS': 12}
+    of these, cells with one image in test and another in train or val: 5
+(ii) per-cell inactive area fraction bands (inactive px / non-padding px)
+    CV pool 532: cells 532; crack cells >= 20 px 229; inactive area band counts {'0': 484, '<0.5%': 10, '0.5-1%': 7, '1-20%': 31, '>=20%': 0}
+    legacy test 50: cells 50; crack cells >= 20 px 46; inactive area band counts {'0': 34, '<0.5%': 3, '0.5-1%': 1, '1-20%': 10, '>=20%': 2}
+    E1 106: cells 106; crack cells >= 20 px 32; inactive area band counts {'0': 96, '<0.5%': 4, '0.5-1%': 2, '1-20%': 4, '>=20%': 0}
+    _rf 117: cells 117; crack cells >= 20 px 46; inactive area band counts {'0': 107, '<0.5%': 4, '0.5-1%': 1, '1-20%': 5, '>=20%': 0}
+(iii) crack length per crack cell (skeleton px, GT)
+    CV pool 532: crack cells 229; skeleton length px median 241, IQR 104-640, max 5242
+    legacy test 50: crack cells 46; skeleton length px median 306, IQR 113-818, max 3405
+    E1 106: crack cells 32; skeleton length px median 244, IQR 120-354, max 827
+(iv) the 5 legacy cells missing from E-SCDD: old mask vs later release mask
+    BMRK_02125_cell1223 20220723 (test): identical to 20211104 mask True; differing px 0; crack px old 0 new 0; inactive old 0 new 0
+    BMRK_02125_cell1223 20221008 (test): identical to 20211104 mask True; differing px 0; crack px old 0 new 0; inactive old 0 new 0
+    ARTS_00057_r2_c5 20220723 (train): identical to 20211104 mask True; differing px 0; crack px old 0 new 0; inactive old 0 new 0
+    CSIR_00178_r7_c1 20220723 (test): identical to 20211104 mask True; differing px 0; crack px old 227 new 227; inactive old 0 new 0
+    CSIR_00179_r12_c4 20220723 (val): identical to 20211104 mask True; differing px 0; crack px old 2536 new 2536; inactive old 6034 new 6034
+    CSIR_00179_r6_c1 20220723 (val): identical to 20211104 mask True; differing px 0; crack px old 58 new 58; inactive old 0 new 0
+(v) CV pool 532 {'multi': 229, 'mono': 241, 'no_spacing': 59, 'dogbone': 3}
+(v) legacy test {'multi': 14, 'mono': 24, 'no_spacing': 12}
+(v) E1 {'dogbone': 2, 'no_spacing': 3, 'halfcut_multi': 58, 'halfcut_mono': 4, 'mono': 1, 'multi': 38}

@@ -1,0 +1,45 @@
+{
+ "paper_id": "arxiv:2508.10104",
+ "title": "DINOv3",
+ "year": 2025,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2508.10104",
+ "code_url": "",
+ "mechanism": "Self-supervised ViT-7B with Gram anchoring that keeps dense features clean at scale, distilled into ViT-S to H+ and ConvNeXt T to L students.",
+ "adaptation": "Backbone for VFM-H: ViT-L/16 (303M) at 1024 px, or ConvNeXt-L (198M) in smp U-Net++ with a stride-2 stem under PF at 20k steps. Weights are gated (licence click), need the user's OK.",
+ "min_experiment": "Arm: DINOv3 ViT-L/16 in VFM-H, and ConvNeXt-L U-Net++ PF, 20k steps. Baseline: house PF. Metric: CV crack relF1@2, inactive IoU, E1 once. Kill: default line.",
+ "score": 50,
+ "bench_score": 80,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "inactive",
+  "e1_unseen",
+  "benchmark"
+ ],
+ "evidence": "R (web, HF model cards): ViT-L/16 54.9 ADE20k (column order inferred by the search summary, check before citing); distilled family listed. Verified only via WebSearch, not Research MCP.",
+ "gpu_hours": 60,
+ "prior_overlap": "partial: DINOv3 ConvNeXt-T under PF, 2 seeds, 4k steps, F51 crack AP: KILL (no sign of a gain). ViT-L, ConvNeXt-L, 1024 px and 20k steps untested.",
+ "directions": [
+  "D24"
+ ],
+ "scout_scores": [
+  50,
+  45
+ ],
+ "alt_notes": [
+  {
+   "from": "D24",
+   "adaptation": "Default VFM for the Rein, Dino U-Net and dual-branch arms: ViT-L/16 at 1024 px; gated weights need the user's OK; DINOv2-L and C-RADIOv4 are fallbacks.",
+   "min_experiment": "Backbone arm inside VFM-H vs DINOv2-L; E1 relF1@2; drop if more than 0.02 below the best backbone.",
+   "score": 45
+  }
+ ],
+ "final": 50,
+ "bench": 80,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 190,
+ "pid": "P190"
+}

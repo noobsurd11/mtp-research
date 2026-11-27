@@ -1,0 +1,229 @@
+--- /dev/null
++++ b/bench/methods/hrnet_w18_unetpp_swad_const_pf_v11.yaml
+@@ -0,0 +1,60 @@
++# c3x (lead's rulings C1 to C6 of 17 Nov 2026): HRNet-W18 U-Net++ with swad_const, the combination of the rows2 row
++# hrnet_w18_unetpp_pf_v11 and the wave 2a arm swad_const_pf_v11. Card = hrnet_w18_unetpp_pf_v11 with exactly the changes
++# that swad_const_pf_v11 makes to house_r34_unetpp_pf_v11: the 8 opts below 'training.encoder_pf.wd=0' (constant lr after
++# warm-up, a uniform average of every iterate of steps 10,000 to 20,000, an EMA 0.9998, BN recalibration on the training
++# fold at the end, the encoder probe every 2,000 steps), weights_key swad_bn and the 6 readouts. Model, encoder weights
++# file, data, loss, PF settings, steps and batch = the HRNet card (its header holds architecture, licence, parameters).
++# Pre-declared primary readout: swad_bn; declared secondary readout: swad. The encoder probe names one stage 'model' on
++# this encoder (timm tensor names encoder.model.*), not layer3 / layer4; it is a log only.
++# Proof of the two equalities: tests/test_bench_c3x_card.py.
++name: hrnet_w18_unetpp_swad_const_pf_v11
++version: 1
++family: cnn-hrnet-unetpp
++papers: ["arXiv:1908.07919", "arXiv:2102.08604", "arXiv:2411.18704"]
++kind: harness
++config: configs/supervised.yaml
++opts:
++  - data.labeled_fraction=1.0
++  - training.total_steps=20000
++  - data.split_seed=0
++  - training.labeled_batch_size=8
++  - data.mask_subdir=masks_v11
++  - data.mask_ignore_value=255
++  - model.name=bench_smp
++  - model.decoder=unetplusplus
++  - model.encoder_name=tu-hrnet_w18
++  - model.encoder_weights=imagenet
++  - data.augmentation=labelsafe
++  - loss.supervised=ce_dice
++  - training.val_every=20000
++  - training.encoder_pf.freeze=1000
++  - training.encoder_pf.ramp=1000
++  - training.encoder_pf.lr_mult=0.1
++  - training.encoder_pf.wd=0
++  - training.lr_scheduler=constant
++  - training.weight_avg.swad.mode=uniform
++  - training.weight_avg.swad.start=10000
++  - training.weight_avg.swad.end=20000
++  - training.weight_avg.ema_9998.mode=ema
++  - training.weight_avg.ema_9998.decay=0.9998
++  - training.bn_recal=true
++  - training.enc_probe_every=2000
++weights:
++  - path: /home/noob/.cache/huggingface/hub/models--timm--hrnet_w18.ms_aug_in1k/snapshots/7e2c5583769f54514fd87e3ba9de408e33eaba0f/model.safetensors
++    md5: e6bb005ddbe1b52bde05618fc6b4b8e3
++weights_key: swad_bn
++readouts:
++  - {name: raw, weights_key: model}
++  - {name: raw_bn, weights_key: raw_bn}
++  - {name: swad, weights_key: swad}
++  - {name: swad_bn, weights_key: swad_bn}
++  - {name: ema_9998, weights_key: ema_9998}
++  - {name: ema_9998_bn, weights_key: ema_9998_bn}
++decision_rule: argmax24
++memory:
++  peak_mib: null
++  gate_mib: 11000
++  source: "peak not measured (built on CPU). Basis of the gate: hrnet_w18_unetpp_pf_v11 peak 8,430 MiB on cv02; the averagers swad and ema_9998 and the probe start copy add about 0.2 GB of weights (swad_const_pf_v11 added 324 MiB to PF on gaint); expected peak 8,650 to 8,760 MiB, + 2,048 = at most 10,808; gate 11,000 (the gate of swad_const_pf_v11). A GPU smoke measures it before the launch."
++external: null
++diff_ref: hrnet_w18_unetpp_pf_v11
++notes: "c3x: hrnet_w18_unetpp_pf_v11 plus the changes of swad_const_pf_v11 (constant lr, swad 10k to 20k, ema_9998, bn_recal, enc probe). readouts: model (constant-lr raw), raw_bn, swad, swad_bn (primary), ema_9998, ema_9998_bn. Encoder drift: train.log 'ENC probe' lines and enc_probe.jsonl (one stage, model)."
+--- /dev/null
++++ b/bench/methods_cv02/hrnet_w18_unetpp_swad_const_pf_v11.yaml
+@@ -0,0 +1,60 @@
++# c3x (lead's rulings C1 to C6 of 17 Nov 2026): HRNet-W18 U-Net++ with swad_const, the combination of the rows2 row
++# hrnet_w18_unetpp_pf_v11 and the wave 2a arm swad_const_pf_v11. Card = hrnet_w18_unetpp_pf_v11 with exactly the changes
++# that swad_const_pf_v11 makes to house_r34_unetpp_pf_v11: the 8 opts below 'training.encoder_pf.wd=0' (constant lr after
++# warm-up, a uniform average of every iterate of steps 10,000 to 20,000, an EMA 0.9998, BN recalibration on the training
++# fold at the end, the encoder probe every 2,000 steps), weights_key swad_bn and the 6 readouts. Model, encoder weights
++# file, data, loss, PF settings, steps and batch = the HRNet card (its header holds architecture, licence, parameters).
++# Pre-declared primary readout: swad_bn; declared secondary readout: swad. The encoder probe names one stage 'model' on
++# this encoder (timm tensor names encoder.model.*), not layer3 / layer4; it is a log only.
++# Proof of the two equalities: tests/test_bench_c3x_card.py.
++name: hrnet_w18_unetpp_swad_const_pf_v11
++version: 1
++family: cnn-hrnet-unetpp
++papers: ["arXiv:1908.07919", "arXiv:2102.08604", "arXiv:2411.18704"]
++kind: harness
++config: configs/supervised.yaml
++opts:
++  - data.labeled_fraction=1.0
++  - training.total_steps=20000
++  - data.split_seed=0
++  - training.labeled_batch_size=8
++  - data.mask_subdir=masks_v11
++  - data.mask_ignore_value=255
++  - model.name=bench_smp
++  - model.decoder=unetplusplus
++  - model.encoder_name=tu-hrnet_w18
++  - model.encoder_weights=imagenet
++  - data.augmentation=labelsafe
++  - loss.supervised=ce_dice
++  - training.val_every=20000
++  - training.encoder_pf.freeze=1000
++  - training.encoder_pf.ramp=1000
++  - training.encoder_pf.lr_mult=0.1
++  - training.encoder_pf.wd=0
++  - training.lr_scheduler=constant
++  - training.weight_avg.swad.mode=uniform
++  - training.weight_avg.swad.start=10000
++  - training.weight_avg.swad.end=20000
++  - training.weight_avg.ema_9998.mode=ema
++  - training.weight_avg.ema_9998.decay=0.9998
++  - training.bn_recal=true
++  - training.enc_probe_every=2000
++weights:
++  - path: /tmp/noob_el/cache/hf/hub/models--timm--hrnet_w18.ms_aug_in1k/snapshots/7e2c5583769f54514fd87e3ba9de408e33eaba0f/model.safetensors
++    md5: e6bb005ddbe1b52bde05618fc6b4b8e3
++weights_key: swad_bn
++readouts:
++  - {name: raw, weights_key: model}
++  - {name: raw_bn, weights_key: raw_bn}
++  - {name: swad, weights_key: swad}
++  - {name: swad_bn, weights_key: swad_bn}
++  - {name: ema_9998, weights_key: ema_9998}
++  - {name: ema_9998_bn, weights_key: ema_9998_bn}
++decision_rule: argmax24
++memory:
++  peak_mib: null
++  gate_mib: 11000
++  source: "peak not measured (built on CPU). Basis of the gate: hrnet_w18_unetpp_pf_v11 peak 8,430 MiB on cv02; the averagers swad and ema_9998 and the probe start copy add about 0.2 GB of weights (swad_const_pf_v11 added 324 MiB to PF on gaint); expected peak 8,650 to 8,760 MiB, + 2,048 = at most 10,808; gate 11,000 (the gate of swad_const_pf_v11). A GPU smoke measures it before the launch."
++external: null
++diff_ref: hrnet_w18_unetpp_pf_v11
++notes: "c3x: hrnet_w18_unetpp_pf_v11 plus the changes of swad_const_pf_v11 (constant lr, swad 10k to 20k, ema_9998, bn_recal, enc probe). readouts: model (constant-lr raw), raw_bn, swad, swad_bn (primary), ema_9998, ema_9998_bn. Encoder drift: train.log 'ENC probe' lines and enc_probe.jsonl (one stage, model)."
+--- /dev/null
++++ b/tests/test_bench_c3x_card.py
+@@ -0,0 +1,100 @@
++"""c3x card hrnet_w18_unetpp_swad_const_pf_v11 (lead's ruling C2, 17 Nov 2026): the card is hrnet_w18_unetpp_pf_v11 with
++exactly the changes that swad_const_pf_v11 makes to house_r34_unetpp_pf_v11. Three mechanical proofs, PyYAML only:
++  1. card files: the lines that the new card adds to or removes from the HRNet card are the lines that the swad card adds
++     to or removes from the PF card (comment lines and the five descriptive keys name, papers, memory, diff_ref, notes
++     aside; those five are checked one by one);
++  2. parsed cards: opts = HRNet opts + the opts the swad card appends to the PF opts; weights_key and readouts = the swad
++     card's; every other functional key = the HRNet card's;
++  3. rendered config (what train.py writes as config_used.yaml): new against HRNet differs in the same keys, with the same
++     values, as swad against PF; for a real job (seed, run name, cv5v3 root) nothing else differs.
++Also: the cv02 variant differs in the weights path only (cvcard.py passes); the card validates; its gate rule.
++"""
++import difflib
++import subprocess
++import sys
++from pathlib import Path
++
++REPO = Path(__file__).resolve().parents[1]
++sys.path.insert(0, str(REPO))
++from bench.cards import config_diff, expected_config, load_card, run_opts  # noqa: E402
++
++M = REPO / "bench" / "methods"
++NEW, HRNET, SWAD, PF = (M / f"{n}.yaml" for n in ("hrnet_w18_unetpp_swad_const_pf_v11", "hrnet_w18_unetpp_pf_v11",
++                                                 "swad_const_pf_v11", "house_r34_unetpp_pf_v11"))
++DESCRIPTIVE = ("name:", "papers:", "memory:", "  peak_mib:", "  gate_mib:", "  source:", "diff_ref:", "notes:")
++SWAD_KEYS = ["training.bn_recal", "training.enc_probe_every", "training.lr_scheduler", "training.weight_avg.ema_9998.decay",
++             "training.weight_avg.ema_9998.mode", "training.weight_avg.swad.end", "training.weight_avg.swad.mode",
++             "training.weight_avg.swad.start"]
++
++
++def changed_lines(a: Path, b: Path) -> list[str]:
++    """+/- lines of the diff a -> b, without comment lines and the descriptive keys."""
++    d = difflib.unified_diff(a.read_text().splitlines(), b.read_text().splitlines(), lineterm="", n=0)
++    return [l for l in d if l[:1] in "+-" and l[:3] not in ("+++", "---") and not l[1:].startswith("#")
++            and not l[1:].startswith(DESCRIPTIVE)]
++
++
++def test_file_diff_equals_swad_diff():
++    want = changed_lines(PF, SWAD)
++    assert changed_lines(HRNET, NEW) == want
++    assert len(want) == 17 and sum(l.startswith("+  - training.") for l in want) == 8      # 8 opts, weights_key -/+, readouts + 6
++    assert want[8:10] == ["-weights_key: model", "+weights_key: swad_bn"] and want[10] == "+readouts:"
++
++
++def test_parsed_card_equals_hrnet_plus_swad_changes():
++    new, hr, sw, pf = (load_card(p) for p in (NEW, HRNET, SWAD, PF))
++    n = len(pf["opts"])
++    assert sw["opts"][:n] == pf["opts"]                       # the swad card only appends to the PF opts
++    added = sw["opts"][n:]
++    assert len(added) == 8 and new["opts"] == hr["opts"] + added
++    assert new["weights_key"] == sw["weights_key"] == "swad_bn" and new["readouts"] == sw["readouts"]
++    assert [r["weights_key"] for r in new["readouts"]] == ["model", "raw_bn", "swad", "swad_bn", "ema_9998", "ema_9998_bn"]
++    for k in ("version", "family", "kind", "config", "weights", "decision_rule", "external"):
++        assert new[k] == hr[k], k
++    assert set(new) == set(sw) and set(new) - set(hr) == {"readouts"}
++    # the five descriptive keys
++    assert new["name"] == NEW.stem and new["diff_ref"] == hr["name"] and sw["diff_ref"] == pf["name"]
++    assert new["papers"] == hr["papers"] + sw["papers"] and pf["papers"] == []
++    assert new["memory"]["peak_mib"] is None and new["memory"]["gate_mib"] == 11000 == sw["memory"]["gate_mib"]
++    assert new["memory"]["gate_mib"] >= hr["memory"]["peak_mib"] + 2048
++
++
++def test_rendered_config_diff_equals_swad_diff():
++    new, hr, sw, pf = (load_card(p) for p in (NEW, HRNET, SWAD, PF))
++    a = config_diff(expected_config(hr, 0, "x", "R"), expected_config(new, 0, "x", "R"))
++    b = config_diff(expected_config(pf, 0, "x", "R"), expected_config(sw, 0, "x", "R"))
++    assert a == b and [x.split(":")[0] for x in a] == SWAD_KEYS
++    assert "training.lr_scheduler: 'cosine' -> 'constant'" in a and "training.weight_avg.swad.start: '<absent>' -> 10000" in a
++    assert "training.weight_avg.swad.end: '<absent>' -> 20000" in a and "training.bn_recal: '<absent>' -> True" in a
++    # a real job of each arm on the same seed and root: only the run name and the 8 keys differ
++    root = "/tmp/noob_el/bench_data_v3b/roots/cv5v3_v11_f2"
++    d = config_diff(expected_config(hr, 7, "c3h_hrnet_w18_unetpp_pf_f2_s7", root), expected_config(new, 7, "c3x_hrnet_swad_v11_f2_s7", root))
++    assert sorted(x.split(":")[0] for x in d) == sorted(SWAD_KEYS + ["run_name"])
++    cfg = expected_config(new, 7, "c3x_hrnet_swad_v11_f2_s7", root)
++    assert cfg["model"]["encoder_name"] == "tu-hrnet_w18" and cfg["model"]["decoder"] == "unetplusplus"
++    assert cfg["training"]["total_steps"] == 20000 and cfg["training"]["labeled_batch_size"] == 8
++
++
++def test_run_opts_are_the_hrnet_opts_plus_eight():
++    new, hr = load_card(NEW), load_card(HRNET)
++    a = run_opts(new, 5, "n", "/r"); b = run_opts(hr, 5, "n", "/r")
++    assert a[:len(b) - 2] == b[:-2] and a[-2:] == b[-2:] and len(a) == len(b) + 8
++    assert a[len(b) - 2:-2] == [f"{k}={v}" for k, v in (
++        ("training.lr_scheduler", "constant"), ("training.weight_avg.swad.mode", "uniform"),
++        ("training.weight_avg.swad.start", 10000), ("training.weight_avg.swad.end", 20000),
++        ("training.weight_avg.ema_9998.mode", "ema"), ("training.weight_avg.ema_9998.decay", 0.9998),
++        ("training.bn_recal", "true"), ("training.enc_probe_every", 2000))]
++
++
++def test_cv02_variant():
++    cv = REPO / "bench" / "methods_cv02" / NEW.name
++    a, b = NEW.read_text().splitlines(), cv.read_text().splitlines()
++    d = [l for l in difflib.unified_diff(a, b, lineterm="", n=0) if l[:1] in "+-" and l[:3] not in ("+++", "---")]
++    assert len(d) == 2 and d[0].startswith("-  - path: /home/noob/.cache/huggingface/hub/") \
++        and d[1].startswith("+  - path: /tmp/noob_el/cache/hf/hub/"), d
++    assert d[0].replace("/home/noob/.cache/huggingface/hub/", "/tmp/noob_el/cache/hf/hub/")[1:] == d[1][1:]
++    assert load_card(cv)["weights"] == load_card(REPO / "bench" / "methods_cv02" / HRNET.name)["weights"]   # the HRNet file, cv02 path
++    r = subprocess.run([sys.executable, str(REPO / "bench" / "q" / "cv02" / "cvcard.py"), str(NEW), str(cv)],
++                       capture_output=True, text=True)
++    assert r.returncode == 0, r.stdout + r.stderr
++    assert r.stdout.split() == [load_card(HRNET)["weights"][0]["md5"], load_card(REPO / "bench" / "methods_cv02" / HRNET.name)["weights"][0]["path"]]

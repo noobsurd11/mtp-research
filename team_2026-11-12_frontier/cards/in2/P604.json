@@ -1,0 +1,42 @@
+{
+ "paper_id": "doi:10.64898/2026.10.14.26365443",
+ "title": "Self-supervised pretraining for dermoscopic lesion segmentation with limited labels: A controlled comparison of initialisation strategies",
+ "year": 2026,
+ "venue": "medRxiv",
+ "url": "https://doi.org/10.64898/2026.10.14.26365443",
+ "code_url": "",
+ "mechanism": "Controlled comparison: in a ResNet-34 U-Net, ImageNet init beats in-domain masked-reconstruction pretraining, and ImageNet followed by SSL lowers Dice.",
+ "adaptation": "No arm. Independent replication of our MIM null on the same architecture; argues to stop R34 + pool-MIM variants and spend SSL budget on new objectives or backbones.",
+ "min_experiment": "None; cite in the benchmark's pretraining section.",
+ "evidence": "R: ISIC 2016, 765 SSL images, 12-94 labels, 5 seeds; ImageNet best at every budget in R34; SSL after ImageNet worse at 4 of 5 budgets.",
+ "prior_overlap": "Same mechanism as our closed MIM100-PF line (R34, in-domain MIM after ImageNet): consistent with the null.",
+ "score": 15,
+ "bench_score": 60,
+ "bet": "safe",
+ "gpu_hours": 0,
+ "targets": [
+  "benchmark"
+ ],
+ "directions": [
+  "D32"
+ ],
+ "scout_scores": [
+  15,
+  15
+ ],
+ "alt_notes": [
+  {
+   "from": "D32",
+   "adaptation": "No arm; independent replication of our R34 MIM null; reason to stop R34 + pool-MIM variants and spend SSL budget on new objectives/backbones.",
+   "min_experiment": "None; cite in the benchmark's pretraining section.",
+   "score": 15
+  }
+ ],
+ "final": 15,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 604,
+ "pid": "P604"
+}

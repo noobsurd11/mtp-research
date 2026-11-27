@@ -1,0 +1,43 @@
+{
+ "paper_id": "doi:10.1109/iccvw69036.2025.00441",
+ "title": "Uncertainty-Aware ControlNet: Bridging Domain Gaps with Synthetic Image Generation",
+ "year": 2025,
+ "venue": "ICCV Workshops",
+ "url": "https://arxiv.org/pdf/2510.11346",
+ "code_url": "https://github.com/JNiemeijer/UnAICorN.git",
+ "mechanism": "A semantic ControlNet trained on labelled masks and an uncertainty ControlNet trained on labelled + unlabelled images (conditioned on the segmenter's mean entropy) are fused at sampling, giving labelled images in the unlabelled domain's style.",
+ "adaptation": "LDM fine-tuned on the 11.9k pool (1-ch to 3); semantic ControlNet on 478 train masks; uncertainty = house 5-seed ensemble mean entropy per cell (high on half-cut/scuff CSIR); sample entropy from the half-cut pool; feed half-cut-cropped train masks so layout and style move toward E1. Use for inactive, scuff context, layout; latent 64x64 means crack pixels must pass an adherence check.",
+ "min_experiment": "PF + 2,000 generated half-cut-style cells vs PF, 5 seeds. Metric E1 crack relF1@2 and E1 inactive IoU; guard test crack IoU clean 49. Kill: both E1 gains < +0.03 or test crack IoU drop > 0.01.",
+ "evidence": "R: retinal OCT Spectralis (labelled) to Home-OCT (unlabelled), about 10k B-scans per domain at 256 px; abstract reports significantly improved segmentation without target labels; also Cityscapes to ACDC. Numbers not read.",
+ "gpu_hours": 90,
+ "bet": "medium",
+ "targets": [
+  "e1_unseen",
+  "inactive"
+ ],
+ "prior_overlap": "Synthetic half-cut views (geometry only) were n.d.; generated target appearance never tried. Open.",
+ "score": 55,
+ "bench_score": 40,
+ "directions": [
+  "D33"
+ ],
+ "scout_scores": [
+  55,
+  55
+ ],
+ "alt_notes": [
+  {
+   "from": "D33",
+   "adaptation": "LDM fine-tuned on the 11.9k pool; semantic ControlNet on 478 train masks (24-class one-hot); uncertainty = house 5-seed mean entropy, high on half-cut/scuff CSIR cells; feed half-cut-cropped train masks. Use for inactive, scuff, layout; crack pixels only after the adherence gate.",
+   "min_experiment": "PF + 2,000 generated half-cut-style cells vs PF. Metric E1 crack relF1@2 and E1 inactive IoU, guard test crack IoU. Kill: both E1 gains < +0.03 or test crack drop > 0.01. About 90 GPU-h.",
+   "score": 55
+  }
+ ],
+ "final": 55,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 155,
+ "pid": "P155"
+}

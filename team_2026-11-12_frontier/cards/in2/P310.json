@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.1007/978-3-031-77610-6_3",
+ "title": "Segmentation Style Discovery: Application to Skin Lesion Images",
+ "year": 2024,
+ "venue": "MICCAI ISIC workshop (LNCS 2025)",
+ "url": "https://arxiv.org/abs/2408.02787",
+ "code_url": "https://github.com/sfu-mial/StyleSeg",
+ "mechanism": "StyleSeg: M output heads plus a style classifier on (image, mask); winner-take-all Dice plus classifier-weighted Dice discovers M consistent styles without annotator IDs.",
+ "adaptation": "M = 3 crack heads combined with source ID, to discover within-source annotator styles; after training pick each source's majority style head from train cells and use it at test.",
+ "min_experiment": "Arm: source-FiLM + 3 style heads, 5 seeds vs source-FiLM arm alone; metric clean-49 crack IoU; kill if < +0.012 over the source-FiLM arm.",
+ "evidence": "R: outperforms competing methods on four skin-lesion datasets; strong alignment of discovered styles with annotator preferences on ISIC-MultiAnnot.",
+ "prior_overlap": "none",
+ "score": 45,
+ "bench_score": 30,
+ "bet": "medium",
+ "gpu_hours": 6,
+ "targets": [
+  "crack"
+ ],
+ "directions": [
+  "D17"
+ ],
+ "scout_scores": [
+  45
+ ],
+ "final": 45,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 310,
+ "pid": "P310"
+}

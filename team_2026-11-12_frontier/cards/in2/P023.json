@@ -1,0 +1,55 @@
+{
+ "paper_id": "doi:10.1109/tmi.2020.3046692",
+ "title": "Analyzing Overfitting Under Class Imbalance in Neural Networks for Image Segmentation",
+ "year": 2020,
+ "venue": "IEEE TMI",
+ "url": "https://arxiv.org/abs/2102.10365",
+ "code_url": "",
+ "mechanism": "With small data, test-time logits of rare classes shift toward the decision boundary while the majority class does not; asymmetric margin / focal losses applied only to the rare class counter the shift.",
+ "adaptation": "Asymmetric large margin on the true-class logit of crack, inactive, gridline, splice, edge_dark, material only. First verify the logit shift on our checkpoints (train vs val vs E1 crack-logit histograms); E1 shows 70% of crack pixels at p<0.001, consistent with the claim.",
+ "min_experiment": "Arm: margin m in {0.5, 1.0}, 3 seeds each on house config; baselines SUP100 and PF; metric test crack recall and mIoU_rob, E1 crack recall secondary; kill if test crack recall gain < 0.02 and E1 recall gain < 0.03.",
+ "score": 70,
+ "bench_score": 55,
+ "bet": "safe",
+ "evidence": "R (full text): KiTS kidney tumor, 100% data, post-processed: DSC 79.2 -> 82.3, sensitivity 77.0 -> 81.4 with asymmetric large margin; consistent sensitivity gains on BRATS, ATLAS, KiTS at 10-100% data.",
+ "gpu_hours": 7,
+ "prior_overlap": "none: offset-tolerant CE and Dice variants tested, margin / asymmetric focal never tested.",
+ "targets": [
+  "crack",
+  "inactive",
+  "e1_unseen",
+  "other_classes"
+ ],
+ "directions": [
+  "D19",
+  "D21"
+ ],
+ "scout_scores": [
+  70,
+  52,
+  52
+ ],
+ "alt_notes": [
+  {
+   "from": "D21",
+   "adaptation": "Our symptoms match: inactive recall 0.61, and on E1 70% of crack pixels get p<0.001. Apply stronger photometric augmentation only to crack and inactive cells or pixels: contrast, gamma, noise, and a simulated downscale-and-pad for the BMRK style. Add an asymmetric margin on classes 11 and 14. This acts at training time, unlike the inference logit bias already in use.",
+   "min_experiment": "PF+asymmetric rare-class augmentation vs PF, 5 seeds plus CV. Metrics: CV inactive IoU, BMRK inactive IoU, E1 crack recall@2. Kill if CV inactive gain < +0.015 and E1 recall@2 gain < +0.02.",
+   "score": 52
+  },
+  {
+   "from": "D21",
+   "adaptation": "Strong photometric augmentation (contrast, gamma, noise, simulated downscale for BMRK) only inside dilated crack and inactive masks; asymmetric margin on classes 11 and 14. Training-time, unlike the inference logit bias already used.",
+   "min_experiment": "PF+ASYM vs PF; CV inactive IoU, BMRK inactive IoU, E1 crack recall@2. Kill: CV inactive < +0.015 and E1 recall@2 < +0.02.",
+   "score": 52
+  }
+ ],
+ "final": 70,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 23,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P023"
+}

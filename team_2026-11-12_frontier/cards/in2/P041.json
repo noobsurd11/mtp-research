@@ -1,0 +1,46 @@
+{
+ "paper_id": "arxiv:2512.01789",
+ "title": "SAM3-UNet: Simplified Adaptation of Segment Anything Model 3",
+ "year": 2025,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2512.01789",
+ "code_url": "https://github.com/WZH0120/SAM3-UNet",
+ "mechanism": "SAM3 image encoder with a simple adapter and a light U-Net decoder; under 6 GB at batch 12.",
+ "adaptation": "1008 input (2x of 512), 3-ch replicated EL, 24-class head, house loss and schedule; run in parallel with SAM2-UNet and keep the better for ensembles.",
+ "min_experiment": "SAM3-UNet vs house PF and vs SAM2-UNet; 5-fold CV then 3 seeds clean-49 + E1; same kill line as SAM2-UNet.",
+ "evidence": "R (from CoRe-SAM3 Table 2): SAM3-UNet 68.6% mean crack IoU over 5 crack sets (84-2,357 train images) vs native SAM3 62.3%, crack specialists 67.8-70.0%.",
+ "prior_overlap": "none; SAM3 never tried here.",
+ "score": 66,
+ "bench_score": 80,
+ "bet": "safe",
+ "gpu_hours": 60,
+ "targets": [
+  "crack",
+  "e1_unseen",
+  "benchmark"
+ ],
+ "directions": [
+  "D14"
+ ],
+ "scout_scores": [
+  66,
+  62
+ ],
+ "alt_notes": [
+  {
+   "from": "D14",
+   "adaptation": "Same recipe as SAM2-UNet on the SAM3 encoder at 1008 px (2x upscale of 512); 24-class head; house loss and aug. Provides the SAM3 encoder arm.",
+   "min_experiment": "SAM3-UNet @1008, 3 seeds vs house and vs SAM2-UNet; same metrics; kill as SAM2-UNet. Run only after weights licence OK.",
+   "score": 62
+  }
+ ],
+ "final": 66,
+ "bench": 80,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 41,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P041"
+}

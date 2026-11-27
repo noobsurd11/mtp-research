@@ -1,0 +1,43 @@
+{
+ "paper_id": "doi:10.1109/iccv48922.2021.00822",
+ "title": "DRAEM: A discriminatively trained reconstruction embedding for surface anomaly detection",
+ "year": 2021,
+ "venue": "ICCV",
+ "url": "https://arxiv.org/abs/2108.07610",
+ "code_url": "https://github.com/VitjanZ/DRAEM",
+ "mechanism": "Perlin-noise masks blend outside textures (DTD) into normal images. A reconstruction network plus a discriminative network is trained to segment these synthetic anomalies.",
+ "evidence": "Beat prior unsupervised methods on MVTec AD by a large margin. On DAGM its localisation beats fully supervised methods (abstract). The repo is MIT-licensed and uses DTD as the anomaly source.",
+ "adaptation": "For the benchmark, run it as the 'no defect labels' baseline: train on crack-free train cells, then score crack and inactive AP and relF1@2 on test and E1. For scores, replace DTD textures with dark-line and dark-blob primitives; this is a long shot.",
+ "min_experiment": "DRAEM trained on crack-free train cells. Report crack and inactive AP and relF1@2 on test and E1. No kill line (benchmark baseline). Score arm: PF + DRAEM map as a second input channel vs PF, kill if E1 relF1@2 gain < +0.02.",
+ "prior_overlap": "none",
+ "score": 33,
+ "bench_score": 60,
+ "bet": "moonshot",
+ "targets": [
+  "benchmark",
+  "e1_unseen"
+ ],
+ "gpu_hours": 8,
+ "directions": [
+  "D21"
+ ],
+ "scout_scores": [
+  33,
+  30
+ ],
+ "alt_notes": [
+  {
+   "from": "D21",
+   "adaptation": "Benchmark no-defect-label baseline trained on crack-free train cells; for scores, swap DTD textures for dark-line and dark-blob primitives.",
+   "min_experiment": "Benchmark run: crack / inactive AP and relF1@2 on test and E1; no kill.",
+   "score": 30
+  }
+ ],
+ "final": 33,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 480,
+ "pid": "P480"
+}

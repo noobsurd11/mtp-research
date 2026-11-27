@@ -1,0 +1,51 @@
+{
+ "paper_id": "doi:10.1016/j.media.2023.103015",
+ "title": "Do we really need dice? The hidden region-size biases of segmentation losses",
+ "year": 2023,
+ "venue": "Medical Image Analysis",
+ "url": "https://arxiv.org/abs/2104.08717",
+ "code_url": "https://github.com/by-liu/SegLossBias",
+ "mechanism": "CE and Dice share a ground-truth matching term and differ in an implicit region-size penalty; replace it with an explicit L1 or KL term matching predicted class proportions to the target.",
+ "adaptation": "CE + per-image proportion term on crack and inactive, replacing soft Dice; gives explicit control over crack predicted area (width), i.e. the precision-recall balance now set by a post-hoc logit bias.",
+ "min_experiment": "Arm CE + L1 proportion term vs SUP100, 5 v 5. Kill if crack IoU < +0.012 and no relR@2 gain at relP@2 >= 0.90.",
+ "score": 52,
+ "bench_score": 45,
+ "bet": "safe",
+ "targets": [
+  "crack",
+  "inactive"
+ ],
+ "evidence": "R: theory plus experiments over several losses and applications showing explicit size terms match or beat Dice (abstract; numbers not read).",
+ "gpu_hours": 6,
+ "prior_overlap": "none",
+ "directions": [
+  "D18",
+  "D20"
+ ],
+ "scout_scores": [
+  52,
+  52,
+  40
+ ],
+ "alt_notes": [
+  {
+   "from": "D18",
+   "adaptation": "CE + per-image proportion term on crack and inactive replacing soft Dice; gives direct control of predicted crack width instead of a post-hoc logit bias.",
+   "min_experiment": "Arm: CE + L1 proportion term, 5 seeds; baseline SUP100. Kill: crack IoU < +0.012 and no relR@2 gain at relP@2 >= 0.90.",
+   "score": 52
+  },
+  {
+   "from": "D20",
+   "adaptation": "Per-image crack and inactive proportion term in place of soft Dice; controls predicted crack area that today needs a val-chosen logit bias.",
+   "min_experiment": "Arm: CE + KL proportion term, 5 seeds. Baseline: house (CE + Dice). Metrics: crack IoU at argmax, pixel P/R balance, relF1@2. Kill: argmax crack IoU < house.",
+   "score": 40
+  }
+ ],
+ "final": 52,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 178,
+ "pid": "P178"
+}

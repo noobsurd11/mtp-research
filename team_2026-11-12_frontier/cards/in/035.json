@@ -1,0 +1,52 @@
+{
+ "paper_id": "doi:10.1016/j.ress.2025.110909",
+ "title": "SelectSeg: Uncertainty-based selective training and prediction for accurate crack segmentation under limited data and noisy annotations",
+ "year": 2025,
+ "venue": "Reliability Engineering & System Safety",
+ "url": "https://doi.org/10.1016/j.ress.2025.110909",
+ "code_url": "",
+ "mechanism": "A deep-ensemble uncertainty flags likely-wrong crack annotations, training uses only trusted pixels, and the model abstains on uncertain test regions.",
+ "adaptation": "The 5-seed house and PF ensembles already exist, so uncertainty maps cost no extra training. Ignore a train pixel when all 5 seeds disagree with its label beyond 2 px: label says crack but ensemble p<0.02 within 2 px, or label says background but ensemble p>0.9 on a dark ridge. Retrain. The abstention map becomes a reliability output for the benchmark.",
+ "min_experiment": "Arm: house model with the ensemble-disagreement ignore mask, 5 seeds. Baseline: house, 5 seeds. Metrics: crack IoU, relF1@2, BMRK crack IoU. Kill if both crack IoU and relF1@2 show no detectable difference. Sanity check on train only: share of the 24 audited cells that get flagged.",
+ "score": 68,
+ "bench_score": 50,
+ "bet": "safe",
+ "targets": [
+  "crack",
+  "benchmark"
+ ],
+ "evidence": "R (from web listing): on real crack datasets with noisy annotations it beats existing methods, and both selective training and selective prediction help. A noisy CRACK500 mask set (10 to 100% of masks noised) is on Mendeley. Exact numbers not retrieved.",
+ "gpu_hours": 7,
+ "prior_overlap": "none. The 5-seed ensemble was used only at inference, never to filter training labels.",
+ "directions": [
+  "D15",
+  "D16"
+ ],
+ "scout_scores": [
+  68,
+  55,
+  50
+ ],
+ "alt_notes": [
+  {
+   "from": "D15",
+   "adaptation": "Rank train cells by 5-seed ensemble disagreement with the crack label; unlabel the crack channel of the top 10% (about 24 cells, the audit count) and train them through the existing MT consistency branch. Report coverage vs crack F curve.",
+   "min_experiment": "Arm: filtered cells as unlabelled + MT. Baseline: house. Metric: clean-49 crack IoU and relF1@2. Kill if crack IoU < house + 0.008. About 8 GPU-h.",
+   "score": 55
+  },
+  {
+   "from": "D16",
+   "adaptation": "Use the existing 5-seed ensembles to rank train cells and crack components by disagreement with the label; demote the worst 5 to 10% (the audit flagged 24 of 239 cells) to ignore regions or unlabeled; retrain.",
+   "min_experiment": "Arm: house trained with ensemble-flagged components set to ignore, 5 seeds. Baseline: house. Metric: clean-49 crack IoU, relR@2 and E1 crack relF1@2. Kill: crack IoU under +0.012 and E1 relF1@2 under +0.02.",
+   "score": 50
+  }
+ ],
+ "final": 68,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 35,
+ "pub_allowed": 1,
+ "selected_for": "top"
+}

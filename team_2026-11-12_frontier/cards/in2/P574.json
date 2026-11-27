@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2212.04690",
+ "title": "Benchmarking Self-Supervised Learning on Diverse Pathology Datasets",
+ "year": 2022,
+ "venue": "CVPR 2023",
+ "url": "https://arxiv.org/abs/2212.04690",
+ "code_url": "",
+ "mechanism": "Large SSL benchmark in pathology with 4 SSL methods; domain-aligned pretraining beats ImageNet, also at low labels; domain-specific augmentations help.",
+ "adaptation": "Template for the benchmark's pretraining table: same backbone and fine-tune, ImageNet vs in-domain SSL vs general FM, several label fractions, plus E1.",
+ "min_experiment": "None; protocol template.",
+ "evidence": "R: consistent gains over ImageNet in linear and fine-tune evaluation, including nuclei instance segmentation.",
+ "prior_overlap": "None.",
+ "score": 22,
+ "bench_score": 55,
+ "bet": "safe",
+ "gpu_hours": 0,
+ "targets": [
+  "benchmark"
+ ],
+ "directions": [
+  "D32"
+ ],
+ "scout_scores": [
+  22
+ ],
+ "final": 22,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 574,
+ "pid": "P574"
+}

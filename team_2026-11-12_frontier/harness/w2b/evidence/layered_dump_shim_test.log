@@ -1,0 +1,9 @@
+shim checkpoint: PF core keys 350 + aux keys 2; load <All keys matched successfully>
+[2026-11-17 18:58:09] shim dump argmax24 rc=0: dumped shim_lci_f0_s5.argmax24 cv5v2_f0: 107 cells, 134.4 MiB, ties 0, key model, step 20000, cpu/fp32, 60s -> tracebacks 0
+[2026-11-17 18:59:22] shim dump card rc=0: dumped shim_lci_f0_s5 cv5v2_f0: 107 cells, 175.9 MiB, ties 0, key model, step 20000, cpu/fp32, 67s -> tracebacks 0
+[2026-11-17 19:00:30] shim dump layered_ci_union rc=0: dumped shim_lci_f0_s5.layered_ci_union cv5v2_f0: 107 cells, 175.9 MiB, ties 0, key model, step 20000, cpu/fp32, 64s -> tracebacks 0
+[2026-11-17 19:01:31] plain PF dump of the same W1-G checkpoint rc=0: dumped w1g_pf_v11_f0_s5 cv5v2_f0: 107 cells
+[2026-11-17 19:01:33] (1) shim argmax24 dump vs plain PF dump rc=0: IDENTICAL (107 cells, 535 arrays; arrays only; manifests not compared)
+(2) layered_ci_replace: 107 cells pass the writer check; crack px equal to argmax24 in 107/107; p_inact_softmax = plain p_inact in 107/107; px changed by the rule 13874588; layer px 13956735
+(2) layered_ci_union: 107 cells pass the writer check; crack px equal to argmax24 in 107/107; p_inact_softmax = plain p_inact in 107/107; px changed by the rule 13874460; layer px 13956735
+[2026-11-17 19:01:41] shim test done; removing /home/noob/work/bench_w2b_io/shim

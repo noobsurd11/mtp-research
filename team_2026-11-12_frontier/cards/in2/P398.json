@@ -1,0 +1,43 @@
+{
+ "paper_id": "doi:10.1109/tcsvt.2026.3701691",
+ "title": "Diffusion-Based Data Augmentation and Knowledge Distillation With Generated Soft Labels for Oil Spill Segmentation Learning on Satellite SAR Images (DAKTer)",
+ "year": 2026,
+ "venue": "IEEE TCSVT",
+ "url": "https://arxiv.org/pdf/2412.08116",
+ "code_url": "",
+ "mechanism": "Diffusion jointly generates images and soft-label maps, with an SNR-based factor aligning noise across the two modalities; a student segmenter learns from soft labels.",
+ "adaptation": "Joint pixel-space generation of (EL, p_crack band about 4 px wide, p_inactive); soft crack labels match the jittered line; student trained on real hard + generated soft labels.",
+ "min_experiment": "PF student with generated soft-label pairs vs PF. Metric test crack relF1@2 and IoU at val-chosen bias. Kill: both gains < +0.005.",
+ "evidence": "R: scarce SAR oil-spill data; better than other generative augmentation methods across several segmenters (abstract gives no numbers).",
+ "gpu_hours": 60,
+ "bet": "moonshot",
+ "targets": [
+  "crack",
+  "inactive"
+ ],
+ "prior_overlap": "Offset-tolerant CE (n.d.) changed the loss on real labels; generated soft-label pairs are untested. Open.",
+ "score": 40,
+ "bench_score": 25,
+ "directions": [
+  "D33"
+ ],
+ "scout_scores": [
+  40,
+  40
+ ],
+ "alt_notes": [
+  {
+   "from": "D33",
+   "adaptation": "Joint pixel-space generation of (EL, p_crack band about 4 px, p_inactive); soft labels fit jittered cracks.",
+   "min_experiment": "Student on real + generated soft labels vs PF. Metric test crack relF1@2 and IoU at val bias. Kill: both < +0.005. About 60 GPU-h.",
+   "score": 40
+  }
+ ],
+ "final": 40,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 398,
+ "pid": "P398"
+}

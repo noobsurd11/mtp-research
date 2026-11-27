@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.3390/electronics14142834",
+ "title": "A Transformer-Based Pavement Crack Segmentation Model with Local Perception and Auxiliary Convolution Layers",
+ "year": 2025,
+ "venue": "Electronics",
+ "url": "https://www.mdpi.com/2079-9292/14/14/2834",
+ "code_url": "",
+ "mechanism": "Mask2Former plus a local perception module and auxiliary convolution layers to keep thin crack features that fade in the transformer path.",
+ "evidence": "R: abstract only; numbers not retrieved (MDPI 403).",
+ "adaptation": "Supports the full-res conv refinement head proposed for EoMT/M2F; local conv branch fed from the stem at full res for 1-2 px EL cracks.",
+ "min_experiment": "Folded into the EoMT/M2F runs: refinement head on vs off; metric crack IoU and relF1@2; kill if gain < 0.012 crack IoU.",
+ "score": 35,
+ "bench_score": 25,
+ "bet": "medium",
+ "gpu_hours": 10,
+ "targets": [
+  "crack"
+ ],
+ "prior_overlap": "none.",
+ "directions": [
+  "D23"
+ ],
+ "scout_scores": [
+  35
+ ],
+ "final": 35,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 467,
+ "pid": "P467"
+}

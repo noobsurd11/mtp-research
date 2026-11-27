@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.1111/mice.13111",
+ "title": "Fine-grained crack segmentation for high-resolution images via a multiscale cascaded network",
+ "year": 2023,
+ "venue": "Computer-Aided Civil and Infrastructure Engineering",
+ "url": "https://doi.org/10.1111/mice.13111",
+ "code_url": "",
+ "mechanism": "Coarse-to-fine multiscale cascade for fine-grained cracks in high-resolution UAV images.",
+ "evidence": "R: abstract only via search; numbers not read (Wiley full text unavailable off campus).",
+ "adaptation": "Second stage on 2x upsampled crops around predicted crack components only, input [EL crop, upsampled crack prob]; much cheaper than the n.d. 2x global run; target width and faint ends.",
+ "min_experiment": "Arm: house + crop-level 2x refiner. Baseline: house ensemble. Metric: relR@2 at fixed relP@2, crack IoU. Kill: relR@2 < +0.01.",
+ "score": 30,
+ "bench_score": 25,
+ "bet": "medium",
+ "gpu_hours": 8,
+ "targets": [
+  "crack"
+ ],
+ "prior_overlap": "Global 2x input was n.d. at 4x compute; crop-only second stage was not run.",
+ "directions": [
+  "D26"
+ ],
+ "scout_scores": [
+  30
+ ],
+ "final": 30,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 525,
+ "pid": "P525"
+}

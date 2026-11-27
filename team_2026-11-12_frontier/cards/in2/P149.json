@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2105.11120",
+ "title": "A Fourier-based Framework for Domain Generalization (FACT); see also arxiv:2108.08487 Amplitude-Phase Recombination",
+ "year": 2021,
+ "venue": "CVPR 2021 oral",
+ "url": "https://arxiv.org/abs/2105.11120",
+ "code_url": "",
+ "mechanism": "Amplitude-spectrum mixing between images plus a co-teacher consistency between original and mixed views, so the model relies on phase (structure) rather than amplitude (style).",
+ "adaptation": "Treat the 5 sources as domains: mix amplitudes across ARTS / CFVS / CSIR / BMRK / SDLE and with pool cells; keep masks. Aimed at E1 and at the weak BMRK and CFVS sources.",
+ "min_experiment": "Arm: house + cross-source amplitude mix + consistency, 5 seeds. Baseline: house. Metric: E1 crack relF1@2, BMRK crack IoU. Kill: E1 < +0.02 and BMRK < +0.03.",
+ "evidence": "R: state of the art on three domain-generalisation classification benchmarks. APR (ICCV 2021): gains in corruption robustness and OOD. No segmentation or EL numbers.",
+ "gpu_hours": 8,
+ "prior_overlap": "none. Section 5 used brightness / contrast augmentation only.",
+ "score": 55,
+ "bench_score": 40,
+ "bet": "medium",
+ "targets": [
+  "e1_unseen",
+  "crack"
+ ],
+ "directions": [
+  "D28"
+ ],
+ "scout_scores": [
+  55
+ ],
+ "final": 55,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 149,
+ "pid": "P149"
+}

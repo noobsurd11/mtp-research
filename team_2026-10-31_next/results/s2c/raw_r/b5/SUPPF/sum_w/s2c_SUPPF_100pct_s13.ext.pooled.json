@@ -1,0 +1,143 @@
+{
+ "set": "ext",
+ "n_cells": 106,
+ "gt_comp20": 296,
+ "op_comp": {
+  "b": 3.4,
+  "j": 115,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.856,
+  "val_P": 0.9104477611940298
+ },
+ "op_rel": {
+  "b": 3.4,
+  "j": 115,
+  "reachable": true,
+  "edge": false,
+  "val_R": 0.8796193789867679,
+  "val_P": 0.9001274257901444
+ },
+ "comp_recall_at_opc": 0.2972972972972973,
+ "comp_prec_at_opc": 0.49295774647887325,
+ "relR_at_opr": 0.42342230754939,
+ "relP_at_opr": 0.5271615892733905,
+ "speck_guard": {
+  "opc": {
+   "compP_all": 0.24788732394366197,
+   "speck_share": 0.12304052055604851
+  },
+  "opr": {
+   "compP_all": 0.24788732394366197,
+   "speck_share": 0.12304052055604851
+  }
+ },
+ "deployed_b": 0.0,
+ "at_deployed": {
+  "P": 0.48765296402139663,
+  "R": 0.20607543196878678,
+  "IoU": 0.16939876800895992,
+  "relP": 0.5793947387704257,
+  "relR": 0.37201957019879855,
+  "compR": 0.25,
+  "compP": 0.5783132530120482,
+  "compP_all": 0.3113207547169811,
+  "speck_share": 0.1373195574118854,
+  "inactIoU": 0.20854199456288453
+ },
+ "cell_deployed": {
+  "b": 0.0,
+  "n_pos": 32,
+  "n_neg": 74,
+  "n_ambiguous": 0,
+  "recall": 0.90625,
+  "fa_rate": 0.25675675675675674,
+  "precision": 0.6041666666666666,
+  "auroc": 0.8868243243243243
+ },
+ "cell_at_opc": {
+  "b": 3.4,
+  "n_pos": 32,
+  "n_neg": 74,
+  "n_ambiguous": 0,
+  "recall": 0.9375,
+  "fa_rate": 0.32432432432432434,
+  "precision": 0.5555555555555556,
+  "auroc": 0.8868243243243243
+ },
+ "cell_b0": {
+  "b": 0.0,
+  "n_pos": 32,
+  "n_neg": 74,
+  "n_ambiguous": 0,
+  "recall": 0.90625,
+  "fa_rate": 0.25675675675675674,
+  "precision": 0.6041666666666666,
+  "auroc": 0.8868243243243243
+ },
+ "inactive_area_err": {
+  "b": 0.0,
+  "mae_all": 0.14632462382713016,
+  "mae_inactive_cells": 0.32068226947496553,
+  "n_inactive_cells": 6,
+  "mae_other": 0.13586316508826005,
+  "signed_mean": 0.10639258650277472,
+  "max_err": 7.352521181734523
+ },
+ "pooled_op": {
+  "n_runs": 5,
+  "op_comp": {
+   "b": 4.6,
+   "j": 127,
+   "reachable": true,
+   "edge": false,
+   "val_R": 0.8528,
+   "val_P": 0.9011799410029498
+  },
+  "op_rel": {
+   "b": 3.8,
+   "j": 119,
+   "reachable": true,
+   "edge": false,
+   "val_R": 0.8725130476039854,
+   "val_P": 0.9002764900318068
+  },
+  "comp_recall_at_opc": 0.32094594594594594,
+  "comp_prec_at_opc": 0.44664031620553357,
+  "relR_at_opr": 0.4290889948597263,
+  "relP_at_opr": 0.5196385936987968,
+  "speck_guard": {
+   "opc": {
+    "compP_all": 0.22639068564036222,
+    "speck_share": 0.10276579548337986
+   },
+   "opr": {
+    "compP_all": 0.2368064952638701,
+    "speck_share": 0.12064041945601797
+   }
+  }
+ },
+ "oracle_upper_bound": {
+  "E1 all": {
+   "oracle_relF1": 0.4703193178836056,
+   "at_b": 4.3,
+   "relR": 0.437263888028736,
+   "relP": 0.5087811731647348,
+   "label": "oracle upper bound, chooses nothing, descriptive"
+  },
+  "E1 sh29": {
+   "oracle_relF1": 0.4806599207256415,
+   "at_b": 9.3,
+   "relR": 0.43108141549121504,
+   "relP": 0.543124451807816,
+   "label": "oracle upper bound, chooses nothing, descriptive"
+  }
+ },
+ "excluded": [],
+ "selfcheck": {
+  "val": "PASS",
+  "target": "PASS"
+ },
+ "descriptive": true,
+ "el_metrics_md5": "45b1df03a8fb2959272534b2ab6b237f"
+}

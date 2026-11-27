@@ -1,0 +1,36 @@
+{
+ "paper_id": "doi:10.52202/075280-0819",
+ "title": "FreeMask: Synthetic Images with Dense Annotations Make Stronger Segmentation Models",
+ "year": 2023,
+ "venue": "NeurIPS",
+ "url": "https://arxiv.org/abs/2310.15160",
+ "code_url": "https://github.com/LiheYoung/FreeMask",
+ "mechanism": "Generate images from semantic masks, drop synthetic pixels whose loss under a real-trained model exceeds a per-class threshold, and generate more samples for harder masks.",
+ "adaptation": "Filter synthetic EL pairs with the house ensemble's per-class loss (crack threshold set on train-cell loss, allowing 2 px jitter); hardness per mask = per-cell crack/inactive loss of the house model on train; applies to every synthetic arm in this direction.",
+ "min_experiment": "Arm: synthetic stream (row 1 or 2) with filtering + hardness resampling. Baseline: same stream unfiltered, PF, 5 seeds. Metric: the arm's main metric (E1 relF1@2 or CV inactive IoU). Kill: gain < +0.01.",
+ "score": 60,
+ "bench_score": 45,
+ "bet": "safe",
+ "targets": [
+  "crack",
+  "inactive",
+  "other_classes"
+ ],
+ "evidence": "R (from web summary of the paper): ADE20K 48.7 -> 52.0 mIoU with filtered synthetic data jointly or as pretraining; synthetic-only 48.3 vs real 48.5.",
+ "gpu_hours": 6,
+ "prior_overlap": "None.",
+ "directions": [
+  "D06"
+ ],
+ "scout_scores": [
+  60
+ ],
+ "final": 60,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 95,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

@@ -1,0 +1,36 @@
+{
+ "paper_id": "arxiv:2202.14030",
+ "title": "Learning Semantic Segmentation from Multiple Datasets with Label Shifts (UniSeg)",
+ "year": 2022,
+ "venue": "ECCV",
+ "url": "https://arxiv.org/abs/2202.14030",
+ "code_url": "",
+ "mechanism": "Class-independent BCE removes gradient conflict between mismatched label spaces; an extra loss exploits cross-dataset class relationships.",
+ "evidence": "Road scenes: more than +8 IoU on unseen KITTI, 39.4 IoU on WildDash2 zero-shot.",
+ "adaptation": "Replace softmax CE with per-class BCE in the joint run; encode UCF crack_region as parent of {crack, inactive}. Judge on E1, since R gain is on unseen domains.",
+ "min_experiment": "Arm: joint UCF+MSS run with per-class BCE, 30k steps, 5 seeds. Baseline: house 5-seed and the softmax joint arm. Metric: E1 crack relF1@2 and recall. Kill if E1 relF1@2 < +0.03 and clean-49 crack IoU drops > 0.012. ~15 GPU-h.",
+ "prior_overlap": "none",
+ "score": 58,
+ "bench_score": 45,
+ "bet": "medium",
+ "gpu_hours": 15,
+ "targets": [
+  "e1_unseen",
+  "crack"
+ ],
+ "directions": [
+  "D36"
+ ],
+ "scout_scores": [
+  58
+ ],
+ "final": 58,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 119,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P119"
+}

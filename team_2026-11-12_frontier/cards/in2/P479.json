@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1109/wacv57701.2024.00020",
+ "title": "EfficientAD: Accurate Visual Anomaly Detection at Millisecond-Level Latencies",
+ "year": 2024,
+ "venue": "WACV",
+ "url": "https://arxiv.org/abs/2303.14535",
+ "code_url": "https://github.com/open-edge-platform/anomalib",
+ "mechanism": "Small patch description network teacher, student with hard-feature loss, plus a global autoencoder for logical anomalies; 2 ms per image.",
+ "adaptation": "Benchmark baseline trained per source on clean pool cells at 512 px; PDN receptive field 33 px is near crack scale. Autoencoder branch can flag layout anomalies (missing busbar, splice) the house model never predicts (splice IoU 0.000).",
+ "evidence": "R: 32 datasets from three AD collections, SOTA detection and localization at 600 img/s.",
+ "min_experiment": "Benchmark row: train once, report AD metrics and splice / crack / inactive relF1@2. Optional: splice recall of AE branch on CV; kill if < 0.2 at 1% area.",
+ "gpu_hours": 4,
+ "prior_overlap": "none",
+ "score": 33,
+ "bench_score": 80,
+ "bet": "safe",
+ "targets": [
+  "benchmark",
+  "other_classes"
+ ],
+ "directions": [
+  "D39"
+ ],
+ "scout_scores": [
+  33
+ ],
+ "final": 33,
+ "bench": 80,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 479,
+ "pid": "P479"
+}

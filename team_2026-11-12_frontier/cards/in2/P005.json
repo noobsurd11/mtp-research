@@ -1,0 +1,37 @@
+{
+ "paper_id": "arxiv:2005.10266",
+ "title": "Naive-Student: Leveraging Semi-Supervised Learning in Video Sequences for Urban Scene Segmentation",
+ "year": 2020,
+ "venue": "ECCV",
+ "url": "https://arxiv.org/abs/2005.10266",
+ "code_url": "",
+ "mechanism": "An offline teacher with multi-scale and flip TTA pseudo-labels a large pool (hard labels, no threshold). The student trains on the pseudo-labels only, is then fine-tuned on the human labels, and the loop is repeated.",
+ "adaptation": "Teacher = 5-seed PF ensemble with 8 dihedral TTA (flips and rot90 are label-safe), labelling the 11.9k CSIR/ARTS pool and later 159k. Store soft p(crack) and p(inactive); use argmax plus the val-chosen crack bias for the other classes. Student = house U-Net++ R34 (and a wider encoder): 40k steps on the pseudo-labelled pool with strong aug, then 20k PF fine-tune on the 478 labelled cells. It differs from our Mean Teacher in the offline, stronger teacher, the pseudo-only pretraining and the larger pool.",
+ "min_experiment": "Arm NS-12k vs house PF (5 seeds each). Metrics: clean-49 crack IoU, relF1@2, inactive IoU, E1 crack relF1@2. Kill if crack IoU gains less than 0.012 and E1 relF1@2 gains less than 0.03. If it survives, rerun with the 159k pool.",
+ "score": 74,
+ "bench_score": 55,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "e1_unseen",
+  "inactive"
+ ],
+ "evidence": "R: full Cityscapes labels (2,975), 89k video frames + 20k extra unlabelled. Student 82.5 -> 85.7 mIoU (+3.2) at iteration 1, +0.8 at iteration 2. Teacher used multi-scale + flip TTA.",
+ "gpu_hours": 20,
+ "prior_overlap": "BRIEF row 'Pseudo-label SSL' tested an online EMA Mean Teacher (same R34) with hard/tolerant pseudo-labels at 100% labels and the 11.9k pool: n.d. Not tested: an offline ensemble+TTA teacher, pseudo-only pretraining then fine-tune, the 159k pool, or model distillation (listed as never tried). Still open.",
+ "directions": [
+  "D29"
+ ],
+ "scout_scores": [
+  74
+ ],
+ "final": 74,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 5,
+ "pub_allowed": 0,
+ "selected_for": "top",
+ "pid": "P005"
+}

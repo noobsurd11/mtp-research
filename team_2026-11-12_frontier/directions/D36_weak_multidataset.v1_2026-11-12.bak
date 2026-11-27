@@ -1,0 +1,98 @@
+# D36: Weak and heterogeneous supervision; multi-dataset training
+
+Scout: literature phase only, 12 Nov 2026. No servers, no test data read.
+Legend: R = what the paper measured, E = what our files measured (from BRIEF), S = my judgement.
+
+## 1. Why this direction is open (from BRIEF section 5)
+
+- The only multi-dataset run so far was UCF-EL supervised pretraining of the encoder followed by the house fine-tune, which erased the encoder (n.d. / worse). BRIEF says this does NOT close joint multi-dataset training, nor pretraining that the fine-tune keeps.
+- Never tried: multi-label heads, source-conditional prediction, cross-dataset joint training, noisy-label methods.
+- External data on hand or public: UCF-EL (9,562 train cells, polygons, crack-as-region, contact, interconnect, corrosion), MultiSolSegment (585 mono cells, 4 overlapping sigmoid channels), ELPV (2,624 cells, image-level defect probability; BMRK = ELPV cells), PVEL-AD (36,543 NIR cells, 37,380 boxes, 8 defect types, by request so needs the user's OK).
+
+## 2. Queries run
+
+Research MCP `search_papers` (year_from 2020 unless stated; Semantic Scholar was rate-limited for the whole session, so results came from OpenAlex, Scopus, ScienceDirect, arXiv):
+1. multi-dataset semantic segmentation different taxonomies label space unification
+2. partially labeled datasets segmentation marginal loss multiple datasets
+3. box-supervised instance segmentation SAM pseudo masks
+4. mixed supervision surface defect segmentation weak and strong labels
+5. electroluminescence solar cell defect weakly supervised segmentation image-level labels
+6. weakly supervised crack segmentation box or scribble annotations
+7. dataset-specific heads conditional segmentation annotation style multiple datasets inconsistent labels
+8. taxonomy adaptive domain adaptation semantic segmentation
+9. universal medical segmentation dataset prior prompt multiple datasets annotation protocol (2022+)
+10. learning segmentation from coarse polygon annotations noisy boundaries
+11. multi-dataset joint training semantic segmentation partial labels (2025+)
+12. SAM generated pseudo masks from bounding boxes defect segmentation weak supervision (2025+)
+13. PVEL-AD photovoltaic electroluminescence anomaly detection dataset
+14. learning from multiple annotators segmentation annotator-specific style conditioning
+15. weakly supervised semantic segmentation image-level labels thin crack CAM refinement (2023+)
+16. label space unification multi-dataset segmentation conflicting class definitions (2025+)
+17. BoxInst projection loss pairwise affinity
+18. electroluminescence segmentation cross-dataset generalization combined datasets cracks (2024+)
+19. mixed supervision segmentation image-level and pixel-level labels small dataset (2022+)
+20. unified defect segmentation model trained on multiple industrial datasets heterogeneous annotations (2024+)
+(Two further queries timed out; one `search_snippets` call failed on the S2 rate limit.)
+
+Snowballing: `similar_papers` on MultiTalent + Nichyporuk; `get_citations` on MultiTalent (72 citing, 25 read). `get_citations` on Nichyporuk timed out twice.
+Full text read: MultiTalent (2303.14444), Nichyporuk annotation style (2210.17398), MultiSolSegment (2603.13337, already in library).
+WebSearch: verified repos for MultiTalent, Boxes2Pixels, Božič mixed supervision; verified UniSeg arXiv id. Web search then hit its quota.
+
+## 3. Selected papers
+
+Scores: `score` = value for raising our numbers (rubric in the task), `bench` = value for the benchmark.
+
+| # | id | year | venue | code | mechanism (R) | adaptation to our data (S) | score | bench |
+|---|---|---|---|---|---|---|---|---|
+| 1 | arxiv:2210.17398 | 2022 | MELBA | unverified | Conditional instance norm: per-dataset scale/shift in every norm layer, rest shared. R: on 6 MS trials, naive pooling was worse than single-trial models (0.766 vs 0.784 Dice on RRMS-A); trial-conditioned matched or beat every single-trial model (0.787 to 0.789) and can output any style for any image; few-shot fine-tune to a new style. | Our 5 sources have measured label-width conventions (ARTS 1.5 px ... SDLE 3.25 px). Add per-source affine params (ARTS, CFVS, CSIR, BMRK, SDLE, later UCF, MSS) to decoder BN layers of U-Net++; encoder BN shared. Test: condition on the cell's known source; E1 conditioned as CSIR. Lets UCF-EL region-cracks and MSS cracks join training without polluting BenchmarkEL style. Also a benchmark tool: report crack IoU "in source style". | 74 | 60 |
+| 2 | arxiv:2303.14444 | 2023 | MICCAI | github.com/MIC-DKFZ/MultiTalent (3D nnU-Net; verified) | Treat every dataset's classes as distinct, one sigmoid head per class on a shared backbone, BCE + batch Dice only on classes that dataset annotates, losses summed not averaged, sampling prob ~ 1/sqrt(n). R: 13 CT datasets, +1.26 Dice avg over datasets, biggest gains on difficult and cancer classes; as pretraining it beat SSL baselines. | Keep the house 24-class softmax head for BenchmarkEL. Add sigmoid heads UCF_crack_region, UCF_contact, UCF_interconnect, UCF_corrosion, MSS_crack, MSS_dark, MSS_busbar, MSS_noncell. Each batch mixes BenchmarkEL with UCF-EL / MSS cells; loss on a head only for cells from its dataset. Joint from step 0, so nothing is "erased" by a later fine-tune (the failure mode in section 5). | 72 | 60 |
+| 3 | arxiv:2007.03868 | 2021 | MedIA | unverified (loss is a few lines) | Marginal loss: when a dataset merges several classes into one label, sum the model's probabilities over those classes before CE/Dice. Exclusion loss: labelled class A pixels push down probability of disjoint classes. | UCF "crack" polygon = {crack OR inactive} in our 24-class space: supervise log(p_crack + p_inactive). UCF background = marginal over all structural classes it does not label (gridline, busbar, ribbons, frame_edge...) plus background, so no wrong negatives. UCF contact / corrosion / interconnect pixels: exclusion on crack. Same single softmax head as the house model; no new heads. | 68 | 45 |
+| 4 | arxiv:2502.19177 | 2025 | IROS | unverified | Teacher trained on one taxonomy pseudo-labels other datasets, but the other datasets' GT (mapped to the source taxonomy) constrains which classes the teacher may predict per pixel; students beat teachers on 12 urban / 7 off-road datasets. | Teacher = house 5-seed ensemble. Pseudo-label UCF-EL and MSS cells in the 24-class space with GT constraints: inside a UCF crack polygon only crack / inactive allowed; inside MSS crack mask crack forced; outside any defect GT crack and inactive forbidden. Train student on BenchmarkEL + constrained pseudo-labels. Different from the section 5 pool SSL (that was unconstrained pseudo-labels on unlabelled cells). | 66 | 40 |
+| 5 | arxiv:2603.13337 | 2026 | Solar Energy | DuraMAT data hub (data; code repo unverified) | Multi-channel sigmoid U-Net for EL: dark, busbar, crack, non-cell as independent channels so a crack crossing a busbar stays continuous. R: 585 mono cells (ASU 92, CWRU 123 + 250, LBNL 120), 256 px, mean IoU 0.384; crack in 77% of images. Split was random 80/20 after 4x flip augmentation (flipped copies of one cell can land in train and val: leakage). | Two uses. (a) Data: 585 extra crack-labelled mono cells, with a different source style, for arms 1 to 4. (b) Mechanism: add independent sigmoid channels for crack and inactive on top of the softmax head; 20% of our train crack pixels lie in or at inactive regions, where argmax must currently drop one. Benchmark: an example of split leakage to cite and a dataset to include as an extra cross-dataset test set. | 60 | 70 |
+| 6 | arxiv:2202.14030 | 2022 | ECCV | project page only (unverified) | UniSeg: class-independent BCE removes gradient conflict from mismatched label spaces; extra loss uses cross-dataset class relationships. R: road scenes, more than +8 IoU on unseen KITTI, 39.4 IoU WildDash2 zero-shot. | The R gain is on unseen domains, which is our E1 problem. Swap softmax CE for per-class BCE in the joint run (arm 2 or 3) and score E1. Class relationships: UCF crack_region is a parent of {crack, inactive}. | 58 | 45 |
+| 7 | arxiv:2104.06064 | 2021 | Computers in Industry | github.com/vicoslab/mixed-segdec-net-comind2021 (verified) | SegDec-Net: segmentation + classification head; trains on any mix of image-level and pixel-level labels. R: on KolektorSDD2 / DAGM / Severstal, a handful of pixel labels plus weak labels approaches full supervision. | ELPV gives 2,624 cells with image-level defect probability; BMRK (our weakest source: crack 0.379, inactive 0.324) is ELPV cells. Add a cell-level defect head; ELPV cells with p = 0 give full-image negatives for crack / inactive (strong signal against false alarms); p = 1 cells give MIL-style "some defect here". Must hash-match and drop any ELPV cell that is (or shares a module with) a BenchmarkEL val / test BMRK cell. | 62 | 40 |
+| 8 | doi:10.1016/j.engappai.2026.115849 | 2026 | EAAI | unverified | Thin-structure label refinement: foundation-model masks used only inside a narrow trust region around expert labels, an IoU gate rejects bad cases, minimal closing; unconstrained MedSAM pseudo-labels degraded training. R: modest gain on bone fractures (5-fold CV), mAP50 0.63. | Needed when turning UCF polygons (region-cracks) into thin crack lines, and for our own 1 to 2 px jittered crack labels: allow refinement only within 2 px of the given label, gate by agreement with the ridge. Also a warning: never train on raw SAM / SAM2 crack masks. Overlaps a label-refinement scout; listed here for the conversion of weak external labels. | 58 | 35 |
+| 9 | arxiv:2007.15963 | 2020 | arXiv (MIDL line) | unverified | Two coupled CNNs: one estimates the true segmentation, the other a per-annotator pixel-wise confusion matrix; trace penalty forces the annotator model to absorb the noise. R: MSLSC, BraTS, LIDC; best when annotations are few and disagree. | Treat each source (and UCF, MSS) as an "annotator". The annotator branch learns e.g. "SDLE draws cracks 3 px wide, UCF draws regions". Clean head scored on test. Heavier than arm 1 (per-pixel confusion maps over 24 classes is big; restrict to crack / inactive / background 3x3). | 52 | 35 |
+| 10 | arxiv:2604.11162 | 2026 | arXiv (listed as CVPR 2026 on one site, unverified) | github.com/CLendering/Boxes2Pixels (in abstract; verified) | Boxes to SAM pseudo-masks, treated as a noisy teacher: frozen DINOv2 features + hierarchical decoder, a binary "any defect" head, and one-sided self-correction that relaxes background loss where the student is confident (targets teacher false negatives). R: wind-turbine defects, +6.97 anomaly mIoU, +9.71 binary IoU, +18.56 binary recall from self-correction. | PVEL-AD crack / finger / black-core boxes (needs the user's OK to request). SAM is known to miss thin defects, so generate box-gated pseudo-masks with the house ensemble instead of SAM; keep the one-sided rule: pixels outside all boxes = hard background, inside a box = soft. NIR polycrystalline, so expect a domain gap; use as extra crack data with its own source flag (arm 1). | 48 | 45 |
+| 11 | arxiv:2012.02310 | 2021 | CVPR | AdelaiDet (unverified) | BoxInst: mask from boxes via projection loss (mask max-projected onto x and y axes must match the box) + pairwise colour-affinity loss. | For a crack box, the projection term says the crack spans the box in both axes, which suits long thin cracks; affinity on EL intensity says neighbouring pixels of similar brightness share a label. Apply to PVEL-AD boxes as an auxiliary loss on the crack channel. No SAM needed. | 45 | 40 |
+| 12 | arxiv:2402.19340 | 2024 | IJCARS | unverified | Combine binary single-class datasets: positives of other classes act as negatives, background of a binary set is excluded from the loss. R: +4.4% Dice over per-class ensemble, 24% less stomach / colon confusion. | Simpler variant of arm 3 for MSS: MSS busbar / non-cell positives are negatives for our crack (except where MSS crack overlaps), MSS background excluded from loss for classes MSS does not label. 2D DeepLabV3 evidence, close to our setting. | 50 | 30 |
+| 13 | arxiv:2508.19060 | 2025 | J. Intelligent Manufacturing | unverified | SuperSimpleNet: one model for unsupervised, weak, mixed and full supervision, with synthetic anomaly generation and a classification head. | Benchmark baseline that can use ELPV image labels and the unlabelled pool in the same protocol; unlikely to beat the house model on thin crack IoU. | 35 | 55 |
+| 14 | doi:10.1016/j.solener.2025.114083 | 2025 | Solar Energy | stated public in abstract (URL not verified) | Instance-seg benchmark on UCF-EL with MMDetection: ConvNeXt-V2 best, seg mAP50 0.602, mIoU 0.650; Mask R-CNN, Mask2Former also run. | Little direct score value (UCF-EL test leaks per BRIEF). Benchmark: the existing "EL benchmark" to cite and to show why a clean split is needed; Mask2Former / ConvNeXt-V2 belong in the method suite. | 25 | 65 |
+| 15 | arxiv:2001.11248 | 2020 | arXiv | unverified | Weakly supervised crack segmentation on EL from image-level labels: ResNet-50 activation maps aggregated by a normalized Lp layer. | EL-specific image-label baseline using ELPV labels; for the benchmark's "weak supervision" track. Not expected to beat pixel-supervised cracks. | 25 | 45 |
+| 16 | arxiv:2502.06756 | 2025 | arXiv | github.com/linyq2117/SAMRefiner (in abstract) | SAMRefiner: refine coarse masks with SAM using points, elastic boxes and Gaussian masks mined from the coarse mask; split-then-merge for multi-object. | Could convert UCF-EL inactive-like region polygons into tighter masks for the inactive class. Not for thin cracks (SAM weakness). Cheap offline test: run on UCF polygons, inspect against our inactive definition on a few cells (no new labels needed, visual check only). | 32 | 25 |
+
+## 4. Minimum experiments (in priority order)
+
+All arms: house U-Net++ / ResNet-34, 512 px, label-safe aug, bf16; 5 seeds per arm; baseline = existing house 5-seed runs (and PF where the arm involves a later fine-tune). Metrics: crack IoU and relF1@2 on clean-49, inactive IoU, mIoU_rob, E1 crack relF1@2 / recall, E1 inactive IoU, per-source crack IoU (BMRK). Detectable crack IoU change is about 0.012 (BRIEF section 4.5), so kill lines below sit at or above that.
+
+1. **Source-conditioned decoder (paper 1), BenchmarkEL only.** Arm: per-source affine in decoder BN, 20k steps. Kill if crack IoU < +0.012 and per-source crack IoU on BMRK / CFVS not up by 0.02. About 6 GPU-h. Cheapest, no new data.
+2. **Joint UCF-EL + MSS training (papers 2 + 3, two arms).** Arm A: extra sigmoid heads per external class (MultiTalent). Arm B: single softmax head with marginal / exclusion loss. 50% of each batch BenchmarkEL, 30k steps. Arm A and B both with source conditioning if step 1 passed. Kill if crack IoU < +0.012 AND E1 crack relF1@2 < +0.03 AND inactive IoU not up. About 30 GPU-h for both arms.
+3. **GT-constrained pseudo-labels (paper 4).** Teacher = house ensemble; student on BenchmarkEL + constrained UCF / MSS labels. Same kill line as 2. About 15 GPU-h.
+4. **ELPV image labels (paper 7).** Arm: cell-level head + full-image negatives from p = 0 ELPV cells, positives as MIL. Kill if BMRK inactive IoU < +0.05 (use 5-fold module-grouped CV, since test inactive is decided by 3 cells) and crack precision not up. About 8 GPU-h, plus the ELPV de-duplication against val / test.
+5. **Multi-label crack / inactive channels (paper 5b).** Add 2 sigmoid channels; argmax for the 24-class map, sigmoid for crack and inactive scoring. Kill if crack relR@2 < +0.02 at equal relP@2 and inactive IoU not up. About 6 GPU-h.
+6. **PVEL-AD boxes (papers 10, 11)** only if 2 or 3 show gain from extra crack data, and only after the user OKs the request.
+
+## 5. Notable papers rejected
+
+- MSeg, doi:10.1109/tpami.2022.3151200: manual taxonomy reconciliation for natural scenes; our taxonomy is small and already mapped by hand in arm 3.
+- GNN label unification, doi:10.52202/079017-2547: learns label mappings among many datasets; with 3 EL datasets the mapping can be written by hand.
+- DoDNet (arxiv:2011.10217), COSST (arxiv:2304.14030), deep mutual learning (arxiv:2407.12611), CLIP-Driven Universal Model (arxiv:2301.00785): 3D medical partial-label methods; MultiTalent covers the same idea more simply and beat DoDNet / Universal Model on BTCV.
+- TACS (arxiv:2109.04813), DynAlign (arxiv:2501.16410), inconsistent-taxonomy UDA with VLMs (arxiv:2408.02261): UDA with taxonomy change; target is unlabelled, ours is labelled. Could matter for E1 only via another scout's UDA direction.
+- LMSeg (arxiv:2302.13495): language-guided multi-dataset segmentation; text embeddings add nothing for 1-channel EL classes.
+- BoxTeacher (arxiv:2210.05174), Box2Mask (arxiv:2212.01579), BoxSnake (arxiv:2303.11630): instance-level box supervision for objects with area; Boxes2Pixels and BoxInst are closer to thin defects.
+- SAM-enhanced WSSS pseudo-labels (arxiv:2305.05803), BoxCell (arxiv:2311.17960), WeakPolyp-SAM: SAM-based; SAM misses thin low-contrast defects (Boxes2Pixels R; bone fracture paper R).
+- YoloCurvSeg (arxiv:2212.05566): one noisy skeleton label for curvilinear structures; it needs a fully synthetic pipeline; better placed with the label-refinement / synthesis scouts.
+- UMA-Net multi-source annotations (arxiv:2304.00466): multiple annotations of the same images; we do not have that except 2-annotator crack agreement.
+- Label-Assemble (arxiv:2109.12265): negatives from other datasets help detection; folded into arm 4 (ELPV negatives).
+- Crack WSSS from civil engineering (CrackCLIP doi:10.3390/e27020127, CAC doi:10.3390/e26040328, WP-CrackNet arxiv:2510.17566): patch-level labels on concrete / road, wide cracks; our cracks are 1 to 2 px labels on 4 px lines.
+- PVEL-AD dataset paper (doi:10.1109/tii.2022.3162846): data source, not a method; cited under paper 10.
+
+## 6. Gaps
+
+- No paper found that jointly trains on several EL segmentation datasets with different taxonomies. MultiSolSegment pooled 4 sources but with one relabelled taxonomy and a leaky split. A clean joint-training study would be new.
+- Whether UCF-EL or MSS contain half-cut cells (relevant to E1) is unverified; check the data before running arm 2 for E1 reasons.
+- Exact class list and image format of PVEL-AD (NIR, polycrystalline) not read; the dataset is by request.
+- Citations of Nichyporuk (annotation-style conditioning) could not be retrieved (timeouts); 2024 to 2026 follow-ups on source / annotator conditioning for thin structures deserve their own search.
+- Semantic Scholar was rate-limited all session, so `search_snippets` evidence checks were not possible; code repos for papers 1, 3, 4, 6, 9, 11, 12, 13 are unverified.
+- ELPV / BMRK overlap: the de-duplication rule for using ELPV beside BenchmarkEL (and for the benchmark split) needs a concrete check (image hashes, module ids).
+- Sub-direction worth its own search: source-conditional prediction as a benchmark protocol ("score in each source's labelling style") versus a canonical-style label set.

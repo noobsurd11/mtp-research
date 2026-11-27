@@ -1,0 +1,12 @@
+[2026-11-17 14:45:33] fake tree ready: c3all2 live (MAXC 8, 62 jobs 29388346, 1 started), c3all, c3base, c3hrnet frozen, rows2 dispatched, a fixture-only test queue alive
+PASS H1 DRY freeze: defaults c3all2 -> c3all3, prints the write, changes nothing
+PASS H2 freeze: c3all2 MAXC 0 by rename; c3all already frozen; the fixture-only queue does not block
+PASS H3 build: 61 lines = the 61 not-started lines of c3all2, byte-equal, no new line; order PF, swad, HRNet, HOUSE
+PASS H4 place: c3all3 with jobs.txt (read-only, md5 equal), LPG 1, MAXC 8, SHARE_TRAIN 20480, SHARE_DUMP 10240
+PASS H5 DRY arm: all pre-checks pass (frozen c3all2, started set, queue dir with the SHARE floors, deploy, card, QC pins incl. cq_rescue.sh, QC against B, disk, guard 3), nothing started
+PASS H6 arm: armed, and the report names the floors of the armed line
+PASS H7 a SHARE_TRAIN below the user's floor in the placed dir: arm REFUSED, nothing started
+PASS H8 a missing SHARE_DUMP in the placed dir: arm REFUSED
+PASS H9 armed line without the floors (sharing off): armed, with a WARNING
+PASS H10 a changed cq_rescue.sh in QC: arm REFUSED (CODE.md5 / pins)
+[2026-11-17 14:46:16] C3LANE HANDOVER TEST: 10 checks, 10 passed, 0 failed

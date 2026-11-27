@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1109/TIM.2025.3608327",
+ "title": "Combining Unsupervised Domain Adaptation and Semi-Supervised Learning for Power Line and Transmission Tower Segmentation",
+ "year": 2025,
+ "venue": "IEEE TIM",
+ "url": "https://doi.org/10.1109/TIM.2025.3608327",
+ "code_url": "",
+ "mechanism": "UDA pretraining helps the network learn thin, low-feature power lines; SSL fine-tuning follows, with dynamic co-perturbation of image and features.",
+ "adaptation": "Stage 1: UDA from UCF-EL (or the 478 labelled cells) to the pool. Stage 2: SSL on the pool with combined image and feature perturbation. Closest thin-structure SSL evidence found.",
+ "min_experiment": "Only after reading the full text: a 2-stage arm vs house PF, 3 seeds. Metric: crack relF1@2 on clean-49 and E1. Kill if n.d.",
+ "score": 38,
+ "bench_score": 25,
+ "bet": "moonshot",
+ "targets": [
+  "crack",
+  "e1_unseen"
+ ],
+ "evidence": "R: self-built + public power-line sets; beats several SSL methods; no numbers in the abstract.",
+ "gpu_hours": 15,
+ "prior_overlap": "UCF-EL encoder pretraining was erased by the house fine-tune. UDA-then-SSL was never run. Open.",
+ "directions": [
+  "D29"
+ ],
+ "scout_scores": [
+  38
+ ],
+ "final": 38,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 429,
+ "pid": "P429"
+}

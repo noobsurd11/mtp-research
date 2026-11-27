@@ -1,0 +1,42 @@
+{
+ "paper_id": "doi:10.52202/068431-1746",
+ "title": "Structure-Aware Image Segmentation with Homotopy Warping",
+ "year": 2022,
+ "venue": "NeurIPS 2022",
+ "url": "https://arxiv.org/abs/2112.07812",
+ "code_url": "",
+ "mechanism": "Warp the prediction homotopically toward the label and penalise only the critical pixels whose flip changes topology.",
+ "adaptation": "A jittered but topologically equal prediction adds no extra loss, which fits our labels. Crack class only. CPU warping cost over 20k steps needs a profile first.",
+ "min_experiment": "Arm: PF + warping loss (crack), 3 seeds. Baseline: PF. Metric: component recall and crack IoU. Kill if no component recall gain >= 0.02.",
+ "score": 34,
+ "bench_score": 45,
+ "bet": "moonshot",
+ "targets": [
+  "crack"
+ ],
+ "evidence": "R (TopoMortar): CrackTree Dice 0.77 vs 0.78 CEDice. beta0 46 vs 52 under Adele, no gain in supervised training.",
+ "gpu_hours": 8,
+ "prior_overlap": "none",
+ "directions": [
+  "D10"
+ ],
+ "scout_scores": [
+  34,
+  32
+ ],
+ "alt_notes": [
+  {
+   "from": "D10",
+   "adaptation": "A jittered but topologically equal crack prediction gets no extra loss, which suits our labels; apply to crack with CE + Dice. CPU warping per batch is the cost concern at 20k steps.",
+   "min_experiment": "PF + warping loss vs PF, 5 seeds. Kill if relF1@2 gain < 0.01.",
+   "score": 32
+  }
+ ],
+ "final": 34,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 477,
+ "pid": "P477"
+}

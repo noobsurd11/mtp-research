@@ -1,0 +1,37 @@
+# image_audit.txt (dataset_audit; 532 pool images; grey = PIL convert('L') of the RGBA file, as the loader)
+
+## g1. Per-source image statistics (median over images; non-padding px)
+source | n | mean | std | p1 | p99 | clip0 | clip255 | levels | noise | lapvar | hf | block | colour | pad | cellw
+ARTS | 182 | 116.9 | 34.78 | 19.5 | 171.5 | 0 | 0 | 192.5 | 2.965 | 254.5 | 0.03132 | 0.96 | 0 | 0.0625 | 249
+BMRK | 50 | 119.3 | 35.62 | 20.5 | 171 | 1.526e-05 | 0 | 186 | 1.483 | 27.68 | 0.002071 | 1.05 | 0 | 0.75 | 255
+CFVS | 169 | 162.3 | 43.96 | 35 | 234 | 0 | 0 | 222 | 1.483 | 49.95 | 0.003175 | 0.9059 | 0 | 0.0957 | 249
+CSIR | 114 | 129.4 | 24.49 | 28.5 | 163.5 | 0 | 0 | 163 | 1.483 | 125.2 | 0.03978 | 0.9875 | 0.4348 | 0 | 250
+SDLE | 17 | 135.2 | 48.26 | 24 | 214 | 0 | 0 | 238 | 1.483 | 54.92 | 0.0008912 | 0.9866 | 0 | 0.75 | 255
+(mean/std/p1/p99 grey; clip0/clip255 share of px at 0 / 255; levels = grey levels used; noise = robust sigma (P16 rule); lapvar = Laplacian variance; hf = share of spectral power above 0.25 cycles/px in the central 192 px; block = 8x8 boundary diff ratio (1 = no JPEG grid); colour = mean RGB spread; pad = padding share; cellw = centre-cell size px)
+ARTS: images with clip255 > 1%: 1; clip0 > 1%: 0; noise > 10: 0; block > 1.10: 35; colour > 2: 0; p99 < 128 (under-exposed): 0; centre cell px min/median/max 207/249/298
+BMRK: images with clip255 > 1%: 0; clip0 > 1%: 0; noise > 10: 0; block > 1.10: 23; colour > 2: 0; p99 < 128 (under-exposed): 3; centre cell px min/median/max 241/255/255
+CFVS: images with clip255 > 1%: 6; clip0 > 1%: 0; noise > 10: 0; block > 1.10: 23; colour > 2: 0; p99 < 128 (under-exposed): 0; centre cell px min/median/max 211/249/314
+CSIR: images with clip255 > 1%: 12; clip0 > 1%: 29; noise > 10: 2; block > 1.10: 28; colour > 2: 37; p99 < 128 (under-exposed): 19; centre cell px min/median/max 227/250/304
+SDLE: images with clip255 > 1%: 1; clip0 > 1%: 0; noise > 10: 0; block > 1.10: 0; colour > 2: 0; p99 < 128 (under-exposed): 0; centre cell px min/median/max 248/255/511
+
+## g2. Source separability: balanced accuracy, 5-fold CV grouped by cv5v3 group (chance 0.20; majority-class accuracy 0.342)
+all features: logreg 0.939; forest 0.915
+no padding / cell size: logreg 0.880; forest 0.887
+grey histogram only (16): logreg 0.431; forest 0.714
+spectrum only (8 bins + hf): logreg 0.618; forest 0.845
+noise, sharpness, blockiness only: logreg 0.554; forest 0.760
+  forest confusion (rows true ARTS,BMRK,CFVS,CSIR,SDLE): 182 0 0 0 0; 1 43 6 0 0; 0 2 159 3 5; 13 2 5 94 0; 1 6 7 0 3
+
+## g3. Defect prevalence per source (pool, v1.1; P(class | source) = share of images with the class)
+ARTS: n 182; crack 0.258; inactive 0.011
+BMRK: n 50; crack 0.600; inactive 0.120
+CFVS: n 169; crack 0.586; inactive 0.172
+CSIR: n 114; crack 0.447; inactive 0.096
+SDLE: n 17; crack 0.118; inactive 0.000
+
+## c1. Exact and near duplicates inside the pool
+exact duplicates (grey-pixel md5): 1 sets: [['CFVS_00015_r7_c4', 'CFVS_00016_r7_c4']]
+pairs with DCT-hash Hamming <= 6: 55; across cv5v3 groups: 41; of these with thumbnail NCC >= 0.9: 37; by source: {'ARTS': 37, 'CSIR': 4}
+
+## c2. Overlapping windows: pool cells with another pool cell at an adjacent position (Chebyshev 1) of the same module image
+adjacent pairs 35; cells involved 61 of 465 with a position; their v1.1 crack px 49438 of 307546 (0.161)

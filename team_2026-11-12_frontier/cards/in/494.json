@@ -1,0 +1,35 @@
+{
+ "paper_id": "arxiv:2503.01306",
+ "title": "From Claims to Evidence: A Unified Framework and Critical Analysis of CNN vs. Transformer vs. Mamba in Medical Image Segmentation",
+ "year": 2025,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2503.01306",
+ "code_url": "",
+ "mechanism": "nnUZoo: one nnU-Net harness into which CNN, Transformer and Mamba networks are plugged, so only the network changes between rows; Wilcoxon tests.",
+ "adaptation": "Use as the code template for the EL benchmark harness: one data folder, one augmentation (label-safe), one schedule, our folds and metrics; swap only networks (nnU-Net, ResEnc-L, MedNeXt, U-Mamba, Swin-UMamba, TransUNet, house U-Net++).",
+ "min_experiment": "Harness check: reproduce house U-Net++ R34 inside the harness within 0.01 CV crack relF1@2 of the house trainer before adding other networks.",
+ "evidence": "R: six datasets (microscopy, ultrasound, CT, MRI, PET); CNNs (nnU-Net, U2Net) fast and accurate; SS2D2Net ties nnU-Net with fewer params but longer training; Transformers costly.",
+ "gpu_hours": 10,
+ "bet": "safe",
+ "prior_overlap": "none",
+ "score": 30,
+ "bench_score": 85,
+ "targets": [
+  "benchmark",
+  "measurement"
+ ],
+ "directions": [
+  "D25"
+ ],
+ "scout_scores": [
+  30
+ ],
+ "final": 30,
+ "bench": 85,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 494,
+ "pub_allowed": 0,
+ "selected_for": "bench"
+}

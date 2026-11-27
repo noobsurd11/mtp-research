@@ -1,0 +1,38 @@
+[2026-11-18 05:46:19] w2b read start (ARM=lace PF4=0 out /home/noob/work/bench_reads/w2b_lace; script 8d644288; counts a23dd544; verdict 1ace40f7)
+read (cwd /home/noob/work/bench_wt_b, nice -n 19): scripts/bench_read_w1.py --arm PF=/home/noob/work/bench_dumps/w1g/elbench1/house_r34_unetpp_pf_v11:w1g_pf_v11_f[0-4]_s[56] --arm PFC=/home/noob/work/bench_udev/opc/dumps_gaint/elbench1/pf_v11_opc:w1g_pf_v11_f[0-4]_s[56] --arm PFAA=/home/noob/work/bench_dumps/w1g/elbench1/house_r34_unetpp_pf_v11:w1g_pf_v11_f[0-4]_s[5-8] --arm LACE=/home/noob/work/bench_dumps/w2b/elbench1/la_ce_pf_v11:w2b_lace_f[0-4]_s[56] --pair PFC=LACE --pair PF=LACE --labels v11 --workers 8 --cache /home/noob/work/bench_reads/w2b_lace/cache_c --baseline PF --aa PFAA:5,6:7,8 --score-exclude /home/yugma/mtp/research/team_2026-11-12_frontier/benchmark/splits/score_exclude_v3.txt --out /home/noob/work/bench_reads/w2b_lace/read
+[146s] argmax records + bias sweeps: 50 runs
+[235s] operating points and their records (532 stems)
+score-exclude /home/yugma/mtp/research/team_2026-11-12_frontier/benchmark/splits/score_exclude_v3.txt md5 6d48dfbd56ba8140ed20ecb21bf349dc: 532 -> 416 stems
+[310s] operating points and their records (416 stems)
+[351s] wave 1 read: 4 arms, 532 OOF stems, 2 contrasts, A/A yes -> /home/noob/work/bench_reads/w2b_lace/read/read.txt
+[2026-11-18 05:52:11] read rc=0
+wrote /home/noob/work/bench_reads/w2b_lace/counts_532.txt (100 lines)
+wrote /home/noob/work/bench_reads/w2b_lace/counts_416.txt (100 lines)
+[2026-11-18 05:52:18] counts rc 532 0, 416 0
+P1 532	FAIL	delta -0.0022 [-0.0112, +0.0060], M 0.0100
+P1 416	FAIL	delta -0.0018 [-0.0136, +0.0070], M 0.0100
+P2 532	PASS	delta +0.0112 [+0.0017, +0.0204], M 0.0100
+P2 416	PASS	delta +0.0124 [+0.0004, +0.0222], M 0.0100
+G1 crack_iou OP-A	PASS	LACE - PF delta +0.0002 >= -M -0.0100 [CI -0.0062, +0.0071]
+G1 relF1_2 OP-A	PASS	LACE - PF delta +0.0011 >= -M -0.0100 [CI -0.0056, +0.0071]
+G1 crack_iou OP-W	PASS	LACE - PF delta +0.0003 >= -M -0.0100 [CI -0.0065, +0.0074]
+G1 relF1_2 OP-W	PASS	LACE - PF delta +0.0011 >= -M -0.0100 [CI -0.0056, +0.0073]
+		G1 printed, 416 cells: crack_iou OP-A delta +0.0003 [-0.0061, +0.0073]
+		G1 printed, 416 cells: relF1_2 OP-A delta +0.0010 [-0.0068, +0.0095]
+		G1 printed, 416 cells: crack_iou OP-W delta +0.0007 [-0.0057, +0.0078]
+		G1 printed, 416 cells: relF1_2 OP-W delta +0.0011 [-0.0068, +0.0096]
+G2 inactive IoU	PASS	LACE - PFC -0.0134 >= -M_inact -0.0543 [CI -0.0732, +0.0559]
+G3 per R13 class	PASS	worst class 5: IoU LACE - PFC -0.0177 >= -0.03
+G4 area ratio x PFC	PASS	FREE classes outside 0.85 to 1.15: none
+G5 px on cells without class	FAIL	FREE classes above 1.5 x PFC: ['1:4503>3315', '5:122580>65742']
+		flag (printed, decides nothing; READ_PLAN 1): crack width ratio all LACE 1.006 / PF 1.006 = 1.000
+		flag (printed, decides nothing; READ_PLAN 1): crack width ratio src:ARTS LACE 0.859 / PF 0.868 = 0.989
+		flag (printed, decides nothing; READ_PLAN 1): crack width ratio src:BMRK LACE 0.888 / PF 0.868 = 1.023
+		flag (printed, decides nothing; READ_PLAN 1): crack width ratio src:CFVS LACE 1.063 / PF 1.068 = 0.996
+		flag (printed, decides nothing; READ_PLAN 1): crack width ratio src:CSIR LACE 0.906 / PF 0.898 = 1.009
+		flag (printed): false crack px on crack-free cells LACE 208, PF 301
+		printed: class 15 IoU LACE 0.3623 PFC 0.3617; px on cells without it LACE 49182 PFC 47310
+		printed: class 16 IoU LACE 0.1103 PFC 0.1111; px on cells without it LACE 13882 PFC 15906
+VERDICT la_ce: DROP (primary delta <= 0 on ['532', '416']; crack guards failed: none)
+[2026-11-18 05:52:18] verdict rc=0
+[2026-11-18 05:52:18] W2B READ ALL DONE (rc 0); tracked changes: bench_wt_b 0, bench_wt_w2b 0

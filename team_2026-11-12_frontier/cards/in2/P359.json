@@ -1,0 +1,59 @@
+{
+ "paper_id": "doi:10.1109/cvprw59228.2023.00464",
+ "title": "How Do Label Errors Affect Thin Crack Detection by DNNs",
+ "year": 2023,
+ "venue": "CVPRW",
+ "url": "https://doi.org/10.1109/cvprw59228.2023.00464",
+ "code_url": "",
+ "mechanism": "Label cracks as 1 px curves with matching training and evaluation, then synthesise annotation errors: under-annotation hurts more than over-annotation; polyline approximation has modest impact.",
+ "adaptation": "Benchmark: score crack as curves (relF1 on skeletons) and add a label-error robustness column (train on CV labels with synthetic 1 px jitter and 20% dropped segments). Model side: favour recall when refining labels; polyline-simplified labels are acceptable targets.",
+ "min_experiment": "For the top 5 suite methods, one extra CV training on corrupted labels; report drop in CV relF1@2; no kill line (measurement).",
+ "evidence": "Synthetic error study on 1 px curve labels; qualitative findings in abstract; numbers not read.",
+ "prior_overlap": "none",
+ "score": 40,
+ "bench_score": 75,
+ "bet": "safe",
+ "targets": [
+  "benchmark",
+  "measurement"
+ ],
+ "gpu_hours": 20,
+ "directions": [
+  "D11",
+  "D16",
+  "D18"
+ ],
+ "scout_scores": [
+  40,
+  35,
+  40,
+  40
+ ],
+ "alt_notes": [
+  {
+   "from": "D16",
+   "adaptation": "Design rule for every refinement arm: never delete crack label pixels that cannot be placed on a ridge; benchmark should report recall-oriented tolerant metrics alongside strict IoU, and can repeat the error-synthesis study on EL labels.",
+   "min_experiment": "Benchmark study: add synthetic under-annotation (drop 10% of components) and 1 px jitter to train labels, train house 3 seeds each, measure crack IoU and relF1@2 drop. Kill: not a method; stop if drops are under 0.01.",
+   "score": 35
+  },
+  {
+   "from": "D18",
+   "adaptation": "Our dotted, thin-traced crack labels behave like under-annotation; train on labels dilated by 1 px (or an asymmetric soft band) and score on the original labels with a val-chosen bias.",
+   "min_experiment": "Arm 1 px-dilated crack labels vs SUP100, 5 v 5. Kill if crack IoU (original labels, val bias) < +0.012 or relP@2 drop > 0.05.",
+   "score": 40
+  },
+  {
+   "from": "D18",
+   "adaptation": "Our dotted, under-traced crack labels are under-annotation; train on 1 px dilated crack labels or a soft band, score on original labels.",
+   "min_experiment": "Arm: crack labels dilated by 1 px, 5 seeds; baseline SUP100. Kill: crack IoU on original labels < +0.012 or relP@2 drop > 0.05.",
+   "score": 40
+  }
+ ],
+ "final": 40,
+ "bench": 75,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 359,
+ "pid": "P359"
+}

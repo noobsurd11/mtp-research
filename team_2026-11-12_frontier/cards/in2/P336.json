@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1109/tgrs.2024.3373908",
+ "title": "AIO2: Online Correction of Object Labels for Deep Learning With Incomplete Annotation in Remote Sensing Image Segmentation",
+ "year": 2024,
+ "venue": "IEEE TGRS",
+ "url": "https://arxiv.org/abs/2403.01641",
+ "code_url": "https://github.com/zhu-xlab/AIO2",
+ "mechanism": "Adaptive correction trigger from the mean-teacher accuracy curve plus online object-wise label correction for missing objects.",
+ "adaptation": "Add teacher-predicted crack components to labels only if p > 0.9, length >= 20 px and not inside scuff / edge_dark; targets missed cracks flagged by the audit and speck-level H36 labels.",
+ "min_experiment": "Arm: house + AIO2 correction. Baseline: house. Metric: crack component recall >= 20 px and relP@2. Kill if relP@2 drops > 0.02 or recall gain < +0.02. About 8 GPU-h.",
+ "evidence": "R: robust under varying building label omission on two footprint datasets; in NSegment+ comparison AIO2 gave +0.20 Vaihingen, +0.54 Cityscapes mIoU at 2x FLOPs.",
+ "prior_overlap": "partial: MT pseudo-labelling was run as SSL; online object-wise completion of labelled cells was not.",
+ "score": 42,
+ "bench_score": 35,
+ "bet": "medium",
+ "gpu_hours": 8,
+ "targets": [
+  "crack",
+  "e1_unseen"
+ ],
+ "directions": [
+  "D15"
+ ],
+ "scout_scores": [
+  42
+ ],
+ "final": 42,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 336,
+ "pid": "P336"
+}

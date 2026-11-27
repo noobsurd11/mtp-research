@@ -1,0 +1,35 @@
+{
+ "paper_id": "doi:10.1038/s41467-025-61754-6",
+ "title": "Generative AI enables medical image segmentation in ultra low-data regimes (GenSeg)",
+ "year": 2025,
+ "venue": "Nature Communications",
+ "url": "https://www.nature.com/articles/s41467-025-61754-6",
+ "code_url": "",
+ "mechanism": "Pixel-space mask-to-image GAN fed with augmented real masks; generator architecture learned by multi-level optimisation so the segmenter's validation loss steers generation.",
+ "adaptation": "Pixel space keeps cracks. Train on 478 cells at 512 px or 256 crops; mask augmentations = flips, rot90, crack evolution, inactive region edits; validation = module-grouped CV fold or F51, never test. Snap crack labels to the ridge first. Target inactive and weak sources (BMRK, CFVS without twin).",
+ "min_experiment": "PF + GenSeg pairs (2x train size) vs PF, 5 seeds. Metric CV inactive IoU, BMRK crack/inactive IoU, mIoU_rob. Kill: CV inactive < +0.02 and mIoU_rob < +0.01. About 36 GPU-h.",
+ "evidence": "R: 11 tasks, 19 datasets, 8 to 480 training images per task, +10 to 20% absolute Dice/IoU in- and out-of-domain; 8 to 20x less data needed. Code stated as github importZL/semantic_segmentation (not opened).",
+ "prior_overlap": "none; generative synthesis never tried",
+ "score": 55,
+ "bench_score": 45,
+ "bet": "medium",
+ "targets": [
+  "inactive",
+  "other_classes",
+  "crack"
+ ],
+ "gpu_hours": 36,
+ "directions": [
+  "D33"
+ ],
+ "scout_scores": [
+  55
+ ],
+ "final": 55,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 147,
+ "pid": "P147"
+}

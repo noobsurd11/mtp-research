@@ -1,0 +1,43 @@
+{
+ "paper_id": "arxiv:2502.20749",
+ "title": "SemiSAM+: Rethinking Semi-Supervised Medical Image Segmentation in the Era of Foundation Models",
+ "year": 2025,
+ "venue": "arXiv (MedIA 2025 per web search, unverified)",
+ "url": "https://arxiv.org/abs/2502.20749",
+ "code_url": "",
+ "mechanism": "A trainable specialist generates prompts for frozen SAM-type generalists, and their masks supervise the specialist on unlabelled images.",
+ "adaptation": "Inactive only (blobby, well labelled, 42 train cells). The house model proposes inactive boxes on pool cells; SAM2/SAM3 refines them; keep masks that agree with the house mask at IoU > 0.7 as extra inactive training cells. Not for thin cracks.",
+ "min_experiment": "Arm house PF + SAM-refined inactive pool cells vs house PF, 5 seeds. Metric: inactive IoU on clean-49, module-grouped 5-fold CV, and E1. Kill if inactive IoU gains less than 0.03 in CV.",
+ "score": 42,
+ "bench_score": 30,
+ "bet": "medium",
+ "targets": [
+  "inactive"
+ ],
+ "evidence": "R: two public sets plus one in-house set; gains reported mainly with extremely scarce labels. Numbers not on the abstract page.",
+ "gpu_hours": 8,
+ "prior_overlap": "SAM as a pseudo-label refiner was never run. Our Mean Teacher at 5% labels helped inactive (+0.11). Open.",
+ "directions": [
+  "D29",
+  "D38"
+ ],
+ "scout_scores": [
+  42,
+  30
+ ],
+ "alt_notes": [
+  {
+   "from": "D38",
+   "adaptation": "House PF predictions on pool half-cells prompt SAM2/SAM3; keep FM masks where location agrees but FM gives region extent (inactive); expected low value at 478 labels.",
+   "min_experiment": "PF + SemiSAM+-style FM-refined pseudo-labels on pool half-cells vs PF + raw house pseudo-labels; H36 inactive IoU; kill under margin M.",
+   "score": 30
+  }
+ ],
+ "final": 42,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 344,
+ "pid": "P344"
+}

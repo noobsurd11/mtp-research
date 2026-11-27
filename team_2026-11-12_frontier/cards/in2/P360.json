@@ -1,0 +1,35 @@
+{
+ "paper_id": "doi:10.1016/j.media.2024.103280",
+ "title": "TransUNet: Rethinking the U-Net architecture design for medical image segmentation through the lens of transformers",
+ "year": 2024,
+ "venue": "Medical Image Analysis",
+ "url": "https://doi.org/10.1016/j.media.2024.103280",
+ "code_url": "",
+ "mechanism": "ViT encoder on CNN features for global context, plus a transformer decoder that refines learnable queries into masks (mask-classification style).",
+ "adaptation": "R50-ViT hybrid encoder at 512 px (32 x 32 tokens at stride 16), 1-channel stem, PF fine-tune so ImageNet weights survive. The query decoder is the first mask-classification decoder this project would test.",
+ "min_experiment": "TransUNet encoder + query decoder, PF, 3 seeds, against house PF; metrics test-49 crack IoU, inactive IoU, E1 relF1@2. Kill: no metric above the house by 1 seed SD.",
+ "evidence": "R: improvements over U-Net and nnU-Net-style baselines on multi-organ and tumour segmentation (abstract level). nnU-Net Revisited found transformer U-Nets below a well-configured CNN in 3D.",
+ "prior_overlap": "none (BRIEF: no transformer segmenter and no mask-classification decoder tried)",
+ "score": 40,
+ "bench_score": 75,
+ "bet": "moonshot",
+ "targets": [
+  "inactive",
+  "e1_unseen",
+  "benchmark"
+ ],
+ "gpu_hours": 20,
+ "directions": [
+  "D25"
+ ],
+ "scout_scores": [
+  40
+ ],
+ "final": 40,
+ "bench": 75,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 360,
+ "pid": "P360"
+}

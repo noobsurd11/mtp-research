@@ -1,0 +1,12 @@
+fin2 code proof: 821dfadf49116cc6d5fdbd6697e263dd7cf0f834 -> 9967d59abaab03cef83c1e3014840b2359ef45d7 (2026-11-21 07:33:28; script 66d5c9d0)
+OK   (1) git diff F F2: exactly 6 paths (train.py, weight_avg.py, cq.sh, cq_setup.sh, 2 new tests)
+OK   (1) nothing under configs/ data/ bench/methods*/ bench/*.py, bench_infer.py, tta.py changed; under src/ only src/trainers/weight_avg.py (item 2b)
+OK   (2b) src/trainers/weight_avg.py: only the train_fold_loader overlap guard ('if set(stems) & held:' -> the same with 'and not held <= set(stems)', + 2 comment lines); the loader itself unchanged
+   train.py diff: 2 hunks, 2 removed, 10 added lines
+OK   (2) scripts/train.py: removed = the 2 val / test DataLoader lines; added = the same 2 lines with ', ignore_value=ev_ign' + the ev_ign block (comments, one assignment, one refusal); all in build_benchmark_data after 'weak_eval ='
+OK   (2) every changed train.py line lies after 'weak_eval =' (l.522) and before the next def (l.560) of build_benchmark_data (l.366)
+OK   (3) deploy CODE.md5 F2 against F: only the 6 paths (+ REVISION); F2 CODE.md5 md5 751e365e217150e7efaa24d56928ab3f (782 lines; c3_deploy.sh F2 must print it)
+OK   (4) queue and eval tests in the archive of F2: 50 passed, 2 skipped in 4.58s (byte-equal render of non-resume lines against F's cq.sh needs the git repo: run in the worktree)
+OK   (4) lines without --resume render byte-equal to F's cq.sh (worktree test): 1 passed, 13 deselected in 0.30s
+OK   (5) final2_smoke.sh (/home/yugma/mtp/research/team_2026-11-12_frontier/harness/final2/evidence/smoke_resume/f2final/smoke.log): R1 (F) rc 1 with the 255 ValueError, R2 / R3 (F2) rc 0, R4 rc 3, R5 F and F2 rc 0, for each card; every comparison 0 not-allowed differences
+fin2 code proof: 0 FAIL

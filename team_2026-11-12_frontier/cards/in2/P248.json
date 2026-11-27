@@ -1,0 +1,42 @@
+{
+ "paper_id": "doi:10.1007/978-3-031-43901-8_3",
+ "title": "Transformer-Based Annotation Bias-Aware Medical Image Segmentation (TAB)",
+ "year": 2023,
+ "venue": "MICCAI",
+ "url": "https://arxiv.org/abs/2306.01340",
+ "code_url": "https://github.com/Merrical/TAB",
+ "mechanism": "A transformer with one learnable query per annotator extracts preference features, so one head outputs each annotator's segmentation. A separate term models stochastic annotation error.",
+ "adaptation": "One query per source in a light transformer block at the U-Net++ bottleneck; each source's images supervise only its own output. Re-implement, because the repo targets PyTorch 1.7.",
+ "min_experiment": "Arm = house PF + 5 source queries (5 seeds) versus house PF. Metric: crack IoU clean-49 and per-source CV. Kill if < +0.012.",
+ "score": 48,
+ "bench_score": 35,
+ "bet": "medium",
+ "targets": [
+  "crack"
+ ],
+ "evidence": "R: RIGA optic disc/cup with six annotators; beats prior annotator-bias models (abstract).",
+ "gpu_hours": 8,
+ "prior_overlap": "none",
+ "directions": [
+  "D17"
+ ],
+ "scout_scores": [
+  48,
+  40
+ ],
+ "alt_notes": [
+  {
+   "from": "D17",
+   "adaptation": "One query per source in a light transformer block at the U-Net++ bottleneck; each source's cells train only their query output. Re-implement the head (old PyTorch).",
+   "min_experiment": "Arm: TAB-style source queries on house PF, 5 seeds vs house PF; metric clean-49 crack IoU; kill if < +0.012 or not above the source-FiLM arm.",
+   "score": 40
+  }
+ ],
+ "final": 48,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 248,
+ "pid": "P248"
+}

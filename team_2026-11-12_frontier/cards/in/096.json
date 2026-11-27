@@ -1,0 +1,36 @@
+{
+ "paper_id": "arxiv:2511.18452",
+ "title": "NAF: Zero-Shot Feature Upsampling via Neighborhood Attention Filtering",
+ "year": 2025,
+ "venue": "CVPR 2026",
+ "url": "https://arxiv.org/abs/2511.18452",
+ "code_url": "https://github.com/valeoai/NAF",
+ "mechanism": "Encoder-agnostic zero-shot upsampler: cross-scale neighbourhood attention with RoPE guided only by the high-res image, a learned joint bilateral filter that lifts any VFM's patch features to pixel resolution.",
+ "adaptation": "Lift frozen DINOv3 ViT-L/16 (or 7B) 32x32 tokens to 512x512 using the 1-channel EL cell replicated to 3 channels as guidance; light conv head over 24 classes. Check that sub-2%-contrast cracks are not smoothed by the bilateral weighting along finger and busbar edges.",
+ "min_experiment": "Frozen DINOv3 ViT-S and ViT-L 1x1 probe: NAF at 512 vs bilinear at 512 vs bilinear at 1024 input (existing 0.212 crack AP for ViT-S). Metric F51 + 5-fold CV crack AP and gridline AP. Kill: NAF at 512 does not beat bilinear at 1024 on crack AP. About 3 GPU-h.",
+ "prior_overlap": "Partial: frozen linear probes of DINOv3 / DINOv2 / SAM2 used bilinear upsampling only. No learned upsampler was tested, so open.",
+ "evidence": "R: Pascal VOC probe with DINOv3-B 87.85 mIoU vs JAFAR 87.10; runs on DINOv3-7B where VFM-specific upsamplers run out of memory; 2K feature maps at 18 FPS. Object-scale benchmarks only.",
+ "bet": "medium",
+ "gpu_hours": 3,
+ "score": 60,
+ "bench_score": 45,
+ "targets": [
+  "e1_unseen",
+  "crack",
+  "other_classes"
+ ],
+ "directions": [
+  "D22"
+ ],
+ "scout_scores": [
+  60
+ ],
+ "final": 60,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 96,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

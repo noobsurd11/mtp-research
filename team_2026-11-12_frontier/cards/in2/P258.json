@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1016/j.media.2024.103442",
+ "title": "Benefit from public unlabeled data: A Frangi filter-based pretraining network for 3D cerebrovascular segmentation",
+ "year": 2025,
+ "venue": "Medical Image Analysis",
+ "url": "https://arxiv.org/abs/2312.15273",
+ "code_url": "https://github.com/shigen-StoneRoot/FFPN",
+ "mechanism": "Pretrain on public unlabelled data with Frangi-filter-derived multi-task targets, then fine-tune.",
+ "adaptation": "Bold bet: pretrain whole U-Net++ (decoder included) on the 11.9k pool to regress multi-scale dark-ridge maps plus the periodic notch residual; PF fine-tune so the pretraining survives.",
+ "min_experiment": "Arm: ridge-pretrained 40k steps then PF; baseline PF from ImageNet; kill if crack IoU (CV) < +0.012 and E1 relF1@2 < +0.02. About 20 GPU-h.",
+ "evidence": "R: 1,510 unlabelled TOF-MRA scans, about +3% over semi- and self-supervised methods.",
+ "prior_overlap": "partial: MIM and DDeP pool pretraining n.d. (section 5), but ridge-target / thin-structure objectives are listed as open",
+ "targets": [
+  "crack",
+  "e1_unseen"
+ ],
+ "bet": "moonshot",
+ "gpu_hours": 20,
+ "score": 46,
+ "bench_score": 20,
+ "directions": [
+  "D28"
+ ],
+ "scout_scores": [
+  46
+ ],
+ "final": 46,
+ "bench": 20,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 258,
+ "pid": "P258"
+}

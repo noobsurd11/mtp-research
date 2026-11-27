@@ -1,0 +1,36 @@
+{
+ "paper_id": "arxiv:2608.16377",
+ "title": "Adaptive Post-Processing Drives Instance-Level Detection in Stroke Lesion Segmentation (VCAP)",
+ "year": 2026,
+ "venue": "arXiv (ISLES'26)",
+ "url": "https://arxiv.org/abs/2608.16377",
+ "code_url": "",
+ "mechanism": "Component-size thresholds adapted per case to the predicted lesion burden, fitted cross-fold.",
+ "adaptation": "Per-cell predicted crack burden sets min component length and peak-probability cut for crack components; fitted on val + F51 or module-grouped CV out-of-fold maps of the existing 5-seed ensemble; no retraining.",
+ "min_experiment": "Arm: VCAP rule on ensemble maps. Baseline: ensemble with val-chosen logit bias. Metric: test and E1 crack relF1@2 and component F1. Kill: relF1@2 gain < 0.005 and component F1 gain < 0.01.",
+ "evidence": "ISLES'26 training set 1,453 cases, 5-fold: lesion F1 +0.032 from VCAP, about 6x any architecture change tested; post-processed ensemble Dice 0.651 / lesion F1 0.614 vs 0.644 / 0.573.",
+ "gpu_hours": 1,
+ "bet": "safe",
+ "prior_overlap": "Per-module thresholds and global logit bias were tried; per-component, burden-conditioned rules were not.",
+ "targets": [
+  "crack",
+  "e1_unseen",
+  "measurement"
+ ],
+ "score": 60,
+ "bench_score": 50,
+ "directions": [
+  "D20"
+ ],
+ "scout_scores": [
+  60
+ ],
+ "final": 60,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 91,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

@@ -1,0 +1,33 @@
+{
+ "paper_id": "arxiv:2310.05341",
+ "title": "From Question to Exploration: Test-Time Adaptation in Semantic Segmentation? (TTAP)",
+ "year": 2023,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2310.05341",
+ "code_url": "",
+ "mechanism": "A study of classic TTA in segmentation: BN updating brings slight gains or harm, teacher-student is stable but brings no gain on complex shifts, and long-tail imbalance breaks seg TTA even with accurate pseudo-labels. Proposes visual prompt TTA.",
+ "adaptation": "Failure-mode evidence for rare classes. Use it to justify the benchmark rule that TTA is reported separately and the class-balanced selection in the self-training TTA arms.",
+ "min_experiment": "Not an experiment. Cite it in the benchmark protocol; its findings are checked by the Tent/SAR/CoTTA rows.",
+ "score": 15,
+ "bench_score": 45,
+ "bet": "safe",
+ "targets": [
+  "benchmark"
+ ],
+ "evidence": "R (abstract): BN updating slight gain or harm; teacher-student no gain over source on complex shifts; severe long-tail class imbalance problem in seg TTA.",
+ "gpu_hours": 0,
+ "prior_overlap": "Consistent with T9 / BN-HC failure (E).",
+ "directions": [
+  "D31"
+ ],
+ "scout_scores": [
+  15
+ ],
+ "final": 15,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 612,
+ "pid": "P612"
+}

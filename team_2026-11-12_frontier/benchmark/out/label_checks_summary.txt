@@ -1,0 +1,169 @@
+## 1. Frozen B6 folds vs groups that use test-cell evidence
+  group ARTS_00081:
+    fold 1: 5 cells, image ids ['ARTS_00020'], crack px 382, inactive px 0; ['ARTS_00020_r10_c1', 'ARTS_00020_r4_c6', 'ARTS_00020_r7_c1', 'ARTS_00020_r8_c6', 'ARTS_00020_r9_c6']
+    fold 3: 2 cells, image ids ['ARTS_00081'], crack px 113, inactive px 0; ['ARTS_00081_r5_c1', 'ARTS_00081_r9_c6']
+  group CFVS_00046:
+    fold 1: 6 cells, image ids ['CFVS_00032', 'CFVS_00037', 'CFVS_00042', 'CFVS_00046'], crack px 10290, inactive px 9663; ['CFVS_00032_r8_c4', 'CFVS_00037_r8_c4', 'CFVS_00042_r11_c2', 'CFVS_00042_r12_c3', 'CFVS_00042_r8_c5', 'CFVS_00046_r8_c4']
+    fold 2: 2 cells, image ids ['CFVS_00033'], crack px 2165, inactive px 0; ['CFVS_00033_r1_c4', 'CFVS_00033_r5_c3']
+
+## 2. BMRK / SDLE pairs: full-resolution image correlation for pairs with screen hp_r >= 0.95 or crack IoU >= 0.2
+  ncc_nonpadding | a (role) | b (role) | screen hp_r | ncc_all | mean abs diff (grey) | crack IoU | inactive IoU | share of identical mask px
+  0.9848 | BMRK_01502_cell2156 (E1) | BMRK_01538_cell2192 (E1) | 0.995 | 0.9939 | 14.7 | nan | nan | 0.9832
+  0.9843 | BMRK_01538_cell2192 (E1) | BMRK_01549_cell2203 (E1) | 0.993 | 0.9891 | 20.2 | nan | nan | 0.9950
+  0.9704 | BMRK_01502_cell2156 (E1) | BMRK_01549_cell2203 (E1) | 0.995 | 0.9950 | 9.4 | nan | nan | 0.9809
+  0.9668 | BMRK_01538_cell2192 (E1) | BMRK_01543_cell2197 (E1) | 0.978 | 0.9827 | 35.5 | nan | nan | 0.9952
+  0.9558 | BMRK_01543_cell2197 (E1) | BMRK_01549_cell2203 (E1) | 0.987 | 0.9949 | 16.1 | nan | nan | 0.9965
+  0.9540 | BMRK_01515_cell2169 (E1) | BMRK_01538_cell2192 (E1) | 0.985 | 0.9803 | 22.9 | 0.000 | nan | 0.9806
+  0.9517 | BMRK_01502_cell2156 (E1) | BMRK_01515_cell2169 (E1) | 0.990 | 0.9911 | 11.3 | 0.000 | nan | 0.9906
+  0.9513 | BMRK_01502_cell2156 (E1) | BMRK_01543_cell2197 (E1) | 0.982 | 0.9913 | 21.7 | nan | nan | 0.9807
+  0.9481 | BMRK_01515_cell2169 (E1) | BMRK_01549_cell2203 (E1) | 0.991 | 0.9940 | 9.0 | 0.000 | nan | 0.9786
+  0.9257 | BMRK_01515_cell2169 (E1) | BMRK_01543_cell2197 (E1) | 0.988 | 0.9928 | 16.3 | 0.000 | nan | 0.9803
+  0.8738 | BMRK_01360_cell2386 (train) | BMRK_01483_cell2617 (train) | 0.954 | 0.9872 | 16.4 | nan | nan | 0.9878
+  0.8567 | BMRK_01660_cell0398 (train) | BMRK_01799_cell0537 (train) | 0.955 | 0.9721 | 17.2 | 0.000 | 0.000 | 0.9614
+  0.8415 | BMRK_00471_cell0231 (test) | BMRK_00713_cell0773 (train) | 0.980 | 0.9962 | 17.6 | 0.000 | nan | 0.9797
+  0.8241 | BMRK_01484_cell2618 (train) | BMRK_02546_cell2246 (val) | 0.966 | 0.9900 | 14.4 | nan | nan | 0.9615
+  0.8181 | BMRK_01893_cell0991 (train) | BMRK_02285_cell1383 (train) | 0.954 | 0.9810 | 43.9 | 0.000 | nan | 0.9773
+  0.8128 | BMRK_00386_cell0146 (train) | BMRK_01473_cell2607 (train) | 0.951 | 0.9844 | 23.3 | 0.000 | nan | 0.9641
+  0.8103 | BMRK_01483_cell2617 (train) | BMRK_02546_cell2246 (val) | 0.960 | 0.9825 | 21.8 | nan | nan | 0.9625
+  0.8072 | BMRK_00520_cell0580 (train) | BMRK_01484_cell2618 (train) | 0.952 | 0.9848 | 16.2 | nan | nan | 0.9630
+  0.8071 | BMRK_00520_cell0580 (train) | BMRK_00672_cell0732 (train) | 0.959 | 0.9843 | 22.7 | 0.000 | nan | 0.9836
+  0.7920 | BMRK_00181_cell0841 (train) | BMRK_00223_cell0883 (train) | 0.972 | 0.9910 | 31.2 | 0.005 | nan | 0.9793
+  0.7809 | BMRK_01473_cell2607 (train) | BMRK_02546_cell2246 (val) | 0.963 | 0.9824 | 19.2 | nan | nan | 0.9721
+  0.7793 | BMRK_00574_cell0634 (val) | BMRK_00633_cell0693 (train) | 0.951 | 0.9836 | 32.9 | 0.000 | nan | 0.9702
+  0.7632 | BMRK_00520_cell0580 (train) | BMRK_02546_cell2246 (val) | 0.960 | 0.9818 | 19.7 | nan | nan | 0.9812
+  0.7556 | BMRK_00031_cell0091 (train) | BMRK_00181_cell0841 (train) | 0.960 | 0.9896 | 16.5 | 0.009 | nan | 0.9662
+  0.7525 | BMRK_01769_cell0507 (train) | BMRK_02546_cell2246 (val) | 0.951 | 0.9831 | 18.0 | 0.000 | nan | 0.9658
+  pairs checked 72; with non-padding ncc >= 0.98: 2; >= 0.90: 10
+
+## 3. Mask agreement between two images of the same physical cell (same group, same source and position, different image id)
+  class | a (role) | b (role) | image ncc after shift | shift dy,dx | px a | px b | IoU raw | IoU after image alignment | tolerant F1 @2 | min(P, R) @2
+  crack | ARTS_00005_r4_c5 (train) | ARTS_00097_r4_c5 (val) | 0.892 | 0,0 | 869 | 927 | 0.370 | 0.370 | 0.952 | 0.921
+  crack | ARTS_00020_r5_c1 (test) | ARTS_00081_r5_c1 (train) | 0.998 | 0,0 | 183 | 113 | 0.534 | 0.534 | 0.997 | 0.995
+  crack | CFVS_00003_r5_c5 (train) | CFVS_00006_r5_c5 (test) | 0.934 | 1,0 | 519 | 505 | 0.342 | 0.452 | 0.989 | 0.981
+  crack | CFVS_00010_r7_c4 (val) | CFVS_00012_r7_c4 (train) | 0.952 | 0,0 | 4923 | 4923 | 1.000 | 1.000 | 1.000 | 1.000
+  crack | CFVS_00010_r7_c4 (val) | CFVS_00013_r7_c4 (train) | 0.887 | 0,1 | 4923 | 2378 | 0.361 | 0.199 | 0.601 | 0.472
+  crack | CFVS_00010_r7_c4 (val) | CFVS_00015_r7_c4 (train) | 0.843 | 0,0 | 4923 | 2044 | 0.143 | 0.143 | 0.538 | 0.442
+  crack | CFVS_00010_r7_c4 (val) | CFVS_00016_r7_c4 (train) | 0.843 | 0,0 | 4923 | 2423 | 0.363 | 0.363 | 0.602 | 0.472
+  crack | CFVS_00012_r7_c4 (train) | CFVS_00013_r7_c4 (train) | 0.934 | -1,0 | 4923 | 2378 | 0.361 | 0.299 | 0.604 | 0.475
+  crack | CFVS_00012_r7_c4 (train) | CFVS_00015_r7_c4 (train) | 0.913 | 0,-1 | 4923 | 2044 | 0.143 | 0.127 | 0.527 | 0.427
+  crack | CFVS_00012_r7_c4 (train) | CFVS_00016_r7_c4 (train) | 0.913 | 0,-1 | 4923 | 2423 | 0.363 | 0.197 | 0.597 | 0.466
+  crack | CFVS_00013_r7_c4 (train) | CFVS_00015_r7_c4 (train) | 0.977 | 0,-1 | 2378 | 2044 | 0.254 | 0.225 | 0.798 | 0.759
+  crack | CFVS_00013_r7_c4 (train) | CFVS_00016_r7_c4 (train) | 0.977 | 0,-1 | 2378 | 2423 | 0.905 | 0.395 | 0.969 | 0.967
+  crack | CFVS_00015_r7_c4 (train) | CFVS_00016_r7_c4 (train) | 1.000 | 0,0 | 2044 | 2423 | 0.259 | 0.259 | 0.829 | 0.776
+  crack | CFVS_00018_r4_c4 (test) | CFVS_00020_r4_c4 (train) | 0.962 | 0,0 | 10915 | 10915 | 1.000 | 1.000 | 1.000 | 1.000
+  crack | CFVS_00018_r4_c4 (test) | CFVS_00022_r4_c4 (train) | 0.920 | 1,0 | 10915 | 10553 | 0.955 | 0.740 | 0.984 | 0.972
+  crack | CFVS_00018_r4_c4 (test) | CFVS_00027_r4_c4 (test) | 0.820 | 0,-1 | 10915 | 10211 | 0.902 | 0.531 | 0.970 | 0.948
+  crack | CFVS_00018_r4_c4 (test) | CFVS_00031_r4_c4 (train) | 0.851 | 0,-1 | 10915 | 10067 | 0.874 | 0.517 | 0.960 | 0.931
+  crack | CFVS_00020_r4_c4 (train) | CFVS_00022_r4_c4 (train) | 0.969 | 1,-1 | 10915 | 10553 | 0.955 | 0.560 | 0.986 | 0.974
+  crack | CFVS_00020_r4_c4 (train) | CFVS_00027_r4_c4 (test) | 0.901 | -1,-1 | 10915 | 10211 | 0.902 | 0.497 | 0.971 | 0.948
+  crack | CFVS_00020_r4_c4 (train) | CFVS_00031_r4_c4 (train) | 0.921 | 0,-1 | 10915 | 10067 | 0.874 | 0.517 | 0.960 | 0.931
+  crack | CFVS_00021_r3_c1 (train) | CFVS_00063_r3_c1 (test) | 0.897 | 1,-1 | 182 | 169 | 0.000 | 0.000 | 0.000 | 0.000
+  crack | CFVS_00022_r4_c4 (train) | CFVS_00027_r4_c4 (test) | 0.914 | -1,0 | 10553 | 10211 | 0.924 | 0.722 | 0.981 | 0.970
+  crack | CFVS_00022_r4_c4 (train) | CFVS_00031_r4_c4 (train) | 0.925 | -1,-1 | 10553 | 10067 | 0.865 | 0.476 | 0.956 | 0.941
+  crack | CFVS_00024_r3_c3 (train) | CFVS_00030_r3_c3 (train) | 0.892 | 0,1 | 1222 | 1410 | 0.126 | 0.183 | 0.794 | 0.742
+  crack | CFVS_00027_r4_c4 (test) | CFVS_00031_r4_c4 (train) | 0.975 | 0,0 | 10211 | 10067 | 0.931 | 0.931 | 0.979 | 0.976
+  crack | CFVS_00032_r8_c4 (train) | CFVS_00033_r8_c4 (test) | 0.813 | 0,1 | 1077 | 4876 | 0.097 | 0.096 | 0.231 | 0.135
+  crack | CFVS_00032_r8_c4 (train) | CFVS_00035_r8_c4 (test) | 0.778 | 0,1 | 1077 | 5513 | 0.095 | 0.115 | 0.272 | 0.161
+  crack | CFVS_00032_r8_c4 (train) | CFVS_00037_r8_c4 (train) | 0.681 | 0,1 | 1077 | 4233 | 0.109 | 0.108 | 0.262 | 0.155
+  crack | CFVS_00032_r8_c4 (train) | CFVS_00042_r8_c4 (test) | 0.619 | 0,0 | 1077 | 4202 | 0.109 | 0.109 | 0.256 | 0.152
+  crack | CFVS_00032_r8_c4 (train) | CFVS_00046_r8_c4 (val) | 0.631 | 0,1 | 1077 | 4044 | 0.112 | 0.113 | 0.269 | 0.160
+  crack | CFVS_00033_r8_c4 (test) | CFVS_00035_r8_c4 (test) | 0.961 | 0,0 | 4876 | 5513 | 0.409 | 0.409 | 0.880 | 0.851
+  crack | CFVS_00033_r8_c4 (test) | CFVS_00037_r8_c4 (train) | 0.876 | 0,0 | 4876 | 4233 | 0.382 | 0.382 | 0.879 | 0.829
+  crack | CFVS_00033_r8_c4 (test) | CFVS_00042_r8_c4 (test) | 0.746 | -1,0 | 4876 | 4202 | 0.372 | 0.357 | 0.868 | 0.815
+  crack | CFVS_00033_r8_c4 (test) | CFVS_00046_r8_c4 (val) | 0.819 | 0,0 | 4876 | 4044 | 0.373 | 0.373 | 0.874 | 0.817
+  crack | CFVS_00035_r8_c4 (test) | CFVS_00037_r8_c4 (train) | 0.933 | 0,0 | 5513 | 4233 | 0.455 | 0.455 | 0.931 | 0.917
+  crack | CFVS_00035_r8_c4 (test) | CFVS_00042_r8_c4 (test) | 0.847 | 0,0 | 5513 | 4202 | 0.444 | 0.444 | 0.926 | 0.906
+  crack | CFVS_00035_r8_c4 (test) | CFVS_00046_r8_c4 (val) | 0.899 | 0,0 | 5513 | 4044 | 0.441 | 0.441 | 0.916 | 0.891
+  crack | CFVS_00037_r8_c4 (train) | CFVS_00042_r8_c4 (test) | 0.930 | 0,-1 | 4233 | 4202 | 0.899 | 0.477 | 0.993 | 0.991
+  crack | CFVS_00037_r8_c4 (train) | CFVS_00046_r8_c4 (val) | 0.953 | 0,0 | 4233 | 4044 | 0.896 | 0.896 | 0.979 | 0.967
+  crack | CFVS_00042_r8_c4 (test) | CFVS_00046_r8_c4 (val) | 0.946 | 0,1 | 4202 | 4044 | 0.881 | 0.459 | 0.984 | 0.975
+  crack | CFVS_00102_r6_c6 (train) | CFVS_00103_r6_c6 (train) | 0.931 | -1,1 | 676 | 704 | 0.247 | 0.162 | 0.769 | 0.731
+  crack | CFVS_00114_r8_c2 (train) | CFVS_00130_r8_c2 (train) | 0.720 | 0,1 | 10830 | 5608 | 0.053 | 0.054 | 0.250 | 0.205
+  crack | CFVS_00119_r1_c2 (train) | CFVS_00128_r1_c2 (train) | 0.984 | -1,1 | 548 | 745 | 0.280 | 0.358 | 0.930 | 0.906
+  crack | CFVS_00139_r4_c3 (train) | CFVS_00143_r4_c3 (val) | 0.671 | 1,0 | 9769 | 7692 | 0.299 | 0.316 | 0.846 | 0.783
+  inactive | CFVS_00013_r7_c4 (train) | CFVS_00015_r7_c4 (train) | 0.977 | 0,-1 | 13551 | 13080 | 0.816 | 0.812 | 0.934 | 0.909
+  inactive | CFVS_00013_r7_c4 (train) | CFVS_00016_r7_c4 (train) | 0.977 | 0,-1 | 13551 | 13977 | 0.970 | 0.920 | 0.986 | 0.972
+  inactive | CFVS_00015_r7_c4 (train) | CFVS_00016_r7_c4 (train) | 1.000 | 0,0 | 13080 | 13977 | 0.829 | 0.829 | 0.947 | 0.909
+  inactive | CFVS_00020_r4_c4 (train) | CFVS_00022_r4_c4 (train) | 0.969 | 1,-1 | 2771 | 3951 | 0.701 | 0.656 | 0.848 | 0.736
+  inactive | CFVS_00020_r4_c4 (train) | CFVS_00027_r4_c4 (test) | 0.901 | -1,-1 | 2771 | 5214 | 0.531 | 0.496 | 0.709 | 0.549
+  inactive | CFVS_00020_r4_c4 (train) | CFVS_00031_r4_c4 (train) | 0.921 | 0,-1 | 2771 | 6064 | 0.457 | 0.427 | 0.630 | 0.459
+  inactive | CFVS_00022_r4_c4 (train) | CFVS_00027_r4_c4 (test) | 0.914 | -1,0 | 3951 | 5214 | 0.727 | 0.692 | 0.846 | 0.740
+  inactive | CFVS_00022_r4_c4 (train) | CFVS_00031_r4_c4 (train) | 0.925 | -1,-1 | 3951 | 6064 | 0.581 | 0.523 | 0.749 | 0.607
+  inactive | CFVS_00027_r4_c4 (test) | CFVS_00031_r4_c4 (train) | 0.975 | 0,0 | 5214 | 6064 | 0.807 | 0.807 | 0.916 | 0.846
+  inactive | CFVS_00035_r8_c4 (test) | CFVS_00037_r8_c4 (train) | 0.933 | 0,0 | 2728 | 3131 | 0.765 | 0.765 | 0.973 | 0.966
+  inactive | CFVS_00035_r8_c4 (test) | CFVS_00042_r8_c4 (test) | 0.847 | 0,0 | 2728 | 3178 | 0.754 | 0.754 | 0.965 | 0.952
+  inactive | CFVS_00035_r8_c4 (test) | CFVS_00046_r8_c4 (val) | 0.899 | 0,0 | 2728 | 3193 | 0.751 | 0.751 | 0.963 | 0.947
+  inactive | CFVS_00037_r8_c4 (train) | CFVS_00042_r8_c4 (test) | 0.930 | 0,-1 | 3131 | 3178 | 0.983 | 0.867 | 1.000 | 1.000
+  inactive | CFVS_00037_r8_c4 (train) | CFVS_00046_r8_c4 (val) | 0.953 | 0,0 | 3131 | 3193 | 0.979 | 0.979 | 0.998 | 0.997
+  inactive | CFVS_00042_r8_c4 (test) | CFVS_00046_r8_c4 (val) | 0.946 | 0,1 | 3178 | 3193 | 0.985 | 0.855 | 0.998 | 0.996
+  inactive | CFVS_00114_r8_c2 (train) | CFVS_00130_r8_c2 (train) | 0.720 | 0,1 | 13467 | 22342 | 0.326 | 0.325 | 0.548 | 0.423
+  inactive | CFVS_00139_r4_c3 (train) | CFVS_00143_r4_c3 (val) | 0.671 | 1,0 | 15774 | 4335 | 0.218 | 0.227 | 0.402 | 0.253
+  crack: pairs 44; aligned IoU median 0.377 (IQR 0.194-0.502); tolerant F1@2 median 0.898 (IQR 0.602-0.973); pairs with IoU >= 0.999 (copied mask): 2
+    without copied masks, image ncc >= 0.9: pairs 22; aligned IoU median 0.457 (min 0.127, max 0.931); tolerant F1@2 median 0.965 (min 0.527, max 0.997)
+  inactive: pairs 17; aligned IoU median 0.754 (IQR 0.523-0.829); tolerant F1@2 median 0.934 (IQR 0.749-0.973); pairs with IoU >= 0.999 (copied mask): 0
+    without copied masks, image ncc >= 0.9: pairs 13; aligned IoU median 0.807 (min 0.427, max 0.979); tolerant F1@2 median 0.934 (min 0.630, max 1.000)
+
+## 4a. Legacy 24 classes on the 582 cells (masks_escdd rebuilt): cells with the class (px) per split
+  id | class | train cells (px) | val cells (px) | test cells (px) | train+val groups with the class
+  0 | bckgnd | 478 (86565445) | 54 (9269360) | 50 (8506124) | 330
+  1 | sp multi | 206 (2275075) | 23 (235309) | 14 (169861) | 121
+  2 | sp mono | 218 (2464962) | 23 (281929) | 24 (297693) | 148
+  3 | sp dogbone | 3 (70621) | 0 (0) | 0 (0) | 2
+  4 | ribbons | 469 (5343953) | 54 (608003) | 50 (582670) | 323
+  5 | border | 261 (2854689) | 33 (375337) | 24 (185327) | 236
+  6 | text | 14 (11614) | 2 (1279) | 0 (0) | 13
+  7 | padding | 264 (21643321) | 33 (2797265) | 24 (2827416) | 238
+  8 | clamp | 1 (1238) | 0 (0) | 0 (0) | 1
+  9 | busbars | 49 (212905) | 6 (32261) | 1 (2315) | 46
+  10 | crack rbn edge | 3 (89) | 1 (77) | 0 (0) | 3
+  11 | inactive | 42 (272743) | 6 (12277) | 16 (92125) | 34
+  12 | rings | 1 (1204) | 0 (0) | 0 (0) | 1
+  13 | material | 106 (630385) | 11 (133155) | 11 (83724) | 92
+  14 | crack | 209 (271805) | 23 (37938) | 48 (92074) | 138
+  15 | gridline | 318 (715406) | 41 (138039) | 45 (127869) | 225
+  16 | splice | 53 (58551) | 7 (4748) | 4 (4031) | 36
+  17 | dead cell | 1 (19605) | 1 (30199) | 0 (0) | 2
+  18 | corrosion rbn | 15 (158267) | 0 (0) | 1 (10527) | 15
+  19 | belt mark | 2 (21935) | 0 (0) | 0 (0) | 1
+  20 | edge dark | 41 (687077) | 2 (12423) | 3 (20504) | 33
+  21 | frame edge | 97 (1015624) | 13 (186177) | 8 (104940) | 79
+  22 | jbox | 9 (7764) | 0 (0) | 0 (0) | 9
+  23 | meas artifact | 3 (554) | 0 (0) | 0 (0) | 3
+  classes with ground truth in >= 3 test cells: ['bckgnd', 'sp multi', 'sp mono', 'ribbons', 'border', 'padding', 'inactive', 'material', 'crack', 'gridline', 'splice', 'edge dark', 'frame edge'] n = 13
+  classes absent from test: ['sp dogbone', 'text', 'clamp', 'crack rbn edge', 'rings', 'dead cell', 'belt mark', 'jbox', 'meas artifact']
+  classes in 1-2 test cells: ['busbars', 'corrosion rbn']
+  classes with >= 10 train+val groups: ['bckgnd', 'sp multi', 'sp mono', 'ribbons', 'border', 'text', 'padding', 'busbars', 'inactive', 'material', 'crack', 'gridline', 'splice', 'corrosion rbn', 'edge dark', 'frame edge']
+  classes with < 5 train+val groups: [('sp dogbone', 2), ('clamp', 1), ('crack rbn edge', 3), ('rings', 1), ('dead cell', 2), ('belt mark', 1), ('meas artifact', 3)]
+
+## 4b. All 30 classes on E-SCDD / 20221008 masks: cells with the class (px) per role
+  id | class | legacy 582 | E1 106 | ext_in_pool 11 | _rf 117
+  0 | bckgnd | 582 (104339546) | 106 (12801685) | 11 (2270525) | 117 (24279435)
+  1 | sp multi | 243 (2680237) | 38 (549461) | 0 (0) | 40 (331404)
+  2 | sp mono | 265 (3044584) | 1 (17747) | 0 (0) | 18 (283878)
+  3 | sp dogbone | 3 (70621) | 2 (6360) | 7 (157581) | 16 (349336)
+  4 | ribbons | 573 (6534626) | 101 (1299306) | 4 (122740) | 98 (1315628)
+  5 | border | 318 (3415353) | 65 (419622) | 6 (27641) | 47 (393455)
+  6 | text | 16 (12893) | 0 (0) | 0 (0) | 0 (0)
+  7 | padding | 321 (27268002) | 80 (10998900) | 4 (192000) | 44 (1953845)
+  8 | clamp | 1 (1238) | 0 (0) | 0 (0) | 0 (0)
+  9 | busbars | 56 (247481) | 17 (58751) | 2 (11952) | 5 (22519)
+  10 | crack rbn edge | 4 (166) | 0 (0) | 0 (0) | 44 (4504)
+  11 | inactive | 64 (377145) | 10 (9158) | 0 (0) | 10 (39509)
+  12 | rings | 1 (1204) | 0 (0) | 2 (13006) | 7 (22698)
+  13 | material | 127 (845874) | 1 (40) | 3 (3103) | 104 (326573)
+  14 | crack | 275 (400878) | 32 (32294) | 3 (2940) | 52 (24839)
+  15 | gridline | 404 (981314) | 19 (68180) | 0 (0) | 54 (49824)
+  16 | splice | 64 (67330) | 0 (0) | 0 (0) | 1 (809)
+  17 | dead cell | 2 (49804) | 0 (0) | 0 (0) | 5 (192662)
+  18 | corrosion rbn | 16 (168794) | 0 (0) | 0 (0) | 2 (2296)
+  19 | belt mark | 2 (21935) | 0 (0) | 1 (29647) | 7 (34606)
+  20 | edge dark | 46 (720004) | 0 (0) | 0 (0) | 8 (30827)
+  21 | frame edge | 118 (1306741) | 50 (283858) | 0 (0) | 17 (79312)
+  22 | jbox | 9 (7764) | 0 (0) | 0 (0) | 0 (0)
+  23 | meas artifact | 3 (554) | 0 (0) | 0 (0) | 3 (42)
+  24 | sp mono halfcut | 0 (0) | 4 (46570) | 0 (0) | 0 (0)
+  25 | scuff | 14 (3482) | 38 (84511) | 0 (0) | 12 (7355)
+  26 | corrosion cell | 0 (0) | 10 (277959) | 0 (0) | 14 (74588)
+  27 | brightening | 0 (0) | 20 (323044) | 0 (0) | 18 (179450)
+  28 | star | 3 (238) | 30 (9841) | 0 (0) | 3 (276)
+  29 | sp multi halfcut | 0 (0) | 58 (499977) | 4 (52449) | 43 (671178)

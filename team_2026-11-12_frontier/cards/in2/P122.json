@@ -1,0 +1,35 @@
+{
+ "paper_id": "arxiv:2203.05482",
+ "title": "Model soups: averaging weights of multiple fine-tuned models improves accuracy without increasing inference time",
+ "year": 2022,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2203.05482",
+ "code_url": "",
+ "mechanism": "Average weights of models fine-tuned from one shared init with different hyperparameters; greedy soup chosen on held-out data.",
+ "adaptation": "Our seeds share only the ImageNet encoder; decoders are random per seed, so fork 5 continuations from one checkpoint at 2k-5k steps (different seeds, aug order, Dice weights), uniform and greedy soup on F51 + val, recompute BN.",
+ "min_experiment": "Step 0 (free): average 5 existing PF seeds, eval on val (expected collapse). Arm: forked soup (k=4k), 2 replicates. Baseline: same forks as output ensemble and as singles. Metric: crack IoU on CV / clean 49. Kill: soup below mean single of its members.",
+ "evidence": "R: ImageNet, WILDS and text classification gains without inference cost; no segmentation results.",
+ "gpu_hours": 6,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "inactive",
+  "deployment"
+ ],
+ "prior_overlap": "none run; a soup of 5 PF seeds was proposed 30 Oct and not run",
+ "score": 58,
+ "bench_score": 40,
+ "directions": [
+  "D34"
+ ],
+ "scout_scores": [
+  58
+ ],
+ "final": 58,
+ "bench": 40,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 122,
+ "pid": "P122"
+}

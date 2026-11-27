@@ -1,0 +1,25 @@
+D33 notes WIP (12 Nov)
+- Research MCP 502 at start (3 calls + 1 retry). WebSearch budget exhausted after 3 calls.
+- WebSearch found: JoDiffusion arXiv 2512.13014 (joint image+mask latent diffusion, VOC 72.5 mIoU); SeeDiff 2507.19808; DiffuMask 2303.11681; SatSynth 2403.16605 CVPR24; SynthSet 2411.03505.
+- Defect gen: BBox-guided diffusion 2505.03623 code github.com/covisionlab/diffusion_labeling; DefectDiffu 2408.00372 code github.com/FFDD-diffusion/DefectDiffu; TF-IDG ICCV25 code github.com/rubymiaomiao/TF-IDG; AdaBLDM 2402.19330 code github.com/GrandpaXun242/AdaBLDM; STAGE 2509.06693; GAA 2507.09619; GroundingAnomaly 2604.08301.
+- DefectFill arXiv 2503.13985 CVPR25, doi 10.1109/CVPR52734.2025.01744, local defects good, global defects weak; code not confirmed.
+- D06 already covers: CrackSegFlow, PV-DDPM, FMS2, 2609.12431, FreeMask, FreeCOS, Kikelj, Siamese-Diffusion, SeaS, OCTA sim, Free Lunch, AnomalyDiffusion, DualAnoDiff, PDIG, SIGAN. D33 must add distinct ones: general mask->image (DatasetDM, SegGen, JoDiffusion), translation for half-cut gap, small-data ControlNet medical, defect inpainting (DefectFill, TF-IDG, AdaBLDM), and synthetic-data training recipes.
+- 14:40 UTC: tunnel 530 for ~20 min, then MCP back. Used local paper-mcp library.sqlite3 (read-only) to list previously tool-retrieved papers.
+- Q1 joint image mask diffusion small labelled (2024+): SatSynth, DiffAug ICCVW25 2508.17844, AugPaint 2506.23038, mask-consistent paired mixing 2511.03219, oil spill soft-label KD 2412.08116
+- Q2 few-shot anomaly image-mask pair (2025+): GAA ACM MM25 2507.09619, OSAGEN, DeltaDeno, Fan 2026 JIM inpainting, Siamese-Diffusion
+- Q3 unpaired translation DA: label-guided diffusion translation ICCV23 2308.12350; DIDEX WACV24 2312.01850; ContourDiff 2403.10786; style transfer diffusion syn2real 2505.16360
+- Q4 ControlNet rare classes: Uncertainty-aware ControlNet ICCVW25 2510.11346; active-learning ControlNet guidance 2503.09221; DGInStyle 2312.03048
+- Q5 thin curvilinear synth: VessShape 2510.27646, Conditional Virtual Imaging TMI25, Lei MICCAI24 2407.08209
+- Q6 defect inpainting: UniDG 2604.08915, AdaBLDM, Tao 2024 erasing-inpainting DDPM, TAR-Diff
+- Q7 filtering synthetic: little new; SelectSeg crack noisy
+- Q8 PV EL generative: GDI (LaMa inpainting removes defects, UCF group) doi:10.1016/j.solener.2026.114943 arXiv 2608.12725
+- Q9 mask-cond small medical: WDLoRA CCM 2602.13693, leprosy 2609.13226
+- similar_papers(SatSynth,GAA,UnAICorN): GAUDA WACV25 2501.10819; Anodapter; W-ControlUDA; JoDiffusion
+- citations(SatSynth): DAKTer soft-label joint gen 2412.08116 (TCSVT26); BBox-guided diffusion J Imaging 2026 2505.03623
+- Q10 crack co-gen: DriftRemover IJCAI25 (coarse masks, code JJessicaYao/DriftRemover); MvP-Diff PR26; multi-control SD
+- Q11 long-tail generative: GAL 2406.02435; prompt-controlled diffusion long-tail RS 2602.04749
+- Q12 CycleGAN defect: Defect Spectrum ECCV24 2310.17316 (Defect-Gen)
+- Q13 (2025+) diffusion generated dataset seg: LSDM crack ESWA25 (HF space QinLei086/LSDM); MCPMix 2511.03219
+- Key codes from abstracts: UnAICorN github.com/JNiemeijer/UnAICorN; DIDEX github.com/JNiemeijer/DIDEX; ContourDiff github.com/mazurowski-lab/ContourDiff; DatasetDM github.com/showlab/DatasetDM; Crucial-Diff github.com/JJessicaYao/Crucial-diff; UniVG github.com/XinAloha/UniVG
+- 13 Nov resume: file complete from 12 Nov; structured output not returned. Plan: verify code repos via WebSearch, fill SegGen / Dataset Diffusion / Defect Spectrum / DefectFill / TF-IDG / AdaBLDM, 2025-26 sweep, then return.
+- 13 Nov new: GenSeg Nat Comms 2025 (doi:10.1038/s41467-025-61754-6, pix2pix mask-to-image GAN + DARTS arch searched by val loss, 8-480 train imgs, +10-20 abs; code importZL/semantic_segmentation per paper); CycleGAN-Turbo arxiv:2403.12036 code GaParmar/img2img-turbo; StyleSPADE doi:10.3390/app16020837 crack IoU 0.6376; rhizotron LoRA+ControlNet+inpaint synthetic pretraining doi:10.64898/2026.10.30.763050 (soft Dice vs 7 annotators); SegGen ECCV24 (no abstract); Dataset Diffusion NeurIPS23 code VinAIResearch/Dataset-Diffusion; JoDiffusion code 00why00/JoDiffusion (web); UnAICorN code confirmed via arXiv link (web), ACDC +2% mIoU; ContourDiff code mazurowski-lab (web). Snippets rate-limited x3.

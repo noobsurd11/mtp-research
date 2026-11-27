@@ -1,0 +1,57 @@
+{
+ "paper_id": "doi:10.1109/tase.2025.3583713",
+ "title": "Synth4Seg: Learning Defect Data Synthesis for Defect Segmentation using Bi-level Optimization",
+ "year": 2025,
+ "venue": "IEEE Transactions on Automation Science and Engineering",
+ "url": "https://doi.org/10.1109/tase.2025.3583713",
+ "code_url": "",
+ "mechanism": "Online Cut&Paste of defects onto labelled training images. Bi-level optimisation learns a heat map of pasting locations and weights for the augmentation sources by minimising validation loss.",
+ "evidence": "MVTec products, U-Net with ResNet18, limited data. Learned locations beat random by +18.3% (Screw) and +12.2% (Capsule). Learned source weights add up to +2.6% (Tile). Poisson blending gave no gain over direct paste (local full text, Sec III-A).",
+ "adaptation": "Paste crack components onto labelled train cells with full supervision, not onto pool cells, using same-source pastes only so label width matches the source's convention. Cheap version first: a rule-based location map built from per-source crack start points near busbars and cell edges and from orientation histograms on the train masks. Bi-level version: train a location net against the 54 val cells.",
+ "min_experiment": "PF+crack paste onto labelled cells (rule map) vs PF, 5 seeds. Metrics: test crack IoU and relF1@2 on clean 49, the CP100 E3b decoy rate, and false crack pixels on 31 crack-free val cells. Kill if crack IoU gain < +0.012 or decoy rate > 2x PF.",
+ "prior_overlap": "Partial. CP100 (crack paste, n.d., decoys 4.4x) used unlabelled pool cells, random placement, loss only on the mask and ring, and the house optimizer. Pasting onto labelled cells, learned or rule-based placement, and PF are all still open.",
+ "score": 52,
+ "bench_score": 35,
+ "bet": "medium",
+ "targets": [
+  "crack"
+ ],
+ "gpu_hours": 6,
+ "directions": [
+  "D21",
+  "D33"
+ ],
+ "scout_scores": [
+  52,
+  52,
+  45,
+  45
+ ],
+ "alt_notes": [
+  {
+   "from": "D21",
+   "adaptation": "Cheap form first: crack paste between labelled cells with a rule location map (start near busbars / edges, per-source orientation histogram; 50% of EL cracks parallel to busbars). Bi-level form only if it passes, tuned on 54 val cells.",
+   "min_experiment": "PF+CPL vs PF, 5 seeds; test crack IoU and relF1@2, decoy rate, false crack px on 31 crack-free val cells. Kill: crack IoU < +0.012 or decoy rate > 2x PF.",
+   "score": 52
+  },
+  {
+   "from": "D33",
+   "adaptation": "Learn placement relative to busbars, cell edges and scuffs, and weights over synthetic sources (generators in this file and D06 renderers), with module-grouped CV crack relF1@2 or F51 as the validation objective.",
+   "min_experiment": "Learned placement vs random placement of the same synthetic cracks, on PF. Metric CV crack relF1@2 and E1 relF1@2. Kill: < +0.01.",
+   "score": 45
+  },
+  {
+   "from": "D33",
+   "adaptation": "Learn crack placement relative to busbars, edges, scuffs, and weights over our synthetic sources, against module-grouped CV crack relF1@2.",
+   "min_experiment": "Learned vs random placement of the same synthetic cracks. Metric CV and E1 relF1@2. Kill: < +0.01. About 30 GPU-h.",
+   "score": 45
+  }
+ ],
+ "final": 52,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 181,
+ "pid": "P181"
+}

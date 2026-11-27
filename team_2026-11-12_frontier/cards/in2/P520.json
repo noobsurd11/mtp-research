@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2412.15637",
+ "title": "CrackUDA: Incremental Unsupervised Domain Adaptation for Improved Crack Segmentation in Civil Structures",
+ "year": 2024,
+ "venue": "ICPR",
+ "url": "https://arxiv.org/abs/2412.15637",
+ "code_url": "",
+ "mechanism": "Incremental adversarial UDA with a shared domain-invariant encoder and domain-specific decoder parameters.",
+ "evidence": "+0.65 mIoU source, +2.7 mIoU target over other UDA methods on CrackSeg9K subsets and BuildCrack.",
+ "adaptation": "Per-source decoder parameters for the 5 label conventions plus a half-cell pool domain; drop the adversarial part on 478 cells if unstable.",
+ "min_experiment": "Per-source decoder heads vs house; metric per-source test crack IoU. Kill: < +0.01.",
+ "prior_overlap": "None (source-conditional prediction never tried; D17 overlap).",
+ "score": 30,
+ "bench_score": 35,
+ "bet": "medium",
+ "gpu_hours": 8,
+ "targets": [
+  "crack",
+  "e1_unseen"
+ ],
+ "directions": [
+  "D30"
+ ],
+ "scout_scores": [
+  30
+ ],
+ "final": 30,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 520,
+ "pid": "P520"
+}

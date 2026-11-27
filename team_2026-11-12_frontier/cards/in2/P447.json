@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1109/cvpr52688.2022.01200",
+ "title": "Cross-Image Relational Knowledge Distillation for Semantic Segmentation",
+ "year": 2022,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2204.06986",
+ "code_url": "https://github.com/winycg/cirkd",
+ "mechanism": "Distil pixel-to-pixel and pixel-to-region relations across images using memory banks.",
+ "adaptation": "Benchmark KD baseline; memory bank across cells of all 5 sources; compare with logit KD at matched GPU-h.",
+ "min_experiment": "Benchmark-only: CIRKD student vs logit-KD student at matched GPU-h; metric crack IoU, mIoU_rob. Kill (for score use): below logit KD.",
+ "evidence": "R: student gains on Cityscapes, CamVid, ADE20K, VOC; canonical-KD paper (2604.25530) shows it loses to plain KD at matched compute.",
+ "gpu_hours": 8,
+ "bet": "safe",
+ "targets": [
+  "benchmark",
+  "deployment"
+ ],
+ "prior_overlap": "none",
+ "score": 35,
+ "bench_score": 55,
+ "directions": [
+  "D34"
+ ],
+ "scout_scores": [
+  35
+ ],
+ "final": 35,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 447,
+ "pid": "P447"
+}

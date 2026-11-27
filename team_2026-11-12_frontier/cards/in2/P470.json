@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1088/1361-6501/ae90d6",
+ "title": "MGDT: mask-guided spatial prior learning for photovoltaic fault diagnosis from infrared thermographic measurements",
+ "year": 2026,
+ "venue": "Measurement Science and Technology",
+ "url": "https://iopscience.iop.org/article/10.1088/1361-6501/ae90d6",
+ "code_url": "",
+ "mechanism": "An autoencoder trained on normal crops gives a reconstruction-residual anomaly mask, used as a spatial attention bias in a ViT and to weight a conditional diffusion model that synthesises minority-class samples.",
+ "evidence": "R: on InfraredSolarModules, +2.53 accuracy, +3.66 macro-F1, +3.28 macro-recall, +2.97 macro-precision over the best baseline per metric.",
+ "adaptation": "Train a conv AE (or patch-memory normal model) on the 11.9k unlabelled CSIR / ARTS pool; feed the residual map as a second input channel to U-Net++ (anomaly prior, never tried here); the diffusion half is a later, costlier step for inactive (42 train cells).",
+ "min_experiment": "Arm PF with 2-channel input (EL + AE residual), 3 seeds; baseline PF; metrics test inactive IoU and E1 crack relR@2; kill if inactive IoU gain < 0.02 and E1 relR@2 gain < 0.03.",
+ "gpu_hours": 8,
+ "prior_overlap": "none. BRIEF 5 lists anomaly-detection priors and diffusion synthesis as never tried.",
+ "targets": [
+  "inactive",
+  "e1_unseen"
+ ],
+ "bet": "medium",
+ "score": 35,
+ "bench_score": 25,
+ "directions": [
+  "D05"
+ ],
+ "scout_scores": [
+  35
+ ],
+ "final": 35,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 470,
+ "pid": "P470"
+}

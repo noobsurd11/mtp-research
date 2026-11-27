@@ -1,0 +1,46 @@
+{
+ "paper_id": "arxiv:2205.08534",
+ "title": "Vision Transformer Adapter for Dense Predictions",
+ "year": 2022,
+ "venue": "ICLR 2023 (arXiv in index)",
+ "url": "https://arxiv.org/abs/2205.08534",
+ "code_url": "https://github.com/czczup/ViT-Adapter",
+ "mechanism": "A pretraining-free conv spatial-prior branch with injector/extractor cross-attention turns a plain ViT into a multi-scale dense backbone.",
+ "adaptation": "DINOv3 ViT-B/16 or L/16 + ViT-Adapter feeding the U-Net++ decoder, plus a stride-1/2 conv stem skip for 1-2 px lines; 1-ch input replicated; PF-style schedule with layer-wise lr decay.",
+ "min_experiment": "Arm: ViT-L + Adapter + U-Net++ (PF); baseline: house PF; 5-fold CV crack IoU, inactive IoU, then E1 crack relF1@2. Kill if E1 relF1@2 < +0.03 and CV crack IoU n.d.",
+ "evidence": "R: ViT-Adapter-L 60.9 box AP / 53.0 mask AP on COCO test-dev; used by DINOv2 for its segmentation evaluation (web search, not tool-verified).",
+ "gpu_hours": 40,
+ "bet": "medium",
+ "prior_overlap": "Foundation row: no ViT fine-tune or adapter was run. Open.",
+ "score": 50,
+ "bench_score": 75,
+ "targets": [
+  "e1_unseen",
+  "crack",
+  "benchmark"
+ ],
+ "directions": [
+  "D22",
+  "D23"
+ ],
+ "scout_scores": [
+  50,
+  45
+ ],
+ "alt_notes": [
+  {
+   "from": "D23",
+   "adaptation": "ViT-B DINOv2 + adapter + M2F or UPerNet at 1024 px; the conv prior gives a 1/4-res path that thin cracks and gridlines need; use if EoMT-L memory/time is a problem or ViT-B is preferred.",
+   "min_experiment": "Arm ViT-B DINOv2 + ViT-Adapter + UPerNet, 5-fold CV; baseline house PF; metrics mIoU_rob, inactive IoU, E1 relF1@2; kill if all below house.",
+   "score": 45
+  }
+ ],
+ "final": 50,
+ "bench": 75,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 122,
+ "pub_allowed": 0,
+ "selected_for": "bench"
+}

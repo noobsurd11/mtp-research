@@ -1,0 +1,214 @@
+{
+ "cmd": "verify",
+ "args": {
+  "cmd": "verify",
+  "code": "/home/noob/work/bench_wt_t3b",
+  "ckroot": "/mnt/nas/noob_el_archive/bench_relay/fin2",
+  "device": "cpu",
+  "threads": 8,
+  "arm": "C2",
+  "batch": 1,
+  "views_batched": false,
+  "warmup": 3,
+  "cells": 200,
+  "max_seconds": 0,
+  "no_weights": false,
+  "out": "raw/verify.json"
+ },
+ "env": {
+  "python": "3.12.3",
+  "torch": "2.14.1+cu130",
+  "threads": 8,
+  "interop_threads": 1,
+  "host": "giant",
+  "device": "cpu",
+  "OMP_NUM_THREADS": "8",
+  "MKL_NUM_THREADS": "8",
+  "nice": 10,
+  "loadavg": [
+   1.34716796875,
+   1.7373046875,
+   1.53564453125
+  ],
+  "cpu": "AMD Ryzen Threadripper 7960X 24-Cores",
+  "smp": "0.5.0",
+  "timm": "1.0.30"
+ },
+ "checkpoints": [
+  {
+   "arch": "pf",
+   "seed": 5,
+   "file": "/mnt/nas/noob_el_archive/bench_relay/fin2/fin_pf_v11_pool_s5/experiments/fin_pf_v11_pool_s5/checkpoints/slim.pth",
+   "md5": "cff18ec2541da541cbdb6af76d32c61f",
+   "step": 20000,
+   "readout": "model",
+   "models_keys": [
+    "model"
+   ],
+   "strict_load": "ok (missing 0, unexpected 0)",
+   "params": 26075672,
+   "encoder_params": 21278400,
+   "buffers": 20858,
+   "class": "UnetPlusPlus",
+   "encoder_class": "ResNetEncoder"
+  },
+  {
+   "arch": "pf",
+   "seed": 6,
+   "file": "/mnt/nas/noob_el_archive/bench_relay/fin2/fin_pf_v11_pool_s6/experiments/fin_pf_v11_pool_s6/checkpoints/slim.pth",
+   "md5": "e81262057b9c095f8006e65ccc98921c",
+   "step": 20000,
+   "readout": "model",
+   "models_keys": [
+    "model"
+   ],
+   "strict_load": "ok (missing 0, unexpected 0)",
+   "params": 26075672,
+   "encoder_params": 21278400,
+   "buffers": 20858,
+   "class": "UnetPlusPlus",
+   "encoder_class": "ResNetEncoder"
+  },
+  {
+   "arch": "pf",
+   "seed": 7,
+   "file": "/mnt/nas/noob_el_archive/bench_relay/fin2/fin_pf_v11_pool_s7/experiments/fin_pf_v11_pool_s7/checkpoints/slim.pth",
+   "md5": "bfaf8ea00b682f47c9bc9ea683186741",
+   "step": 20000,
+   "readout": "model",
+   "models_keys": [
+    "model"
+   ],
+   "strict_load": "ok (missing 0, unexpected 0)",
+   "params": 26075672,
+   "encoder_params": 21278400,
+   "buffers": 20858,
+   "class": "UnetPlusPlus",
+   "encoder_class": "ResNetEncoder"
+  },
+  {
+   "arch": "pf",
+   "seed": 8,
+   "file": "/mnt/nas/noob_el_archive/bench_relay/fin2/fin_pf_v11_pool_s8/experiments/fin_pf_v11_pool_s8/checkpoints/slim.pth",
+   "md5": "0ddb2ea2428f1f18bc2fe61441fd55f7",
+   "step": 20000,
+   "readout": "model",
+   "models_keys": [
+    "model"
+   ],
+   "strict_load": "ok (missing 0, unexpected 0)",
+   "params": 26075672,
+   "encoder_params": 21278400,
+   "buffers": 20858,
+   "class": "UnetPlusPlus",
+   "encoder_class": "ResNetEncoder"
+  },
+  {
+   "arch": "pf",
+   "seed": 9,
+   "file": "/mnt/nas/noob_el_archive/bench_relay/fin2/fin_pf_v11_pool_s9/experiments/fin_pf_v11_pool_s9/checkpoints/slim.pth",
+   "md5": "e8db6b408b4fec058cb773b14460ed3c",
+   "step": 20000,
+   "readout": "model",
+   "models_keys": [
+    "model"
+   ],
+   "strict_load": "ok (missing 0, unexpected 0)",
+   "params": 26075672,
+   "encoder_params": 21278400,
+   "buffers": 20858,
+   "class": "UnetPlusPlus",
+   "encoder_class": "ResNetEncoder"
+  },
+  {
+   "arch": "hrnet",
+   "seed": 5,
+   "file": "/mnt/nas/noob_el_archive/bench_relay/fin2/fin_hrnet_swad_v11_pool_s5/experiments/fin_hrnet_swad_v11_pool_s5/checkpoints/slim.pth",
+   "md5": "b16a57e04f083dba55b27981bcd593c8",
+   "step": 20000,
+   "readout": "swad",
+   "models_keys": [
+    "swad",
+    "swad_bn"
+   ],
+   "strict_load": "ok (missing 0, unexpected 0)",
+   "params": 20795692,
+   "encoder_params": 10947028,
+   "buffers": 48679,
+   "class": "UnetPlusPlus",
+   "encoder_class": "TimmUniversalEncoder"
+  },
+  {
+   "arch": "hrnet",
+   "seed": 6,
+   "file": "/mnt/nas/noob_el_archive/bench_relay/fin2/fin_hrnet_swad_v11_pool_s6/experiments/fin_hrnet_swad_v11_pool_s6/checkpoints/slim.pth",
+   "md5": "1484d38a1cf3620d024c17125cd6fc83",
+   "step": 20000,
+   "readout": "swad",
+   "models_keys": [
+    "swad",
+    "swad_bn"
+   ],
+   "strict_load": "ok (missing 0, unexpected 0)",
+   "params": 20795692,
+   "encoder_params": 10947028,
+   "buffers": 48679,
+   "class": "UnetPlusPlus",
+   "encoder_class": "TimmUniversalEncoder"
+  },
+  {
+   "arch": "hrnet",
+   "seed": 7,
+   "file": "/mnt/nas/noob_el_archive/bench_relay/fin2/fin_hrnet_swad_v11_pool_s7/experiments/fin_hrnet_swad_v11_pool_s7/checkpoints/slim.pth",
+   "md5": "59cc6286619fd3b1452d89c19d33a13c",
+   "step": 20000,
+   "readout": "swad",
+   "models_keys": [
+    "swad",
+    "swad_bn"
+   ],
+   "strict_load": "ok (missing 0, unexpected 0)",
+   "params": 20795692,
+   "encoder_params": 10947028,
+   "buffers": 48679,
+   "class": "UnetPlusPlus",
+   "encoder_class": "TimmUniversalEncoder"
+  },
+  {
+   "arch": "hrnet",
+   "seed": 8,
+   "file": "/mnt/nas/noob_el_archive/bench_relay/fin2/fin_hrnet_swad_v11_pool_s8/experiments/fin_hrnet_swad_v11_pool_s8/checkpoints/slim.pth",
+   "md5": "149b910d106fd8ab10066f0f7b854179",
+   "step": 20000,
+   "readout": "swad",
+   "models_keys": [
+    "swad",
+    "swad_bn"
+   ],
+   "strict_load": "ok (missing 0, unexpected 0)",
+   "params": 20795692,
+   "encoder_params": 10947028,
+   "buffers": 48679,
+   "class": "UnetPlusPlus",
+   "encoder_class": "TimmUniversalEncoder"
+  },
+  {
+   "arch": "hrnet",
+   "seed": 9,
+   "file": "/mnt/nas/noob_el_archive/bench_relay/fin2/fin_hrnet_swad_v11_pool_s9/experiments/fin_hrnet_swad_v11_pool_s9/checkpoints/slim.pth",
+   "md5": "93b04f0eff12eb67dc22fc709834a289",
+   "step": 20000,
+   "readout": "swad",
+   "models_keys": [
+    "swad",
+    "swad_bn"
+   ],
+   "strict_load": "ok (missing 0, unexpected 0)",
+   "params": 20795692,
+   "encoder_params": 10947028,
+   "buffers": 48679,
+   "class": "UnetPlusPlus",
+   "encoder_class": "TimmUniversalEncoder"
+  }
+ ]
+}

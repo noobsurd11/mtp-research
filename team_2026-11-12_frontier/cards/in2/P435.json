@@ -1,0 +1,43 @@
+{
+ "paper_id": "doi:10.52202/085713-5452",
+ "title": "RankSEG-RMA: An Efficient Segmentation Algorithm via Reciprocal Moment Approximation",
+ "year": 2025,
+ "venue": "NeurIPS",
+ "url": "https://arxiv.org/abs/2510.15362",
+ "code_url": "https://github.com/ZixunWang/RankSEG-RMA",
+ "mechanism": "Replace argmax with the decision rule that maximises expected Dice / IoU per image, now O(d) and for non-overlapping classes; the 2026 follow-up (arxiv:2609.38930, RankSEG-DEP) adds local label dependence for small low-contrast objects.",
+ "adaptation": "Post-process FINAL crack probabilities per cell. It maximises per-image IoU, while our decision metric is pooled IoU, and at 100% labels a val bias adds only about +0.004, so expected gain on test is small; more useful for per-cell benchmark metrics.",
+ "min_experiment": "No training: RankSEG-RMA (and DEP) vs val-chosen bias on FINAL probabilities. Kill if pooled crack IoU < bias + 0.005 and per-cell IoU not better.",
+ "score": 36,
+ "bench_score": 50,
+ "bet": "safe",
+ "targets": [
+  "crack",
+  "measurement"
+ ],
+ "evidence": "R: RankSEG almost guarantees improved Dice/IoU over argmax; RMA keeps comparable performance at O(d) (LiTS RankSEG took 16.33 s vs 0.01 s argmax).",
+ "gpu_hours": 0.5,
+ "prior_overlap": "Partial: logit bias tuning was run (+0.014 to +0.023 at 5%, about 0 at 100%); per-image metric-optimal decoding not run.",
+ "directions": [
+  "D18"
+ ],
+ "scout_scores": [
+  36,
+  36
+ ],
+ "alt_notes": [
+  {
+   "from": "D18",
+   "adaptation": "Post-process FINAL crack probabilities per cell; compare against pooled-IoU val bias since RankSEG maximises per-image IoU.",
+   "min_experiment": "No training: RankSEG-RMA on FINAL probabilities; baseline argmax + val-chosen bias. Kill: pooled crack IoU < val-bias + 0.005.",
+   "score": 36
+  }
+ ],
+ "final": 36,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 435,
+ "pid": "P435"
+}

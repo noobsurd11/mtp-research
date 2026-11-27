@@ -1,0 +1,34 @@
+{
+ "paper_id": "doi:10.1109/tmi.2024.3524253",
+ "title": "Imbalanced Medical Image Segmentation With Pixel-Dependent Noisy Labels (CLCS)",
+ "year": 2024,
+ "venue": "IEEE TMI",
+ "url": "https://arxiv.org/abs/2501.06678",
+ "code_url": "https://github.com/Erjian96/CLCS",
+ "mechanism": "Two-branch collaborative learning votes on pixel cleanliness with a curriculum dynamic threshold that protects minority classes, and a noise balance loss on suspected noisy pixels instead of dropping them.",
+ "adaptation": "Two U-Net++ decoders on one ResNet-34 encoder; noise handling restricted to crack and inactive pixels; class-wise thresholds tuned for 0.19% crack pixels.",
+ "min_experiment": "Arm: CLCS, 3 seeds on 5-fold CV. Baseline: house folds. Metric: fold-mean crack and inactive IoU. Promote if >= +0.01. About 20 GPU-h.",
+ "evidence": "R: more than 3% Dice and mIoU gains on two benchmarks with different segmentation noise types (abstract).",
+ "prior_overlap": "none; CPS at 5% labels was a semi-supervised use of two branches, not noisy-label selection.",
+ "score": 45,
+ "bench_score": 45,
+ "bet": "medium",
+ "gpu_hours": 20,
+ "targets": [
+  "crack",
+  "inactive"
+ ],
+ "directions": [
+  "D15"
+ ],
+ "scout_scores": [
+  45
+ ],
+ "final": 45,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 287,
+ "pid": "P287"
+}

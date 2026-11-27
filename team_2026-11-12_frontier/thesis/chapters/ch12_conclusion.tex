@@ -1,0 +1,80 @@
+% ch12_conclusion.tex: Chapter 12, Conclusion and future work.
+% The claim list is Table T20 (tab:T20). Every number is traced in ch12_conclusion_NOTES.md.
+\chapter{Conclusion and future work}\label{ch:conclusion}
+
+This work set out to build a model that finds almost all cracks, inactive areas and other important defects in EL images of
+solar cells. It ends with a benchmark protocol for EL defect segmentation and one confirmed gain of a recipe on sealed cells of
+unseen modules. Table~\ref{tab:T20} lists every claim with its evidence, interval and status, the status in its source's own words; this chapter
+reads it by status, states what the evidence does not reach, and names the work that would change the picture.
+
+\section{What the evidence supports}\label{sec:concl-claims}
+
+Of the 22 claims of Table~\ref{tab:T20}, one is confirmed zero-shot on the sealed set, one is confirmed as a few-shot result
+inside it (out of fold), one is confirmed on CV5 for known modules only, one passes a selection-biased check, three are measurements
+of the data, eight are not detected, two failed, and five are descriptive.
+
+\paragraph{Confirmed.} On E1 (unseen modules, supported, not proven; OP-A only; 101 of 106 cells CSIR), the C2 recipe
+(HRNet-W18 U-Net++ with SWAD weight averaging and D4 test-time augmentation), averaged over seeds 5 to 9, beats the full-pool PF
+recipe on crack relF1@2 by +0.0430 [+0.0013, +0.1043], with all four guards passing (claim 1). The full cells carry the gain and
+on the half-cut cells it is not detected (claim 2); most of the gain is the model (claim 5). The lower end is near 0 and the
+smallest effect this read could detect is about 0.074, so the size of the gain is open. On CV5, D4 on the PF baseline is confirmed
+(+0.0134 [+0.0066, +0.0207]); on E1 the D4 part is not resolved (claim 6).
+
+\paragraph{Passes, selection-biased.} On CV5 the C2 recipe (CS\_D4) passes its check against PF (+0.0222 [+0.0138, +0.0308];
+claim 8), but its readout and views were chosen on the same cells, and the ARTS width guard fails on the 416 clean cells.
+
+\paragraph{Measured.} Strict crack IoU measures the annotators' line-width convention more than the model (claim 17). Crack label
+errors exist but are a minority of the image-supported candidates and move no contrast by more than 0.003 (claim 18). Claim 19 holds
+on strict crack IoU only: the label release moves PF from 0.320 to 0.365 (+0.045), more than any method gain over PF on CV5 (at most
++0.0333). On relF1@2, the deciding metric, it is not claimed: the release moves PF by +0.025, and the largest CV5 contrast against PF
+(+0.0243, printed for information) is 0.97 of that shift.
+
+\paragraph{Not detected or failed.} One checkpoint against C1 (claim 3), the ensemble over its members (claim 4), D4 on the
+candidate (claim 7), weight averaging alone (claim 10), inactive on E1 (claim 12), C2 on test50 (claim 13), the effect of the module
+leak (claim 15) and training on the older label set (claim 20) are not detected. HRNet alone gains on CV5 but fails its guards (claim
+9), and the claim that predicted inactive area predicts power loss better than crack length is not supported (claim 21).
+
+\paragraph{Descriptive.} Two models of the EL papers sit below PF under equal training in 2-seed screens (claim 14), the strict-IoU
+gain of weight averaging is a convention effect (claim 11), and the crack relF1@2 of the PF recipe is far lower on unseen sources
+and modules than on the pool, as levels with no interval for the gap (claim 16).
+
+\paragraph{The few-shot track.} Inside E1, out of fold over 5 folds by source image (seeds 5 to 7, OP-A, 106 cells and 71
+clusters, 101 of them CSIR), the C2 recipe trained with the labelled E1 cells of the other folds beats the same recipe zero-shot
+(opening \#8's C2, seeds 5 to 7) on crack relF1@2 by +0.2213 [+0.0977, +0.3504], with both guards passing: CONFIRMED (claim 22).
+The half-cut cells carry it (+0.2530 [+0.0878, +0.3885]); on half-cut cells without scuff it is not separated ($-$0.0701
+[$-$0.3019, +0.0517]). Half of the labelled images give about the same gain (HALF $-$ ZS +0.2042 [+0.0718, +0.3366]; ALL $-$
+HALF not separated). The claim is that labelled cells of a layout help, not that the model handles a new layout without them.
+
+\section{The goal, answered}\label{sec:concl-goal}
+
+The operating target set at the start, relR@2 of at least 0.90 at relP@2 of at least 0.90, is not reached: on E1 the C2 recipe
+(mean over seeds 5 to 9, OP-A) reaches relP@2 0.5995 and relR@2 0.4157, and even on CV5, in distribution and selection-biased,
+0.9216 and 0.8211. Inactive gains
+are not detected on E1 or on CV5, and material and edge dark score 0.0000 on E1 for every arm. Our reading (judgement): the lasting
+result of this work is the instrument rather than the model. It shows that published EL segmentation numbers cannot be compared,
+measures why (release, split leakage, label width, metric conventions, no intervals), and replaces them with a protocol under which
+one recipe gain survived a sealed test. On the half-cut layout the zero-shot gain is not detected, and labelled cells of that
+layout raise crack relF1@2 out of fold inside E1 (+0.2530 [+0.0878, +0.3885], a stratum that decides nothing), with half of the
+labelled images giving about the same gain; on this evidence, a new layout calls for some labelled cells of it.
+
+\section{Future work}\label{sec:concl-future}
+
+Each item below would change a specific limit of Chapter~\ref{ch:limitations}.
+\begin{itemize}
+  \item \textbf{A second annotation.} An independent annotation of a few dozen pool cells would turn the one double annotation into
+  a measured ceiling, and planted errors would measure the recall of the label-error detector; an expert look of 2 to 3 hours at
+  the 49 pool cells with an image-supported candidate (confirm or reject only) would check the AI raters' verdicts with a person.
+  \item \textbf{A new unseen-module set.} E1 is spent by the few-shot track, so the next unseen-module claim needs new labelled
+  cells from new modules, with half-cut cells among them and the module identity recorded at capture.
+  \item \textbf{A tighter instrument.} A split-variance probe would let the margin cover the choice of folds as well as seed noise,
+  and HOUSE predictions with D4 and a FLOP-matched PF comparator would give the C2 recipe like-for-like and equal-cost contrasts.
+  \item \textbf{The weak classes.} OP-C, the per-class bias layer that raised mIoU-R13 on the pool, or a trained arm aimed at
+  gridline, splice, edge dark and material, belongs in a final model before those classes can be called addressed.
+  \item \textbf{A deployable licence.} A commercial model needs the C2 recipe retrained without the 50 BMRK cells, with the effect of
+  dropping them measured, and an answer from the BenchmarkEL authors on commercial use.
+  \item \textbf{A pilot with WattCycle.} STC I-V per module, EL at a known current and drone thermal at 600~W/m$^2$ or more on about
+  31 modules (for a true rank correlation of 0.5 to give an interval above 0), with the primary written before measuring, would
+  test whether the severity output says anything about power on modules WattCycle handles.
+\end{itemize}
+The benchmark itself, prepared for release as lists and code (Chapter~\ref{ch:protocol}), lets any of these be read under the same rules as
+the results of this thesis.

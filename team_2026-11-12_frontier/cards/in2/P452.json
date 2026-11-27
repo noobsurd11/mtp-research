@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2504.18190",
+ "title": "What is the Added Value of UDA in the VFM Era?",
+ "year": 2025,
+ "venue": "CVPRW (DOI 10.1109/CVPRW67362.2025.00238)",
+ "url": "https://arxiv.org/abs/2504.18190",
+ "code_url": "",
+ "mechanism": "Measures that the UDA gain over source-only VFM fine-tuning shrinks from +8 to +2 mIoU with stronger source data, and is zero with diverse real source data.",
+ "adaptation": "Use as a prior for E1. If a VFM backbone is adopted, expect target-pool UDA to add little, so run MIC on the house model first. For the benchmark, report source-only VFM fine-tuning as the E1 baseline.",
+ "min_experiment": "No separate run. Read it with MIC-E1: if MIC helps the R34 house model, repeat on the VFM model; kill VFM-UDA if the gain is under +0.02 E1 relF1@2.",
+ "score": 35,
+ "bench_score": 50,
+ "bet": "safe",
+ "targets": [
+  "e1_unseen",
+  "benchmark"
+ ],
+ "evidence": "R: synthetic->real UDA gain +8 -> +2 mIoU with stronger source data; 0 with diverse real source; with 1/16 Cityscapes labels, synthetic UDA reaches 85 mIoU, matching full supervision.",
+ "gpu_hours": 0,
+ "prior_overlap": "none",
+ "directions": [
+  "D29"
+ ],
+ "scout_scores": [
+  35
+ ],
+ "final": 35,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 452,
+ "pid": "P452"
+}

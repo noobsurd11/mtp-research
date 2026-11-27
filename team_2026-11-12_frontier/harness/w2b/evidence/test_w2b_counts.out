@@ -1,0 +1,8 @@
+point PF R5_inact_iou = read tool inact_iou: PASS
+point PF R3_inact_prec = read tool inact_prec: PASS
+point PF R1_region_recall = read tool in_cc_rec50: PASS
+point RCS R5_inact_iou = read tool inact_iou: PASS
+point RCS R3_inact_prec = read tool inact_prec: PASS
+point RCS R1_region_recall = read tool in_cc_rec50: PASS
+contrast PF=RCS R5 delta and 95% bounds = read tool inact_iou (4 dp): PASS
+W2B_COUNTS TEST PASS

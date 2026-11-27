@@ -1,0 +1,50 @@
+{
+ "paper_id": "doi:10.1109/cvpr42600.2020.00982",
+ "title": "PointRend: Image Segmentation As Rendering",
+ "year": 2020,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/1912.08193",
+ "code_url": "https://github.com/facebookresearch/detectron2/tree/master/projects/PointRend",
+ "mechanism": "A point head predicts labels at adaptively selected uncertain points from fine and coarse features with iterative subdivision.",
+ "adaptation": "Point head on stride-1/2 features with top-k uncertain points per cell; acts as a hard-pixel sampler. Risk: the uncertain band is the 1-2 px label jitter.",
+ "min_experiment": "Arm: house PF + point head; baseline: house PF; CV crack IoU, relF1@2, components >= 20 px found. Kill if all n.d.",
+ "evidence": "R: gains on COCO and Cityscapes instance and semantic segmentation.",
+ "gpu_hours": 12,
+ "bet": "medium",
+ "prior_overlap": "none.",
+ "score": 30,
+ "bench_score": 30,
+ "targets": [
+  "crack"
+ ],
+ "directions": [
+  "D22",
+  "D26"
+ ],
+ "scout_scores": [
+  30,
+  30,
+  28
+ ],
+ "alt_notes": [
+  {
+   "from": "D22",
+   "adaptation": "Point head on stride-1/2 features of U-Net++, top-k uncertain points per cell; risk that the uncertain band is the 1 to 2 px label jitter, so pair it with relF1@2 scoring rather than strict IoU.",
+   "min_experiment": "Arm house PF + point head vs house PF; 5-fold CV crack relF1@2, gridline IoU; kill: relF1@2 n.d. and gridline < +0.02. About 10 GPU-h.",
+   "score": 30
+  },
+  {
+   "from": "D26",
+   "adaptation": "Keep only the uncertain-point head: an MLP over [EL intensity, stride-1/2 features, coarse logits] at the top-k ensemble-uncertain points, extra loss on those points during training; no subdivision needed at 512 px.",
+   "min_experiment": "Arm: U-Net++ + point head, 5 seeds. Baseline: house 5-seed. Metric: crack IoU, relF1@2, gridline IoU. Kill: crack IoU < +0.012 and relF1@2 < +0.01.",
+   "score": 28
+  }
+ ],
+ "final": 30,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 522,
+ "pid": "P522"
+}

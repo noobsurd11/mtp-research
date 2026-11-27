@@ -1,0 +1,43 @@
+{
+ "paper_id": "doi:10.1145/3746027.3754920",
+ "title": "Generate Aligned Anomaly: Region-Guided Few-Shot Anomaly Image-Mask Pair Synthesis for Industrial Inspection (GAA)",
+ "year": 2025,
+ "venue": "ACM MM",
+ "url": "https://arxiv.org/pdf/2507.09619",
+ "code_url": "",
+ "mechanism": "Few-shot latent-diffusion anomaly generation with localized concept decomposition, multi-round anomaly clustering, region-guided mask generation and low-quality sample filtering.",
+ "adaptation": "Per-class few-shot generation for splice (never predicted), corrosion and material on train cells; clustering step can give one concept per source style; benchmark baseline next to AnomalyDiffusion and SeaS (D06).",
+ "min_experiment": "Benchmark baseline: PF + GAA samples for splice/corrosion/material vs PF. Metric splice IoU (now 0.000) and mIoU_rob. Reported; drop if splice stays 0.",
+ "evidence": "R: MVTec AD and LOCO; better synthesis quality and downstream localisation and classification than prior generators.",
+ "gpu_hours": 25,
+ "bet": "medium",
+ "targets": [
+  "other_classes",
+  "benchmark"
+ ],
+ "prior_overlap": "none",
+ "score": 30,
+ "bench_score": 45,
+ "directions": [
+  "D33"
+ ],
+ "scout_scores": [
+  30,
+  30
+ ],
+ "alt_notes": [
+  {
+   "from": "D33",
+   "adaptation": "Per-class few-shot generation for splice, corrosion, material; one concept per source style.",
+   "min_experiment": "PF + GAA pairs for rare classes vs PF. Metric splice IoU (now 0.000), material IoU; benchmark baseline. About 20 GPU-h.",
+   "score": 30
+  }
+ ],
+ "final": 30,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 513,
+ "pid": "P513"
+}

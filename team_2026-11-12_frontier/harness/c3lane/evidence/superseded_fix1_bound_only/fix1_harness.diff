@@ -1,0 +1,191 @@
+--- reviewed_r1/c3lane_commit.sh
++++ c3lane_commit.sh
+@@ -19,8 +19,8 @@
+ [ "$(git rev-parse HEAD)" = "$BASE" ] && [ "$(git rev-parse --abbrev-ref HEAD)" = $BR ] || no "$WT is not on $BR at $BASE"
+ [ "$(git status --porcelain -uno | wc -l)" = 0 ] && [ ! -e bench/q/cv02/cq_rescue.sh ] || no "tracked changes in $WT, or cq_rescue.sh exists"
+ git apply --check $PF && git apply $PF || no "patch does not apply"
+-echo "4fc8d2c0f87c77b099e06164e6b513ea  bench/q/cv02/cq.sh
+-8710a7321e060a68e49823f94f3a2b06  bench/q/cv02/cq_rescue.sh" | md5sum -c --quiet - || no "patched files differ from the pinned md5s"
++echo "564f05d372e67514226f12200ce9e348  bench/q/cv02/cq.sh
++204f9bce070e695df63de779becce287  bench/q/cv02/cq_rescue.sh" | md5sum -c --quiet - || no "patched files differ from the pinned md5s"
+ [ "$(git status --porcelain | grep -c .)" = 2 ] || no "expected exactly 2 changed or new files: $(git status --porcelain | tr '\n' ' ')"
+ bash -n bench/q/cv02/cq.sh && bash -n bench/q/cv02/cq_rescue.sh || no "syntax"
+ CUDA_VISIBLE_DEVICES="" PYTHONDONTWRITEBYTECODE=1 nice -n 19 $P -m pytest -q -p no:cacheprovider tests/test_bench_cq_readouts.py tests/test_bench_cq_cv5v3.py | tail -1 | tee /dev/stderr | grep -q "^20 passed" || no "queue tests did not give '20 passed'"
+--- reviewed_r1/c3lane_handover.sh
++++ c3lane_handover.sh
+@@ -1,7 +1,7 @@
+ #!/bin/bash
+ # c3lane handover c3all2 -> c3all3 (17 Nov 2026) = harness/c3swad/c3swad_handover.sh (0bb63159, the version reviewed after
+ # fix round 1 and used for c3all -> c3all2) with these changes only: defaults PREV c3all2, NEWQ c3all3, IO .../c3lane; the
+-# md5 pins of the queue code are those of c3lane.patch (cq.sh 4fc8d2c0, cq_rescue.sh 8710a732); the job builder and the disk
++# md5 pins of the queue code are those of c3lane.patch (cq.sh 564f05d3, cq_rescue.sh 204f9bce); the job builder and the disk
+ # guard file are read from ../c3swad (unchanged); `build` also needs c3all frozen; `render` compares EVERY rendered line with
+ # PREV's jobs_rendered.txt (all lines are carried, none is new); `place` writes SHARE_TRAIN 20480 and SHARE_DUMP 10240 (lane
+ # rule v2: the user's floors) and `arm` checks them; `guard` is not needed (disk guard 3 already runs and names c3all3).
+@@ -46,8 +46,8 @@
+ HERE=$(cd "$(dirname "$(readlink -f "$0")")" && pwd); SW=$HERE/../c3swad
+ P=/home/noob/work/el-fault-detection/.venv/bin/python
+ # md5 pins of the queue code in QC (cq_c3swad.patch on 89b9ea5) and of the card in B
+-PINS="4fc8d2c0f87c77b099e06164e6b513ea  bench/q/cv02/cq.sh
+-8710a7321e060a68e49823f94f3a2b06  bench/q/cv02/cq_rescue.sh
++PINS="564f05d372e67514226f12200ce9e348  bench/q/cv02/cq.sh
++204f9bce070e695df63de779becce287  bench/q/cv02/cq_rescue.sh
+ 630b1307a5b3cc99da251cd6eecc8672  bench/q/cv02/cq_setup.sh
+ 20712dd3af1e6b86720a9633b419de00  bench/q/cv02/slim_ckpt.py
+ f3affc80b21406644cedbc80d6e250ba  bench/q/cv02/cvcard.py
+--- reviewed_r1/c3lane_rescue.sh
++++ c3lane_rescue.sh
+@@ -26,7 +26,7 @@
+ run) q=${2:?queue}; shift 2; [ $# -ge 1 ] || no "no run name"; case "$q$*" in *[!A-Za-z0-9_\ ]*) no "bad queue or run name";; esac
+   o=$(R "cd $QC && md5sum -c --quiet CODE.md5 > /dev/null 2>&1 && echo CODE_OK; echo \"\$(md5sum < bench/q/cv02/cq_rescue.sh | cut -c1-32) \$(md5sum < bench/q/cv02/cq.sh | cut -c1-32) share \$(cat $RQ/SHARE_DUMP 2>/dev/null) ses \$(tmux has-session -t '=bench_rescue_$q' 2>/dev/null && echo yes || echo no) lock \$(flock -n $RQ/rescue.lock true 2>/dev/null && echo free || echo held) hold \$(ls $RQ/HOLD $BQ/$q/HOLD 2>/dev/null | wc -l)\"") || no "ssh failed"
+   echo "$o"
+-  [ "$(echo $o)" = "CODE_OK 8710a7321e060a68e49823f94f3a2b06 4fc8d2c0f87c77b099e06164e6b513ea share $SD ses no lock free hold 0" ] || no "QC does not check or is not the reviewed queue code, or the rescue dir is not prepared (SHARE_DUMP $SD), or a rescue runs, or a HOLD is set"
++  [ "$(echo $o)" = "CODE_OK 204f9bce070e695df63de779becce287 564f05d372e67514226f12200ce9e348 share $SD ses no lock free hold 0" ] || no "QC does not check or is not the reviewed queue code, or the rescue dir is not prepared (SHARE_DUMP $SD), or a rescue runs, or a HOLD is set"
+   Wr "tmux new-session -d -s bench_rescue_$q 'OQ=$BQ/$q RQ=$RQ bash $TOOL $* > $RQ/$q.out 2>&1' && echo started bench_rescue_$q: $*";;
+ look) R "for f in $RQ/*.out; do [ -e \$f ] && { echo \"== \$f\"; cat \$f; }; done; echo '== rescue.log (tail)'; tail -15 $RQ/rescue.log 2>/dev/null; echo \"HOLD: \$(ls $RQ/HOLD 2>/dev/null | wc -l); sessions: \$(tmux ls 2>/dev/null | grep -o '^bench_rescue_[a-z0-9_]*' | tr '\n' ' ')\"";;
+ hold) Wr "touch $RQ/HOLD && echo HOLD set in $RQ";;
+--- reviewed_r1/c3lane_check.sh
++++ c3lane_check.sh
+@@ -11,12 +11,12 @@
+ echo "[$(date '+%F %T')] c3lane check (QC '${QC:-none}', NEWQ $NEWQ)"
+ echo "--- 1 code"
+ ck "worktree $WT on bench_c3s at 5437778 or at its child with the c3lane commit, no tracked change" '[ "$(git -C $WT rev-parse --abbrev-ref HEAD)" = bench_c3s ] && [ "$(git -C $WT status --porcelain -uno | wc -l)" = 0 ] && { [ "$(git -C $WT rev-parse --short HEAD)" = 5437778 ] || [ "$(git -C $WT rev-parse --short HEAD^)" = 5437778 ]; }'
+-ck "c3lane.patch applies to a fresh archive of 5437778 and gives cq.sh 4fc8d2c0 and cq_rescue.sh 8710a732; only these two files differ" 'x=$(mktemp -d) && git -C $R archive 5437778 | tar -x -C $x && (cd $x && git apply $HERE/c3lane.patch && echo "4fc8d2c0f87c77b099e06164e6b513ea  bench/q/cv02/cq.sh
+-8710a7321e060a68e49823f94f3a2b06  bench/q/cv02/cq_rescue.sh" | md5sum -c --quiet -); rc=$?; rm -rf $x; [ $rc = 0 ]'
++ck "c3lane.patch applies to a fresh archive of 5437778 and gives cq.sh 564f05d3 and cq_rescue.sh 204f9bce; only these two files differ" 'x=$(mktemp -d) && git -C $R archive 5437778 | tar -x -C $x && (cd $x && git apply $HERE/c3lane.patch && echo "564f05d372e67514226f12200ce9e348  bench/q/cv02/cq.sh
++204f9bce070e695df63de779becce287  bench/q/cv02/cq_rescue.sh" | md5sum -c --quiet -); rc=$?; rm -rf $x; [ $rc = 0 ]'
+ ck "strict lane code untouched: from '# ---- lanes' to the line of logger_ok the patched cq.sh equals 5437778 (5222150b)" 'x=$(mktemp -d) && git -C $R archive 5437778 bench/q/cv02/cq.sh | tar -x -C $x && cp $x/bench/q/cv02/cq.sh $x/old && (cd $x && git apply $HERE/c3lane.patch) && cmp -s <(sed -n "/^# ---- lanes/,/^logger_ok()/p" $x/old) <(sed -n "/^# ---- lanes/,/^logger_ok()/p" $x/bench/q/cv02/cq.sh); rc=$?; rm -rf $x; [ $rc = 0 ]'
+ if [ -z "$QC" ]; then skip "no QC given: the new queue code is not deployed yet"
+ else q=$(C "cd $QC && md5sum -c --quiet CODE.md5 > /dev/null 2>&1 && echo CODE_OK; md5sum < bench/q/cv02/cq.sh | cut -c1-32; md5sum < bench/q/cv02/cq_rescue.sh | cut -c1-32; diff <(grep -v '  REVISION\$' $OQC/CODE.md5) <(grep -v '  REVISION\$' CODE.md5) | grep '^[<>]' | awk '{print \$1 \$3}' | LC_ALL=C sort | tr '\n' ' '") || q=""
+-  ck "QC $QC: CODE.md5 OK, cq.sh 4fc8d2c0, cq_rescue.sh 8710a732; against the running QC (5437778) only cq.sh changed and cq_rescue.sh added" '[ "$(echo $q)" = "CODE_OK 4fc8d2c0f87c77b099e06164e6b513ea 8710a7321e060a68e49823f94f3a2b06 <bench/q/cv02/cq.sh >bench/q/cv02/cq.sh >bench/q/cv02/cq_rescue.sh" ]'; fi
++  ck "QC $QC: CODE.md5 OK, cq.sh 564f05d3, cq_rescue.sh 204f9bce; against the running QC (5437778) only cq.sh changed and cq_rescue.sh added" '[ "$(echo $q)" = "CODE_OK 564f05d372e67514226f12200ce9e348 204f9bce070e695df63de779becce287 <bench/q/cv02/cq.sh >bench/q/cv02/cq.sh >bench/q/cv02/cq_rescue.sh" ]'; fi
+ echo "--- 2 queues on cv02"
+ s=$(C "for q in $BQ/*/; do n=\$(basename \$q); p=\$(cat \$q/queue.pid 2>/dev/null); [ -n \"\$p\" ] && kill -0 \$p 2>/dev/null || continue; m=\$(cat \$q/MAXC 2>/dev/null); echo \"\$n MAXC \${m:-16} dispatched \$(grep -c 'cv02 q: all jobs dispatched' \$q/launch.log) fixture_only \$([ -s \$q/jobs.txt ] && [ \"\$(cut -d'|' -f9 \$q/jobs.txt | sort -u)\" = --fixture ] && echo 1 || echo 0) share \$(cat \$q/SHARE_TRAIN 2>/dev/null)/\$(cat \$q/SHARE_DUMP 2>/dev/null) started \$(ls \$q/pids/*.gpu 2>/dev/null | wc -l) of \$(grep -c . \$q/jobs.txt)\"; done; echo ---; for q in c3all c3all2 rows2 $NEWQ; do Q=$BQ/\$q; [ -d \$Q/pids ] || continue; m=\$(cat \$Q/queue.pid 2>/dev/null); for f in \$Q/pids/*.gpu; do [ -e \$f ] || continue; n=\$(basename \$f .gpu); [ -e \$Q/pids/\$n.end ] && continue; c=\$(grep \"^\$n chain \" \$Q/pids/subshells.txt | tail -1 | cut -d' ' -f3); echo \"open \$q \$n GPU \$(cat \$f) rc '\$(cat \$Q/pids/\$n.rc 2>/dev/null)' chain \$(kill -0 \$c 2>/dev/null && [ \"\$(ps -o ppid= -p \$c | tr -d ' ')\" = \"\$m\" ] && echo ok || echo NOT-VERIFIED) rescued \$(ls \$Q/pids/\$n.rescued 2>/dev/null | wc -l)\"; done; done; echo ---; nvidia-smi --query-gpu=index,memory.free --format=csv,noheader,nounits | tr '\n' ';'; echo; df --output=avail -BG /tmp | tail -1 | tr -dc 0-9; echo; for g in bench_diskguard bench_diskguard2 bench_diskguard3; do tmux has-session -t \"=\$g\" 2>/dev/null && echo \"\$g up\" || echo \"\$g down\"; done; grep -c 'for q in c3all2 c3all3;' $BQ/diskguard3.sh; ls $BQ/*/HOLD 2>/dev/null | wc -l") || s=""
+ echo "$s" | sed 's/^/     /'
+--- reviewed_r1/c3lane_test.sh
++++ c3lane_test.sh
+@@ -10,6 +10,10 @@
+ # Parts: A the reviewed chain test of c3swad on the new tree (strict rule unchanged: 34 of 34);
+ #        B sharing off (no SHARE files): queue 5437778 (cq 5222150b) against the new tree, same jobs: logs, RUN.md5, calls equal;
+ #        C shared training start and shared dump (lead's list of 17 Nov); D cq_rescue.sh.
++# Fix round 1 (review N1, N2): part U, a unit test of the real share_pick cut out of the new cq.sh (the time of a look,
++#        the 120 s bound on the age of the previous look, a failed look); C h1 and m1 (a pause of 135 s between the two
++#        looks, by HOLD and by MAXC 0); D rl (strict pass first).
++#        In rqa and rqe GPU 0 now reports another GPU model, so that their checks stay as they were (see part D).
+ # Usage: OLD=<tree at 89b9ea5> BASE=<tree at 5437778> NEW=<BASE + c3lane patch> nice -n 19 bash c3lane_test.sh <new work dir>
+ set -u
+ OLD=${OLD:?}; BASE=${BASE:?}; NEW=${NEW:?}; W=${1:?work dir (must not exist)}
+@@ -113,6 +117,36 @@
+ A0="GPU-stub-0, 9100001, 30000"; A1="GPU-stub-1, 9100002, 30000"; A2="GPU-stub-2, 9100003, 30000"
+ echo "[$(date '+%F %T')] start; cq old $(m5 $OLD/bench/q/cv02/cq.sh | cut -c1-8), base $(m5 $BASE/bench/q/cv02/cq.sh | cut -c1-8), new $(m5 $NEW/bench/q/cv02/cq.sh | cut -c1-8), rescue $(m5 $NEW/bench/q/cv02/cq_rescue.sh | cut -c1-8)"
+ 
++# ---- part U (in the background, about 55 s): unit test of the real share_pick. The lane-v2 block is cut out of the new
++# cq.sh and run with stand-ins for other_on, gfree, lanes_on, LPG and lg. GPU 0 never qualifies (1,000 MiB free), GPU 1
++# does (30,000 MiB beside alice). The stand-in gfree writes the time of every look at GPU 1 to a file (ms).
++cat > $W/unit.sh <<'EOF'
++#!/bin/bash
++set -u
++CQ=$1; O=$2; mkdir -p $O/q; Q=$O/q; echo 20480 > $Q/SHARE_TRAIN; GPUS="0 1"; POLL=2; ME=$(id -un); SLOW=0; echo 30000 > $O/free1
++eval "$(sed -n '/^SHARE_TRAIN_MIN=/,/^  \[ \$pend = 1 \] && SHSLEEP=/p' $CQ)"
++lg(){ echo "$*" >> $O/log; }; LPG(){ echo 1; }; lanes_on(){ echo 0; }
++other_on(){ [ $1 = 0 ] && [ $SLOW -gt 0 ] && sleep $SLOW; echo "alice:30000MiB(910000$1) "; }
++gfree(){ if [ $1 = 0 ]; then echo 1000; else date +%s%3N >> $O/looks1; cat $O/free1; fi; }
++look(){ share_pick 9000 5262 0; echo "$1_rc=$?" >> $O/res; echo "$1_shared='$SHARED'" >> $O/res; echo "$1_sleep=$SHSLEEP" >> $O/res; }
++# U1 the retry path: pass 1 is slow (the look at GPU 0 takes 20 s, GPU 1 is looked at after it), then 10 s as after a
++# failed start gap, pass 2; 21 s later pass 3
++SLOW=20; look u1a; SLOW=0; sleep 10; look u1b; sleep 21; look u1c
++a=($(cat $O/looks1)); echo "u1_real_ab=$(( (a[1]-a[0])/1000 ))" >> $O/res; echo "u1_real_ac=$(( (a[2]-a[0])/1000 ))" >> $O/res
++# U6 after a start the main loop clears SH1 only (its line is unchanged); SHP still holds the time of the look of the start
++SH1=(); look u6
++# U2 to U5 set the stored times of GPU 1 (ms): SH1 = first look of the series, SHP = previous look
++ago(){ SH1=(); SHP=(); SH1[1]=$(( $(date +%s%3N) - $1 )); SHP[1]=$(( $(date +%s%3N) - $2 )); }
++# U2 the only earlier look is 125 s old (a pause of any cause)
++ago 125000 125000; look u2a; sleep 1; look u2b
++# U3 the only earlier look is 119 s old
++ago 119000 119000; look u3
++# U4 a failed look (1,000 MiB free) after a qualifying look 40 s before, then a qualifying look
++ago 40000 40000; echo 1000 > $O/free1; look u4a; echo 30000 > $O/free1; look u4b
++# U5 a series: first look 150 s ago, previous look 100 s ago
++ago 150000 100000; look u5
++EOF
++( bash $W/unit.sh $NEW/bench/q/cv02/cq.sh $W/unit > $W/unit.out 2>&1; echo $? > $W/unit.rc ) &
+ # ---- part A (in the background): the reviewed chain test, old tree against the new tree
+ ( OLD=$OLD NEW=$NEW bash $CT $W/chain > $W/chain.out 2>&1; echo $? > $W/chain.rc ) &
+ # ---- part B: sharing off, base against new
+@@ -136,6 +170,9 @@
+ prep l2; st l2 20479; apps l2 "$A0"; fr l2 0 40000; jl l2 | q l2 $W/BN "0" 45
+ prep l3; apps l3 "$A0"; fr l3 0 40000; jl l3 | q l3 $W/BN "0" 45
+ prep l4; echo "20480 MiB" > $W/q_l4/SHARE_TRAIN; apps l4 "$A0"; fr l4 0 40000; jl l4 | q l4 $W/BN "0" 45
++# fix round 1: a pause of 135 s without a look, between the first look (at about 1 s) and the next one: HOLD, MAXC 0
++prep h1; st h1; apps h1 "$A0"; fr h1 0 30000; jl h1 | q h1 $W/BN "0" 220; at 15 "touch $W/q_h1/HOLD"; at 150 "rm -f $W/q_h1/HOLD"
++prep m1; st m1; apps m1 "$A0"; fr m1 0 30000; jl m1 | q m1 $W/BN "0" 220; at 15 "echo 0 > $W/q_m1/MAXC"; at 150 "echo 8 > $W/q_m1/MAXC"
+ # ---- part C: shared dump
+ prep d1; sd d1; jl d1 | q d1 $W/BN "0" 110; at 8 "apps d1 '$A0'; fr d1 0 10239"; at 50 fr d1 0 10240
+ prep d2; sd d2; jl d2 | q d2 $W/BN "0" 110; at 8 "apps d2 'GPU-stub-0, 9900001, 6000'; fr d2 0 30000"; at 50 "rm -f $W/nv_d2/apps"
+@@ -145,12 +182,16 @@
+ # ---- part D: old queues with a waiting dump chain (old cq.sh of 89b9ea5; rqd: cq 5222150b with a swad line). The second job
+ # of a queue starts about 10 s after the first (start gap), so the other user appears at 16 s, while both runs train or
+ # have trained; the chains look for their dump lane about 30 s after the start.
+-for t in rqa rqb rqc; do prep $t; done; prep rqd
++# Fix round 1: the tool now takes a strictly free GPU of the same model before its own GPU by the shared rule. In rqa and rqe
++# GPU 0 therefore reports another GPU model (not a candidate), so their dumps stay on the own GPU, shared, as before; rqf
++# is the same setting as rqa with GPU 0 of the same model.
++for t in rqa rqb rqc; do prep $t; done; prep rqd; echo "FAKE OTHER" > $W/nv_rqa/name.0
+ { jl ra; jl rb; } | q rqa $W/BO "0 1" 400; at 16 "apps rqa '$A1'; fr rqa 1 15000"
+ { jl rc; jl rd; } | q rqb $W/BO "0 1" 400; at 16 "apps rqb '$A1'; fr rqb 1 5000"
+ { jl re; jl rf; } | q rqc $W/BO "0 1" 400 SLOWMD5=$W/slow_rqc; at 16 "apps rqc '$A0'; fr rqc 0 15000"
+ { jl rg; jl rh_swad 11000 0 "" swad; } | q rqd $W/BB2 "0 1" 400; at 16 "apps rqd '$A1'; fr rqd 1 15000"
+-prep rqe; { jl ri; jl rj; } | q rqe $W/BO3 "0 1" 400 QC=$W/QB; at 16 "apps rqe '$A1'; fr rqe 1 15000"      # a queue like c3all2: B = 89b9ea5, queue code from another dir
++prep rqf; { jl rk; jl rl; } | q rqf $W/BO "0 1" 400; at 16 "apps rqf '$A1'; fr rqf 1 15000"
++prep rqe; echo "FAKE OTHER" > $W/nv_rqe/name.0; { jl ri; jl rj; } | q rqe $W/BO3 "0 1" 400 QC=$W/QB; at 16 "apps rqe '$A1'; fr rqe 1 15000"      # a queue like c3all2: B = 89b9ea5, queue code from another dir
+ sleep 62
+ RS(){ local oq=$1 rq=$2 tag=$3; shift 3; OQ=$W/q_$oq RQ=$rq GPUS="0 1" GAPSEC=1 POLL=2 LIVE_WAIT=30 RACE_WAIT=${RACE_WAIT:-6} NVD=$W/nv_$oq STUBLOG=$W/stub_$oq.log DATA=$W/data DATA_V3=$W/data_v3 bash $W/BN/bench/q/cv02/cq_rescue.sh "$@" > $W/rs_$tag.out 2>&1; }
+ echo "--- D rescue tool: refusals (the waiting chain of rb must stay untouched)"
+@@ -179,6 +220,7 @@
+ echo "--- D rescue of rb: own GPU, shared-dump rule"
+ RS rqa $W/rq_a doneb rb; rc=$?; SA=$W/stub_rqa.log
+ ck "D rb done, one line, shared on its own GPU 1" '[ $rc = 0 ] && [ "$(grep -c . $W/rs_doneb.out)" = 1 ] && grep -q "^RESCUE rb: done (dump on GPU 1, shared: beside alice:30000MiB(9100002) ; free 15000 MiB >= SHARE_DUMP 10240; RUN.md5 6 files" $W/rs_doneb.out'
++ck "D rb: GPU 0 was free by the strict rule but reports another GPU model: not a candidate, the dump ran on the own GPU 1" '[ "$(cat $W/nv_rqa/name.0)" = "FAKE OTHER" ] && ! grep -q "GPU-stub-0" $W/nv_rqa/apps && grep -q "^dump cwd=$W/BO gpu=1 run-id=rb " $SA'
+ ck "D rb: the old chain was stopped (verified pid), HOLD removed, markers written" '! kill -0 $cpb 2>/dev/null && [ ! -e $RA/HOLD ] && [ -s $RA/pids/rb.rescued ] && [ -e $RA/pids/rb.end ]'
+ ck "D rb: exactly one dump, command byte-equal to the old queue's rendered line, run in the old B on GPU 1" '[ "$(grep -c "^dump .*run-id=rb " $SA)" = 1 ] && grep -q "^dump cwd=$W/BO gpu=1 run-id=rb key=auto logp=0 bench-run=dump_rb\$" $SA && [ "$W/python $(grep "^dumpargs .*--run-id rb " $SA | cut -d" " -f2-)" = "$(grep "^dump_rb|" $RA/jobs_rendered.txt | cut -d"|" -f2-)" ]'
+ ck "D rb: slim by the old queue's own slim tool, without --keys" 'grep -qx "slim cwd=$W/BO $W/BO/bench/q/cv02/slim_ckpt.py --run experiments/rb" $SA'
+@@ -199,6 +241,9 @@
+ echo "--- D rescue of rj: an old queue that ran with its queue code in QC (as c3all2: B 89b9ea5, QC 5437778)"
+ mkdir -p $W/rq_e; echo 10240 > $W/rq_e/SHARE_DUMP; RS rqe $W/rq_e donej rj; rc=$?
+ ck "D rj done; the slim tool is the old queue's own (from its QC dir, read from its armed line), the dump ran in B" '[ $rc = 0 ] && grep -q "^RESCUE rj: done (dump on GPU 1, shared" $W/rs_donej.out && grep -q "queue code QC $W/QB " $W/q_rqe/launch.log && grep -qx "slim cwd=$W/BO3 $W/QB/bench/q/cv02/slim_ckpt.py --run experiments/rj" $W/stub_rqe.log && grep -q "^dump cwd=$W/BO3 gpu=1 run-id=rj " $W/stub_rqe.log && [ "$(sed "s/^[0-9a-f]\{32\}  //; s/rj/ri/g" $W/BO3/runs/rj/RUN.md5)" = "$(sed "s/^[0-9a-f]\{32\}  //" $W/BO3/runs/ri/RUN.md5)" ]'
++echo "--- D rescue of rl (fix round 1, review N2): the own GPU 1 qualifies only by the shared rule (alice 30,000 MiB, 15,000 free), GPU 0 of the same model is free by the strict rule"
++mkdir -p $W/rq_f; echo 10240 > $W/rq_f/SHARE_DUMP; RS rqf $W/rq_f donel rl; rc=$?
++ck "D rl: the strict GPU 0 is taken, not the own GPU 1 shared; no SHARED line" '[ $rc = 0 ] && grep -q "^RESCUE rl: done (dump on GPU 0; RUN.md5 6 files" $W/rs_donel.out && grep -q "^dump cwd=$W/BO gpu=0 run-id=rl " $W/stub_rqf.log && [ "$(grep -c "^dump .*run-id=rl " $W/stub_rqf.log)" = 1 ] && ! grep -q "SHARED dump dump_rl" $W/q_rqf/launch.log && grep -q "RESCUE rl: dump_rl is started by cq_rescue.sh on GPU 0 (the run trained on GPU 1)" $W/q_rqf/launch.log && grep -q "GPU-stub-1, 9100002, 30000" $W/nv_rqf/apps && [ "$(cat $W/nv_rqf/free.1)" = 15000 ] && (cd $W/BO && /usr/bin/md5sum -c --quiet runs/rl/RUN.md5)'
+ echo "--- D race: the old chain starts the dump itself while the tool holds it (slow deploy check of the old queue)"
+ RC=$W/q_rqc; mkdir -p $W/rq_c; echo 10240 > $W/rq_c/SHARE_DUMP; touch $W/slow_rqc; rm -f $W/nv_rqc/apps; echo 48000 > $W/nv_rqc/free.0
+ t=0; while ! grep -q "lane GPU 0: qualifies" <(tail -n 3 $RC/launch.log) && [ $t -lt 20 ]; do sleep 0.2; t=$((t+1)); done; sleep 0.5
+@@ -238,6 +283,11 @@
+ ck "C l2 SHARE_TRAIN 20479 (below the user's floor) = off" 'nost l2 && ! grep -q "shared candidate" $(LG l2) && grep -q "SHARE_TRAIN 0 MiB" $(LG l2)'
+ ck "C l3 no SHARE files, another user on the GPU: strict rule, no start" 'nost l3 && ! grep -q "shared candidate" $(LG l3)'
+ ck "C l4 SHARE_TRAIN not a plain number ('20480 MiB') = off" 'nost l4 && ! grep -q "shared candidate" $(LG l4)'
++# h1 and m1 start about 185 s after the test began: wait for their SHARED start lines (at most 90 s more)
++t=0; while { ! grep -q "SHARED start" $(LG h1) || ! grep -q "SHARED start" $(LG m1); } && [ $t -lt 90 ]; do sleep 2; t=$((t+2)); done
++fl2(){ date -d "$(grep "shared candidate, first look" $(LG $1) | sed -n 2p | cut -c2-20)" +%s; }; tsl(){ date -d "$(grep "$2" $(LG $1) | head -n 1 | cut -c2-20)" +%s; }
++for x in "h1|HOLD set at 15 s, removed at 150 s" "m1|MAXC 0 (full) from 15 s to 150 s"; do n=${x%%|*}
++  ck "C $n pause: ${x#*|}, after the first look: no start at the first look after the pause (series broken, logged, a first look again); start at the next look 30 s later" '[ "$(grep -c "shared candidate, first look" $(LG $n))" = 2 ] && [ "$(grep -cE "lane GPU 0: shared candidate, series broken \(previous look 1[2-9][0-9] s ago, more than 120 s\)\$" $(LG $n))" = 1 ] && grep -qE "\] SHARED start $n on GPU 0: beside alice:30000MiB\(9100001\) ; free 30000 MiB >= SHARE_TRAIN 20480 at two looks 3[0-9] s apart\$" $(LG $n) && [ $(( $(tsl $n "SHARED start $n") - $(fl2 $n) )) -ge 30 ] && [ $(( $(fl2 $n) - $(tsl $n "cv02 q armed") )) -ge 140 ] && [ "$(grep -c "\] SHARED start" $(LG $n))" = 1 ]'; done
+ ck "C armed line prints the floors in use" 'grep -q "sharing (live files in $W/q_s3; 0 = off): SHARE_TRAIN 20480 MiB, SHARE_DUMP 0 MiB\$" $(LG s3) && grep -q "SHARE_TRAIN 0 MiB, SHARE_DUMP 10240 MiB\$" $(LG d1)'
+ echo "--- C shared dump (SHARE_DUMP 10240; the run started on a free GPU, then another user took 30,000 MiB)"
+ ck "C d1 free 10239: the dump waits; at 10240 it runs, marked, usual lines unchanged" '[ "$(grep -oE "\] (dump dump_d1 waits: GPU 0 does not qualify|SHARED dump dump_d1 on GPU 0: beside alice:30000MiB\(9100001\) ; free 10240 MiB >= SHARE_DUMP 10240|start dump_d1 on GPU 0 \(free 10240 MiB, dump gate 5262\)|dumped dump_d1 rc=0|RUN.md5 d1 rc=0: 6 files)" $(LG d1) | tr "\n" ";")" = "] dump dump_d1 waits: GPU 0 does not qualify;] SHARED dump dump_d1 on GPU 0: beside alice:30000MiB(9100001) ; free 10240 MiB >= SHARE_DUMP 10240;] start dump_d1 on GPU 0 (free 10240 MiB, dump gate 5262);] dumped dump_d1 rc=0;] RUN.md5 d1 rc=0: 6 files;" ]'
+@@ -245,6 +295,17 @@
+ ck "C d2 unknown owner: the dump waits although 30,000 MiB are free; it runs by the strict rule when that owner is gone" 'grep -q "dump dump_d2 waits: GPU 0 does not qualify" $(LG d2) && ! grep -q "SHARED" $(LG d2) && grep -q "dumped dump_d2 rc=0" $(LG d2) && [ $(( $(date -d "$(grep "\] start dump_d2" $(LG d2) | cut -c2-20)" +%s) - $(date -d "$(grep "cv02 q armed" $(LG d2) | cut -c2-20)" +%s) )) -ge 48 ]'
+ ck "C d3 SHARE_DUMP 10239 (below the user's floor) = off: the dump waits" 'grep -q "dump dump_d3 waits: GPU 0 does not qualify" $(LG d3) && ! grep -q "start dump_d3" $(LG d3)'
+ ck "C f1 a --fixture job takes its lane by the dump rule (12,000 MiB free, SHARE_TRAIN off) and dumps shared" '[ "$(grep -oE "\] (SHARED lane \(fixture\) dumptest_f1 on GPU 0: beside alice:30000MiB\(9100001\) ; free 12000 MiB >= SHARE_DUMP 10240|fixture dumptest_f1 on GPU 0: training skipped|SHARED dump dump_dumptest_f1 on GPU 0|dumped dump_dumptest_f1 rc=0|RUN.md5 dumptest_f1 rc=0)" $(LG f1) | tr "\n" ";")" = "] SHARED lane (fixture) dumptest_f1 on GPU 0: beside alice:30000MiB(9100001) ; free 12000 MiB >= SHARE_DUMP 10240;] fixture dumptest_f1 on GPU 0: training skipped;] SHARED dump dump_dumptest_f1 on GPU 0;] dumped dump_dumptest_f1 rc=0;] RUN.md5 dumptest_f1 rc=0;" ]'
++echo "--- U unit test of the real share_pick (fix round 1, review N1): time taken at the look; more than 120 s since the previous look breaks the series"
++u1a_rc=; u1a_sleep=; u1b_rc=; u1b_shared=x; u1c_rc=; u1c_shared=; u1_real_ab=99; u1_real_ac=99; u2a_rc=; u2b_rc=; u3_rc=; u3_shared=; u4a_rc=; u4b_rc=; u5_rc=; u5_shared=; u6_rc=; u6_sleep=
++[ -s $W/unit/res ] && . $W/unit/res; UL=$W/unit/log
++ck "U ran to its end" '[ "$(cat $W/unit.rc 2>/dev/null)" = 0 ] && [ "$(grep -c . $W/unit/looks1)" = 10 ]'
++ck "U1 retry path (the reviewer's case): pass 1 slow, so GPU 1 is looked at 20 s after the start of the pass; pass 2 starts 30 s after pass 1, real distance of the two looks $u1_real_ab s: no start" '[ "$u1a_rc" = 1 ] && [ "$u1a_sleep" = 30 ] && [ "$u1b_rc" = 1 ] && [ -z "$u1b_shared" ] && [ $u1_real_ab -ge 9 ] && [ $u1_real_ab -le 13 ]'
++ck "U1 third look, $u1_real_ac s after the first: start, and the line states that distance" '[ "$u1c_rc" = 0 ] && n=$(echo "$u1c_shared" | sed -n "s/.* at two looks \([0-9]*\) s apart\$/\1/p") && [ -n "$n" ] && [ $n -ge 30 ] && [ $((n - u1_real_ac)) -ge -1 ] && [ $((n - u1_real_ac)) -le 1 ]'
++ck "U2 the previous look is 125 s old (a pause of any cause): series broken, logged, the look is a first look, no start; 1 s later no start" '[ "$u2a_rc" = 1 ] && [ "$u2b_rc" = 1 ] && grep -q "lane GPU 1: shared candidate, series broken (previous look 125 s ago, more than 120 s)\$" $UL'
++ck "U3 the previous look is 119 s old (under the bound; for example a HOLD of under 120 s): the series holds: start, the line says 119 s" '[ "$u3_rc" = 0 ] && echo "$u3_shared" | grep -q " at two looks 119 s apart\$"'
++ck "U6 directly after a start (SH1 cleared by the main loop as before, SHP still holds the look of the start): the next look is a first look, no start, no series-broken line" '[ "$u6_rc" = 1 ] && [ "$u6_sleep" = 30 ] && [ "$(sed -n 2p $UL | grep -c "lane GPU 1: shared candidate, first look")" = 1 ]'
++ck "U5 a series with the first look 150 s ago and the previous look 100 s ago: holds (the bound is on the previous look): start, the line says 150 s" '[ "$u5_rc" = 0 ] && echo "$u5_shared" | grep -q " at two looks 150 s apart\$" && [ "$(grep -c "series broken" $UL)" = 1 ]'
++ck "U4 a failed look (1,000 MiB free) between two qualifying looks: candidate lost, the next look is a first look, no start" '[ "$u4a_rc" = 1 ] && [ "$u4b_rc" = 1 ] && grep -q "lane GPU 1: shared candidate lost" $UL && [ "$(grep -c "lane GPU 1: shared candidate, first look" $UL)" = 4 ]'
+ cleanup; trap - EXIT; wait 2>/dev/null
+ echo "[$(date '+%F %T')] C3LANE TEST: $((NP+NF)) checks, $NP passed, $NF failed"
+ [ $NF = 0 ]

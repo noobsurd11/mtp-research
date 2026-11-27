@@ -1,0 +1,42 @@
+{
+ "paper_id": "arxiv:2301.03580",
+ "title": "Designing BERT for Convolutional Networks: Sparse and Hierarchical Masked Modeling (SparK)",
+ "year": 2023,
+ "venue": "ICLR 2023",
+ "url": "https://arxiv.org/abs/2301.03580",
+ "code_url": "https://github.com/keyu-tian/SparK",
+ "mechanism": "MIM for any CNN: sparse convolution over visible pixels and a hierarchical decoder.",
+ "adaptation": "Benchmark's CNN in-domain MIM baseline row (R34 already run); the only open variant is ConvNeXt, covered by ConvNeXt V2 FCMAE.",
+ "min_experiment": "None new; reuse the existing MIM100-PF runs as the benchmark row.",
+ "evidence": "R: about +1.0 over contrastive and transformer MIM, up to +3.5 on detection / instance segmentation (ResNet, ConvNeXt).",
+ "prior_overlap": "Closed: SparK-style MIM on ResNet-34, 11.9k pool, PF, 100% labels, n.d. (doc 11 row 25).",
+ "score": 12,
+ "bench_score": 60,
+ "bet": "safe",
+ "gpu_hours": 0,
+ "targets": [
+  "benchmark"
+ ],
+ "directions": [
+  "D32"
+ ],
+ "scout_scores": [
+  12,
+  12
+ ],
+ "alt_notes": [
+  {
+   "from": "D32",
+   "adaptation": "Already run on R34 (n.d.); keep as the benchmark's CNN in-domain MIM row; only open variants are new targets (gradient, ridge) and new backbones.",
+   "min_experiment": "None new; existing run is the benchmark row.",
+   "score": 12
+  }
+ ],
+ "final": 12,
+ "bench": 60,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 616,
+ "pid": "P616"
+}

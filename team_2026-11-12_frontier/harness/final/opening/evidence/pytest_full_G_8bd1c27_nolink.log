@@ -1,0 +1,129 @@
+........................................................................ [  8%]
+........................................................................ [ 17%]
+........................................................................ [ 25%]
+........................................................................ [ 34%]
+........................................................................ [ 42%]
+........................................................................ [ 51%]
+........................................................F............... [ 59%]
+.....................................................s................s. [ 68%]
+....................................................ssss................ [ 76%]
+............................................................s.s......... [ 85%]
+.....s...........................sss.................................... [ 93%]
+....................................................                     [100%]
+=================================== FAILURES ===================================
+__________________ test_shv_reproduces_shv1_on_real_val_cells __________________
+
+    @pytest.mark.skipif(not (SHV1 / "images").is_dir(), reason="gaint data")
+    def test_shv_reproduces_shv1_on_real_val_cells():
+        val = sorted(udev.lines(ROOT / "data/splits/val.txt"))
+        pool = shv.load_pool_pairs("/home/noob/work/domain_scratch/out/ap_pool.tsv")
+>       got = list(shv.views(val, ROOT / "data/labeled/images", "/home/noob/work/bench_data/masks_v11/masks_strict", pool, 20261031,
+                             "/home/noob/work/bench_data/masks_v11/ignore", only=[val[5], val[40]]))
+
+tests/test_bench_udev.py:128: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+bench/udev_shv.py:74: in views
+    I = np.asarray(Image.open(f"{img_dir}/{st}.png").convert("L"), dtype=np.float64)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+fp = '/home/noob/work/bench_wt_openg/data/labeled/images/ARTS_00068_r5_c1.png'
+mode = 'r', formats = ['PNG']
+
+    def open(
+        fp: StrOrBytesPath | IO[bytes],
+        mode: Literal["r"] = "r",
+        formats: list[str] | tuple[str, ...] | None = None,
+    ) -> ImageFile.ImageFile:
+        """
+        Opens and identifies the given image file.
+    
+        This is a lazy operation; this function identifies the file, but
+        the file remains open and the actual image data is not read from
+        the file until you try to process the data (or call the
+        :py:meth:`~PIL.Image.Image.load` method).  See
+        :py:func:`~PIL.Image.new`. See :ref:`file-handling`.
+    
+        :param fp: A filename (string), os.PathLike object or a file object.
+           The file object must implement ``file.read``,
+           ``file.seek``, and ``file.tell`` methods,
+           and be opened in binary mode. The file object will also seek to zero
+           before reading.
+        :param mode: The mode.  If given, this argument must be "r".
+        :param formats: A list or tuple of formats to attempt to load the file in.
+           This can be used to restrict the set of formats checked.
+           Pass ``None`` to try all supported formats. You can print the set of
+           available formats by running ``python3 -m PIL`` or using
+           the :py:func:`PIL.features.pilinfo` function.
+        :returns: An :py:class:`~PIL.Image.Image` object.
+        :exception FileNotFoundError: If the file cannot be found.
+        :exception PIL.UnidentifiedImageError: If the image cannot be opened and
+           identified.
+        :exception ValueError: If the ``mode`` is not "r", or if a ``StringIO``
+           instance is used for ``fp``.
+        :exception TypeError: If ``formats`` is not ``None``, a list or a tuple.
+        """
+    
+        if mode != "r":
+            msg = f"bad mode {repr(mode)}"  # type: ignore[unreachable]
+            raise ValueError(msg)
+        elif isinstance(fp, io.StringIO):
+            msg = (  # type: ignore[unreachable]
+                "StringIO cannot be used to open an image. "
+                "Binary data must be used instead."
+            )
+            raise ValueError(msg)
+    
+        if formats is None:
+            formats = ID
+        elif not isinstance(formats, (list, tuple)):
+            msg = "formats must be a list or tuple"  # type: ignore[unreachable]
+            raise TypeError(msg)
+    
+        exclusive_fp = False
+        filename: str | bytes = ""
+        if is_path(fp):
+            filename = os.fspath(fp)
+>           fp = builtins.open(filename, "rb")
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           FileNotFoundError: [Errno 2] No such file or directory: '/home/noob/work/bench_wt_openg/data/labeled/images/ARTS_00068_r5_c1.png'
+
+../el-fault-detection/.venv/lib/python3.12/site-packages/PIL/Image.py:3639: FileNotFoundError
+=============================== warnings summary ===============================
+tests/test_absh.py::test_ssl_aux_pl_uses_the_confidence_rule
+  /home/noob/work/bench_wt_openg/tests/test_absh.py:195: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+  Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:820.)
+    assert float(tr._absh_out["aux_keep_u"]) == 0.0 and float(tr._absh_out["loss_aux_con"]) == 0.0
+
+tests/test_bench_aa.py::test_fold_stage_equals_boot_pair
+tests/test_bench_bfix2.py::test_compute_on_kept_stems_equals_the_read_without_those_cells
+tests/test_bench_bfix2.py::test_reports_without_and_with_extras
+tests/test_bench_bfix2.py::test_classbias_read_analyze_restricts_every_table_to_the_kept_stems
+tests/test_bench_classbias.py::test_boot_classes_same_draws_as_boot_pair
+tests/test_bench_x3.py::test_bootstrap_identical_arms_zero_and_margin_floor
+  /home/noob/work/bench_wt_openg/bench/crossfit_op.py:281: RuntimeWarning: Mean of empty slice
+    return {k: float(np.nanmean([p[k] for p in per])) for k in BOOT_KEYS}
+
+tests/test_bench_bfix.py: 2 warnings
+tests/test_stream.py: 4 warnings
+tests/test_trainer_utils.py: 8 warnings
+  /usr/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=838341) is multi-threaded, use of fork() may lead to deadlocks in the child.
+    self.pid = os.fork()
+
+tests/test_bench_bfix2.py::test_classbias_read_analyze_restricts_every_table_to_the_kept_stems
+  /home/noob/work/bench_wt_openg/bench/classbias.py:260: RuntimeWarning: Mean of empty slice
+    pa = np.nanmean([iou(XA[sd].sum(0)) for sd in sA], 0)
+
+tests/test_bench_bfix2.py::test_classbias_read_analyze_restricts_every_table_to_the_kept_stems
+  /home/noob/work/bench_wt_openg/bench/classbias.py:261: RuntimeWarning: Mean of empty slice
+    pb = np.nanmean([iou(XB[sd].sum(0)) for sd in sA], 0)
+
+tests/test_bench_infer_sealed.py::test_open_set_unchanged_and_byte_equal_to_F
+  /usr/lib/python3.12/tarfile.py:2301: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_bench_udev.py::test_shv_reproduces_shv1_on_real_val_cells
+1 failed, 831 passed, 12 skipped, 24 warnings in 450.18s (0:07:30)
+rc 1

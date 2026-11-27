@@ -1,0 +1,13 @@
+--- a/opening_relay.sh
++++ b/opening_relay.sh
+@@ -14,6 +14,10 @@
+ IO=${IO:-/home/noob/work/bench_open_io}; RD=${RD:-/mnt/nas/noob_el_archive/bench_relay/open}; SES=bench_relay_open
+ ST=/home/noob/work/bench_c3_io/stage/bench_89b9ea5
+ Q=/tmp/noob_el/bench_q/open; GB=/tmp/noob_el/bench_${G:0:7}
++if [ "${AMEND:-0}" = 1 ]; then   # AMENDMENT C1 ttaid: the same RD, continued (RESUME=1), until the amended units are in
++  [ "$(md5sum < $IO/amend/AMEND.txt 2>/dev/null | cut -c1-32)" = "${AMEND_MD5:-none}" ] || no "IO/amend/AMEND.txt missing or not AMEND_MD5"
++  Q=/tmp/noob_el/bench_q/open2; RESUME=1; SES=bench_relay_open2
++fi
+ no(){ echo "REFUSED: $*"; exit 1; }
+ grep -q "^commits F 821dfadf49116cc6d5fdbd6697e263dd7cf0f834 G $G " $IO/REGISTERED.txt 2>/dev/null || no "G is not the registered commit (or no registration in $IO)"
+ N=$(grep -c . $IO/jobs.txt)

@@ -1,0 +1,51 @@
+{
+ "paper_id": "doi:10.3390/rs18070973",
+ "title": "DINOv3-PEFT: A Dual-Branch Collaborative Network with Parameter-Efficient Fine-Tuning for Precise Road Segmentation in SAR Imagery",
+ "year": 2026,
+ "venue": "Remote Sensing",
+ "url": "https://doi.org/10.3390/rs18070973",
+ "code_url": "",
+ "mechanism": "PEFT-tuned DINOv3 branch for context paired with a second branch for fine spatial detail, fused for thin road segmentation in speckled greyscale SAR.",
+ "adaptation": "Thin lines in greyscale non-natural images is the closest domain match found. Use its dual-branch fusion as the template for the CNN detail branch of VFM-H: ResNet-34 stride-2/4 features fused with DINOv3 tokens upsampled from 1024 px input.",
+ "min_experiment": "Arm: VFM-H with the detail branch vs without it, same PEFT. Baseline: house PF and the no-branch arm. Metric: CV crack relF1@2 and crack IoU. Kill: branch adds less than 0.01 relF1@2 over no-branch AND the arm is below PF.",
+ "score": 55,
+ "bench_score": 45,
+ "bet": "medium",
+ "targets": [
+  "crack",
+  "e1_unseen"
+ ],
+ "evidence": "R: abstract fragment only; SAR road extraction; numbers not read.",
+ "gpu_hours": 30,
+ "prior_overlap": "none: Om's A1 (DINOv3 + HR CNN branch) was dropped on the A8 KILL, not tested.",
+ "directions": [
+  "D22",
+  "D24"
+ ],
+ "scout_scores": [
+  40,
+  55,
+  55
+ ],
+ "alt_notes": [
+  {
+   "from": "D22",
+   "adaptation": "Fusion pattern only: house ResNet-34 stream plus DINOv3 ViT adapter stream fused at stride 4 and 8 inside U-Net++; fallback for ViTC-UNet if its cross-attention is unstable on 478 cells.",
+   "min_experiment": "Run as the fusion variant of the ViTC-UNet arm; same baseline (house PF), metrics and kill line (E1 crack relF1@2 < +0.03 or CV crack IoU drop > 0.012). About 20 GPU-h.",
+   "score": 40
+  },
+  {
+   "from": "D24",
+   "adaptation": "Closest domain found (thin lines in noisy greyscale). CNN branch = house R34 under PF; implement its fusion module from the paper in VFM-H.",
+   "min_experiment": "VFM-H with its fusion vs plain additive fusion; CV crack relF1@2 and E1 relF1@2; kill if below plain fusion on both.",
+   "score": 55
+  }
+ ],
+ "final": 55,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 145,
+ "pid": "P145"
+}

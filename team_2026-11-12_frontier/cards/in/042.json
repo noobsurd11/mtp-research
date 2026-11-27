@@ -1,0 +1,77 @@
+{
+ "paper_id": "arxiv:2511.09604",
+ "title": "Bridging the Data Gap: Spatially Conditioned Diffusion Model for Anomaly Generation in Photovoltaic Electroluminescence Images (E-SCDD, PV-DDPM)",
+ "year": 2025,
+ "venue": "arXiv",
+ "url": "https://arxiv.org/abs/2511.09604",
+ "code_url": "https://github.com/sntubix/pv-ddpm",
+ "mechanism": "Mask-conditioned DDPM generates EL cells of four types (mono, multi, half-cut multi, IBC) from feature and defect masks, allowing controlled single- or multi-defect synthesis.",
+ "adaptation": "Train PV-DDPM on the 478 train cells only (exclude E-SCDD F51/H36, which are our val). Generate half-cut multi cells carrying real train crack and inactive masks to cover the E1 gap (0 half-cut train cells) and the 42-cell inactive shortage; add at about 20% sampling.",
+ "min_experiment": "Arm: PF + 500 PV-DDPM half-cut cells. Baseline: PF, 5 seeds. Metric: E1 crack relF1@2 and E1 inactive IoU; guard: test crack IoU may not fall more than 0.012. Kill if E1 relF1@2 < +0.03 and E1 inactive IoU < +0.03.",
+ "evidence": "R: FID 4.10, KID 0.0023; E-SCDD = 805 real + 195 synthetic annotated cells, 30 classes, new sp_multi_halfcut class, 43 new half-cut cells; AA-CLIP pixel AP +8.34. Never evaluated with a segmenter.",
+ "prior_overlap": "Partial: synthetic half-cut views (geometric, not generative) n.d.; +107 real E-SCDD cells n.d. Generative synthesis is open.",
+ "score": 66,
+ "bench_score": 70,
+ "bet": "medium",
+ "gpu_hours": 60,
+ "targets": [
+  "e1_unseen",
+  "inactive",
+  "benchmark"
+ ],
+ "directions": [
+  "D01",
+  "D03",
+  "D06",
+  "D07",
+  "D21"
+ ],
+ "scout_scores": [
+  55,
+  66,
+  62,
+  30,
+  48,
+  45
+ ],
+ "alt_notes": [
+  {
+   "from": "D01",
+   "adaptation": "Arm A: add the 195 labelled synthetic cells (30 half-cut) to training, no generator work. Arm B: train the generator on train cells plus E-SCDD half-cut cells not in H36 val (avoid leakage), render half-cut cells from train crack masks, add scuff-like streaks with no crack label as hard negatives.",
+   "min_experiment": "Arm A and B vs house, 5 seeds; E1 crack recall and relF1@2 on half-cut subset, clean-49 crack IoU; kill if E1 relF1@2 gain < 0.03 and test crack IoU drops > 0.01.",
+   "score": 55
+  },
+  {
+   "from": "D06",
+   "adaptation": "Retrain on our 478 train cells only (its training data, SCDD 20221008, was reshuffled against our split and may contain our test/E1 cells). Condition on the 24-class one-hot plus source id instead of binary masks. Use for inactive and other blobby classes, not 1 px cracks. Feed it physics-edited layouts: add isolated inactive regions to train cells that have crack but no inactive (167 cells).",
+   "min_experiment": "Arm: PF + 500 synthetic inactive cells (FreeMask-filtered), 5 seeds. Baseline: PF 5 seeds. Metric: module-grouped 5-fold CV inactive IoU over 532 cells, plus E1 inactive IoU. Kill: CV inactive IoU gain < +0.03.",
+   "score": 62
+  },
+  {
+   "from": "D07",
+   "adaptation": "Rerun AA-CLIP under our split and metrics as the VLM AD baseline; for scores, use generated half-cut cells with defects (E1-like) as training data via the generative-data directions.",
+   "min_experiment": "Benchmark: AA-CLIP binary map on clean-49 and E1 with pixel AP and relF1@2; for scores, arm house + PV-DDPM half-cut synthetic cells vs baseline PF, metric E1 crack relF1@2 on CV-equivalent half-cells (H36), kill if gain < +0.03.",
+   "score": 30
+  },
+  {
+   "from": "D21",
+   "adaptation": "Retrain on our 478 train cells only, since the released model may have seen test or E1 cells (see D06). Use it as an inpainter (with the SARD row) for inactive regions, and to generate half-cut multi cells from edited crack masks for E1.",
+   "min_experiment": "PF + retrained PV-DDPM inactive insertions vs PF + inactive copy-paste (Soft-CP arm). Metric: CV inactive IoU. Kill if not above the copy-paste arm.",
+   "score": 48
+  },
+  {
+   "from": "D21",
+   "adaptation": "Retrain on our train cells only (leakage), use as a PV-aware inpainter for defect removal (GDI's own stated limitation) and for half-cut layouts with edited crack masks.",
+   "min_experiment": "PF+GDI(DDPM inpainter) vs PF+GDI(LaMa). Kill: not above LaMa arm.",
+   "score": 45
+  }
+ ],
+ "final": 66,
+ "bench": 70,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 42,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

@@ -1,0 +1,11 @@
+fin2 code proof: 821dfadf49116cc6d5fdbd6697e263dd7cf0f834 -> 084652bb96e37ea2011eaaf6098182f197a047d5 (2026-11-21 07:26:52; script 9159a99b)
+OK   (1) git diff F F2: exactly 6 paths (train.py, weight_avg.py, cq.sh, cq_setup.sh, 2 new tests)
+OK   (1) nothing under configs/ data/ bench/methods*/ bench/*.py, bench_infer.py, tta.py changed; under src/ only src/trainers/weight_avg.py
+FAIL (2b) weight_avg.py diff is not the guard only
+OK   (2) scripts/train.py: removed = the 2 val / test DataLoader lines; added = the same 2 lines with ', ignore_value=ev_ign' + the ev_ign b
+OK   (2) every changed train.py line lies after 'weak_eval =' (l.522) and before the next def (l.560) of build_benchmark_data (l.366)
+OK   (3) deploy CODE.md5 F2 against F: only the 6 paths (+ REVISION); F2 CODE.md5 md5 74256000e04ade16f784aca312c5c737 (782 lines; c3_deploy
+OK   (4) queue and eval tests in the archive of F2: 50 passed, 2 skipped in 4.27s (byte-equal render of non-resume lines against F's cq.sh n
+OK   (4) lines without --resume render byte-equal to F's cq.sh (worktree test): 1 passed, 13 deselected in 0.34s
+SKIP (5) experiments: give SMOKE_OUT=<final2_smoke.sh output>
+fin2 code proof: 1 FAIL

@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:1805.04777",
+ "title": "Convolutional CRFs for Semantic Segmentation",
+ "year": 2018,
+ "venue": "arXiv (BMVC 2019 per authors, unverified)",
+ "url": "https://arxiv.org/abs/1805.04777",
+ "code_url": "https://github.com/MarvinTeichmann/ConvCRF",
+ "mechanism": "Fully connected CRF made local (conditional independence outside a window) so mean-field inference is a convolution; over 100x faster and all kernel parameters learnable by backprop.",
+ "evidence": "R: >100x speed-up over FullCRF for inference and training (abstract). R (from rNCA table): DenseCRF on DRIVE vessels: Dice 0.761 -> 0.760, dBeta0 0.965 -> 0.712 (fewer fragments).",
+ "adaptation": "Inactive arm: bilateral intensity + position kernel on the ensemble softmax so partial inactive detections expand to the uniform dark region bounded by cracks (inactive is dark, blobby, well labelled, recall 0.61). Crack arm: small spatial kernel only, as a test of whether snapping to the dark ridge helps or hurts strict IoU (labels sit off the ridge). Kernel weights fit on val / OOF; base model unchanged.",
+ "min_experiment": "Arm: ConvCRF/DenseCRF on house ensemble softmax (and PF ensemble on E1). Baseline: house ensemble argmax. Metrics: inactive IoU and recall on clean-49 and OOF CV, E1 inactive IoU, crack relF1@2 as a guard. Kill: inactive IoU < +0.02 on OOF CV or crack relF1@2 drop > 0.005.",
+ "score": 45,
+ "bench_score": 25,
+ "bet": "safe",
+ "gpu_hours": 1,
+ "targets": [
+  "inactive",
+  "e1_unseen"
+ ],
+ "prior_overlap": "none. Inference-side runs were ensemble, logit bias, BN adaptation, intensity normalisation, per-module thresholds; no CRF.",
+ "directions": [
+  "D26"
+ ],
+ "scout_scores": [
+  45
+ ],
+ "final": 45,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 314,
+ "pid": "P314"
+}

@@ -1,0 +1,75 @@
+{
+ "paper_id": "doi:10.1051/epjpv/2024039",
+ "title": "Nomenclature and description of Electro-Luminescence (EL) observations: cell cracks and other observations",
+ "year": 2024,
+ "venue": "EPJ Photovoltaics",
+ "url": "https://doi.org/10.1051/epjpv/2024039",
+ "code_url": "",
+ "mechanism": "Industry nomenclature and classification proposal for EL observations (single cracks, multi-cracks, electrical-circuit anomalies, misc) tied to power-loss and safety risk.",
+ "adaptation": "Defines crack-mode categories for a severity extension that can be derived from our crack + inactive masks without new labels (crack without isolation, partial isolation, isolated area).",
+ "min_experiment": "No training arm; write the mask-to-crack-mode rule and report per-mode recall for all benchmark methods.",
+ "evidence": "R: consensus document from the PV-Riss project, applicable to full, half and other cell formats.",
+ "prior_overlap": "none",
+ "score": 15,
+ "bench_score": 75,
+ "bet": "safe",
+ "targets": [
+  "severity",
+  "benchmark"
+ ],
+ "gpu_hours": 0,
+ "directions": [
+  "D02",
+  "D03",
+  "D04",
+  "D08",
+  "D44"
+ ],
+ "scout_scores": [
+  10,
+  8,
+  15,
+  15,
+  15,
+  8
+ ],
+ "alt_notes": [
+  {
+   "from": "D03",
+   "adaptation": "Map our 12 defect classes and proposed severity bands (crack mode, inactive fraction, power-loss band) onto this taxonomy so the benchmark severity labels follow a standard.",
+   "min_experiment": "Desk mapping table, no GPU; check that each severity band is computable from our masks.",
+   "score": 8
+  },
+  {
+   "from": "D02",
+   "adaptation": "Defines the crack-mode label set for a severity add-on: map predicted crack + inactive components per cell to its categories.",
+   "min_experiment": "Severity design item: rule-based mapping of house predictions to categories on val; check agreement with an expert's coarse labels only if available.",
+   "score": 10
+  },
+  {
+   "from": "D08",
+   "adaptation": "Use as the class and severity definition for the benchmark severity track and to define what non-crack dark marks (scuffs) are on E1.",
+   "min_experiment": "No training: map our 24 classes and severity bands to its categories; report severity agreement of predictions vs GT per category.",
+   "score": 15
+  },
+  {
+   "from": "D08",
+   "adaptation": "Defines crack modes and severity classes for the benchmark severity track; 'miscellaneous' is the reference for non-crack dark marks such as E1 scuffs.",
+   "min_experiment": "No training arm: map our 24 classes and the scuff class onto the nomenclature and define severity labels from it.",
+   "score": 15
+  },
+  {
+   "from": "D44",
+   "adaptation": "Map our 12 defect classes to the 4 categories and use them as the benchmark's severity label scheme instead of inventing one.",
+   "min_experiment": "None. Label-scheme input for the benchmark.",
+   "score": 8
+  }
+ ],
+ "final": 15,
+ "bench": 75,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 599,
+ "pid": "P599"
+}

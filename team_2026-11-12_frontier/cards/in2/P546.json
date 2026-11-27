@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2508.17416",
+ "title": "Data Leakage in Visual Datasets",
+ "year": 2025,
+ "venue": "ICCV Workshops",
+ "url": "https://arxiv.org/abs/2508.17416",
+ "code_url": "",
+ "mechanism": "Quantify leakage of evaluation images into training data via near-duplicate retrieval.",
+ "adaptation": "Near-duplicate search (embedding + pixel correlation) between 11.9k/159k pool, train, val, test, E1 and across BenchmarkEL releases (same CSIR/ARTS sources), plus same-module pairs across splits, before any pool-based result enters the benchmark.",
+ "min_experiment": "No training: run retrieval, report count of test/E1 cells with pool or train near-duplicates; re-score any pool-based arm without them. Kill: none (integrity check).",
+ "score": 25,
+ "bench_score": 75,
+ "bet": "safe",
+ "targets": [
+  "benchmark",
+  "measurement"
+ ],
+ "evidence": "R: documents leakage across visual benchmarks sourced from overlapping collections (abstract-level).",
+ "gpu_hours": 1,
+ "prior_overlap": "none; pool leakage never checked.",
+ "directions": [
+  "D37"
+ ],
+ "scout_scores": [
+  25
+ ],
+ "final": 25,
+ "bench": 75,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 546,
+ "pid": "P546"
+}

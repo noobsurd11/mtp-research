@@ -1,0 +1,521 @@
+--- a/bench/q/cv02/cq.sh
++++ b/bench/q/cv02/cq.sh
+@@ -15,6 +15,13 @@
+ #   logp 1 = dump with --logp. extra = only '--exit_after_step N', only for smoke_* jobs (rc 3 by design; no dump), or
+ #   '--fixture', only for dumptest_* jobs: no training; B/experiments/<name>/ is a placed finished run (config_used.yaml +
+ #   checkpoints/latest.pth) and the chain runs from the dump step on (dry test of dump, slim, RUN.md5 and relay).
++#   Optional 10th field (c3swad): name|...|logp|extra|readouts = comma list of further weights keys of the card's readouts
++#   (not its weights_key). After the usual dump (run id <name>, the card's weights_key) each key K is dumped the same way
++#   (same GPU, same gate, same waits) with --run-id <name>.K --weights-key K (job dump_<name>.K). All dumps must end rc 0.
++#   The slim checkpoint then keeps only the dumped keys, and RUN.md5 also lists the further dump dirs and
++#   experiments/<name>/enc_probe.jsonl if present. A line without the field behaves exactly as before.
++# QC (optional env, default B): the deploy dir that holds the queue code (this script, cvcard.py, slim_ckpt.py) and
++#   bench/methods_cv02. With QC != B, training and dumps still run in B from B's code; QC/CODE.md5 is checked like B's.
+ # Lane rule (per GPU g, checked live before every start, training or dump): no other user holds > OTHER_MAX MiB on g in
+ #   sum over the compute processes on g that are not ours ("ours" = live PIDs in Q/pids/*.pid and their children; the
+ #   account is shared; owner unreadable = one bucket "unknown"; unreadable memory = over); fewer than LPG
+@@ -33,7 +40,7 @@
+ B=${B:?deploy dir}; Q=${Q:?queue dir}; JOBS_MD5=${JOBS_MD5:?}; DEPLOY=${DEPLOY:?full commit}; DATA_MD5=${DATA_MD5:?}
+ DATA=${DATA:-/tmp/noob_el/bench_data}; DATA_V3=${DATA_V3:-/tmp/noob_el/bench_data_v3b}; GPUS=${GPUS:-0 1 2 3 4 5 6 7}; OTHER_MAX=${OTHER_MAX:-4096}; GAPSEC=${GAPSEC:-120}
+ POLL=${POLL:-60}; LIVE_WAIT=${LIVE_WAIT:-300}; P=${P:-/tmp/noob_el/el-fault-detection/.venv/bin/python}; DUMPS=$B/dumps
+-L=$Q/launch.log; J=$Q/jobs.txt; HERE=$B/bench/q/cv02
++L=$Q/launch.log; J=$Q/jobs.txt; QC=${QC:-$B}; HERE=$QC/bench/q/cv02
+ . /tmp/noob_el/env.sh   # HF_HOME / TORCH_HOME / TMPDIR under /tmp/noob_el (as every earlier cv02 run)
+ . $B/bench/q/bench_lib.sh   # verify, stop_verified, startcheck, has_token, cmdl, psl
+ export BENCH_LABELED=$DATA/labeled BENCH_CV5V2_ROOTS=$DATA/roots BENCH_CV5V3_ROOTS=$DATA_V3/roots BENCH_MASKS_V11=$DATA/masks_v11 BENCH_LEGACY_SPLITS=$B/data/splits
+@@ -46,7 +53,10 @@
+ yget(){ (cd $B && $P -c 'import sys, yaml; c = yaml.safe_load(open(sys.argv[1]))
+ for k in sys.argv[2].split("."): c = c[k]
+ print(c)' "$1" "$2"); }
+-deploy_ok(){ [ "$(cat $B/REVISION 2>/dev/null)" = "$DEPLOY" ] && (cd $B && md5sum -c --quiet CODE.md5 > /dev/null 2>&1); }
++deploy_ok(){ [ "$(cat $B/REVISION 2>/dev/null)" = "$DEPLOY" ] && (cd $B && md5sum -c --quiet CODE.md5 > /dev/null 2>&1) \
++  && { [ "$QC" = "$B" ] || (cd $QC && md5sum -c --quiet CODE.md5 > /dev/null 2>&1); }; }
++# dcmd2 CMD NAME KEY: the dump command of a further readout KEY, made from the job's own dump command CMD
++dcmd2(){ local c=${1/ --run-id $2 / --run-id $2.$3 --weights-key $3 }; echo "${c/%--bench-run dump_$2/--bench-run dump_$2.$3}"; }
+ 
+ # ---- lanes
+ uuid(){ timeout 10 nvidia-smi --query-gpu=uuid --format=csv,noheader -i $1 2>/dev/null | tr -d ' '; }
+@@ -85,16 +95,16 @@
+ 
+ # ---- arming
+ [ "$(md5sum < $J | cut -c1-32)" = "$JOBS_MD5" ] || fail "jobs md5 FAIL"
+-deploy_ok || fail "deploy check FAIL (REVISION != $DEPLOY or CODE.md5)"
++deploy_ok || fail "deploy check FAIL (REVISION != $DEPLOY, or CODE.md5 of B or of QC $QC)"
+ [ "$(md5sum < $DATA/DEPLOY.md5 | cut -c1-32)" = "$DATA_MD5" ] || fail "DATA/DEPLOY.md5 md5 != DATA_MD5"
+ (cd $DATA && md5sum -c --quiet DEPLOY.md5 > /dev/null 2>&1) || fail "DATA DEPLOY.md5 check FAIL"
+ (cd $DATA/roots && md5sum -c --quiet ROOTS_cv5v2_v11.md5 ROOTS_cv5v2_v1.md5 > /dev/null 2>&1) || fail "ROOTS_cv5v2_*.md5 check FAIL"
+ if grep -q "|$DATA_V3/roots/cv5v3_" $J; then (cd $DATA_V3/roots && md5sum -c --quiet ROOTS_cv5v3_v11.md5 > /dev/null 2>&1) || fail "ROOTS_cv5v3_v11.md5 check FAIL"; fi
+ [ "$(LPG)" = "$(cat $Q/LPG 2>/dev/null || echo 2)" ] || fail "LPG must be 1 or 2"
+ mapfile -t JOBS < $J
+-declare -A TCMD=() DCMD=()
++declare -A TCMD=() DCMD=(); R2=()
+ for j in "${JOBS[@]}"; do
+-  IFS='|' read -r name card seed root fold gate dgate logp extra <<< "$j"
++  IFS='|' read -r name card seed root fold gate dgate logp extra ro <<< "$j"
+   [ -n "$name" ] && [ -n "$card" ] && [ -n "$dgate" ] || fail "bad job line: $j"
+   for v in "$seed" "$fold" "$gate" "$dgate"; do case "$v" in ''|*[!0-9]*) fail "$name: '$v' not a number";; esac; done
+   case "$logp" in 0|1) ;; *) fail "$name: logp must be 0 or 1";; esac
+@@ -103,7 +113,7 @@
+   (cd $root && md5sum -c --quiet SPLITS.md5 > /dev/null 2>&1 && md5sum -c --quiet DATA_MANIFEST.md5 > /dev/null 2>&1) || fail "$name: $root SPLITS / DATA_MANIFEST check FAIL"
+   cmp -s $root/splits/val.txt $root/splits/test.txt || fail "$name: $root test.txt != val.txt"
+   cards_py validate $card > /dev/null || fail "$name: card $card invalid"
+-  cv=bench/methods_cv02/$(basename $card)
++  cv=$QC/bench/methods_cv02/$(basename $card)
+   W=$(cd $B && $P $HERE/cvcard.py $card $cv) || fail "$name: $cv: $W"
+   while read -r m f; do [ -n "$m" ] || continue; [ "$(md5sum < $f | cut -c1-32)" = "$m" ] || fail "$name: weights $f md5 != card"; done <<< "$W"
+   cg=$(yget $card memory.gate_mib); [ "$cg" != None ] && [ "$gate" -ge "$cg" ] || fail "$name: gate $gate < card gate $cg"
+@@ -111,15 +121,28 @@
+     --fixture) case "$name" in dumptest_*) ;; *) fail "$name: --fixture only for dumptest_* jobs";; esac
+       [ -s $B/experiments/$name/config_used.yaml ] && [ -s $B/experiments/$name/checkpoints/latest.pth ] || fail "$name: fixture run dir incomplete";;
+     *) fail "$name: extra '$extra' not allowed";; esac
++  if [ -n "$ro" ]; then   # further readouts (10th field): keys of the card's readouts, not its weights_key, each once
++    case "$extra" in ''|--fixture) ;; *) fail "$name: readouts not allowed with extra '$extra'";; esac
++    pk=$(yget $card weights_key); rl=$(yget $card readouts 2>/dev/null); seen=" $pk "
++    for k in ${ro//,/ }; do
++      case "$k" in *[!a-z0-9_]*|[!a-z]*) fail "$name: bad readout key '$k'";; esac
++      case "$seen" in *" $k "*) fail "$name: readout '$k' is the card's weights_key or is listed twice";; esac
++      case "$rl" in *"'weights_key': '$k'"*) ;; *) fail "$name: readout '$k' is not in the card's readouts";; esac
++      seen="$seen$k "; done
++    [ "$seen" != " $pk " ] || fail "$name: readouts field '$ro' names no key"
++  fi
+   cfgf=$(yget $card config); method=$(yget $card name)
+   [ "$extra" = --fixture ] && x="" || x=$extra
+   TCMD[$name]="$P -u scripts/train.py ${x:+$x }--config $cfgf --opts $(cards_py opts $card --seed $seed --run-name $name --data-root $root)"
+   DCMD[$name]="$P -u scripts/bench_infer.py --run $B/experiments/$name --set $set --dumps $DUMPS --method $method --card $card --run-id $name --device cuda --precision fp32 --threads 4 --workers 4 --batch 8$([ $logp = 1 ] && echo ' --logp') --forbidden $DATA/meta/forbidden_v1.txt --bench-run dump_$name"
+   has_token "${TCMD[$name]}" "$name" && has_token "${DCMD[$name]}" "dump_$name" || fail "$name: token missing in a command"
++  for k in ${ro//,/ }; do d2=$(dcmd2 "${DCMD[$name]}" $name $k)
++    has_token "$d2" "dump_$name.$k" && case "$d2" in *" --run-id $name.$k --weights-key $k "*) true;; *) false;; esac || fail "$name: readout $k: dump command not formed"
++    R2+=("dump_$name.$k|$d2"); done
+ done
+-for n in "${!TCMD[@]}"; do echo "$n|${TCMD[$n]}"; echo "dump_$n|${DCMD[$n]}"; done | sort > $Q/jobs_rendered.txt
++{ for n in "${!TCMD[@]}"; do echo "$n|${TCMD[$n]}"; echo "dump_$n|${DCMD[$n]}"; done; [ ${#R2[@]} = 0 ] || printf '%s\n' "${R2[@]}"; } | sort > $Q/jobs_rendered.txt
+ logger_ok || fail "gpumem logger (cq_gpumem.sh) not running"
+-lg "cv02 q armed: ${#JOBS[@]} jobs (md5 $JOBS_MD5), rendered $(md5sum < $Q/jobs_rendered.txt | cut -c1-8), deploy $DEPLOY (CODE.md5 OK), data $DATA_MD5 (OK), roots OK, GPUS '$GPUS', LPG $(LPG), MAXC $(cat $Q/MAXC 2>/dev/null || echo 16), other-user max $OTHER_MAX MiB, gap $GAPSEC s, lib $(md5sum < $B/bench/q/bench_lib.sh | cut -c1-8), cq $(md5sum < $0 | cut -c1-8), gpumem $(cat $Q/gpumem.pid), pid $$; nproc $(nproc), loadavg $(cut -d' ' -f1-3 /proc/loadavg)"
++lg "cv02 q armed: ${#JOBS[@]} jobs (md5 $JOBS_MD5), rendered $(md5sum < $Q/jobs_rendered.txt | cut -c1-8), deploy $DEPLOY (CODE.md5 OK), data $DATA_MD5 (OK), roots OK, GPUS '$GPUS', LPG $(LPG), MAXC $(cat $Q/MAXC 2>/dev/null || echo 16), other-user max $OTHER_MAX MiB, gap $GAPSEC s, lib $(md5sum < $B/bench/q/bench_lib.sh | cut -c1-8), cq $(md5sum < $0 | cut -c1-8), gpumem $(cat $Q/gpumem.pid), pid $$; nproc $(nproc), loadavg $(cut -d' ' -f1-3 /proc/loadavg)$([ "$QC" = "$B" ] || echo "; queue code QC $QC ($(cut -c1-7 $QC/REVISION 2>/dev/null), CODE.md5 OK)")"
+ 
+ # start_py NAME GPU STDOUT CMD: python as a plain background child of a subshell, so pids/NAME.pid = the python PID;
+ # the subshell waits, writes pids/NAME.rc, then exits. Waits <= 20 s for a cmdline with NAME's token -> pids/NAME.cmdline.
+@@ -135,7 +158,8 @@
+   [ -n "$SPID" ] && cmdl $SPID > $Q/pids/$n.cmdline; }
+ 
+ # chain_after NAME GPU FOLD METHOD SSUB: (background) wait for training, then dump on the same GPU, slim, RUN.md5.
+-chain_after(){ local n=$1 g=$2 sub=$5 rc d dn=dump_$1 w=0 lw="" drc
++# Env RO (further readout keys, space list; may be empty) and PK (the card's weights_key; used only with RO).
++chain_after(){ local n=$1 g=$2 sub=$5 rc d dn=dump_$1 w=0 lw="" drc dc k dok=1
+   if [ "${FIX:-0}" = 1 ]; then rc=0; lg "fixture $n: no training (dump step dry test)"
+   else
+     while kill -0 $sub 2>/dev/null; do sleep 30; done
+@@ -144,6 +168,8 @@
+     lg "done $n: final-step lines $(grep -c 'step 20000/20000' $B/experiments/$n.stdout), Traceback lines $(grep -c Traceback $B/experiments/$n.stdout)"
+   fi
+   if [ "$rc" != 0 ]; then lg "no dump for $n (training rc $rc)"; touch $Q/pids/$n.end; return; fi
++  for dn in dump_$n $(for k in ${RO:-}; do echo dump_$n.$k; done); do   # the usual dump, then one per further readout
++  [ $dn = dump_$n ] && dc=$DC || dc=$(dcmd2 "$DC" $n ${dn#dump_$n.}); lw=""
+   while :; do
+     if [ -e $Q/HOLD ]; then w="HOLD"
+     elif ! logger_ok; then touch $Q/HOLD; w="gpumem logger gone; HOLD set"
+@@ -155,7 +181,7 @@
+   done
+   deploy_ok || { lg "deploy check FAIL before $dn; HOLD set"; touch $Q/HOLD; touch $Q/pids/$n.end; return; }
+   lg "start $dn on GPU $g (free $(gfree $g) MiB, dump gate $DG)"
+-  start_py $dn $g $Q/dlogs/$dn.stdout "$DC"; d=$SPID
++  start_py $dn $g $Q/dlogs/$dn.stdout "$dc"; d=$SPID
+   if [ -z "$d" ]; then lg "no cmdline with $dn's token within 20 s (pid file $(cat $Q/pids/$dn.pid 2>/dev/null)); HOLD set"; touch $Q/HOLD $Q/pids/$n.end; return; fi
+   lg "pid $dn $d (python; parent $(ps -o ppid= -p $d | tr -d ' ')); cmdline recorded ($(md5sum < $Q/pids/$dn.cmdline | cut -c1-8))"
+   m=$(startcheck $Q/dlogs/$dn.stdout "BENCH_START: run=$dn" $LIVE_WAIT) || {
+@@ -164,13 +190,16 @@
+   while kill -0 $SSUB 2>/dev/null; do sleep 10; done
+   drc=$(cat $Q/pids/$dn.rc 2>/dev/null || echo none)
+   lg "dumped $dn rc=$drc: 'dumped' lines $(grep -c '^dumped ' $Q/dlogs/$dn.stdout), Traceback lines $(grep -c Traceback $Q/dlogs/$dn.stdout)"
+-  if [ "$drc" = 0 ] && grep -q '^dumped ' $Q/dlogs/$dn.stdout; then
+-    (cd $B && CUDA_VISIBLE_DEVICES= OMP_NUM_THREADS=2 nice -n 19 $P $HERE/slim_ckpt.py --run experiments/$n > $Q/dlogs/slim_$n.log 2>&1); rc=$?
++  [ "$drc" = 0 ] && grep -q '^dumped ' $Q/dlogs/$dn.stdout || { dok=0; break; }
++  done
++  if [ $dok = 1 ]; then
++    (cd $B && CUDA_VISIBLE_DEVICES= OMP_NUM_THREADS=2 nice -n 19 $P $HERE/slim_ckpt.py --run experiments/$n${RO:+ --keys $PK,${RO// /,}} > $Q/dlogs/slim_$n.log 2>&1); rc=$?
+     if [ $rc = 0 ]; then
+       mkdir -p $B/runs/$n
+       (cd $B && md5sum experiments/$n/checkpoints/latest.pth > runs/$n/LATEST.md5 \
+         && { echo experiments/$n/config_used.yaml; echo experiments/$n/checkpoints/slim.pth; echo runs/$n/LATEST.md5
+-             find dumps -path "dumps/*/$METH/$n/*" -type f | sort; } | xargs -d '\n' md5sum > runs/$n/RUN.md5.tmp \
++             if [ -n "${RO:-}" ] && [ -f experiments/$n/enc_probe.jsonl ]; then echo experiments/$n/enc_probe.jsonl; fi
++             { find dumps -path "dumps/*/$METH/$n/*" -type f; for k in ${RO:-}; do find dumps -path "dumps/*/$METH/$n.$k/*" -type f; done; } | sort; } | xargs -d '\n' md5sum > runs/$n/RUN.md5.tmp \
+         && mv runs/$n/RUN.md5.tmp runs/$n/RUN.md5); rc=$?
+       lg "RUN.md5 $n rc=$rc: $(wc -l < $B/runs/$n/RUN.md5 2>/dev/null) files, md5 $(md5sum < $B/runs/$n/RUN.md5 2>/dev/null | cut -c1-8)"
+     else lg "slim checkpoint FAILED for $n (rc $rc; dlogs/slim_$n.log); no RUN.md5"; fi
+@@ -179,7 +208,7 @@
+ 
+ LASTW=""
+ for j in "${JOBS[@]}"; do
+-  IFS='|' read -r name card seed root fold gate dgate logp extra <<< "$j"
++  IFS='|' read -r name card seed root fold gate dgate logp extra ro <<< "$j"
+   fix=0; [ "$extra" = --fixture ] && fix=1
+   if [ $fix = 0 ] && { [ -e $B/experiments/$name ] || [ -e $B/experiments/$name.stdout ]; }; then lg "skip $name (exists)"; continue; fi
+   if [ -e $Q/pids/$name.gpu ]; then lg "skip $name (already started by this queue dir)"; continue; fi
+@@ -196,13 +225,13 @@
+   done
+   echo $g > $Q/pids/$name.gpu
+   if [ $fix = 1 ]; then lg "fixture $name on GPU $g: training skipped"
+-    FIX=1 DG=$dgate DC="${DCMD[$name]}" METH=$(yget $card name) chain_after $name $g $fold x 0 &
++    FIX=1 DG=$dgate DC="${DCMD[$name]}" RO="${ro//,/ }" PK=$([ -n "$ro" ] && yget $card weights_key) METH=$(yget $card name) chain_after $name $g $fold x 0 &
+     echo "$name chain $!" >> $Q/pids/subshells.txt; continue; fi
+   lg "start $name on GPU $g (card $card, seed $seed, root $root, gate $gate; free $(gfree $g) MiB; our lanes on GPU $(lanes_on $g), all $(lanes_all))"
+   start_py $name $g $B/experiments/$name.stdout "${TCMD[$name]}"; pp=$SPID
+   if [ -z "$pp" ]; then lg "cv02 q: no cmdline with $name's token within 20 s (pid file $(cat $Q/pids/$name.pid 2>/dev/null)); HOLD set"; touch $Q/HOLD $Q/pids/$name.end; continue; fi
+   lg "pid $name $pp (python; parent $(ps -o ppid= -p $pp | tr -d ' ')); cmdline recorded ($(md5sum < $Q/pids/$name.cmdline | cut -c1-8)): $(psl $pp)"
+-  DG=$dgate DC="${DCMD[$name]}" METH=$(yget $card name) chain_after $name $g $fold x $SSUB &
++  DG=$dgate DC="${DCMD[$name]}" RO="${ro//,/ }" PK=$([ -n "$ro" ] && yget $card weights_key) METH=$(yget $card name) chain_after $name $g $fold x $SSUB &
+   echo "$name chain $!" >> $Q/pids/subshells.txt
+   ok=1; c=$B/experiments/$name/config_used.yaml; t=0
+   while [ ! -s $c ] && [ $t -lt $LIVE_WAIT ]; do sleep 5; t=$((t+5)); done
+--- a/bench/q/cv02/cq_setup.sh
++++ b/bench/q/cv02/cq_setup.sh
+@@ -1,7 +1,8 @@
+ #!/bin/bash
+ # cv02 setup: arm one prepared queue dir in a new tmux session on cv02 (window gm = cq_gpumem.sh, window q = cq.sh).
+ # Run ON cv02 by the launcher (reviewer), e.g. from gaint: ssh cv02@10.8.1.106 'B=... Q=... SES=... bash $B/bench/q/cv02/cq_setup.sh'.
+-# Env (required): B, Q, SES (bench_q_*), DEPLOY (full commit), JOBS_MD5, DATA_MD5. Optional: GPUS, DATA (passed to cq.sh).
++# Env (required): B, Q, SES (bench_q_*), DEPLOY (full commit), JOBS_MD5, DATA_MD5. Optional: GPUS, DATA (passed to cq.sh);
++#   QC (c3swad; default B): deploy dir whose bench/q/cv02 scripts are run (cq.sh, cq_gpumem.sh); passed to cq.sh.
+ # Refuses (one line, exit 1, nothing started) if: the session exists; Q is armed or used (queue.pid, gpumem.pid, HOLD, pids/,
+ #   a non-empty launch.log); jobs md5 differs; REVISION != DEPLOY or CODE.md5 fails; LPG not 1 or 2; any job's
+ #   experiments/<name> or .stdout exists (except dumptest_* fixtures, which must exist).
+@@ -16,14 +17,15 @@
+ [ "$(md5sum < $Q/jobs.txt | cut -c1-32)" = "$JOBS_MD5" ] || no "$Q/jobs.txt md5 != JOBS_MD5"
+ [ "$(cat $B/REVISION)" = "$DEPLOY" ] || no "REVISION $(cat $B/REVISION) != $DEPLOY"
+ (cd $B && md5sum -c --quiet CODE.md5 > /dev/null 2>&1) || no "CODE.md5 check failed"
++[ -z "${QC:-}" ] || (cd $QC && md5sum -c --quiet CODE.md5 > /dev/null 2>&1) || no "QC $QC CODE.md5 check failed"
+ case "$(cat $Q/LPG 2>/dev/null || echo 2)" in 1|2) ;; *) no "LPG must be 1 or 2";; esac
+ while IFS='|' read -r n c s r k g d l x; do
+   case "$n" in dumptest_*) [ -d $B/experiments/$n ] || no "fixture $n missing";;
+     *) [ -e $B/experiments/$n ] || [ -e $B/experiments/$n.stdout ] && no "experiments/$n exists";; esac; done < $Q/jobs.txt
+-H=$B/bench/q/cv02
++H=${QC:-$B}/bench/q/cv02
+ tmux new-session -d -s "$SES" -n gm "Q=$Q nice -n 19 bash $H/cq_gpumem.sh"
+ sleep 3
+-tmux new-window -t "=$SES:" -n q "B=$B Q=$Q JOBS_MD5=$JOBS_MD5 DEPLOY=$DEPLOY DATA_MD5=$DATA_MD5 ${GPUS:+GPUS='$GPUS' }${DATA:+DATA=$DATA }bash $H/cq.sh"
++tmux new-window -t "=$SES:" -n q "B=$B Q=$Q JOBS_MD5=$JOBS_MD5 DEPLOY=$DEPLOY DATA_MD5=$DATA_MD5 ${GPUS:+GPUS='$GPUS' }${DATA:+DATA=$DATA }${QC:+QC=$QC }bash $H/cq.sh"
+ sleep 8
+ echo "cq_setup: $SES armed: gpumem $(cat $Q/gpumem.pid 2>/dev/null) queue $(cat $Q/queue.pid 2>/dev/null)"
+ tail -3 $Q/launch.log
+--- a/bench/q/cv02/slim_ckpt.py
++++ b/bench/q/cv02/slim_ckpt.py
+@@ -3,7 +3,9 @@
+ bench_infer.py reads only st["step"] and st["models"][key], so slim.pth (renamed latest.pth) can be dumped again on gaint.
+ Asserts step == cfg training.total_steps (or --expect-step) and that every models.* tensor is unchanged in the written file.
+ Refuses to overwrite. Prints one line: "slim <run> step <n> keys <models keys> latest_md5 <md5> slim_md5 <md5>".
+-Usage: CUDA_VISIBLE_DEVICES= python bench/q/cv02/slim_ckpt.py --run <run dir> [--expect-step N]
++Usage: CUDA_VISIBLE_DEVICES= python bench/q/cv02/slim_ckpt.py --run <run dir> [--expect-step N] [--keys K1,K2]
++--keys (c3swad): keep only these models keys (each must exist, none twice); slim_of then also records "keys" and
++"all_keys". Without --keys the file is written exactly as before (all keys).
+ """
+ import argparse
+ import hashlib
+@@ -26,6 +28,7 @@
+     ap = argparse.ArgumentParser()
+     ap.add_argument("--run", required=True)
+     ap.add_argument("--expect-step", type=int, default=None)
++    ap.add_argument("--keys", default=None, help="comma list of models keys to keep (default: all)")
+     a = ap.parse_args()
+     torch.set_num_threads(2)
+     run = Path(a.run)
+@@ -36,18 +39,23 @@
+     want = a.expect_step if a.expect_step is not None else int(st["cfg"]["training"]["total_steps"])
+     assert int(st["step"]) == want, (int(st["step"]), want)
+     lm = md5(src)
+-    slim = {"format": st.get("format"), "step": int(st["step"]), "cfg": st["cfg"], "models": st["models"],
+-            "slim_of": {"file": "latest.pth", "md5": lm}}
++    models, of = st["models"], {"file": "latest.pth", "md5": lm}
++    if a.keys is not None:
++        ks = a.keys.split(",")
++        assert ks and len(set(ks)) == len(ks) and all(k in models for k in ks), (ks, sorted(models))
++        of.update(keys=ks, all_keys=sorted(models))
++        models = {k: models[k] for k in ks}
++    slim = {"format": st.get("format"), "step": int(st["step"]), "cfg": st["cfg"], "models": models, "slim_of": of}
+     tmp = dst.with_suffix(".pth.tmp")
+     torch.save(slim, tmp)
+     back = torch.load(tmp, map_location="cpu", weights_only=False)
+-    assert back["step"] == slim["step"] and set(back["models"]) == set(st["models"])
+-    for k, sd in st["models"].items():
++    assert back["step"] == slim["step"] and set(back["models"]) == set(models)
++    for k, sd in models.items():
+         assert set(back["models"][k]) == set(sd), k
+         for n, t in sd.items():
+             assert torch.equal(back["models"][k][n], t), (k, n)
+     os.replace(tmp, dst)
+-    print(f"slim {run.name} step {slim['step']} keys {sorted(st['models'])} latest_md5 {lm} slim_md5 {md5(dst)}", flush=True)
++    print(f"slim {run.name} step {slim['step']} keys {sorted(models)} latest_md5 {lm} slim_md5 {md5(dst)}", flush=True)
+     return 0
+ 
+ 
+--- /dev/null
++++ b/bench/methods_cv02/swad_const_pf_v11.yaml
+@@ -0,0 +1,52 @@
++# Wave 2a arm swad_const (T1 spec arm 3; critic FIX applied: encoder cosine to init logged per stage every 2k steps):
++# PF v1.1 card plus a constant lr after warmup, a uniform average of every iterate of steps 10,000 to 20,000 and an EMA
++# 0.9998, BN recalibration on the training fold at the end. Pre-declared primary: swad_bn against PF raw (CV crack
++# relF1@2, same machine). The raw constant-lr weights (model) are dumped too. Report layer3 / layer4 cosine at 20k.
++name: swad_const_pf_v11
++version: 1
++family: cnn-unetpp
++papers: ["arXiv:2102.08604", "arXiv:2411.18704"]
++kind: harness
++config: configs/supervised.yaml
++opts:
++  - data.labeled_fraction=1.0
++  - training.total_steps=20000
++  - data.split_seed=0
++  - training.labeled_batch_size=8
++  - data.mask_subdir=masks_v11
++  - data.mask_ignore_value=255
++  - model.name=smp_unetpp
++  - data.augmentation=labelsafe
++  - loss.supervised=ce_dice
++  - training.val_every=20000
++  - training.encoder_pf.freeze=1000
++  - training.encoder_pf.ramp=1000
++  - training.encoder_pf.lr_mult=0.1
++  - training.encoder_pf.wd=0
++  - training.lr_scheduler=constant
++  - training.weight_avg.swad.mode=uniform
++  - training.weight_avg.swad.start=10000
++  - training.weight_avg.swad.end=20000
++  - training.weight_avg.ema_9998.mode=ema
++  - training.weight_avg.ema_9998.decay=0.9998
++  - training.bn_recal=true
++  - training.enc_probe_every=2000
++weights:
++  - path: /tmp/noob_el/cache/hf/hub/models--smp-hub--resnet34.imagenet/snapshots/7a57b34f723329ff020b3f8bc41771163c519d0c/model.safetensors
++    md5: f57b430554b18e1238c4f92eac566544
++weights_key: swad_bn
++readouts:
++  - {name: raw, weights_key: model}
++  - {name: raw_bn, weights_key: raw_bn}
++  - {name: swad, weights_key: swad}
++  - {name: swad_bn, weights_key: swad_bn}
++  - {name: ema_9998, weights_key: ema_9998}
++  - {name: ema_9998_bn, weights_key: ema_9998_bn}
++decision_rule: argmax24
++memory:
++  peak_mib: null
++  gate_mib: 11000
++  source: "peak not measured (built on CPU); wave 2a default gate 11,000 MiB (lead task, 13 Nov) until a GPU run measures it"
++external: null
++diff_ref: house_r34_unetpp_pf_v11
++notes: "readouts: model (constant-lr raw), raw_bn, swad, swad_bn (primary), ema_9998, ema_9998_bn. Encoder drift: train.log 'ENC probe' lines and enc_probe.jsonl."
+--- /dev/null
++++ b/tests/test_bench_cq_readouts.py
+@@ -0,0 +1,213 @@
++"""cv02 queue script (bench/q/cv02/cq.sh): further readouts per job (10th jobs.txt field) and the QC queue-code dir
++(c3swad, patch harness/c3swad/cq_c3swad.patch).
++
++As tests/test_bench_cq_cv5v3.py: cq.sh is run for real in a sandbox up to the end of arming (it renders
++Q/jobs_rendered.txt and stops at the gpumem-logger check), with a stub python for the card calls. The only edit to the
++script is the hardcoded '. /tmp/noob_el/env.sh' line.
++Checks: a line without the 10th field renders exactly the pre-patch commands; a line with readouts gets one more dump
++line per key (--run-id <name>.<key> --weights-key <key> --bench-run dump_<name>.<key>) and nothing else changes; bad
++readout fields are refused before any start; with QC set, the cv02 card variant and cvcard.py come from QC and QC's
++CODE.md5 must check.
++"""
++import hashlib
++import os
++import shutil
++import stat
++import subprocess
++from pathlib import Path
++
++import pytest
++
++REPO = Path(__file__).resolve().parents[1]
++CQ = REPO / "bench" / "q" / "cv02" / "cq.sh"
++LIB = REPO / "bench" / "q" / "bench_lib.sh"
++ENV_LINE = ". /tmp/noob_el/env.sh"
++DEPLOY = "0" * 40
++CARD = "bench/methods/swad_const_pf_v11.yaml"
++
++STUB_P = r"""#!/bin/bash
++# stub python for the cq.sh sandbox: bench.cards validate / opts, yget (-c) incl. weights_key and readouts, cvcard.py
++# (no weights; its arguments are appended to $STUBLOG).
++if [ "$1" = -m ]; then
++  case "$3" in validate) exit 0;;
++    opts) shift 4; s=""; n=""; r=""; while [ $# -gt 0 ]; do case "$1" in --seed) s=$2;; --run-name) n=$2;; --data-root) r=$2;; esac; shift 2; done
++          echo "training.seed=$s run_name=$n data.root=$r"; exit 0;; esac; exit 9
++elif [ "$1" = -c ]; then
++  case "$4" in memory.gate_mib) echo 9000;; config) echo configs/base.yaml;; name) echo stub_method;;
++    weights_key) echo swad_bn;;
++    readouts) echo "[{'name': 'raw', 'weights_key': 'model'}, {'name': 'swad', 'weights_key': 'swad'}, {'name': 'swad_bn', 'weights_key': 'swad_bn'}, {'name': 'ema_9998', 'weights_key': 'ema_9998'}]";;
++    *) exit 9;; esac; exit 0
++else echo "$*" >> "$STUBLOG"; exit 0; fi
++"""
++
++
++def _md5(p: Path) -> str:
++    return hashlib.md5(p.read_bytes()).hexdigest()
++
++
++def _md5file(base: Path, rels: list[str], out: Path) -> None:
++    out.write_text("".join(f"{_md5(base / r)}  {r}\n" for r in rels))
++
++
++def _root(parent: Path, name: str) -> str:
++    r = parent / name
++    (r / "splits").mkdir(parents=True)
++    for f, n in (("train.txt", 3), ("val.txt", 2), ("test.txt", 2)):
++        (r / "splits" / f).write_text("".join(f"{name}_c{i}\n" for i in range(n)))
++    _md5file(r, ["splits/train.txt", "splits/val.txt", "splits/test.txt"], r / "SPLITS.md5")
++    _md5file(r, ["splits/train.txt"], r / "DATA_MANIFEST.md5")
++    return f"{name}/SPLITS.md5"
++
++
++def _code(tmp: Path, name: str) -> Path:
++    B = tmp / name
++    (B / "bench" / "q" / "cv02").mkdir(parents=True)
++    shutil.copy(LIB, B / "bench" / "q" / "bench_lib.sh")
++    (B / "bench" / "q" / "cv02" / "cvcard.py").write_text("# stub\n")
++    (B / "REVISION").write_text(DEPLOY + "\n")
++    _md5file(B, ["bench/q/bench_lib.sh"], B / "CODE.md5")
++    return B
++
++
++def _sandbox(tmp: Path) -> dict:
++    assert CQ.read_text().count(ENV_LINE) == 1
++    B = _code(tmp, "B")
++    cq = tmp / "cq.sh"
++    cq.write_text(CQ.read_text().replace(ENV_LINE, ":"))
++    P = tmp / "python"
++    P.write_text(STUB_P)
++    P.chmod(P.stat().st_mode | stat.S_IXUSR)
++    D = tmp / "data"
++    (D / "meta").mkdir(parents=True)
++    (D / "meta" / "forbidden_v1.txt").write_text("x\n")
++    _md5file(D, ["meta/forbidden_v1.txt"], D / "DEPLOY.md5")
++    (D / "roots").mkdir()
++    lines = [_root(D / "roots", "cv5v2_v11_f0"), _root(D / "roots", "cv5v2_v1_f1")]
++    _md5file(D / "roots", lines, D / "roots" / "ROOTS_cv5v2_v11.md5")
++    _md5file(D / "roots", lines[1:], D / "roots" / "ROOTS_cv5v2_v1.md5")
++    V = tmp / "data_v3"
++    (V / "roots").mkdir(parents=True)
++    vl = [_root(V / "roots", "cv5v3_v11_f2")]
++    _md5file(V / "roots", vl, V / "roots" / "ROOTS_cv5v3_v11.md5")
++    return {"B": B, "cq": cq, "P": P, "D": D, "V": V, "log": tmp / "stub.log"}
++
++
++def _run(s: dict, tmp: Path, jobs: list[str], qc: Path | None = None):
++    Q = tmp / f"q{len(list(tmp.glob('q*')))}"
++    Q.mkdir()
++    (Q / "jobs.txt").write_text("".join(j + "\n" for j in jobs))
++    (Q / "LPG").write_text("1\n")
++    env = dict(os.environ, B=str(s["B"]), Q=str(Q), JOBS_MD5=_md5(Q / "jobs.txt"), DEPLOY=DEPLOY,
++               DATA_MD5=_md5(s["D"] / "DEPLOY.md5"), DATA=str(s["D"]), DATA_V3=str(s["V"]), P=str(s["P"]),
++               STUBLOG=str(s["log"]))
++    env.pop("QC", None)
++    if qc is not None:
++        env["QC"] = str(qc)
++    r = subprocess.run(["bash", str(s["cq"])], env=env, capture_output=True, text=True, timeout=60)
++    log = (Q / "launch.log").read_text()
++    rend = (Q / "jobs_rendered.txt").read_text() if (Q / "jobs_rendered.txt").exists() else None
++    return r.returncode, log, rend
++
++
++def _job(name, root, fold, logp=0, extra="", ro=None):
++    return f"{name}|{CARD}|5|{root}|{fold}|11000|5262|{logp}|{extra}" + ("" if ro is None else f"|{ro}")
++
++
++def _want(s, name, root, set_name, logp):
++    B, D, P = s["B"], s["D"], s["P"]
++    d = (f"dump_{name}|{P} -u scripts/bench_infer.py --run {B}/experiments/{name} --set {set_name} --dumps {B}/dumps "
++         f"--method stub_method --card {CARD} --run-id {name} --device cuda --precision fp32 --threads 4 --workers 4 "
++         f"--batch 8{' --logp' if logp else ''} --forbidden {D}/meta/forbidden_v1.txt --bench-run dump_{name}")
++    t = f"{name}|{P} -u scripts/train.py --config configs/base.yaml --opts training.seed=5 run_name={name} data.root={root}"
++    return d, t
++
++
++needs_bash = pytest.mark.skipif(shutil.which("bash") is None, reason="needs bash")
++
++
++@needs_bash
++def test_line_without_the_field_renders_the_prepatch_commands(tmp_path):
++    s = _sandbox(tmp_path)
++    root = f"{s['V']}/roots/cv5v3_v11_f2"
++    rc, log, rend = _run(s, tmp_path, [_job("c3_x", root, 2, logp=1)])
++    assert rc == 1 and "gpumem logger (cq_gpumem.sh) not running; not starting" in log.splitlines()[-1]
++    d, t = _want(s, "c3_x", root, "cv5v3_f2", 1)
++    assert rend == t + "\n" + d + "\n"      # sort order: "c3_x|" before "dump_c3_x|"
++    assert "queue code QC" not in log
++
++
++@needs_bash
++def test_readout_adds_one_dump_line_and_changes_nothing_else(tmp_path):
++    s = _sandbox(tmp_path)
++    root = f"{s['V']}/roots/cv5v3_v11_f2"
++    rc, log, rend = _run(s, tmp_path, [_job("c3s_y", root, 2, ro="swad"), _job("c3_x", root, 2, logp=1)])
++    assert rc == 1 and "gpumem logger" in log.splitlines()[-1]
++    dx, tx = _want(s, "c3_x", root, "cv5v3_f2", 1)
++    dy, ty = _want(s, "c3s_y", root, "cv5v3_f2", 0)
++    d2 = dy.replace("dump_c3s_y|", "dump_c3s_y.swad|", 1).replace(" --run-id c3s_y ", " --run-id c3s_y.swad --weights-key swad ")
++    d2 = d2[: -len("--bench-run dump_c3s_y")] + "--bench-run dump_c3s_y.swad"
++    assert sorted(rend.splitlines()) == sorted([dx, tx, dy, ty, d2])
++    assert d2.count("--weights-key") == 1 and "--weights-key" not in dx + tx + dy + ty
++
++
++@needs_bash
++def test_two_readouts(tmp_path):
++    s = _sandbox(tmp_path)
++    root = f"{s['V']}/roots/cv5v3_v11_f2"
++    rc, log, rend = _run(s, tmp_path, [_job("c3s_y", root, 2, ro="swad,ema_9998")])
++    assert rc == 1 and "gpumem logger" in log.splitlines()[-1]
++    names = sorted(ln.split("|", 1)[0] for ln in rend.splitlines())
++    assert names == ["c3s_y", "dump_c3s_y", "dump_c3s_y.ema_9998", "dump_c3s_y.swad"]
++
++
++@needs_bash
++@pytest.mark.parametrize("ro,why", [
++    ("swad_bn", "is the card's weights_key or is listed twice"),
++    ("swad,swad", "is the card's weights_key or is listed twice"),
++    ("raw_bn", "is not in the card's readouts"),
++    ("Swad", "bad readout key"),
++    ("swad;x", "bad readout key"),
++    ("swad|x", "bad readout key"),
++    (",", "names no key"),
++])
++def test_bad_readout_fields_are_refused(tmp_path, ro, why):
++    s = _sandbox(tmp_path)
++    rc, log, rend = _run(s, tmp_path, [_job("c3s_y", f"{s['V']}/roots/cv5v3_v11_f2", 2, ro=ro)])
++    assert rc == 1 and rend is None and why in log and log.rstrip().endswith("not starting")
++
++
++@needs_bash
++def test_readouts_are_refused_for_smoke_jobs(tmp_path):
++    s = _sandbox(tmp_path)
++    rc, log, rend = _run(s, tmp_path, [_job("smoke_y", f"{s['V']}/roots/cv5v3_v11_f2", 2, extra="--exit_after_step 50", ro="swad")])
++    assert rc == 1 and rend is None and "readouts not allowed with extra" in log
++
++
++@needs_bash
++def test_qc_supplies_cvcard_and_the_cv02_variant(tmp_path):
++    s = _sandbox(tmp_path)
++    QC = _code(tmp_path, "QC")
++    root = f"{s['V']}/roots/cv5v3_v11_f2"
++    rc, log, rend = _run(s, tmp_path, [_job("c3s_y", root, 2, ro="swad")], qc=QC)
++    assert rc == 1 and "gpumem logger" in log.splitlines()[-1] and rend is not None
++    calls = s["log"].read_text().splitlines()
++    assert calls == [f"{QC}/bench/q/cv02/cvcard.py {CARD} {QC}/bench/methods_cv02/swad_const_pf_v11.yaml"]
++    assert f"--run {s['B']}/experiments/c3s_y " in rend and str(QC) not in rend     # training and dumps stay in B
++
++
++@needs_bash
++def test_without_qc_the_variant_and_cvcard_come_from_b(tmp_path):
++    s = _sandbox(tmp_path)
++    rc, log, rend = _run(s, tmp_path, [_job("c3s_y", f"{s['V']}/roots/cv5v3_v11_f2", 2, ro="swad")])
++    assert rc == 1 and rend is not None
++    B = s["B"]
++    assert s["log"].read_text().splitlines() == [f"{B}/bench/q/cv02/cvcard.py {CARD} {B}/bench/methods_cv02/swad_const_pf_v11.yaml"]
++
++
++@needs_bash
++def test_qc_code_md5_must_check(tmp_path):
++    s = _sandbox(tmp_path)
++    QC = _code(tmp_path, "QC")
++    (QC / "bench" / "q" / "bench_lib.sh").write_text("tampered\n")
++    rc, log, rend = _run(s, tmp_path, [_job("c3s_y", f"{s['V']}/roots/cv5v3_v11_f2", 2, ro="swad")], qc=QC)
++    assert rc == 1 and rend is None and "deploy check FAIL" in log and "not starting" in log

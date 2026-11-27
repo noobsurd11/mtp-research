@@ -1,0 +1,44 @@
+{
+ "paper_id": "arxiv:2209.08575",
+ "title": "SegNeXt: Rethinking Convolutional Attention Design for Semantic Segmentation",
+ "year": 2022,
+ "venue": "arXiv (conference unverified)",
+ "url": "https://arxiv.org/abs/2209.08575",
+ "code_url": "https://github.com/Visual-Attention-Network/SegNeXt",
+ "mechanism": "Multi-scale convolutional attention built from cheap strip convolutions (k x 1, 1 x k) instead of self-attention, with a Hamburger decoder.",
+ "evidence": "R: about +2.0 mIoU on ADE20K at equal or lower compute vs prior SOTA; 90.6 mIoU VOC test. In arXiv 2603.13044 SegNeXt is among the top general-purpose models on small 2D medical sets.",
+ "adaptation": "MSCAN-B ImageNet weights, grey replicated, 512 px, add a full-res skip before the head; strip kernels suit long axis-aligned gridlines (recall 0.33) and long cracks along busbar directions; cheap enough for 5-fold CV.",
+ "min_experiment": "Arm SegNeXt-B + full-res skip; baseline house; metrics gridline IoU/recall, crack relF1@2, mIoU_rob; kill if gridline IoU < 0.313 and crack relF1@2 < 0.881.",
+ "score": 52,
+ "bench_score": 70,
+ "bet": "safe",
+ "gpu_hours": 20,
+ "targets": [
+  "other_classes",
+  "crack",
+  "benchmark"
+ ],
+ "prior_overlap": "none; only ResNet-34/50 U-Net++ tried.",
+ "directions": [
+  "D23"
+ ],
+ "scout_scores": [
+  52,
+  52
+ ],
+ "alt_notes": [
+  {
+   "from": "D23",
+   "adaptation": "Strip kernels align with long axis-parallel gridlines (gridline recall 0.33) and long cracks; MSCAN-B ImageNet weights, 1-ch replicated, add a full-res skip; cheap enough for 5-fold CV and ensembling.",
+   "min_experiment": "SegNeXt-B + full-res skip at 512 vs house; metrics gridline IoU/recall, crack relF1@2, mIoU_rob; kill if gridline IoU < 0.313 and crack relF1@2 < 0.881.",
+   "score": 52
+  }
+ ],
+ "final": 52,
+ "bench": 70,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 172,
+ "pid": "P172"
+}

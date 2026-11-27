@@ -1,0 +1,44 @@
+{
+ "paper_id": "arxiv:2412.04077",
+ "title": "SoMA: Singular Value Decomposed Minor Components Adaptation for Domain Generalizable Representation Learning",
+ "year": 2025,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2412.04077",
+ "code_url": "https://github.com/ysj9909/SoMA",
+ "mechanism": "LoRA initialised on the minor singular components of each pretrained weight, with generalisable blocks frozen and an annealing weight decay; keeps the major pretrained directions intact.",
+ "evidence": "Top of the Rein++ DGSS comparison: 68.2 mIoU average GTAV to Cityscapes/BDD/Mapillary (Rein 64.9).",
+ "adaptation": "Principled PF for ResNet-34: reshape conv kernels to (out, in*k*k), SVD, train only the bottom-r components in layer3/4, freeze stem/layer1/2; anneal weight decay. Also the DG arm for any ViT encoder from D24.",
+ "min_experiment": "SoMA-ResNet34 vs PF, 5 seeds. Metrics: E1 inactive IoU, E1 crack relF1@2, test crack IoU. Kill: no gain > 0.02 over PF on either E1 metric.",
+ "prior_overlap": "Partial: PF (freeze then 0.1x lr) tests the same aim, but not SVD minor-component tuning. Open.",
+ "score": 48,
+ "bench_score": 65,
+ "bet": "medium",
+ "gpu_hours": 6,
+ "targets": [
+  "e1_unseen",
+  "inactive",
+  "benchmark"
+ ],
+ "directions": [
+  "D30"
+ ],
+ "scout_scores": [
+  48,
+  42
+ ],
+ "alt_notes": [
+  {
+   "from": "D30",
+   "adaptation": "A finer form of PF encoder preservation: SVD on reshaped ResNet-34 conv kernels (or a DINOv2/v3 backbone), tune minor components only.",
+   "min_experiment": "SoMA-ResNet-34 vs PF, 3 seeds; kill if E1 inactive IoU < PF and crack unchanged.",
+   "score": 42
+  }
+ ],
+ "final": 48,
+ "bench": 65,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 232,
+ "pid": "P232"
+}

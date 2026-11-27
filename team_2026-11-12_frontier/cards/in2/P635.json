@@ -1,0 +1,34 @@
+{
+ "paper_id": "arxiv:2603.27197",
+ "title": "KaLOS finds Consensus: A Meta-Algorithm for Evaluating Inter-Annotator Agreement in Complex Vision Tasks",
+ "year": 2026,
+ "venue": "CVPR 2026",
+ "url": "https://arxiv.org/abs/2603.27197",
+ "code_url": "",
+ "mechanism": "Meta-algorithm for inter-annotator agreement in vision tasks with instance correspondence, validated without circular reliance on a ground truth; argues benchmark progress is limited by label noise.",
+ "adaptation": "Benchmark only: compute a KaLOS-style agreement on the doubly annotated EL cells (crack IoU 0.21-0.26 strict, 0.82-0.99 within 2 px) and report it as the label-noise ceiling next to model scores.",
+ "min_experiment": "No training. Compute agreement per class and source on doubly annotated cells; decide whether a model gap smaller than the agreement spread is reported as a tie. Kill: not applicable (reporting tool).",
+ "evidence": "R: proposes and validates an agreement meta-algorithm for detection and instance segmentation (abstract only).",
+ "prior_overlap": "none. Annotator agreement was measured as IoU only.",
+ "score": 8,
+ "bench_score": 55,
+ "bet": "safe",
+ "gpu_hours": 0,
+ "targets": [
+  "benchmark",
+  "measurement"
+ ],
+ "directions": [
+  "D42"
+ ],
+ "scout_scores": [
+  8
+ ],
+ "final": 8,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 635,
+ "pid": "P635"
+}

@@ -1,0 +1,35 @@
+{
+ "paper_id": "arxiv:2007.07797",
+ "title": "Application of the Hierarchical Bootstrap to Multi-Level Data in Neuroscience",
+ "year": 2020,
+ "venue": "bioRxiv / arXiv",
+ "url": "https://arxiv.org/abs/2007.07797",
+ "code_url": "",
+ "mechanism": "Resample the top level (subjects) then the lower level (trials) to get correct CIs on nested data.",
+ "adaptation": "Resample modules then cells for E1 (106 cells from 67 modules) and the OOF pool, where cells from one module are correlated.",
+ "min_experiment": "Arm: module-then-cell bootstrap. Baseline: cell bootstrap. Metric: CI width. Kill: module CI < 10% wider.",
+ "score": 40,
+ "bench_score": 75,
+ "bet": "safe",
+ "targets": [
+  "measurement",
+  "e1_unseen",
+  "benchmark"
+ ],
+ "evidence": "R: simulations and neuroscience data show flat bootstrap underestimates uncertainty on multi-level data.",
+ "gpu_hours": 0,
+ "prior_overlap": "none",
+ "directions": [
+  "D41"
+ ],
+ "scout_scores": [
+  40
+ ],
+ "final": 40,
+ "bench": 75,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 358,
+ "pid": "P358"
+}

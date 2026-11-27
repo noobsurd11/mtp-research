@@ -1,0 +1,45 @@
+{
+ "paper_id": "doi:10.59275/j.melba.2025-c1d9",
+ "title": "GeoLS: an Intensity-based, Geodesic Soft Labeling for Image Segmentation",
+ "year": 2025,
+ "venue": "MELBA",
+ "url": "https://www.melba-journal.org/pdf/2025:007.pdf",
+ "code_url": "https://github.com/adigasu/GeoLS",
+ "mechanism": "Soft labels from a geodesic distance transform on image intensity, so label mass spreads along similar intensities and not across edges.",
+ "adaptation": "Geodesic distance on the EL image from each crack label pixel: soft crack mass flows along the dark crack ridge and not over bright silicon, recentring labels that sit > 1 px off the darkest ridge (half of label points). Same for inactive borders. Combine with JML/DML.",
+ "min_experiment": "Pre-check without training: on train cells, measure distance of GeoLS soft-label peak vs raw label to the darkest ridge; stop if not closer in most cells. Then arm GeoLS + JML vs SUP100, 5 v 5; kill if crack IoU < +0.012 or relP@2 drop > 0.05.",
+ "score": 60,
+ "bench_score": 35,
+ "bet": "moonshot",
+ "targets": [
+  "crack",
+  "inactive"
+ ],
+ "evidence": "R: consistent Dice and Hausdorff gains over other soft-labelling methods on three public medical datasets (abstract).",
+ "gpu_hours": 7,
+ "prior_overlap": "none",
+ "directions": [
+  "D18"
+ ],
+ "scout_scores": [
+  60,
+  60
+ ],
+ "alt_notes": [
+  {
+   "from": "D18",
+   "adaptation": "Geodesic distance on the EL image from each crack label pixel so soft crack mass flows along the dark ridge, not across bright silicon; recentres labels that sit > 1 px off the ridge; same for inactive edges.",
+   "min_experiment": "Pre-check without training: on train cells, compare distance of GeoLS soft-label peak vs raw label to the darkest ridge; stop if no shift toward ridge in most cells. Then arm GeoLS crack targets + CE + JML vs SUP100; kill crack IoU < +0.012 or relP@2 drop > 0.05.",
+   "score": 60
+  }
+ ],
+ "final": 60,
+ "bench": 35,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 99,
+ "pub_allowed": 1,
+ "selected_for": "top",
+ "pid": "P099"
+}

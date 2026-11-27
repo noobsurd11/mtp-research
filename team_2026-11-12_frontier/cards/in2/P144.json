@@ -1,0 +1,44 @@
+{
+ "paper_id": "doi:10.1016/j.patcog.2026.113788",
+ "title": "Advancing metallic surface defect detection via anomaly-guided pretraining on a large industrial dataset (AGSSP)",
+ "year": 2026,
+ "venue": "Pattern Recognition",
+ "url": "https://arxiv.org/abs/2509.18919",
+ "code_url": "",
+ "mechanism": "Label-free anomaly maps on a large unlabelled pool are distilled into the backbone and, more importantly, used as pseudo-defect targets to pretrain the localisation head before fine-tuning.",
+ "adaptation": "Compute AD maps (AnomalyDINO / INP-Former, references from the same source and layout) on the 11.9k pool then 159k; pretrain the whole U-Net++ (encoder + decoder) with a 1-channel soft anomaly head (soft BCE) jointly with the 24-class head on the 478 labelled cells; fine-tune with PF so the decoder is kept.",
+ "min_experiment": "Arm AGSSP-EL pretrain + PF fine-tune vs baseline PF, 5 seeds, module-grouped 5-fold CV; metrics CV inactive IoU and crack relF1@2, then E1 relF1@2 / inactive IoU; kill if CV inactive gain < +0.02 and crack relF1@2 gain < +0.01. About 45 GPU-h.",
+ "score": 55,
+ "bench_score": 45,
+ "bet": "medium",
+ "evidence": "R: in-domain MoCo v3 / classification pretraining about 0 or negative (-3.6 to +2.9 mAP@.5:.95); backbone anomaly-map distillation -1.5 to +4.0; full AGSSP +2.0 to +11.4 mAP@.5:.95 on four metal defect sets, +21.6 to +24.5 on Casting Billet-Mini50; 120k unlabelled images. COCO detection pretraining close on several sets.",
+ "gpu_hours": 45,
+ "prior_overlap": "Partial: section 5 MIM and DDeP on the 11.9k pool were n.d., but those were backbone/decoder-denoising objectives without anomaly pseudo-targets; dense pseudo-defect head pretraining kept by PF is untested.",
+ "targets": [
+  "inactive",
+  "e1_unseen",
+  "crack"
+ ],
+ "directions": [
+  "D07"
+ ],
+ "scout_scores": [
+  52,
+  55
+ ],
+ "alt_notes": [
+  {
+   "from": "D07",
+   "adaptation": "Run a normal-reference AD (AnomalyDINO-style, references = clean pool cells of same source and layout incl. the 1,152 half-cells) on the 11.9k then 159k pool; pretrain the full U-Net++ (encoder + decoder) with a 1-channel soft anomaly head (soft BCE) alongside the 24-class head on the 478 labelled cells; fine-tune with PF so the pretrained decoder survives.",
+   "min_experiment": "Arm AGSSP-EL pretrain + PF fine-tune vs PF baseline, 5 seeds; metrics E1 crack relF1@2, E1 inactive IoU, test clean-49 crack IoU; kill if E1 relF1@2 gain < +0.03 and test crack IoU drops > 0.01.",
+   "score": 52
+  }
+ ],
+ "final": 55,
+ "bench": 45,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 144,
+ "pid": "P144"
+}

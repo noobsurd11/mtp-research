@@ -1,0 +1,21 @@
+L1 532	FAIL	R1 LCI - PFC -0.0140 [-0.0767, +0.0556]
+L1 416	FAIL	R1 LCI - PFC -0.0124 [-0.0811, +0.0633]
+L2 false-alarm px	PASS	R2 LCI 2412 <= 1.15 x PFC 12231 (cells without inactive 484)
+L3 inactive precision	PASS	R3 LCI - PFC +0.0545 >= -0.02
+L4 area	PASS	R4 LCI / PFC 0.918 in [0.85, 1.15]
+L5 direction	PASS	R5 LCI - PFC +0.0180 > 0
+L6 mechanism	PASS	R5 LCI - LCIARG +0.0009 > 0 (paired CI -0.0007, +0.0026; promotes nothing)
+L7 crack_iou OP-A	PASS	LCI - PF delta +0.0073 >= -M -0.0100 [CI +0.0001, +0.0158]
+L7 relF1_2 OP-A	PASS	LCI - PF delta +0.0043 >= -M -0.0100 [CI -0.0037, +0.0111]
+L7 crack_iou OP-W	PASS	LCI - PF delta +0.0061 >= -M -0.0100 [CI -0.0013, +0.0145]
+L7 relF1_2 OP-W	PASS	LCI - PF delta +0.0040 >= -M -0.0100 [CI -0.0039, +0.0109]
+L7 width pooled	PASS	LCI 1.030 vs PF 1.006 x [0.85, 1.15]
+L7 width ARTS	PASS	LCI 0.916 vs PF 0.868 x [0.85, 1.15]
+L7 width BMRK	PASS	LCI 0.869 vs PF 0.868 x [0.85, 1.15]
+L7 width CFVS	PASS	LCI 1.093 vs PF 1.068 x [0.85, 1.15]
+L7 width CSIR	PASS	LCI 0.929 vs PF 0.898 x [0.85, 1.15]
+L7 false crack px	PASS	LCI 368 <= 1.5 x PF 452
+		printed: LCIARG R1 0.6070 R2 2273 R3 0.8019 R4 0.7518 R5 0.5248
+		printed: LCIUNI R1 0.6070 R2 2432 R3 0.7997 R4 0.7575 R5 0.5260
+		printed: PF R1 0.6000 R2 8854 R3 0.7671 R4 0.7648 R5 0.4980
+VERDICT layered_ci: PARK (no promotion at 2 seeds; failed: ['L1 532', 'L1 416'])

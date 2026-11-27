@@ -1,0 +1,33 @@
+{
+ "paper_id": "doi:10.1109/tits.2025.3578810",
+ "title": "Enhanced Mask2Former With Multi-Scale and High-Resolution for Concrete Bridge Crack Semantic Segmentation",
+ "year": 2025,
+ "venue": "IEEE T-ITS",
+ "url": "https://doi.org/10.1109/tits.2025.3578810",
+ "code_url": "",
+ "mechanism": "Mask2Former plus a multi-scale RepBlock fusion module and a high-resolution wavelet-conv (WTConv + DEConv) branch with channel/spatial attention to keep fine cracks.",
+ "adaptation": "In our M2F arm add a stride-1/2 conv branch from the raw EL image into the pixel decoder; same idea as doi:10.3390/electronics14142834 (local perception + aux conv, +3.2 mIoU pavement).",
+ "min_experiment": "Part of M2F arm B (with dense aux head) vs arm A; metric crack relF1@2 and crack IoU; kill the branch if relF1@2 gain < 0.01.",
+ "score": 40,
+ "bench_score": 25,
+ "bet": "safe",
+ "targets": [
+  "crack"
+ ],
+ "evidence": "R: bridge cracks mIoU 86.33, F1 85.07; each module alone 86.22 / 85.99 mIoU over baseline (baseline number not in abstract).",
+ "gpu_hours": 8,
+ "prior_overlap": "none",
+ "directions": [
+  "D23"
+ ],
+ "scout_scores": [
+  40
+ ],
+ "final": 40,
+ "bench": 25,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 399,
+ "pid": "P399"
+}

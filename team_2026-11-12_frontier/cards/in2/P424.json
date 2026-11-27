@@ -1,0 +1,43 @@
+{
+ "paper_id": "doi:10.52202/079017-2187",
+ "title": "GraphMorph: Tubular Structure Extraction by Morphing Predicted Graphs",
+ "year": 2024,
+ "venue": "NeurIPS",
+ "url": "https://arxiv.org/abs/2502.11731",
+ "code_url": "",
+ "mechanism": "Graph decoder predicts branch-level graph per patch; SkeletonDijkstra morphs it onto the centreline probability map; graph used to remove false positives.",
+ "adaptation": "Use only as a crack false-positive filter (drop components not on predicted branches) and as crack topology for severity.",
+ "min_experiment": "Arm = PF + graph decoder FP filter; baseline = PF; 3 seeds; relP@2 at fixed relR@2. Kill if relP@2 gain < 0.01.",
+ "score": 38,
+ "bench_score": 30,
+ "bet": "moonshot",
+ "targets": [
+  "crack",
+  "severity"
+ ],
+ "evidence": "R: centreline and segmentation tasks on several vessel and road datasets; fewer false positives.",
+ "gpu_hours": 30,
+ "prior_overlap": "None.",
+ "directions": [
+  "D11"
+ ],
+ "scout_scores": [
+  38,
+  35
+ ],
+ "alt_notes": [
+  {
+   "from": "D11",
+   "adaptation": "Use only as a crack false-positive filter on PF output (drop components not on a predicted branch), aimed at scuff/decoy false alarms on E1; graph gives crack topology for severity.",
+   "min_experiment": "Arm PF + GraphMorph filter vs PF; metric crack relP@2 at fixed relR@2 on CV and E1; kill if relP@2 +<0.01.",
+   "score": 35
+  }
+ ],
+ "final": 38,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 424,
+ "pid": "P424"
+}

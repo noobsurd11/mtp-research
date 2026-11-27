@@ -1,0 +1,36 @@
+{
+ "paper_id": "arxiv:2610.13422",
+ "title": "SADL: A Size-Adaptive Decision Layer for Chronic Stroke Lesion Segmentation in ISLES 2026",
+ "year": 2026,
+ "venue": "arXiv (ISLES'26)",
+ "url": "https://arxiv.org/abs/2610.13422",
+ "code_url": "",
+ "mechanism": "A decision layer fitted on out-of-fold predictions: per-size-bucket thresholds, pruning components by size and peak probability, and a never-empty rescue.",
+ "adaptation": "Hysteresis-like crack rule: keep a weak component if its peak probability passes its size-bucket threshold; rescue rule for cells where the model outputs nothing (E1 half-cut cells). Fit on CV folds or val + F51 only.",
+ "min_experiment": "Arm: SADL-style layer on 5-seed ensemble maps. Baseline: ensemble at argmax and with logit bias. Metric: test / E1 relF1@2 and component recall < 20 px. Kill: no gain >= 0.005 relF1@2 on both sets.",
+ "evidence": "Site-disjoint 91-case holdout: Dice 0.732, lesion F1 0.746, PR-AUC 0.843; bootstrap p = 0.024 vs a single member; gain largest for small lesions.",
+ "gpu_hours": 1,
+ "bet": "safe",
+ "prior_overlap": "Overlaps logit bias and per-module thresholds only in spirit; component-level peak-prob pruning and rescue untested.",
+ "targets": [
+  "crack",
+  "e1_unseen",
+  "benchmark"
+ ],
+ "score": 58,
+ "bench_score": 55,
+ "directions": [
+  "D20"
+ ],
+ "scout_scores": [
+  58
+ ],
+ "final": 58,
+ "bench": 55,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 116,
+ "pub_allowed": 0,
+ "selected_for": "top"
+}

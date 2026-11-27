@@ -1,0 +1,44 @@
+{
+ "paper_id": "doi:10.1109/cvpr52733.2024.02615",
+ "title": "SatSynth: Augmenting Image-Mask Pairs Through Diffusion Models for Aerial Semantic Segmentation",
+ "year": 2024,
+ "venue": "CVPR",
+ "url": "https://arxiv.org/abs/2403.16605",
+ "code_url": "",
+ "mechanism": "Pixel-space DDPM on the joint (image, bit-encoded label) tensor, labels as ceil(log2 K) binary channels, plus a joint super-resolution DDPM; samples added to real training data.",
+ "adaptation": "1 image channel + 5 bit channels for 24 classes; train on 256 crops at native 512 scale so cracks survive; snap crack labels to the ridge first or the joint model learns the jitter. Unconditional new layouts for all classes; best fit for mIoU_rob and inactive.",
+ "min_experiment": "PF + 2,000 joint samples vs PF. Metric mIoU_rob, gridline/edge_dark/splice IoU, CV inactive IoU. Kill: mIoU_rob gain < +0.01.",
+ "evidence": "R: iSAID, LoveDA, OpenEarthMap at 128 px (SR to 256); adding generated pairs gives about +1 to +1.6 IoU over real-only (read from a figure, approximate); FID 8.66 vs 17.5 DDPM on iSAID.",
+ "gpu_hours": 66,
+ "bet": "medium",
+ "targets": [
+  "other_classes",
+  "inactive",
+  "benchmark"
+ ],
+ "prior_overlap": "none",
+ "score": 45,
+ "bench_score": 50,
+ "directions": [
+  "D33"
+ ],
+ "scout_scores": [
+  45,
+  45
+ ],
+ "alt_notes": [
+  {
+   "from": "D33",
+   "adaptation": "1 image channel + 5 bit channels for 24 classes; 256 crops at native scale on 478 cells; snap crack labels first; unconditional new layouts for all classes.",
+   "min_experiment": "PF + 2,000 joint samples vs PF. Metric mIoU_rob, gridline/edge_dark/splice IoU, CV inactive. Kill: mIoU_rob < +0.01. About 60 GPU-h.",
+   "score": 45
+  }
+ ],
+ "final": 45,
+ "bench": 50,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 283,
+ "pid": "P283"
+}

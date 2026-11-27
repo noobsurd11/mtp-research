@@ -1,0 +1,42 @@
+{
+ "paper_id": "arxiv:2203.14335",
+ "title": "Deep Hierarchical Semantic Segmentation (HSSN)",
+ "year": 2022,
+ "venue": "CVPR 2022",
+ "url": "https://arxiv.org/abs/2203.14335",
+ "code_url": "https://github.com/0liliulei/HieraSeg",
+ "mechanism": "Pixel-wise multi-label classification over a class tree, with a tree-min loss that keeps child scores at or below their parent, plus hierarchy-based embedding margins.",
+ "adaptation": "A 2-level tree: cell area -> feature lines (gridline, busbar, ribbon, splice), defects (crack, inactive, material, corrosion), and the rest. Add parent sigmoid channels with tree-min consistency and keep softmax leaves. Aimed at splice (never predicted) and gridline (recall 0.33).",
+ "min_experiment": "Arm: house + parent channels + tree-min loss. Baseline: house. Metrics: gridline, splice and material IoU, mIoU_rob. Kill if mIoU_rob gain < 0.01 and splice stays at 0.",
+ "evidence": "R: gains on Mapillary Vistas 2.0, Cityscapes, LIP and PASCAL-Person-Part across backbones. The abstract page gives no numbers.",
+ "prior_overlap": "none",
+ "score": 45,
+ "bench_score": 30,
+ "bet": "medium",
+ "gpu_hours": 6,
+ "targets": [
+  "other_classes"
+ ],
+ "directions": [
+  "D27"
+ ],
+ "scout_scores": [
+  45,
+  45
+ ],
+ "alt_notes": [
+  {
+   "from": "D27",
+   "adaptation": "Two-level tree: cell area -> {structural lines: gridline, busbar, ribbon, splice; defects: crack, inactive, material, corrosion}; parent sigmoid channels + tree-min, leaves stay softmax; target splice (0.000) and gridline (0.283).",
+   "min_experiment": "Arm house + parent channels + tree-min; baseline house; metrics gridline, splice, edge_dark IoU, mIoU_rob; kill if mIoU_rob gain < 0.01 and splice still 0.",
+   "score": 45
+  }
+ ],
+ "final": 45,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 304,
+ "pid": "P304"
+}

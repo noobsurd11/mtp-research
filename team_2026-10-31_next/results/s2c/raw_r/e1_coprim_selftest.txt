@@ -1,0 +1,21 @@
+selftest pf2_SUPPF_100pct_s5: relF1 == thin relf1 True | relF1 == agg relF1 True | inactive IoU (agg) == pf2_e1_extra formula True | any-hit == agg cc_recany_20 True | px from conf == from crack_rel2 True | == HC opening e1_coprim.json per run True
+selftest pf2_SUPPF_100pct_s6: relF1 == thin relf1 True | relF1 == agg relF1 True | inactive IoU (agg) == pf2_e1_extra formula True | any-hit == agg cc_recany_20 True | px from conf == from crack_rel2 True | == HC opening e1_coprim.json per run True
+selftest pf2_SUPPF_100pct_s7: relF1 == thin relf1 True | relF1 == agg relF1 True | inactive IoU (agg) == pf2_e1_extra formula True | any-hit == agg cc_recany_20 True | px from conf == from crack_rel2 True | == HC opening e1_coprim.json per run True
+selftest pf2_SUPPF_100pct_s8: relF1 == thin relf1 True | relF1 == agg relF1 True | inactive IoU (agg) == pf2_e1_extra formula True | any-hit == agg cc_recany_20 True | px from conf == from crack_rel2 True | == HC opening e1_coprim.json per run True
+selftest pf2_SUPPF_100pct_s9: relF1 == thin relf1 True | relF1 == agg relF1 True | inactive IoU (agg) == pf2_e1_extra formula True | any-hit == agg cc_recany_20 True | px from conf == from crack_rel2 True | == HC opening e1_coprim.json per run True
+selftest hc_HC_100pct_s5: relF1 == thin relf1 True | relF1 == agg relF1 True | inactive IoU (agg) == pf2_e1_extra formula True | any-hit == agg cc_recany_20 True | px from conf == from crack_rel2 True | == HC opening e1_coprim.json per run True
+selftest hc_HC_100pct_s6: relF1 == thin relf1 True | relF1 == agg relF1 True | inactive IoU (agg) == pf2_e1_extra formula True | any-hit == agg cc_recany_20 True | px from conf == from crack_rel2 True | == HC opening e1_coprim.json per run True
+selftest hc_HC_100pct_s7: relF1 == thin relf1 True | relF1 == agg relF1 True | inactive IoU (agg) == pf2_e1_extra formula True | any-hit == agg cc_recany_20 True | px from conf == from crack_rel2 True | == HC opening e1_coprim.json per run True
+selftest hc_HC_100pct_s8: relF1 == thin relf1 True | relF1 == agg relF1 True | inactive IoU (agg) == pf2_e1_extra formula True | any-hit == agg cc_recany_20 True | px from conf == from crack_rel2 True | == HC opening e1_coprim.json per run True
+selftest hc_HC_100pct_s9: relF1 == thin relf1 True | relF1 == agg relF1 True | inactive IoU (agg) == pf2_e1_extra formula True | any-hit == agg cc_recany_20 True | px from conf == from crack_rel2 True | == HC opening e1_coprim.json per run True
+selftest summary SUPPF E1 relF1@2 (protocol / verify_hc): expected 0.4202 got 0.4202 -> True
+selftest summary SUPPF E1 any-hit (protocol §3a.3, judge): expected 0.3811 got 0.3811 -> True
+selftest summary SUPPF E1 any-hit per seed (judge): expected [0.399, 0.355, 0.429, 0.365, 0.358] got [0.399, 0.355, 0.429, 0.365, 0.358] -> True
+selftest summary SUPPF GT components >= 20 px per run (judge): expected [296, 296, 296, 296, 296] got [296, 296, 296, 296, 296] -> True
+selftest summary SUPPF E1 inactive IoU (protocol / verify_hc): expected 0.2371 got 0.2371 -> True
+selftest summary HC E1 relF1@2 (verify_hc): expected 0.4338 got 0.4338 -> True
+selftest summary HC E1 relF1@2 == e1_coprim.json arm mean (exact): expected True got True -> True
+selftest summary HC E1 inactive IoU (verify_hc): expected 0.2369 got 0.2369 -> True
+selftest summary HC E1 inactive IoU == e1_coprim.json arm mean (exact): expected True got True -> True
+selftest summary HC E1 any-hit (judge reference): expected 0.377 got 0.377 -> True
+SELFTEST PASS (10 opened files: SUPPF s5-9, HC s5-9)

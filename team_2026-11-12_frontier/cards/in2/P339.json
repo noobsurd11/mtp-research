@@ -1,0 +1,43 @@
+{
+ "paper_id": "doi:10.1016/j.neunet.2025.108118",
+ "title": "DGSSA: Domain generalization with structural and stylistic augmentation for retinal vessel segmentation",
+ "year": 2025,
+ "venue": "Neural Networks",
+ "url": "https://arxiv.org/pdf/2501.03466",
+ "code_url": "",
+ "mechanism": "Structural augmentation (space-colonisation vessel trees rendered by Pix2Pix) plus stylistic augmentation (PixMix, uncertainty perturbations) for thin-vessel DG.",
+ "evidence": "DeepLabv3+ MobileNetV2; DSC 78.45 DRIVE, 78.62 CHASEDB1, 72.66 HRF, 82.17 STARE (avg 77.98), better than prior DG methods.",
+ "adaptation": "Use the style half: PixMix with EL-like mixing images (fractals, finger patterns, pool cells). The structure half (synthetic crack trees rendered into cells) belongs to D06.",
+ "min_experiment": "PF+PixMix-EL vs PF, 5 seeds; metric E1 crack relF1@2. Kill: < +0.02.",
+ "prior_overlap": "None for style mixing; crack copy-paste (n.d.) differs from rendered structures.",
+ "score": 42,
+ "bench_score": 30,
+ "bet": "medium",
+ "gpu_hours": 6,
+ "targets": [
+  "e1_unseen",
+  "crack"
+ ],
+ "directions": [
+  "D30"
+ ],
+ "scout_scores": [
+  42,
+  40
+ ],
+ "alt_notes": [
+  {
+   "from": "D30",
+   "adaptation": "PixMix half is cheap: mix EL cells with fractal or pool images at low weight. Structural half = synthetic branching crack masks rendered into cells (overlaps CrackSegFlow row).",
+   "min_experiment": "PF + PixMix vs PF, 3 seeds; kill at < +0.02 E1 crack relF1@2.",
+   "score": 40
+  }
+ ],
+ "final": 42,
+ "bench": 30,
+ "cluster": "unjudged",
+ "tiers": "",
+ "judged": 0,
+ "rank": 339,
+ "pid": "P339"
+}
