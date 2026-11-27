@@ -6,7 +6,7 @@
 \chapter{Towards deployment: severity and inference cost}
 \label{ch:deployment}
 
-A model that WattCycle could use for inspection needs more than a crack score: an output a person can act on, a known cost per cell,
+A model that the industry partner could use for inspection needs more than a crack score: an output a person can act on, a known cost per cell,
 and terms that allow the use. This chapter reports what we measured on each. The severity work is descriptive (track T5 of the
 protocol): it used the PF baseline out of fold on pool cells and three external data sets for inference and analysis only, and
 trained no model. The cost numbers are those of the E1 candidates of Chapter~8. Tables~\ref{tab:T18} and~\ref{tab:T22} hold the
@@ -67,7 +67,7 @@ our labelled crops, and anything on half-cut modules (cell cutting failed on the
 \section{What thermal imaging adds}
 \label{sec:deploy-thermal}
 
-WattCycle owns a drone thermal camera, so we asked what drone thermal adds, at module level, on A3. The hot-spot spread (99th
+The industry partner owns a drone thermal camera, so we asked what drone thermal adds, at module level, on A3. The hot-spot spread (99th
 percentile minus median temperature) does not track FF loss for cracks, interconnect faults or potential-induced degradation ($\rho$
 0.19), and added to EL it shows no clear gain ($\Delta R^2$ +0.10, interval $-$0.18 to +0.40). It does flag bypass-diode faults and
 soiling strongly: 16 to 38\,$^\circ$C, against about 1\,$^\circ$C for the other defects. Thermal is therefore a screen for diode and
@@ -110,7 +110,7 @@ time per cell on one GPU, and its expected gain rests on the recipe result. Whet
 $8\times$ forward count, earn their cost on new modules is not resolved by E1; on CV5 they add +0.0055 [$-$0.0002, +0.0115] to the
 C2 recipe's fold models (NOT CONFIRMED, NO LOSS; selection-biased).
 
-\section{Licence: what WattCycle may deploy}
+\section{Licence: what the industry partner may deploy}
 \label{sec:deploy-licence}
 
 As trained, C2 is a research-only model. Its training pool contains the 50 BMRK cells, which are ELPV images \citep{deitsch2019elpv}
@@ -120,22 +120,22 @@ citation; the E-SCDD corrections are MIT on their dataset card, but that claim c
 HRNet-W18 weights \citep{wang2021hrnet} are MIT. The SegFormer MiT-B2 weights \citep{xie2021segformer}, used only in one benchmark row
 and not in C2, are licensed for non-commercial research and evaluation only.
 
-The decision of 22 November is that no commercial model is trained on the BMRK cells or uses MiT-B2 weights. A model WattCycle could
+The decision of 22 November is that no commercial model is trained on the BMRK cells or uses MiT-B2 weights. A model the industry partner could
 sell therefore needs the C2 recipe retrained without the 50 BMRK cells, or the holder's permission; BenchmarkEL's own terms for
 commercial use stay unclear until its authors answer. The effect of dropping the BMRK cells was not measured. A retrained model is
 a new model: CV5 can describe it, but E1 is no longer a zero-shot set for us after opening \#9 (Chapter~6), so its unseen-module quality would need new labelled
 data.
 
-\section{What a pilot with WattCycle must measure}
+\section{What a pilot with the industry partner must measure}
 \label{sec:deploy-pilot}
 
-The external sets show what a pilot on WattCycle's own modules would need (judgement from the numbers above). Per module: STC I-V
+The external sets show what a pilot on the industry partner's own modules would need (judgement from the numbers above). Per module: STC I-V
 (maximum power, short-circuit current, open-circuit voltage, fill factor) with module type and nameplate power; EL at a known
 current, at two currents if possible; drone thermal at 600~W/m$^2$ or more; and a repeat I-V on a few modules. The modules should vary in cracks and inactive area independently within one
 module type, since pooling types let type drive the ELPVPower result, and should include interconnect faults and half-cut modules,
 with a cell-cutting tool that handles them. About 31 modules are needed for a true $\rho$ of 0.5 to give an interval above 0, and
 about 90 for 0.3. The rule should be written before measuring, with one primary: the rank correlation of the module sum of predicted
-inactive area with relative maximum-power loss, within type, against crack length. As of 4 November WattCycle had drone thermal only,
+inactive area with relative maximum-power loss, within type, against crack length. As of 4 November the industry partner had drone thermal only,
 with an EL rig 2 to 3 months away; until it arrives a pilot can test the thermal screen, not EL severity. The segmentation side has a
 matching gap: on the 62 half-cut cells of E1 the gain of C2 over C1 is not detected (+0.0110 [$-$0.0289, +0.0722]), so a pilot on
 half-cut modules would also test the model.

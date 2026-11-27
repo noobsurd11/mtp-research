@@ -132,9 +132,10 @@ the 50 legacy test cells: model 4c and the best per-class values of \citet{pratt
 \citep{eesaar2023seipv}, and the fully supervised PV-S3 row on its first BenchmarkEL subset \citep{jha2025pvs3}. None is
 comparable with our protocol as published. Pratt's absent-class rule is not stated and only inferred (rule A); SEiPV-Net's
 averaging is not defined, so only a family of readings is possible; PV-S3 states neither its split nor its background rule;
-all are single runs; and the 50 cells overlap our training pool. Four further papers
-\citep{mazen2024segnet,ramadan2026hybrid,hanifi2025multiclass,torpey2024pretraining} report on other test sets that also
-overlap our pool. Table~\ref{tab:T13b} re-scores our own models in each published convention, as context only; no row of
+all are single runs; and the 50 cells overlap our training pool. Three further papers
+\citep{mazen2024segnet,ramadan2026hybrid,torpey2024pretraining} report on the release test sets that their split sizes imply, and
+each of those holds 51 of our pool cells; \citet{hanifi2025multiclass} re-split BenchmarkEL 20221008, which contains our pool
+cells, without releasing the lists, so its overlap with our pool is likely but cannot be checked. Table~\ref{tab:T13b} re-scores our own models in each published convention, as context only; no row of
 Tables~\ref{tab:T13a} to~\ref{tab:T13c} supports a claim to beat a published model.
 
 In our judgement, a published EL number is comparable only if it states release, label set, split, class list, metric

@@ -15,7 +15,7 @@ registered rule, Section~\ref{sec:t3b-result} the result, and Section~\ref{sec:t
 \paragraph{Why.} The pool has no half-cut cell, so CV5 cannot measure that layout and the delivered model has never seen a labelled
 cell of it. E1 holds 62 half-cut cells and 37 cells with a scuff streak of at least 500~px; the only other labelled half-cells of
 this work, 36 E-SCDD cells, carry speck-level crack labels and serve for validation only. Our reading (judgement): what labelled
-cells of a new layout buy is what WattCycle needs to know to plan labelling, and only E1 can measure it here.
+cells of a new layout buy is what the industry partner needs to know to plan labelling, and only E1 can measure it here.
 
 \paragraph{Set and folds.} E1 holds 106 cells from 71 source images, one module each; 32 cells hold crack labels (32,294 crack
 pixels, 296 crack components of at least 20~px) and 74 are crack-free. The hard stratum is the half-cut cells with a scuff streak;
@@ -156,7 +156,7 @@ decide nothing.}
 relF1@2 of the C2 recipe on E1 by about +0.085 or more against the same recipe zero-shot, without more false crack pixels than the
 guard allows. Our reading of the result (judgement): labelled cells of E1's layouts raise the crack relF1@2 of the C2 recipe
 strongly against the same recipe zero-shot (+0.2213 [+0.0977, +0.3504], out of fold inside E1), and half of the labelled images
-(42 or 43 E1 cells per fold model) gave about the same gain as all of them. For planning labels at WattCycle, on this evidence a
+(42 or 43 E1 cells per fold model) gave about the same gain as all of them. For planning labels at the industry partner, on this evidence a
 first batch of labelled cells of a new layout is worth having, and a second batch of the same size added nothing this track can
 detect. It does not say how few cells suffice, and it does not show that the model handles a new layout without labels.
 
