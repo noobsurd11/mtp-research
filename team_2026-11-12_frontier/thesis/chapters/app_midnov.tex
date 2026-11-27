@@ -1,0 +1,455 @@
+% Appendix: project record, 24 Oct to 14 Nov 2026 (writer id midnov). Draft 27 Nov 2026.
+% Every number and dated fact is traced in app_midnov_NOTES.md (file, line, quote). No paths or host names here.
+\chapter{From the SSL series to the benchmark (24 Oct to 14 Nov)}\label{app:midnov}
+
+This appendix records, in date order, the work between the end of the semi-supervised series (the AL1 run of 23 Oct) and the
+start of the benchmark build on 12 Nov, up to E1 opening \#7 on 14 Nov. Chapter~\ref{ch:legacy} summarises this period, and
+Table~\ref{tab:T21} (one row per arm) and Table~\ref{tab:T17} (one row per E1 opening) list its outcomes. Here each item gets the
+fuller record: what was asked, what was run, the result, the verdict under the rule in force at the time, and what it led to,
+including stopped, failed and invalid runs. Nothing here changes a row of those tables. A desk study of thermal imaging (4 Nov) ran
+in a separate team and is not recorded here.
+
+\section{Conditions of every number in this appendix}\label{sec:midnov-conditions}
+
+\paragraph{Data and labels.} All runs use the legacy split (478 train, 54 validation, 50 test cells) and train on label set v1
+(Section~\ref{sec:data-labels}) unless stated. \emph{test50} is the 50 legacy test cells; \emph{clean 49} is test50 without the one
+very noisy cell. test50 overlaps the training pool (Section~\ref{sec:data-split}) and was scored at every rung and every opening of
+this period, so \textbf{every test50 value below is in-distribution, with known leakage, and context only}. E1 is the 106 cells of
+Section~\ref{sec:data-sets}; every E1 value below is a repeated look at the same 106 cells.
+
+\paragraph{Metrics.} Crack IoU and inactive IoU are per-class IoU at argmax from one confusion matrix pooled over all pixels of the
+scored cell set (the standard convention; Section~\ref{sec:bg_metrics}). relF1@2, relP@2 and relR@2 are the 2-px tolerance metrics
+of the same section, pooled over the set. mIoU\_rob (Track M) is the mean IoU over the 13 classes with ground truth in at least 3
+test50 cells, background included. Crack AP is the binned pixel average precision of the crack softmax probability, pooled over
+the set. All values are on a 0 to 1 scale.
+
+\paragraph{Rules.} \emph{Rule 1} (house rule, locked before each run): a difference between two arms of seed means is BETTER or
+WORSE if its size exceeds $\max(0.01,\, 2\sqrt{(s_A^2 + s_B^2)/3})$, with $s_A, s_B$ the seed standard deviations; otherwise it is
+n.d.\ (not detectable). An arm passes if it is BETTER on at least one primary and WORSE on none, read on two verdict sets: all 50 and
+clean 49. Ensemble contrasts use a paired image bootstrap on test50 or a 71-cluster bootstrap on E1 (2,000 resamples) and pass when
+the 95\% interval lies wholly above 0. \emph{Guards} are pre-registered FAIL rules: a tripped guard fails the arm whatever else
+passes. Below, the \emph{verdict} is always the rule fixed before the run; values printed beside it decide nothing; interpretations
+are marked ``our reading''.
+
+\paragraph{Machines.} The \emph{training machine} (eight shared GPUs) and the \emph{second machine} (one GPU, shared with another
+user's process, for which at least 2\,GB had to stay free) ran different arms. Seeds from the two machines are never pooled; the 100\%-label
+baseline was therefore retrained on the second machine (SUP100-g) before any comparison there.
+
+\paragraph{E1 policy.} Until 31 Oct E1 was read many times as a descriptive set (P-series, Track M, the 27 Oct team, the
+inference checks of 30 Oct, the protocol\_100 openings). From about 15:00 on 31 Oct, by the user's decision, E1 became a second
+test set: a protocol could pre-register E1 co-primaries, read once at its single opening, never for tuning or selection. The models
+of FINAL and of protocol\_100 (seeds 0 to 4) are therefore not blind on E1.
+
+\section{The E-SCDD download and audit (12 Oct; addition of 30 Oct)}\label{sec:midnov-escdd}
+
+The E-SCDD extension \citep{hanifi2025escdd} was downloaded in full on 12 Oct and audited without training a model. Track M's R4 rung later trained on 107 of its
+real cells, and its scuff labels drove the scuff work of this period. Chapter~\ref{ch:data} gives the label sets that resulted.
+\begin{itemize}
+  \item \textbf{What was refined.} BenchmarkEL has three releases; the project uses 20211104 (582 cells). The maintainers'
+    20221008 release (695 cells) corrected many crack labels (dotted labels joined, lines widened). E-SCDD repackages 20221008. On
+    the same 265 cells, crack pixels rise from 327,754 to 396,572, pooled width from 2.17 to 2.52 px and fragments fall from 5,391
+    to 1,288. The ``revised labels'' that moved crack IoU by $+0.05$ to $+0.08$ in the earlier work are these 20221008
+    corrections, obtained through E-SCDD.
+  \item \textbf{What E-SCDD itself changed.} All 693 shared images are pixel-identical to 20221008; 627 masks are identical and the
+    other 66 differ only between cell-gap classes (62 masks from sp multi to the new class sp multi halfcut, 552,426 px; 4 swaps).
+    Crack and inactive pixels changed: 0.
+  \item \textbf{What was not as described.} The release holds 903 labelled files (693 + 117 new real + 93 synthetic) against the
+    paper's 1,000 (695 + 110 + 195), and 0 of the unlabelled synthetic images the paper reports. The 93 synthetic images come from
+    4 base cells, all in E-SCDD's train split, and hold 11.7\% of its crack pixels. The 117 new real cells (114 CSIR, 3 ARTS) carry
+    less consistent crack labels (3 cells with 128 to 380 fragments); 100 of them are in our unlabelled pool.
+  \item \textbf{Splits.} E-SCDD's split is not ours: 48 of its 82 test cells are in our train split and 39 of our 50 test cells in
+    its train split, so neither test set can score models trained on the other split.
+  \item \textbf{Scuff (added 30 Oct).} A CPU read of the raw E-SCDD masks found 12 train cells with scuff (class 25, 3,246 px).
+    Our v1 build had mapped those pixels back to their old labels: 1,207 background, 1,390 material and 649 crack in 6 cells. The
+    one ARTS crack cell of the 5\% label set (47 px) is entirely scuff. In test50, 236 scuff px in 2 cells are crack. These facts
+    led to the scuff class arm (B3, Section~\ref{sec:midnov-thin}) and later to label set v1.1.
+\end{itemize}
+
+\section{Two analysis teams, the goal, Track D and Track M (24 to 27 Oct)}\label{sec:midnov-tracks}
+
+\paragraph{Why-SOTA team (24 Oct, no GPU).} After AL1, two analysts and a critic asked why 2025 SSL methods fail on EL crack. From
+CPU recomputes of existing outputs: SSL was not doing nothing on crack (BsM5 beat supervised by $+0.029$ crack IoU at 5\% labels and
+still passed with a free logit bias (logit adjustment) on both sides, $+0.037$), but the gain was a third of what 24 random labelled cells buy
+($+0.092$) and was source-bound. About 38\% of pool crack was a true miss, more than 2\,px from any prediction. The critic ranked
+eight directions; the first was to stop new SSL methods for crack. The user then set the goal: ``highest scores, a model which
+captures almost all of the cracks, inactive and other important defects balancing the miou for other classes as well'', and asked
+the team to act on the critic's decisions. That started Track D (diagnosis) and Track M (best model), both on the training machine.
+
+\paragraph{Track D (24 Oct).} Three diagnostics, each with a rule fixed before the run (Table~\ref{tab:midnov-trackd}).
+D1 was a linear probe on frozen encoder features, trained on the 23 labelled cells of the 5\% set; D2 re-scored existing models with
+crack within 2\,px of inactive ignored; D3 added 12 cells to the 5\% base in three ways, 3 draws $\times$ 3 seeds per arm (27 runs),
+with the cells chosen using their labels (oracle-selected). D3's 3-seed design broke the house rule of at least 5 seeds; the user
+accepted it with the critic's decisions.
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\caption[Track D diagnostics (24 Oct)]{Track D diagnostics (24 Oct; training machine; 5\% label base; test50, in-distribution,
+known leakage, context only). BMRK crack AP: crack AP over the BMRK test cells.}
+\label{tab:midnov-trackd}
+\begin{tabular}{@{}p{0.17\linewidth}p{0.33\linewidth}p{0.42\linewidth}@{}}
+\toprule
+Item & Rule (fixed before) & Result and verdict \\
+\midrule
+D1 frozen probe & pass if BMRK crack AP beats the 5\% model with logit bias (0.165) by 0.05, bar 0.215 & ResNet-50 0.268 (pass on test50 and pool); ConvNeXt-T 0.278 / 0.271 (pass on test50 only); ResNet-34 0.185, DINOv2-S 0.122, the 5\% model's own encoder 0.171 (fail). Beside: at the 5\% model's precision the probes recall 0.020 to 0.023 (ResNet-50) and 0.002 (ConvNeXt-T) of BMRK crack against its 0.21 \\
+D2 inactive edge & kill if a banded SSL gap passes its threshold with the opposite sign & band holds 11.6\% of test crack; banding raises 5 to 10\% arms by $+0.018$ to $+0.027$ crack IoU; no sign flip: kill not triggered \\
+D3 labelled set & draw-level rule 1 over 3 draw means; P1 Ts $-$ Tc, P2 Tc $-$ R & P2 crack cells $-$ random: crack IoU $+0.0127$ (thr 0.0118) BETTER; P1 weak-source crack cells $-$ crack cells: $+0.0151$ (thr 0.0212) n.d. Beside: Tc $-$ R relF1@2 $+0.030$ $[+0.020, +0.042]$ in all four cell sets \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+D1's rule closed masked-image pretraining for the time being. D3's gate for SSL on the better-covered set (Ts $-$ Tc BETTER, or Tc
+$-$ R BETTER with BMRK recall $\geq +0.05$) was not met (BMRK recall $+0.023$), so that SSL arm never ran. Our reading: at this budget
+targeted labels beat random labels and SSL for crack, but only with oracle selection, and crack-pixel volume explains the Tc $-$ R
+gap.
+
+\paragraph{Track M (24 to 25 Oct).} The baseline SUP100 (all 478 labels, U-Net++ with ImageNet ResNet-34, cross-entropy plus Dice on
+crack and inactive, label-safe augmentation, 512\,px, 20,000 steps, 5 seeds) was first re-scored (M0): crack IoU $0.435 \pm 0.078$
+on all 50 and $0.474 \pm 0.002$ on clean 49; one seed failed on the noisy cell (0.297), so every later contrast was read with and
+without that cell. Then one change per rung was tried, each entering the final recipe only if it passed rule 1 on validation;
+test50 was scored per rung but never used to choose (Table~\ref{tab:midnov-trackm}).
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\caption[Track M rungs at 100\% labels (24 to 25 Oct)]{Track M rungs at 100\% labels (training machine; 5 v 5 seeds; deltas on
+clean 49 against SUP100, threshold in parentheses; test50, in-distribution, known leakage, context only). Track M test openings
+1 to 7 in the order R1, R2, R4, R2c, R3 Part B, R5, FINAL.}
+\label{tab:midnov-trackm}
+\begin{tabular}{@{}p{0.27\linewidth}p{0.45\linewidth}p{0.20\linewidth}@{}}
+\toprule
+Rung & Result & Verdict \\
+\midrule
+R1 TTA, ensemble, crack bias & TTA $-$ plain $+0.0104$ (0.0100); 5-seed ensemble $-$ mean single $+0.0144$ $[+0.0118, +0.0167]$; validation chose bias $+0.75$ & R1a PASS (clean 49; all 50 n.d.); R1b PASS; validation set TTA off for the ensemble \\
+R2 soft Dice on 12 classes & crack IoU $-0.0106$ (0.0100), relF1@2 $-0.0130$ (0.0100); gridline 0.283 to 0.381 & WORSE; excluded \\
+R2c Dice on crack, inactive, gridline & n.d.\ on all four primaries; gridline 0.283 to 0.357 & excluded \\
+R3 U-Net++ ResNet-50 (pilot picked over EfficientNet-B4 and ConvNeXt-T on validation) & inactive IoU $-0.0251$ (0.0227); crack $-0.0041$ & WORSE; excluded \\
+R4 +107 E-SCDD cells (104 CSIR) & crack $+0.0010$ $[-0.0026, +0.0062]$, inactive $+0.0085$ $[-0.0042, +0.0277]$ & n.d.; excluded \\
+R5 2$\times$ internal resolution & crack $-0.0046$ (0.0100) at 4.0$\times$ compute & n.d.; excluded \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+R2's crack loss came with a gradient clip rate of 0.969 against 0.253 (mean pre-clip norm 6.74 against 1.80), so it is attributed to Dice
+on 12 classes at the house clip, not to Dice in general. No training change passed, so by the locked protocol the final recipe was
+SUP100 itself, and FINAL is its 5-seed mean-softmax ensemble with crack logit $+0.75$ (chosen as the maximum of validation relF1@2,
+since no bias reached relR@2 $\geq$ 0.90 at relP@2 $\geq$ 0.90). \textbf{Verdict (opening 7, 25 Oct): PASS} against the mean single
+seed on crack IoU and relF1@2 at both biases: crack IoU on clean 49 $+0.018$ $[+0.013, +0.025]$ (0.474 to 0.492). Beside it: on the
+noisy cell bias $+0.75$ calls 10,867 px crack (bias 0 calls 2), so bias 0 is the robust operating point; relR@2 / relP@2 reached
+0.866 / 0.930, so ``almost all cracks'' at 0.90 / 0.90 was not reached. ResNet-50 and 2$\times$ resolution both raised E1 crack
+recall (0.178 to 0.214 and 0.204), descriptive only. A finding of 30 Oct (Section~\ref{sec:midnov-erasure}) qualifies every
+``no change helps'' of this track: the optimizer was never varied.
+
+\paragraph{Unlabelled-data team (27 Oct, no GPU).} The user asked why about 12k unlabelled cells had not helped. The team's answer:
+only label propagation had been tested, never feature learning from the pool, and it had worked only with few labels. On the clean
+cells a crack gain of $+0.02$ or more was excluded at 20, 50 and 100\% labels; the old ``$+0.028$ at 100\%'' had been one supervised
+seed failing on the noisy cell. Of FINAL's crack IoU loss, 70\% lay within 2\,px of the label. On E1, 20 half-cut cells with a
+scuff streak held 75\% of the crack pixels, and FINAL found 0.126 of their crack against 0.552 on half-cut cells without scuff: the
+model painted the streak as crack and missed the cracks branching off it. The team advised keeping test50, adding the clean set as
+co-primary, keeping E1 sealed with two readouts (scuff plus half-cut, and the rest), and ranked five next steps; item 3 was one test
+of the user's own intuition: masked-image pretraining (MIM) of the encoder, fine-tuned at 5\% labels.
+
+\section{Feature learning from the pool at 5\% labels (28 to 30 Oct)}\label{sec:midnov-features}
+
+On 28 Oct the user asked whether learning features from the unlabelled cells, without labels, improves the model trained on all
+labels; the answer was that it had never been run. A new team ran three methods on the second machine, against a fresh 5\%
+supervised baseline (A5c-f1, 5 seeds; test50 crack IoU 0.300 against 0.304 for the original on the training machine). All three
+were screened at 5\% labels, a choice copied from the 27 Oct plan without checking it against the user's question, which concerned
+100\% labels (Section~\ref{sec:midnov-erasure}).
+\begin{itemize}
+  \item \textbf{MIM pretraining.} SparK-style sparse masked-image modelling \citep{tian2023spark} of the ImageNet ResNet-34
+    encoder on a pool of 11,690 cells (every module of a validation, test or E1 cell excluded, plus near-duplicates), mask ratio 0.6,
+    batch 32, 36,500 steps (29 Oct 13:08 to 18:34). Monitor loss 0.914 to 0.208.
+  \item \textbf{MIM5} (MIM encoder, house fine-tune, 5 v 5). \textbf{Verdict: n.d.} on all three primaries in both sets, every
+    estimate negative (crack IoU 0.3002 to 0.2886, $-0.0116$, thr 0.0186). Closed per protocol.
+  \item \textbf{AM} (MIM reconstruction error as a crack map, validation only). \textbf{KILL}: map AP 0.0166; no threshold reached
+    relaxed precision 0.5, so no missed component was recovered.
+  \item \textbf{DDeP5} (decoder denoising pretraining \citep{brempong2022ddep}, 40,000 steps on the training machine, then 5 v 5).
+    \textbf{Verdict: n.d.}, small positive estimates (crack IoU $+0.0070$, thr 0.0100), mostly a crack threshold shift (recall 0.365
+    to 0.384, precision 0.628 to 0.606). Closed per protocol.
+  \item \textbf{CP5} (labelled crack components pasted onto pool cells, 20-component library). Its decoy gate passed at 2,000 steps;
+    the arm was \textbf{stopped unscored} at 10:50 on 30 Oct when the 5\% choice was recognised as wrong (two seeds finished, two
+    stopped at 11,800 and 12,350 steps, one cancelled). No test50 number was opened. Its only ARTS paste was the scuff cell of
+    Section~\ref{sec:midnov-escdd}.
+\end{itemize}
+
+\section{The encoder audit and the encoder-preserving fine-tune (30 Oct)}\label{sec:midnov-erasure}
+
+On 30 Oct a direct read of the weights (Table~\ref{tab:midnov-cos}) showed that the house fine-tune (Adam, learning rate
+$10^{-3}$, coupled weight decay $10^{-4}$, 20,000 steps, never varied in the P-series or Track M) leaves encoder layer3 and layer4
+orthogonal to their initial weights, for ImageNet and MIM initialisations, at 5\% and 100\% labels. In a 2,000-step smoke of SUP100
+the cosines of layer3 and layer4 to ImageNet were already 0.070 and 0.003, while their norms were still 0.33 and 0.21 of initial: the
+direction is lost during warm-up and peak learning rate, before the norms shrink. MIM had changed mainly layer2 to layer4, so MIM5
+tested only the transfer of conv1 and layer1. Every earlier ``initialisation, pretraining or backbone does not help'' result (P15,
+MIM5, DDeP5, Track M R3) was obtained under this optimizer; erasure was measured on ResNet-34 U-Net++ runs only.
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\caption[Encoder audit: cosine of final to initial weights per stage (30 Oct)]{Encoder audit, 30 Oct: per-tensor cosine of encoder
+convolution weights, averaged per ResNet-34 stage, at step 20,000 (first column: the MIM encoder after pretraining; training only, no test number involved).}
+\label{tab:midnov-cos}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+Stage & MIM vs ImageNet & A5c-f1 final vs ImageNet & MIM5 final vs MIM & SUP100 s0 final vs ImageNet & norm final / initial (SUP100) \\
+\midrule
+conv1 & 0.996 & 0.980 & 0.976 & 0.985 & 0.86 \\
+layer1 & 0.859 & 0.379 & 0.327 & 0.396 & 0.75 \\
+layer2 & 0.761 & 0.135 & 0.139 & 0.150 & 0.60 \\
+layer3 & 0.618 & 0.010 & 0.005 & 0.018 & 0.09 \\
+layer4 & 0.533 & $-0.001$ & $-0.000$ & 0.001 & 0.06 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\paragraph{Why 5\% was the wrong test.} The user, about 10:45 on 30 Oct: ``why 5\%? I asked about adding the pool to 100\% labels.''
+An analysis that day found that a null at 5\% carries to 100\% only if the method does not consume labels and the 5\% estimate is
+tight on crack: copy-paste meets neither (its library grows from about 20 to about 560 components), inactive never meets the second
+at 5\% (2 training cells with inactive), and 100\% is better powered (minimum detectable crack IoU change 0.012 against 0.019 at 5\%).
+Pool ideas were thereafter tested on top of 100\% labels.
+
+\paragraph{PF.} The encoder-preserving fine-tune freezes the encoder for steps 0 to 999 (batch norm in train mode), then ramps the
+encoder learning rate from 0 to 0.1 times the base over 1,000 steps, with encoder weight decay 0; decoder and head are trained as in
+the house recipe. Its gate before launch required layer3 and layer4 cosine $\geq$ 0.8 at 4,000 steps: SUP100-PF 0.975 / 0.985,
+MIM100-PF 0.986 / 0.990, pass.
+
+\section{protocol\_100 and the label work (30 to 31 Oct)}\label{sec:midnov-p100}
+
+protocol\_100 answered the user's question at 100\% labels: 4 arms $\times$ 5 seeds on the second machine, all 478 labels, 20,000
+steps. SUP100-g (fresh house baseline on that machine), SUP100-PF, MIM100-PF (PF from the MIM encoder) and CP100 (house optimizer
+plus a crack copy-paste stream from a frozen library of 554 components). Gates 1 to 4 (bit-identity checks of the new switches when off and of validation off)
+passed; the copy-paste decoy gate at 2,000 steps was flagged (2.45 times the baseline's false crack on decoy spots against a 2$\times$
+line), and an amendment made before any CP100 run (gate 6b) re-measured it at 4,000 steps, where it fell (0.0076 to 0.0039), so CP100
+ran. The fine-tunes ran from 12:05 on 30 Oct to 00:56 on 31 Oct, CP100 from 00:21 to 06:52; a reboot of the machine at 16:28 stopped
+three runs, which resumed from checkpoints with loss and learning-rate lines identical to those before the reboot. The two test
+openings were scored at 00:57 to 01:33 and 06:53 to 07:07 on 31 Oct (Table~\ref{tab:midnov-p100}).
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\caption[protocol\_100 openings 1 and 2 (31 Oct)]{protocol\_100 openings 1 and 2 (second machine; 5 v 5; rule 1; delta (threshold)
+on all 50 / clean 49; test50, in-distribution, known leakage, context only).}
+\label{tab:midnov-p100}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{@{}p{0.26\linewidth}p{0.20\linewidth}p{0.20\linewidth}p{0.20\linewidth}l@{}}
+\toprule
+Contrast & Crack IoU & Crack relF1@2 & Inactive IoU & Verdict \\
+\midrule
+MIM100-PF $-$ SUP100-PF (pool via encoder) & $+0.0048$ (0.0113) / $-0.0017$ (0.0100) & $+0.0035$ / $-0.0039$ & $-0.0118$ / $-0.0112$ & n.d. \\
+SUP100-PF $-$ SUP100-g (recipe) & $-0.0012$ (0.0316) / $-0.0061$ (0.0100) & $+0.0117$ / $+0.0050$ & $+0.0150$ / $+0.0143$ & n.d. \\
+CP100 $-$ SUP100-g, $\tau$ 0 (pool via paste) & $+0.0076$ (0.0307) / $+0.0003$ (0.0100) & $+0.0102$ / $+0.0012$ & $+0.0020$ / $+0.0007$ & n.d. \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\textbf{Verdict:} every contrast n.d., also with logit adjustment on both arms, so both pool routes and the recipe contrast were
+closed at 100\% by the kill line. Beside it: PF kept the encoder (layer3 / layer4 cosine at 20,000 steps 0.928 / 0.936 against 0.015 /
+0.001 for SUP100-g), so erasure does not explain the nulls; on E1 (descriptive, not blind) PF's crack recall was 0.213 against 0.169
+and inactive IoU 0.245 against 0.041, all of the crack gain in the 29 scuff plus half-cut cells; CP100's decoy rate rose to 4.41
+times the baseline's by 20,000 steps, so gate 6b's go rested on a 2,000 to 4,000-step fall that did not last. Our reading at the
+time: the fine-tune recipe was the open lead, on E1 only.
+
+\paragraph{Inference-only E1 checks (30 to 31 Oct).} A pre-registered read on validation and E1 (no test50) asked whether any
+inference variant gained at least $+0.05$ E1 crack recall on the 29 scuff plus half-cut cells at a precision cost below 0.05. A five-seed
+ResNet-50 ensemble passed narrowly ($+0.060$ at cost 0.047); test-time batch-norm re-estimation on half-cells gained $+0.174$ but cost
+0.085 (fail); a ResNet-34 plus ResNet-50 ensemble gained $+0.036$ (fail); a 10-member ResNet-34 control gained $+0.001$, so the
+ResNet-50 effect was not ensemble size.
+
+\paragraph{Label work (30 to 31 Oct).} \emph{B1}: the five 50\%-label models audited the 239 train cells each never saw, flagging
+components where all five were confident against the label; crack flags fell in 24 cells (10.0 per 100), not above the reviewed
+validation base rate, so many flags were likely hard real cracks; three panel sheets went to the user, with no mask changed.
+\emph{B2}: a ranked list of pool half-cells for the user to mark (scuff, crack, both, neither). Version 1 failed its own validation
+(AUROC 0.328 and 0.396 on train scuff cells); version 2 (986 pool half-cells, ranked by predicted crack) was also unvalidated as a
+scuff finder (AUROC 0.384 / 0.437) and went to the user as 90 ranked plus 10 blinded random panels. \emph{Large pool}: a public
+unlabelled pool of 159,332 rows was checked and not downloaded: it has no E1 module family and no new half-cells, and its download
+condition (a MIM100-PF gain) failed.
+
+\section{A collaborator's eleven ideas and PF2 (31 Oct to 1 Nov)}\label{sec:midnov-ideas}
+
+On 31 Oct (about 13:45) a collaborator accepted the protocol\_100 verdicts, approved PF2, and proposed eleven ideas aimed at unseen
+panels, on the diagnosis that the remaining failure was domain generalisation rather than data quantity. The user asked for the
+direction to be worked further without budget limits and with as little manual labelling as possible. Each idea was checked on CPU
+by one agent and reviewed adversarially; only a reviewed pass could become a protocol. Table~\ref{tab:midnov-ideas} lists every idea
+and its fate.
+
+\begin{table}[htbp]
+\centering
+\scriptsize
+\caption[A collaborator's eleven unseen-panel ideas (31 Oct to 1 Nov) and A1 to A6 (1 to 2 Nov)]{A collaborator's eleven
+unseen-panel ideas (checked 31 Oct to 1 Nov) and six architecture ideas A1 to A6 (checked 2 Nov). CPU checks on validation, the
+E-SCDD cells and earlier records; the checks of ideas 1 and 7 and the reviewer's checks also read E1 on 31 Oct, reads the ledger lists among those before
+the E1 policy; A1 to A6 opened no test50 or E1 file. F51 / H36: the 51 full and 36 half-cut E-SCDD cells from modules not in
+train (Section~\ref{sec:data-sets}).}
+\label{tab:midnov-ideas}
+\begin{tabular}{@{}p{0.25\linewidth}p{0.46\linewidth}p{0.21\linewidth}@{}}
+\toprule
+Idea & Main evidence & Outcome \\
+\midrule
+1 E1 threshold / calibration & E1 precision-recall curve below validation at every bias; label-free per-module thresholds lose on F51 and E1 & label-free thresholds dropped; half-cut routing: pre-check FAILED, parked \\
+2 per-module intensity normalisation & E1 content brightness matches train (median 143 vs 138); the gap is the white frame of half-cut images; normalising lowers validation relF1@2 by 0.02 to 0.06 & dropped \\
+3 neighbour-reference channel & 50\% of E1 cells have no same-module image anywhere & dropped; an in-crop variant parked \\
+4 periodic-structure removal & the model already ignores busbars; crack vs scuff AUROC $\leq$ 0.45 & dropped alone; with 3 parked \\
+5 synthetic half-cut cells & making validation cells half-cut drops FINAL's crack recall from 0.706 to 0.563 & passed (narrowed): run as HC \\
+6 higher resolution & already run as Track M R5 (n.d.\ at 4$\times$ compute); E1 cracks are labelled wider, not thinner & dropped \\
+7 cell-level and operating-point metrics & scorer validated; per-run bias unstable, so one pooled bias per arm & merged into every later protocol \\
+8 foundation encoder & frozen probe: DINOv3 ConvNeXt-T F51 crack AP 0.363 against 0.310 for ImageNet ConvNeXt-T; nothing reached the 0.424 bar & passed to a 2-seed screen: A8 (KILL) \\
+9 test-time adaptation & batch-norm adaptation gain mostly a calibration shift; per-panel variant T9 failed its $+0.03$ term and raised false alarms & dropped; test-time adaptation closed \\
+10 AI-assisted labelling & E-SCDD crack labels: 75\% of components under 5 px; a segment-anything model fails on cracks; for inactive, SAM masks prompted by the model raised pooled IoU 0.4925 to 0.5653 & crack dropped; inactive passed as a method note, no arm \\
+11 appearance augmentation & E1 brightness and contrast inside the house jitter range & no arm \\
+\midrule
+A1 two-branch encoder & needs idea 8, closed by A8; high-resolution branch is idea 6 & dropped \\
+A2 instance norm in early layers & style premise contradicted (idea 2) & dropped \\
+A3 geometry-aware input & HC already removes cut-line false alarms (123 to 3 px per run on H36) & dropped \\
+A4 structured crack head & fragments are at most 5 to 7\% of non-E1 components & parked behind SKR2; not revived \\
+A5 long-range context & no support & dropped \\
+A6 cell gate plus pixel head & SKR's extra pixels are 99.6\% inside crack cells, so a gate cannot recover its precision & dropped as an arm \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Two data facts came out of these checks: E1 crack labels are about 1.5 times wider than train labels (3.66 against 2.41 px of area
+per skeleton pixel), so E1 pixel recall partly reads width, and later protocols reported width-robust E1 metrics; and the crack
+labels of the 36 E-SCDD half-cut cells are unusable (48\% of 1,792 px within 10\,px of a spacing, border or cut line), so no labelled
+half-cut crack set exists outside E1.
+
+\paragraph{PF2 (E1 opening \#1).} SUP100-g, SUP100-PF and RN50-PF (ResNet-50 under PF) on new seeds 5 to 9, second machine; trained 31 Oct
+14:29 to 1 Nov 06:32, opened 06:33 to 08:26. Five co-primaries for PF $-$ house under rule 1: three on test50 and, pre-registered,
+E1 crack recall and E1 inactive IoU. \textbf{Verdict: PASS.} E1 inactive IoU 0.0481 to 0.2371, $+0.1890$ (thr 0.0433) BETTER; E1
+crack recall $+0.0271$ (thr 0.0370) n.d.; test50 relF1@2 $+0.0117$ / $+0.0120$ (thr 0.0100) BETTER in both sets; crack and inactive
+IoU n.d. RN50-PF $-$ SUP100-PF: test50 inactive $-0.0289$ (thr 0.0251) WORSE in both sets: \textbf{FAIL}, ResNet-50 closed under PF.
+Beside the verdict: the test50 pass clears the floor by 0.0017 and 0.0020, its bootstrap interval is $[-0.0034, +0.0292]$ and
+leaving out the top 3 cells leaves $+0.0015$; all five PF seeds score 0.207 to 0.279 on E1 inactive against 0.025 to 0.089, with the
+gain concentrated on half-cut cells (0.162 to 0.537). Later (1 Nov), the top 3 of the 7 source images of E1 inactive were found to
+hold 87\% of its 9,158 pixels; without them PF2's gain is $+0.023$.
+
+\paragraph{PF2E (E1 opening \#4, 1 Nov 19:02 to 19:13).} The deployable question: PF and house as 5-member mean-softmax ensembles
+(seeds 5 to 9), inference only. The validation rule picked crack biases of 1.25 and 1.5, both of which dropped validation crack
+precision by more than 0.05, so the verdict was read at bias 0 (argmax). \textbf{Verdict: PASS on E1 inactive IoU} (0.0665 to 0.2807,
+$+0.2141$ $[+0.0303, +0.3820]$); E1 crack relF1@2 $+0.0355$ $[-0.0232, +0.0912]$ n.d.; test50 crack IoU, relF1@2 and inactive IoU
+n.d.\ ($+0.0027$, $+0.0121$, $+0.0237$). Not independent of \#1 (same models, same cells). Beside it: half the gain is recall (0.304
+to 0.627) and half fewer false inactive pixels on module-border and frame-edge pixels of three consecutive CSIR images; under a Bonferroni correction
+the 99\% lower bound is about 0.000. The PF ensemble was recommended as the deployable candidate; its adoption was still open on
+3 Nov.
+
+\section{THIN-B3, A8, HC and B6 (1 to 2 Nov)}\label{sec:midnov-thin}
+
+\paragraph{THIN-B3 (E1 opening \#2).} Three arms on SUP100-PF, seeds 5 to 9, against PF2's SUP100-PF runs (bit-identity shown over
+2,000 steps): SKR, Skeleton Recall \citep{kirchhoff2024skeletonrecall} at weight 1; CLD, soft clDice \citep{shit2021cldice}
+at weight 1; B3, scuff as a class of its own (the 649 scuff-as-crack pixels of Section~\ref{sec:midnov-escdd} become scuff).
+Co-primaries: the three test50 primaries, for SKR and CLD also two operating-point metrics (component recall at component precision
+$\geq$ 0.90 and relR@2 at relP@2 $\geq$ 0.90, at one validation bias per arm), and E1 crack relF1@2. Trained 1 Nov 06:32 to 19:39,
+opened 19:40 to 21:13. \textbf{Verdicts:} SKR \textbf{FAIL} (test50 crack IoU $-0.0136$ / $-0.0140$, thr 0.0100, WORSE; component
+recall $+0.0413$ BETTER; E1 relF1@2 $+0.0590$, thr 0.0392, BETTER); CLD \textbf{FAIL} (relR@2 at relP@2 $\geq$ 0.90 $-0.0374$ /
+$-0.0376$, thr 0.015, WORSE); B3 \textbf{n.d.}\ on every co-primary, and the scuff class was never learned (train scuff IoU 0.000 in
+all 5 seeds). Beside: SKR's predictions were about 1.5 times wider (test predicted to labelled pixels 0.95 to 1.54) and raised crack
+on crack-free E1 cells $\times$2.4; its test50 WORSE is narrow (bootstrap $[-0.036, +0.012]$).
+
+\paragraph{A8 screen (1 Nov 21:15 to 23:02).} Idea 8's kill gate: DINOv3 ConvNeXt-T \citep{simeoni2025dinov3} against ImageNet
+ConvNeXt-T, both under PF, 2 seeds, 4,000 steps, scored on F51 and validation only (a data root whose test list was the validation
+list kept test50 unread). GO needed F51 crack AP to gain with a 36-module bootstrap lower bound above 0. \textbf{Verdict: KILL}: $-0.0243$
+(0.5448 against 0.5691), lower bound $-0.0463$; the foundation-encoder line was closed for the thesis. Beside: F51's crack is 76\% one
+cell, and the ImageNet arm's own seed spread (0.067) exceeds the arm gap; KILL reads ``no sign of a gain'', not ``worse''.
+
+\paragraph{HC (E1 opening \#3).} Synthetic half-cut views (cut line and gap drawn into labelled full cells) at probability 0.35 per
+eligible sample (about 26\% of views), on SUP100-PF, seeds 5 to 9; trained 1 Nov 21:41 to 2 Nov 02:17, opened 02:18 to 03:10.
+\textbf{Verdict: n.d.} on all five co-primaries: test50 crack IoU $+0.0092$ / $+0.0089$ (thr 0.0100), relF1@2 $+0.0026$ / $+0.0023$,
+inactive $-0.0228$ / $-0.0230$ (thr 0.0289); E1 crack relF1@2 $+0.0135$ (thr 0.0429), E1 inactive $-0.0002$ (thr 0.0572). The
+mechanism check passed (matched recall on synthetic half-cut validation views 0.8192 against 0.6959) and the F51 harm guard passed.
+Beside: a seed-aware bootstrap put test50 inactive at $[-0.054, +0.005]$; our reading is that the simulator works on simulated
+half-cuts while real E1 half-cuts did not move.
+
+\paragraph{B6 (module-grouped cross-validation, 2 Nov).} Is PF's inactive gain also in distribution? PF against house, 5 folds over
+train plus validation (532 cells) grouped by physical module, 2 seeds, 20 runs, trained on the training machine (all done 21:31) and
+scored once on the second machine (22:11 to 22:13), by the user's decision on where each step could run. Primary: pooled out-of-fold inactive
+IoU, pass if the two-stage bootstrap lower bound is above 0 and the gain at least 0.01. Power stated before the run: about 13\% at
+$+0.017$. \textbf{Verdict: n.d.}, $-0.0144$ $[-0.0977, +0.0570]$. Beside: the realised standard error was 0.038 against a planned
+0.020, so power at $+0.017$ was about 6\%; the interval does exclude an in-distribution gain as large as PF's E1 gain.
+
+\section{SKR2, HC2, SKR2E and the B2 agent raters (2 Nov)}\label{sec:midnov-skr2}
+
+\paragraph{SKR2 and HC2 (E1 opening \#5, 20:01 to 21:23).} SKR2 is Skeleton Recall at weight 0.1 on SUP100-PF; HC2 is HC with
+inactive pixels set to ignore in synthetic views only. HC2's design went through four steps before lock (half dose; excluding
+inactive-bearing sources; a pre-set retention rule; measured crack-pixel retention 0.399 below the 0.60 line, so the ignore
+variant), and the user then chose to run it as built. Guards: G1, test50 inactive $\leq -0.015$ in both sets; G2 (SKR2), test50 relP@2 below $-0.03$ or E1 crack on the 74
+crack-free cells above 1.5 times SUP100-PF; G3 (HC2), F51 crack AP upper bound below 0. \textbf{Verdicts:} SKR2 \textbf{PASS}: E1
+crack relF1@2 $+0.0364$ (thr 0.0351) BETTER, the other six co-primaries n.d., no guard tripped; HC2 \textbf{FAIL} by G1 (test50
+inactive $-0.0256$ / $-0.0259$), and its mechanism check failed (relP@2 0.90 never reached on synthetic validation views). Beside:
+SKR2's margin was 0.0013 and the label survived 5 of 10 leave-one-seed-out drops, while a seed-aware interval of $[+0.004, +0.076]$
+kept the effect; with 7 co-primaries the family-wise chance of a false BETTER is about 10\%. The route-closing rule for HC was
+formally triggered; the user kept the half-cut route open and closed only the ignore design.
+
+\paragraph{SKR2E (E1 opening \#6, 22:24 to 22:36).} The SKR2 and PF 5-member ensembles, verdict at a shared bias 0, with every guard
+also checked at the headline pair (each ensemble at its own validation bias). The PF ensemble's headline bias was 0 (its width flag
+tripped at 0.0753); SKR2's was 1.0 (validation precision drop 0.0485, under 0.05). At bias 0 all primaries passed or were n.d.\ (E1
+relF1@2 $+0.0353$, test50 crack IoU $+0.0102$ $[+0.0031, +0.0197]$). At the headline pair G2a (test50 relP@2 $-0.0379$) and G2b (E1
+crack on crack-free cells 5,358 against 2,528 px, $\times$2.12) tripped. \textbf{Verdict: FAIL}; the PF ensemble at argmax stayed the
+recommended candidate. Beside: the width flag decided this by 0.0015; on test50, the PF ensemble at bias 1 equals the SKR2 ensemble
+at bias 0, and \#6 re-measures \#5's models, so its bias-0 passes are no confirmation.
+
+\paragraph{B2 agent raters.} The user asked why an agent could not mark the B2 panels. Two runs of one AI model were calibrated
+blind before any B2 mark, under rules fixed in advance: name-free bundles, the key held by a reviewer, PASS/FAIL returned only; gate
+A crack on 40 house-labelled CSIR train cells (sensitivity and specificity $\geq$ 0.70), gate B scuff on 32 pool half-cells of
+E-SCDD (sensitivity $\geq$ 0.50, specificity $\geq$ 0.70). Both runs marked identically: crack gate PASS (20/20, 17/20), scuff gate
+FAIL (sensitivity 1/8, needed 4/8). \textbf{No agent B2 marks were made}; B2 went back to the user, unmarked (state on 3 Nov).
+Two runs of one model measure consistency, not independent reliability.
+
+\section{SKR2C: trained 3 Nov, opened 14 Nov}\label{sec:midnov-skr2c}
+
+SKR2C asked whether SKR2's E1 gain holds on fresh seeds 10 to 14 (10 runs on the second machine): a replication of seeds, not of
+cells, and a third look at the same test50 and E1 cells for this contrast. The protocol was locked at 02:37 on 3 Nov. A code review
+then found the unattended memory guard and queue not ready (seven must-fixes, among them a missing hold on outside GPU processes and a
+missing re-check before a forced stop); after fixes and dry runs on dummies the run was launched at 03:06. Training read no test
+cell (a data root with the test list set to validation). All 10 runs ended with return code 0 at 11:24 on 3 Nov; the guard never
+fired. The record of 12 Nov notes that the laptop that drove the agents had been reinstalled and no agent survived. On 12 Nov
+the user gave the OK to open
+(``Open it now''); the opening set was frozen at 00:13 on 14 Nov and opened 00:22 to 03:54.
+
+Two verdicts were registered. \textbf{R} (singles, rule 1, SKR2's seven co-primaries and guards G1, G2): \textbf{FAIL} by G1 (test50
+inactive $-0.0198$ / $-0.0207$) and G2 (test50 relP@2 $-0.0780$ on all 50); E1 crack relF1@2 $+0.0289$ (thr 0.0281) BETTER, the other
+six n.d. \textbf{D} (ensembles at a shared bias 0): \textbf{FAIL} by the inactive guard alone (test50 inactive $-0.0269$ / $-0.0283$);
+E1 crack relF1@2 $+0.0342$ $[+0.0115, +0.0544]$ passes, E1 any-hit component recall $+0.0338$ $[0.0000, +0.0586]$ does not. The named
+claim REPLICATED does not hold: its seed-aware interval was $[-0.0015, +0.0590]$ and R and D both failed. Fixed wording: ``the
+fresh-seed ensemble pair differs on E1 relF1@2 (fixed-model CI; seed noise not included); replication at recipe level not shown''.
+The SUP100-PF ensemble stayed, and the Skeleton Recall route closed for the deployable at weight 0.1. Beside: the G2 trip is one run
+(seed 13) predicting 49,713 crack pixels on the noisy cell, where the label has 787; on clean 49 the relP@2 change is $-0.0119$. The
+registered null false-FAIL chance of D's inactive guard alone was about 8\%; our reading, as in the verify record, is that a false
+FAIL and a small real inactive cost cannot be told apart here.
+
+\section{The E1 openings ledger, \#1 to \#7}\label{sec:midnov-ledger}
+
+Table~\ref{tab:midnov-ledger} gives each registered E1 opening of the period with its rule and verdict, from the openings ledger
+kept since 31 Oct; Table~\ref{tab:T17} has the short form and opening \#8. All seven read the same 106 cells, and their co-primaries
+are uncorrected within and across openings. \#4 is not independent of \#1, \#6 not of \#5, and \#7 is the third look at the SKR2
+contrast. PF2's opened SUP100-PF files were reused as comparator in \#2, \#3 and \#5, which is not a new read.
+
+\begin{table}[htbp]
+\centering
+\scriptsize
+\caption[E1 openings \#1 to \#7 with rule and verdict]{E1 openings \#1 to \#7 (second machine; same 106 E1 cells; test50 values
+in-distribution, known leakage, context only). Verdict words as registered.}
+\label{tab:midnov-ledger}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{@{}p{0.03\linewidth}p{0.14\linewidth}p{0.13\linewidth}p{0.33\linewidth}p{0.29\linewidth}@{}}
+\toprule
+\# & Protocol & Opened & Rule (fixed before) & Verdict \\
+\midrule
+1 & PF2 & 1 Nov 06:33 to 08:26 & rule 1, 5 v 5; 3 test50 co-primaries (two sets) and E1 crack recall, E1 inactive IoU & PASS: E1 inactive $+0.1890$ BETTER; E1 crack recall n.d.; RN50-PF FAIL \\
+2 & THIN-B3 & 1 Nov 19:40 to 21:13 & rule 1 per arm (a WORSE co-primary fails); test50, two operating-point metrics (SKR, CLD), E1 crack relF1@2 & SKR FAIL (E1 $+0.059$ BETTER); CLD FAIL; B3 n.d. \\
+3 & HC & 2 Nov 02:18 to 03:10 & rule 1; test50 and E1 crack relF1@2, E1 inactive IoU; mechanism kill; F51 harm guard & n.d. (E1 $+0.0135$, $-0.0002$) \\
+4 & PF2E & 1 Nov 19:02 to 19:13 & ensembles at headline bias; image / 71-cluster bootstrap; pass if interval above 0 & E1 inactive PASS ($+0.2141$); E1 crack relF1@2 n.d.; test50 n.d. \\
+5 & SKR2\_HC2 & 2 Nov 20:01 to 21:23 & rule 1; SKR2 7 co-primaries with E1 relF1@2 and any-hit; guards G1, G2, G3 & SKR2 PASS ($+0.0364$, thr 0.0351); HC2 FAIL by G1 \\
+6 & SKR2E & 2 Nov 22:24 to 22:36 & ensembles at shared bias 0; guards at bias 0 and the headline pair & FAIL by G2a and G2b at the headline pair \\
+7 & SKR2C & 14 Nov 00:22 to 03:54 & R: rule 1 singles with guards; D: ensembles at bias 0 with guards; named claim needs a seed-aware interval above 0 and no FAIL & R FAIL; D FAIL; REPLICATED does not hold \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\paragraph{What the period led to.} Our reading: of the period's arms, only the PF recipe replicated an E1 gain on new seeds
+(inactive IoU, on a 3-image readout), and the 5-seed ensemble gave the clearest test50 gain (context only); test50 and E1 had both been read too
+often for any later choice to count as blind, and the 50-cell instrument could not resolve the crack effects in question. These are
+the reasons the work moved, from 12 Nov, to the module-grouped benchmark of Chapter~\ref{ch:protocol}, with PF as its baseline and
+one registered E1 opening for the final model (Chapter~\ref{ch:e1_result}).

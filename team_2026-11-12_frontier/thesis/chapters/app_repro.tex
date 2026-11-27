@@ -1,0 +1,420 @@
+% Appendix: project start to 7 Oct 2026, and every reproduction of published work. Draft 27 Nov 2026 (writer id: repro).
+% Every number and dated fact is traced in app_repro_NOTES.md. Old-era numbers are history only (RECORD_BRIEF rule 4).
+\chapter{Reproducing published work and the first pipeline}\label{app:repro}
+
+This appendix records the project from its start to the audit and restart of 7 and 8 Oct 2026, and every reproduction of
+published work we ran, including two that ran later (13 and 14 Oct). Chapter~\ref{ch:related} reviews the published numbers and why
+they do not compare, Tables~\ref{tab:T13a} and~\ref{tab:T13b} re-score our final models in the published conventions, and
+Chapter~\ref{ch:legacy} continues the history from 10 Oct. Nothing here decides anything in the thesis.
+
+\paragraph{Conditions of every old-era number.} All numbers from before 7 Oct are history and reproduction records only. On BenchmarkEL, unless
+stated otherwise, they come from the first pipeline: the original BenchmarkEL \texttt{20211104} masks, a U-Net++ trained from scratch, class-weighted
+cross-entropy (CE), labelled batch 4, a cosine learning rate that ends at zero, and the final step of 20,000 steps. The 50 legacy test
+cells were scored in every run and were the primary readout of every comparison. The official split shares modules between train and
+test (24 of the 50 test cells came from modules with train cells, as counted then; the later audit found 8 test cells that are the
+same physical cell as a cell of the training pool, Section~\ref{sec:data-split}), and the class weights of the first code were
+computed over all 582 cells, test included. Phase~0 numbers survive only in notes, because the code was lost, and were never
+re-verified against files. Mean Teacher results of the period used a loss later shown to be invalid (Section~\ref{sec:repro-audit}).
+No old-era number is a valid result, and none may be set beside Chapters~\ref{ch:protocol} to~\ref{ch:t3b}.
+
+Unless stated otherwise, ``standard'' IoU is pooled: one dataset-level confusion matrix over all pixels of the scored set, with
+background inside the matrix, so that false positives on background count. ``Defect mIoU'' is the mean of crack and inactive IoU on
+BenchmarkEL and the mean over the four defect classes on UCF-EL, both in that convention. Published conventions are named where they
+appear.
+
+\section{The project start and phase 0 (to the end of September 2026)}\label{sec:repro-phase0}
+
+\paragraph{Framing.} The project began as a master's project with the industry partner on semi-supervised (SSL) segmentation of
+defects in electroluminescence (EL) images, framed as label-efficient learning of rare defects. The industry partner wanted a pipeline
+that detects defects, grades severity and estimates power loss; the faculty advisor wanted a paper with a lightweight model (about 2M
+parameters in the notes of the time, about 4M on the course poster). The data were BenchmarkEL \citep{pratt2023benchmark} (582
+labelled cells, $512 \times 512$, 24 classes, and about 12k unlabelled cells on a public share) and UCF-EL \citep{fioresi2022ucfel}.
+
+\paragraph{SA-UNet++ with Mean Teacher and SemiCE.} Phase~0 (the students' name for this period) ported SA-UNet++
+(Gangopadhyay et al., IEEE Transactions on Emerging Topics in Computational Intelligence 9(2), 2025) to PyTorch and trained it with Mean Teacher
+\citep{tarvainen2017meanteacher} and a consistency loss named SemiCE after PV-S3 \citep{jha2025pvs3}. The ``SA'' block computes
+$\sigma(Q+K) \cdot V$, an elementwise sigmoid gate rather than dot-product attention; the model had 4,589,880 parameters, 88,000 of them
+(1.9\%) in the gate blocks. The headline metric was defect mIoU, with gridline excluded as noisy. Three phase~0 results did not
+survive. An ablation ``removing SA helps'' (0.2028 against 0.1792) and an SSL sweep (0.2580 at 20\% labels, 0.1323 at 10\%) predate a
+fix to the noise augmentation: albumentations 2.x silently ignored the old \texttt{var\_limit} argument, giving noise of
+$\sigma \approx 68$ instead of about 4 on the 0 to 255 scale, which erased cracks. An SSL gain of +7.4 points came from an 8$\times$
+mismatch in optimiser steps, which produced the standing rule to match steps across arms. The square-root inverse-frequency class
+weights (about 310:1) were later found to be computed over train, validation and test together. On 11 Oct the user recalled that
+``SA SSL'' had raised IoU; the phase~1 notes traced this to a table that listed one arm, SA-SL at 20\% labels, seed 0, at two
+checkpoints (0.338 at the final step, 0.301 at the best-validation step). In our reading it was a checkpoint artefact.
+
+\paragraph{First reproductions and the poster.} Phase~0 also reproduced four papers (Fioresi, Pratt, PV-S3, SA-UNet++). Their code was
+lost; the surviving records are the numbers used on the course poster (EE511 Computer Vision), ``Label-Efficient Segmentation of
+Rare Defects in Electroluminescence Images of Solar Cells'' (Table~\ref{tab:repro-poster}). An earlier claim that SSL doubled UCF-EL
+performance (10.83 to 21.19) compared two under-trained runs and is recorded as invalid. The poster's method figure had three panels: (a) a
+U-Net of about 4M parameters with a pretrained light encoder and a full-resolution skip for 2~px cracks; (b) SSL inspired by ALHVR
+\citep{lei2025alhvr} with M1 defect-aware sampling, M2 per-class thresholds $\gamma_k$ and M3 an EMA prototype memory; (c) severity
+grading. Its presenting line was that at equal compute our SSL reimplementation showed no gain, that the published PV-S3 supervised
+baseline (8.8) is under-trained, and that the PV-S3 code ignores background. By 6 Oct the phase~1 notes listed as outdated or wrong: the
+Fig.~3 caption cited cross pseudo-supervision, which ALHVR does not use; M3 had been measured dead (Section~\ref{sec:repro-phase1}); the
+step-matched control (0.491 $\pm$ 0.009) and the PV-S3 released-code finding were missing; and the SA-UNet++ row, the crack-width
+wording and the move of all numbers to final-step values from the rebuilt pipeline were pending. The ``SSL 46.4'' record was later not reproduced
+(Section~\ref{sec:repro-pvs3}).
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\caption{Old era, lost pipeline: phase~0 reproduction records as used on the poster (percent, as recorded; code lost, numbers from
+notes, never re-verified; test sets scored in every run; overlapping splits as later found). ``PV-S3 metric'': pooled IoU with every
+pixel whose ground truth is background dropped.}
+\label{tab:repro-poster}
+\begin{tabular}{@{}p{0.31\linewidth}p{0.14\linewidth}p{0.25\linewidth}p{0.24\linewidth}@{}}
+\toprule
+Baseline & Published & Ours (as recorded) & Note \\
+\midrule
+Fioresi, supervised 100\%, 4-class / 5-class mean & 48.15\% / 57.30\% & 50.21\% / 59.42\% & 5-class includes background; 48.15 equals the IoU equivalent of the published F1 (our identification) \\
+Pratt U-Net, per-image median, rule B & 13.33 to 16.00\% & 15.01\% & rule A 29.22\%, rule C 26.87\% \\
+Jha, supervised 20\%, 30 epochs & 8.76\% & 13.13\% (PV-S3), 10.83\% (standard) & same under-trained regime \\
+Jha, supervised 20\%, 12.0k steps & n/a & 56.61\% / 39.00\% & PV-S3 metric / standard \\
+Jha, SSL 20\% (our reimplementation), 95.7k steps & 67.00\% & 58.85\% / 46.40\% & not reproduced in phase~1 \\
+Supervised 20\%, step-matched, 95.8k steps & n/a & 60.79\% / 48.90\% & above our SSL \\
+Jha, supervised 100\%, 59.8k steps & 70.84\% & 65.84\% / 50.21\% & PV-S3 metric / standard \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{The severity-grading idea of the time.} Panel (c) and a ``Subpath A'' plan described post-processing of BenchmarkEL masks:
+per-class connected components, a flag for components cut by the border, crack skeletons (length, medial-axis width, tortuosity), and
+electrical isolation from a topology mask of classes $\{1,2,3,4,9\}$ in which crack pixels act as walls and components that touch no
+busbar are flagged. Grades followed the crack modes of \citet{kontges2011risk}: A, a crack with no isolated area; B, an isolated area
+that still glows; C, an isolated area that is dark. The notes held that power loss tracks the mode-C area rather than total crack
+pixels, and that without paired current-voltage data a power estimate would rest on published correlations. Agreement between grades
+from ground-truth and predicted masks was to be scored by Cohen's kappa. The instance stage existed with 57 unit tests; a compression
+plan (pruning to about 2M parameters, INT8 with TensorRT on a Jetson) was never executed. Later severity work is in
+Chapter~\ref{ch:deployment}.
+
+\paragraph{The reset.} Before 2 Oct the user account on the single-GPU institute server (the second machine of later chapters) was
+reset. The reproduction code, the UCF-EL validation split, the Subpath~A code, the label splits and the predictions were lost, and the
+remote repository was two months stale, so all September work was unrecoverable.
+
+\section{Phase 1: the rebuild (2 to 7 Oct 2026)}\label{sec:repro-phase1}
+
+\paragraph{Setup check and foundation (2 Oct).} The server was found empty; the datasets and the ALHVR reference code were cloned and
+11,993 cells of the external unlabelled pool downloaded. A check before any training found that the old loader expected colour masks
+while the release ships index masks (24.6\% of pixels would have become ``ignore''); that the hard-coded class frequencies matched all
+582 cells including test (on train only the weight ratio is 615:1, not 313:1); that a missing split file made the old code train on all
+582 cells, test included; and that the noise augmentation fell back to a default about 10 to 15$\times$ stronger than intended. A new
+repository was built with 96 tests: index masks read directly, missing splits an error, class weights from the labelled subset on train
+only (weight 0 for absent classes), one metrics module with the \texttt{standard}, PV-S3 and per-image-median conventions, a plain
+U-Net++ \citep{zhou2018unetpp} of 4,981,368 parameters trained from scratch, Adam at $10^{-3}$ with cosine decay to zero over 20,000
+steps, and the rule ``final-step test is primary'' (best-validation selection on 54 cells flipped the sign of several comparisons).
+Coupled augmentations from a shared random generator (both flips always together, blur always with noise) were fixed on 3 Oct, so the
+pilots of 2 Oct are kept apart. An OS shutdown at 21:34 on 2 Oct killed the first ALHVR pilot at step 13,600, and reboots on 6 and 7
+Oct killed queued runs; resume was built and tested bit-exact.
+
+\paragraph{Arms and loss-off controls.} From 4 Oct a shared eight-GPU server (the training machine of later chapters) joined.
+Mean Teacher used EMA 0.999, $\lambda$ ramped to 1.5 by step 4,000, our SemiCE and 4 labelled plus 4 unlabelled cells per step, with
+the teacher evaluated. ALHVR \citep{lei2025alhvr} was ported following the reference code: two networks and optimisers, clean and
+feature-perturbed passes, $\lambda_{\max} = 0.1$ ramped over the whole run. At 20\% labels (95 cells) the 383 other train cells were
+the unlabelled pool. Table~\ref{tab:repro-phase1} gives the arms. Mean Teacher with $\lambda = 0$ (unlabelled images still forwarded)
+scored 0.3653 $\pm$ 0.0183 against 0.3648 $\pm$ 0.0071 with $\lambda = 1.5$ (3 seeds each; paired $-0.000 \pm 0.024$, n.d.), and
+teacher minus student was $+0.000 \pm 0.002$, since an EMA adds nothing when the learning rate ends at zero. ALHVR with its unlabelled
+weight at 0 scored 0.3642 (paired on minus off $+0.005 \pm 0.023$, n.d.). The reading at the time was that the SSL arms' lead did not
+come from their unlabelled losses; the leading hypothesis, batch-norm statistics over a half-unlabelled batch, was not shown.
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\caption{Old era, first pipeline (from-scratch U-Net++, original masks, weighted CE, batch 4, final step of 20,000 steps; the 50
+test cells scored in every run; overlapping splits as later found; Mean Teacher with the invalid SemiCE). Test defect mIoU, standard,
+mean $\pm$ sd over runs pooled from both machines (seeds 0 to 2 ran on both with the same initialisation, so $n$ overstates
+independence). Welch 95\% intervals were computed after the runs, uncorrected; no rule was fixed before them.}
+\label{tab:repro-phase1}
+\begin{tabular}{@{}lrll@{}}
+\toprule
+Arm & $n$ & Test defect mIoU & Difference to SL-20 [95\% CI] \\
+\midrule
+SL-20 (supervised, 20\% labels) & 8 & 0.3435 $\pm$ 0.0329 & \\
+SL-100 & 4 & 0.3383 $\pm$ 0.0060 & $-$0.0052 [$-$0.0330, +0.0226], n.d. \\
+MT-20 (Mean Teacher, SemiCE) & 6 & 0.3662 $\pm$ 0.0061 & +0.0227 [$-$0.0050, +0.0504], n.d. \\
+ALHVR-20 & 6 & 0.3724 $\pm$ 0.0103 & +0.0289 [+0.0007, +0.0570] \\
+SA-SL-20 & 4 & 0.3399 $\pm$ 0.0104 & $-$0.0036 [$-$0.0324, +0.0251], n.d. \\
+SA-SL-100 / SA-MT-20 & 1 / 1 & 0.3197 / 0.3384 & \\
+Pratt U-Net, weight set A / C, 100\% & 1 / 1 & 0.3386 / 0.3149 & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Label sweeps and diagnostics.} With labelled batch 8, supervised test defect mIoU was flat from 10\% to 100\% labels (0.357,
+0.354 and 0.346, six runs each) and broke at 2\% (0.191, three runs); the two machines disagreed on SL-20 at batch 8 (means 0.346 and
+0.362). Crack precision was 0.22 to 0.35 at recall 0.67 to 0.73 in every class-weighted run. A fit check found crack IoU 0.325 on the
+47 training cells of a 10\% model (inactive 0.881 there, 0.417 on test): crack was not fitted even on training cells, the number
+behind the user's worry of 7 Oct. A prototype diagnostic on four ALHVR runs found that the low-confidence region $\Omega_3$ held 71\%
+of true crack pixels (119,384 of 168,511) on 383 held-out train cells, and that the other network's prototypes, which ALHVR's
+prototype loss uses, labelled 4.6\% of them correctly; prototype modules were recorded as dead. On UCF-EL a supervised sweep
+(DeepLabV3+ \citep{chen2018deeplabv3plus} with ResNet-50, 95,760 steps, 2,289 public test images, standard four-class mean) gave
+0.5364 $\pm$ 0.0042 at 100\% (2 seeds), 0.4932 $\pm$ 0.0045 at 20\%, 0.4146 $\pm$ 0.0017 at 5\% and 0.2265 $\pm$ 0.0017 at 1\% (3
+seeds each); the 1\% subset has no corrosion cell. Mean Teacher with SemiCE at 5\% and 1\% (7 to 8 Oct) scored below supervised
+training (paired over 3 seeds, $-0.0913 \pm 0.0362$ and $-0.0742 \pm 0.0275$) and below its own $\lambda = 0$ controls; these runs test
+SemiCE, not Mean Teacher.
+
+\paragraph{Where phase 1 stood on 7 Oct.} The handoff of that evening summarised: on BenchmarkEL no unlabelled loss had shown an
+effect, label count did not move the score between 5\% and 100\%, and crack could not be fitted on training cells; UCF-EL showed a clean
+label gap, so the SSL question had moved there. While writing it, its author noticed that ALHVR's loss weight peaks only at the final
+step, when the learning rate reaches zero (Section~\ref{sec:repro-alhvr}).
+
+\section{Reproductions of published work}\label{sec:repro-papers}
+
+Each subsection gives the claim and recipe, what we ran, our number in the paper's convention and in the standard one, and where the
+gap came from; Table~\ref{tab:repro-summary} collects them. Runs before 7 Oct are old era (conditions above); P19 and the re-scorings
+of 13 Oct used later code.
+
+\subsection{Pratt et al.\ 2023: BenchmarkEL}\label{sec:repro-pratt}
+
+The paper scores twelve models (four architectures, three class-weight sets) by per-class IoU per image, then the median over 50 test
+cells chosen for a prevalence of cracks, gridline defects and inactive areas \citep{pratt2023benchmark}. Its headline, DeepLabv3+ with
+custom weights (4c), has median crack 0.25, gridline 0.20, inactive 0.38 (mean 0.28). Weight set A is all 1; set C is background 0.2,
+ribbons 3, gridline 10, inactive 10, crack 20, others 1. The paper states no optimiser, learning rate, epochs or batch size, does not
+name the U-Net encoder, and does not say how a cell without the class enters the median.
+
+On 3 Oct (old era) we trained a U-Net with an ImageNet VGG16 encoder (from the user's specification, not the paper; 23,750,424
+parameters), sets A and C, flips only, and the pilot recipe (Adam $10^{-3}$, cosine, 20,000 steps, batch 4), one seed each on all 478
+train cells, and scored three absent-class rules: A leaves the cell out, B scores 0, C scores 1 if nothing is predicted. Of the 50 test
+cells, 50 contain crack, 37 gridline and 17 inactive. At the final step set A gave crack 0.149, gridline 0.339, inactive 0.420 under
+rule A (mean 0.303; 0.145 under B, 0.449 under C); set C gave 0.176, 0.207, 0.445 (mean 0.276; 0.113 under B, 0.326 under C). In the
+standard convention set A ranked first (mean of the three classes 0.331 against 0.284) while the paper ranks C first.
+
+The report of the day took rule B as primary and called the paper ``approximately reproduced'' (set C 0.116 at its best-validation
+step, set A 0.145, against the paper's U-Nets at 0.133 to 0.160). The audit analysis of 7 and 8 Oct showed that the paper cannot have used rule B:
+with inactive in 17 of 50 test cells, rule B forces the inactive median to 0, yet 4c reports 0.38; and model 4a's inactive median 0.13 at
+recall 0.15 rules out rule C. Under rule A, which we infer, no gap remains: set A 0.303 against the equal-weight U-Net 2a at 0.19,
+the U-Net++ pilot arms (coupled-augmentation code, best-validation weights) at 0.280 to 0.295 against 4c at 0.28, and the U-Net++ arms'
+crack medians 0.21 to 0.25 (the two Pratt U-Nets 0.149 and 0.176) against the paper's 0.13 to 0.26. The rule alone moves our mean about 3$\times$ (0.15 under B, 0.49 under C). On 13 Oct the same check on
+supervised P-series models at 100\% labels (5 seeds, trained on revised masks, scored on the original masks, rule A) gave crack 0.354
+$\pm$ 0.004, gridline 0.303 $\pm$ 0.010, inactive 0.443 $\pm$ 0.028 (mean 0.367 $\pm$ 0.012); in our reading not a like-for-like claim
+(inferred rule, overlapping test cells, other training labels). Table~\ref{tab:T13b} has the final models.
+
+\subsection{Fioresi et al.\ 2022: UCF-EL}\label{sec:repro-fioresi}
+
+The paper trains DeepLabv3 with a COCO-pretrained ResNet-50, plain CE at learning rate 0.005, and calls a pixel background only if
+$P(\text{background}) > 0.54$ \citep{fioresi2022ucfel}. It reports pixel-level F1 (headline, with 256 simulated images: crack 0.81,
+contact 0.58, interconnect 0.33, corrosion 0.78) and an abstract mean IoU of 57.3\%, most likely a five-class mean with background (our
+inference). One held-out set served as validation and test, and the public release (9,562 train, 2,289 test) is smaller than the
+paper's 17,064 images. We trained DeepLabV3+ with an ImageNet ResNet-50 (shorter side 295, 256 crops, flips, SGD poly at
+$5 \times 10^{-3}$, batch 16, final step, no checkpoint selection). On all labels for 100 epochs (59,760 steps) it scored 0.497 standard
+(0.636 PV-S3), within the pre-set tolerance of 0.03 of the reference 0.4815, so the run with the paper's full augmentation was skipped
+(0.481 is the mean of the IoU equivalents of the headline F1, IoU $=$ F1$/(2-$F1$)$ per class). Crack F1 of the 6 Oct supervised model
+(100\%, 95,760 steps) was 0.806 against 0.81; contact, interconnect and corrosion reached 0.648, 0.498 and 0.795 against 0.58, 0.33 and
+0.78. There is no deficit to explain; an early ``shortfall of 7.1'' came from setting a four-class mean beside the five-class 57.3\%.
+It is not a strict reproduction: data, split, model and crops differ, and the paper's checkpoint was probably selected on its test set.
+
+\subsection{Jha et al.\ 2025: PV-S3}\label{sec:repro-pvs3}
+
+\paragraph{Claim and recipe.} Mean Teacher with ``Semi Cross-Entropy'' (SemiCE) handles class imbalance on EL images
+\citep{jha2025pvs3}. On UCF-EL at 20\% labels the paper reports mean IoU 67.00\% for SSL against 8.76\% for supervised training (70.84\%
+supervised on all labels). Recipe: DeepLabv3+ with ImageNet ResNet-50, 30 epochs, batch 16, SGD at $10^{-3}$, consistency weight 1.5,
+SemiCE thresholds $(0.6, 0)$ in Tables 1 and 2 but $(0.2, 0.4)$ in its Section 4.2 and journal version. The metric is a pooled IoU over
+the four defect classes; split and background treatment are not described.
+
+\paragraph{The under-trained baseline.} In the PV-S3 convention (pooled, pixels whose ground truth is background dropped, so
+background false positives vanish and recall is unchanged), our supervised model at 20\% labels scored 0.230 at the paper's budget (30
+epochs at $10^{-3}$, 3,585 steps; 0.185 standard) and 0.559 at 12,000 steps at $5 \times 10^{-3}$ (0.448 standard), against 8.76\%;
+the paper itself says its supervised model ``is not able to learn the features''. The step-matched control (95,760 steps, 3 seeds)
+gave 0.491 $\pm$ 0.009 standard. The convention rewards false alarms: an all-crack predictor scores crack IoU 0.766 under it and 0.066
+standard, and dilating predictions by 3~px raises the PV-S3 mean from 0.636 to 0.717 while the standard mean falls from 0.497 to 0.456.
+
+\paragraph{Our reimplementation and the corrosion runaway.} Version 1 put the supervised loss on the strong view and collapsed
+(Table~\ref{tab:repro-pvs3}); the strong view alone cost only 0.045 (0.448 to 0.403), so version 2 used the weak view and still
+collapsed, predicting corrosion on 1,465,919 test pixels against 102,570 true. Measured without training, the final teacher labelled
+0.96\% of unlabelled pixels as corrosion, 23$\times$ the labelled share and 16$\times$ the truth; 99.4\% of pixels cleared the 0.6
+threshold, and the excess was still 21.6$\times$ at confidence 0.99. The PV-S3 convention hides it (corrosion IoU 0.067 standard, 0.879
+PV-S3). Capping each class's pseudo-label share at 2$\times$ its labelled share repaired corrosion (IoU 0.631) but left the run 0.073
+below the control; the smoothed cap was exceeded in 132 of 187 windows, one seed. Our version trained background, so it was not
+faithful to the released code on that point, and the lost pipeline's ``SSL 46.4'' was not reproduced.
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\caption{Old era, first pipeline: PV-S3 reproduction on UCF-EL, 20\% labels (1,912 labelled images, our split lists; final step on the
+2,289 public test images, scored on our evaluation grid with the shorter side at 295; UCF-EL has no validation split upstream, so
+test was the only readout; 25 to 44\% of test cells have the same physical cell in train, as later found). Four-class mean IoU, pooled; ``PV-S3'' drops pixels
+whose ground truth is background. DeepLabV3+ ResNet-50; the released code ran on the eight-GPU server, the rest on the single-GPU
+server.}
+\label{tab:repro-pvs3}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Run & Steps & Standard & PV-S3 \\
+\midrule
+Supervised, paper's budget (30 epochs, $10^{-3}$) & 3,585 & 0.185 & 0.230 \\
+Supervised, $5 \times 10^{-3}$ & 12,000 & 0.448 & 0.559 \\
+Supervised, step-matched (3 seeds) & 95,760 & 0.491 $\pm$ 0.009 & 0.607 $\pm$ 0.007 \\
+Supervised, all 9,562 labels, 100 epochs & 59,760 & 0.497 & 0.636 \\
+Reimplementation v1 (strong-view supervised loss) & 95,700 & 0.200 & 0.379 \\
+Reimplementation v2, seed 0 / seed 1 & 95,700 & 0.276 / 0.283 & 0.568 / 0.436 \\
+v2 with per-class pseudo-label cap (1 seed) & 95,700 & 0.418 & 0.580 \\
+Released PV-S3 code as shipped (our splits) & 14,370 & 0.050 & 0.828 \\
+\midrule
+Published: supervised 20\% / SSL 20\% / supervised 100\% & & & 8.76\% / 67.00\% / 70.84\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{The released code (5 Oct).} Run as shipped with our split lists (one student and two EMA teachers, 125.3M parameters;
+learning rate $10^{-2}$ in its saved configuration against $10^{-3}$ in the paper; 14,370 steps), the code sets
+\texttt{ignore\_index} to 0 in loss, loader, model and metric. UCF-EL encodes background as 0, so background never receives a gradient
+and no test pixel was predicted as background. The standard mean was 0.050 (corrosion predicted on 3.33M pixels against 102,570, 32$\times$);
+the PV-S3 convention gave 0.828 on our evaluation grid and 0.791 at native resolution, the code's own protocol. The code's own
+end-of-training validation log (crack 0.9133, contact 0.7806, interconnect 0.5959, corrosion 0.8735) equals our native-resolution
+per-class values to four decimals, so the value that matches the log is 0.791, not 0.828. Its supervised-only mode cannot run. Its
+split lists name 16,327 images, 5,194 of them not in the public release, and put 1,769 of the 2,289 public test images in their
+training lists and 437 in validation.
+
+\paragraph{Where the gap came from.} The 8.76\% baseline is under-trained, and the convention adds to the gap. The SSL headline lives in
+a convention blind to false positives on background, from code that never predicts background, with lists that put most public test
+images in training; in the standard convention the step-matched control (0.491) is above every PV-S3 arm we ran. The ``SemiCE'' of our Mean Teacher
+arms was not PV-S3's: the released loss is a softmax CE against the teacher's argmax where its maximum probability is at least 0.6; ours was a
+per-class binary CE on raw logits with thresholds of half the class frequency (about 0.001 for crack); our PV-S3 reimplementation (v1, v2) used the softmax form. The paper's BenchmarkEL
+comparison sets pooled IoU beside Pratt's per-image medians (Chapter~\ref{ch:related}). The journal version changed none of this.
+
+\subsection{Gangopadhyay et al.\ 2025: SA-UNet++}\label{sec:repro-saunet}
+
+On a UAV solar-panel defect set with four classes and no EL data, the paper reports Jaccard 0.95 $\pm$ 0.09 for SA-UNet++ against
+0.92 $\pm$ 0.12 for U-Net++ (one run; spread over images; background probably in the mean, our inference)
+(Gangopadhyay et al., 2025). Our corrected rerun on BenchmarkEL (old era, Table~\ref{tab:repro-phase1}) gave a
+difference of $-0.0036$ [$-0.0324$, +0.0251] on test and $-0.0211$ [$-0.0510$, +0.0089] on validation plus test, both n.d. In our
+reading the two do not conflict: the paper's gain is on large objects under a background-inclusive mean, and it never tested 2 to 3~px
+structures.
+
+\subsection{Lei et al.\ 2025: ALHVR (a port, not a reproduction of their numbers)}\label{sec:repro-alhvr}
+
+ALHVR routes unlabelled pixels by the joint confidence of two networks and reports 81.59 rising to 90.56 Dice on cardiac MRI with
+10\% labels \citep{lei2025alhvr}; it does not target rare classes. Our port differed in optimiser (Adam with cosine to zero against
+SGD at a constant rate), supervised loss (weighted CE against CE plus Dice), batch (4 plus 4 against 8 plus 8), classes (24 against 4)
+and checkpoint (final step against best validation). The audit of 7 and 8 Oct found that the learning-rate-weighted mean of $\lambda$ was
+0.0156 against 0.0393 in the reference, that only 8.1\% of our learning-rate mass fell where $\lambda \geq 0.05$ (37\% of the
+reference's iterations), and that the logged ratio of weighted unlabelled to supervised loss rose from 0.7\% at step 2,000 to 89.4\%
+at step 19,000, when the learning rate was 0.6\% of its peak. The loss-off result ($+0.005 \pm 0.023$) was close to null by
+construction and showed neither a gain nor its absence; no wiring error was found. The fair port of 23 Oct is row AL1 of
+Table~\ref{tab:T21}.
+
+\subsection{Hanifi et al.\ 2025: P19 (14 Oct)}\label{sec:repro-p19}
+
+\citet{hanifi2025multiclass} train six encoder-decoder models for 29-class segmentation on BenchmarkEL \texttt{20221008} and report
+per-class IoU pooled over test cells, with group means over feature, defect and all classes. At the user's request, protocol P19 was
+locked on 14 Oct before any run, and the authors' released code ran unchanged at a fixed commit, with their TensorFlow and Keras
+versions, on the eight-GPU server that day: release split 553 / 70 / 72, no augmentation, input $416 \times 608$, weighted CE with
+their weights, Adam $10^{-3}$, batch 8, early stopping on validation loss. Six models ran at seed 0, and the headline VGG16-UNet also
+at seeds 1 and 2. Trainable parameters equal the paper's for all six models, and our per-class counts reproduce their evaluation
+function. Table~\ref{tab:repro-p19} uses their convention.
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\caption{P19 (14 Oct; locked protocol; not old era): VGG16-UNet of \citet{hanifi2025multiclass}, ours mean $\pm$ sd over 3 seeds
+against the paper's single run. Their convention: per-class IoU pooled over the 72 release test cells at $208 \times 304$, an absent
+class scoring 0 in group means. Not comparable with any number of this thesis (other split, labels, resolution and recipe).}
+\label{tab:repro-p19}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Quantity & Ours (3 seeds) & Paper (1 run) \\
+\midrule
+Mean IoU, 12 feature classes & 0.678 $\pm$ 0.020 & 0.663 \\
+Mean IoU, 16 defect classes & 0.246 $\pm$ 0.018 & 0.326 \\
+Mean IoU, the 12 defect classes present in our test & 0.328 $\pm$ 0.024 & 0.369 \\
+Mean IoU, 29 classes & 0.416 $\pm$ 0.015 & 0.494 \\
+Frequency-weighted IoU & 0.884 $\pm$ 0.011 & 0.879 \\
+Crack / inactive / gridline & 0.352 $\pm$ 0.008 / 0.469 $\pm$ 0.032 / 0.316 $\pm$ 0.028 & 0.335 / 0.550 / 0.297 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+The feature means, crack, gridline and the frequency-weighted IoU reproduce. The 16-class defect mean is lower mostly because our test
+set has no dead-cell or belt-mark cell, which score 0 here against the paper's 0.502 and 0.293; over the 12 classes present in both,
+half the remaining gap is the rings class (0.017 against 0.285). Inactive is lower (our test has 9 inactive cells). The paper's model
+ranking does not reproduce (MobileNet-UNet, 0.353 on present defect classes, is level with VGG16-UNet; the paper's margin of 0.031 is
+under two seed standard deviations of 0.018), and its 29-class mean cannot be recomputed from its own per-class figure (0.471 over 28
+classes, 0.455 over 29, against 0.494). Its 551 / 67 / 77 re-split is not released and its 4$\times$ augmentation is not described;
+neither like-for-like run (their model on our split, or ours on theirs) was made.
+
+\subsection{Re-scoring in the SEiPV-Net convention (13 Oct)}\label{sec:repro-seipv}
+
+SEiPV-Net \citep{eesaar2023seipv} reports mIoU 0.8604, F1 0.9426, Dice 0.8531 and IoU 0.7447 on the 50 legacy test cells, over 24
+classes, with no per-class numbers, no definition of the averaging and no code. On 13 Oct we re-scored 18 final legacy-split P-series
+checkpoints (Chapter~\ref{ch:legacy}) on the original \texttt{20211104} masks under several rules (read-only, one confusion matrix per
+test cell). For the supervised 100\% models (5 seeds) the class mean over classes present in test ground truth was 0.514, the
+pixel-weighted F1 0.933, and the per-image mean IoU with absent-and-unpredicted classes scored 1 was 0.840. In our reading (descriptive;
+their rule is not confirmed; the 50 cells overlap our training pool) SEiPV-Net's numbers resemble such background-dominated quantities: our pixel-weighted F1 moves only 0.012
+between 5\% and 100\% labels. Table~\ref{tab:T13b} repeats this for the final models.
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\caption{Reproduction summary. Rows from before 7 Oct are old era (first pipeline; test sets scored in every run; overlapping splits as
+later found); P19 and SEiPV used later code. Published percentages as printed.}
+\label{tab:repro-summary}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{@{}p{0.21\linewidth}p{0.14\linewidth}p{0.29\linewidth}p{0.30\linewidth}@{}}
+\toprule
+Paper and number & Published & Ours (convention) & Explained by \\
+\midrule
+Pratt 4c, mean of 3 medians & 0.28 & set A 0.303; U-Net++ pilots 0.280 to 0.295 (rule A) & absent-class rule (A inferred, not B); no gap \\
+Fioresi, crack F1 & 0.81 & 0.806 (supervised 100\%) & no deficit; data, split, model, selection differ \\
+PV-S3 supervised 20\% & 8.76\% & 0.230 at their budget, 0.559 at 12k steps (PV-S3) & under-trained baseline \\
+PV-S3 SSL 20\% & 67.00\% & v2 0.568 / 0.276; released code 0.828 / 0.050 (PV-S3 / standard) & convention blind to background false positives; background never predicted; test images in training lists \\
+SA-UNet++ gate & 0.95 vs 0.92 Jaccard & $-0.0036$, n.d. (standard) & other domain and object scale \\
+ALHVR, Dice at 10\% & 81.59 to 90.56 & loss-off $+0.005 \pm 0.023$, n.d. & loss barely applied; not a fair test \\
+Hanifi VGG16-UNet, crack & 0.335 & 0.352 $\pm$ 0.008 (theirs, 3 seeds) & reproduces; defect means lower from absent test classes \\
+SEiPV-Net mIoU / F1 & 0.8604 / 0.9426 & 0.840 / 0.933 (per-image, absent $=1$ / pixel-weighted F1) & undefined averaging; rule not confirmed \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\section{The audit and reset of 7 and 8 October}\label{sec:repro-audit}
+
+At 23:37 on 7 Oct the user asked for the handoff to be read and wrote (typing errors corrected, no quotation) that the model had been
+trained on 47 images and tested on the same 47 to reach 0.3 IoU on cracks, that something was definitely wrong, that the goal remained
+a method inspired by ALHVR that focuses on the rare classes, and that they suspected minor training misconfigurations behind the zero
+effect of the unlabelled losses. They asked for
+analysis of the datasets, models, issues and published papers before any new run. The audit of 7 and 8 Oct found:
+\begin{enumerate}
+  \item \textbf{The test set was scored in every run and used for choices.} The final-step test number was the primary readout, and
+    the comparisons of Table~\ref{tab:repro-phase1} were Welch tests on the 50 test cells (38 tests, uncorrected; one survives
+    Bonferroni). A claim that one supervised budget was best had already been withdrawn as selection on test. UCF-EL has no
+    validation split upstream, and Fioresi's official code validates on the test set.
+  \item \textbf{Overlaps.} 20 of 54 validation and 24 of 50 test cells came from modules with train cells. The external pool contained
+    55 labelled cells (48 train, 6 validation, 1 test), removed by exact match only, and kept 196 cells from validation modules and 88
+    from test modules. The first class weights used test labels. On UCF-EL the carved validation split sat inside the unlabelled pool,
+    and 25 to 44\% of test cells have the same physical cell, at another stress stage, in train. Section~\ref{sec:data-split} has the
+    later module audit.
+  \item \textbf{Metric issues.} Rule B was the primary Pratt rule though the paper's numbers exclude it; the PV-S3 convention hid a
+    runaway class; under class weights defect mIoU largely measured crack over-prediction. Two independent masks of one duplicated
+    training image agree at crack IoU 0.257, and a perfect mask shifted by 1~px scores 0.47 to 0.56, so strict crack-IoU differences
+    of $\pm 0.03$ could not be interpreted (Chapter~\ref{ch:data} measures this on the later label sets).
+  \item \textbf{Our SemiCE was neither PV-S3's nor a valid loss.} Protocol P2, locked before it ran at 00:44 on 8 Oct, probed the final
+    Mean Teacher checkpoint: 100\% of unlabelled pixels had two or more ``positive'' classes (background on 98.9\%, crack on 20.3\%
+    against a true share of about 0.19\%). The gradient was real (0.25 $\pm$ 0.35 of the supervised gradient) but nearly orthogonal to
+    it (cosine 0.07). Every Mean Teacher result of the period, on both datasets, tested this loss, not Mean Teacher. P2 also found that a
+    correct confidence rule (maximum probability $\geq 0.95$) would give crack 0.024\% of the confident pixels, about 8$\times$ under
+    its labelled share: the rare-class problem of pseudo-labels, measured on our data.
+  \item \textbf{ALHVR was barely applied} (Section~\ref{sec:repro-alhvr}).
+  \item \textbf{The lost implementation.} Phase~0 results could not be re-run, ``SSL 46.4'' was not reproduced, and the old label
+    subsets could not be recovered because their split files had never been committed.
+  \item \textbf{The recipe, not a bug.} Protocol P1 (overfit check, locked before running, 8 Oct) trained on 10 crack-containing train
+    cells for 3,000 steps and scored the same cells: crack IoU 0.612 with weighted CE and no augmentation, 0.861 with CE plus soft Dice,
+    0.381 with the training augmentation; masks were aligned exactly, and bf16 matched fp32 over 3 seeds (0.668 $\pm$ 0.031 against
+    0.656 $\pm$ 0.048). The training recipe, mainly blur and $\pm 5^\circ$ rotation on crack labels a median 1.75~px wide and
+    secondly the loss, not a code or data bug, explained ``0.3 on its own training images''.
+  \item \textbf{Design.} One labelled subset for every run, seeds pooled across machines with shared initialisation, and class weights
+    that changed with the subset, so label fractions were compared at different operating points.
+\end{enumerate}
+
+\paragraph{What the analysis-first restart changed.} The research repository was started at 23:59 on 7 Oct with the P1 and P2
+protocols committed before either ran; from then on every experiment had a protocol committed before its runs, and anything outside its
+rules was labelled exploratory. On 8 Oct a literature survey of 69 verified sources, first-hand analyses of both datasets and a
+situation report followed. The report concluded that neither SSL method had actually been tested, that strict crack IoU on BenchmarkEL
+already sat at the level of label noise, and that the field's evaluation was weak (hand-picked test sets or test sets reused for validation,
+conventions that drop background or take per-image medians, test images in training lists, under-trained baselines, single runs). The armed external-pool Mean Teacher
+queue, which would have tested SemiCE, was held at 01:18 on 8 Oct and never ran. The rules kept were: match optimiser steps, report
+final-step weights, never compare arms across machines, at least three seeds, one change per arm, and old-era numbers only in their own
+tables. UCF-EL was set aside for label-efficiency claims until a module-disjoint re-split, which was never made. The P-series that began
+on 10 Oct, on a corrected supervised recipe and revised labels, is Chapter~\ref{ch:legacy}; it still scored the 50 test cells in every
+run (Table~\ref{tab:T21}), which the benchmark protocol replaced (Chapter~\ref{ch:protocol}).

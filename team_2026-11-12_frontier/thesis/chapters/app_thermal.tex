@@ -1,0 +1,348 @@
+% Appendix: thermal (IR) imaging study, 4 Nov 2026 onward. Draft 27 Nov 2026 (writer id: thermal).
+% Every number and dated fact: chapters/app_thermal_NOTES.md (source path and line).
+% Points to Chapter 10, Section "What thermal imaging adds" (sec:deploy-thermal) for the A3 drone-thermal result; does not repeat it.
+\chapter{Thermal imaging study}\label{app:thermal}
+
+This appendix records the thermal (infrared, IR) imaging work from 4 November 2026 on: a one-day desk study, the public data
+sets that pair EL and IR images of the same modules, the ranked ideas and the three picks, the readouts of picks 1 and 3 on
+public data, and the later use of thermal in the severity track. The thesis reports the one thermal result that it uses, the
+module-level value of drone thermal on the DTU set A3, in Section~\ref{sec:deploy-thermal}; this appendix points to it and does not
+repeat it. All work here is from November 2026, after the benchmark protocol era began, so no old-era number appears. No IoU is
+reported. No model was trained on thermal data, nothing was run on a GPU, and no image of the legacy test set or of E1 was opened.
+
+\paragraph{Conventions.} Every verdict below is the one fixed in a frozen plan before its numbers were computed. A ``robustness
+check'' is printed beside a verdict and decides nothing; a ``reading'' is interpretation and is marked as ours. Several rules were
+changed after the data had been seen; each such change is marked ``post hoc''. The study used these measures, all at cell level unless
+stated:
+\begin{itemize}
+\item $\Delta T$: a cell's median temperature minus the module median of cell medians, in $^{\circ}$C.
+\item EL dark fraction: the share of a cell's inner pixels below 0.5 times the module median, after a small morphological opening.
+A cell with a dark fraction of 5\% or more is ``EL-dark''. This is a plain EL threshold, used in place of our model's inactive
+prediction because model inference on these sets was on hold (Section~\ref{sec:thermal-decisions}).
+\item AUROC (cooler): how well $-\Delta T$ ranks EL-dark cells above the others (0.5 is chance). $\rho$: Spearman rank correlation of
+$\Delta T$ with the dark fraction.
+\end{itemize}
+
+\section{4 November, morning: the brief and the desk study}\label{sec:thermal-desk}
+
+On 4 November a brief from a collaborator, dated 3 November, asked three questions: (1) are there public data sets that pair EL with thermal images (also
+EL with photoluminescence (PL), UV fluorescence (UVF) or visible images) of the same PV modules; (2) in what ways could thermal help
+our EL segmentation, including the industrial pattern ``drone IR for screening, EL for detail''; and (3) could the industry partner
+or IIT Mandi capture paired EL and thermal images of a few modules. The brief asked for an optimistic, generative search, with every
+claim tagged as measured in our files, taken from a source, or judgement. The rules were strict: a desk study first (web pages,
+dataset metadata and abstracts only, no downloads), no GPU, no outside contact, no reads of test or E1 data, and no request for
+hand labels. The work was split into roles: a data search, an idea list, a capture plan, a synthesis that ranked the ideas, and an
+independent checker that verified each cited fact. The team started at 11:56.
+
+\paragraph{What thermal can and cannot show.} EL shows where injected current reaches the silicon and recombines; thermal shows where
+power turns into heat, blurred by heat spreading. Table~\ref{tab:thermal-physics} gives the mapping the study wrote for our classes.
+A crack that isolates nothing (mode A in the scheme of K\"ontges et al.~\citep{kontges2011risk}; the mapping is ours) is expected to
+be thermally silent: Dhimish and Lazaridis found no hot spot on such cells~\citep{dhimish2021hotspots}, and in drone IR of
+lab-damaged modules cracked modules were ``difficult to distinguish from healthy ones'', at about 1\,$^{\circ}$C or less
+\citep{delpradosantamaria2025drone}. An area isolated by cracks should read cooler than its neighbours under forward bias in the
+dark (no current reaches it) and warmer in sunlight (it cannot export its power); both are device-physics expectations, not
+measurements. A study of aged modules from the European Commission's Joint Research Centre found that dark IR gives ``few local
+information'' while illuminated IR separates damage classes in line with EL \citep{berardone2017jrc},
+so a weak result in dark IR was not to be read as a verdict on illuminated IR. Drone IR at 3\,cm per pixel or finer resolves about 5
+to 16 or more pixels across a 156\,mm cell, a cell-level signal at best.
+
+\begin{table}[htbp]
+\centering\small
+\caption{What each modality is expected to show for our classes, as written in the desk study of 4 November 2026. ``Expected''
+entries are device-physics judgement; entries with a citation are from that source.}
+\label{tab:thermal-physics}
+\begin{tabular}{@{}p{3.2cm}p{2.3cm}p{3.0cm}p{3.6cm}@{}}
+\toprule
+Class & EL & Dark forward-bias IR & Sunlit (drone) IR \\
+\midrule
+Crack that isolates nothing & thin dark line & none expected & no hot spot~\citep{dhimish2021hotspots}; at most about 1\,$^{\circ}$C~\citep{delpradosantamaria2025drone} \\
+Inactive area (isolated by cracks) & dark region & cooler region expected & warmer region expected \\
+Scuff (not one of our classes) & long dark streak & unknown; silent if surface-only & unknown \\
+Shunt, potential-induced degradation & dark cell or spots & hot spot & warm cell \\
+Interconnect disconnection & dark region & & visible from 600~W/m$^2$~\citep{delpradosantamaria2025drone} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The net reading of the desk study (our reading, as the study wrote it): thermal is a cell-level signal for inactive area, hot spots
+and severity, and a weak or absent signal for crack lines and scuff; it sees the electrical consequence, not the crack. It could
+therefore help as a training-time teacher, a weak label, a triage stage or a severity output, but not as a crack-pixel input. Since
+neither BenchmarkEL, the legacy test set nor E1 has thermal images, any gain on our benchmarks would have to come from an EL-only
+model trained with paired data. The same reasoning meant thermal could not fix the E1 gap directly: the team's brief named that gap as
+missed cracks in half-cut cells with scuff streaks (the hard stratum of Chapter~\ref{ch:t3b}), and both thin cracks and, probably,
+scuff are thermally silent.
+
+\section{4 November, 11:57 to 12:53: the public paired data sets}\label{sec:thermal-data}
+
+The data search found no public set with pixel-registered EL and thermal images at cell level and crack or inactive masks. Three
+open sets, all under CC~BY~4.0, hold EL and IR images of the same physical modules (Table~\ref{tab:thermal-sets}); the pairing is by
+module, so cells must be aligned by our own registration. Together they hold about 215 modules with IR, about 203 with both EL and
+IR. The table also listed 5 EL plus PL rows, 4 EL plus visible or near-IR rows (only one of which, the staged-damage set of Polenghi
+et al.~\citep{polenghi2026data}, pairs the same cell), 12 thermal-only sets with defect labels, and 12 sets described in papers but not
+released.
+
+\begin{table}[htbp]
+\centering\small
+\caption{The three public sets with EL and IR of the same modules (4 November 2026). Sizes are of the full public folders; what was
+downloaded is in Section~\ref{sec:thermal-decisions}.}
+\label{tab:thermal-sets}
+\begin{tabular}{@{}p{1.9cm}p{3.6cm}p{3.3cm}p{4.2cm}@{}}
+\toprule
+Set & Modules & IR & EL and extras \\
+\midrule
+A1 (OSF csr6t; \citet{colvin2023degradation}) &
+10-year rooftop, mono Al-BSF, 36 cells in 3 $\times$ 12; 156 characterised, IR for 157 &
+dark forward bias at 3.39\,A (about 1 $\times$ Isc), 180\,s by the file names (the paper says 5 min); 240 $\times$ 320 matrices in $^{\circ}$C; 0.26\,GB &
+EL at 6 currents, 14.95\,GB; UVF 2.01\,GB; I-V; EL-derived per-cell dark I-V (158 files) \\
+A2 (OSF ar76v) & 19-year array, mono, 72 cells in 6 $\times$ 12; 42 modules, IR for 15 (the camera failed) &
+dark forward bias at 5.289\,A, 60\,s; 16 captures; 0.02\,GB & EL at 6 currents, 3.82\,GB; UVF; I-V \\
+A3 (DTU; \citep{delpradosantamaria2025drone}) & lab-damaged: cracks 8, interconnects 8, potential-induced degradation 6,
+bypass diode 7, glass 2, soiling 6 + 6; 43 in all &
+drone, at 8, 10, 14 and 20\,m and 200 to over 800~W/m$^2$; arrays 605 $\times$ 363 in $^{\circ}$C &
+one EL image per degraded module; STC I-V (V, I only); archive 642.6\,MB \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Three facts about these sets shaped everything after. A1 and A2 are old full-cell modules, with no half-cut cells and no scuff. A1's
+losses are ``primarily resistive'' according to its authors, so it is a series-resistance set more than an inactive-area set. A3 has
+half-cut modules only in its diode, glass and soiling groups, none with a crack. No set is known to show scuff. Our reading at the
+time: about 200 paired modules suffice for a feasibility study of cross-modal weak labels and a demonstration pipeline, not for
+training a fusion model.
+
+\section{4 November, 12:08 to 12:59: ideas, ranking and the top three}\label{sec:thermal-ideas}
+
+The idea list held 40 ideas (T01 to T40) in 8 families: EL and thermal fusion; cross-modal pretraining and distillation (a thermal
+teacher for an EL student); thermal and physics as weak labels; EL to thermal synthesis; thermal for unseen-module generalisation
+(including a ``thermal silence'' test for scuff); the industrial pipeline (IR screening, then EL); other modalities (EL against PL
+for inactive masks, UVF crack lines against scuff); and data and evaluation (for example a registered A1 cell set as a release).
+The list stated its own limits: no direct fix for the scuff and half-cut gap, no gain on test or E1 from thermal inputs, a weak
+record of pretraining in this project (Chapter~\ref{ch:legacy}), and cell-level, not pixel-level, signals. After the industry
+partner's situation became known (Section~\ref{sec:thermal-decisions}), a second list added 14 drone-only ideas (W01 to W14), such as
+an IR-ranked queue of modules for the first EL session with predictions frozen in advance, a module identity map with a half-cut
+survey, and a physics-rule anomaly score.
+
+The synthesis merged these with 7 ideas from the data and capture roles into 58 rows and scored each as value $\times$ probability
+$/\sqrt{\text{effort}}$; every score is judgement. The top ten were T26 (IR screening, then EL), T37, T15, W03, T27, W02, W01, T02,
+X3 and W11. The top three were chosen to spread risk:
+\begin{enumerate}
+\item \textbf{Pick 1, ``what thermal catches''}: IR screening against EL on A3, A2 and A1, with a shared gate G0 (is there a thermal
+signal at cell level?). Public data, CPU only, aimed at the deployment chapter. Kill if the top 20\% of IR-ranked modules hold at
+most 20\% of the EL dark area, or if G0 is null in both the dark and the sunlit condition.
+\item \textbf{Pick 2, the industry partner's drone thermal now and low-cost EL soon}: a visit day and a night, about INR 27,000 to
+30,000 of equipment.
+\item \textbf{Pick 3, inactive area from physics labels}: A1's EL-derived per-cell voltage as a label (T15), then thermal as a cell
+label (T02, T12), with the registered A1 set (T37) as an output; about 5.5 GPU hours only if gated.
+\end{enumerate}
+
+\paragraph{Capture plan.} The first capture plan was one day on 5 to 6 recycler modules (at least two half-cut and two with
+scuff-like streaks): EL at 0.1 and 1.0 times Isc, dark IR under the same bias, UVF and visible images, aluminium-tape fiducials for
+cell alignment, about INR 45,000 to 55,000 of equipment if an EL rig existed. Its point: an EL-dark streak with no thermal or UVF
+signature is a scuff candidate; EL-dark with a thermal anomaly is a crack or inactive candidate. When the partner turned out to have
+no EL rig, the plan was redone (Section~\ref{sec:thermal-decisions}): drone IR becomes a triage and pairing tool, not a crack
+labeller; and EL could come sooner from a modified low-cost camera with a 300\,W supply (about INR 25,000 plus lens and filter, its
+silicon sensitivity near 1,150\,nm unconfirmed). Drone EL would need a short-wave IR camera of about EUR 10,000 to 15,000 and was
+ruled out. The plan ended in 20 questions for the partner and IIT Mandi and 3 for dataset authors. None was sent, under the
+no-contact rule.
+
+\paragraph{Fact-check.} The checker's first pass, on the data, idea and capture files, covered 110 items: 73 correct, 31 fixed,
+6 unverifiable. Most fixes improved the picture; for example A1's IR turned out to be bias-matched forward-bias IR on about 157
+modules. The second pass, on the synthesis, covered 33 items: 13 correct, 18 fixed, 2 unverifiable. The top three did not change.
+
+\section{4 November, 12:39 to 13:47: decisions and downloads}\label{sec:thermal-decisions}
+
+At 12:39 a collaborator's decisions arrived. (1) The downloads for picks 1 and 3 were approved, CPU only: A3, an A2 subset
+and an A1 subset with the dark I-V files, about 1.2\,GB; a further 0.55\,GB A1 extension still needed approval. (2) The industry
+partner has only a drone thermal setup; its EL rig was 2 to 3 months away, so pick 2 had to be re-planned. (3) Three items stayed
+open: where our ensemble's inference may run, licences and release, and capture funding. Because of item 3, our model was not run on
+these sets in the 4 November study; picks 1 and 3 used the EL dark fraction instead.
+
+The downloads were selected by frozen rules before any content was read. A1: all 159 dark I-V files plus 10 modules drawn by a
+seeded rule stratified on a severity score (5 bins $\times$ 2 modules; the most severe module always included), 209 files,
+286,886,436 bytes. A2: all IR files plus one EL frame per IR module at the IR current, 47 files, 237,009,189 bytes. A3: the full
+archive, 642,610,942 bytes, extracted to 1,414 files. Every file was checked against the publishers' hashes by the data role and,
+independently, by the checker. On 12 November, after the laptop's operating system was reinstalled, all three manifests were
+checked again with no failure.
+
+\section{4 November, 12:55 to 13:45: pick 1, does dark IR flag EL-dark cells? (G0)}\label{sec:thermal-g0}
+
+\paragraph{Plan.} The plan was frozen at 12:55 to 12:56, before any data value for pick 1 was read, and amended six times, each
+amendment frozen before the numbers it governs. Verdict rule (R3): \emph{go} if AUROC (cooler) $\geq 0.8$ with the predicted sign;
+\emph{null} if $|\rho| < 0.3$ and AUROC $< 0.7$; anything else is ``between''. The fusion and weak-label families are killed only if
+G0 is null in both the dark condition (A1, A2) and the sunlit one (A3). Modules whose registration residual exceeded 5\% of a cell side
+were excluded. A regular cell grid looks the same flipped or rotated, so which IR cell is which EL cell needs outside evidence: the
+authors' own A1 IR crop is the raw frame rotated by 180$^{\circ}$, so rotation by 180$^{\circ}$ was fixed as primary for A1 and, by
+the same lab and rig (our judgement), for A2; the other three orientations were reported beside.
+
+\paragraph{G0 v1 (13:10).} Registration used the team's tool, version 0.2. Results are in Table~\ref{tab:thermal-g0}. A2 was
+``between'': the signal had the predicted sign (EL-dark cells cooler) but stayed below the go bar. A1 was null. Pooled was ``between''.
+Because the dark condition is not null overall, G0 could not be killed by A3 whatever A3 showed. The checker recomputed every value
+from the raw files with its own code and found a match. Robustness checks: on A2, the two vertically flipped orientations carried the
+signal and the two unflipped did not; the best of four orientations against a within-module permutation null gave $p = 0.001$ for
+both sets. Two weaknesses were noted at the time: the EL images are tone-mapped 8-bit previews of the raw files, so dark fractions are
+approximate, and IR cells are only 12 to 15 pixels across.
+
+\paragraph{Post hoc: the signal is in rows and edges.} After the v1 readout, the checker subtracted each module's row medians and then
+its column medians from $\Delta T$. The association vanished: AUROC 0.49 to 0.52 on A2 and 0.52 to 0.57 on A1 across orientations.
+This was first computed after the readout, so it decides nothing. Our reading, as the study wrote it: the dark-IR signal sits in row
+and edge structure, not in single cells; it fits real string or edge degradation but equally fits shared artefacts (convection,
+heat sinking at the frame, vignetting), and these data cannot tell them apart.
+
+\paragraph{The instrument problem and G0 v2 (13:43).} At 13:13 the pick 3 role found that the registration residual could pass while
+the grid had drifted, on A1 modules whose EL shows dark bands inside cells. The first G0 was therefore marked provisional, and a
+``G0 v2, post hoc instrument fix'' was run: the reviewed and frozen tool version 0.4.1, written visual criteria for the grid overlays
+fixed before any run, a numeric edge check, and per-module keep or drop calls made from overlays only and co-signed blind by the
+checker before any number. The verdict rules did not change. G0 v2 kept 4 of 15 A2 and 4 of 10 A1 modules and gave the same verdicts
+as v1 (Table~\ref{tab:thermal-g0}); the checker's recompute matched. With the six borderline modules added (a sensitivity set fixed
+before the run), pooled AUROC was 0.706. Row and column centring again removed the A2 signal (AUROC 0.525), so the v1 finding was not a
+misregistration artefact. On A1 the centred AUROC (cooler) was 0.343: EL-dark cells read slightly \emph{warmer} than their row and
+column peers. Our reading: that is the sign expected for series-resistance defects, which dissipate more heat under forward bias, and it
+fits A1's resistive losses; with 4 modules and 36 EL-dark cells it is descriptive only.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Pick 1, gate G0 on dark forward-bias IR (orientation rotated 180$^{\circ}$). Positives are EL-dark cells. Verdicts by the
+frozen rule R3. The row and column centred AUROC is post hoc for this arm and decides nothing; in v1 it was computed by the checker
+across orientations (range given).}
+\label{tab:thermal-g0}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{@{}llrrrrrl@{}}
+\toprule
+Run & Set & Modules kept & Cells / EL-dark & $\rho$ & AUROC (cooler) & Centred AUROC & Verdict \\
+\midrule
+v1 & A2 & 9 / 15 & 648 / 230 & $-0.550$ & 0.736 & 0.49 to 0.52 & between \\
+v1 & A1 & 7 / 10 & 252 / 50 & $-0.285$ & 0.689 & 0.52 to 0.57 & null \\
+v1 & pooled & 16 & 900 / 280 & $-0.451$ & 0.708 & & between \\
+v2 & A2 & 4 / 15 & 288 / 75 & $-0.515$ & 0.732 & 0.525 & between \\
+v2 & A1 & 4 / 10 & 144 / 36 & $-0.246$ & 0.621 & 0.343 & null \\
+v2 & pooled & 8 & 432 / 111 & $-0.403$ & 0.687 & & between \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\paragraph{Verdict of pick 1: not a go, not a kill.} The parts of pick 1 on A3 were never run in the 4 November session: the
+module-level screening table by defect class (R1), the screening recall against EL (R2, the pick's kill rule) and the sunlit cell-level
+arm (R3b). Only A3's structure was discovered, at 13:47 to 13:50; it showed that the module fills the whole IR array, so the outline rule
+used for A1 and A2 does not apply, and a sixth amendment set R1 to use the whole array with a 3\% inset.
+
+\section{4 November, 12:46 to 13:43: pick 3, physics labels for inactive area (A1 arm)}\label{sec:thermal-pick3}
+
+\paragraph{T15: is A1's EL-derived cell voltage a usable label?} The plan was frozen before any data value was read (version 1.2 at
+12:59, with disclosures; Table~\ref{tab:thermal-pick3}). Per cell, the deficit $d$ is the module median voltage minus the cell's
+EL-derived voltage at the highest current (3.392 to 3.393\,A). The frozen kill: coverage below 50\%, or no spread, meaning a robust
+standard deviation of $d$ below 2.57\,mV (0.1 thermal voltage) \emph{and} under 1\% of cells with $d$ of one thermal voltage or more.
+The second clause was met by construction (the largest module severity, 19.3\,mV, was on record before the read), so the kill rested on
+the spread clause alone, and the plan disclosed this before the read. Result at 13:00: 5,688 of 5,688 cells valid, robust standard
+deviation 3.26\,mV: \textbf{PASS, narrow}. The checker recomputed it from the raw files and matched. The label D90 ($d \geq 4.23$\,mV)
+marks 569 cells in 144 of 158 modules; no cell reaches one thermal voltage. Our reading: this is a diffuse, small resistive deficit,
+each module's dimmest tenth of cells at about 1.18 times EL dimming, not inactive area.
+
+\paragraph{T37: can the 10 A1 modules be registered between EL and IR at cell level?} Frozen rule: a module is excluded if its EL or
+IR inner residual exceeds 5\% of a cell; the pick is killed if more than 30\% are excluded. Version 1 (13:13) excluded 3 of 10, exactly
+30\%: a pass at the line. But the visual check showed one included module misregistered at a passing residual of 4.49\%, and UVF failed
+on 9 of 10. A post hoc version 2 (13:28) with the improved tool excluded 4 of 10 by the frozen 5\% rule and failed its own added
+grid-to-outline rule on all 10: \textbf{FAIL}. The checker then found the likely cause (the crop geometry is measured; its role in the
+failure is our reading): the authors' A1 IR file is a fixed window of 134 $\times$ 35 pixels, not the module, which spans about 145
+$\times$ 37 pixels, so the crop trims about 0.9 of a cell, and forcing 12 columns into it gave a pitch error of about 7\%. Any later A1
+work must register on the raw IR frame.
+
+A second problem with the label came from the A1 paper: the authors compute each cell's voltage from ``a bright pixel from each cell'',
+and ``cells with bright spots in high injection EL show higher RS values''. A degraded cell may thus have a \emph{higher} voltage, so
+the frozen ``lower is worse'' direction may be inverted for A1 (our reading).
+
+\begin{table}[htbp]
+\centering\small
+\caption{Pick 3 on A1 (4 November 2026). Rules frozen before data unless marked post hoc.}
+\label{tab:thermal-pick3}
+\begin{tabular}{@{}p{2.6cm}p{4.4cm}p{4.4cm}p{2.2cm}@{}}
+\toprule
+Step & Rule & Result & Verdict \\
+\midrule
+T15 dark I-V label (158 modules) & kill if coverage $<$ 50\% or robust SD($d$) $<$ 2.57\,mV & coverage 1.00 (5,688 cells); SD 3.26\,mV & PASS, narrow \\
+T37 v1 (tool v0.3; 10 modules) & exclude if residual $>$ 5\% of a cell; kill if $>$ 30\% excluded & 3 / 10 excluded (30\%); one included module visibly misregistered & PASS at the line \\
+T37 v1, UVF & same & 9 / 10 over 5\% & fails as built \\
+T37 v2 (tool v0.4; post hoc) & frozen 5\% rule plus grid-to-outline $\leq$ 20\% of a cell & 4 / 10 excluded by the 5\% rule; grid-to-outline over 20\% on all 10 & FAIL \\
+T02, T12 & & not run & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Decision (about 13:30).} The study's lead stopped the A1 arm at T37 as pre-registered (option A); T02 and T12 never ran. The
+reasons recorded were the T37 failure, the resistive and possibly inverted label, the row-level dark-IR signal of pick 1, and that a
+third, post hoc registration would add a forking path for a likely null. The arm was redirected to a new plan, pick3b on A3, frozen at
+13:43 before A3 was extracted: does the EL dark fraction track measured power loss (3b-R1), does drone IR track it and add to EL
+(3b-R2), and is there a cell-level IR signal by induced cause (3b-R3, interconnect modules primary). Discovery found no module type in
+the release, so under the frozen fallback the primary label became fill-factor (FF) loss; and one EL image per module, so the
+two-current label (3b-R4) was not run. No pick3b statistic was computed on 4 November.
+
+\section{4 November 13:51 to 12 November: abrupt end and the record}\label{sec:thermal-end}
+
+The session ended abruptly at about 13:51 on 4 November, cause unknown. Traces: null bytes in the pick3b plan file and in the team
+log, an empty file for an attempted version 1.1 of the pick3b plan (its content is lost; version 1 governs), and an empty A3 layout
+file. No readout file and no frozen copy was affected. At the end, the report to a collaborator had not been sent and the addendum to
+the summary was still a draft. Process faults found along the way were all logged and disclosed: times typed by hand ahead of the
+clock; registration self-test criteria set post hoc from synthetic results; a results file overwritten with post hoc fields and the
+frozen output restored byte-exact; a tool version run on real data before its review (registration only); one version announced and
+withdrawn; one visual-check miss caught by the checker; the false premise about the A1 crop; and a scope slip (all 157 A1 IR modules
+instead of the approved 10) caught before any download. On 12 November a session record and handbook chapter were written and
+independently verified, and the downloaded data were re-verified. The same evening, asked about thermal, we chose no direct
+thermal pick.
+
+\section{15 and 16 November: thermal inside the severity track}\label{sec:thermal-severity}
+
+On 15 November we asked about work on thermal images; it was taken up as part of the severity track, which ran the unread A3
+analyses of 4 November, not as a change of direction. Before any A3 statistic existed, a dated amendment to the pick3b plan was
+written (15 November, 22:28 to 22:34) and not changed after. It was needed because pick3b version 1 let its thermal readout reuse
+pick 1's cells only under an outline rule that pick 1's sixth amendment had replaced, and because pick 1's A3 module table was never
+written; both measures were computed by pick 1's frozen definitions. The IR score per module is the spread of the hot spots,
+$S_\mathrm{IR}$ = 99th percentile minus median of the array inside a 3\% inset, as the median over frames at 600~W/m$^2$ and above.
+Statistics used a module bootstrap of 2,000 draws.
+
+The readouts and their verdicts under the pick3b version 1 bars are in Table~\ref{tab:thermal-3b}. The non-diode numbers are the ones
+Section~\ref{sec:deploy-thermal} and Section~\ref{sec:deploy-power} report; the all-module rows are added here. On all 31 non-soiling
+modules the EL dark fraction is label-invalid against FF loss (its interval includes 0); our reading is that this is a property of the label: the bypass-diode modules have
+the most EL darkness and a large maximum-power loss, but FF loss does not register it. The per-cause medians of $S_\mathrm{IR}$ were
+0.87\,$^{\circ}$C for cracks, 1.40 for interconnects, 1.13 for potential-induced degradation, 1.57 for glass, 23.9 for bypass diodes,
+and 4.2 and 18.3 for the two soiling groups (descriptive). The cell-level readout 3b-R3 was not run: it needs pick 1's sunlit
+registration with a co-signed visual check, which was never done, and the track's brief forbade any cell-level thermal claim because the
+4 November study had found the dark signal row-level. An independent review on 16 November found no failing item in the track and
+reproduced its headline numbers; its wording fixes changed no number.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Pick3b readouts on A3, computed in the severity track (15 November 2026). Label: FF loss. Spearman $\rho$ with 95\% module
+bootstrap interval. Bars of pick3b v1: 3b-R1 label-valid if $\rho \geq 0.5$ with lower bound $> 0$, invalid if $\rho < 0.3$; 3b-R2
+``proxy'' with the same bars, ``adds to EL'' if $\Delta R^2 \geq 0.10$ with lower bound $> 0$, ``no added value'' if $\Delta R^2 < 0.05$.}
+\label{tab:thermal-3b}
+\begin{tabular}{@{}llrll@{}}
+\toprule
+Readout & Set & $n$ & Value [interval] & Verdict \\
+\midrule
+3b-R1, EL dark fraction & all non-soiling & 31 & $\rho$ +0.006 [$-$0.380, +0.425] & label-invalid \\
+3b-R1, EL dark fraction & non-diode & 24 & $\rho$ +0.636 [+0.236, +0.872] & label-valid \\
+3b-R2, $S_\mathrm{IR}$ & all non-soiling & 31 & $\rho$ $-$0.276 [$-$0.575, +0.114] & not a proxy \\
+3b-R2, $S_\mathrm{IR}$ & non-diode & 24 & $\rho$ +0.192 [$-$0.305, +0.626] & not a proxy \\
+3b-R2, added to EL & all non-soiling & 31 & $\Delta R^2$ $-$0.021 [$-$67.7, +0.248] & no added value \\
+3b-R2, added to EL & non-diode & 24 & $\Delta R^2$ +0.102 [$-$0.177, +0.401] & in between \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{What stays open, and what we learned}\label{sec:thermal-open}
+
+Not done as of the last record: pick 1's A3 screening readouts as frozen, the class table with its AUROCs (R1; the severity track gave
+only per-cause medians of $S_\mathrm{IR}$) and the recall readout (R2); the sunlit cell-level gate (R3b)
+and pick3b's 3b-R3; the A1 extension; the pick 2 visit and the questions to the partner; and the report to a collaborator, whose addendum
+remained a draft. Decisions on licences, release and capture funding stayed with a collaborator.
+
+Our reading of the study as a whole:
+\begin{enumerate}
+\item Thermal is an electrical-consequence signal. It belongs with inactive or disconnected area, hot spots and severity, not with crack
+lines or scuff; for scuff against crack, UVF, PL or visible images are better placed.
+\item Dark forward-bias IR on the public pairs carried row and module structure, not a cell-level flag (post hoc). The fair tests for a
+cell-level inactive flag, sunlit IR on A3 and lock-in IR, were not read.
+\item A data set's physics must be known before it is used as a label: A1 is a series-resistance set, and its bright-pixel cell voltage
+may invert the direction of ``degraded''.
+\item Instruments fail quietly: a passing residual can hide a drifted grid, and an author's crop need not be the module.
+\end{enumerate}

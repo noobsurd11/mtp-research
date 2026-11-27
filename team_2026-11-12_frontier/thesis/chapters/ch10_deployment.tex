@@ -68,9 +68,10 @@ our labelled crops, and anything on half-cut modules (cell cutting failed on the
 \label{sec:deploy-thermal}
 
 The industry partner owns a drone thermal camera, so we asked what drone thermal adds, at module level, on A3. The hot-spot spread (99th
-percentile minus median temperature) does not track FF loss for cracks, interconnect faults or potential-induced degradation ($\rho$
-0.19), and added to EL it shows no clear gain ($\Delta R^2$ +0.10, interval $-$0.18 to +0.40). It does flag bypass-diode faults and
-soiling strongly: 16 to 38\,$^\circ$C, against about 1\,$^\circ$C for the other defects. Thermal is therefore a screen for diode and
+percentile minus median temperature) is not a power-loss proxy under its pre-set rule on the 24 non-diode modules ($\rho$ 0.19,
+interval $-$0.31 to +0.63), and no added value over EL is shown ($\Delta R^2$ +0.10, interval $-$0.18 to +0.40). Its large values are
+the bypass-diode modules (16 to 30\,$^\circ$C) and most soiling modules (up to 38\,$^\circ$C; two near 1\,$^\circ$C), against 0.75 to
+1.7\,$^\circ$C for cracks, interconnect faults, potential-induced degradation and glass. Thermal is therefore a screen for diode and
 soiling faults, which EL-based severity does not cover; it is not a crack-severity measure. We make no cell-level thermal claim.
 
 \section{Inference cost}

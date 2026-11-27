@@ -732,7 +732,7 @@ test50 (v1.1) & opening \#19, secondary & C2 $-$ C1, relF1@2, all 50 & +0.0102 [
 \centering
 \footnotesize
 \setlength{\tabcolsep}{3pt}
-\caption[Severity track: what the segmentation output says about power loss]{\textbf{Severity track: what the segmentation output says about power loss.} Copied from results/severity/SEVERITY\_SUMMARY.md (every number reproduced by the reviewer per that file). No model was trained; external data used for inference and analysis only. a = predicted inactive area fraction. Tags: E (values); R and S as marked in the source.}
+\caption[Severity track: what the segmentation output says about power loss]{\textbf{Severity track: what the segmentation output says about power loss.} Copied from results/severity/SEVERITY\_SUMMARY.md (every number reproduced by the reviewer per that file); the drone-thermal row from results/severity/S4\_DTU\_THERMAL.md. No model was trained; external data used for inference and analysis only. a = predicted inactive area fraction. Tags: E (values); R and S as marked in the source.}
 \label{tab:T18}
 \begin{tabular}{@{}>{\raggedright\arraybackslash\hspace{0pt}}p{0.191\linewidth}>{\raggedright\arraybackslash\hspace{0pt}}p{0.210\linewidth}>{\raggedright\arraybackslash\hspace{0pt}}p{0.362\linewidth}>{\raggedright\arraybackslash\hspace{0pt}}p{0.191\linewidth}@{}}
 \toprule
@@ -743,7 +743,7 @@ Polenghi (2 mini-panels, 84 cumulative damage stages) & Spearman rho with power 
 ELPVPower (137 module instances, measured Pmpp; analysis only, terms unverified) & rho with power loss & rho 0.87 [0.80, 0.91] (129 modules). Predicted crack length does as well (0.89). The type order alone gives 0.83. Within T1, nothing the model sees tracks the loss (rho 0.02). & NULL by the pre-set rule \\
 ELPVPower, within T3 (59 modules) & inactive area against crack length & 0.93 against 0.83 & This was seen after the fact and is not a result. \\
 DTU A3 (lab-damaged modules, STC I-V; label = FF loss) & rho with FF loss & EL darkness on the 24 non-diode modules: rho 0.64 [0.24, 0.87]; on the 16 modules our cutting could handle: predicted inactive area rho 0.90, against 0.44 for EL darkness & Read it as: borderline, on a selected subset. \\
-Drone thermal (module level) & rho with FF loss; added to EL & rho 0.19; $\Delta$R2 +0.10, interval $-$0.18 to +0.40; diode and soiling faults 16 to 38 deg C, against about 1 deg C for the other defects & a screen for diode and soiling faults; not a crack-severity measure \\
+Drone thermal (module level) & rho with FF loss; added to EL & not a power-loss proxy (rho 0.19 non-diode); no added value over EL is shown ($\Delta$R2 +0.10, interval $-$0.18 to +0.40); S\_\allowbreak{}IR 16 to 30 deg C on diode modules, most soiling modules (up to 38; two near 1), against 0.75 to 1.7 for cracks, interconnects, PID and glass & a screen for diode and soiling faults; not a crack-severity measure \\
 Claim ``inactive area predicts power better than crack length'' &  & null on Polenghi, null on ELPVPower; on A3 borderline and on a subset & not supported \\
 \bottomrule
 \end{tabular}

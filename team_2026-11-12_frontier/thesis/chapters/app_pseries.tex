@@ -1,0 +1,496 @@
+% Appendix: the P-series record, 7 to 23 Oct 2026. Draft 27 Nov 2026 (writer id: pseries).
+% Every number and dated fact is traced in app_pseries_NOTES.md. Summarised in Chapter ch:legacy and Table tab:T21; this appendix
+% gives the per-experiment record and does not change any value or verdict given there.
+\chapter{The P-series: diagnostics and semi-supervised learning (7 to 23 Oct)}\label{app:pseries}
+
+This appendix records, experiment by experiment, the work of 7 to 23 Oct 2026: the diagnostics P1 to P7 that rebuilt the supervised
+baseline, the semi-supervised (SSL) series P8 to P17 with the audit that interrupted it, the exploratory P18, the per-cell
+evaluation E1 and its unseen-module extension, and the full ALHVR adaptation AL1. Chapter~\ref{ch:legacy} gives the short account
+and the lessons of the period, Table~\ref{tab:T21} the verdict rows and Appendix~\ref{app:t21} the arm codes. Nothing here changes a
+value or a verdict given there; this appendix adds the protocol, the arms, the result and the consequence of each experiment.
+Tables~\ref{tab:pseries-sum1} and~\ref{tab:pseries-sum2} at the end list all of them.
+
+\section{Conditions of every number in this appendix}\label{sec:pseries-conditions}
+
+\paragraph{Data and labels.} All runs use the legacy split of the BenchmarkEL \texttt{20211104} release (478 train, 54 validation, 50
+test cells, split seed 0). P1 to P5 examined models or probes trained on the 20211104 masks (v0 of Section~\ref{sec:data-labels}); from P6 on every run trains and
+scores on the revised E-SCDD masks \citep{hanifi2025escdd}, label set v1, except where P14 trains on v0 on purpose. A label
+fraction of 5, 10, 20, 50 or 100\% means 23, 47, 95, 239 or 478 labelled train cells; inactive area occurs in 2, 4, 9 and 20 of the
+first four sets. The in-domain unlabelled pool is the rest of the train split (455, 431, 383, 239 cells); the external pool holds
+11,938 CSIR and ARTS cells, 77\% CSIR and 23\% ARTS.
+
+\paragraph{Metrics.} Unless stated, IoU is the per-class IoU of crack or of inactive, pooled over all pixels of the 50 test cells
+(one intersection and one union per class over the set), at the argmax prediction of the final weights; it is not a class mean,
+and background does not enter it. relF1@2 is the pooled relaxed F1 at 2~px of Section~\ref{sec:data-f1}. AP is pixel average
+precision from score histograms with 1,000 bins. P6 and P7 decided on crack AP and inactive AP; from P8 on the three primaries are
+crack IoU, inactive IoU and crack relF1@2. All values are on a 0 to 1 scale.
+
+\paragraph{Decision rule.} Arms were compared by the locked rule of Chapter~\ref{ch:legacy} (P8 rule 1): a difference is BETTER or
+WORSE if it exceeds $\max(0.01,\, 2\sqrt{(s_A^2 + s_B^2)/3})$, and a comparison passes if one primary is better and none is worse.
+At 3 against 3 seeds this is about 2 standard errors, roughly a one-sided $p \approx 0.06$; the divisor stays 3 at 5 against 5 seeds,
+where it is about 2.58 standard errors. In tables a value is written as the difference followed by the rule's threshold in parentheses.
+Three robustness checks were reported beside each verdict and decided nothing: a paired image bootstrap over the 50 test cells
+(2,000 resamples, 95\% interval), the difference without the 3 cells with the most labelled pixels of the class
+(``top-3 out''), and a split by source (21 CSIR and ARTS cells, 29 CFVS, BMRK and SDLE cells).
+
+\paragraph{Training.} The reference recipe from P6 on (L3) is U-Net++ \citep{zhou2018unetpp} with an ImageNet ResNet-34 encoder
+\citep{he2015resnet,iakubovskii2019smp}, cross-entropy plus soft Dice on crack and inactive, label-safe augmentation (flips, quarter
+turns, brightness and contrast), 20,000 steps, labelled batch 8, Adam at $10^{-3}$ with weight decay $10^{-4}$, 200 warm-up steps and
+a cosine decay, final weights. SSL arms add an unlabelled batch of 8 and a Mean Teacher \citep{tarvainen2017meanteacher} with
+EMA 0.999, whose teacher is scored; the unlabelled loss weight is 0 for 2,000 steps and rises linearly to 1 over the next 2,000.
+Most runs used the training machine (RTX A6000). P1 to P5, the supervised references of P10, the replication and calibration arms
+of P12 and the six fine-tuning runs of P15 used the second machine (P15's pretraining run used the training machine). Seeds of the
+two machines were never pooled, and no verdict rule compared arms across machines; the P12 calibration contrast compared the two
+machines' supervised arms on purpose and decided nothing.
+
+\paragraph{What these numbers can and cannot show.} The limits of Section~\ref{sec:legacy-conditions} apply to every value below.
+test50 was scored in every run, overlaps the training pool (Section~\ref{sec:data-split}) and has 3 cells that hold 59\% of its
+inactive pixels; every test value is in-distribution with known leakage, context only. No P-series model was selected on test
+(final weights; validation-only choices), but the set was seen after every run. E1 values in this period were read without
+registration. ``Passes'' means a pass of the lenient locked rule, not a confirmation under the protocol of Chapter~\ref{ch:protocol}.
+
+\section{Restart and the diagnostics P1 to P5 (7 to 10 Oct)}\label{sec:pseries-diag}
+
+On 7 Oct the work restarted with analysis before any new method. Three doubts drove it: a supervised model scored about 0.3 crack
+IoU on the 47 images it had trained on, the old unlabelled loss seemed to have no effect, and the published numbers did not match
+ours. Every protocol from here on was committed before its runs (the first commit at 23:59 on 7 Oct), and anything outside a
+protocol was labelled exploratory.
+
+\emph{Conditions of P1 to P5.} These five experiments examined models, labels or training images of the old pipeline: the from-scratch U-Net++ with
+weighted cross-entropy and strong augmentation, the SemiCE Mean Teacher and the old ALHVR port, trained on the 20211104 masks on
+the legacy split, whose test cells were scored in every run and which overlaps the training pool, as later found. Their numbers are
+reproduction and diagnostic records of that pipeline, not valid results, and none of them is comparable with any later value.
+
+\paragraph{P1: overfit check (8 Oct).} Question: why did a supervised model reach only 0.325 crack IoU on its own 47 training
+images, while inactive reached 0.88? Ten crack-bearing training images were fitted for 3,000 steps by five arms that separate class
+weights, augmentation, loss and numeric precision (one run each, three seeds for the two precision arms), scored on the same ten
+images. Without augmentation, weighted cross-entropy reached 0.612 crack IoU (AP 0.929), plain cross-entropy 0.677, cross-entropy
+plus soft Dice 0.861; with the training augmentation, weighted cross-entropy reached 0.381 (AP 0.587). Verdicts of the locked rules:
+augmentation is the largest single cap (H2 met); class weights cost precision (0.62 against 0.81) but are not the main cap (H1 not met
+as written, partial support); label inconsistency does not cap fitting (H3 refuted); no pipeline bug, since loader masks equal the
+raw files in 10 of 10 images and fp32 against bf16 gave 0.656 $\pm$ 0.048 against 0.668 $\pm$ 0.031 over three seeds (H4 refuted).
+It led to label-safe augmentation and to a Dice term on held-out data (steps L1 and L3 of P6).
+
+\paragraph{P2: SemiCE gradient probe (8 Oct).} Question: why did the old Mean Teacher at $\lambda = 1.5$ score the same as its
+$\lambda = 0$ control? A forward and backward probe on 40 training batches of a final old Mean Teacher checkpoint (no optimiser
+step) measured the unlabelled gradient. The locked rule fired: 100\% of unlabelled pixels had at least two ``positive'' classes
+(threshold 20\%). The gradient was neither wasted on a common logit shift (share 0.041 $\pm$ 0.009 against 0.5) nor negligible
+(0.25 $\pm$ 0.35 of the supervised norm), but it pushed background, padding and crack up together. Every old SemiCE Mean Teacher
+result is therefore a test of that loss, not of Mean Teacher, and is recorded as invalid. A side measurement: a standard
+confidence rule (teacher probability $\geq$ 0.95) covered 77\% of unlabelled pixels, of which 0.024\% were crack, about 8 times
+below crack's labelled share. This rare-class starvation became the central SSL difficulty; a correct hard pseudo-label loss
+\citep{sohn2020fixmatch} replaced SemiCE, and the queued external-pool SemiCE runs were held and never started.
+
+\paragraph{P3: label versions (10 Oct, exploratory).} The revised E-SCDD masks were found on 10 Oct. Re-scoring final old models on
+both versions (no training, no protocol) moved test crack IoU by $+0.05$ to $+0.07$ for every model, for example 0.304 to 0.355
+for the 10\% model (3 seeds). Of 281 crack images, 129 had a changed crack mask, 34 of them in test, and the changes lay almost
+entirely within 2~px of the old labels: a cleaning (dotted labels joined and widened), not a new annotation. From P6 on every run
+trained and scored on the revised masks.
+
+\paragraph{P4: frozen-feature probe (10 Oct).} Linear probes on frozen features (trained on 47 cells with the old masks, 2,000 steps,
+two probe seeds; scored on pooled validation and test cells with revised labels) gave crack AP 0.029 for a random ResNet-50, 0.321 for ImageNet ResNet-50, 0.331 for
+ImageNet ConvNeXt-T and 0.183 for DINOv2 ViT-S/14 \citep{oquab2023dinov2}; inactive AP 0.097, 0.423, 0.383 and 0.384.
+Locked rule 1 fired (best pretrained above random by $+0.30$ crack AP), so masked-image pretraining and foundation-teacher
+distillation stayed on the list; rule 2 fired (DINOv2 below ImageNet ResNet-50 on crack), so ViT patch features were dropped for
+crack. It led to the ImageNet encoder of step L2.
+
+\paragraph{P5: pseudo-labels inside ALHVR's regions (10 Oct).} ALHVR \citep{lei2025alhvr} routes unlabelled pixels by the
+confidence of two networks into regions where both, one or neither is sure. On two old ALHVR runs and 378 unlabelled train cells,
+crack pseudo-labels in the ``neither sure'' region had strict precision 0.27 and relaxed (2~px) precision 0.64; at the confident end
+(ensemble probability $\geq$ 0.95) 0.59 and 0.96, but that rule covered only 8\% of ground-truth crack. Under per-class thresholds the
+relaxed precision in that region was 0.48 (recall 0.29), so locked rule 1 fired (borderline, below 0.5): hard crack pseudo-labels
+are unusable there. Rule 2 fired for inactive (strict precision 0.43); per-class thresholds moved 40 points of crack out of the
+region but cost precision elsewhere (rule 3 not met). Our reading: crack pseudo-labels find the right crack but miss its exact
+pixels. This was the measured motivation for the tolerant pseudo-label loss: a rare-class pixel of the teacher is credited if the
+student predicts that class anywhere within 2~px, confident head-class pixels away from rare targets get cross-entropy, and other
+pixels get no loss.
+
+\section{The corrected baseline P6 and the pilot P7 (10 Oct)}\label{sec:pseries-p6}
+
+\paragraph{P6: a one-change ladder.} Locked at 11:42 on 10 Oct; 21 runs (seeds 0 to 2) on the training machine. Steps at 10\%
+labels: L0 the old recipe (from-scratch 5M U-Net++, strong augmentation, weighted cross-entropy), L1 label-safe augmentation, L2 the
+ImageNet ResNet-34 U-Net++, L3 cross-entropy plus Dice; L0 also at 100\%, L3 also at 20\% and 100\%. Table~\ref{tab:pseries-p6}
+gives the results. Rule 1 on test AP: L0 to L1 helps both classes (crack AP $+0.020$, threshold 0.019; inactive AP $+0.028$,
+threshold 0.020); L1 to L2 and L2 to L3 hurt both; L0 from 10\% to 100\% has no detectable effect; L3 from 10\% to 100\% helps.
+Rule 2 picked the base of P7 by validation: L0 (score 0.480). Rule 3 measured L0's label headroom as $-0.001$ pooled AP, below
+0.02, so P7 became a pilot. An interim headroom of $+0.026$ had averaged the per-split APs and was replaced by the pooled value.
+
+Two exploratory findings mattered more than the verdicts. First, AP was not comparable across these changes: with the ImageNet
+encoder and Dice many labelled pixels score below 0.001, where AP cannot rank them (labelled crack pixels below 0.001: 3\% for L0,
+19\% for L2, 42\% for L3), while argmax crack IoU rose from L1 to L2 and stayed level to L3. From P8 the primaries became argmax
+IoU and relF1@2. Second, only L3 turned labels into scores: from 10\% to 100\% its crack IoU rose by $+0.075$ $[+0.029, +0.128]$ and
+inactive IoU by $+0.135$ $[+0.049, +0.205]$, while L0 gained nothing measurable. SSL can only close a gap that exists, so L3 became
+the supervised reference ``A'' of every later SSL experiment. A later correction (12 Oct): most of the L1 minus L0 crack IoU gain
+($+0.048$) came from one L0 seed that put 71,376 false crack pixels on the noisiest test cell; without that cell the gain is about
+$+0.010$.
+
+\begin{table}[htbp]
+\centering\small
+\caption{P6 ladder, test50, label set v1, mean $\pm$ sd over seeds 0 to 2 (training machine). Pooled per-class IoU and AP, argmax,
+final weights. In-distribution, known leakage, context only; not comparable with the protocol tables.}
+\label{tab:pseries-p6}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{@{}llllll@{}}
+\toprule
+Arm & crack AP & inactive AP & crack IoU & inactive IoU & crack relF1@2 \\
+\midrule
+L0 10\% (old recipe) & 0.553 $\pm$ 0.015 & 0.621 $\pm$ 0.003 & 0.319 $\pm$ 0.051 & 0.439 $\pm$ 0.015 & 0.746 $\pm$ 0.078 \\
+L1 10\% (label-safe aug.) & 0.574 $\pm$ 0.006 & 0.649 $\pm$ 0.017 & 0.368 $\pm$ 0.004 & 0.473 $\pm$ 0.014 & 0.806 $\pm$ 0.004 \\
+L2 10\% (ImageNet ResNet-34) & 0.519 $\pm$ 0.003 & 0.477 $\pm$ 0.018 & 0.392 $\pm$ 0.003 & 0.383 $\pm$ 0.024 & 0.806 $\pm$ 0.003 \\
+L3 10\% (CE + Dice) & 0.400 $\pm$ 0.004 & 0.302 $\pm$ 0.018 & 0.396 $\pm$ 0.003 & 0.294 $\pm$ 0.019 & 0.814 $\pm$ 0.003 \\
+L3 20\% & 0.433 $\pm$ 0.004 & 0.335 $\pm$ 0.042 & 0.398 $\pm$ 0.002 & 0.347 $\pm$ 0.043 & 0.822 $\pm$ 0.008 \\
+L0 100\% & 0.545 $\pm$ 0.003 & 0.612 $\pm$ 0.006 & 0.337 $\pm$ 0.004 & 0.391 $\pm$ 0.008 & 0.782 $\pm$ 0.008 \\
+L3 100\% & 0.593 $\pm$ 0.003 & 0.420 $\pm$ 0.018 & 0.471 $\pm$ 0.001 & 0.429 $\pm$ 0.011 & 0.876 $\pm$ 0.003 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\paragraph{P7: tolerant pseudo-labels on L0 (pilot).} At 10\% labels on the L0 base, three Mean Teacher arms ran with seeds 0 to 2:
+B hard pseudo-labels (confidence $\geq$ 0.95), C tolerant pseudo-labels, D the C pipeline with the unlabelled weight at 0. A detail
+that mattered later: the labelled images received the student's stronger photometric view. Verdicts (test AP): C minus D crack
+$+0.000$ (n.d.) and inactive $-0.032$ (worse), so C does not help; B minus D worse on both; C minus B better on both ($+0.024$ and
+$+0.064$). Width check: C's relaxed precision rose ($+0.031$), so its cracks were thinner, not fatter. All of it is a pilot, since L0
+had no label headroom. The only contrast robust over cells was C over B on inactive IoU, $+0.056$ $[+0.022, +0.086]$. It led to P8.
+
+\section{The SSL series on L3 with a shared batch-normalisation forward: P8 to P12 (10 to 11 Oct)}\label{sec:pseries-joint}
+
+From P8 the base is L3 and the primaries are crack IoU, inactive IoU and crack relF1@2. The base choice was made after seeing P6
+and is disclosed as post hoc; it applies equally to every arm.
+
+\paragraph{P8: P7's arms on L3, 10\% labels (locked 15:43, 10 Oct).} No unlabelled loss passed against its loss-off control: C minus
+D crack IoU $+0.009$ (threshold 0.010), inactive $+0.059$ (0.132), relF1@2 $+0.015$ (0.017); B minus D and C minus B were n.d. as
+well. The discovery was the pipeline handicap: the loss-off control D was below plain supervised A, robustly over cells, by
+$-0.013$ $[-0.028, -0.001]$ crack IoU and $-0.101$ $[-0.171, -0.031]$ inactive IoU. Scoring the student instead of the EMA teacher gave
+the same numbers, so the teacher was not the cause. Three differences remained: the stronger labelled view, batch-normalisation
+statistics computed over 8 labelled and 8 unlabelled images in one forward pass (``joint BN''), and the random data streams.
+
+\paragraph{P9: the 11,938-cell external pool, 10\% labels (10 to 11 Oct).} Question: was P8's null a matter of pool size? With the
+external pool, Cx minus Dx passed on inactive IoU ($+0.056$, threshold 0.046) with nothing worse, while Bx did not help and Cx did
+not beat Bx. The pass was the same size as P8's C minus D ($+0.059$) and passed only because seed spread was smaller; over cells its
+interval included 0, $[-0.013, +0.117]$, and it halved without the top 3 cells. The pool-size effect on the loss was $-0.005$,
+$-0.003$ and $-0.007$ on the three primaries. Two exploratory findings: swapping the pool moved the loss-off control (Dx minus D
+inactive $+0.094$ $[+0.003, +0.179]$), although with the loss off the pool can act only through batch statistics and data streams; and
+the external pool lowered crack on test cells of its own sources (Cx minus C on CSIR and ARTS cells $-0.019$ $[-0.041, -0.003]$).
+
+\paragraph{P10: 5\% labels, both pools (10 to 11 Oct).} No loss passed. In-domain, C5 and B5 (added by an amendment before any B5
+run) were n.d. against D5, with seed standard deviations near 0.1: seed 2 collapsed under both pseudo-label losses (crack IoU 0.142
+and 0.128) but not under its loss-off control, and in that seed the tolerant arm's rare-class pseudo-label share stayed at 0.001 to 0.002 from step
+4,000, a collapse visible in the training log without labels. With the external pool, Cx5 minus Dx5 was worse on relF1@2
+($-0.027$, threshold 0.024) and fattened cracks (relaxed precision $-0.065$); its crack IoU difference, $-0.012$ $[-0.026, -0.001]$, lay
+on the pool's own sources ($-0.065$ $[-0.092, -0.026]$ on the 21 CSIR and ARTS cells). The supervised references ran on the second
+machine and entered no rule; descriptively, the loss-off control sat far below them (D5 minus A5 crack IoU $-0.055$).
+
+\paragraph{P11: matched labelled view, 10\% labels (locked 00:11, 11 Oct).} The labelled images now received exactly the supervised
+arm's augmentation; batch normalisation stayed joint. The matched view removed most of P8's handicap (Dm minus D inactive $+0.101$),
+leaving a small crack handicap, Dm minus A $-0.007$ $[-0.016, -0.001]$, n.d. by the seed rule. The loss helped: Cm minus Dm passed on
+inactive IoU ($+0.071$, threshold 0.069) and relF1@2 ($+0.018$, threshold 0.013), robust over cells ($+0.071$ $[+0.020, +0.121]$ and
+crack $+0.009$ $[+0.003, +0.016]$). SSL beat supervised: Cm minus A passed on inactive IoU ($+0.071$, threshold 0.067) and relF1@2
+($+0.013$, threshold 0.012), and was credited because the loss also passed against its own control. Over cells only the relF1@2 part
+was robust, $+0.013$ $[+0.005, +0.024]$; the inactive part was not, $+0.071$ $[-0.009, +0.158]$. Cmx minus A passed the arithmetic on
+inactive but was not credited, because Cmx minus Dmx failed. P11 at 10\% labels is the one passed and credited ``SSL beats
+supervised'' result under a shared batch-normalisation forward.
+
+\paragraph{P12: matched view at 5\%, with a supervised reference on the same machine (locked 01:37, 11 Oct).} Cm5 minus Dm5 passed on
+crack IoU ($+0.023$, threshold 0.022) and relF1@2 ($+0.040$, threshold 0.027) and replicated on the second machine with fresh seeds
+3 to 5 ($+0.047$ and $+0.078$). Cm5 minus A5c failed: $+0.006$ (threshold 0.014), $+0.003$ (0.161) and $+0.015$ (0.022). The loss-off
+control was below supervised on crack, $-0.017$ $[-0.024, -0.010]$, n.d. by the seed rule; the matched view had already removed the
+labelled-view part (Dm5 minus D5 $+0.045$). Our reading at the time: the pseudo-label loss mostly offset a handicap of the joint
+forward, consistent with batch-normalisation mixing. The second machine's arms passed the arithmetic against its own supervised
+reference but, by the locked rule, could not rescue the failed rule on the training machine. A calibration contrast found the two
+machines' supervised 10\% arms $+0.004$ apart on crack IoU (n.d.).
+
+\section{The audit and P13 (11 to 13 Oct)}\label{sec:pseries-p13}
+
+On 11 Oct (11:24) the supervised baseline still beat SSL in most contrasts, and an audit asked whether the implementation or the
+design was at fault. The code checks found no bug: teacher and student views share geometry, the EMA covers the batch-normalisation
+buffers, the teacher is detached and in evaluation mode, the teacher is scored, and no unlabelled image is in test. The audit found
+two deviations from the methods that report gains. The student's perturbation was weak: the unlabelled loss stayed about 10 times
+below the supervised loss (0.004 against 0.038 at step 20,000 in one 5\% run) while the teacher was confident on 94 to 97\% of
+unlabelled pixels; segmentation consistency is reported to need mask-based mixing such as CutMix \citep{yun2019cutmix}
+\citep{french2020semiseg}. And batch normalisation
+was joint. Recomputing the batch-normalisation statistics of finished checkpoints on all 478 train cells lifted every arm by about
+$+0.01$ crack IoU but left the D5 minus A5 gap at about $-0.06$: the handicap was in the trained weights, so the forward pass during
+training had to change. In 100-step GPU smoke runs the student with a separate unlabelled forward (statistics frozen for unlabelled
+images) and loss weight 0 was bit-identical to supervised training (0 of 350 tensors differing), so from P13 the supervised run is
+the exact loss-off control.
+
+\paragraph{P13 protocol.} Locked at 11:51 on 11 Oct before any training run; Amendment 1 at 12:51, before any P13 run, restricted it
+to 5\% labels, dropped the loss-off arm (identical to supervised) and the second-machine arms, and gave the primary contrast five
+seeds, by the standing rule of at least 5 seeds for effects below 0.05 and a one-day deadline. Arms: A5c supervised (seeds 0 to 4,
+three from P12), Cs5 tolerant pseudo-labels with the separate forward (3 seeds), CsM5 Cs5 plus CutMix at probability 0.5 (5 seeds),
+BsM5 hard pseudo-labels with the separate forward and CutMix (3 seeds). No value was tuned. 13 runs on the training machine, 11 Oct
+13:30 to 21:04.
+
+\paragraph{P13 results.} The primary CsM5 minus A5c passed on 5 against 5 seeds: inactive IoU $+0.117$ (threshold 0.052), relF1@2
+$+0.033$ (0.025), crack IoU $+0.014$ (0.016, n.d.); both passing metrics were robust over cells, $[+0.042, +0.189]$ and
+$[+0.006, +0.055]$, and survived top-3 removal ($+0.103$, $+0.020$). Secondary: BsM5 minus A5c passed on all three ($+0.036$, $+0.113$,
+$+0.052$; crack $[+0.021, +0.048]$); Cs5 minus A5c passed on inactive only ($+0.105$); the CutMix effect CsM5 minus Cs5 was n.d. by the
+seed rule ($+0.010$ crack IoU) though robust over cells, $[+0.004, +0.017]$; tolerant minus hard under CutMix, CsM5 minus BsM5, was
+worse on crack IoU ($-0.022$, threshold 0.014); separate minus joint, Cs5 minus Cm5, was n.d. (Cm5's inactive sd was 0.139), with
+inactive $+0.084$ $[+0.030, +0.143]$ over cells. Every SSL seed's test inactive IoU (0.318 to 0.403) lay above every supervised
+seed's (0.192 to 0.284), while validation, with only 6 inactive cells, did not show the gain. No arm collapsed. CutMix raised the
+unlabelled-to-supervised loss ratio at step 20,000 (seed 0) from 0.46 (Cs5) to 0.77 (CsM5) and 0.98 (BsM5).
+
+\paragraph{Amendment 2 (13 Oct, post hoc).} Because BsM5's crack gain ($+0.036$) was below 0.05 on 3 seeds, BsM5 received seeds 3
+and 4 with a stopping rule fixed in advance (5 seeds in total, reported whatever they show). Both came in lower (0.317 and 0.327
+crack IoU). On 5 against 5, BsM5 minus A5c still passed on all three, $+0.029$ (0.016), $+0.107$ (0.044), $+0.045$ (0.023), crack
+$[+0.014, +0.041]$ over cells, and CsM5 minus BsM5 turned from worse to n.d. ($-0.015$, threshold 0.018), still below 0 over cells.
+Without the noisiest test cell (post hoc) CsM5 minus A5c crack IoU crosses its threshold ($+0.016$ against 0.014).
+
+\section{P14 and P15: label noise and encoder transfer (11 Oct)}\label{sec:pseries-p14}
+
+\paragraph{P14: offset-tolerant supervision.} Locked at 12:55 on 11 Oct; 9 runs at 10\% labels, seeds 0 to 2, training machine.
+The tolerant rule was applied to human labels (rare-class labels credited within 2~px, the Dice term kept exact) on old (v0) and
+revised (v1) masks, all scored on v1. Rule 1: the label-noise gap L3 minus L3o exists, $+0.082$ crack IoU (threshold 0.011) and
+$+0.081$ relF1@2, robust over cells ($[+0.046, +0.129]$) and in both source groups. Rule 2: tolerance recovered none of it (L3To minus
+L3o $-0.004$; at least $+0.041$ was needed): fails. Rule 3: tolerance on revised labels passed on inactive IoU ($+0.037$, threshold
+0.028), not robust over cells ($[-0.016, +0.093]$), with crack unchanged and crack AP lower (0.400 to 0.380). Scored on the old
+labels, the revised-label model still scored higher (crack IoU 0.351 against 0.332). Our reading: the old and revised labels differ by more
+than an offset a tolerant loss can absorb; the revision changed what is labelled, not only where.
+
+\paragraph{P15: UCF-EL encoder pretraining.} Locked at 12:55 on 11 Oct. A DeepLabV3+ \citep{chen2018deeplabv3plus} with an ImageNet
+ResNet-34 encoder was trained on all 9,562 UCF-EL train cells \citep{fioresi2022ucfel} (59,760 steps, 100 epochs); its 216 encoder
+tensors initialised our U-Net++ with a fresh decoder. No UCF-EL cell reached a near-duplicate correlation of 0.90 with our validation
+or test cells (maximum 0.79). Six runs on the second machine, seeds 0 to 2, each against that machine's ImageNet arm: at 5\%, gU5
+minus A5 was n.d. on all three (crack $+0.0096$ against 0.0100); at 10\%, gU10 minus gA10 was worse on all three, $-0.012$ (0.011),
+$-0.086$ (0.059), $-0.014$ (0.013), robust over cells. Later qualification (30 Oct, Section~\ref{sec:legacy-pf}): under the house
+fine-tune the deep encoder is erased in every ResNet-34 U-Net++ run measured, so in our reading P15 tested little more than the
+transfer of the first encoder layers; this was not measured on the P15 encoder.
+
+\section{P16: 20, 50 and 100\% labels (11 to 12 Oct)}\label{sec:pseries-p16}
+
+We asked on 11 Oct why SSL had only been run at 5 and 10\%, where inactive occurs in 2 or 4 labelled cells and the teacher is
+weakest. Part A (supervised references) was locked at 17:28, before any P16 run, and Part B (SSL arms) at 17:35, before any P16
+SSL run. The recipe was fixed
+by a rule on P13 \emph{validation} only: CutMix on if CsM5 scored above Cs5 on the mean of the three validation primaries. CsM5 scored
+0.3507 and Cs5 0.3652, so CutMix was off and P16 ran the Cs recipe (tolerant pseudo-labels, separate forward, matched view), which on
+P13 test was the weakest SSL arm on crack; test was not used for the choice. Arms (5 seeds each, training machine): S20 and S50 with
+the in-domain pool (383 and 239 cells), Sx100 with the external pool (there is no in-domain pool at 100\%), each against its supervised
+reference (seeds 0 to 2 of P6 pooled with new seeds 3 and 4 at 20\% and 100\%, after a pooling check).
+
+All three primaries failed, n.d. on all three metrics: S20 minus A20 $-0.040$ (0.069), $+0.029$ (0.052), $-0.070$ (0.111), with a
+width flag; S50 minus A50 $+0.039$ (0.088), $+0.006$ (0.034), $+0.053$ (0.135); Sx100 minus A100 $+0.028$ (0.091), $+0.003$ (0.025),
+$+0.040$ (0.122). Every bootstrap interval included 0. The large thresholds came from one test cell: in 4 of the 24 runs (2 of 15
+supervised, 2 of 15 SSL) the model labelled 15 to 31\% of the noisiest cell of all 582 as crack, 39k to 80k false pixels against a
+true crack area of 787~px, which lowered the run's crack IoU by 0.11 to 0.18. A post hoc check without that cell, not a locked rule,
+gave crack differences of $+0.002$, $+0.002$ and $-0.002$, all n.d.; the verdict does not change. At these fractions the unlabelled
+loss was 2 to 7\% of the supervised loss at step 20,000, against 46\% for Cs5 at 5\%. Our reading: for the recipe that was run, the
+inactive gain seen at 5\% shrank as labels grew and was not detectable from 20\% up.
+
+\section{E1: per-cell metrics and the unseen-module extension (11 to 13 Oct)}\label{sec:pseries-e1}
+
+Pooled IoU is dominated by a few cells and depends on the operating point, while the intended use needs per-cell quantities. E1
+definitions were fixed at 12:59 on 11 Oct, before any E1 number: crack tolerant F1 at 2~px (mean over cells with at least 20 crack
+pixels), crack length error from skeletons, crack false alarm (share of crack-free cells with at least 50 predicted crack pixels),
+inactive area error, inactive detection F1 and inactive cell IoU (per cell, mean over cells with at least 0.5\% inactive area). Two
+cell sets were scored: test50 and 106 cells of release \texttt{20221008} that are not among our 582 cells and not in the external pool,
+from 67 modules of which only one has cells among our 582 (101 CSIR, 5 BMRK; 32 with crack, 10 with inactive). These 106 cells are
+the E1 set of Section~\ref{sec:data-sets}. A disclosed amendment at 13:16, made after the first-pass extension numbers were seen,
+set four defect types that our taxonomy lacks (scuff, corrosion, brightening, star) to ignore; the first pass had counted crack
+predictions on them as false alarms.
+
+Against the criterion ``adopt as primary if the per-cell interval is narrower'', per-cell crack metrics were not more sensitive than
+pooled IoU or relF1@2 on test (contrasts excluding 0: 8 for tolerant F1 against 13 for crack IoU), so the pooled metrics stayed
+primary; inactive cell IoU separated more contrasts than pooled inactive IoU (9 against 7 on test, 17 against 10 on the extension).
+The extension is a different regime: L3 at 100\% fell from crack IoU 0.471 on test to 0.152, and from tolerant F1 0.80 to 0.41;
+L3 at 10\% from 0.396 to 0.080. Table~\ref{tab:pseries-e1} lists the extension reads attached to the experiments; all were
+secondary, decided nothing, and were read on the same 106 cells many times (Section~\ref{sec:legacy-taught}).
+
+\begin{table}[htbp]
+\centering\small
+\caption{E1 extension reads of the P-series (106 unseen-module cells, per-cell metrics unless stated, argmax, final weights,
+mean over seeds, paired cell bootstrap). Secondary, unregistered, repeated reads of the same cells; the E1 label set of
+Section~\ref{sec:data-labels} (release 20221008 masks, four defect types set to ignore). Pooled IoU here is per-class IoU pooled over the 106 cells.}
+\label{tab:pseries-e1}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Experiment, contrast & Metric & Difference [95\%] \\
+\midrule
+P11 Cm $-$ A (10\%) & crack false alarm & $+0.113$ $[+0.049, +0.186]$ (more false alarms) \\
+P11 Cm $-$ A & inactive cell IoU & $+0.071$ $[+0.001, +0.166]$ \\
+P12 Cm5 $-$ A5c (5\%) & crack false alarm & $+0.095$ $[+0.035, +0.162]$ (more false alarms) \\
+P12 Cm5 $-$ A5c & inactive cell IoU & $+0.212$ $[+0.065, +0.351]$ \\
+P13 CsM5 $-$ A5c (5\%) & inactive cell IoU & $+0.467$ $[+0.322, +0.592]$ (0.033 to 0.500) \\
+P13 CsM5 $-$ A5c & crack IoU, pooled & $+0.001$ $[-0.011, +0.012]$ \\
+P13 BsM5 $-$ A5c & crack relF1@2, pooled & $+0.046$ $[+0.018, +0.072]$ \\
+P13 Cs5 $-$ Cm5 (separate $-$ joint BN) & crack false alarm & $-0.095$ $[-0.141, -0.050]$ \\
+P14 L3 $-$ L3o (revised $-$ old labels) & crack IoU, pooled & $+0.030$ $[+0.012, +0.048]$ \\
+P14 L3T $-$ L3 & inactive cell IoU & $+0.088$ $[+0.005, +0.193]$ \\
+P15 gU5 $-$ A5 & crack tolerant F1 & $-0.034$ $[-0.068, -0.004]$ \\
+P15 gU10 $-$ gA10 & every metric & n.d. \\
+P16 S20 $-$ A20 & inactive cell IoU & $+0.179$ $[+0.011, +0.385]$ \\
+P16 S50 $-$ A50 & crack relF1@2, pooled & $+0.047$ $[+0.019, +0.077]$ \\
+P16 Sx100 $-$ A100 & every metric & n.d. \\
+P17 BsD5 $-$ BsM5 & crack false alarm & $+0.049$ $[+0.011, +0.089]$ \\
+AL1 AL5 $-$ A5 & every metric & interval includes 0 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+Our reading of the extension reads: under the shared batch-normalisation forward, tolerant pseudo-labels raised crack false alarms
+on unseen modules by about 0.10 of crack-free cells and improved inactive there; the separate forward removed most of the false-alarm
+rise, and separate-forward SSL lifted inactive on unseen modules strongly (CsM5 $-$ A5c inactive cell IoU $+0.467$).
+
+\section{P17, P18 and the checks of 13 Oct}\label{sec:pseries-p17}
+
+\paragraph{P17: a decoupled decoder.} Question: does BsM5's gain need the labelled decoder to fit pseudo-labels, or does it enter
+through the encoder? Of the two methods we considered on 13 Oct, one was a 3D method with three expert decoders and was not run; from
+SKCDF \citep{zhang2025skcdf} only its data-flow decoupling was taken,
+the component its own ablation credits with the largest share of its gain. In the arm BsD5 (BsM5 plus the switch, seeds 0 to 4, locked
+at 01:51 on 13 Oct) the student's unlabelled forward runs through a copy of the decoder that follows the labelled decoder by an
+exponential average of 0.99, so the unlabelled loss reaches only the encoder and that copy; pseudo-labels and scoring still use the
+EMA teacher. A built-in check passed: up to step 2,000, where the unlabelled weight is 0, every logged line of each BsD5 seed equalled
+BsM5's. Primary BsD5 minus BsM5: $-0.006$ (0.013), $+0.011$ (0.043), $-0.008$ (0.017), n.d.; the thresholds are 44\%, 41\% and 39\% of
+the BsM5 minus A5c gain, so a decoder share below about 40\% of that gain cannot be detected with 5 seeds. BsD5 minus A5c passed on
+all three ($+0.023$, $+0.117$, $+0.037$). Over cells, crack leaned negative, $-0.006$ $[-0.011, +0.002]$, with the lean in the CSIR
+and ARTS cells. BsD5's teacher ranked pixels less well (crack AP 0.310 against 0.367). A follow-up check found the EMA teacher and
+the student of BsM5, CsM5 and BsD5 within $\pm$0.005 on every metric at step 20,000, so the SSL gains are carried by the trained
+network itself.
+
+\paragraph{P18: the BsM recipe at 10 and 20\% (exploratory).} BsM was chosen after seeing P13's test cells, so P18 was labelled
+exploratory, although its protocol was locked at 17:31 on 13 Oct before any run. BsM10 (3 seeds) minus A10 passed the arithmetic on
+inactive only ($+0.132$, threshold 0.032; $[+0.043, +0.235]$ over cells); BsM20 (5 seeds) minus A20 on inactive only ($+0.060$,
+threshold 0.051; $[-0.018, +0.119]$ over cells), with one seed failing on the noisiest cell. Our reading: P16's ``no gain from 20\% up''
+depends at least partly on the recipe, at least for inactive; which of BsM's two differences from Cs matters was not identified. No
+locked verdict changed. On 14 Oct a published multi-class EL segmentation model \citep{hanifi2025multiclass} was reproduced with its
+released code (P19); that reproduction is a baseline record, not part of the SSL series.
+
+\section{21 to 23 Oct: twin test cells, SK1 and AL1}\label{sec:pseries-al1}
+
+From 21 Oct the remaining SSL questions were run by a small team of AI agents in which a reviewer agent, separate from the agent
+running the arms, had to approve each protocol before launch and recomputed every reported number from the raw per-run files.
+
+\paragraph{Twin test cells and a reduced pool.} The data review of 21 Oct found no newer labelled release and kept the legacy split
+with v1. It fixed a list of 7 test cells that are the same physical cell as a train cell (same source and module position, high-pass
+correlation 0.80 to 0.94, identical crack geometry); they hold 36,405 of 92,074 test crack pixels (39.5\%) and 12.1\% of test inactive
+pixels. Section~\ref{sec:data-split} gives the later, fuller count of shared cells. At 5\% every train twin was in the
+\emph{unlabelled} pool, so the 5\% SSL arms had trained on those cells and the supervised arm had not. Every later table was reported
+with and without the 7 cells and the noisiest cell, both lists labelled post hoc relative to the P-series. On re-scoring P13 and P17
+without the twins, BsM5 minus A5c still passed on all three, crack only just ($+0.019$, threshold 0.018); CsM5 minus A5c passed on
+inactive only; BsD5 minus BsM5 stayed n.d. We decided the same day that new protocols drop the 7 train twins from the unlabelled pool
+(455 to 448 cells) and re-run the SSL references, and that the earlier claims stay, with the ``without twins'' line beside them.
+
+\paragraph{SK1 and a fixed logit bias (21 to 22 Oct).} SK1 added SKCDF's auxiliary balanced head to the decoupled recipe at 5\% on
+the reduced pool (5 seeds per arm). The primary, BsDB5 minus BsD5, was n.d. in all four cell sets ($-0.0044$ (0.0100), $-0.0113$
+(0.0282), $+0.0044$ (0.0100)), and the SKCDF track was closed on 22 Oct. A post hoc inference-only check then subtracted the log class
+prior of each run's labelled cells from its logits ($\tau = 1$, fixed before any number): this alone raised crack IoU by $+0.015$ to
+$+0.023$ at 5\%. With the bias given to both arms, the SSL crack gain survived (BsM5 $+0.037$); with the bias given to the supervised
+arm only, BsM5's crack gain over it was n.d. ($+0.0135$, threshold 0.0159). This yardstick says the 5\% SSL crack gain is no larger
+than what a free bias gives the supervised model; it is not a verdict against SSL, and the inactive gains survived it.
+
+\paragraph{AL1: full ALHVR adapted to EL (protocol 21 Oct, read 23 Oct).} Question: at 5\% labels, does ALHVR \citep{lei2025alhvr},
+adapted to 2D EL cells on the L3 base with a schedule under which its unlabelled loss is actually applied, beat step-matched
+supervised training? The adaptation changed the old port in steps each grounded in a diagnostic run before the protocol: the L3 base,
+the P-series loss schedule, a separate batch-normalisation forward, feature noise only (the reference feature dropout zeroed 96 to
+99.7\% of encoder positions on this base), prototypes from the full-resolution decoder output (at the reference 1/8 resolution the two
+networks' prototypes were orthogonal, which explains the old port's 4.6\% crack accuracy), and class-normalised sharpening with a
+detached target. The maximum loss weight was matched to BsM5's unlabelled gradient share: 0.1 for ALHVR (the paper's value), 1.0 for
+cross pseudo-supervision \citep{chen2021cps}. Arms, 5 seeds each on the training machine, all
+SSL arms on the reduced pool: A5 supervised, AL5 ALHVR-EL, ALd5 without its prototype loss, ALdh5 that arm at weight 0.3, CPS5 plain
+cross pseudo-supervision on all pixels, CPSm5 the same with ALHVR's ``both sure'' region masked out (the one-change routing test), and
+BsM5 re-run as a reference. Checks: network A at weight 0 equalled supervised tensor for tensor; A5 equalled the earlier A5c seed for
+seed; all 35 runs reached step 20,000 (launched 21 Oct 15:20, last rescore 23 Oct).
+
+Table~\ref{tab:pseries-al1} gives the locked verdicts. The primary AL5 minus A5 was WORSE on all three primaries, with paired
+cell-bootstrap intervals below 0 on all three, and WORSE in all four cell sets (all 50, without the noisiest cell, without the 7 twins,
+without both). The routing test and the prototype-loss test were n.d.; every ALHVR-family arm was WORSE than supervised on inactive
+IoU; cross pseudo-supervision was n.d. against supervised and below BsM5. In a post hoc reading, the ALHVR-family losses more than
+halved inactive recall (A5 0.276, AL5 0.124), while cross pseudo-labels raised it (CPS5 0.400). Four weak predictions written before
+any AL1 score was opened all held; the inactive damage was not predicted. Our reading: on this base ALHVR's losses are active and
+hurt, neither of its modules adds anything in a one-change contrast, and plain two-network cross pseudo-supervision is level with
+supervised. This closed the ALHVR question that had run through the project since before 7 Oct; from 24 Oct the work turned to models
+trained on all labels (Chapter~\ref{ch:legacy}).
+
+\begin{table}[htbp]
+\centering\small
+\caption{AL1 locked verdicts, 5\% labels, 5 against 5 seeds, test50 (all 50 cells), label set v1, training machine. Difference
+(rule threshold) for crack IoU / inactive IoU / crack relF1@2; pooled per-class IoU, argmax, final weights, network A (EMA teacher for BsM5). SSL arms on the
+448-cell pool. In-distribution, known leakage, context only.}
+\label{tab:pseries-al1}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{@{}llll@{}}
+\toprule
+Contrast & Role & Difference (threshold) & Verdict \\
+\midrule
+AL5 $-$ A5 & primary & $-0.0169$ (0.0131) / $-0.1324$ (0.0761) / $-0.0312$ (0.0216) & WORSE on all three \\
+CPSm5 $-$ CPS5 & routing & $-0.0025$ / $-0.0125$ / $-0.0026$ & n.d. \\
+AL5 $-$ ALd5 & prototype loss & $-0.0079$ / $+0.0169$ / $-0.0167$ & n.d. \\
+ALd5 $-$ A5 & secondary & inactive $-0.1493$ (0.0631) & WORSE \\
+ALdh5 $-$ A5 & secondary & inactive $-0.1056$ (0.0539) & WORSE \\
+CPS5 $-$ A5 & secondary & $+0.0034$ / $+0.0736$ (0.0737) / $+0.0068$ & n.d. \\
+AL5 $-$ CPSm5 & method & $-0.0178$ / $-0.1935$ / $-0.0354$ & WORSE \\
+BsM5 $-$ A5 & descriptive & $+0.0274$ / $+0.1320$ / $+0.0412$ & passes \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}
+Robustness of the primary (reported, deciding nothing): crack IoU $[-0.0287, -0.0065]$, inactive IoU $[-0.1906, -0.0750]$, relF1@2
+$[-0.0536, -0.0118]$.
+
+\section{Summary of the P-series}\label{sec:pseries-summary}
+
+\begin{table}[htbp]
+\centering\footnotesize
+\caption{The P-series, part 1: P1 to P10 (7 to 11 Oct 2026). P1 to P5 examine old-pipeline models and labels (old pipeline, test set
+scored in every run, overlapping splits as later found; history only). P6 to P10: legacy split, label set v1, test50 primaries
+(in-distribution, known leakage, context only). Verdicts are those of each experiment's locked rule. TM, SM: training, second machine.}
+\label{tab:pseries-sum1}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.07\linewidth}>{\raggedright\arraybackslash}p{0.17\linewidth}>{\raggedright\arraybackslash}p{0.21\linewidth}>{\raggedright\arraybackslash}p{0.30\linewidth}>{\raggedright\arraybackslash}p{0.17\linewidth}@{}}
+\toprule
+Exp. & Date; labels; seeds; machine & Question & Result and verdict & Led to \\
+\midrule
+P1 & 8 Oct; 10 train images; 1 run per arm (3 for two); SM & why crack does not fit its own training images & no bug; augmentation is the main cap; CE + Dice fits to 0.861 & label-safe aug.\ (L1), Dice (L3) \\
+P2 & 8 Oct; probe, 40 batches; SM & does SemiCE move the student & rule fired: 100\% of pixels with $\geq$ 2 positives; old SemiCE results invalid & hard pseudo-label loss \\
+P3 & 10 Oct; re-score; exploratory; SM & does the label version matter & crack IoU $+0.05$ to $+0.07$ for every model & revised masks from P6 \\
+P4 & 10 Oct; probe, 2 probe seeds; SM & do frozen features carry the signal & rules 1 and 2 fired; ImageNet CNN best; DINOv2 weaker on crack & ImageNet encoder (L2) \\
+P5 & 10 Oct; offline; SM & are pseudo-labels usable in ALHVR's regions & rules 1, 2 fired (not usable in the unsure region); rule 3 not met & tolerant pseudo-labels \\
+P6 & 10 Oct; 10, 20, 100\%; 3; TM & ladder L0 to L3 & L1 helps; L2, L3 hurt AP; only L3 has label headroom; base by rule = L0, headroom $-0.001$ & P7 a pilot; L3 the reference \\
+P7 & 10 Oct; 10\%; 3; TM & tolerant pseudo-labels on L0 & pilot; C $-$ D n.d. / worse; C beats B & P8 \\
+P8 & 10 Oct; 10\%; 3; TM & the same on L3 & no loss passes; loss-off control below supervised & P9 to P11 \\
+P9 & 10 to 11 Oct; 10\%, external pool; 3; TM & does pool size matter & Cx $-$ Dx passes on inactive ($+0.056$), not robust over cells & P10, P11 \\
+P10 & 10 to 11 Oct; 5\%; 3; TM (+SM) & does SSL help more at 5\% & no loss passes; seed collapse; external pool worse on relF1@2 & P12, P16 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\begin{table}[htbp]
+\centering\footnotesize
+\caption{The P-series, part 2: P11 to AL1 (11 to 23 Oct 2026). Legacy split, label set v1, test50 primaries (in-distribution, known
+leakage, context only); P18 is exploratory; SK1 and AL1 use the 448-cell pool. TM, SM: training, second machine.}
+\label{tab:pseries-sum2}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.07\linewidth}>{\raggedright\arraybackslash}p{0.17\linewidth}>{\raggedright\arraybackslash}p{0.21\linewidth}>{\raggedright\arraybackslash}p{0.30\linewidth}>{\raggedright\arraybackslash}p{0.17\linewidth}@{}}
+\toprule
+Exp. & Date; labels; seeds; machine & Question & Result and verdict & Led to \\
+\midrule
+P11 & 11 Oct; 10\%; 3; TM & matched labelled view & Cm $-$ Dm passes; Cm $-$ A passes and is credited (inactive $+0.071$, relF1@2 $+0.013$) & P12, P13 \\
+P12 & 11 Oct; 5\%; 3; TM (+SM) & the same at 5\% & Cm5 $-$ Dm5 passes, replicates on SM; Cm5 $-$ A5c fails & the audit, P13 \\
+P13 & 11 Oct (Am.\ 2 13 Oct); 5\%; 5 v 5; TM & separate BN forward and CutMix & primary passes: inactive $+0.117$, relF1@2 $+0.033$, crack IoU n.d.; BsM5 passes on all three & P16, P17 \\
+P14 & 11 Oct; 10\%; 3; TM & tolerant loss on human labels & gap $+0.082$ exists; recovery fails; inactive pass on v1 not robust & label quality as the larger lever \\
+P15 & 11 Oct; 5, 10\%; 3; SM & UCF-EL encoder pretraining & n.d. at 5\%; WORSE on all three at 10\% & closed for this fine-tune \\
+P16 & 11 to 12 Oct; 20, 50, 100\%; 5 v 5; TM & SSL with more labels & n.d. at all three fractions & P18 \\
+P17 & 13 Oct; 5\%; 5 v 5; TM & decoupled decoder & n.d.; a share below about 40\% not excluded & nothing launched \\
+P18 & 13 Oct; 10, 20\%; 3, 5; TM & BsM at more labels (exploratory) & inactive passes the arithmetic at both & no locked change \\
+SK1 & 21 to 22 Oct; 5\%; 5 v 5; TM & balanced head on the decoupled recipe & n.d. in all four cell sets & SKCDF closed \\
+AL1 & 21 to 23 Oct; 5\%; 5 v 5; TM & full ALHVR-EL & WORSE on all three primaries in all four cell sets & ALHVR closed \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\section{What the record adds to Chapter~\ref{ch:legacy}}\label{sec:pseries-adds}
+
+The lessons of the period are those of Section~\ref{sec:legacy-taught}. The per-experiment record adds three points of method. First,
+a loss-off control can carry a handicap of its own: from P8 to P12 every unlabelled loss was compared with a control that sat below
+plain supervision, so ``the loss helps'' and ``SSL beats supervised'' had to be separate rules, and only P11 passed both under the
+shared forward. Second, in our reading the largest measured movements came from the labels and the pipeline rather than from the form of the
+loss: training on revised rather than old labels moved crack IoU by $+0.082$ (P14), and the matched labelled view moved the
+loss-off control's inactive IoU by $+0.101$ (P11), while tolerant and hard pseudo-labels were n.d. against each other at 5 against 5
+seeds (P13, Amendment 2). Third, the 50 test cells set the limits of every verdict: three cells decide inactive, one noisy cell can
+wreck a run, and the seven test cells of the 21 Oct list had trained-on twins in the 5\% unlabelled pool. These are the reasons the protocol of
+Chapter~\ref{ch:protocol} develops on module-grouped cross-validation of the pool.

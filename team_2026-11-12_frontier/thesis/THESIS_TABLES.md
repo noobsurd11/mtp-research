@@ -30,7 +30,7 @@ file, line and md5), `GAPS.md` (missing numbers, disagreements between sources, 
   carried by the full cells; the half-cut cells are n.d. test50 rows are context only (in-distribution, known leakage) and never a
   claim to beat Pratt 2023 or any published model.
 
-Last check run: OK: 31 tables, 344 rows, 1664 traced values, 76 source files
+Last check run: OK: 31 tables, 344 rows, 1668 traced values, 77 source files
 
 ## 1. Outline and proposed placement
 
@@ -61,7 +61,7 @@ Last check run: OK: 31 tables, 344 rows, 1664 traced values, 76 source files
 | T16a | Methods that did not pass: screens and closed arms (2 seeds unless stated) | 20 | appendix | ROWS1_READ.md, ROWS2_READ.md, W2A_READ.md, W2B_LACE_READ.md, W2B_LCI_READ.md, W1C_READ.md, U1_READ.md, PROTOCOL_v0.2.md |
 | T16b | Did not pass: 5-seed confirmations, the TTA increment, and E1 / test50 items that are n.d. | 12 | main | C3SWAD_READ.md, C3HRNET_READ.md, C3X_READ.md, final_tta_read/verdict.txt, final_opening_read/verdict.txt, FINAL_OPENING_READ.md, FINAL_OPENING_READ_ERRATA.md, final_opening_read/read_e1/read.txt |
 | T17 | Registered E1 openings #1 to #8 (all on the same 106 cells) | 8 | appendix | e1_openings.md, final_opening_read/verdict.txt |
-| T18 | Severity track: what the segmentation output says about power loss | 7 | appendix | SEVERITY_SUMMARY.md |
+| T18 | Severity track: what the segmentation output says about power loss | 7 | appendix | SEVERITY_SUMMARY.md, S4_DTU_THERMAL.md |
 | T19a | Dataset and label audit of the pool (P532, v1.1; 25 out-of-fold cv5v3 models) | 12 | appendix | REPORT.md, RESULT.md |
 | T19b | Robustness of the cv5v3 contrasts to label variants and to removing module groups | 4 | appendix | REPORT.md |
 | T20 | Claims: evidence, interval, status | 22 | main | final_opening_read/verdict.txt, FINAL_OPENING_READ.md, FINAL_OPENING_READ_ERRATA.md, final_tta_read/verdict.txt, C3HRNET_READ.md, C3SWAD_READ.md, REPORT.md, ROWS1_READ.md, C3_LEAK_READ.md, U1_READ.md, final_opening_read/read_e1/read.txt, RESULT.md, read.txt, PROTOCOL_v1.0.md, W1C_READ.md, SEVERITY_SUMMARY.md, verdict.txt, run.log |
@@ -605,7 +605,7 @@ Copied from team_2026-10-31_next/e1_openings.md. E1 was also read many times bef
 
 Placement: appendix. Tags: E (values); R and S as marked in the source.
 
-Copied from results/severity/SEVERITY_SUMMARY.md (every number reproduced by the reviewer per that file). No model was trained; external data used for inference and analysis only. a = predicted inactive area fraction.
+Copied from results/severity/SEVERITY_SUMMARY.md (every number reproduced by the reviewer per that file); the drone-thermal row from results/severity/S4_DTU_THERMAL.md. No model was trained; external data used for inference and analysis only. a = predicted inactive area fraction.
 
 | Evidence | Measure | Value (copied) | Status (copied) |
 |---|---|---|---|
@@ -614,7 +614,7 @@ Copied from results/severity/SEVERITY_SUMMARY.md (every number reproduced by the
 | ELPVPower (137 module instances, measured Pmpp; analysis only, terms unverified) | rho with power loss | rho 0.87 [0.80, 0.91] (129 modules). Predicted crack length does as well (0.89). The type order alone gives 0.83. Within T1, nothing the model sees tracks the loss (rho 0.02). | NULL by the pre-set rule |
 | ELPVPower, within T3 (59 modules) | inactive area against crack length | 0.93 against 0.83 | This was seen after the fact and is not a result. |
 | DTU A3 (lab-damaged modules, STC I-V; label = FF loss) | rho with FF loss | EL darkness on the 24 non-diode modules: rho 0.64 [0.24, 0.87]; on the 16 modules our cutting could handle: predicted inactive area rho 0.90, against 0.44 for EL darkness | Read it as: borderline, on a selected subset. |
-| Drone thermal (module level) | rho with FF loss; added to EL | rho 0.19; ΔR2 +0.10, interval -0.18 to +0.40; diode and soiling faults 16 to 38 deg C, against about 1 deg C for the other defects | a screen for diode and soiling faults; not a crack-severity measure |
+| Drone thermal (module level) | rho with FF loss; added to EL | not a power-loss proxy (rho 0.19 non-diode); no added value over EL is shown (ΔR2 +0.10, interval -0.18 to +0.40); S_IR 16 to 30 deg C on diode modules, most soiling modules (up to 38; two near 1), against 0.75 to 1.7 for cracks, interconnects, PID and glass | a screen for diode and soiling faults; not a crack-severity measure |
 | Claim "inactive area predicts power better than crack length" |  | null on Polenghi, null on ELPVPower; on A3 borderline and on a subset | not supported |
 
 ### T19a. Dataset and label audit of the pool (P532, v1.1; 25 out-of-fold cv5v3 models)

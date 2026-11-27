@@ -68,7 +68,8 @@ with shared batch-norm statistics). Encoder pretraining on the related UCF-EL da
 house fine-tune that Section~\ref{sec:legacy-pf} shows to erase the deep encoder), and an
 adapted region-routing SSL method \citep{lei2025alhvr} was WORSE on all three primaries in all four cell sets (AL1).
 
-Our reading: SSL helped this model at 5\% labels and no gain was detectable from 20\% labels up, for the recipe that was run. This
+Our reading: SSL helped this model at 5\% labels (and at 10\%, where P11's pseudo-label arm passed against supervised and was credited;
+Appendix~\ref{app:pseries}) and no gain was detectable from 20\% labels up, for the recipe that was run. This
 closes only those conditions (shared or separate batch-norm statistics, a ResNet-34 U-Net++, an unlabelled pool of these two
 sources, three to five seeds). It does not show that SSL fails on EL images. The work then turned to models trained on all labels (from 24 Oct),
 which is what the goal of this thesis concerns (Chapter~\ref{ch:intro}), and the SSL framing was later dropped.

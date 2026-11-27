@@ -1,0 +1,395 @@
+% app_build.tex: Appendix, How the benchmark was built and how the work was run (writer `build', 27 Nov 2026).
+% Every number and dated fact is traced in app_build_NOTES.md (source file, line, quote).
+% Results are in Chapters 4 and 6 to 9; this appendix gives the dated record and points there.
+\chapter{How the benchmark was built and how the work was run}\label{app:build}
+
+This appendix is the dated record of the benchmark build, from 12 to 23 November 2026, and a description of how the work was run.
+The results themselves are in Chapters~\ref{ch:data} and~\ref{ch:protocol} to~\ref{ch:t3b}; numbers appear here only where the
+timeline needs them. The period before 12 November is in Chapter~\ref{ch:legacy}. Times are Indian Standard Time as recorded in the
+team log. Section~\ref{sec:build-order} states which protocol elements were fixed before the results they govern and which were
+decided afterwards; the sections after it follow the calendar. We use three words with fixed meanings: a \emph{verdict} is what a
+rule written before the run says; a \emph{check} is printed beside a verdict and decides nothing; a \emph{reading} is our
+interpretation and is marked as such.
+
+\section{What was fixed before which result}\label{sec:build-order}
+
+Table~\ref{tab:build-before} lists the elements of the protocol in the order they were fixed, each with the first result it governs.
+Table~\ref{tab:build-after} lists what was decided after a result existed, with the result that was known at the time. Two
+facts frame both tables. First, the crack metric relF1@2 was first on the result card from the draft accepted on 12 November and in
+v0.2 of 15 November, with strict crack IoU printed beside it; that relF1@2 alone decides crack contrasts became a user ruling on 21
+November, after the three five-seed confirmation reads on cv5v3 (weight averaging, HRNet-W18, the combination) had been read, all
+of them with relF1@2 as their registered headline.
+Second, the margin rule $M=\max(0.01,\ 2\times\mathrm{SE})$ was fixed before the first A/A read; its values per machine and cell
+set were measured from that read and from each later A/A contrast, as the rule says.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Protocol elements fixed before the results they govern (dates 2026; all times IST). ``Before'' names the first result
+each element governs, and the earlier results it came after where they matter.}
+\label{tab:build-before}
+\begin{tabular}{@{}p{2.3cm}p{6.1cm}p{5.6cm}@{}}
+\toprule
+Fixed & What & Before \\
+\midrule
+12 Nov 19:56 & Draft v0.1 accepted as the base: five-fold split cv5v2, crack relF1@2 first, 2-seed screens and 5-seed rows, a
+test-opening ledger & the first training under the protocol (13 Nov 15:28) \\
+12 Nov 20:15 & Label set v1.1 for every new run (user) & the first training \\
+13 Nov 09:25 & Margin $M=\max(0.01,\ 2\times\mathrm{SE}$ of the A/A contrast$)$, per machine & the first A/A read (14 Nov 05:38) \\
+15 Nov 14:40 & Test-time augmentation score claim (three parts) & any test-time augmentation number (18 Nov 19:01) \\
+15 Nov, by 17:58 & Deciding contrast of the leave-source-out read U1 & any leave-source-out run (17 Nov) \\
+15 Nov 16:00 & Protocol v0.2: OP-A and OP-W decide, width band 0.85 to 1.15 pooled and per source, a screen pass is a promotion
+only & the screens read from 16 Nov on and every cv5v3 row \\
+15 Nov 22:14, 16 Nov 00:39 & Every 5-seed row on the corrected split cv5v3; 416 clean cells printed beside the 532 &
+the first cv5v3 run (armed 16 Nov 12:53) \\
+16 Nov & Leakage read: difference-in-differences, strata and the fixed reading ``not separated'' & any cv5v3 run; read 17 Nov 18:43 \\
+17 Nov 09:27, 09:30 & Five-seed confirmation rule (four values, five guards, three outcomes), for weight averaging, written after
+its screen read (08:41) & its 25 cv5v3 runs (armed 10:56); read 17 Nov 23:33 \\
+17 Nov 17:02 & Combination rule and the final-model fallback & any combination run (armed 18 Nov 05:01) \\
+17 Nov 17:33, 19:06 & Read plans of the train-time logit offsets and the inactive head & any of their runs \\
+18 Nov 00:22 & HRNet-W18 confirmation rule, written in the form of the 17 Nov rule & the HRNet read (18 Nov 06:00); but after its
+25 runs were armed (16 Nov 14:08, arms named, no read rule), after the descriptive seed-5 look of 16 Nov 21:06 and the
+weight-averaging verdict of 17 Nov 23:33, while the last runs of seeds 8 and 9 were training \\
+21 Nov 00:22 & relF1@2 alone decides crack contrasts; one final E1 opening with at most 3 candidates; test50 opening \#19 as a
+public table only (user) & the final models and every sealed prediction \\
+21 Nov 01:29 & Final rule: the C1 and C2 definitions, the CV5 test-time augmentation read & any new number of the final phase \\
+21 Nov 11:22:35 & E1 opening \#8 registered (rule md5 pinned): primary C2 $-$ C1, guards G1 to G4 & every sealed prediction
+(first sealed dump at 11:25:30) \\
+22 Nov 02:24, 03:13 & E1 opening \#9 registered (rule md5 pinned): primary ALL $-$ ZS, two guards & every few-shot training
+(armed 03:51) and every E1 read of the track \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Decisions taken after a result existed, with the result known at the time (dates 2026, IST).}
+\label{tab:build-after}
+\begin{tabular}{@{}p{2.3cm}p{5.8cm}p{5.9cm}@{}}
+\toprule
+Decided & What & Known at the time \\
+\midrule
+14 Nov 05:38 & PF stays the comparator of every arm, HOUSE a row of its own, the HOUSE rule; v1.1 kept as a scoring-side fix &
+the W1-C read: HOUSE $-$ PF strict crack IoU $+0.0173$ $[+0.0107, +0.0241]$ with relF1@2 inside $M$; PFV1 $-$ PF n.d. \\
+15 Nov 12:50 & Stage A rulings: relF1@2 stays the headline and the tolerance 2~px; post-hoc rules closed; the layered inactive
+head chosen & stage A (A1 to A6), the W1-C read and rows tranche~1 \\
+15 Nov 22:14 & Clean-cell columns, the corrected split cv5v3, a shorter unlabelled-pool list & the cv5v2 baselines, the first rows and
+the module audit \\
+18 Nov 00:22 & The HRNet rule (Table~\ref{tab:build-before}) & its cv5v2 screen pass, a one-seed descriptive look on cv5v3 and
+the weight-averaging verdict (NOT CONFIRMED, 17 Nov 23:33) \\
+19 Nov 01:11 & Final recipe: HRNet-W18 + weight averaging with the \texttt{swad} readout + D4 & the combination read on the same
+cells, so every CV5 number of the recipe is selection-biased; parts 1 and 2 of the cv5v2 TTA read (part 3 passed at 01:21) \\
+21 Nov 11:21 & D4 kept in C2 and C3 (user, ``keep D4, go ahead'') & the CV5 read that flagged D4 on the candidate (NOT
+CONFIRMED, NO LOSS); no E1 number \\
+21 Nov 14:35, 15:01 & The few-shot track run (user), with 3 seeds instead of the proposal's 2 (lead, approved by the user);
+its design is from the proposal of 12 Nov & the opening \#8 result, whose C2 predictions of seeds 5 to 7 are the track's
+zero-shot arm \\
+21 Nov 15:12 & Errata to the text of the opening \#8 result file (no number changed) & the opening \#8 result \\
+22 Nov 11:40 & No new experiments after the few-shot track & opening \#8 \\
+22 Nov 12:49 & Rulings R1 to R10 (Chapter~\ref{ch:protocol}) and the HOUSE rule kept & opening \#8, every CV5 read; not the
+few-shot result \\
+22 Nov 15:22 & The HOUSE rule applied to the C2 recipe (printed only) & the rulings of 12:49 \\
+23 Nov 13:34 & Dump sharing allowed for the last two sealed dumps of opening \#9; the last ran beside another user's process (a
+deviation from the reviewed strict lanes) &
+no few-shot number (read at 13:38) \\
+23 Nov 21:40 & Protocol v1.0 frozen & every result of this thesis \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Our reading: the order protects the two sealed results (Chapters~\ref{ch:e1_result} and~\ref{ch:t3b}), whose rules and candidates
+were fixed and md5-pinned before any sealed prediction existed. It protects the CV5 verdicts less evenly: the confirmation rules were
+written before their reads (those of weight averaging and of the combination also before their runs; the HRNet rule after its
+runs had been armed), but the choice of the split, of the clean-cell set, and of the final readout came after some CV5 numbers
+were known, and Chapter~\ref{ch:methods} labels the affected numbers.
+
+\section{12 November: the new direction, the brief and the draft protocol}\label{sec:build-12nov}
+
+On 12 November the user set a new direction with about one month left (to about 12 December): the guide wanted recently published
+work tried, so the task became to find the papers of the last five years that could raise the scores, to adapt
+them, and to close a hypothesis only after testing it. Later that day the user added a second aim, a
+trustworthy benchmark for a field that has none. The lead wrote a project brief for the agents (Section~\ref{sec:build-run}) and
+launched a paper sweep: 44 directions searched by scout agents returned 1,148 entries, 639 unique papers after merging. Family
+teams then gave every paper a status (run now, run after a gate, benchmark row only, protocol text, promote, parked with a reason,
+or void), so that none was left open. Two critics reviewed the proposed experiments (47 items: 25 go, 13 fix first, 9 dropped) and
+fixed an order: cheap CPU analyses first, then benchmark rows, post-hoc arms, the unseen-module instrument, and at most one trained
+inactive arm and one data arm.
+
+In parallel, a read-only survey of the code (the harness design) and a draft protocol (v0.1) were written. The draft found 816 real
+labelled cells (787 unique) across the three releases and E-SCDD, a mask of a test cell carried by a training cell, and that the
+same recipe scored strict crack IoU (pooled over the scored cells) 0.37 out of fold against 0.47 on the legacy test set
+(in-distribution, known leakage, context only).
+The lead accepted it at 19:56 with five decisions: the cv5v2 folds (4 cells moved from the earlier five-fold split), relF1@2
+first, a light post-evaluation, 2-seed screens and 5-seed rows, and a test ledger. At 20:15 the user decided: label set v1.1 for
+all new runs (Chapter~\ref{ch:data}), a few-shot track on E1 in the last week only, and new software only in isolated environments.
+The user also approved SKR2C, the last opening under the old protocol (E1 opening \#7, 14 November; Chapter~\ref{ch:legacy}).
+
+\section{13 to 15 November: first trainings, CPU analyses and protocol v0.2}\label{sec:build-13nov}
+
+\paragraph{First runs.} W1-G (PF on label set v1.1, cv5v2, folds 0 to 4, seeds 5 and 6, 10 runs) started on the second machine on
+13 November at 15:28; W1-G2 added seeds 7 and 8 and ended on 14 November at 08:34. W1-C (45 runs: PF seeds 5 to 9, HOUSE and PF
+trained on the older label set v1, seeds 5 and 6 each) was armed on the training machine at 17:02 and waited until other users freed
+GPUs. The first numbers under the new protocol were read on 14 November at 00:21. The W1-C read (14 November, 05:38) gave the
+first A/A margin on the training machine ($M=0.010$ for crack IoU, relF1@2 and mIoU-R13; 0.050 for inactive IoU), showed that OP-F
+is unstable under A/A, and produced two rulings: PF stays the comparator of every arm and HOUSE is a row of its own, with every
+in-distribution crack claim also printed against HOUSE (the HOUSE rule); and training on v1.1 instead of v1 changed nothing
+measurable, so v1.1 is a scoring-side fix. Benchmark rows tranche~1 (five models from EL papers and standard decoders, folds 0 to 4,
+seeds 5 and 6, 50 runs) was launched on the training machine on 14 November at 04:57, finished at 11:37 and was read on 15
+November, 09:55 to 10:06 (Table~\ref{tab:T15}).
+
+\paragraph{Stage A.} Six CPU analyses on existing predictions (A1 to A6) were reviewed (no item failed) and ruled on 15 November
+at 12:50: the screen rule held its error rate (0 of 15 A/A splits promoted on any headline metric); $M$ was 0.010 for the crack
+metrics and mIoU-R13 on both machines and 0.049 and 0.054 for inactive IoU; relF1@2 stays the headline and the tolerance stays
+2~px; per-source calibration, hysteresis and inactive post-hoc rules were closed; one trained inactive arm (the layered inactive
+head) was chosen; and the unlabelled-pool list was cut to 6,424 cells.
+
+\paragraph{Protocol v0.2 (15 November, 16:00).} A protocol editor wrote v0.2 (249 lines) from the draft, the measured outcomes and
+13 rulings, with every quoted number checked by search against its source; the lead added a section of rulings at 16:01. v0.2
+fixed what Table~\ref{tab:build-before} lists for that date, and it recorded ten open items and ten contradictions between source
+files. Among its rulings: a row whose 2-seed interval lies wholly below PF at OP-A and OP-W stays at 2 seeds; the few-shot track
+runs only after the one registered E1 opening and is marked \texttt{trained\_on\_e1}; and ``$M$ covers seed noise, not the choice of
+folds''. Stage B (the cross-fitted class-bias layer OP-C, the unseen-module development sets, the test-time augmentation module)
+was reviewed the same afternoon; one item failed (a set of synthetic half-cut views), was rebuilt and passed at 17:58. OP-C was
+adopted as the comparator for arms that shift class priors. The test-time augmentation rule and the deciding contrast of the
+leave-source-out read U1 were written on 15 November, before any number of either existed.
+
+\paragraph{Wave 2a and rows tranche 2.} Wave 2a (seven cards on the second machine: rare-class sampling, post-hoc weight EMA, the
+Jaccard metric loss with hard labels and with a soft band, weight averaging, selective projection decay and its control; 2 seeds
+each) was started by its waiter on 14 November at 08:36. It was stopped on 15 November at 09:49 by a signal from inside its terminal
+session (not on purpose), restarted at 12:43 with 36 runs left, and finished training on 17 November at 02:54. Rows tranche~2
+(SegFormer MiT-B2, HRNet-W18 U-Net++, a Skeleton Recall anchor; 30 runs) was armed on the training machine on 15 November at
+16:32.
+
+\section{15 and 16 November: split integrity and cv5v3}\label{sec:build-split}
+
+On 15 November, after a fix round had found the same physical module under two image ids in different folds for at least 16 pairs,
+a split-integrity builder established module identity over all 700 image ids from printed serial numbers and a masked feature
+matcher (Section~\ref{sec:data-split}); the matching rule was fixed in a commit at 18:44:41, four seconds before the full run. The
+lead ruled at 22:14: every read scores a clean-cell set beside the 532 cells (first 99 cells excluded: the 91 affected cells and
+8 of open pairs); the final 5-seed table is trained on a corrected split; E1 keeps its name with the limit ``supported, not
+proven''; and the unlabelled-pool list shrinks to 4,949 cells. On 16 November at 00:39 the lead chose among candidate splits: two
+of the lead's own rules could not both hold (no tie placement met both), so the balance rule was narrowed to what scoring uses, the SDLE
+module names in the file stems were used as links, and the clean-cell list grew to 116 excluded cells (416 clean). cv5v3 was
+published at 01:04 after a delta review passed: 285 groups, no physical module across folds, 47 cells moved, held-out folds of 107,
+110, 103, 101 and 111 cells.
+
+The baselines on cv5v3 (PF and HOUSE, folds 0 to 4, seeds 5 to 9, 50 runs) were armed on the training machine on 16 November at
+12:53, after a review passed with one fix round. Their launch request carried the leakage read, pre-registered before any cv5v3 run
+existed: a difference-in-differences of the score change from cv5v2 to cv5v3 on the affected cells against the clean cells, with
+the fixed reading that an interval holding 0 is ``not separated''. It was read on 17 November at 18:43: for PF on the 69 affected
+cells that kept their fold, relF1@2 $+0.0026$ $[-0.0092, +0.0174]$, not separated (Section~\ref{sec:data-split}).
+
+\section{16 to 19 November: screens, U1, confirmations and the TTA read}\label{sec:build-reads}
+
+Table~\ref{tab:build-reads} lists the reads of this period with their rule, machine and verdict; the numbers are in
+Chapter~\ref{ch:methods}. Three points of procedure matter for reading them. (i) The 25 HRNet runs on cv5v3 were armed on 16 November at
+14:08, right after the screen pass, with the arms named but no full read rule. On 16 November at 21:06 the lead read HRNet seed 5
+on cv5v3 descriptively, with no verdict, before the HRNet rule existed; the rule of 18 November 00:22 was written before the HRNet
+read, while the last runs of seeds 8 and 9 were still training, and copies the form of the weight-averaging rule ``so the two
+confirmations are judged alike''. (ii) The combination run
+(HRNet-W18 + weight averaging, 25 runs) was prepared on 17 November before either single confirmation was read, because the GPUs of
+the training machine were free; its rule named the best confirmed single arm as fallback, and when neither single arm was
+confirmed, that fallback had nothing to name. How to choose a final model then became a question for the students. (iii) The
+cv5v2 TTA read on the second machine passed parts 1 and 2 of its claim on 18 November (19:01 to 19:09) and part 3 on 19 November at
+01:21, making D4 with scales the first method to pass its full registered score claim (a non-inferiority claim) on this benchmark; the cv5v3 TTA read of
+Chapter~\ref{ch:methods} came later, under the final rule.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Reads of 14 to 19 November 2026. TM = the training machine (RTX A6000), SM = the second machine (RTX PRO 4500); seeds
+per arm; screens on cv5v2, rows on cv5v3, U1 on its leave-source-out folds; scored on label set v1.1; 20,000 steps per run. Verdicts as written by the rule of the time.}
+\label{tab:build-reads}
+\begin{tabular}{@{}p{2.5cm}p{2.4cm}p{2.8cm}p{2.0cm}p{4.0cm}@{}}
+\toprule
+Read & Runs & Rule written & Read on & Verdict (where) \\
+\midrule
+W1-C & TM, PF 5 seeds, HOUSE and PF on v1, 2 seeds & draft and brief & 14 Nov 05:38 & HOUSE rule; v1.1 a scoring fix
+(Ch.~\ref{ch:methods}) \\
+Rows tranche 1 & TM, 5 rows, 2 seeds & draft and brief & 15 Nov 09:55 & no row above PF (Table~\ref{tab:T15}) \\
+Rows tranche 2 & TM, 3 rows, 2 seeds & v0.2 screen rule & 16 Nov 14:10 (preliminary), 19:14; 17 Nov 15:30 & HRNet-W18 SCREEN PASS; Skeleton Recall
+and SegFormer SCREEN FAIL \\
+Wave 2a & SM, 7 cards, 2 seeds & launch request and gates & 17 Nov 08:41; 19:43 & weight averaging SCREEN PASS; others fail,
+null or descriptive (Table~\ref{tab:T16a}) \\
+Leakage & TM, PF 5, HOUSE 2 seeds, both splits & 16 Nov, c3base request & 17 Nov 18:43 & not separated
+(Section~\ref{sec:data-split}) \\
+U1 (leave-source-out) & SM, 12 runs: PF 4, Skeleton Recall 2 seeds & 15 Nov, stage B & 17 Nov 18:46 & U1 is a guard, not a
+primary \\
+Weight averaging & TM, 25 runs & 17 Nov, c3swad request & 17 Nov 23:33 & NOT CONFIRMED (Table~\ref{tab:T6}) \\
+la\_ce & SM, 10 runs & 17 Nov 17:33, 19:06 & 18 Nov 05:58 & DROP for this offset vector \\
+HRNet-W18 & TM, 25 runs & 18 Nov 00:22 & 18 Nov 06:00 & NOT CONFIRMED, gain with failing guards \\
+Inactive head & SM, 10 runs & 17 Nov 17:33, 19:06 & 18 Nov 15:44 & PARK \\
+TTA (cv5v2) & SM, existing PF runs & 15 Nov, stage B & 18 Nov 19:09; 19 Nov 01:21 & score claim PASS \\
+Combination & TM, 25 runs & 17 Nov 17:02 & 18 Nov 19:36 & NOT CONFIRMED, gain with failing guards; no candidate named \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Two jobs of the period failed: the soft-band run \texttt{w2a\_softband\_f1\_s6} was stopped by the memory guard
+on 16 November at about step 12,000 (Section~\ref{sec:build-incidents}) and retrained from step 0 on 17 November, which is why the
+soft-band arm was read last; and one dump of the 80 in the TTA chain failed its format check (a synthetic half-cut view of one PF
+run; that set decides nothing under the TTA rule). Rows tranche~2's last dump waited from 16 November for a GPU held by another user and ran on 17 November
+at 15:12 with a reviewed rescue tool on another GPU of the same model.
+
+\section{19 to 21 November: dataset audit, final models and E1 opening \#8}\label{sec:build-final}
+
+\paragraph{Dataset audit.} On 19 November at 01:07 the user asked for a quantitative audit of the dataset's faults. An audit agent
+wrote a plan with axes and fault thresholds fixed before measuring (its md5 pinned), measured on CPU from existing masks and
+predictions, never read a sealed label, and wrote its report on 20 November at 02:20. A label-error check by three AI raters ran on
+21 November under a protocol frozen at 04:55, with 60 blind calibration items mixed into 124 candidate panels and the key sealed; it
+was scored at 05:21. The findings are in Chapter~\ref{ch:data}.
+
+\paragraph{Final rule and models.} At 01:11 on 19 November the user approved the final model (HRNet-W18 + weight averaging +
+D4) and a public-score package; a final rule was to be written before any new number and to state that the \texttt{swad} readout
+was chosen after the combination read. The agents stopped at 01:30 on an account's weekly limit, and no agent worked until 20 November at
+21:33. On 21 November at 00:22 the user decided the end game (Table~\ref{tab:build-before}). The final rule and launch package were
+built by 01:29 (85 jobs in one queue: 10 full-pool trainings and 75 D4 dumps of existing cv5v3 runs), reviewed twice, and passed at
+05:00 with two conditions (a code proof with 0 failures, and free disk), both met before arming at 05:23. From 06:25 the full-pool
+runs failed at their final validation (found at 07:09): the in-sample monitor cells used the v1.1 masks with ignore pixels, which the strict
+validation loader refused, so the step-20,000 checkpoint and the weight-average finalize were never written. A fix (F2) with an
+exact resume from the step-18,000 checkpoint was built, smoked on CPU (an interrupted and resumed run bit-equal to an uninterrupted
+one) and reviewed; all 10 full-pool models were complete at 09:13 after resuming from step 18,000. On the GPU the resume is
+deterministic only up to the usual non-deterministic atomics, so a resumed run can differ slightly from an uninterrupted one; this
+is disclosed. The CV5 TTA read under the final
+rule ran once at 08:00 to 08:13 and raised FLAG D4 for the user (D4 on PF CONFIRMED, on the candidate NOT CONFIRMED, NO LOSS;
+Chapter~\ref{ch:methods}); at about 11:21 the user ruled ``keep D4, go ahead''.
+
+\paragraph{Opening \#8.} The opening rule and its read code were built from 21 November at 00:24, reviewed in four rounds (FIX,
+FIX, FIX, PASS at 08:42; one blocking item was strict-IoU lines printed without their convention band) and pinned by md5. The
+registration script ran at 11:22:35 from a clean shell and wrote the registration record; the ledger rows of E1 opening \#8 and
+test50 opening \#19 were added before any deploy or dump. The sealed dumps ran on the training machine from 11:25:30 to 11:58:14
+with sharing off, were relayed to the archive, and were read once from 12:02:30 to 12:06:09: C2 $-$ C1 crack relF1@2 (pooled over the
+106 E1 cells, OP-A) $+0.0430$ $[+0.0013, +0.1043]$, CONFIRMED (Chapter~\ref{ch:e1_result}). At 12:09 every sealed file was removed
+from the training machine after its relayed copy was verified. An errata file of 15:12 corrected wording in the result text; the
+result file itself stays unchanged so that its pinned md5 holds.
+
+\section{21 to 23 November: opening \#9, the rulings and the freeze}\label{sec:build-freeze}
+
+\paragraph{Opening \#9.} At about 14:35 on 21 November the user chose the few-shot track and accepted that E1 becomes training data
+for its models; at 15:01 the user approved 3 seeds instead of the proposal's 2. The rule, frozen folds, lists and read code were
+built on synthetic data only, and the review passed in round 2 on 22 November; registration 1 was written at 02:24. Two minutes
+later the queue's code check refused a correct deploy because it compared two md5 lists in different line orders. The fix was
+written as Amendment 1, reviewed (round 3 PASS), and registration 2 was written at 03:13 with the same rule md5; registration 1 was
+kept read-only, and no E1 file had reached the training machine in between. Training was armed at 03:51 and ended at 19:13 (33 of
+33 runs). The sealed dumps were refused at 19:19 because no GPU was free under the strict lanes; after a reboot of the second
+machine they ran from 23 November 08:40:46 to 13:35; dump sharing was allowed for the last two, and the last of them ran beside
+another user's process (Table~\ref{tab:build-after}). The
+read ran once at 13:38:00 to 13:39:27: ALL $-$ ZS pooled out-of-fold crack relF1@2 $+0.2213$ $[+0.0977, +0.3504]$, CONFIRMED
+(Chapter~\ref{ch:t3b}).
+
+\paragraph{Decisions of 22 November.} At 11:40 the user answered five questions: no new experiments after the few-shot track; a
+HOUSE $-$ PF read on CPU; a release of lists and code only; stopping four idle queues; and a thesis outline. The protocol writer
+produced v1.0 (505 lines) by 12:00; an independent reviewer returned FIX in round 1 (six blocking items, among them the entry class
+of a fixed-view test-time augmentation and an understated licence record) and FIX in round 2 (three one-sentence edits), closed by
+the lead's diff check at 12:39. The rulings R1 to R10 of Chapter~\ref{ch:protocol} were put to the user, who answered at 12:49:
+``all as recommended, D3 = a, run the HOUSE read''. The HOUSE $-$ PF read (12:08) and the HOUSE rule on the C2 recipe (15:22) are
+printed intervals without a verdict (Section~\ref{sec:protocol-house}). The GPU latency of the E1 candidates was measured that
+evening on an idle GPU of the training machine (Section~\ref{sec:deploy-cost}).
+
+\paragraph{Freeze.} Protocol v1.0 was frozen on 23 November at 21:40, once its conditions were met: the few-shot result, the GPU
+latency, the related-work table pinned by md5, the review closed, and the rulings recorded. The freeze edit added 65 lines and left
+v0.2 unchanged. The release package (lists and code, Chapter~\ref{ch:protocol}) was staged locally on 22 November and checked for
+credentials, private paths, host and user names; it had not been made public at the time of writing.
+
+\section{Thesis production}\label{sec:build-thesis}
+
+\begin{itemize}
+  \item \textbf{Tables.} From 21 November a writer agent built the thesis tables with a source file, line and md5 for every value
+    (\texttt{SOURCES.tsv}); the lead re-ran the generator on 22 November at 18:32 (31 tables, 343 rows, 1,625 traced values from 71
+    source files).
+  \item \textbf{Related work.} The related-work table (Appendix~\ref{app:related}) was done on 22 November at 11:53: 22 papers read in
+    full, every number in it with a location, quote and file md5.
+  \item \textbf{Inference cost.} CPU timing on the second machine on 22 November (12:14) and GPU latency on the training machine at
+    17:50 to 18:04 (Chapter~\ref{ch:deployment}).
+  \item \textbf{Chapters and figures.} Four writer agents drafted the chapters from 23 November at 08:43; two figure agents drew the
+    figures from result files; every chapter has a NOTES file with the source of each number.
+  \item \textbf{Trace pass.} An independent agent checked every number on 23 November (12:05 to 12:40): 2,552 numbers in 13 files, no
+    wrong value, 0 unsourced; 34 numbers in 8 items were context mismatches, fixed by a follow-up.
+  \item \textbf{Compile.} No TeX engine was on either machine until the user installed one; the first PDF (23 November, 21:49) had
+    128 pages, and a layout fix (formatting only, 0 of 2,033 table cells changed) gave 126 pages with no overfull box.
+  \item \textbf{Audit.} On 27 November three independent agents checked about 1,100 values; 23 small fixes followed, and the name of
+    the industry partner was removed from the chapters.
+\end{itemize}
+
+\section{How the work was run}\label{sec:build-run}
+
+\paragraph{Machines.} Two machines did the work. The \emph{training machine} is a shared lab server with eight RTX A6000 GPUs and
+one shared login; every 5-seed row, the full-pool final models and the few-shot models were trained there, and so were the screens of
+rows tranches 1 and 2. The \emph{second machine} has one RTX PRO 4500 Blackwell GPU (32~GB), shared with another group's
+process; it held the orchestrating session from 14 November, the repository, the CPU reads, the ledgers and the relays, and it trained
+the W1-G baseline, wave 2a, wave 2b, the leave-source-out runs and the TTA dumps. A network archive took finished relays from 18
+November. A read never mixes machines: each machine has its own PF baseline and its own A/A margin. Before 14 November the
+orchestration ran on the students' laptop, which rebooted six times on 13 November; it was then moved to the second machine.
+
+\paragraph{Agents and the launch discipline.} The work was carried out by AI coding agents under the students' direction: a lead
+agent that ran the log and made rulings, builder agents that wrote code, rules and launch requests in their own git worktrees, and
+independent reviewer agents that were given the files and the rules, not the builder's conclusions. The rule was that every launch
+is built by one agent, reviewed by another and started by the lead; the HRNet-W18 five-seed queue of 16 November was armed by the
+lead from reviewed job lines without a separate review (no new code, card or data). When files changed after a fix report and
+before the review, the review was held and the reviewed set restored (17 November). Questions that change the science (data terms, the sealed openings, the final model, the rulings) went to the students,
+and the log quotes their answers.
+
+\paragraph{Queues and run records.} Runs went through a queue with a job list pinned by md5, a deploy directory built by
+\texttt{git archive} with a \texttt{CODE.md5} file, and per-start checks: the rendered configuration equal to the method card
+(``config OK''), the start line of the trainer naming the expected cell counts (``startup line OK''), and a lane rule. On the
+training machine, until 17 November a run started only on a GPU where other users held under 4~GB; from 17 November at 15:28 the
+students allowed one of our training runs beside another user when at least 20,480~MiB were free on two checks at least 30~s apart,
+and a dump when 10,240~MiB were free. A memory guard put the queue on HOLD and stopped our newest run when free GPU memory fell too
+low (on 16 November, on the second machine, it fired at 1,972~MiB free), and disk guards set a HOLD below a free-disk floor.
+Every finished run wrote a \texttt{RUN.md5}; a relay copied it to the second machine or the archive and checked the md5s at both
+ends before the source was removed. Predictions were written as one compressed file per cell (class map, crack margin, crack and
+inactive scores) with a manifest naming the code commit, checkpoint md5, step, device and readout, and one CPU scorer read them all.
+
+\paragraph{Registration and the ledgers.} A read that decides was written as a rule before its runs, reviewed, and pinned by md5 in
+its launch request or in the log. A sealed opening adds three things. The rule and a registration record (rule md5, job-list md5,
+sealed-file manifests) are written by a script from a clean shell, and the ledger row is added before any sealed prediction; the
+sealed images are staged only for the opening and removed after it; and the read script refuses, before it creates its output
+folder, unless the registration exists with the logged md5, the rule's md5 is unchanged, the read code is at the pinned commit with
+no change, every expected prediction was relayed, and every manifest matches (expected run, set, seed, step 20,000, readout,
+checkpoint md5, one GPU model). Dumps of the few-shot models carry \texttt{trained\_on\_e1: true}. Two ledgers record every opening:
+one for E1 (nine openings, 1 to 23 November; Table~\ref{tab:T17} lists the seven before \#8) and one for test50 (19 counted
+openings, the last a public table). Each row states the rule, models, primaries, registration time, opening time and result
+file. The paper sweep has its own ledger of 639 papers, each with a status (and a reason when parked).
+
+\paragraph{Data and code versioning.} Data roots (images, masks, split lists) were built once per split and pinned by a manifest
+md5; the same full-pool root was checked identical on both machines before the final training. Code changes were opt-in, made in a
+new worktree, and proven not to change existing outputs (an identity run of the unchanged recipe, or a byte comparison of the
+dumps). Reads ran from a clean worktree at a pinned commit, checked before and after. A result file is not edited once its md5 is
+recorded; corrections go into an errata file that names the lines it supersedes.
+
+\paragraph{Traceability of the thesis numbers.} Every table value comes from \texttt{SOURCES.tsv} (table, row, column, value,
+source file, line, source md5, and the formula when derived), and every chapter number from its NOTES file. The trace pass of 23
+November tested each table value as a substring of its cited line and each prose number against the files its chapter cites.
+
+\paragraph{Incidents.}\label{sec:build-incidents} Table~\ref{tab:build-incidents} lists the main interruptions and faults of the period
+and what was done. Our reading: none of them changed a registered rule; the resume of the full-pool models and the shared GPU of the
+last few-shot dump are the disclosed deviations.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Interruptions and faults, 13 to 23 November 2026 (IST).}
+\label{tab:build-incidents}
+\begin{tabular}{@{}p{2.6cm}p{6.0cm}p{5.4cm}@{}}
+\toprule
+When & What & Consequence \\
+\midrule
+13 Nov & Usage caps stopped the agents; the laptop rebooted six times & orchestration moved to the second machine (14 Nov 01:22) \\
+14 Nov after 06:31 & The orchestrating process ended (cause unknown) & about 27 h with no read or launch; queues ran on \\
+15 Nov 09:49 & Wave 2a stopped by a signal from inside its terminal session & restarted 12:43 from the reviewed job list \\
+16 Nov 02:06 & An account's weekly limit stopped two workflows & resumed 11:58; workflows restarted with notes \\
+16 Nov 04:27 to 06:38 & Another process filled the second machine's GPU; the guard stopped our newest run & that run retrained from
+step 0 (17 Nov); GPU idle 05:05 to 12:01 \\
+17 Nov 14:58 & Files of a lane-rule change altered after the fix report & review held; reviewed set restored before launch \\
+18 Nov 09:34 & Disk HOLD on the training machine during the combination run & old files moved to the archive; run resumed \\
+19 Nov 01:30 to 20 Nov 21:33 & Weekly limit; the second machine rebooted (20 Nov 02:21) & no run lost; agents restarted \\
+21 Nov from 06:25 (found 07:09) & Full-pool trainings failed at their final validation (ignore pixels in the monitor cells) & fix F2 with an exact resume
+from step 18,000; reviewed \\
+22 Nov 02:26 & Few-shot queue refused a correct deploy (line order of two md5 lists) & Amendment 1 and registration 2 \\
+21 Nov 00:24 to 04:24; 21 Nov 15:56 to 22 Nov 00:53 & Agents waited at a workspace trust prompt & re-spawned or answered by
+the user; work delayed \\
+23 Nov 03:58, 14:40 & The second machine rebooted twice & sessions restarted; partial edits checked against backups \\
+\bottomrule
+\end{tabular}
+\end{table}
