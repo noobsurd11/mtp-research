@@ -38,6 +38,8 @@ def main() -> int:
     ap.add_argument("--dump-gate", type=int, default=6200)
     ap.add_argument("--extra", default="")
     ap.add_argument("--commit", default="", help="full commit of the job's deploy (11th field; cq_x4.sh queues)")
+    ap.add_argument("--readouts", default="", help="comma list of further readout keys (10th field) instead of the "
+                    "automatic swad, e.g. swad,swad_bridge (x4_cra); each must be a card readout and not its weights_key")
     ap.add_argument("cards", nargs="+")
     a = ap.parse_args()
     out = Path(a.out)
@@ -82,6 +84,13 @@ def main() -> int:
         gate = max(int(mem.get("gate_mib") or 0), int(peak) + 2048)
         keys = [r.get("weights_key") for r in (c.get("readouts") or [])]
         ro = "swad" if ("swad" in keys and c.get("weights_key") != "swad") else ""
+        if a.readouts:
+            want = a.readouts.split(",")
+            bad = [k for k in want if k not in keys or k == c.get("weights_key")] + \
+                (want if len(set(want)) != len(want) else [])
+            if bad:
+                sys.exit(f"REFUSED: {card}: readouts {bad} not in the card readouts, the weights_key or repeated")
+            ro = ",".join(want)
         md5 = hashlib.md5(raw).hexdigest()
         meta.append(f"# card {card}{'@' + a.commit[:7] if a.commit else ''} md5 {md5} name {c['name']} weights_key {c.get('weights_key')} peak {peak} gate {gate} readouts '{ro}'")
         for s in seeds:

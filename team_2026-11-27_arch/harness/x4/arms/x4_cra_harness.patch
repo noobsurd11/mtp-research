@@ -1,0 +1,46 @@
+--- a/x4_make_jobs.py	2026-11-28 15:19:36.122787909 +0530
++++ b/x4_make_jobs.py	2026-11-28 15:19:36.149732011 +0530
+@@ -38,6 +38,8 @@
+     ap.add_argument("--dump-gate", type=int, default=6200)
+     ap.add_argument("--extra", default="")
+     ap.add_argument("--commit", default="", help="full commit of the job's deploy (11th field; cq_x4.sh queues)")
++    ap.add_argument("--readouts", default="", help="comma list of further readout keys (10th field) instead of the "
++                    "automatic swad, e.g. swad,swad_bridge (x4_cra); each must be a card readout and not its weights_key")
+     ap.add_argument("cards", nargs="+")
+     a = ap.parse_args()
+     out = Path(a.out)
+@@ -82,6 +84,13 @@
+         gate = max(int(mem.get("gate_mib") or 0), int(peak) + 2048)
+         keys = [r.get("weights_key") for r in (c.get("readouts") or [])]
+         ro = "swad" if ("swad" in keys and c.get("weights_key") != "swad") else ""
++        if a.readouts:
++            want = a.readouts.split(",")
++            bad = [k for k in want if k not in keys or k == c.get("weights_key")] + \
++                (want if len(set(want)) != len(want) else [])
++            if bad:
++                sys.exit(f"REFUSED: {card}: readouts {bad} not in the card readouts, the weights_key or repeated")
++            ro = ",".join(want)
+         md5 = hashlib.md5(raw).hexdigest()
+         meta.append(f"# card {card}{'@' + a.commit[:7] if a.commit else ''} md5 {md5} name {c['name']} weights_key {c.get('weights_key')} peak {peak} gate {gate} readouts '{ro}'")
+         for s in seeds:
+--- a/x4_read.sh	2026-11-28 15:19:36.122839909 +0530
++++ b/x4_read.sh	2026-11-28 15:19:36.149946981 +0530
+@@ -2,7 +2,8 @@
+ # x4 read of one or more screening arms against COMBO (HRNet-W18 U-Net++ PF + SWAD, swad readout, seeds 5, 6; c3x runs),
+ # with PFAA (c3_pf_v11 seeds 5 to 8) only for the margin M (PF A/A {5,6} v {7,8}, PROTOCOL v1.0 s5.4). gaint CPU, nice 19.
+ # Usage: bash x4_read.sh <tag> <ARM>=<QN>:<SHORT>:<METHOD>:<KEY> [...]
+-#   KEY = the readout read for the arm: 'swad' reads the <run>.swad dump (as COMBO), any other key the run's own dump.
++#   KEY = the readout read for the arm: 'swad' / 'swad_bridge' read the <run>.swad / <run>.swad_bridge dump, any other key
++#   the run's own dump.
+ #   Stage P (PATHFINDER_RULE.md): SEEDS=5 STAGE=P (COMBO seeds follow SEEDS unless CSEEDS is set).
+ #   Out: /home/noob/work/bench_reads/x4_<tag> (refuses if it exists); verdict.txt there. Seeds: SEEDS (default 5,6).
+ set -u
+@@ -11,7 +12,7 @@
+ TAG=${1:?tag}; shift; [ $# -ge 1 ] || { sed -n 2,7p "$0"; exit 1; }
+ AR=(); PR=(); VS=""
+ for spec in "$@"; do n=${spec%%=*}; IFS=: read -r qn sh me key <<< "${spec#*=}"
+-  [ "$key" = swad ] && suf=.swad || suf=""
++  case "$key" in swad|swad_bridge) suf=.$key;; *) suf="";; esac
+   AR+=(--arm "$n=$(X4_T $qn $sh $me $suf):$SEEDS:$key"); PR+=(--pair "COMBO=$n"); VS="$VS${VS:+,}$n"; done
+ tmux_note="run me inside tmux (bench_x4_read_<tag>)"
+ exec $P $H/read_x4.py --out /home/noob/work/bench_reads/x4_$TAG --base COMBO --cache /home/noob/work/bench_reads/x4_cache \
