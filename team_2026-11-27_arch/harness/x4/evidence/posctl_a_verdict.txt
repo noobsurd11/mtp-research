@@ -1,0 +1,126 @@
+# x4 screen printout from /home/noob/work/bench_reads/x4_posctl_a/read/read.json (tool fdb56b78; A/A PF:5,6:7,8; groups d880a769); base PF seeds [5, 6, 7, 8, 9]; script x4_verdict.py, guard code c3x_verdict.py
+# margins (A/A in this read, OP-A): 532 cells: M relF1@2 0.0100 (A/A delta -0.0002, SE 0.0037), M inactive 0.0462, M mIoU-R13 0.0100; 416 clean cells: M relF1@2 0.0100 (A/A delta +0.0002, SE 0.0045), M inactive 0.0539, M mIoU-R13 0.0100
+
+## COMBO (seeds [5, 6, 7, 8, 9]) against PF (seeds [5, 6, 7, 8, 9])
+PASS	headline	532 cells	OP-A	relF1@2 COMBO - PF = +0.0154 [+0.0065, +0.0260], M 0.0100
+PASS	headline	532 cells	OP-W	relF1@2 COMBO - PF = +0.0158 [+0.0069, +0.0264], M 0.0100
+PASS	headline	416 clean cells	OP-A	relF1@2 COMBO - PF = +0.0167 [+0.0055, +0.0298], M 0.0100
+PASS	headline	416 clean cells	OP-W	relF1@2 COMBO - PF = +0.0166 [+0.0054, +0.0298], M 0.0100
+PASS	width_pooled	532 cells	OP-A	all (n 532): width 1.0093 / 1.0189 = 0.991 (band 0.85 to 1.15)
+FAIL	width_source	532 cells	OP-A	src:ARTS (n 182): width 1.0185 / 0.8679 = 1.174 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-A	src:BMRK (n 50): width 0.8949 / 0.8599 = 1.041 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-A	src:CFVS (n 169): width 1.0619 / 1.0848 = 0.979 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-A	src:CSIR (n 114): width 0.8871 / 0.9133 = 0.971 (band 0.85 to 1.15)
+FAIL	false_alarm	532 cells	OP-A	false crack px on crack-free cells 384 against 212 = 1.81 x (max 1.5); share of crack-free cells with >= 50 px 0.0086 against 0.0013
+PASS	inactive	532 cells	OP-A	inactive IoU COMBO - PF = -0.0001 [-0.0546, +0.0511], allowed drop 0.0462
+PASS	miou	532 cells	OP-A	mIoU-R13 COMBO - PF = +0.0066 [-0.0003, +0.0144], allowed drop 0.0100
+PASS	width_pooled	532 cells	OP-W	all (n 532): width 1.0193 / 1.0189 = 1.000 (band 0.85 to 1.15)
+FAIL	width_source	532 cells	OP-W	src:ARTS (n 182): width 1.0292 / 0.8679 = 1.186 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-W	src:BMRK (n 50): width 0.9024 / 0.8599 = 1.049 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-W	src:CFVS (n 169): width 1.0721 / 1.0848 = 0.988 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-W	src:CSIR (n 114): width 0.8977 / 0.9133 = 0.983 (band 0.85 to 1.15)
+FAIL	false_alarm	532 cells	OP-W	false crack px on crack-free cells 389 against 212 = 1.84 x (max 1.5); share of crack-free cells with >= 50 px 0.0086 against 0.0013
+PASS	inactive	532 cells	OP-W	inactive IoU COMBO - PF = -0.0002 [-0.0545, +0.0505], allowed drop 0.0462
+PASS	miou	532 cells	OP-W	mIoU-R13 COMBO - PF = +0.0067 [-0.0002, +0.0145], allowed drop 0.0100
+PASS	width_pooled	416 clean cells	OP-A	all (n 416): width 0.9539 / 0.9514 = 1.003 (band 0.85 to 1.15)
+FAIL	width_source	416 clean cells	OP-A	src:ARTS (n 131): width 0.9701 / 0.7832 = 1.239 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-A	src:BMRK (n 50): width 0.8949 / 0.8599 = 1.041 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-A	src:CFVS (n 132): width 1.0138 / 1.0305 = 0.984 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-A	src:CSIR (n 103): width 0.7937 / 0.7949 = 0.998 (band 0.85 to 1.15)
+FAIL	false_alarm	416 clean cells	OP-A	false crack px on crack-free cells 328 against 196 = 1.67 x (max 1.5); share of crack-free cells with >= 50 px 0.0088 against 0.0018
+PASS	inactive	416 clean cells	OP-A	inactive IoU COMBO - PF = -0.0081 [-0.0689, +0.0520], allowed drop 0.0539
+PASS	miou	416 clean cells	OP-A	mIoU-R13 COMBO - PF = +0.0053 [-0.0026, +0.0150], allowed drop 0.0100
+PASS	width_pooled	416 clean cells	OP-W	all (n 416): width 0.9501 / 0.9514 = 0.999 (band 0.85 to 1.15)
+FAIL	width_source	416 clean cells	OP-W	src:ARTS (n 131): width 0.9729 / 0.7832 = 1.242 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-W	src:BMRK (n 50): width 0.8920 / 0.8599 = 1.037 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-W	src:CFVS (n 132): width 1.0088 / 1.0305 = 0.979 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-W	src:CSIR (n 103): width 0.7915 / 0.7949 = 0.996 (band 0.85 to 1.15)
+FAIL	false_alarm	416 clean cells	OP-W	false crack px on crack-free cells 318 against 196 = 1.62 x (max 1.5); share of crack-free cells with >= 50 px 0.0080 against 0.0018
+PASS	inactive	416 clean cells	OP-W	inactive IoU COMBO - PF = -0.0079 [-0.0689, +0.0511], allowed drop 0.0539
+PASS	miou	416 clean cells	OP-W	mIoU-R13 COMBO - PF = +0.0053 [-0.0027, +0.0150], allowed drop 0.0100
+# levels (mean over seeds, all cells of the set)
+level	532 cells	OP-A	relF1@2 0.8617 / 0.8463	relP@2 0.9069 / 0.8953	relR@2 0.8209 / 0.8024	strict crack IoU 0.3753 / 0.3653	inactive IoU 0.5042 / 0.5042	mIoU-R13 0.6182 / 0.6116	false crack px (crack-free) 383.8000 / 211.6000	width ratio 1.0093 / 1.0189	(COMBO / PF)
+level	532 cells	OP-W	relF1@2 0.8621 / 0.8463	relP@2 0.9060 / 0.8953	relR@2 0.8222 / 0.8024	strict crack IoU 0.3762 / 0.3653	inactive IoU 0.5040 / 0.5042	mIoU-R13 0.6183 / 0.6116	false crack px (crack-free) 389.4000 / 211.6000	width ratio 1.0193 / 1.0189	(COMBO / PF)
+level	416 clean cells	OP-A	relF1@2 0.8431 / 0.8264	relP@2 0.9006 / 0.8882	relR@2 0.7924 / 0.7726	strict crack IoU 0.3575 / 0.3476	inactive IoU 0.4969 / 0.5050	mIoU-R13 0.6101 / 0.6049	false crack px (crack-free) 327.8000 / 196.4000	width ratio 0.9539 / 0.9514	(COMBO / PF)
+level	416 clean cells	OP-W	relF1@2 0.8430 / 0.8264	relP@2 0.9012 / 0.8882	relR@2 0.7918 / 0.7726	strict crack IoU 0.3572 / 0.3476	inactive IoU 0.4970 / 0.5050	mIoU-R13 0.6101 / 0.6049	false crack px (crack-free) 318.0000 / 196.4000	width ratio 0.9501 / 0.9514	(COMBO / PF)
+# deltas with 95% intervals (two-stage group bootstrap, 2,000 draws)
+delta	532 cells	OP-A	relF1@2 +0.0154 [+0.0065, +0.0260]	relP@2 +0.0116 [+0.0011, +0.0227]	relR@2 +0.0185 [+0.0050, +0.0352]	strict crack IoU +0.0099 [-0.0007, +0.0207]	inactive IoU -0.0001 [-0.0546, +0.0511]	mIoU-R13 +0.0066 [-0.0003, +0.0144]
+delta	532 cells	OP-W	relF1@2 +0.0158 [+0.0069, +0.0264]	relP@2 +0.0107 [-0.0001, +0.0218]	relR@2 +0.0198 [+0.0062, +0.0366]	strict crack IoU +0.0109 [+0.0002, +0.0217]	inactive IoU -0.0002 [-0.0545, +0.0505]	mIoU-R13 +0.0067 [-0.0002, +0.0145]
+delta	416 clean cells	OP-A	relF1@2 +0.0167 [+0.0055, +0.0298]	relP@2 +0.0125 [-0.0012, +0.0254]	relR@2 +0.0198 [+0.0040, +0.0408]	strict crack IoU +0.0099 [-0.0020, +0.0224]	inactive IoU -0.0081 [-0.0689, +0.0520]	mIoU-R13 +0.0053 [-0.0026, +0.0150]
+delta	416 clean cells	OP-W	relF1@2 +0.0166 [+0.0054, +0.0298]	relP@2 +0.0130 [-0.0009, +0.0264]	relR@2 +0.0192 [+0.0032, +0.0404]	strict crack IoU +0.0096 [-0.0027, +0.0223]	inactive IoU -0.0079 [-0.0689, +0.0511]	mIoU-R13 +0.0053 [-0.0027, +0.0150]
+per_seed	532 cells	OP-A	relF1_2	COMBO - PF	s5 +0.0138	s6 +0.0201	s7 +0.0163	s8 +0.0136	s9 +0.0134
+per_seed	532 cells	OP-A	crack_iou	COMBO - PF	s5 +0.0070	s6 +0.0143	s7 +0.0102	s8 +0.0136	s9 +0.0046
+per_seed	532 cells	OP-A	miou_rob	COMBO - PF	s5 +0.0038	s6 +0.0038	s7 +0.0078	s8 +0.0078	s9 +0.0101
+per_seed	532 cells	OP-W	relF1_2	COMBO - PF	s5 +0.0143	s6 +0.0200	s7 +0.0169	s8 +0.0133	s9 +0.0144
+per_seed	532 cells	OP-W	crack_iou	COMBO - PF	s5 +0.0095	s6 +0.0142	s7 +0.0117	s8 +0.0123	s9 +0.0068
+per_seed	532 cells	OP-W	miou_rob	COMBO - PF	s5 +0.0039	s6 +0.0038	s7 +0.0079	s8 +0.0077	s9 +0.0103
+per_seed	416 clean cells	OP-A	relF1_2	COMBO - PF	s5 +0.0161	s6 +0.0224	s7 +0.0179	s8 +0.0134	s9 +0.0136
+per_seed	416 clean cells	OP-A	crack_iou	COMBO - PF	s5 +0.0097	s6 +0.0154	s7 +0.0089	s8 +0.0138	s9 +0.0016
+per_seed	416 clean cells	OP-A	miou_rob	COMBO - PF	s5 +0.0025	s6 +0.0030	s7 +0.0060	s8 +0.0054	s9 +0.0094
+per_seed	416 clean cells	OP-W	relF1_2	COMBO - PF	s5 +0.0164	s6 +0.0220	s7 +0.0180	s8 +0.0125	s9 +0.0141
+per_seed	416 clean cells	OP-W	crack_iou	COMBO - PF	s5 +0.0110	s6 +0.0146	s7 +0.0091	s8 +0.0109	s9 +0.0024
+per_seed	416 clean cells	OP-W	miou_rob	COMBO - PF	s5 +0.0026	s6 +0.0030	s7 +0.0061	s8 +0.0053	s9 +0.0095
+=> COMBO: HEADLINE PASS, GUARDS FAIL; headline items passing 4 of 4; failing guard items 8: width_source src:ARTS OP-A 532 cells; false_alarm OP-A 532 cells; width_source src:ARTS OP-W 532 cells; false_alarm OP-W 532 cells; width_source src:ARTS OP-A 416 clean cells; false_alarm OP-A 416 clean cells; width_source src:ARTS OP-W 416 clean cells; false_alarm OP-W 416 clean cells
+
+## COMBO_SWAD (seeds [5, 6, 7, 8, 9]) against PF (seeds [5, 6, 7, 8, 9])
+PASS	headline	532 cells	OP-A	relF1@2 COMBO_SWAD - PF = +0.0166 [+0.0082, +0.0263], M 0.0100
+PASS	headline	532 cells	OP-W	relF1@2 COMBO_SWAD - PF = +0.0173 [+0.0087, +0.0272], M 0.0100
+PASS	headline	416 clean cells	OP-A	relF1@2 COMBO_SWAD - PF = +0.0176 [+0.0071, +0.0300], M 0.0100
+PASS	headline	416 clean cells	OP-W	relF1@2 COMBO_SWAD - PF = +0.0180 [+0.0076, +0.0305], M 0.0100
+PASS	width_pooled	532 cells	OP-A	all (n 532): width 0.9986 / 1.0189 = 0.980 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-A	src:ARTS (n 182): width 0.9769 / 0.8679 = 1.126 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-A	src:BMRK (n 50): width 0.8738 / 0.8599 = 1.016 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-A	src:CFVS (n 169): width 1.0567 / 1.0848 = 0.974 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-A	src:CSIR (n 114): width 0.8705 / 0.9133 = 0.953 (band 0.85 to 1.15)
+PASS	false_alarm	532 cells	OP-A	false crack px on crack-free cells 213 against 212 = 1.01 x (max 1.5); share of crack-free cells with >= 50 px 0.0040 against 0.0013
+PASS	inactive	532 cells	OP-A	inactive IoU COMBO_SWAD - PF = +0.0161 [-0.0336, +0.0693], allowed drop 0.0462
+PASS	miou	532 cells	OP-A	mIoU-R13 COMBO_SWAD - PF = +0.0073 [+0.0005, +0.0150], allowed drop 0.0100
+PASS	width_pooled	532 cells	OP-W	all (n 532): width 1.0190 / 1.0189 = 1.000 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-W	src:ARTS (n 182): width 0.9972 / 0.8679 = 1.149 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-W	src:BMRK (n 50): width 0.8888 / 0.8599 = 1.034 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-W	src:CFVS (n 169): width 1.0784 / 1.0848 = 0.994 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-W	src:CSIR (n 114): width 0.8900 / 0.9133 = 0.974 (band 0.85 to 1.15)
+PASS	false_alarm	532 cells	OP-W	false crack px on crack-free cells 224 against 212 = 1.06 x (max 1.5); share of crack-free cells with >= 50 px 0.0046 against 0.0013
+PASS	inactive	532 cells	OP-W	inactive IoU COMBO_SWAD - PF = +0.0157 [-0.0338, +0.0691], allowed drop 0.0462
+PASS	miou	532 cells	OP-W	mIoU-R13 COMBO_SWAD - PF = +0.0075 [+0.0006, +0.0152], allowed drop 0.0100
+PASS	width_pooled	416 clean cells	OP-A	all (n 416): width 0.9415 / 0.9514 = 0.990 (band 0.85 to 1.15)
+FAIL	width_source	416 clean cells	OP-A	src:ARTS (n 131): width 0.9282 / 0.7832 = 1.185 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-A	src:BMRK (n 50): width 0.8738 / 0.8599 = 1.016 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-A	src:CFVS (n 132): width 1.0088 / 1.0305 = 0.979 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-A	src:CSIR (n 103): width 0.7700 / 0.7949 = 0.969 (band 0.85 to 1.15)
+PASS	false_alarm	416 clean cells	OP-A	false crack px on crack-free cells 171 against 196 = 0.87 x (max 1.5); share of crack-free cells with >= 50 px 0.0035 against 0.0018
+PASS	inactive	416 clean cells	OP-A	inactive IoU COMBO_SWAD - PF = +0.0097 [-0.0423, +0.0715], allowed drop 0.0539
+PASS	miou	416 clean cells	OP-A	mIoU-R13 COMBO_SWAD - PF = +0.0057 [-0.0025, +0.0163], allowed drop 0.0100
+PASS	width_pooled	416 clean cells	OP-W	all (n 416): width 0.9504 / 0.9514 = 0.999 (band 0.85 to 1.15)
+FAIL	width_source	416 clean cells	OP-W	src:ARTS (n 131): width 0.9417 / 0.7832 = 1.202 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-W	src:BMRK (n 50): width 0.8805 / 0.8599 = 1.024 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-W	src:CFVS (n 132): width 1.0183 / 1.0305 = 0.988 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-W	src:CSIR (n 103): width 0.7778 / 0.7949 = 0.979 (band 0.85 to 1.15)
+PASS	false_alarm	416 clean cells	OP-W	false crack px on crack-free cells 173 against 196 = 0.88 x (max 1.5); share of crack-free cells with >= 50 px 0.0044 against 0.0018
+PASS	inactive	416 clean cells	OP-W	inactive IoU COMBO_SWAD - PF = +0.0096 [-0.0427, +0.0716], allowed drop 0.0539
+PASS	miou	416 clean cells	OP-W	mIoU-R13 COMBO_SWAD - PF = +0.0058 [-0.0025, +0.0163], allowed drop 0.0100
+# levels (mean over seeds, all cells of the set)
+level	532 cells	OP-A	relF1@2 0.8629 / 0.8463	relP@2 0.9117 / 0.8953	relR@2 0.8191 / 0.8024	strict crack IoU 0.3814 / 0.3653	inactive IoU 0.5203 / 0.5042	mIoU-R13 0.6189 / 0.6116	false crack px (crack-free) 213.2000 / 211.6000	width ratio 0.9986 / 1.0189	(COMBO_SWAD / PF)
+level	532 cells	OP-W	relF1@2 0.8636 / 0.8463	relP@2 0.9098 / 0.8953	relR@2 0.8219 / 0.8024	strict crack IoU 0.3834 / 0.3653	inactive IoU 0.5200 / 0.5042	mIoU-R13 0.6191 / 0.6116	false crack px (crack-free) 223.6000 / 211.6000	width ratio 1.0190 / 1.0189	(COMBO_SWAD / PF)
+level	416 clean cells	OP-A	relF1@2 0.8439 / 0.8264	relP@2 0.9058 / 0.8882	relR@2 0.7900 / 0.7726	strict crack IoU 0.3628 / 0.3476	inactive IoU 0.5146 / 0.5050	mIoU-R13 0.6106 / 0.6049	false crack px (crack-free) 171.2000 / 196.4000	width ratio 0.9415 / 0.9514	(COMBO_SWAD / PF)
+level	416 clean cells	OP-W	relF1@2 0.8443 / 0.8264	relP@2 0.9049 / 0.8882	relR@2 0.7913 / 0.7726	strict crack IoU 0.3638 / 0.3476	inactive IoU 0.5145 / 0.5050	mIoU-R13 0.6106 / 0.6049	false crack px (crack-free) 172.8000 / 196.4000	width ratio 0.9504 / 0.9514	(COMBO_SWAD / PF)
+# deltas with 95% intervals (two-stage group bootstrap, 2,000 draws)
+delta	532 cells	OP-A	relF1@2 +0.0166 [+0.0082, +0.0263]	relP@2 +0.0164 [+0.0064, +0.0274]	relR@2 +0.0168 [+0.0040, +0.0315]	strict crack IoU +0.0161 [+0.0066, +0.0258]	inactive IoU +0.0161 [-0.0336, +0.0693]	mIoU-R13 +0.0073 [+0.0005, +0.0150]
+delta	532 cells	OP-W	relF1@2 +0.0173 [+0.0087, +0.0272]	relP@2 +0.0145 [+0.0040, +0.0257]	relR@2 +0.0196 [+0.0064, +0.0344]	strict crack IoU +0.0180 [+0.0084, +0.0280]	inactive IoU +0.0157 [-0.0338, +0.0691]	mIoU-R13 +0.0075 [+0.0006, +0.0152]
+delta	416 clean cells	OP-A	relF1@2 +0.0176 [+0.0071, +0.0300]	relP@2 +0.0177 [+0.0048, +0.0306]	relR@2 +0.0174 [+0.0027, +0.0357]	strict crack IoU +0.0153 [+0.0038, +0.0269]	inactive IoU +0.0097 [-0.0423, +0.0715]	mIoU-R13 +0.0057 [-0.0025, +0.0163]
+delta	416 clean cells	OP-W	relF1@2 +0.0180 [+0.0076, +0.0305]	relP@2 +0.0168 [+0.0037, +0.0303]	relR@2 +0.0187 [+0.0037, +0.0374]	strict crack IoU +0.0163 [+0.0048, +0.0281]	inactive IoU +0.0096 [-0.0427, +0.0716]	mIoU-R13 +0.0058 [-0.0025, +0.0163]
+per_seed	532 cells	OP-A	relF1_2	COMBO_SWAD - PF	s5 +0.0150	s6 +0.0215	s7 +0.0185	s8 +0.0141	s9 +0.0141
+per_seed	532 cells	OP-A	crack_iou	COMBO_SWAD - PF	s5 +0.0130	s6 +0.0206	s7 +0.0162	s8 +0.0198	s9 +0.0107
+per_seed	532 cells	OP-A	miou_rob	COMBO_SWAD - PF	s5 +0.0054	s6 +0.0042	s7 +0.0093	s8 +0.0074	s9 +0.0104
+per_seed	532 cells	OP-W	relF1_2	COMBO_SWAD - PF	s5 +0.0159	s6 +0.0219	s7 +0.0196	s8 +0.0142	s9 +0.0151
+per_seed	532 cells	OP-W	crack_iou	COMBO_SWAD - PF	s5 +0.0165	s6 +0.0214	s7 +0.0194	s8 +0.0196	s9 +0.0133
+per_seed	532 cells	OP-W	miou_rob	COMBO_SWAD - PF	s5 +0.0056	s6 +0.0042	s7 +0.0095	s8 +0.0074	s9 +0.0106
+per_seed	416 clean cells	OP-A	relF1_2	COMBO_SWAD - PF	s5 +0.0169	s6 +0.0240	s7 +0.0195	s8 +0.0136	s9 +0.0140
+per_seed	416 clean cells	OP-A	crack_iou	COMBO_SWAD - PF	s5 +0.0140	s6 +0.0217	s7 +0.0145	s8 +0.0191	s9 +0.0072
+per_seed	416 clean cells	OP-A	miou_rob	COMBO_SWAD - PF	s5 +0.0041	s6 +0.0032	s7 +0.0068	s8 +0.0044	s9 +0.0100
+per_seed	416 clean cells	OP-W	relF1_2	COMBO_SWAD - PF	s5 +0.0174	s6 +0.0241	s7 +0.0203	s8 +0.0130	s9 +0.0151
+per_seed	416 clean cells	OP-W	crack_iou	COMBO_SWAD - PF	s5 +0.0162	s6 +0.0217	s7 +0.0168	s8 +0.0172	s9 +0.0094
+per_seed	416 clean cells	OP-W	miou_rob	COMBO_SWAD - PF	s5 +0.0043	s6 +0.0033	s7 +0.0070	s8 +0.0044	s9 +0.0101
+=> COMBO_SWAD: SCREEN PASS, FLAGGED (per-source width; re-check at 5 seeds); headline items passing 4 of 4; failing guard items 2: width_source src:ARTS OP-A 416 clean cells; width_source src:ARTS OP-W 416 clean cells
+
+Screen (2 seeds) is never a result; SCREEN PASS promotes to a 5-seed confirmation (PROTOCOL v1.0 s5.4).

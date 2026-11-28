@@ -1,0 +1,46 @@
+census c3x_hrnet_swad_v11_f0_s5.swad
+census c3x_hrnet_swad_v11_f1_s5.swad
+census c3x_hrnet_swad_v11_f2_s5.swad
+census c3x_hrnet_swad_v11_f3_s5.swad
+census c3x_hrnet_swad_v11_f4_s5.swad
+census c3x_hrnet_swad_v11_f0_s6.swad
+census c3x_hrnet_swad_v11_f1_s6.swad
+census c3x_hrnet_swad_v11_f2_s6.swad
+census c3x_hrnet_swad_v11_f3_s6.swad
+census c3x_hrnet_swad_v11_f4_s6.swad
+census c3x_hrnet_swad_v11_f0_s7.swad
+census c3x_hrnet_swad_v11_f1_s7.swad
+census c3x_hrnet_swad_v11_f2_s7.swad
+census c3x_hrnet_swad_v11_f3_s7.swad
+census c3x_hrnet_swad_v11_f4_s7.swad
+census c3x_hrnet_swad_v11_f0_s8.swad
+census c3x_hrnet_swad_v11_f1_s8.swad
+census c3x_hrnet_swad_v11_f2_s8.swad
+census c3x_hrnet_swad_v11_f3_s8.swad
+census c3x_hrnet_swad_v11_f4_s8.swad
+census c3x_hrnet_swad_v11_f0_s9.swad
+census c3x_hrnet_swad_v11_f1_s9.swad
+census c3x_hrnet_swad_v11_f2_s9.swad
+census c3x_hrnet_swad_v11_f3_s9.swad
+census c3x_hrnet_swad_v11_f4_s9.swad
+Traceback (most recent call last):
+  File "/home/yugma/mtp/research/team_2026-11-27_arch/cpu/census.py", line 233, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/yugma/mtp/research/team_2026-11-27_arch/cpu/census.py", line 185, in main
+    bt = GC.boot(Xs, stems, fold_of, C.groups(), n_boot=a.boot)["stats"]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/noob/work/bench_wt_final/bench/gap_census.py", line 169, in boot
+    r = ratios(v)
+        ^^^^^^^^^
+  File "/home/yugma/mtp/research/team_2026-11-27_arch/cpu/census.py", line 148, in ratios
+    gr = GC.ratios(x[OFF_GC:OFF_GC + len(GC.FIELDS)])
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yugma/mtp/research/team_2026-11-27_arch/cpu/census.py", line 117, in ratios
+    G = sum(x[ci(b, t, 0)] for b in range(NB) for t in range(NT))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/yugma/mtp/research/team_2026-11-27_arch/cpu/census.py", line 117, in <genexpr>
+    G = sum(x[ci(b, t, 0)] for b in range(NB) for t in range(NT))
+            ~^^^^^^^^^^^^^
+IndexError: index 18 is out of bounds for axis 0 with size 15
+rc=1

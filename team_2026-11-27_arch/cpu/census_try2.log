@@ -1,0 +1,43 @@
+census c3x_hrnet_swad_v11_f0_s5.swad
+census c3x_hrnet_swad_v11_f1_s5.swad
+census c3x_hrnet_swad_v11_f2_s5.swad
+census c3x_hrnet_swad_v11_f3_s5.swad
+census c3x_hrnet_swad_v11_f4_s5.swad
+census c3x_hrnet_swad_v11_f0_s6.swad
+census c3x_hrnet_swad_v11_f1_s6.swad
+census c3x_hrnet_swad_v11_f2_s6.swad
+census c3x_hrnet_swad_v11_f3_s6.swad
+census c3x_hrnet_swad_v11_f4_s6.swad
+census c3x_hrnet_swad_v11_f0_s7.swad
+census c3x_hrnet_swad_v11_f1_s7.swad
+census c3x_hrnet_swad_v11_f2_s7.swad
+census c3x_hrnet_swad_v11_f3_s7.swad
+census c3x_hrnet_swad_v11_f4_s7.swad
+census c3x_hrnet_swad_v11_f0_s8.swad
+census c3x_hrnet_swad_v11_f1_s8.swad
+census c3x_hrnet_swad_v11_f2_s8.swad
+census c3x_hrnet_swad_v11_f3_s8.swad
+census c3x_hrnet_swad_v11_f4_s8.swad
+census c3x_hrnet_swad_v11_f0_s9.swad
+census c3x_hrnet_swad_v11_f1_s9.swad
+census c3x_hrnet_swad_v11_f2_s9.swad
+census c3x_hrnet_swad_v11_f3_s9.swad
+census c3x_hrnet_swad_v11_f4_s9.swad
+Traceback (most recent call last):
+  File "/home/yugma/mtp/research/team_2026-11-27_arch/cpu/census.py", line 235, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/yugma/mtp/research/team_2026-11-27_arch/cpu/census.py", line 187, in main
+    bt = GC.boot(Xs, stems, fold_of, C.groups(), n_boot=a.boot)["stats"]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/noob/work/bench_wt_final/bench/gap_census.py", line 169, in boot
+    r = ratios(v)
+        ^^^^^^^^^
+  File "/home/yugma/mtp/research/team_2026-11-27_arch/cpu/census.py", line 150, in ratios
+    gr = GC_RATIOS(x[OFF_GC:OFF_GC + len(GC_FIELDS)])
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/noob/work/bench_wt_final/bench/gap_census.py", line 124, in ratios
+    return {"relR2": q(d["g"] - d["miss"], d["g"]),
+                       ~^^^^^
+KeyError: 'g'
+rc=1

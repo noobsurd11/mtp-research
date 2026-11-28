@@ -1,0 +1,44 @@
+D15 WIP notes (scout, 12 Nov 2026)
+Queries so far (search_papers, openalex only working; s2 rate-limited):
+1 noisy label semantic segmentation early learning adaptive correction (2020+)
+2 noisy boundary annotations segmentation robust training (2020+)
+3 label noise thin structure segmentation vessel curvilinear misalignment (2020+)
+4 T-Loss robust loss medical image segmentation Student-t (2020+)
+5 misaligned labels segmentation registration label shift (2020+)
+6 positive-unlabeled learning segmentation missing annotations (2020+)
+7 crack segmentation noisy labels inaccurate annotation (2020+)
+8 learning to segment from misaligned and partial labels (2019+)
+9 learning semantic boundaries from noisy annotations active alignment (2018+)
+10 spatial correction label noise segmentation Markov model (2021+)
+
+Candidates:
+- doi:10.1109/cvpr52688.2022.00263 ADELE (arXiv 2110.03740)
+- doi:10.1007/978-3-031-43898-1_68 T-Loss MICCAI 2023 (arXiv 2306.00753); journal ext doi:10.1016/j.media.2025.103735
+- arxiv:2308.02498 Spatial correction (Yao 2023, Markov label noise)
+- doi:10.1016/j.neucom.2022.01.051 Rill-Garcia road crack inaccurate annotations, Syncrack
+- doi:10.1145/3378393.3402254 Fobi misaligned + partial labels (arXiv 2005.13180)
+- doi:10.1007/978-3-032-36984-0_17 Align and Segment 2026 (arXiv 2607.10841)
+- doi:10.1109/cvpr.2019.01133 STEAL Devil in edges (arXiv 1904.07934)
+- doi:10.1007/978-3-030-01219-9_24 SEAL simultaneous edge alignment (arXiv 1808.01992)
+- arxiv:2504.14795 Bayesian spatially correlated noisy labels
+- doi:10.1016/j.media.2026.104130 geometric-structural dual-guided noise-robust (arXiv 2509.02419)
+- doi:10.1109/tgrs.2024.3373908 AIO2 online correction incomplete annotation
+- arxiv:2406.10891 Noisy annotations in semantic segmentation (benchmark of noise)
+- doi:10.1016/j.media.2023.102937 YoloCurvSeg noisy skeleton
+- doi:10.1609/aaai.v36i2.20085 meta-structures from noisy labels
+- doi:10.1007/978-3-031-16440-8_56 JCAS class-affinity loss correction
+- arxiv:2503.12218 adaptive label correction medical
+- doi:10.1016/j.media.2025.103489 multi-source annotations robust
+
+More queries: 11 noisy label segmentation (2025+); 12 annotator style multiple annotators confusion; 13 disentangling human error; 14 road extraction misaligned OSM; snippets failed (S2 rate-limit)
+Snowball: citations of Rill-Garcia crack (31), citations of Yao spatial correction (20)
+New candidates:
+- doi:10.1016/j.ress.2025.110909 SelectSeg (crack, ensemble uncertainty filter + selective prediction; CRACK500 noisy masks on Mendeley)
+- arxiv:2410.09409 distribution-aware noisy crack SAM-Adapter
+- doi:10.1016/j.media.2025.103489 UMA-Net multi-source annotations (arXiv 2304.00466)
+- arxiv:2007.15963 Zhang disentangling human error (annotator CMs per pixel)
+- doi:10.1016/j.media.2023.103028 PADL annotator preference
+- doi:10.1109/wacv57701.2023.00323 Rottmann label error detection segmentation
+- doi:10.3390/rs12172722 nearest feature selector misaligned building outline (overlaps offset-tolerant CE)
+- GSD-Net code github.com/ortonwang/GSD-Net
+Code verified (web): ADELE github.com/Kangningthu/ADELE ; SpatialCorrection github.com/michaelofsbu/SpatialCorrection ; T-Loss github.com/Digital-Dermatology/t-loss

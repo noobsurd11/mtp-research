@@ -1,0 +1,50 @@
+== (a) 5 seeds against the recorded c3x read
+IDENTICAL	532 contrast COMBO - PF	150 values, 0 differ
+IDENTICAL	532 contrast COMBO_SWAD - PF	150 values, 0 differ
+IDENTICAL	532 aa	132 values, 0 differ
+IDENTICAL	532 M	9 values, 0 differ
+IDENTICAL	532 crackfree	4 values, 0 differ
+IDENTICAL	532 summary PF	3795 values, 0 differ
+IDENTICAL	532 per_seed PF	6555 values, 0 differ
+IDENTICAL	532 choices PF	75 values, 0 differ
+IDENTICAL	532 summary COMBO	3795 values, 0 differ
+IDENTICAL	532 per_seed COMBO	6555 values, 0 differ
+IDENTICAL	532 choices COMBO	75 values, 0 differ
+IDENTICAL	532 summary COMBO_SWAD	3795 values, 0 differ
+IDENTICAL	532 per_seed COMBO_SWAD	6555 values, 0 differ
+IDENTICAL	532 choices COMBO_SWAD	75 values, 0 differ
+IDENTICAL	x416 contrast COMBO - PF	150 values, 0 differ
+IDENTICAL	x416 contrast COMBO_SWAD - PF	150 values, 0 differ
+IDENTICAL	x416 aa	132 values, 0 differ
+IDENTICAL	x416 M	9 values, 0 differ
+IDENTICAL	x416 crackfree	4 values, 0 differ
+IDENTICAL	x416 summary PF	3630 values, 0 differ
+IDENTICAL	x416 per_seed PF	6270 values, 0 differ
+IDENTICAL	x416 choices PF	75 values, 0 differ
+IDENTICAL	x416 summary COMBO	3630 values, 0 differ
+IDENTICAL	x416 per_seed COMBO	6270 values, 0 differ
+IDENTICAL	x416 choices COMBO	75 values, 0 differ
+IDENTICAL	x416 summary COMBO_SWAD	3630 values, 0 differ
+IDENTICAL	x416 per_seed COMBO_SWAD	6270 values, 0 differ
+IDENTICAL	x416 choices COMBO_SWAD	75 values, 0 differ
+IDENTICAL	verdict lines (headline + guards, COMBO and COMBO_SWAD vs PF): 72 lines, 0 not in the recorded verdict.txt
+(a) COMBO - PF relF1@2, 532, OP-A, 5 seeds: +0.0154 [+0.0065, +0.0260] (recorded +0.0154 [+0.0065, +0.0260])
+(a) COMBO_SWAD - PF relF1@2, 532, OP-A, 5 seeds: +0.0166 [+0.0082, +0.0263] (recorded +0.0166 [+0.0082, +0.0263])
+== (b) 2 seeds (5, 6)
+IDENTICAL	532 M of PFAA 5,6 v 7,8 = M of (a)	9 values, 0 differ
+IDENTICAL	x416 M of PFAA 5,6 v 7,8 = M of (a)	9 values, 0 differ
+(b) COMBO - PF relF1@2, 532, OP-A, seeds 5, 6: +0.0170 [+0.0090, +0.0265], M 0.0100
+(b) COMBO - PF relF1@2, 532, OP-W, seeds 5, 6: +0.0172 [+0.0092, +0.0267], M 0.0100
+(b) COMBO_SWAD - PF relF1@2, 532, OP-A, seeds 5, 6: +0.0183 [+0.0107, +0.0273], M 0.0100
+(b) COMBO_SWAD - PF relF1@2, 532, OP-W, seeds 5, 6: +0.0189 [+0.0114, +0.0279], M 0.0100
+(b) COMBO - PF relF1@2, 416, OP-A, seeds 5, 6: +0.0193 [+0.0099, +0.0309], M 0.0100
+(b) COMBO - PF relF1@2, 416, OP-W, seeds 5, 6: +0.0192 [+0.0097, +0.0309], M 0.0100
+(b) COMBO_SWAD - PF relF1@2, 416, OP-A, seeds 5, 6: +0.0204 [+0.0111, +0.0314], M 0.0100
+(b) COMBO_SWAD - PF relF1@2, 416, OP-W, seeds 5, 6: +0.0207 [+0.0113, +0.0318], M 0.0100
+== (c) x4 read form: PFX (= PF s5, s6) - COMBO (= COMBO_SWAD s5, s6), base COMBO
+IDENTICAL	(c) OP-A point deltas = minus (b): 18 values, 0 differ
+(c) PFX - COMBO relF1@2, 532, OP-A: -0.0183 [-0.0267, -0.0102], M 0.0100
+(c) PFX - COMBO relF1@2, 532, OP-W: -0.0189 [-0.0273, -0.0111], M 0.0100
+(c) PFX - COMBO relF1@2, 416, OP-A: -0.0204 [-0.0313, -0.0114], M 0.0100
+(c) PFX - COMBO relF1@2, 416, OP-W: -0.0208 [-0.0317, -0.0117], M 0.0100
+POSITIVE CONTROL: IDENTICAL

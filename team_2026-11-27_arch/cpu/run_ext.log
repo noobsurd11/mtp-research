@@ -1,0 +1,163 @@
+[2026-11-27 23:15:08] ext start
+swept c3x_hrnet_swad_v11_f0_s5.swad
+swept c3x_hrnet_swad_v11_f1_s5.swad
+swept c3x_hrnet_swad_v11_f2_s5.swad
+swept c3x_hrnet_swad_v11_f3_s5.swad
+swept c3x_hrnet_swad_v11_f4_s5.swad
+swept c3x_hrnet_swad_v11_f0_s6.swad
+swept c3x_hrnet_swad_v11_f1_s6.swad
+swept c3x_hrnet_swad_v11_f2_s6.swad
+swept c3x_hrnet_swad_v11_f3_s6.swad
+swept c3x_hrnet_swad_v11_f4_s6.swad
+# task 4 sweep (post-hoc arm EXT): COMBO swad readout, cv5v3 OOF, seeds 5,6; 561 candidates (identity + 560); choice per seed and held-out fold on the other four folds, max pooled relF1@2
+s5 f0: k4 t-8 ang50 L24 d0; fit relF1@2 0.8582 -> 0.8641 (relP@2 0.9210 -> 0.9116, relR@2 0.8034 -> 0.8214)
+s5 f1: k4 t-8 ang50 L24 d4; fit relF1@2 0.8659 -> 0.8706 (relP@2 0.9099 -> 0.9004, relR@2 0.8259 -> 0.8427)
+s5 f2: k4 t-8 ang50 L24 d0; fit relF1@2 0.8759 -> 0.8808 (relP@2 0.9067 -> 0.8976, relR@2 0.8471 -> 0.8646)
+s5 f3: k8 t-8 ang50 L12 d0; fit relF1@2 0.8514 -> 0.8559 (relP@2 0.8992 -> 0.8900, relR@2 0.8084 -> 0.8243)
+s5 f4: k4 t-8 ang50 L24 d0; fit relF1@2 0.8644 -> 0.8693 (relP@2 0.9160 -> 0.9081, relR@2 0.8183 -> 0.8336)
+s6 f0: k4 t-8 ang50 L6 d16; fit relF1@2 0.8616 -> 0.8668 (relP@2 0.9253 -> 0.9183, relR@2 0.8061 -> 0.8207)
+s6 f1: k4 t-8 ang50 L12 d0; fit relF1@2 0.8684 -> 0.8728 (relP@2 0.9126 -> 0.9040, relR@2 0.8282 -> 0.8436)
+s6 f2: k4 t-8 ang50 L6 d16; fit relF1@2 0.8790 -> 0.8833 (relP@2 0.9101 -> 0.9034, relR@2 0.8499 -> 0.8640)
+s6 f3: k4 t-8 ang50 L6 d0; fit relF1@2 0.8544 -> 0.8585 (relP@2 0.9042 -> 0.8970, relR@2 0.8097 -> 0.8231)
+s6 f4: k4 t-8 ang50 L6 d0; fit relF1@2 0.8653 -> 0.8695 (relP@2 0.9171 -> 0.9108, relR@2 0.8190 -> 0.8318)
+
+## descriptive, in-sample on all OOF cells (not the result): top 15 candidates by relF1@2 per seed, and the best per (L, d) at each t
+seed 5: identity relF1@2 0.8635 relP@2 0.9107 relR@2 0.8209; fa px on 303 crack-free cells 228
+cand	relF1@2	relP@2	relR@2	width	added px	fa px crack-free
+k4 t-8 ang50 L24 d0	0.8685	0.9015	0.8377	1.0209	8438	323
+k4 t-8 ang50 L24 d4	0.8684	0.9015	0.8377	1.0209	8445	323
+k4 t-8 ang50 L24 d8	0.8684	0.9015	0.8377	1.0210	8487	323
+k4 t-8 ang50 L24 d16	0.8684	0.9014	0.8377	1.0213	8564	323
+k8 t-8 ang50 L24 d0	0.8684	0.9017	0.8375	1.0209	8436	322
+k8 t-8 ang50 L24 d4	0.8684	0.9017	0.8375	1.0209	8442	322
+k8 t-8 ang50 L24 d8	0.8684	0.9016	0.8375	1.0210	8483	322
+k8 t-8 ang50 L24 d16	0.8683	0.9016	0.8375	1.0212	8544	322
+k8 t-8 ang50 L12 d0	0.8683	0.9023	0.8368	1.0196	8037	309
+k4 t-8 ang50 L12 d0	0.8683	0.9022	0.8369	1.0194	7972	310
+k8 t-8 ang50 L12 d4	0.8683	0.9023	0.8368	1.0196	8043	309
+k4 t-8 ang50 L12 d4	0.8683	0.9022	0.8369	1.0194	7979	310
+k8 t-8 ang50 L12 d8	0.8683	0.9023	0.8368	1.0197	8084	309
+k4 t-8 ang50 L12 d8	0.8683	0.9022	0.8369	1.0195	8021	310
+k8 t-8 ang50 L12 d16	0.8683	0.9022	0.8368	1.0199	8145	309
+t	best ext-only (d 0)	best bridge-only (L 0)	best both
+-8	k4 t-8 ang50 L24 d0 0.8685 (P 0.9015 R 0.8377, +8438 px)	k4 t-8 ang30 L0 d16 0.8638 (P 0.9104 R 0.8217, +381 px)	k4 t-8 ang50 L24 d4 0.8684 (P 0.9015 R 0.8377, +8445 px)
+-5	k4 t-5 ang50 L24 d0 0.8671 (P 0.9059 R 0.8315, +4916 px)	k4 t-5 ang30 L0 d16 0.8636 (P 0.9105 R 0.8213, +196 px)	k4 t-5 ang50 L24 d4 0.8671 (P 0.9059 R 0.8315, +4923 px)
+-3	k4 t-3 ang50 L24 d0 0.8657 (P 0.9079 R 0.8273, +2973 px)	k8 t-3 ang30 L0 d16 0.8635 (P 0.9106 R 0.8211, +123 px)	k4 t-3 ang50 L24 d4 0.8657 (P 0.9079 R 0.8273, +2980 px)
+-2	k4 t-2 ang50 L12 d0 0.8651 (P 0.9089 R 0.8253, +1986 px)	k8 t-2 ang30 L0 d8 0.8635 (P 0.9106 R 0.8210, +84 px)	k4 t-2 ang50 L12 d4 0.8651 (P 0.9089 R 0.8253, +1992 px)
+-1.5	k4 t-1.5 ang50 L12 d0 0.8647 (P 0.9093 R 0.8242, +1487 px)	k8 t-1.5 ang30 L0 d4 0.8635 (P 0.9107 R 0.8209, +24 px)	k4 t-1.5 ang50 L12 d4 0.8647 (P 0.9093 R 0.8242, +1493 px)
+-1	k4 t-1 ang50 L12 d0 0.8643 (P 0.9098 R 0.8231, +1018 px)	k8 t-1 ang30 L0 d8 0.8635 (P 0.9107 R 0.8209, +24 px)	k4 t-1 ang50 L12 d4 0.8643 (P 0.9098 R 0.8231, +1021 px)
+-0.5	k8 t-0.5 ang50 L6 d0 0.8638 (P 0.9103 R 0.8219, +478 px)	k4 t-0.5 ang50 L0 d4 0.8635 (P 0.9107 R 0.8209, +7 px)	k8 t-0.5 ang50 L6 d4 0.8638 (P 0.9103 R 0.8219, +480 px)
+seed 6: identity relF1@2 0.8660 relP@2 0.9139 relR@2 0.8229; fa px on 303 crack-free cells 345
+cand	relF1@2	relP@2	relR@2	width	added px	fa px crack-free
+k4 t-8 ang50 L6 d0	0.8704	0.9071	0.8366	1.0377	7013	442
+k4 t-8 ang50 L6 d16	0.8704	0.9070	0.8367	1.0385	7259	442
+k4 t-8 ang50 L6 d4	0.8704	0.9071	0.8366	1.0377	7020	442
+k4 t-8 ang50 L6 d8	0.8704	0.9071	0.8366	1.0379	7100	442
+k8 t-8 ang50 L6 d0	0.8704	0.9071	0.8366	1.0379	7095	440
+k8 t-8 ang50 L6 d4	0.8704	0.9071	0.8366	1.0380	7102	440
+k8 t-8 ang50 L6 d16	0.8704	0.9069	0.8368	1.0387	7344	440
+k8 t-8 ang50 L6 d8	0.8704	0.9070	0.8366	1.0382	7184	440
+k4 t-8 ang50 L12 d16	0.8704	0.9051	0.8382	1.0424	8478	473
+k4 t-8 ang50 L12 d0	0.8704	0.9053	0.8380	1.0417	8247	473
+k4 t-8 ang50 L12 d4	0.8704	0.9053	0.8380	1.0417	8254	473
+k4 t-8 ang50 L12 d8	0.8704	0.9052	0.8381	1.0420	8332	473
+k8 t-8 ang50 L12 d0	0.8703	0.9050	0.8382	1.0426	8521	467
+k8 t-8 ang50 L12 d4	0.8703	0.9050	0.8382	1.0426	8528	467
+k8 t-8 ang50 L12 d16	0.8703	0.9048	0.8383	1.0433	8755	467
+t	best ext-only (d 0)	best bridge-only (L 0)	best both
+-8	k4 t-8 ang50 L6 d0 0.8704 (P 0.9071 R 0.8366, +7013 px)	k4 t-8 ang50 L0 d16 0.8665 (P 0.9134 R 0.8242, +642 px)	k4 t-8 ang50 L6 d16 0.8704 (P 0.9070 R 0.8367, +7259 px)
+-5	k4 t-5 ang50 L12 d0 0.8691 (P 0.9092 R 0.8324, +4787 px)	k4 t-5 ang50 L0 d16 0.8663 (P 0.9137 R 0.8235, +326 px)	k4 t-5 ang50 L12 d16 0.8691 (P 0.9092 R 0.8324, +4879 px)
+-3	k4 t-3 ang50 L12 d0 0.8681 (P 0.9114 R 0.8287, +2803 px)	k4 t-3 ang50 L0 d16 0.8662 (P 0.9139 R 0.8233, +148 px)	k4 t-3 ang50 L12 d16 0.8681 (P 0.9114 R 0.8287, +2829 px)
+-2	k8 t-2 ang50 L6 d0 0.8674 (P 0.9123 R 0.8268, +1883 px)	k4 t-2 ang50 L0 d16 0.8661 (P 0.9139 R 0.8231, +89 px)	k8 t-2 ang50 L6 d4 0.8674 (P 0.9123 R 0.8268, +1887 px)
+-1.5	k8 t-1.5 ang50 L24 d0 0.8671 (P 0.9126 R 0.8258, +1443 px)	k4 t-1.5 ang30 L0 d16 0.8661 (P 0.9139 R 0.8230, +57 px)	k8 t-1.5 ang50 L24 d8 0.8671 (P 0.9126 R 0.8258, +1449 px)
+-1	k8 t-1 ang50 L24 d0 0.8667 (P 0.9131 R 0.8247, +953 px)	k4 t-1 ang30 L0 d4 0.8660 (P 0.9139 R 0.8229, +18 px)	k8 t-1 ang50 L24 d8 0.8667 (P 0.9131 R 0.8247, +957 px)
+-0.5	k4 t-0.5 ang50 L24 d0 0.8663 (P 0.9135 R 0.8238, +477 px)	k4 t-0.5 ang30 L0 d4 0.8660 (P 0.9139 R 0.8229, +12 px)	k4 t-0.5 ang50 L24 d4 0.8663 (P 0.9135 R 0.8238, +478 px)
+[2026-11-27 23:15:42] sweep rc=0
+wrote /home/noob/work/bench_reads/x4_cpu/ext/dumps/elbench1/hrnet_w18_unetpp_swad_const_pf_v11/c3x_hrnet_swad_v11_f0_s5.swad.ext/cv5v3_f0 (k4 t-8 ang50 L24 d0)
+wrote /home/noob/work/bench_reads/x4_cpu/ext/dumps/elbench1/hrnet_w18_unetpp_swad_const_pf_v11/c3x_hrnet_swad_v11_f1_s5.swad.ext/cv5v3_f1 (k4 t-8 ang50 L24 d4)
+wrote /home/noob/work/bench_reads/x4_cpu/ext/dumps/elbench1/hrnet_w18_unetpp_swad_const_pf_v11/c3x_hrnet_swad_v11_f2_s5.swad.ext/cv5v3_f2 (k4 t-8 ang50 L24 d0)
+wrote /home/noob/work/bench_reads/x4_cpu/ext/dumps/elbench1/hrnet_w18_unetpp_swad_const_pf_v11/c3x_hrnet_swad_v11_f3_s5.swad.ext/cv5v3_f3 (k8 t-8 ang50 L12 d0)
+wrote /home/noob/work/bench_reads/x4_cpu/ext/dumps/elbench1/hrnet_w18_unetpp_swad_const_pf_v11/c3x_hrnet_swad_v11_f4_s5.swad.ext/cv5v3_f4 (k4 t-8 ang50 L24 d0)
+wrote /home/noob/work/bench_reads/x4_cpu/ext/dumps/elbench1/hrnet_w18_unetpp_swad_const_pf_v11/c3x_hrnet_swad_v11_f0_s6.swad.ext/cv5v3_f0 (k4 t-8 ang50 L6 d16)
+wrote /home/noob/work/bench_reads/x4_cpu/ext/dumps/elbench1/hrnet_w18_unetpp_swad_const_pf_v11/c3x_hrnet_swad_v11_f1_s6.swad.ext/cv5v3_f1 (k4 t-8 ang50 L12 d0)
+wrote /home/noob/work/bench_reads/x4_cpu/ext/dumps/elbench1/hrnet_w18_unetpp_swad_const_pf_v11/c3x_hrnet_swad_v11_f2_s6.swad.ext/cv5v3_f2 (k4 t-8 ang50 L6 d16)
+wrote /home/noob/work/bench_reads/x4_cpu/ext/dumps/elbench1/hrnet_w18_unetpp_swad_const_pf_v11/c3x_hrnet_swad_v11_f3_s6.swad.ext/cv5v3_f3 (k4 t-8 ang50 L6 d0)
+wrote /home/noob/work/bench_reads/x4_cpu/ext/dumps/elbench1/hrnet_w18_unetpp_swad_const_pf_v11/c3x_hrnet_swad_v11_f4_s6.swad.ext/cv5v3_f4 (k4 t-8 ang50 L6 d0)
+[2026-11-27 23:16:06] write rc=0
+read_x4 check: 40 dumps, arms ['COMBO', 'EXT', 'PFAA'], device ['NVIDIA RTX A6000'], writer ['bench_infer.py afd9164264de4d91e43e258e6f8b1836']: OK
+command (cwd /home/noob/work/bench_wt_final, nice 19): /home/noob/work/el-fault-detection/.venv/bin/python scripts/bench_read_w1.py --arm COMBO=/home/noob/work/bench_reads/x4_cpu/read_ext/links/elbench1/COMBO:.* --arm EXT=/home/noob/work/bench_reads/x4_cpu/read_ext/links/elbench1/EXT:.* --arm PFAA=/home/noob/work/bench_reads/x4_cpu/read_ext/links/elbench1/PFAA:.* --pair COMBO=EXT --labels v11 --workers 8 --cache /home/noob/work/bench_reads/x4_cpu/cache --baseline COMBO --aa PFAA:5,6:7,8 --groups /home/noob/work/bench_data_v3b/meta/cv5v3_groups.tsv --score-exclude /home/yugma/mtp/research/team_2026-11-12_frontier/benchmark/splits/score_exclude_v3.txt --out /home/noob/work/bench_reads/x4_cpu/read_ext/read
+[87s] argmax records + bias sweeps: 40 runs
+[107s] operating points and their records (532 stems)
+score-exclude /home/yugma/mtp/research/team_2026-11-12_frontier/benchmark/splits/score_exclude_v3.txt md5 6d48dfbd56ba8140ed20ecb21bf349dc: 532 -> 416 stems
+[180s] operating points and their records (416 stems)
+[237s] wave 1 read: 3 arms, 532 OOF stems, 1 contrasts, A/A yes -> /home/noob/work/bench_reads/x4_cpu/read_ext/read/read.txt
+read rc=0
+# x4 screen printout from /home/noob/work/bench_reads/x4_cpu/read_ext/read/read.json (tool fdb56b78; A/A PFAA:5,6:7,8; groups d880a769); base COMBO seeds [5, 6]; script x4_verdict.py, guard code c3x_verdict.py
+# margins (A/A in this read, OP-A): 532 cells: M relF1@2 0.0100 (A/A delta -0.0002, SE 0.0037), M inactive 0.0462, M mIoU-R13 0.0100; 416 clean cells: M relF1@2 0.0100 (A/A delta +0.0002, SE 0.0045), M inactive 0.0539, M mIoU-R13 0.0100
+
+## EXT (seeds [5, 6]) against COMBO (seeds [5, 6])
+FAIL	headline	532 cells	OP-A	relF1@2 EXT - COMBO = +0.0045 [+0.0002, +0.0092], M 0.0100
+FAIL	headline	532 cells	OP-W	relF1@2 EXT - COMBO = -0.0005 [-0.0047, +0.0035], M 0.0100
+FAIL	headline	416 clean cells	OP-A	relF1@2 EXT - COMBO = +0.0054 [+0.0001, +0.0112], M 0.0100
+FAIL	headline	416 clean cells	OP-W	relF1@2 EXT - COMBO = -0.0006 [-0.0058, +0.0047], M 0.0100
+PASS	width_pooled	532 cells	OP-A	all (n 532): width 1.0297 / 1.0042 = 1.025 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-A	src:ARTS (n 182): width 1.0306 / 1.0031 = 1.027 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-A	src:BMRK (n 50): width 0.9057 / 0.8920 = 1.015 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-A	src:CFVS (n 169): width 1.0883 / 1.0591 = 1.028 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-A	src:CSIR (n 114): width 0.8950 / 0.8755 = 1.022 (band 0.85 to 1.15)
+PASS	false_alarm	532 cells	OP-A	false crack px on crack-free cells 386 against 286 = 1.35 x (max 1.5); share of crack-free cells with >= 50 px 0.0099 against 0.0083
+PASS	inactive	532 cells	OP-A	inactive IoU EXT - COMBO = -0.0009 [-0.0326, +0.0322], allowed drop 0.0462
+PASS	miou	532 cells	OP-A	mIoU-R13 EXT - COMBO = -0.0001 [-0.0037, +0.0036], allowed drop 0.0100
+PASS	width_pooled	532 cells	OP-W	all (n 532): width 0.9900 / 1.0042 = 0.986 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-W	src:ARTS (n 182): width 0.9889 / 1.0031 = 0.986 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-W	src:BMRK (n 50): width 0.8812 / 0.8920 = 0.988 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-W	src:CFVS (n 169): width 1.0436 / 1.0591 = 0.985 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-W	src:CSIR (n 114): width 0.8636 / 0.8755 = 0.986 (band 0.85 to 1.15)
+PASS	false_alarm	532 cells	OP-W	false crack px on crack-free cells 271 against 286 = 0.95 x (max 1.5); share of crack-free cells with >= 50 px 0.0083 against 0.0083
+PASS	inactive	532 cells	OP-W	inactive IoU EXT - COMBO = +0.0003 [-0.0310, +0.0334], allowed drop 0.0462
+PASS	miou	532 cells	OP-W	mIoU-R13 EXT - COMBO = -0.0001 [-0.0037, +0.0036], allowed drop 0.0100
+PASS	width_pooled	416 clean cells	OP-A	all (n 416): width 0.9767 / 0.9500 = 1.028 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-A	src:ARTS (n 131): width 0.9826 / 0.9551 = 1.029 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-A	src:BMRK (n 50): width 0.9057 / 0.8920 = 1.015 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-A	src:CFVS (n 132): width 1.0445 / 1.0130 = 1.031 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-A	src:CSIR (n 103): width 0.8016 / 0.7813 = 1.026 (band 0.85 to 1.15)
+PASS	false_alarm	416 clean cells	OP-A	false crack px on crack-free cells 294 against 214 = 1.38 x (max 1.5); share of crack-free cells with >= 50 px 0.0088 against 0.0066
+PASS	inactive	416 clean cells	OP-A	inactive IoU EXT - COMBO = -0.0009 [-0.0370, +0.0336], allowed drop 0.0539
+PASS	miou	416 clean cells	OP-A	mIoU-R13 EXT - COMBO = -0.0000 [-0.0049, +0.0041], allowed drop 0.0100
+PASS	width_pooled	416 clean cells	OP-W	all (n 416): width 0.9364 / 0.9500 = 0.986 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-W	src:ARTS (n 131): width 0.9414 / 0.9551 = 0.986 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-W	src:BMRK (n 50): width 0.8812 / 0.8920 = 0.988 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-W	src:CFVS (n 132): width 0.9977 / 1.0130 = 0.985 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-W	src:CSIR (n 103): width 0.7708 / 0.7813 = 0.987 (band 0.85 to 1.15)
+PASS	false_alarm	416 clean cells	OP-W	false crack px on crack-free cells 200 against 214 = 0.94 x (max 1.5); share of crack-free cells with >= 50 px 0.0066 against 0.0066
+PASS	inactive	416 clean cells	OP-W	inactive IoU EXT - COMBO = +0.0003 [-0.0360, +0.0350], allowed drop 0.0539
+PASS	miou	416 clean cells	OP-W	mIoU-R13 EXT - COMBO = -0.0001 [-0.0048, +0.0040], allowed drop 0.0100
+# levels (mean over seeds, all cells of the set)
+level	532 cells	OP-A	relF1@2 0.8693 / 0.8647	relP@2 0.9041 / 0.9123	relR@2 0.8371 / 0.8219	strict crack IoU 0.3822 / 0.3822	inactive IoU 0.5138 / 0.5147	mIoU-R13 0.6190 / 0.6191	false crack px (crack-free) 385.5000 / 286.5000	width ratio 1.0297 / 1.0042	(EXT / COMBO)
+level	532 cells	OP-W	relF1@2 0.8643 / 0.8647	relP@2 0.9137 / 0.9123	relR@2 0.8199 / 0.8219	strict crack IoU 0.3810 / 0.3822	inactive IoU 0.5150 / 0.5147	mIoU-R13 0.6190 / 0.6191	false crack px (crack-free) 271.0000 / 286.5000	width ratio 0.9900 / 1.0042	(EXT / COMBO)
+level	416 clean cells	OP-A	relF1@2 0.8518 / 0.8464	relP@2 0.8977 / 0.9066	relR@2 0.8103 / 0.7938	strict crack IoU 0.3655 / 0.3652	inactive IoU 0.5104 / 0.5113	mIoU-R13 0.6108 / 0.6109	false crack px (crack-free) 294.5000 / 214.0000	width ratio 0.9767 / 0.9500	(EXT / COMBO)
+level	416 clean cells	OP-W	relF1@2 0.8458 / 0.8464	relP@2 0.9080 / 0.9066	relR@2 0.7916 / 0.7938	strict crack IoU 0.3639 / 0.3652	inactive IoU 0.5116 / 0.5113	mIoU-R13 0.6108 / 0.6109	false crack px (crack-free) 200.5000 / 214.0000	width ratio 0.9364 / 0.9500	(EXT / COMBO)
+# deltas with 95% intervals (two-stage group bootstrap, 2,000 draws)
+delta	532 cells	OP-A	relF1@2 +0.0045 [+0.0002, +0.0092]	relP@2 -0.0082 [-0.0154, -0.0024]	relR@2 +0.0151 [+0.0104, +0.0206]	strict crack IoU +0.0000 [-0.0067, +0.0064]	inactive IoU -0.0009 [-0.0326, +0.0322]	mIoU-R13 -0.0001 [-0.0037, +0.0036]
+delta	532 cells	OP-W	relF1@2 -0.0005 [-0.0047, +0.0035]	relP@2 +0.0014 [-0.0042, +0.0071]	relR@2 -0.0020 [-0.0069, +0.0029]	strict crack IoU -0.0012 [-0.0079, +0.0051]	inactive IoU +0.0003 [-0.0310, +0.0334]	mIoU-R13 -0.0001 [-0.0037, +0.0036]
+delta	416 clean cells	OP-A	relF1@2 +0.0054 [+0.0001, +0.0112]	relP@2 -0.0088 [-0.0174, -0.0008]	relR@2 +0.0165 [+0.0102, +0.0232]	strict crack IoU +0.0003 [-0.0070, +0.0079]	inactive IoU -0.0009 [-0.0370, +0.0336]	mIoU-R13 -0.0000 [-0.0049, +0.0041]
+delta	416 clean cells	OP-W	relF1@2 -0.0006 [-0.0058, +0.0047]	relP@2 +0.0014 [-0.0057, +0.0092]	relR@2 -0.0022 [-0.0082, +0.0038]	strict crack IoU -0.0013 [-0.0086, +0.0061]	inactive IoU +0.0003 [-0.0360, +0.0350]	mIoU-R13 -0.0001 [-0.0048, +0.0040]
+per_seed	532 cells	OP-A	relF1_2	EXT - COMBO	s5 +0.0048	s6 +0.0043
+per_seed	532 cells	OP-A	crack_iou	EXT - COMBO	s5 -0.0001	s6 +0.0001
+per_seed	532 cells	OP-A	miou_rob	EXT - COMBO	s5 -0.0001	s6 -0.0001
+per_seed	532 cells	OP-W	relF1_2	EXT - COMBO	s5 -0.0005	s6 -0.0005
+per_seed	532 cells	OP-W	crack_iou	EXT - COMBO	s5 -0.0015	s6 -0.0010
+per_seed	532 cells	OP-W	miou_rob	EXT - COMBO	s5 -0.0001	s6 -0.0001
+per_seed	416 clean cells	OP-A	relF1_2	EXT - COMBO	s5 +0.0056	s6 +0.0051
+per_seed	416 clean cells	OP-A	crack_iou	EXT - COMBO	s5 +0.0003	s6 +0.0003
+per_seed	416 clean cells	OP-A	miou_rob	EXT - COMBO	s5 -0.0000	s6 -0.0001
+per_seed	416 clean cells	OP-W	relF1_2	EXT - COMBO	s5 -0.0006	s6 -0.0006
+per_seed	416 clean cells	OP-W	crack_iou	EXT - COMBO	s5 -0.0016	s6 -0.0011
+per_seed	416 clean cells	OP-W	miou_rob	EXT - COMBO	s5 -0.0001	s6 -0.0001
+=> EXT: SCREEN FAIL (NO LOSS); headline items passing 0 of 4; failing guard items 0
+
+Screen (2 seeds) is never a result; SCREEN PASS promotes to a 5-seed confirmation (PROTOCOL v1.0 s5.4).
+
+verdict rc=0
+[2026-11-27 23:20:06] read rc=0
+[2026-11-27 23:20:06] EXT ALL DONE rc=0

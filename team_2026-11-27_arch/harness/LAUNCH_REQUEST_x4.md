@@ -1,0 +1,18 @@
+# Launch request x4 (harness engineer, 27 Nov 2026 23:20 IST): screening pipeline vs COMBO on cv5v3. Nothing real launched.
+Paths: H = /home/yugma/mtp/research/team_2026-11-27_arch/harness (gaint), X = H/x4. Details: H/RUNBOOK.md, X/BUILD_LOG_x4.md, X/evidence/.
+**Commits:** COMBO trained at 03375d4 (deploy cv02 bench_03375d4). x4 = branch bench_x4 (worktree bench_wt_x4): 69609c1 (cq.sh accepts LPG 3), 23717a7, 399f963 (smoke card). **X4 = 399f9635a23da1152df6b60ba70b30f813dc3fac**, deploy cv02 /tmp/noob_el/bench_399f963 (CODE.md5 08a4cddc). Diff to 03375d4: 4 paths (2 queue scripts, smoke card + cv02 variant); training, dump, slim code byte-equal (git and cv02 CODE.md5). Read tool unchanged: bench_wt_final 89b9ea5, bench_read_w1.py fdb56b78.
+**Passed (E):**
+- Positive control: IDENTICAL. 5-seed rerun of the c3x read reproduces read.json, all compared values (0 differ, 532 and 416 cells) and 72 of 72 verdict lines; COMBO - PF +0.0154 [+0.0065, +0.0260]. 2 seeds: COMBO - PF +0.0170 [+0.0090, +0.0265], COMBO.swad - PF +0.0183 [+0.0107, +0.0273]. x4-form read (arm vs COMBO swad s5,6): point deltas exactly the negatives (18 of 18).
+- M check: cv5v3 cv02 M = 0.0100 on 532 AND on 416 (A/A SE 0.0037 / 0.0045). The 0.0111 in PROTOCOL 5.4 is cv5v2 416. read_x4 recomputes M from PF A/A {5,6} v {7,8} in every read.
+- Identity: COMBO card f0 s5, 1,000 steps on cv02 vs the original c3x run log: IDENTICAL (100 of 100 logged values, PF encoder lines identical).
+- Chain smoke (600 steps; 50 steps trained but its dump hit bench_infer's near-tie check at 1 px, as c3x s3 documents): train, 2 dumps, slim, RUN.md5, relay (md5 both ends), CPU score (107 cells, rc 0); read refuses step 600 / missing folds. Outputs removed.
+- Relay (your disk request): x4_relay.sh leaves slim.pth and, if a .swad dump exists, the primary dump on cv02. It pulls 139 MB per run (full: 463). Disk guard tested: stops with DISK_HOLD before any run that would leave gaint below 15 GB.
+**Disk (S from E sizes):** gaint about 1.5 GB per 10-run arm (incl. read cache), about 12 GB for 8 arms (gaint 30 GB free now, so about 15 GB usable above the floor). cv02 about 1.25 GB per run (12.5 GB per arm, 269 GB free). cv02 /tmp is wiped on reboot, so weights stay there at risk (NAS copy not built).
+**Wall time (S from E rates):** HRNet alone 2.85 steps/s; 2 per GPU 1.6 each (about +12% total throughput). One 10-run arm on 5 free GPUs: LPG 2, about 4 h (LPG 1: about 4.5 h; LPG 3: about 5+ h, no gain). 8 arms on 5 GPUs: about 30 h; on 8 GPUs about 20 h.
+**Launch a list of cards (one queue; a second queue counts the first queue's runs as another user and never shares their GPUs):**
+`cd X && python x4_make_jobs.py --out jobs/<qn>.tsv bench/methods/<m1>.yaml=<s1>@<peak1> [more cards]` (peak in MiB; COMBO-sized 9386, gate +2,048)
+`bash x4_queue.sh place <qn> jobs/<qn>.tsv 2 10 && bash x4_queue.sh guard && bash x4_queue.sh arm <qn> && bash x4_queue.sh relay <qn> <N>`
+When relayed: `bash x4_queue.sh score <qn>`; in tmux: `bash x4_read.sh <tag> <ARM>=<qn>:<s1>:<m1>:swad` -> /home/noob/work/bench_reads/x4_<tag>/verdict.txt.
+Stop: `bash x4_queue.sh hold <qn>`; a job by recorded PID only (RUNBOOK s2). Set X4=<commit> for every call after a new card commit.
+**New card:** X/NEW_CARD_TEMPLATE.md: copy the COMBO card, change name and only the arm's opts, add the cv02 variant (weights paths only), validate and diff, commit on bench_x4, `c3_deploy.sh <commit>`, memory smoke if the model changes, then the commands above.
+**Open / flags:** tests/test_bench_cards_cv02.py::test_variants_exist fails on 03375d4 too (variant list stale). Other agents use bench_x4* tmux names on gaint; x4 dirs are x4_<qn>. diskguard_x4 holds every bench_q/x4_* queue.

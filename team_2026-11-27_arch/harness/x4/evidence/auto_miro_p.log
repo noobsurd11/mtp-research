@@ -1,0 +1,16 @@
+[2026-11-27 23:40:20] auto read miro_p: arm MIRO = x4_miro (x4_miro, key swad), stage P, seeds 5, relay /home/noob/work/bench_relay/x4_w1
+[2026-11-28 11:08:22] all 5 runs relayed; scoring
+score x4_miro_f0_s5.swad cv5v3_f0 rc=0 -> /home/noob/work/bench_relay/x4_w1/x4_miro_f0_s5/score/x4_miro_f0_s5.swad.cv5v3_f0.rec.json (107 cells)
+score x4_miro_f1_s5.swad cv5v3_f1 rc=0 -> /home/noob/work/bench_relay/x4_w1/x4_miro_f1_s5/score/x4_miro_f1_s5.swad.cv5v3_f1.rec.json (110 cells)
+score x4_miro_f2_s5.swad cv5v3_f2 rc=0 -> /home/noob/work/bench_relay/x4_w1/x4_miro_f2_s5/score/x4_miro_f2_s5.swad.cv5v3_f2.rec.json (103 cells)
+score x4_miro_f3_s5.swad cv5v3_f3 rc=0 -> /home/noob/work/bench_relay/x4_w1/x4_miro_f3_s5/score/x4_miro_f3_s5.swad.cv5v3_f3.rec.json (101 cells)
+score x4_miro_f4_s5.swad cv5v3_f4 rc=0 -> /home/noob/work/bench_relay/x4_w1/x4_miro_f4_s5/score/x4_miro_f4_s5.swad.cv5v3_f4.rec.json (111 cells)
+score x4_vfmctx_f0_s5.swad cv5v3_f0 rc=0 -> /home/noob/work/bench_relay/x4_w1/x4_vfmctx_f0_s5/score/x4_vfmctx_f0_s5.swad.cv5v3_f0.rec.json (107 cells)
+score x4_vfmctx_f1_s5.swad cv5v3_f1 rc=0 -> /home/noob/work/bench_relay/x4_w1/x4_vfmctx_f1_s5/score/x4_vfmctx_f1_s5.swad.cv5v3_f1.rec.json (110 cells)
+score x4_vfmctx_f2_s5.swad cv5v3_f2 rc=0 -> /home/noob/work/bench_relay/x4_w1/x4_vfmctx_f2_s5/score/x4_vfmctx_f2_s5.swad.cv5v3_f2.rec.json (103 cells)
+score x4_vfmctx_f3_s5.swad cv5v3_f3 rc=0 -> /home/noob/work/bench_relay/x4_w1/x4_vfmctx_f3_s5/score/x4_vfmctx_f3_s5.swad.cv5v3_f3.rec.json (101 cells)
+[2026-11-28 11:08:54] read start
+[2026-11-28 11:10:29] AUTO READ DONE rc=0: verdict /home/noob/work/bench_reads/x4_miro_p/verdict.txt
+stageP	532 cells	OP-A	relF1@2 -0.0115 (a: >= +0.005 no); relR@2 -0.0314 and relP@2 +0.0144 (b: >= +0.010 and >= -0.005 no); inactive IoU -0.0052 (c: >= +0.030 no)
+=> MIRO: STAGE P (PATHFINDER_RULE.md 26474b34): pathfinder: not promoted [descriptive, decides nothing about the method; the screen word below is printed only]
+=> MIRO: SCREEN FAIL (LOSS); headline items passing 0 of 4; failing guard items 4: miou OP-A 532 cells; miou OP-W 532 cells; miou OP-A 416 clean cells; miou OP-W 416 clean cells

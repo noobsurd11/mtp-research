@@ -1,0 +1,52 @@
+D10 work in progress notes (scout, 12 Nov 2026)
+
+Queries so far:
+1 cbDice centerline boundary aware dice loss tubular (2020+)
+2 Betti matching topological loss segmentation (timeout) / Betti matching persistent homology loss (timeout) / Betti matching (2021+) ok
+3 Topograph topology-preserving segmentation component graph (2023+)
+4 skeleton recall loss thin structure segmentation (2024+)
+5 crack segmentation topology connectivity loss (2022+)
+6 warping loss topology homotopy critical points segmentation (2020+)
+
+Candidates:
+- doi:10.1007/978-3-031-72111-3_5 cbDice (arXiv 2407.01517) MICCAI 2024
+- arxiv:2411.03228 Topograph
+- doi:10.1007/978-3-031-96628-6_20 Pitfalls of topology-aware segmentation (arXiv 2412.14619)
+- arxiv:2407.04683 Efficient Betti matching 3D; arxiv:2211.15272 Betti matching
+- doi:10.1007/978-3-031-72111-3_68 multi-class topology (Berger 2024)
+- arxiv:2610.22210 TRACE prediction-adaptive connectivity (2026)
+- arxiv:2606.24935 SEMIR graph minors thin structure (cracks)
+- arxiv:2503.03365 TopoMortar dataset, clDice best
+- arxiv:2503.05541 CoLeTra disconnect-to-connect augmentation, robust to inaccurate labels
+- doi:10.1016/j.conbuildmat.2022.128264 TOPO-Loss masonry cracks, imprecise labels
+- doi:10.52202/068431-1746 homotopy warping loss (NeurIPS 2022)
+- doi:10.1109/iccv51701.2025.02236 TopoTTA test-time adaptation tubular (ICCV 2025)
+- doi:10.1109/tmi.2025.3589495 fast Euler characteristic topology
+- arxiv:2609.37177 sparse cubical complexes efficient PH
+- doi:10.1016/j.autcon.2025.106719 FACS-net + CT-loss thin cracks
+- arxiv:2603.13659 FMS2 flow matching thin structures
+- doi:10.1109/icip55913.2025.11084563 Contextloss
+- doi:10.1109/iccvw69036.2025.00607 spatial-aware persistent feature matching
+- arxiv:2601.02273 TopoLoRA-SAM
+
+Queries 7-8: adjusting ground truth annotations ... active contour (2020+); topology-aware segmentation loss (2025+)
+Key evidence TopoMortar arxiv:2503.03365 (read): nnUNet 10 seeds. CrackTree (thin cracks, noisy labels): Dice CEDice 0.78, cbDice 0.76, Warping 0.77, clDice 0.54, SkelRecall 0.32, TopoLoss 0.52. clDice/SkelRecall cut beta0 error (22,14 vs 84) but crush Dice. cbDice and Warping keep Dice, do not improve topology on CrackTree. Noisy labels: SkelRecall best topology; self-distillation (3 rounds soft labels, 4k it each) improved Dice and topology with noisy/pseudo labels.
+- Oner TMI 2022 doi:10.1109/tmi.2022.3193072 annotations as active contours that deform during training (arXiv 2112.02781)
+- TOPO-Loss cracks masonry code github.com/eesd-epfl/topo_crack_detection (from abstract)
+- CoLeTra code github.com/jmlipman/CoLeTra (from abstract)
+- cbDice code github.com/PengchengShi1220/cbDice (web search, paper states)
+- Pitfalls code github.com/AlexanderHBerger/topo-pitfalls (web search)
+
+Queries 9-15: centerline cross-entropy (2023+); efficient PH 2D (2024+); DconnNet directional connectivity (2021+); crack post-processing gap filling (0 useful); topology refinement post-processing curvilinear (2021+); thin structure misaligned annotations tolerance (2023+); differentiable skeletonization (2022+); tubular structure loss connectivity (2025+)
+Snowball: citations of Skeleton Recall (85) and cbDice (53).
+- clCE doi:10.1007/978-3-031-72111-3_67 MICCAI 2024, code github.com/cesaracebes/centerline_CE (paper abstract)
+- SCNP arxiv:2603.18671 CVPR 2026, neighbour logit penalisation, project page jmlipman.github.io/SCNP-SameClassNeighborPenalization; fetch timed out x2
+- TopoTTA doi:10.1109/iccv51701.2025.02236 (arXiv 2508.00442), clDice +31.81% avg on 10 datasets TTA
+- WPRF arxiv:2607.07123 widest path reachability, 87% of experiments improved, clDice +7.2 pts on fragile sets
+- TRACE arxiv:2610.22210 prediction-adaptive reconnection, code on acceptance
+- SEMIR arxiv:2606.24935 graph minors, CrackSeg9k
+- cbDice read: DRIVE 2D Dice 82.5 best; gains vs clDice under 1 pt Dice; beta 0.5 to 1 for 2D binary
+- Menten skeletonization ICCV 2023 doi:10.1109/iccv51070.2023.01956 topology-preserving differentiable skeleton
+- Pereira 2025 clDice+IoU U-Net++ on EdmCrack600 +4.9 Dice vs BCE only
+- Topograph code github.com/AlexanderHBerger/Topograph (web); Betti matching code github.com/nstucki/Betti-Matching-3D (web, not opened)
+- Auditing connectivity claims (zenodo 2026) bench relevance

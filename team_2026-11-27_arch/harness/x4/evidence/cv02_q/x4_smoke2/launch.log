@@ -1,0 +1,20 @@
+[2026-11-27 17:31:07] cv02 q armed: 1 jobs (md5 8f9cb7c9607c1bfe9a30fd7f8ebc0d1b), rendered a3111d4e, deploy 399f9635a23da1152df6b60ba70b30f813dc3fac (CODE.md5 OK), data d6063fd83d20e656612540edda702cbe (OK), roots OK, GPUS '0 1 2 3 4 5 6 7', LPG 3, MAXC 1, other-user max 4096 MiB, gap 120 s, lib 1af2ed69, cq 1c1008f5, gpumem 1866052, pid 1874173; nproc 64, loadavg 27.98 26.95 27.15; sharing (live files in /tmp/noob_el/bench_q/x4_smoke2; 0 = off): SHARE_TRAIN 0 MiB, SHARE_DUMP 0 MiB
+[2026-11-27 17:31:07] lane GPU 0: another user > 4096 MiB: cv17:15646MiB(3873203) 
+[2026-11-27 17:31:08] lane GPU 1: another user > 4096 MiB: cv02:8638MiB(826577) 
+[2026-11-27 17:31:09] start x4_smoke600_f0_s7 on GPU 2 (card bench/methods/x4smoke_hrnet_swad_v11.yaml, seed 7, root /tmp/noob_el/bench_data_v3b/roots/cv5v3_v11_f0, gate 11434; free 44497 MiB; our lanes on GPU 1, all 1)
+[2026-11-27 17:31:09] pid x4_smoke600_f0_s7 1883443 (python; parent 1883441); cmdline recorded (387e4755):     PID USER                      STARTED COMMAND|1883443 cv02     Fri Nov 27 17:31:08 2026 /tmp/noob_el/el-fault-detection/.venv/bin/python -u scripts/train.py --config configs/supervised.yaml --opts seed=7 data.labeled_fraction=1.0 training.total_steps=600 data.split_seed=0 training.labeled_batch_size=8 data.mask_subdir=masks_v11 data.mask_ignore_value=255 model.name=bench_smp model.decoder=unetplusplus model.encoder_name=tu-hrnet_w18 model.encoder_weights=imagenet data.augmentation=labelsafe loss.supervised=ce_dice training.val_every=20000 training.encoder_pf.freeze=100 training.encoder_pf.ramp=100 training.encoder_pf.lr_mult=0.1 training.encoder_pf.wd=0 training.lr_scheduler=constant training.weight_avg.swad.mode=uniform training.weight_avg.swad.start=300 training.weight_avg.swad.end=600 training.weight_avg.ema_9998.mode=ema training.weight_avg.ema_9998.decay=0.9998 training.bn_recal=true training.enc_probe_every=200 data.root=/tmp/noob_el/bench_data_v3b/roots/cv5v3_v11_f0 run_name=x4_smoke600_f0_s7
+[2026-11-27 17:31:14] x4_smoke600_f0_s7 config OK (= card)
+[2026-11-27 17:31:14] x4_smoke600_f0_s7 startup line OK: Labelled: 425 (/tmp/noob_el/bench_data_v3b/roots/cv5v3_v11_f0/splits/train.txt)  unlabelled: 0 (-)  val: 107  test: 107
+[2026-11-27 17:31:14] cv02 q: all jobs dispatched; waiting
+[2026-11-27 17:35:39] trained x4_smoke600_f0_s7 rc=0 (GPU 2)
+[2026-11-27 17:35:39] done x4_smoke600_f0_s7: final-step lines 0, Traceback lines 0
+[2026-11-27 17:35:40] start dump_x4_smoke600_f0_s7 on GPU 2 (free 48509 MiB, dump gate 6200)
+[2026-11-27 17:35:40] pid dump_x4_smoke600_f0_s7 2287787 (python; parent 2287785); cmdline recorded (2e7df950)
+[2026-11-27 17:35:40] dump_x4_smoke600_f0_s7 startup line OK: BENCH_START: run=dump_x4_smoke600_f0_s7
+[2026-11-27 17:36:20] dumped dump_x4_smoke600_f0_s7 rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-27 17:37:46] start dump_x4_smoke600_f0_s7.swad on GPU 2 (free 45299 MiB, dump gate 6200)
+[2026-11-27 17:37:46] pid dump_x4_smoke600_f0_s7.swad 2485946 (python; parent 2485944); cmdline recorded (8cd32e31)
+[2026-11-27 17:37:46] dump_x4_smoke600_f0_s7.swad startup line OK: BENCH_START: run=dump_x4_smoke600_f0_s7.swad
+[2026-11-27 17:38:36] dumped dump_x4_smoke600_f0_s7.swad rc=0: 'dumped' lines 1, Traceback lines 0
+[2026-11-27 17:38:44] RUN.md5 x4_smoke600_f0_s7 rc=0: 220 files, md5 cfddff1b
+[2026-11-27 17:38:44] BENCH CV02 Q ALL DONE (1 trained rc 0, 1 dumped rc 0, 1 RUN.md5 of 1 jobs; pid 1874173)

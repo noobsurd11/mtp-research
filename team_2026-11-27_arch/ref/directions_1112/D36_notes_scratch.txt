@@ -1,0 +1,35 @@
+D36 running notes (scratch, will be folded into D36_weak_multidataset.md)
+Q1 multi-dataset semseg taxonomies -> 2407.10534 GNN label unif (NeurIPS24), MSeg TPAMI22, mDALU 2012.08385, Simple multi-dataset detection 2102.13086, KD label space unif 2502.19177
+Q2 partial labels marginal loss -> Shi 2007.03868 marginal+exclusion, DoDNet 2011.10217, MultiTalent 2303.14444, COSST 2304.14030, Label-Assemble 2109.12265, echo loss comparison 2607.05008, WMH/ISL 2601.20503
+Q3 box SAM -> BoxTeacher 2210.05174, SAM-enhanced pseudo labels 2305.05803, BoxCell 2311.17960, spalling box SAM autcon 2025
+Q4 mixed supervision defect -> Bozic 2104.06064 (Comp Ind 21), SuperSimpleNet 2508.19060 / 2408.03143
+Q5 EL weak -> Mayr 2001.11248 Lp norm WS cracks; MultiSolSegment 2603.13337; Hijjawi benchmark instance seg Sol En 2025 (doi:10.1016/j.solener.2025.114083); Jha 2404.13693
+Q6 crack weak -> YoloCurvSeg 2212.05566 (noisy skeleton), CAC co-training
+Q7 dataset-specific heads -> LMSeg 2302.13495; Liao annotator preference 2111.13410; Quality Sentinel 2406.00327
+Q8 TADA -> TACS 2109.04813, Lim VLM inconsistent taxonomy 2408.02261, DynAlign 2501.16410
+Q9 universal med -> CLIP-driven universal 2301.00785, MedUniSeg 2410.05905
+Q10 coarse polygons -> Wang multi-source annotations 2304.00466 (MedIA25), Kimhi noisy annotations 2406.10891, Das coarse annotation 2212.07911, SegFix
+Q11 multi-dataset 2025 -> Deep mutual learning partial 2407.12611; A2LC label correction 2506.11599; WMH partial 2601.20503
+Q12 SAM box 2025 -> Boxes2Pixels 2604.11162 (code github.com/CLendering/Boxes2Pixels, wind turbine defects, SAM noisy teacher, one-sided self-correction); SAMRefiner 2502.06756 (code github.com/linyq2117/SAMRefiner); crack annotation prompt gen + SAM (Structures 2026)
+MultiSolSegment read: 585 mono cells (ASU 92, CWRU-DuPont 123, CWRU-SunEdison 250, LBNL 120), 4 sigmoid channels dark/busbar/crack/non-cell, 256 px, random 80/20 split after flip aug (leak!), mean IoU 0.384, data on DuraMAT hub. Crack in 77% of images.
+Bozic mixed supervision 2104.06064 downloaded.
+Q13 PVEL-AD -> PVEL-AD TII 2023 doi:10.1109/tii.2022.3162846; YOLO bench on PVEL-AD 2026; Hijjawi UCF instance seg bench doi:10.1016/j.solener.2025.114083 (ConvNeXt-V2 mAP50 0.602, MMDetection, code public)
+Q14 annotators -> Nichyporuk annotation style conditioning 2210.17398 (MELBA 2022); Zhang disentangle human error 2007.15963; Liao annotation bias-aware transformer 2306.01340
+Snowball MultiTalent cites -> Jenke complementary datasets 2402.19340 (positives of other classes as negatives, exclude bg of binary sets, +4.4 Dice), Touchstone benchmark 2411.03670, CLIP universal 2301.00785
+MultiTalent read: per-class sigmoid heads, classes from each dataset kept separate (no merge), BCE + batch Dice only on annotated classes, sum not mean over classes, sample prob ~ 1/sqrt(n), +1.26 Dice avg over 13 datasets (resenc U-Net), cancer / difficult classes gain most; pretraining transfer beats SSL baselines.
+Nichyporuk 2210.17398 read: CIN layers (dataset-specific gamma/beta, init 1/0), 6 MS trials x 390 patients; naive pooling WORSE than single-trial models in nearly all (e.g. 0.766 vs 0.784); trial-conditioned 0.787/0.789/0.788/0.737/0.709/0.744 >= single-trial; can output any style; few-shot fine-tune to new style (5.5).
+Boxes2Pixels code verified in abstract: github.com/CLendering/Boxes2Pixels. papernotes lists as CVPR2026 (unverified).
+MultiTalent code verified: github.com/MIC-DKFZ/MultiTalent (nnU-Net based, 3D).
+Bone fracture trust-region refinement doi:10.1016/j.engappai.2026.115849 : FM masks only inside narrow trust region around expert label, IoU gate; unconstrained MedSAM labels degrade.
+Q15 BoxInst 2012.02310, Box2Mask 2212.01579
+Q16 EL cross-dataset 2024+: STC-Net 2608.01714 (crack seg for power loss), Jost crack morphology SSRN, Polenghi EL+NIR dataset w power.
+Q17 mixed supervision: Label filling via mixed supervision 2410.16057
+--- session 2 (13 Nov) ---
+S2 rate-limited again; scopus/sciencedirect 401; arxiv mostly timeouts. openalex only.
+Nichyporuk citations (19): Expert-Adaptive 2402.07330 (multi-expert multi-task + light fine-tune, brain MRI), Tyche 2401.13650; nothing on thin structures.
+New: Bevandic overlapping labels WACV22 2108.11224 (universal classes, dataset classes = unions, partial-label NLL); follow-ups 2212.10340 (IJCV24, code released per paper), 2207.08445 auto taxonomies.
+New: Dai lesion-aware mixed supervision mammography 2610.15612 (seg masks for base classes + image labels for more classes; prototype attention classifier).
+New: Chen PV-Vision JPV 2023 doi:10.1109/jphotov.2023.3249970 (EL crack + busbar masks, UNet VGG16, F1 0.875 IoU 0.782; dataset + code open).
+MultiSolSegment code: github.com/sandialabs/pvcracks (web search listing, BSD-3).
+PVEL-AD repo: github.com/binyisu/PVEL-AD (web search; crack 1,260 trainval / 2,797 test boxes per listing).
+Fed inconsistent labels 2206.07156 (TMI23) - marginal-type, not selected.

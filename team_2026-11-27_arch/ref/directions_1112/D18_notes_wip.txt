@@ -1,0 +1,38 @@
+D18 work-in-progress notes (scout). Final file: D18_iou_soft_label_losses.md
+Queries so far:
+1 Jaccard metric losses soft labels (2020+)
+2 Dice semimetric losses (2020+)
+3 Lovasz-softmax loss tractable surrogate IoU
+4 boundary label smoothing semantic segmentation (2020+)
+5 unified focal loss Dice CE imbalance (2020+)
+6 loss functions segmentation benchmark comparison (2020+)
+7 fine-grained IoU evaluation metrics (2022+)
+8 focal Tversky small lesion (2019+)
+9 loss comparison crack segmentation thin structures (2020+)
+Candidates: arXiv 2302.05666 JML; 2303.16296 DML; Lovasz 1705.08790; 2010.13499 Eelbode TMI; 2104.08717 region-size bias; 2209.06078 Galdran CE+Dice OOD; 2102.04525 Unified Focal; 2111.00528 DSC++; 2205.08209 blob loss; 2403.17725 loss function inversion crack; 2106.14917 recall loss; 2312.05391 loss survey
+10 Revisiting eval metrics fine-grained IoU (title) -> arxiv:2310.19252
+11 seg loss soft labels label noise (2025+) -> GeoLS doi:10.59275/j.melba.2025-c1d9
+12 spatially varying label smoothing calibration (2020+) -> SVLS 2104.05788, BLSS doi:10.1109/lsp.2026.3731530 (thin cracks, 2026), margin LS 2111.15430/2209.09641, NACL 2401.14487, ACE losses 2506.03942
+13 Bayes optimal decision rule IoU -> RankSEG 2206.13086, RankSEG-RMA 2510.15362 (NeurIPS25), relaxation 2609.38930, decision rules 1901.08394
+14 distance transform soft labels thin structure (noise only)
+15 RankSEG title search
+16 metric alignment surrogate 2025+ (noise)
+snowball: citations JML (nothing strong), similar JML/DML/fine-grained -> SoftSeg 2011.09041, soft Dice volumetric bias 1911.02278, power Jaccard, DMC 2112.11554
+JML read: BLS k=3 eps=0.5 best; JML-KD beats SOTA KD; batch-level loss vs per-image caution; class-wise imbalance caution
+17 crack segmentation soft label Gaussian annotation width (2020+): little
+18 misaligned annotations thin label shift (2019+): PNT-Edge 2307.14070, AutoCorrect 1908.05263, label relaxation 1812.01593
+19 SoftSeg search: SoftSeg 2011.09041, contrast-agnostic soft SC 2310.15402
+snippets: rate-limited x2
+web: JDTLosses repo github.com/zifuwanggg/JDTLosses (paper abstract states it); RankSEG pip rankseg, github statmlben/rankseg (JMLR), RMA solver
+web: SAUNA 2405.16815 WACV25 code github.com/Oulu-IMEDS/SAUNA (abstract states)
+SAUNA evidence (R): FIVES, LR input, UNet++ BCE+Dice hard 74.05 IoU; JML+BLS 81.77; SAUNA+GJML+SF-L1 84.75 (+10.7). External: BLS best baseline; SAUNA +0.4..2.3 IoU over BLS.
+Liu 2104.08717 region-size bias: code github.com/by-liu/SegLossBias (abstract)
+20 KD ensemble soft labels seg (2022+): Noothout JMI 2022 doi:10.1117/1.jmi.9.5.052407 (ensemble KD matches ensemble)
+21 blob loss / component-wise (2022+): blob 2205.08209, BiCC 2609.30223 (code TIO-IKIM/BiCC-Loss), multi-class CC/blob 2604.24276, look closer 2511.17146
+22 Lovasz loss (2025+): nothing strong
+23 label smoothing soft labels boundary (2025+): soft-label downsampling 2302.13961 (CVM 2026)
+24 conformal risk control seg (2022+): CRC 2208.02814, LTT 2110.01052, conformal defect seg 2504.17721, per-organ recall RC 2608.18193
+25 logit adjustment long-tail seg (2021+): mostly detection; skip (other direction)
+26 Tversky crack (2021+): little
+27 boundary loss distance map thin (2021+): CaliCrack doi:10.21203/rs.3.rs-10717291/v1 (thickness calibration, code colaman111/CaliCrack)
+Eelbode TMI 2020: metric-sensitive losses > CE for Dice/IoU across sizes

@@ -1,0 +1,77 @@
+read_x4 check: 30 dumps, arms ['COMBO', 'MIRO', 'PFAA'], device ['NVIDIA RTX A6000'], writer ['bench_infer.py afd9164264de4d91e43e258e6f8b1836']: OK
+command (cwd /home/noob/work/bench_wt_final, nice 19): /home/noob/work/el-fault-detection/.venv/bin/python scripts/bench_read_w1.py --arm COMBO=/home/noob/work/bench_reads/x4_miro_p/links/elbench1/COMBO:.* --arm MIRO=/home/noob/work/bench_reads/x4_miro_p/links/elbench1/MIRO:.* --arm PFAA=/home/noob/work/bench_reads/x4_miro_p/links/elbench1/PFAA:.* --pair COMBO=MIRO --labels v11 --workers 8 --cache /home/noob/work/bench_reads/x4_cache --baseline COMBO --aa PFAA:5,6:7,8 --groups /home/noob/work/bench_data_v3b/meta/cv5v3_groups.tsv --score-exclude /home/yugma/mtp/research/team_2026-11-12_frontier/benchmark/splits/score_exclude_v3.txt --out /home/noob/work/bench_reads/x4_miro_p/read
+[32s] argmax records + bias sweeps: 30 runs
+[41s] operating points and their records (532 stems)
+score-exclude /home/yugma/mtp/research/team_2026-11-12_frontier/benchmark/splits/score_exclude_v3.txt md5 6d48dfbd56ba8140ed20ecb21bf349dc: 532 -> 416 stems
+[71s] operating points and their records (416 stems)
+[94s] wave 1 read: 3 arms, 532 OOF stems, 1 contrasts, A/A yes -> /home/noob/work/bench_reads/x4_miro_p/read/read.txt
+read rc=0
+# x4 screen printout from /home/noob/work/bench_reads/x4_miro_p/read/read.json (tool fdb56b78; A/A PFAA:5,6:7,8; groups d880a769); base COMBO seeds [5]; script x4_verdict.py, guard code c3x_verdict.py
+# margins (A/A in this read, OP-A): 532 cells: M relF1@2 0.0100 (A/A delta -0.0002, SE 0.0037), M inactive 0.0462, M mIoU-R13 0.0100; 416 clean cells: M relF1@2 0.0100 (A/A delta +0.0002, SE 0.0045), M inactive 0.0539, M mIoU-R13 0.0100
+
+## MIRO (seeds [5]) against COMBO (seeds [5])
+FAIL	headline	532 cells	OP-A	relF1@2 MIRO - COMBO = -0.0115 [-0.0193, -0.0055], M 0.0100
+FAIL	headline	532 cells	OP-W	relF1@2 MIRO - COMBO = -0.0086 [-0.0164, -0.0026], M 0.0100
+FAIL	headline	416 clean cells	OP-A	relF1@2 MIRO - COMBO = -0.0153 [-0.0242, -0.0081], M 0.0100
+FAIL	headline	416 clean cells	OP-W	relF1@2 MIRO - COMBO = -0.0122 [-0.0211, -0.0052], M 0.0100
+PASS	width_pooled	532 cells	OP-A	all (n 532): width 0.9387 / 0.9935 = 0.945 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-A	src:ARTS (n 182): width 0.9027 / 0.9538 = 0.946 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-A	src:BMRK (n 50): width 0.8033 / 0.8944 = 0.898 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-A	src:CFVS (n 169): width 1.0025 / 1.0453 = 0.959 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-A	src:CSIR (n 114): width 0.8027 / 0.8758 = 0.917 (band 0.85 to 1.15)
+PASS	false_alarm	532 cells	OP-A	false crack px on crack-free cells 40 against 228 = 0.18 x (max 1.5); share of crack-free cells with >= 50 px 0.0000 against 0.0033
+PASS	inactive	532 cells	OP-A	inactive IoU MIRO - COMBO = -0.0052 [-0.0382, +0.0276], allowed drop 0.0462
+FAIL	miou	532 cells	OP-A	mIoU-R13 MIRO - COMBO = -0.0392 [-0.0445, -0.0342], allowed drop 0.0100
+PASS	width_pooled	532 cells	OP-W	all (n 532): width 0.9948 / 0.9935 = 1.001 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-W	src:ARTS (n 182): width 0.9546 / 0.9538 = 1.001 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-W	src:BMRK (n 50): width 0.8429 / 0.8944 = 0.942 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-W	src:CFVS (n 169): width 1.0640 / 1.0453 = 1.018 (band 0.85 to 1.15)
+PASS	width_source	532 cells	OP-W	src:CSIR (n 114): width 0.8510 / 0.8758 = 0.972 (band 0.85 to 1.15)
+PASS	false_alarm	532 cells	OP-W	false crack px on crack-free cells 50 against 228 = 0.22 x (max 1.5); share of crack-free cells with >= 50 px 0.0000 against 0.0033
+PASS	inactive	532 cells	OP-W	inactive IoU MIRO - COMBO = -0.0062 [-0.0394, +0.0265], allowed drop 0.0462
+FAIL	miou	532 cells	OP-W	mIoU-R13 MIRO - COMBO = -0.0388 [-0.0442, -0.0338], allowed drop 0.0100
+PASS	width_pooled	416 clean cells	OP-A	all (n 416): width 0.8930 / 0.9425 = 0.947 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-A	src:ARTS (n 131): width 0.8489 / 0.9127 = 0.930 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-A	src:BMRK (n 50): width 0.8033 / 0.8944 = 0.898 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-A	src:CFVS (n 132): width 0.9705 / 1.0019 = 0.969 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-A	src:CSIR (n 103): width 0.7114 / 0.7863 = 0.905 (band 0.85 to 1.15)
+PASS	false_alarm	416 clean cells	OP-A	false crack px on crack-free cells 35 against 219 = 0.16 x (max 1.5); share of crack-free cells with >= 50 px 0.0000 against 0.0044
+PASS	inactive	416 clean cells	OP-A	inactive IoU MIRO - COMBO = -0.0090 [-0.0463, +0.0282], allowed drop 0.0539
+FAIL	miou	416 clean cells	OP-A	mIoU-R13 MIRO - COMBO = -0.0376 [-0.0445, -0.0322], allowed drop 0.0100
+PASS	width_pooled	416 clean cells	OP-W	all (n 416): width 0.9464 / 0.9425 = 1.004 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-W	src:ARTS (n 131): width 0.8967 / 0.9127 = 0.982 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-W	src:BMRK (n 50): width 0.8429 / 0.8944 = 0.942 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-W	src:CFVS (n 132): width 1.0310 / 1.0019 = 1.029 (band 0.85 to 1.15)
+PASS	width_source	416 clean cells	OP-W	src:CSIR (n 103): width 0.7527 / 0.7863 = 0.957 (band 0.85 to 1.15)
+PASS	false_alarm	416 clean cells	OP-W	false crack px on crack-free cells 43 against 219 = 0.20 x (max 1.5); share of crack-free cells with >= 50 px 0.0000 against 0.0044
+PASS	inactive	416 clean cells	OP-W	inactive IoU MIRO - COMBO = -0.0101 [-0.0473, +0.0275], allowed drop 0.0539
+FAIL	miou	416 clean cells	OP-W	mIoU-R13 MIRO - COMBO = -0.0372 [-0.0442, -0.0318], allowed drop 0.0100
+# levels (mean over seeds, all cells of the set)
+level	532 cells	OP-A	relF1@2 0.8520 / 0.8635	relP@2 0.9251 / 0.9107	relR@2 0.7895 / 0.8209	strict crack IoU 0.3785 / 0.3787	inactive IoU 0.5245 / 0.5297	mIoU-R13 0.5813 / 0.6205	false crack px (crack-free) 40.0000 / 228.0000	width ratio 0.9387 / 0.9935	(MIRO / COMBO)
+level	532 cells	OP-W	relF1@2 0.8549 / 0.8635	relP@2 0.9206 / 0.9107	relR@2 0.7980 / 0.8209	strict crack IoU 0.3845 / 0.3787	inactive IoU 0.5235 / 0.5297	mIoU-R13 0.5817 / 0.6205	false crack px (crack-free) 50.0000 / 228.0000	width ratio 0.9948 / 0.9935	(MIRO / COMBO)
+level	416 clean cells	OP-A	relF1@2 0.8292 / 0.8445	relP@2 0.9165 / 0.9027	relR@2 0.7571 / 0.7933	strict crack IoU 0.3569 / 0.3611	inactive IoU 0.5174 / 0.5264	mIoU-R13 0.5752 / 0.6128	false crack px (crack-free) 35.0000 / 219.0000	width ratio 0.8930 / 0.9425	(MIRO / COMBO)
+level	416 clean cells	OP-W	relF1@2 0.8322 / 0.8445	relP@2 0.9117 / 0.9027	relR@2 0.7655 / 0.7933	strict crack IoU 0.3630 / 0.3611	inactive IoU 0.5163 / 0.5264	mIoU-R13 0.5756 / 0.6128	false crack px (crack-free) 43.0000 / 219.0000	width ratio 0.9464 / 0.9425	(MIRO / COMBO)
+# deltas with 95% intervals (two-stage group bootstrap, 2,000 draws)
+delta	532 cells	OP-A	relF1@2 -0.0115 [-0.0193, -0.0055]	relP@2 +0.0144 [+0.0082, +0.0215]	relR@2 -0.0314 [-0.0443, -0.0217]	strict crack IoU -0.0003 [-0.0080, +0.0062]	inactive IoU -0.0052 [-0.0382, +0.0276]	mIoU-R13 -0.0392 [-0.0445, -0.0342]
+delta	532 cells	OP-W	relF1@2 -0.0086 [-0.0164, -0.0026]	relP@2 +0.0099 [+0.0041, +0.0164]	relR@2 -0.0229 [-0.0365, -0.0128]	strict crack IoU +0.0058 [-0.0026, +0.0132]	inactive IoU -0.0062 [-0.0394, +0.0265]	mIoU-R13 -0.0388 [-0.0442, -0.0338]
+delta	416 clean cells	OP-A	relF1@2 -0.0153 [-0.0242, -0.0081]	relP@2 +0.0138 [+0.0076, +0.0218]	relR@2 -0.0362 [-0.0509, -0.0256]	strict crack IoU -0.0042 [-0.0122, +0.0032]	inactive IoU -0.0090 [-0.0463, +0.0282]	mIoU-R13 -0.0376 [-0.0445, -0.0322]
+delta	416 clean cells	OP-W	relF1@2 -0.0122 [-0.0211, -0.0052]	relP@2 +0.0090 [+0.0035, +0.0164]	relR@2 -0.0278 [-0.0429, -0.0170]	strict crack IoU +0.0019 [-0.0064, +0.0096]	inactive IoU -0.0101 [-0.0473, +0.0275]	mIoU-R13 -0.0372 [-0.0442, -0.0318]
+per_seed	532 cells	OP-A	relF1_2	MIRO - COMBO	s5 -0.0115
+per_seed	532 cells	OP-A	crack_iou	MIRO - COMBO	s5 -0.0003
+per_seed	532 cells	OP-A	miou_rob	MIRO - COMBO	s5 -0.0392
+per_seed	532 cells	OP-W	relF1_2	MIRO - COMBO	s5 -0.0086
+per_seed	532 cells	OP-W	crack_iou	MIRO - COMBO	s5 +0.0058
+per_seed	532 cells	OP-W	miou_rob	MIRO - COMBO	s5 -0.0388
+per_seed	416 clean cells	OP-A	relF1_2	MIRO - COMBO	s5 -0.0153
+per_seed	416 clean cells	OP-A	crack_iou	MIRO - COMBO	s5 -0.0042
+per_seed	416 clean cells	OP-A	miou_rob	MIRO - COMBO	s5 -0.0376
+per_seed	416 clean cells	OP-W	relF1_2	MIRO - COMBO	s5 -0.0122
+per_seed	416 clean cells	OP-W	crack_iou	MIRO - COMBO	s5 +0.0019
+per_seed	416 clean cells	OP-W	miou_rob	MIRO - COMBO	s5 -0.0372
+stageP	532 cells	OP-A	relF1@2 -0.0115 (a: >= +0.005 no); relR@2 -0.0314 and relP@2 +0.0144 (b: >= +0.010 and >= -0.005 no); inactive IoU -0.0052 (c: >= +0.030 no)
+=> MIRO: STAGE P (PATHFINDER_RULE.md 26474b34): pathfinder: not promoted [descriptive, decides nothing about the method; the screen word below is printed only]
+=> MIRO: SCREEN FAIL (LOSS); headline items passing 0 of 4; failing guard items 4: miou OP-A 532 cells; miou OP-W 532 cells; miou OP-A 416 clean cells; miou OP-W 416 clean cells
+
+Screen (2 seeds) is never a result; SCREEN PASS promotes to a 5-seed confirmation (PROTOCOL v1.0 s5.4).
+
+verdict rc=0

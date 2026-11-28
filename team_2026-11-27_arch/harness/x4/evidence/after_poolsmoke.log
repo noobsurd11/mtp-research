@@ -1,0 +1,10 @@
+[2026-11-28 03:19:21] armed: waiting for trained smoke_x4_poolst_f0_s5
+[2026-11-28 11:14:42] [2026-11-28 05:44:08] trained smoke_x4_poolst_f0_s5 rc=3 (GPU 0)
+[2026-11-28 11:14:42] poolst smoke peak 11292 MiB (E); full-run estimate 12040 (S, + 748); gate 14088
+# card bench/methods/x4_poolst.yaml@8da53f6 md5 673f7c319ae5a67e863c90325023a0de name x4_poolst weights_key swad_bn peak 12040 gate 17000 readouts 'swad'
+wrote jobs/w1_pool_p.tsv: 5 lines, md5 8e443ece0e51c3cefd1ba171541b0c6f; first line: x4_poolst_f0_s5|bench/methods/x4_poolst.yaml|5|/tmp/noob_el/bench_data_v3b/roots/cv5v3_v11_f0|0|17000|6200|0||swad|8da53f67cfe2cb9162aa785da5c513b97ceff572
+[2026-11-28 11:15:03] [2026-11-28 05:44:57] appended append/20261128_111442_w1_pool_p.txt md5 8e443ece0e51c3cefd1ba171541b0c6f: 5 jobs (x4_poolst_f0_s5 x4_poolst_f1_s5 x4_poolst_f2_s5 x4_poolst_f3_s5 x4_poolst_f4_s5 ), ren
+# card bench/methods/x4_lowfreeze.yaml@0d4e431 md5 26bd7275b7c284b63bf040f789f54286 name x4_lowfreeze weights_key swad_bn peak 9386 gate 11434 readouts 'swad'
+wrote jobs/w1_lf2_p.tsv: 5 lines, md5 e7fe5adcce829ffdca9d3412490b8f9f; first line: x4_lowfreeze2_f0_s5|bench/methods/x4_lowfreeze.yaml|5|/tmp/noob_el/bench_data_v3b/roots/cv5v3_v11_f0|0|11434|6200|0||swad|0d4e43137764752970fe28fdadd1959441f8c137
+[2026-11-28 11:15:14] [2026-11-28 05:45:10] appended append/20261128_111503_w1_lf2_p.txt md5 e7fe5adcce829ffdca9d3412490b8f9f: 5 jobs (x4_lowfreeze2_f0_s5 x4_lowfreeze2_f1_s5 x4_lowfreeze2_f2_s5 x4_lowfreeze2_f3_s5 x4_lowf
+[2026-11-28 11:15:14] AFTER POOLSMOKE DONE: poolst stage P and lowfreeze2 appended, auto reads armed
